@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Image, Text, View, Pressable } from 'react-native';
+import { Shadow } from 'react-native-shadow-2';
 import { Media } from '../interfaces';
 import { RoutesNames } from '../routes/RoutesNames.enum';
 import { darkStyle } from '../styles/darkMode.style';
@@ -12,7 +13,15 @@ const BrowseElement = ({
   navigation: any;
 }) => {
   const [focus, setFocus] = useState(false);
+  const defaultShadow = {
+    distace: 0,
+    startColor: '#7600bc',
+    finalColor: '#7600bc',
+  };
 
+  const focusShadow = {
+    distace: 2,
+  };
   // const onFocus = () => {
   //   console.log('Focused item ', anime.id);
   //   setFocus(true);
@@ -25,31 +34,33 @@ const BrowseElement = ({
   console.log(anime);
 
   return (
-    <Pressable
-      key={anime.id}
-      style={[
-        styles.card,
-        darkStyle.card,
-        focus ? styles.wrapperFocused : null,
-      ]}
-      onFocus={() => setFocus(!focus)}
-      onBlur={() => setFocus(!focus)}
-      onPress={() => {
-        navigation.navigate(RoutesNames.Series, {
-          id: anime.id,
-          title: anime.title.romaji,
-        });
-      }}>
-      <View>
-        <Image
-          style={styles.poster}
-          source={{ uri: anime.coverImage.extraLarge }}
-        />
-        <Text numberOfLines={2} style={[styles.title, darkStyle.font]}>
-          {anime.title.romaji}
-        </Text>
-      </View>
-    </Pressable>
+    <Shadow
+      distance={focus ? focusShadow.distace : defaultShadow.distace}
+      startColor={defaultShadow.startColor}
+      endColor={defaultShadow.finalColor}
+      offset={[10, 10]}>
+      <Pressable
+        key={anime.id}
+        style={[styles.card, darkStyle.card]}
+        onFocus={() => setFocus(!focus)}
+        onBlur={() => setFocus(!focus)}
+        onPress={() => {
+          navigation.navigate(RoutesNames.Series, {
+            id: anime.id,
+            title: anime.title.romaji,
+          });
+        }}>
+        <View>
+          <Image
+            style={styles.poster}
+            source={{ uri: anime.coverImage.extraLarge }}
+          />
+          <Text numberOfLines={2} style={[styles.title, darkStyle.font]}>
+            {anime.title.romaji}
+          </Text>
+        </View>
+      </Pressable>
+    </Shadow>
   );
 };
 
@@ -66,6 +77,7 @@ const styles = StyleSheet.create({
     height: 300,
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
+    resizeMode: 'contain',
   },
   title: {
     width: 200,
@@ -75,12 +87,9 @@ const styles = StyleSheet.create({
   card: {
     height: 350,
     width: 200,
+    maxWidth: 220,
     marginVertical: 10,
     margin: 10,
-  },
-  wrapperFocused: {
-    borderColor: 'purple',
-    borderWidth: 2,
   },
 });
 
