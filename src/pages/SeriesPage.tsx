@@ -4,7 +4,6 @@ import {
   SafeAreaView,
   ScrollView,
   Image,
-  Button,
   View,
   ActivityIndicator,
 } from 'react-native';
@@ -16,6 +15,7 @@ import { TITLE_INFO } from '../api/graphql/anilist/titleInfo';
 import WebView from 'react-native-webview';
 import { darkStyle } from '../styles/darkMode.style';
 import { globalStyle } from '../styles/global.style';
+import { Button } from 'react-native-paper';
 
 const SeriesPage = ({ navigation, route }: any) => {
   const { id } = route.params;
@@ -45,14 +45,24 @@ const SeriesPage = ({ navigation, route }: any) => {
           />
           <View style={styles.body}>
             <View style={[globalStyle.spacer]} />
-            <Button
+            {/* <Button
               title={'List of episodes'}
               onPress={() => {
                 navigation.navigate(RoutesNames.Episodes, {
                   title: data.Media.title.romaji,
                 });
               }}
-            />
+            /> */}
+            <Button
+              icon="view-list"
+              mode="contained"
+              onPress={() => {
+                navigation.navigate(RoutesNames.Episodes, {
+                  title: data.Media.title.romaji,
+                });
+              }}>
+              List of episodes
+            </Button>
             <Text style={[darkStyle.font, globalStyle.spacer]}>
               {data.Media.description}
             </Text>
