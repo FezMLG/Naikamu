@@ -15,14 +15,11 @@ const BrowsePage = ({ navigation }: any) => {
     },
   });
 
-  if (data) {
-    console.log(data);
-  }
-
   // if (loading) return null;
   if (error) {
     console.log(error);
   }
+
   return (
     <SafeAreaView style={[styles.container, darkStyle.background]}>
       {loading ? (

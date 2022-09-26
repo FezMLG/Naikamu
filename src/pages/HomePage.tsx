@@ -1,15 +1,17 @@
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import React from 'react';
 import { RoutesNames } from '../routes/RoutesNames.enum';
 import { darkStyle } from '../styles/darkMode.style';
+import { Button } from 'react-native-paper';
 
 const HomePage = ({ navigation }: any) => {
   return (
     <View style={[styles.container, darkStyle.background]}>
       <Button
-        title="Browse"
-        onPress={() => navigation.navigate(RoutesNames.Browse)}
-      />
+        mode="contained"
+        onPress={() => navigation.navigate(RoutesNames.Browse)}>
+        Browse
+      </Button>
     </View>
   );
 };

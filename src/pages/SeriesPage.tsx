@@ -31,9 +31,6 @@ const SeriesPage = ({ navigation, route }: any) => {
     console.log('loading');
   }
 
-  if (data) {
-  }
-
   return (
     <SafeAreaView style={[styles.container, darkStyle.background]}>
       {loading && <ActivityIndicator size="large" />}
@@ -55,7 +52,7 @@ const SeriesPage = ({ navigation, route }: any) => {
             /> */}
             <Button
               icon="view-list"
-              mode="contained"
+              mode="elevated"
               onPress={() => {
                 navigation.navigate(RoutesNames.Episodes, {
                   title: data.Media.title.romaji,

@@ -1,13 +1,19 @@
-import { StyleSheet, View, Platform, ActivityIndicator } from 'react-native';
+import { StyleSheet, View, Platform, SafeAreaView } from 'react-native';
 import React, { useRef, useState } from 'react';
 import Controls from '../components/Controls';
-import { getCDAVideoUrl } from '../api/getCDAVideoUrl';
 import { useQuery } from '@tanstack/react-query';
 import Video from 'react-native-video';
+import { getVideoUrl } from '../api/video/getVideoUrl';
+import { ActivityIndicator, Text } from 'react-native-paper';
+import { darkStyle } from '../styles/darkMode.style';
 
 const VideoPlayerPage = ({ _navigation, route }: any) => {
-  const { title, uri } = route.params;
-  const { data } = useQuery(['episodes' + title], () => getCDAVideoUrl(uri));
+  const { title, uri, player } = route.params;
+  const { data, isError } = useQuery(
+    ['episodes' + title],
+    () => getVideoUrl(player, uri),
+    { retry: false },
+  );
   const DEBUG = true;
   const video = useRef<Video>(null);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -28,7 +34,8 @@ const VideoPlayerPage = ({ _navigation, route }: any) => {
   // }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={[styles.container, darkStyle.background]}>
+      {isError && <Text>The source is not implemented</Text>}
       {data ? (
         <Video
           ref={video}
@@ -48,7 +55,7 @@ const VideoPlayerPage = ({ _navigation, route }: any) => {
         />
       ) : (
         <View style={styles.container}>
-          <ActivityIndicator size="large" />
+          <ActivityIndicator size="large" color={'#C539F7'} />
         </View>
       )}
       {isTV && (
@@ -58,14 +65,13 @@ const VideoPlayerPage = ({ _navigation, route }: any) => {
           title={route.params.videoTitle}
         />
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },

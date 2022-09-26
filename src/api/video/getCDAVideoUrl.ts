@@ -26,5 +26,3 @@ export const getCDAVideoUrl = async (ebdUri: string) => {
   console.log(`https://${result}.mp4`);
   return `https://${result}.mp4`;
 };
-
-getCDAVideoUrl('https://ebd.cda.pl/620x395/1047086907');
