@@ -26,7 +26,7 @@ const Routes = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name={RoutesNames.Main}
+          name={RoutesNames.Home}
           component={HomePage}
           options={{
             ...defaultOptions({ title: RoutesNames.Home }),
