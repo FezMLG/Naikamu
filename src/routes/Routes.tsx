@@ -9,6 +9,16 @@ import SeriesPage from '../pages/SeriesPage';
 import EpisodesListPage from '../pages/EpisodesListPage';
 import { darkColor } from '../styles/darkMode.style';
 
+const defaultOptions = ({ title }: { title?: string }) => {
+  return {
+    title: title,
+    headerStyle: { backgroundColor: darkColor.C800 },
+    headerTitleStyle: {
+      color: darkColor.Font,
+    },
+  };
+};
+
 const Stack = createNativeStackNavigator();
 
 const Routes = () => {
@@ -16,75 +26,44 @@ const Routes = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name={RoutesNames.Home}
+          name={RoutesNames.Main}
           component={HomePage}
           options={{
-            title: RoutesNames.Home,
+            ...defaultOptions({ title: RoutesNames.Home }),
             animation: 'slide_from_right',
-            headerStyle: { backgroundColor: darkColor.C800 },
-            headerTitleStyle: {
-              color: darkColor.Font,
-            },
-          }}
-        />
-        <Stack.Screen
-          name={RoutesNames.Player}
-          component={VideoPlayerPage}
-          options={{
-            animation: 'slide_from_right',
-            headerShown: false,
-            headerStyle: { backgroundColor: darkColor.C800 },
-            headerTitleStyle: {
-              color: darkColor.Font,
-            },
           }}
         />
         <Stack.Screen
           name={RoutesNames.Browse}
           component={BrowsePage}
           options={{
-            title: RoutesNames.Browse,
+            ...defaultOptions({ title: RoutesNames.Browse }),
             animation: 'slide_from_right',
-            headerStyle: { backgroundColor: darkColor.C800 },
-            headerTitleStyle: {
-              color: darkColor.Font,
-            },
           }}
         />
         <Stack.Screen
           name={RoutesNames.Series}
           component={SeriesPage}
           options={({ route }: any) => ({
-            title: route.params.title,
+            ...defaultOptions({ title: route.params.title }),
             animation: 'slide_from_right',
-            headerStyle: { backgroundColor: darkColor.C800 },
-            headerTitleStyle: {
-              color: darkColor.Font,
-            },
           })}
         />
         <Stack.Screen
           name={RoutesNames.Episodes}
           component={EpisodesListPage}
           options={({ route }: any) => ({
-            title: `Episodes: ${route.params.title}`,
+            ...defaultOptions({ title: `Episodes: ${route.params.title}` }),
             animation: 'slide_from_right',
-            headerStyle: { backgroundColor: darkColor.C800 },
-            headerTitleStyle: {
-              color: darkColor.Font,
-            },
           })}
         />
         <Stack.Screen
           name={RoutesNames.Watch}
           component={VideoPlayerPage}
           options={{
+            ...defaultOptions({}),
             animation: 'slide_from_right',
             headerShown: false,
-            headerStyle: { backgroundColor: darkColor.C800 },
-            headerTitleStyle: {
-              color: darkColor.Font,
-            },
           }}
         />
       </Stack.Navigator>
