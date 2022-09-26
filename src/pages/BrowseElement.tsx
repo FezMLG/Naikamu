@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     height: 300,
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
-    resizeMode: 'contain',
+    resizeMode: 'cover',
   },
   title: {
     width: 200,

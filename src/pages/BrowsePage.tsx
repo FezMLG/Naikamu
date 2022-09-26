@@ -1,4 +1,4 @@
-import { StyleSheet, ActivityIndicator, View } from 'react-native';
+import { StyleSheet, ActivityIndicator, View, ScrollView } from 'react-native';
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import { LIST_OF_ANIME } from '../api/graphql/anilist/listOfAnime';
@@ -28,18 +28,20 @@ const BrowsePage = ({ navigation }: any) => {
       {loading ? (
         <ActivityIndicator size="large" />
       ) : (
-        <View style={styles.autoGrid}>
-          {data &&
-            data.Page.media.map(item => {
-              return (
-                <BrowseElement
-                  key={item.id}
-                  anime={item}
-                  navigation={navigation}
-                />
-              );
-            })}
-        </View>
+        <ScrollView>
+          <View style={styles.autoGrid}>
+            {data &&
+              data.Page.media.map(item => {
+                return (
+                  <BrowseElement
+                    key={item.id}
+                    anime={item}
+                    navigation={navigation}
+                  />
+                );
+              })}
+          </View>
+        </ScrollView>
       )}
     </SafeAreaView>
   );
