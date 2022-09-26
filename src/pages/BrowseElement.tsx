@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Image, Text, View, Pressable } from 'react-native';
-import { Shadow } from 'react-native-shadow-2';
+import CardShadow from '../components/CardShadow';
 import { Media } from '../interfaces';
 import { RoutesNames } from '../routes/RoutesNames.enum';
 import { darkStyle } from '../styles/darkMode.style';
@@ -13,15 +13,7 @@ const BrowseElement = ({
   navigation: any;
 }) => {
   const [focus, setFocus] = useState(false);
-  const defaultShadow = {
-    distace: 0,
-    startColor: '#7600bc',
-    finalColor: '#7600bc',
-  };
 
-  const focusShadow = {
-    distace: 2,
-  };
   // const onFocus = () => {
   //   console.log('Focused item ', anime.id);
   //   setFocus(true);
@@ -31,14 +23,8 @@ const BrowseElement = ({
   //   setFocus(false);
   // };
 
-  console.log(anime);
-
   return (
-    <Shadow
-      distance={focus ? focusShadow.distace : defaultShadow.distace}
-      startColor={defaultShadow.startColor}
-      endColor={defaultShadow.finalColor}
-      offset={[10, 10]}>
+    <CardShadow focus={focus}>
       <Pressable
         key={anime.id}
         style={[styles.card, darkStyle.card]}
@@ -60,7 +46,7 @@ const BrowseElement = ({
           </Text>
         </View>
       </Pressable>
-    </Shadow>
+    </CardShadow>
   );
 };
 
