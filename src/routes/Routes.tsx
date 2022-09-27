@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomePage from '../pages/HomePage';
 import VideoPlayerPage from '../pages/VideoPlayerPage';
 import { RoutesNames } from './RoutesNames.enum';
 import BrowsePage from '../pages/BrowsePage';
@@ -25,14 +24,14 @@ const Routes = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
+        {/* <Stack.Screen
           name={RoutesNames.Home}
           component={HomePage}
           options={{
             ...defaultOptions({ title: RoutesNames.Home }),
             animation: 'slide_from_right',
           }}
-        />
+        /> */}
         <Stack.Screen
           name={RoutesNames.Browse}
           component={BrowsePage}
