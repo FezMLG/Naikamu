@@ -1,4 +1,11 @@
-import { StyleSheet, View, Platform, SafeAreaView } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Platform,
+  SafeAreaView,
+  useTVEventHandler,
+  HWEvent,
+} from 'react-native';
 import React, { useRef, useState } from 'react';
 import Controls from '../components/Controls';
 import { useQuery } from '@tanstack/react-query';
@@ -10,7 +17,7 @@ import { darkStyle } from '../styles/darkMode.style';
 const VideoPlayerPage = ({ _navigation, route }: any) => {
   const { title, uri, player } = route.params;
   const { data, isError } = useQuery(
-    ['episodes' + title],
+    [player + ':' + title],
     () => getVideoUrl(player, uri),
     { retry: false },
   );
@@ -18,10 +25,26 @@ const VideoPlayerPage = ({ _navigation, route }: any) => {
   const video = useRef<Video>(null);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [status, setStatus] = useState<any>({});
+  const [isPaused, setIsPaused] = useState<boolean>(false);
   let { isTV } = Platform;
   if (DEBUG) {
     isTV = !isTV;
   }
+  const myTVEventHandler = (evt: HWEvent) => {
+    switch (evt.eventType) {
+      case 'playPause':
+        setIsPaused(!isPaused);
+        break;
+      case 'play':
+        setIsPaused(false);
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  useTVEventHandler(myTVEventHandler);
 
   // function setOrientation() {
   //   if (Dimensions.get('window').height > Dimensions.get('window').width) {
@@ -45,8 +68,10 @@ const VideoPlayerPage = ({ _navigation, route }: any) => {
               ? data
               : 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
           }}
-          controls={!isTV}
+          controls={true}
           resizeMode={'contain'}
+          paused={isPaused}
+          fullscreen={true}
           // isLooping
           // shouldPlay
           // onPlaybackStatusUpdate={setStatus}
