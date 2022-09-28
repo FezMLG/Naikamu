@@ -1,5 +1,36 @@
 import { StyleSheet } from 'react-native';
+import { RoutesNames } from '../../routes/RoutesNames.enum';
 import { darkColor } from '../../styles/darkMode.style';
+import { LinkElement } from './interfaces';
+
+export const navigateToPlayer = ({
+  navigation,
+  player,
+  title,
+}: {
+  navigation: any;
+  player: LinkElement;
+  title: string;
+}) => {
+  const name = player.name
+    .replace(/[\u0250-\ue007]/g, '')
+    .replace(/\s/g, '')
+    .toLowerCase();
+
+  switch (name) {
+    case 'cda':
+      return navigation.navigate(RoutesNames.WatchNative, {
+        uri: player.link,
+        title: title,
+        player: name,
+      });
+
+    default:
+      return navigation.navigate(RoutesNames.WatchWebView, {
+        uri: player.link,
+      });
+  }
+};
 
 export const mainEpisodeStyles = StyleSheet.create({
   container: {
@@ -21,8 +52,6 @@ export const mainEpisodeStyles = StyleSheet.create({
     minHeight: 350,
     maxWidth: '100%',
     width: 550,
-    borderColor: 'blue',
-    borderWidth: 1,
   },
   episodeContainer: {
     flex: 1,

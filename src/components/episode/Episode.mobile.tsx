@@ -1,10 +1,9 @@
 import React from 'react';
-import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
-import CardShadow from '../CardShadow';
-import { darkStyle, darkColor } from '../../styles/darkMode.style';
-import { mainEpisodeStyles } from './Episode';
+import { Image, SafeAreaView, StyleSheet, View } from 'react-native';
+import { darkStyle } from '../../styles/darkMode.style';
+import { mainEpisodeStyles, navigateToPlayer } from './Episode';
 import { IEpisode, LinkElement } from './interfaces';
-import { Source } from './Source';
+import { List, Text } from 'react-native-paper';
 
 export const EpisodeMobile = ({
   num,
@@ -15,37 +14,48 @@ export const EpisodeMobile = ({
   navigation: any;
   episode: IEpisode;
 }) => (
-  <CardShadow style={[styles.episodeContainerMobile]} focus={false}>
+  <SafeAreaView style={[styles.episodeContainerMobile]}>
     <View style={[styles.card, darkStyle.card]}>
-      <Image style={styles.poster} source={{ uri: episode.poster }} />
+      <Image
+        style={[styles.poster, styles.borderRadius]}
+        source={{ uri: episode.poster }}
+      />
       <Text
+        variant="titleMedium"
         accessible={false}
         numberOfLines={2}
         style={[styles.title, darkStyle.font]}>
         {num + ' ' + episode.title}
       </Text>
-      <Text accessible={false} style={[styles.description, darkStyle.font]}>
+      <Text
+        variant="bodySmall"
+        accessible={false}
+        style={[styles.description, darkStyle.font]}>
         {episode.description}
       </Text>
-    </View>
-    <View style={styles.linksContainerMobile}>
-      <Text accessible={false} style={[styles.title, darkStyle.font]}>
-        Available players:
-      </Text>
-      <View style={styles.linksBoxMobile}>
+      <List.Accordion
+        title={`${episode.players.length} available ${
+          episode.players.length === 1 ? 'player' : 'players'
+        }`}
+        left={props => <List.Icon {...props} icon="folder" />}>
         {episode.players.map((player: LinkElement, index: number) => {
           return (
-            <Source
+            <List.Item
               key={index}
-              navigation={navigation}
-              player={player}
-              title={episode.title}
+              title={player.name}
+              onPress={() => {
+                navigateToPlayer({
+                  navigation: navigation,
+                  player: player,
+                  title: episode.title,
+                });
+              }}
             />
           );
         })}
-      </View>
+      </List.Accordion>
     </View>
-  </CardShadow>
+  </SafeAreaView>
 );
 
 const styles = StyleSheet.create({
@@ -53,19 +63,16 @@ const styles = StyleSheet.create({
   episodeContainerMobile: {
     flex: 1,
     width: '100%',
-    maxHeight: 550,
     flexDirection: 'column',
     marginVertical: 10,
   },
-  linksContainerMobile: {
-    width: Dimensions.get('window').width,
-    height: '100%',
-    borderColor: 'blue',
-    borderWidth: 1,
-    backgroundColor: darkColor.C800,
-    marginHorizontal: 10,
+  description: {
+    width: '100%',
+    paddingTop: 5,
+    paddingBottom: 10,
+    paddingHorizontal: 10,
   },
-  linksBoxMobile: {
-    flexDirection: 'row',
+  borderRadius: {
+    borderRadius: 5,
   },
 });

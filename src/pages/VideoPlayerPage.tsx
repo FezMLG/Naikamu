@@ -1,35 +1,33 @@
 import {
   StyleSheet,
-  View,
-  Platform,
   SafeAreaView,
   useTVEventHandler,
   HWEvent,
 } from 'react-native';
 import React, { useRef, useState } from 'react';
-import Controls from '../components/Controls';
 import { useQuery } from '@tanstack/react-query';
 import Video from 'react-native-video';
 import { getVideoUrl } from '../api/video/getVideoUrl';
 import { ActivityIndicator, Text } from 'react-native-paper';
 import { darkStyle } from '../styles/darkMode.style';
+import { maxHeight, maxWidth } from '../components/maxDimensions';
 
-const VideoPlayerPage = ({ _navigation, route }: any) => {
+const NativeVideoPlayerPage = ({ _navigation, route }: any) => {
   const { title, uri, player } = route.params;
   const { data, isError } = useQuery(
     [player + ':' + title],
     () => getVideoUrl(player, uri),
     { retry: false },
   );
-  const DEBUG = true;
+  // const DEBUG = true;
   const video = useRef<Video>(null);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [status, setStatus] = useState<any>({});
   const [isPaused, setIsPaused] = useState<boolean>(false);
-  let { isTV } = Platform;
-  if (DEBUG) {
-    isTV = !isTV;
-  }
+  // let { isTV } = Platform;
+  // if (DEBUG) {
+  //   isTV = !isTV;
+  // }
   const myTVEventHandler = (evt: HWEvent) => {
     switch (evt.eventType) {
       case 'playPause':
@@ -79,17 +77,15 @@ const VideoPlayerPage = ({ _navigation, route }: any) => {
           // onFullscreenPlayerDidPresent={setOrientation}
         />
       ) : (
-        <View style={styles.container}>
-          <ActivityIndicator size="large" color={'#C539F7'} />
-        </View>
+        <ActivityIndicator size="large" color={'#C539F7'} />
       )}
-      {isTV && (
+      {/* {isTV && (
         <Controls
           status={status}
           video={video}
           title={route.params.videoTitle}
         />
-      )}
+      )} */}
     </SafeAreaView>
   );
 };
@@ -99,6 +95,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    width: maxWidth(),
+    height: maxHeight(),
   },
   video: {
     flex: 1,
@@ -109,4 +107,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default VideoPlayerPage;
+export default NativeVideoPlayerPage;

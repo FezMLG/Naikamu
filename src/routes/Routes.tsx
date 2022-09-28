@@ -1,12 +1,13 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import VideoPlayerPage from '../pages/VideoPlayerPage';
+import NativeVideoPlayerPage from '../pages/VideoPlayerPage';
 import { RoutesNames } from './RoutesNames.enum';
 import BrowsePage from '../pages/BrowsePage';
 import SeriesPage from '../pages/series/SeriesPage';
 import EpisodesListPage from '../pages/series/episodes/EpisodesListPage';
 import { darkColor } from '../styles/darkMode.style';
+import WebViewPlayerPage from '../pages/WebViewPlayerPage';
 
 const defaultOptions = ({ title }: { title?: string }) => {
   return {
@@ -57,10 +58,17 @@ const Routes = () => {
           })}
         />
         <Stack.Screen
-          name={RoutesNames.Watch}
-          component={VideoPlayerPage}
+          name={RoutesNames.WatchNative}
+          component={NativeVideoPlayerPage}
           options={{
-            ...defaultOptions({}),
+            animation: 'slide_from_right',
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name={RoutesNames.WatchWebView}
+          component={WebViewPlayerPage}
+          options={{
             animation: 'slide_from_right',
             headerShown: false,
           }}

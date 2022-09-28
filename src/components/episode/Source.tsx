@@ -17,7 +17,7 @@ export const Source = ({
     <Button
       style={styles.buttonLink}
       onPress={() => {
-        navigation.navigate(RoutesNames.Watch, {
+        navigation.navigate(RoutesNames.WatchNative, {
           uri: player.link,
           title: title,
           player: player.name,
