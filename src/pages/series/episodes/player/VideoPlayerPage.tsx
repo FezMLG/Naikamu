@@ -7,10 +7,10 @@ import {
 import React, { useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Video from 'react-native-video';
-import { getVideoUrl } from '../api/video/getVideoUrl';
+import { getVideoUrl } from '../../../../api/video/getVideoUrl';
 import { ActivityIndicator, Text } from 'react-native-paper';
-import { darkStyle } from '../styles/darkMode.style';
-import { maxHeight, maxWidth } from '../components/maxDimensions';
+import { darkStyle } from '../../../../styles/darkMode.style';
+import { maxHeight, maxWidth } from '../../../../components/maxDimensions';
 
 const NativeVideoPlayerPage = ({ _navigation, route }: any) => {
   const { title, uri, player } = route.params;

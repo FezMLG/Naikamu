@@ -46,7 +46,9 @@ const EpisodesListPage = ({ navigation, route }: any) => {
               />
             );
           })}
-        <Text variant="bodySmall" style={globalStyle.disclaimer}>
+        <Text
+          variant="bodySmall"
+          style={[globalStyle.disclaimer, darkStyle.font]}>
           AniWatch does not host any files on its own servers, we only provide
           links to content hosted on third-party servers.
         </Text>

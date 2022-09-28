@@ -8,7 +8,9 @@ import { globalStyle } from '../styles/global.style';
 const HomePage = ({ navigation }: any) => {
   return (
     <View style={[styles.container, darkStyle.background]}>
-      <Text variant="headlineLarge">Welcome to AniWatch</Text>
+      <Text variant="headlineLarge" style={darkStyle.font}>
+        Welcome to AniWatch
+      </Text>
       <View style={[globalStyle.spacerBig]} />
       <Image
         style={styles.logo}

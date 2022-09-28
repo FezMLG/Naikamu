@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 import { LinkElement } from './interfaces';
-import { RoutesNames } from '../../routes/RoutesNames.enum';
+import { navigateToPlayer } from './Episode';
 
 export const Source = ({
   navigation,
@@ -17,10 +17,10 @@ export const Source = ({
     <Button
       style={styles.buttonLink}
       onPress={() => {
-        navigation.navigate(RoutesNames.WatchNative, {
-          uri: player.link,
+        navigateToPlayer({
+          navigation: navigation,
+          player: player,
           title: title,
-          player: player.name,
         });
       }}>
       {player.name}
@@ -31,8 +31,6 @@ export const Source = ({
 const styles = StyleSheet.create({
   buttonLink: {
     minHeight: 50,
-    borderColor: 'blue',
-    borderWidth: 1,
     width: 100,
     marginHorizontal: 10,
     marginVertical: 10,

@@ -31,8 +31,12 @@ const QuickInfo = ({
 }) => {
   return (
     <View style={[styles.quickInfoContainer, ...style]}>
-      <Text style={isTV ? styles.titleType : null}>{name}</Text>
-      <Text style={isTV ? null : styles.titleType}>{value}</Text>
+      <Text style={[isTV ? styles.titleType : null, darkStyle.font]}>
+        {name}
+      </Text>
+      <Text style={[isTV ? null : styles.titleType, darkStyle.font]}>
+        {value}
+      </Text>
     </View>
   );
 };
@@ -70,14 +74,18 @@ const SeriesPage = ({ navigation, route }: any) => {
               List of episodes
             </Button>
             <View style={[globalStyle.spacer]} />
-            <Text variant="headlineLarge">{data.Media.title.romaji}</Text>
-            <Text variant="titleSmall">{data.Media.title.english}</Text>
+            <Text variant="headlineLarge" style={darkStyle.font}>
+              {data.Media.title.romaji}
+            </Text>
+            <Text variant="titleSmall" style={darkStyle.font}>
+              {data.Media.title.english}
+            </Text>
             <Text
               variant="bodyMedium"
               style={[darkStyle.font, globalStyle.spacer]}>
               {data.Media.description.replace(/<[^>]*>?/gm, '')}
             </Text>
-            <Text style={styles.titleType}>Genres</Text>
+            <Text style={[styles.titleType, darkStyle.font]}>Genres</Text>
             <View style={styles.chipContainer}>
               {data.Media.genres.map((genre, index) => {
                 return (
@@ -126,7 +134,8 @@ const SeriesPage = ({ navigation, route }: any) => {
                 />
               </>
             )}
-            <Text style={[styles.titleType, styles.categorySpacer]}>
+            <Text
+              style={[styles.titleType, styles.categorySpacer, darkStyle.font]}>
               Trailer
             </Text>
             <WebView
@@ -136,7 +145,9 @@ const SeriesPage = ({ navigation, route }: any) => {
                 uri: `https://www.youtube.com/embed/${data.Media.trailer.id}`,
               }}
             />
-            <Text variant="bodySmall" style={globalStyle.disclaimer}>
+            <Text
+              variant="bodySmall"
+              style={[globalStyle.disclaimer, darkStyle.font]}>
               (Source: AniList)
             </Text>
           </View>
