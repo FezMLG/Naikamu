@@ -12,6 +12,7 @@ import { darkStyle } from '../../../styles/darkMode.style';
 import { IEpisode } from '../../../components/episode/interfaces';
 import { EpisodeMobile } from '../../../components/episode/Episode.mobile';
 import { EpisodeTV } from '../../../components/episode/Episode.tv';
+import { Text } from 'react-native-paper';
 const { isTV } = Platform;
 
 const EpisodesListPage = ({ navigation, route }: any) => {
@@ -44,6 +45,10 @@ const EpisodesListPage = ({ navigation, route }: any) => {
               />
             );
           })}
+        <Text variant="bodySmall" style={styles.disclaimer}>
+          AniWatch does not host any files on its own servers, we only provide
+          links to content hosted on third-party servers.
+        </Text>
       </ScrollView>
     </SafeAreaView>
   );
@@ -56,6 +61,10 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     marginHorizontal: 20,
+  },
+  disclaimer: {
+    marginTop: 20,
+    marginBottom: 10,
   },
 });
 
