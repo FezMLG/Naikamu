@@ -33,6 +33,7 @@ const Routes = () => {
           options={{
             ...defaultOptions({ title: RoutesNames.Home }),
             animation: 'slide_from_right',
+            headerShown: false,
           }}
         />
         <Stack.Screen
