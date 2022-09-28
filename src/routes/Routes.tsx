@@ -78,7 +78,7 @@ const Routes = () => {
           }}
         />
         <Stack.Screen
-          name={RoutesNames.WatchWebView}
+          name={RoutesNames.WatchError}
           component={ErrorPlayerPage}
           options={{
             ...defaultOptions({ title: 'Go To App' }),
