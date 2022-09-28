@@ -1,7 +1,8 @@
-import { StyleSheet, SafeAreaView, Dimensions } from 'react-native';
+import { StyleSheet, SafeAreaView } from 'react-native';
 import React from 'react';
 import { darkStyle } from '../styles/darkMode.style';
 import WebView from 'react-native-webview';
+import { maxHeight, maxWidth } from '../components/maxDimensions';
 
 const WebViewPlayerPage = ({ route }: any) => {
   const { uri } = route.params;
@@ -25,8 +26,8 @@ const WebViewPlayerPage = ({ route }: any) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
+    width: maxWidth(),
+    height: maxHeight(),
   },
 });
 
