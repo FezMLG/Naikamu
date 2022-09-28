@@ -10,6 +10,16 @@ import { darkColor } from '../styles/darkMode.style';
 import WebViewPlayerPage from '../pages/series/episodes/player/WebViewPlayerPage';
 import HomePage from '../pages/HomePage';
 import ErrorPlayerPage from '../pages/series/episodes/player/ErrorPlayerPage';
+import { Text } from 'react-native';
+
+const linking = {
+  prefixes: ['aniwatch://'],
+  config: {
+    screens: {
+      [RoutesNames.Browse]: 'browse',
+    },
+  },
+};
 
 const defaultOptions = ({ title }: { title?: string }) => {
   return {
@@ -26,7 +36,7 @@ const Stack = createNativeStackNavigator();
 
 const Routes = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>}>
       <Stack.Navigator>
         <Stack.Screen
           name={RoutesNames.Home}
