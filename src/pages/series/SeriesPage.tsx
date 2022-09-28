@@ -8,13 +8,13 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import React from 'react';
-import { RoutesNames } from '../routes/RoutesNames.enum';
+import { RoutesNames } from '../../routes/RoutesNames.enum';
 import { useQuery } from '@apollo/client';
-import { IALTitleInfo } from '../interfaces';
-import { TITLE_INFO } from '../api/graphql/anilist/titleInfo';
+import { IALTitleInfo } from '../../interfaces';
+import { TITLE_INFO } from '../../api/graphql/anilist/titleInfo';
 import WebView from 'react-native-webview';
-import { darkStyle } from '../styles/darkMode.style';
-import { globalStyle } from '../styles/global.style';
+import { darkStyle } from '../../styles/darkMode.style';
+import { globalStyle } from '../../styles/global.style';
 import { Button } from 'react-native-paper';
 
 const SeriesPage = ({ navigation, route }: any) => {

@@ -4,8 +4,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import VideoPlayerPage from '../pages/VideoPlayerPage';
 import { RoutesNames } from './RoutesNames.enum';
 import BrowsePage from '../pages/BrowsePage';
-import SeriesPage from '../pages/SeriesPage';
-import EpisodesListPage from '../pages/EpisodesListPage';
+import SeriesPage from '../pages/series/SeriesPage';
+import EpisodesListPage from '../pages/series/episodes/EpisodesListPage';
 import { darkColor } from '../styles/darkMode.style';
 
 const defaultOptions = ({ title }: { title?: string }) => {
