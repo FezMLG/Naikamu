@@ -41,8 +41,11 @@ const QuickInfo = ({
   );
 };
 
+export let animeId: number;
+
 const SeriesPage = ({ navigation, route }: any) => {
   const { id } = route.params;
+  animeId = id;
   const { data } = useQuery<IALTitleInfo>(TITLE_INFO, {
     variables: {
       id,

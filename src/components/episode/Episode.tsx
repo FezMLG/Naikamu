@@ -1,4 +1,5 @@
 import { Platform, StyleSheet } from 'react-native';
+import { animeId } from '../../pages/series/SeriesPage';
 import { RoutesNames } from '../../routes/RoutesNames.enum';
 import { darkColor } from '../../styles/darkMode.style';
 import { LinkElement } from './interfaces';
@@ -30,6 +31,7 @@ export const navigateToPlayer = ({
       if (isTV) {
         return navigation.navigate(RoutesNames.WatchError, {
           playerName: name,
+          animeId: animeId,
         });
       }
       return navigation.navigate(RoutesNames.WatchWebView, {
