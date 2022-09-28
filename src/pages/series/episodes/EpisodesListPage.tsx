@@ -9,9 +9,9 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getTitle } from '../../../api/rest/frixy/getTitle';
 import { darkStyle } from '../../../styles/darkMode.style';
-import { IEpisode } from './interfaces';
-import { EpisodeTV } from './Episode.tv';
-import { EpisodeMobile } from './Episode.mobile';
+import { IEpisode } from '../../../components/episode/interfaces';
+import { EpisodeMobile } from '../../../components/episode/Episode.mobile';
+import { EpisodeTV } from '../../../components/episode/Episode.tv';
 const { isTV } = Platform;
 
 const EpisodesListPage = ({ navigation, route }: any) => {

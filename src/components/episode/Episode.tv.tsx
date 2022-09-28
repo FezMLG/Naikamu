@@ -1,9 +1,10 @@
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
-import CardShadow from '../../../components/CardShadow';
-import { darkColor, darkStyle } from '../../../styles/darkMode.style';
-import { mainEpisodeStyles } from './Episode';
 import { IEpisode, LinkElement } from './interfaces';
+import { darkStyle, darkColor } from '../../styles/darkMode.style';
+import CardShadow from '../CardShadow';
+import { mainEpisodeStyles } from './Episode';
+
 import { Source } from './Source';
 
 export const EpisodeTV = ({

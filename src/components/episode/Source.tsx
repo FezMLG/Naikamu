@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
-import { RoutesNames } from '../../../routes/RoutesNames.enum';
 import { LinkElement } from './interfaces';
+import { RoutesNames } from '../../routes/RoutesNames.enum';
 
 export const Source = ({
   navigation,

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { darkColor } from '../../../styles/darkMode.style';
+import { darkColor } from '../../styles/darkMode.style';
 
 export const mainEpisodeStyles = StyleSheet.create({
   container: {

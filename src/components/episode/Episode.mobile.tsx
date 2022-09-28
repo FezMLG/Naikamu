@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
-import CardShadow from '../../../components/CardShadow';
-import { darkStyle, darkColor } from '../../../styles/darkMode.style';
+import CardShadow from '../CardShadow';
+import { darkStyle, darkColor } from '../../styles/darkMode.style';
 import { mainEpisodeStyles } from './Episode';
 import { IEpisode, LinkElement } from './interfaces';
 import { Source } from './Source';
