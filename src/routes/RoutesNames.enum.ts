@@ -5,5 +5,6 @@ export enum RoutesNames {
   Series = 'Series',
   WatchNative = 'WatchNative',
   WatchWebView = 'WatchWebView',
+  WatchError = 'WatchError',
   Episodes = 'Episodes',
 }

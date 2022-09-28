@@ -1,14 +1,15 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import NativeVideoPlayerPage from '../pages/VideoPlayerPage';
+import NativeVideoPlayerPage from '../pages/series/episodes/player/VideoPlayerPage';
 import { RoutesNames } from './RoutesNames.enum';
 import BrowsePage from '../pages/BrowsePage';
 import SeriesPage from '../pages/series/SeriesPage';
 import EpisodesListPage from '../pages/series/episodes/EpisodesListPage';
 import { darkColor } from '../styles/darkMode.style';
-import WebViewPlayerPage from '../pages/WebViewPlayerPage';
+import WebViewPlayerPage from '../pages/series/episodes/player/WebViewPlayerPage';
 import HomePage from '../pages/HomePage';
+import ErrorPlayerPage from '../pages/series/episodes/player/ErrorPlayerPage';
 
 const defaultOptions = ({ title }: { title?: string }) => {
   return {
@@ -74,6 +75,14 @@ const Routes = () => {
           options={{
             animation: 'slide_from_right',
             headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name={RoutesNames.WatchWebView}
+          component={ErrorPlayerPage}
+          options={{
+            ...defaultOptions({ title: 'Go To App' }),
+            animation: 'slide_from_right',
           }}
         />
       </Stack.Navigator>

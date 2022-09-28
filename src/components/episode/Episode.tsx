@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { RoutesNames } from '../../routes/RoutesNames.enum';
 import { darkColor } from '../../styles/darkMode.style';
 import { LinkElement } from './interfaces';
@@ -12,6 +12,7 @@ export const navigateToPlayer = ({
   player: LinkElement;
   title: string;
 }) => {
+  const { isTV } = Platform;
   const name = player.name
     .replace(/[\u0250-\ue007]/g, '')
     .replace(/\s/g, '')
@@ -26,6 +27,11 @@ export const navigateToPlayer = ({
       });
 
     default:
+      if (isTV) {
+        return navigation.navigate(RoutesNames.WatchError, {
+          playerName: name,
+        });
+      }
       return navigation.navigate(RoutesNames.WatchWebView, {
         uri: player.link,
       });

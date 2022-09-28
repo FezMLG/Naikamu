@@ -4,10 +4,11 @@ import { RoutesNames } from '../routes/RoutesNames.enum';
 import { darkStyle } from '../styles/darkMode.style';
 import { Button, Text } from 'react-native-paper';
 import { globalStyle } from '../styles/global.style';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const HomePage = ({ navigation }: any) => {
   return (
-    <View style={[styles.container, darkStyle.background]}>
+    <SafeAreaView style={[styles.container, darkStyle.background]}>
       <Text variant="headlineLarge" style={darkStyle.font}>
         Welcome to AniWatch
       </Text>
@@ -24,7 +25,7 @@ const HomePage = ({ navigation }: any) => {
           Browse
         </Text>
       </Button>
-    </View>
+    </SafeAreaView>
   );
 };
 
