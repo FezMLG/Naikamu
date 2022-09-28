@@ -40,6 +40,7 @@ export const EpisodeMobile = ({
         }`}
         left={props => <List.Icon {...props} icon="folder" />}>
         {episode.players.map((player: LinkElement, index: number) => {
+          //TODO on long press user can choose if he want to open in webview or open external browser (mobile only)
           return (
             <List.Item
               key={index}

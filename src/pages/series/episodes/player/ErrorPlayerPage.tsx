@@ -10,6 +10,7 @@ import { globalStyle } from '../../../../styles/global.style';
 const ErrorPlayerPage = ({ route }: any) => {
   const { playerName, animeId } = route.params;
 
+  //TODO styling for this page
   return (
     <SafeAreaView style={[styles.container, darkStyle.background]}>
       <Text
