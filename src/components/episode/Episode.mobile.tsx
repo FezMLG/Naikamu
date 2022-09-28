@@ -21,14 +21,14 @@ export const EpisodeMobile = ({
         source={{ uri: episode.poster }}
       />
       <Text
-        variant="titleMedium"
+        variant="titleLarge"
         accessible={false}
         numberOfLines={2}
         style={[styles.title, darkStyle.font]}>
         {num + ' ' + episode.title}
       </Text>
       <Text
-        variant="bodySmall"
+        variant="bodyMedium"
         accessible={false}
         style={[styles.description, darkStyle.font]}>
         {episode.description}

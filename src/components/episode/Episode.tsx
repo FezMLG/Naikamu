@@ -47,6 +47,7 @@ export const mainEpisodeStyles = StyleSheet.create({
     width: '100%',
     paddingVertical: 5,
     paddingHorizontal: 10,
+    fontWeight: 'bold',
   },
   card: {
     minHeight: 350,
