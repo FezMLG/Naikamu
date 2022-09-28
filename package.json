@@ -14,7 +14,8 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "generate:release": "cd android && ./gradlew bundleRelease"
+    "app:release": "cd android && ./gradlew bundleRelease",
+    "apk:release": "cd android && ./gradlew assembleRelease"
   },
   "dependencies": {
     "@apollo/client": "^3.6.9",
