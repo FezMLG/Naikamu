@@ -8,6 +8,7 @@ import SeriesPage from '../pages/series/SeriesPage';
 import EpisodesListPage from '../pages/series/episodes/EpisodesListPage';
 import { darkColor } from '../styles/darkMode.style';
 import WebViewPlayerPage from '../pages/WebViewPlayerPage';
+import HomePage from '../pages/HomePage';
 
 const defaultOptions = ({ title }: { title?: string }) => {
   return {
@@ -16,6 +17,7 @@ const defaultOptions = ({ title }: { title?: string }) => {
     headerTitleStyle: {
       color: darkColor.Font,
     },
+    headerTintColor: darkColor.Font,
   };
 };
 
@@ -25,14 +27,14 @@ const Routes = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* <Stack.Screen
+        <Stack.Screen
           name={RoutesNames.Home}
           component={HomePage}
           options={{
             ...defaultOptions({ title: RoutesNames.Home }),
             animation: 'slide_from_right',
           }}
-        /> */}
+        />
         <Stack.Screen
           name={RoutesNames.Browse}
           component={BrowsePage}

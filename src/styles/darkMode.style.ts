@@ -28,4 +28,7 @@ export const darkStyle = StyleSheet.create({
   font: {
     color: darkColor.Font,
   },
+  fontReverse: {
+    color: darkColor.C900,
+  },
 });

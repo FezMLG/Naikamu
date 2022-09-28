@@ -39,17 +39,11 @@ const QuickInfo = ({
 
 const SeriesPage = ({ navigation, route }: any) => {
   const { id } = route.params;
-  const { loading, data } = useQuery<IALTitleInfo>(TITLE_INFO, {
+  const { data } = useQuery<IALTitleInfo>(TITLE_INFO, {
     variables: {
       id,
     },
   });
-
-  // if (loading) return null;
-  // if (error) return `Error! ${error}`;
-  if (loading) {
-    console.log('loading');
-  }
 
   return (
     <SafeAreaView style={[styles.container, darkStyle.background]}>
@@ -142,6 +136,9 @@ const SeriesPage = ({ navigation, route }: any) => {
                 uri: `https://www.youtube.com/embed/${data.Media.trailer.id}`,
               }}
             />
+            <Text variant="bodySmall" style={globalStyle.disclaimer}>
+              (Source: AniList)
+            </Text>
           </View>
         </ScrollView>
       ) : (
