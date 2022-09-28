@@ -8,6 +8,7 @@ import {
   Pressable,
 } from 'react-native';
 import { darkColor, darkStyle } from '../styles/darkMode.style';
+import { defaultRadius } from '../styles/global.style';
 
 const fontSize = 20;
 
@@ -108,7 +109,7 @@ const styles = StyleSheet.create({
   controlButton: {
     minWidth: 100,
     minHeight: 40,
-    borderRadius: 5,
+    borderRadius: defaultRadius,
     marginVertical: 5,
     marginHorizontal: 10,
     alignItems: 'center',

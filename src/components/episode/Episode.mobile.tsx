@@ -4,6 +4,7 @@ import { darkStyle } from '../../styles/darkMode.style';
 import { mainEpisodeStyles, navigateToPlayer } from './Episode';
 import { IEpisode, LinkElement } from './interfaces';
 import { List, Text } from 'react-native-paper';
+import { defaultRadius } from '../../styles/global.style';
 
 export const EpisodeMobile = ({
   num,
@@ -73,6 +74,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   borderRadius: {
-    borderRadius: 5,
+    borderRadius: defaultRadius,
   },
 });
