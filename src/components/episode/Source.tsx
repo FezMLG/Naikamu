@@ -1,8 +1,9 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Button } from 'react-native-paper';
+
 import { LinkElement } from './interfaces';
 import { navigateToPlayer } from './Episode';
+import { FocusButton } from '../FocusButton';
 
 export const Source = ({
   navigation,
@@ -14,25 +15,23 @@ export const Source = ({
   title: string;
 }) => {
   return (
-    <Button
-      style={styles.buttonLink}
+    <FocusButton
       onPress={() => {
         navigateToPlayer({
           navigation: navigation,
           player: player,
           title: title,
         });
-      }}>
+      }}
+      style={[styles.buttonLink]}>
       {player.name}
-    </Button>
+    </FocusButton>
   );
 };
 
 const styles = StyleSheet.create({
   buttonLink: {
-    minHeight: 50,
-    width: 100,
-    marginHorizontal: 10,
-    marginVertical: 10,
+    marginVertical: 5,
+    width: '100%',
   },
 });

@@ -17,7 +17,8 @@ import { TITLE_INFO } from '../../api/graphql/anilist/titleInfo';
 import WebView from 'react-native-webview';
 import { darkColor, darkStyle } from '../../styles/darkMode.style';
 import { defaultRadius, globalStyle } from '../../styles/global.style';
-import { ActivityIndicator, Button, Chip, Text } from 'react-native-paper';
+import { ActivityIndicator, Chip, Text } from 'react-native-paper';
+import { FocusButton } from '../../components/FocusButton';
 
 const { isTV } = Platform;
 const QuickInfo = ({
@@ -66,16 +67,16 @@ const SeriesPage = ({ navigation, route }: any) => {
           />
           <View style={styles.body}>
             <View style={[globalStyle.spacer]} />
-            <Button
+            <FocusButton
               icon="view-list"
-              mode="elevated"
               onPress={() => {
                 navigation.navigate(RoutesNames.Episodes, {
                   title: data.Media.title.romaji,
                 });
-              }}>
+              }}
+              style={[]}>
               List of episodes
-            </Button>
+            </FocusButton>
             <View style={[globalStyle.spacer]} />
             <Text variant="headlineLarge" style={darkStyle.font}>
               {data.Media.title.romaji}

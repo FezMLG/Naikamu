@@ -1,7 +1,7 @@
 import { Platform, StyleSheet } from 'react-native';
 import { animeId } from '../../pages/series/SeriesPage';
 import { RoutesNames } from '../../routes/RoutesNames.enum';
-import { darkColor } from '../../styles/darkMode.style';
+import { darkColor, darkStyle } from '../../styles/darkMode.style';
 import { LinkElement } from './interfaces';
 
 export const navigateToPlayer = ({
@@ -58,6 +58,7 @@ export const mainEpisodeStyles = StyleSheet.create({
     fontWeight: 'bold',
   },
   card: {
+    backgroundColor: darkStyle.card.backgroundColor,
     minHeight: 350,
     maxWidth: '100%',
     width: 550,

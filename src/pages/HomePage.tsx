@@ -2,9 +2,10 @@ import { Image, StyleSheet, View } from 'react-native';
 import React from 'react';
 import { RoutesNames } from '../routes/RoutesNames.enum';
 import { darkStyle } from '../styles/darkMode.style';
-import { Button, Text } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 import { globalStyle } from '../styles/global.style';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { FocusButton } from '../components/FocusButton';
 
 const HomePage = ({ navigation }: any) => {
   return (
@@ -18,13 +19,13 @@ const HomePage = ({ navigation }: any) => {
         source={require('../../assets/aniwatch_logo_t.png')}
       />
       <View style={[globalStyle.spacerBig]} />
-      <Button
-        mode="contained"
-        onPress={() => navigation.navigate(RoutesNames.Browse)}>
+      <FocusButton
+        onPress={() => navigation.navigate(RoutesNames.Browse)}
+        style={[]}>
         <Text variant="titleLarge" style={darkStyle.fontReverse}>
           Browse
         </Text>
-      </Button>
+      </FocusButton>
     </SafeAreaView>
   );
 };
