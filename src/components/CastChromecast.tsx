@@ -1,11 +1,13 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import {
   CastButton,
   useRemoteMediaClient,
   CastContext,
   PlayServicesState,
 } from 'react-native-google-cast';
+import { Text } from 'react-native-paper';
+import { darkColor } from '../styles/darkMode.style';
 
 export const CastChromecast = ({ linkToMP4 }: { linkToMP4: string }) => {
   const client = useRemoteMediaClient();
@@ -25,13 +27,26 @@ export const CastChromecast = ({ linkToMP4 }: { linkToMP4: string }) => {
       CastContext.showPlayServicesErrorDialog(state);
     }
   });
-  return <CastButton style={styles.castButton} />;
+  return (
+    <View style={styles.row}>
+      <CastButton style={styles.castButton} />
+      <Text variant="bodyLarge">Cast</Text>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
+  row: {
+    flex: 1,
+    flexDirection: 'row',
+    width: '100%',
+    alignItems: 'center',
+  },
   castButton: {
-    width: 24,
-    height: 24,
-    tintColor: 'black',
+    marginLeft: 5,
+    marginRight: 3,
+    width: 40,
+    height: 40,
+    tintColor: darkColor.Font,
   },
 });

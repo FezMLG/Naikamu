@@ -23,9 +23,9 @@ export const PlayerMenu = ({ player }: { player: LinkElement }) => {
       anchor={<Button onPress={openMenu}>Options</Button>}>
       {data && <CastChromecast linkToMP4={data} />}
       <Menu.Item
-        leadingIcon="redo"
+        leadingIcon="remote"
         onPress={() => GoogleCast.showExpandedControls()}
-        title="Redo"
+        title="Cast Controls"
       />
     </Menu>
   );
