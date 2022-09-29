@@ -11,6 +11,8 @@ import WebViewPlayerPage from '../pages/series/episodes/player/WebViewPlayerPage
 import HomePage from '../pages/HomePage';
 import ErrorPlayerPage from '../pages/series/episodes/player/ErrorPlayerPage';
 import { Text } from 'react-native';
+import { IconButton } from 'react-native-paper';
+import GoogleCast from 'react-native-google-cast';
 
 const linking = {
   prefixes: ['aniwatch://'],
@@ -70,6 +72,14 @@ const Routes = () => {
           options={({ route }: any) => ({
             ...defaultOptions({ title: `Episodes: ${route.params.title}` }),
             animation: 'slide_from_right',
+            headerRight: () => (
+              <IconButton
+                icon="remote"
+                iconColor={darkColor.Font}
+                size={20}
+                onPress={() => GoogleCast.showExpandedControls()}
+              />
+            ),
           })}
         />
         <Stack.Screen
