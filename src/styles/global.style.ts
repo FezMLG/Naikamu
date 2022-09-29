@@ -17,3 +17,9 @@ export const globalStyle = StyleSheet.create({
     marginBottom: 10,
   },
 });
+
+export const fontStyles = StyleSheet.create({
+  warning: {
+    color: '#B00020',
+  },
+});
