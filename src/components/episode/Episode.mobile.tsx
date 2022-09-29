@@ -3,8 +3,26 @@ import { Image, SafeAreaView, StyleSheet, View } from 'react-native';
 import { darkStyle } from '../../styles/darkMode.style';
 import { mainEpisodeStyles, navigateToPlayer } from './Episode';
 import { IEpisode, LinkElement } from './interfaces';
-import { List, Text } from 'react-native-paper';
+import { Button, List, Menu, Text } from 'react-native-paper';
 import { defaultRadius } from '../../styles/global.style';
+import { CastChromecast } from '../CastChromecast';
+
+const PlayerMenu = ({ player }: { player: LinkElement }) => {
+  const [visible, setVisible] = React.useState(false);
+
+  const openMenu = () => setVisible(true);
+
+  const closeMenu = () => setVisible(false);
+
+  return (
+    <Menu
+      visible={visible}
+      onDismiss={closeMenu}
+      anchor={<Button onPress={openMenu}>Options</Button>}>
+      <CastChromecast linkToMP4={player.link} />
+    </Menu>
+  );
+};
 
 export const EpisodeMobile = ({
   num,
@@ -52,6 +70,7 @@ export const EpisodeMobile = ({
                   title: episode.title,
                 });
               }}
+              right={() => <PlayerMenu player={player} />}
             />
           );
         })}

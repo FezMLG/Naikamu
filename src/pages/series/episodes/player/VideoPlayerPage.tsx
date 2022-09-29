@@ -28,6 +28,7 @@ const NativeVideoPlayerPage = ({ _navigation, route }: any) => {
   // if (DEBUG) {
   //   isTV = !isTV;
   // }
+
   const myTVEventHandler = (evt: HWEvent) => {
     switch (evt.eventType) {
       case 'playPause':
@@ -58,24 +59,21 @@ const NativeVideoPlayerPage = ({ _navigation, route }: any) => {
     <SafeAreaView style={[styles.container, darkStyle.background]}>
       {isError && <Text>The source is not implemented</Text>}
       {data ? (
-        <Video
-          ref={video}
-          style={styles.video}
-          source={{
-            uri: data
-              ? data
-              : 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-          }}
-          controls={true}
-          resizeMode={'contain'}
-          paused={isPaused}
-          fullscreen={true}
-          // isLooping
-          // shouldPlay
-          // onPlaybackStatusUpdate={setStatus}
-          // onFullscreenUpdate={setOrientation}
-          // onFullscreenPlayerDidPresent={setOrientation}
-        />
+        <>
+          <Video
+            ref={video}
+            style={styles.video}
+            source={{
+              uri: data
+                ? data
+                : 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+            }}
+            controls={true}
+            resizeMode={'contain'}
+            paused={isPaused}
+            fullscreen={true}
+          />
+        </>
       ) : (
         <ActivityIndicator size="large" color={'#C539F7'} />
       )}
