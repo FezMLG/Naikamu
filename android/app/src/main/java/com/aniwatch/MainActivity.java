@@ -4,6 +4,8 @@ import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
 import android.os.Bundle;
+import androidx.annotation.Nullable;
+import com.google.android.gms.cast.framework.CastContext;
 
 public class MainActivity extends ReactActivity {
 
@@ -27,8 +29,15 @@ public class MainActivity extends ReactActivity {
   }
 
   @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(null);
+  protected void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    try {
+      // lazy load Google Cast context
+      CastContext.getSharedInstance(this);
+    } catch (Exception e) {
+      // cast framework not supported
+    }
   }
 
   public static class MainActivityDelegate extends ReactActivityDelegate {
