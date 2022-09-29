@@ -16,8 +16,8 @@ export const Source = ({
 }) => {
   return (
     <FocusButton
-      onPress={() => {
-        navigateToPlayer({
+      onPress={async () => {
+        await navigateToPlayer({
           navigation: navigation,
           player: player,
           title: title,

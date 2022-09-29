@@ -1,10 +1,10 @@
-import { Platform, StyleSheet } from 'react-native';
+import { Linking, Platform, StyleSheet } from 'react-native';
 import { animeId } from '../../pages/series/SeriesPage';
 import { RoutesNames } from '../../routes/RoutesNames.enum';
 import { darkColor, darkStyle } from '../../styles/darkMode.style';
 import { LinkElement } from './interfaces';
 
-export const navigateToPlayer = ({
+export const navigateToPlayer = async ({
   navigation,
   player,
   title,
@@ -26,6 +26,10 @@ export const navigateToPlayer = ({
         title: title,
         player: name,
       });
+
+    case 'pobierz':
+      await Linking.canOpenURL(player.link);
+      return Linking.openURL(player.link);
 
     default:
       if (isTV) {

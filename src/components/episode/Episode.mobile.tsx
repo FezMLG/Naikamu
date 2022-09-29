@@ -45,8 +45,8 @@ export const EpisodeMobile = ({
             <List.Item
               key={index}
               title={player.name}
-              onPress={() => {
-                navigateToPlayer({
+              onPress={async () => {
+                await navigateToPlayer({
                   navigation: navigation,
                   player: player,
                   title: episode.title,
