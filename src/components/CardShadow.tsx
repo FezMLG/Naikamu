@@ -6,6 +6,7 @@ import { darkColor } from '../styles/darkMode.style';
 const CardShadow = (props: {
   children: React.ReactNode;
   focus: boolean;
+  shadowColor?: string;
   style?: [StyleProp<ViewStyle>];
 }) => {
   const defaultShadow = {
@@ -16,8 +17,8 @@ const CardShadow = (props: {
 
   const focusShadow = {
     distance: 2,
-    startColor: '#C539F7',
-    finalColor: '#C539F7',
+    startColor: props.shadowColor ?? '#C539F7',
+    finalColor: props.shadowColor ?? '#C539F7',
   };
 
   return (

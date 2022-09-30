@@ -24,7 +24,7 @@ const BrowseElement = ({
   // };
 
   return (
-    <CardShadow focus={focus}>
+    <CardShadow focus={focus} shadowColor={anime.coverImage.color}>
       <Pressable
         key={anime.id}
         style={[styles.card, darkStyle.card]}
