@@ -6,7 +6,6 @@ import { RoutesNames } from './RoutesNames.enum';
 import BrowsePage from '../pages/BrowsePage';
 import SeriesPage from '../pages/series/SeriesPage';
 import EpisodesListPage from '../pages/series/episodes/EpisodesListPage';
-import { darkColor } from '../styles/darkMode.style';
 import WebViewPlayerPage from '../pages/series/episodes/player/WebViewPlayerPage';
 import HomePage from '../pages/HomePage';
 import ErrorPlayerPage from '../pages/series/episodes/player/ErrorPlayerPage';
@@ -27,19 +26,17 @@ const linking = {
 const defaultOptions = ({ title }: { title?: string }) => {
   return {
     title: title,
-    headerStyle: { backgroundColor: darkColor.C800 },
-    headerTitleStyle: {
-      color: darkColor.Font,
-    },
-    headerTintColor: darkColor.Font,
   };
 };
 
 const Stack = createNativeStackNavigator();
 
-const Routes = () => {
+const Routes = ({ theme }: any) => {
   return (
-    <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>}>
+    <NavigationContainer
+      linking={linking}
+      fallback={<Text>Loading...</Text>}
+      theme={theme}>
       <Stack.Navigator>
         <Stack.Screen
           name={RoutesNames.Home}
@@ -75,8 +72,7 @@ const Routes = () => {
             headerRight: () => (
               <IconButton
                 icon="remote"
-                iconColor={darkColor.Font}
-                size={20}
+                size={24}
                 onPress={() => GoogleCast.showExpandedControls()}
               />
             ),
