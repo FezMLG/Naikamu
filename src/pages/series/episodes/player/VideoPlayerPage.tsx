@@ -9,7 +9,6 @@ import { useQuery } from '@tanstack/react-query';
 import Video from 'react-native-video';
 import { getVideoUrl } from '../../../../api/video/getVideoUrl';
 import { ActivityIndicator, Text } from 'react-native-paper';
-import { darkStyle } from '../../../../styles/darkMode.style';
 import { maxHeight, maxWidth } from '../../../../components/maxDimensions';
 
 const NativeVideoPlayerPage = ({ _navigation, route }: any) => {
@@ -56,7 +55,7 @@ const NativeVideoPlayerPage = ({ _navigation, route }: any) => {
   // }
 
   return (
-    <SafeAreaView style={[styles.container, darkStyle.background]}>
+    <SafeAreaView style={[styles.container]}>
       {isError && <Text>The source is not implemented</Text>}
       {data ? (
         <>

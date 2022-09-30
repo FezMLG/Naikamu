@@ -54,7 +54,7 @@ const SeriesPage = ({ navigation, route }: any) => {
   });
 
   return (
-    <SafeAreaView style={[styles.container, darkStyle.background]}>
+    <SafeAreaView style={[styles.container]}>
       {data ? (
         <ScrollView style={styles.scrollView}>
           <Image

@@ -22,7 +22,7 @@ const EpisodesListPage = ({ navigation, route }: any) => {
   );
 
   return (
-    <SafeAreaView style={[styles.container, darkStyle.background]}>
+    <SafeAreaView style={[styles.container]}>
       <ScrollView style={styles.scrollView}>
         {isLoading && <ActivityIndicator size="large" />}
         {data &&

@@ -1,6 +1,5 @@
 import { StyleSheet, SafeAreaView } from 'react-native';
 import React from 'react';
-import { darkStyle } from '../../../../styles/darkMode.style';
 import WebView from 'react-native-webview';
 import { maxHeight, maxWidth } from '../../../../components/maxDimensions';
 
@@ -18,7 +17,7 @@ const WebViewPlayerPage = ({ route }: any) => {
   // }
 
   return (
-    <SafeAreaView style={[styles.container, darkStyle.background]}>
+    <SafeAreaView style={[styles.container]}>
       <WebView source={{ uri: uri }} />
     </SafeAreaView>
   );

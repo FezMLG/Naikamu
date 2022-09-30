@@ -9,7 +9,6 @@ import React from 'react';
 import { NetworkStatus, useQuery } from '@apollo/client';
 import { LIST_OF_ANIME } from '../api/graphql/anilist/listOfAnime';
 import { IALListOfAnime, Media } from '../interfaces';
-import { darkStyle } from '../styles/darkMode.style';
 import BrowseElement from '../components/browse/BrowseElement';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { maxWidth } from '../components/maxDimensions';
@@ -66,7 +65,7 @@ const BrowsePage = ({ navigation }: any) => {
   }
 
   return (
-    <SafeAreaView style={[styles.container, darkStyle.background]}>
+    <SafeAreaView style={[styles.container]}>
       {data && (
         <FlatList
           data={data.Page.media}

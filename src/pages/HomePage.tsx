@@ -9,7 +9,7 @@ import { FocusButton } from '../components/FocusButton';
 
 const HomePage = ({ navigation }: any) => {
   return (
-    <SafeAreaView style={[styles.container, darkStyle.background]}>
+    <SafeAreaView style={[styles.container]}>
       <Text variant="headlineLarge" style={darkStyle.font}>
         Welcome to AniWatch
       </Text>

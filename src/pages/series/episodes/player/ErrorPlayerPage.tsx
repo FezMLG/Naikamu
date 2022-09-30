@@ -11,7 +11,7 @@ const ErrorPlayerPage = ({ route }: any) => {
   const { playerName, animeId } = route.params;
   //TODO styling for this page
   return (
-    <SafeAreaView style={[styles.container, darkStyle.background]}>
+    <SafeAreaView style={[styles.container]}>
       <Text
         variant="headlineLarge"
         style={[darkStyle.font, globalStyle.spacer, fontStyles.warning]}>
