@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { StyleSheet, Image, Text, View, Pressable } from 'react-native';
-import CardShadow from '../components/CardShadow';
-import { Media } from '../interfaces';
-import { RoutesNames } from '../routes/RoutesNames.enum';
-import { darkStyle } from '../styles/darkMode.style';
+import { StyleSheet, Text, View, Pressable, Image } from 'react-native';
+import CardShadow from '../CardShadow';
+import { Media } from '../../interfaces';
+import { RoutesNames } from '../../routes/RoutesNames.enum';
+import { darkStyle } from '../../styles/darkMode.style';
 
 const BrowseElement = ({
   anime,
