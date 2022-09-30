@@ -24,6 +24,7 @@ export const LIST_OF_ANIME = gql`
         }
         coverImage {
           extraLarge
+          color
         }
       }
     }

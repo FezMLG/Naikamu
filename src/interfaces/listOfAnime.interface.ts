@@ -15,6 +15,7 @@ export interface Media {
 
 interface CoverImage {
   extraLarge: string;
+  color: string;
 }
 
 interface Title {
