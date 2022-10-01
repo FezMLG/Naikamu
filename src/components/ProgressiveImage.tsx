@@ -1,14 +1,10 @@
 import React from 'react';
-import {
-  Animated,
-  ImageSourcePropType,
-  ImageStyle,
-  StyleProp,
-} from 'react-native';
+import { Animated, StyleProp } from 'react-native';
+import FastImage, { ImageStyle } from 'react-native-fast-image';
 
 export const ProgressiveImage = (props: {
-  source: ImageSourcePropType;
-  style: StyleProp<ImageStyle>[];
+  source: string;
+  style: StyleProp<ImageStyle>;
 }) => {
   const imageAnimated = new Animated.Value(0);
 
@@ -22,10 +18,13 @@ export const ProgressiveImage = (props: {
   const { source, style } = props;
 
   return (
-    <Animated.Image
-      {...props}
-      source={source}
-      style={[{ opacity: imageAnimated }, ...style]}
+    <FastImage
+      source={{
+        uri: source,
+        priority: FastImage.priority.normal,
+      }}
+      style={style}
+      resizeMode={FastImage.resizeMode.cover}
       onLoad={onImageLoad}
     />
   );

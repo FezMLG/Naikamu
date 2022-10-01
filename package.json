@@ -28,6 +28,7 @@
     "graphql": "^16.6.0",
     "react": "18.0.0",
     "react-native": "npm:react-native-tvos@latest",
+    "react-native-fast-image": "^8.6.1",
     "react-native-google-cast": "^4.5.0",
     "react-native-paper": "5.0.0-rc.6",
     "react-native-qrcode-svg": "^6.1.2",

@@ -43,7 +43,7 @@ const BrowseElement = ({
               styles.poster,
               { backgroundColor: anime.coverImage.color },
             ]}>
-            <ProgressiveImage
+            {/* <ProgressiveImage
               source={{
                 uri: anime.coverImage.extraLarge,
               }}
@@ -51,6 +51,10 @@ const BrowseElement = ({
                 styles.poster,
                 { backgroundColor: anime.coverImage.color },
               ]}
+            /> */}
+            <ProgressiveImage
+              source={anime.coverImage.extraLarge}
+              style={styles.poster}
             />
           </View>
           <Text numberOfLines={2} style={[styles.title, darkStyle.font]}>
