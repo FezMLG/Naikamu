@@ -9,9 +9,9 @@ import EpisodesListPage from '../pages/series/episodes/EpisodesListPage';
 import WebViewPlayerPage from '../pages/series/episodes/player/WebViewPlayerPage';
 import HomePage from '../pages/HomePage';
 import ErrorPlayerPage from '../pages/series/episodes/player/ErrorPlayerPage';
-import { Text } from 'react-native';
 import { IconButton } from 'react-native-paper';
 import GoogleCast from 'react-native-google-cast';
+import SplashPage from '../pages/SplashPage';
 
 const linking = {
   prefixes: ['aniwatch://'],
@@ -35,7 +35,7 @@ const Routes = ({ theme }: any) => {
   return (
     <NavigationContainer
       linking={linking}
-      fallback={<Text>Loading...</Text>}
+      fallback={<SplashPage />}
       theme={theme}>
       <Stack.Navigator>
         <Stack.Screen
