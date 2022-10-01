@@ -1,21 +1,15 @@
-import {
-  StyleSheet,
-  ActivityIndicator,
-  FlatList,
-  Platform,
-  View,
-} from 'react-native';
-import React from 'react';
+import { StyleSheet, ActivityIndicator, FlatList, View } from 'react-native';
+import React, { useRef, useState } from 'react';
 import { NetworkStatus, useQuery } from '@apollo/client';
 import { LIST_OF_ANIME } from '../api/graphql/anilist/listOfAnime';
 import { IALListOfAnime, Media } from '../interfaces';
 import BrowseElement from '../components/browse/BrowseElement';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { maxWidth } from '../components/maxDimensions';
+import { FAB } from 'react-native-paper';
 
 const perPage = 25;
 const BrowsePage = ({ navigation }: any) => {
-  const { isTV } = Platform;
   const { loading, data, error, fetchMore, refetch, networkStatus } =
     useQuery<IALListOfAnime>(LIST_OF_ANIME, {
       variables: {
@@ -24,6 +18,9 @@ const BrowsePage = ({ navigation }: any) => {
       },
       notifyOnNetworkStatusChange: true,
     });
+  const listRef = useRef<FlatList>(null);
+  const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
+  const CONTENT_OFFSET_THRESHOLD = 300;
 
   const handleOnEndReached = () => {
     if (data?.Page.pageInfo.hasNextPage) {
@@ -67,18 +64,32 @@ const BrowsePage = ({ navigation }: any) => {
   return (
     <SafeAreaView style={[styles.container]}>
       {data && (
-        <FlatList
-          data={data.Page.media}
-          renderItem={renderItem}
-          initialNumToRender={isTV ? 8 : 4}
-          numColumns={Math.floor(maxWidth() / 240)}
-          contentContainerStyle={{ flexGrow: 1 }}
-          keyExtractor={() => Math.random().toString()}
-          onEndReachedThreshold={1}
-          onEndReached={handleOnEndReached}
-          onRefresh={refetch}
-          refreshing={refreshing}
-        />
+        <>
+          <FlatList
+            ref={listRef}
+            data={data.Page.media}
+            renderItem={renderItem}
+            numColumns={Math.floor(maxWidth() / 240)}
+            contentContainerStyle={{ flexGrow: 1 }}
+            keyExtractor={(_, index) => index.toString()}
+            onEndReachedThreshold={1}
+            onEndReached={handleOnEndReached}
+            onRefresh={refetch}
+            refreshing={refreshing}
+            onScroll={event => {
+              setContentVerticalOffset(event.nativeEvent.contentOffset.y);
+            }}
+          />
+          {contentVerticalOffset > CONTENT_OFFSET_THRESHOLD && (
+            <FAB
+              icon={'arrow-up-circle'}
+              style={styles.fab}
+              onPress={() => {
+                listRef.current!.scrollToOffset({ offset: 0, animated: true });
+              }}
+            />
+          )}
+        </>
       )}
       {loading && <ActivityIndicator size="large" />}
     </SafeAreaView>
@@ -119,6 +130,12 @@ const styles = StyleSheet.create({
   wrapperFocused: {
     borderColor: 'purple',
     borderWidth: 1,
+  },
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
   },
 });
 
