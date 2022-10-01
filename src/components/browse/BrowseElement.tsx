@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Pressable, Image } from 'react-native';
+import { StyleSheet, Text, View, Pressable } from 'react-native';
 import CardShadow from '../CardShadow';
 import { Media } from '../../interfaces';
 import { RoutesNames } from '../../routes/RoutesNames.enum';
 import { darkStyle } from '../../styles/darkMode.style';
+import { ProgressiveImage } from '../ProgressiveImage';
 
 const BrowseElement = ({
   anime,
@@ -37,10 +38,21 @@ const BrowseElement = ({
           });
         }}>
         <View>
-          <Image
-            style={styles.poster}
-            source={{ uri: anime.coverImage.extraLarge }}
-          />
+          <View
+            style={[
+              styles.poster,
+              { backgroundColor: anime.coverImage.color },
+            ]}>
+            <ProgressiveImage
+              source={{
+                uri: anime.coverImage.extraLarge,
+              }}
+              style={[
+                styles.poster,
+                { backgroundColor: anime.coverImage.color },
+              ]}
+            />
+          </View>
           <Text numberOfLines={2} style={[styles.title, darkStyle.font]}>
             {anime.title.romaji}
           </Text>
