@@ -3,10 +3,10 @@ export interface IEpisode {
   title: string;
   description: string;
   number: number;
-  banner: string;
+  banner?: string;
   players: LinkElement[];
-  added_at: string;
-  last_edit: string;
+  added_at?: string;
+  last_edit?: string;
   poster: string;
 }
 
