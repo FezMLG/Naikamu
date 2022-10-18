@@ -10,7 +10,7 @@ import { AnimePlayer } from '../../interfaces';
 export const PlayerMenu = ({ player }: { player: AnimePlayer }) => {
   const [visible, setVisible] = React.useState(false);
   const { data } = useQuery(
-    ['aaaa'],
+    ['anime', 'episode', player.player_link],
     () => getVideoUrl('cda', player.player_link),
     {
       retry: false,
