@@ -48,7 +48,7 @@ export let animeId: number;
 const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
   const apiClient = new APIClient();
   const { title } = route.params;
-  const { data } = useQuery<AnimeDetails>(['anime', 'details', title], () =>
+  const { data } = useQuery<AnimeDetails>(['anime', title, 'details'], () =>
     apiClient.getAnimeDetails(title),
   );
 
