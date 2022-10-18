@@ -2,7 +2,6 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Linking, Platform, StyleSheet } from 'react-native';
 import { AnimePlayer } from '../../interfaces';
 
-import { animeId } from '../../pages/series/SeriesPage';
 import { RootStackParamList, RoutesNames } from '../../routes/interfaces';
 import { darkColor, darkStyle } from '../../styles/darkMode.style';
 
@@ -41,7 +40,7 @@ export const navigateToPlayer = async ({
       if (isTV) {
         return navigation.navigate(RoutesNames.WatchError, {
           playerName: name,
-          animeId: animeId,
+          animeTitle: title,
         });
       }
       return navigation.navigate(RoutesNames.WatchWebView, {
