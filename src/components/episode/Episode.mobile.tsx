@@ -1,26 +1,33 @@
 import React from 'react';
 import { Image, SafeAreaView, StyleSheet, View } from 'react-native';
+import { Text } from 'react-native-paper';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
 import { darkStyle } from '../../styles/darkMode.style';
-import { mainEpisodeStyles, navigateToPlayer } from './Episode';
-import { IEpisode, LinkElement } from './interfaces';
-import { List, Text } from 'react-native-paper';
+import { mainEpisodeStyles } from './Episode';
 import { defaultRadius } from '../../styles/global.style';
-import { PlayerMenu } from './PlayerMenu';
+import { AnimeEpisode } from '../../interfaces';
+import { RootStackParamList, RoutesNames } from '../../routes/interfaces';
 
 export const EpisodeMobile = ({
   num,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   navigation,
   episode,
 }: {
   num: number;
-  navigation: any;
-  episode: IEpisode;
+  navigation: NativeStackNavigationProp<
+    RootStackParamList,
+    RoutesNames.Episodes,
+    undefined
+  >;
+  episode: AnimeEpisode;
 }) => (
   <SafeAreaView style={[styles.episodeContainerMobile]}>
     <View style={[styles.card, darkStyle.card]}>
       <Image
         style={[styles.poster, styles.borderRadius]}
-        source={{ uri: episode.poster }}
+        source={{ uri: episode.poster_url ?? '' }}
       />
       <Text
         variant="titleLarge"
@@ -35,13 +42,15 @@ export const EpisodeMobile = ({
         style={[styles.description, darkStyle.font]}>
         {episode.description}
       </Text>
-      <List.Accordion
+      {
+        // TODO change loading episodes behavior
+        /* <List.Accordion
         title={`${episode.players.length} available ${
           episode.players.length === 1 ? 'player' : 'players'
         }`}
         left={props => <List.Icon {...props} icon="folder" />}>
         {episode.players.map((player: LinkElement, index: number) => {
-          //TODO on long press user can choose if he want to open in webview or open external browser (mobile only)
+          // TODO on long press user can choose if he want to open in webview or open external browser (mobile only)
           return (
             <List.Item
               key={index}
@@ -57,7 +66,8 @@ export const EpisodeMobile = ({
             />
           );
         })}
-      </List.Accordion>
+      </List.Accordion> */
+      }
     </View>
   </SafeAreaView>
 );

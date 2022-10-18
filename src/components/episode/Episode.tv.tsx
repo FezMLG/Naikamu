@@ -1,25 +1,31 @@
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
-import { IEpisode, LinkElement } from './interfaces';
 import { darkStyle, darkColor } from '../../styles/darkMode.style';
 import { mainEpisodeStyles } from './Episode';
 
-import { Source } from './Source';
 import { Text } from 'react-native-paper';
 import { defaultRadius } from '../../styles/global.style';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList, RoutesNames } from '../../routes/interfaces';
+import { AnimeEpisode } from '../../interfaces';
 
 export const EpisodeTV = ({
   num,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   navigation,
   episode,
 }: {
   num: number;
-  navigation: any;
-  episode: IEpisode;
+  navigation: NativeStackNavigationProp<
+    RootStackParamList,
+    RoutesNames.Episodes,
+    undefined
+  >;
+  episode: AnimeEpisode;
 }) => (
   <View style={[styles.episodeContainer]}>
     <View style={[styles.card]}>
-      <Image style={styles.poster} source={{ uri: episode.poster }} />
+      <Image style={styles.poster} source={{ uri: episode.poster_url ?? '' }} />
       <Text
         variant="titleLarge"
         accessible={false}
@@ -42,7 +48,7 @@ export const EpisodeTV = ({
         Available players:
       </Text>
       <View style={styles.linksBox}>
-        {episode.players.map((player: LinkElement, index: number) => {
+        {/* {episode.players.map((player: LinkElement, index: number) => {
           return (
             <Source
               key={index}
@@ -51,7 +57,7 @@ export const EpisodeTV = ({
               title={episode.title}
             />
           );
-        })}
+        })} */}
       </View>
     </View>
   </View>
