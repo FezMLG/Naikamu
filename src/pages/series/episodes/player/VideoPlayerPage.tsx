@@ -7,11 +7,13 @@ import {
 import React, { useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Video from 'react-native-video';
-import { getVideoUrl } from '../../../../api/video/getVideoUrl';
 import { ActivityIndicator, Text } from 'react-native-paper';
-import { maxHeight, maxWidth } from '../../../../components/maxDimensions';
 
-const NativeVideoPlayerPage = ({ _navigation, route }: any) => {
+import { getVideoUrl } from '../../../../api/video/getVideoUrl';
+import { maxHeight, maxWidth } from '../../../../components/maxDimensions';
+import { WatchNativePageProps } from '../../../../routes/interfaces';
+
+const NativeVideoPlayerPage = ({ route }: WatchNativePageProps) => {
   const { title, uri, player } = route.params;
   const { data, isError } = useQuery(
     [player + ':' + title],

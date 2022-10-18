@@ -18,7 +18,7 @@ const linking = {
   config: {
     screens: {
       [RoutesNames.Browse]: 'browse',
-      [RoutesNames.Series]: 'browse/:id',
+      [RoutesNames.Series]: 'browse/:title',
     },
   },
 };

@@ -55,7 +55,7 @@ export type RootStackParamList = {
   [RoutesNames.Episodes]: { title: string; numOfAiredEpisodes: number };
   [RoutesNames.WatchNative]: { uri: string; title: string; player: string };
   [RoutesNames.WatchWebView]: { uri: string };
-  [RoutesNames.WatchError]: { playerName: string; animeId: number };
+  [RoutesNames.WatchError]: { playerName: string; animeTitle: string };
 };
 
 export type HomePageProps = NativeStackScreenProps<

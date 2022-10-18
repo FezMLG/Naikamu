@@ -1,6 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 import { AnimeSeason } from '../enums/anime-season.enum';
 import { AnimeList, AnimeDetails, AnimeEpisodes } from '../interfaces';
+import { makeRouteFromTitle } from '../utils';
 
 interface GetAnimeListDTO {
   page?: number;
@@ -38,28 +39,27 @@ export class APIClient {
   }
 
   async getAnimeDetails(animeName: string): Promise<AnimeDetails> {
-    animeName.replace(/[^a-z0-9]/gi, '');
-    animeName.replace(/ /g, '-');
-    return this.get<AnimeDetails>(`/${animeName}`);
+    return this.get<AnimeDetails>(`/${makeRouteFromTitle(animeName)}`);
   }
 
   async getEpisodes(
     animeName: string,
     expectedEpisodes: number,
   ): Promise<AnimeEpisodes> {
-    animeName.replace(/[^a-z0-9]/gi, '');
-    animeName.replace(/ /g, '-');
-    return this.post<AnimeEpisodes>(`/${animeName}/episodes`, {
-      expected_episodes: expectedEpisodes,
-    });
+    return this.post<AnimeEpisodes>(
+      `/${makeRouteFromTitle(animeName)}/episodes`,
+      {
+        expected_episodes: expectedEpisodes,
+      },
+    );
   }
 
   async getEpisodePlayers(
     animeName: string,
     episode: number,
   ): Promise<AnimeEpisodes> {
-    animeName.replace(/[^a-z0-9]/gi, '');
-    animeName.replace(/ /g, '-');
-    return this.get<AnimeEpisodes>(`/${animeName}/episode/${episode}`);
+    return this.get<AnimeEpisodes>(
+      `/${makeRouteFromTitle(animeName)}/episode/${episode}`,
+    );
   }
 }
