@@ -52,10 +52,10 @@ export type RootStackParamList = {
   [RoutesNames.Home]: undefined;
   [RoutesNames.Browse]: undefined;
   [RoutesNames.Series]: { title: string };
-  [RoutesNames.Episodes]: { title: string };
-  [RoutesNames.WatchNative]: { uri: string; title: string };
-  [RoutesNames.WatchWebView]: { uri: string; title: string };
-  [RoutesNames.WatchError]: { uri: string; title: string };
+  [RoutesNames.Episodes]: { title: string; numOfAiredEpisodes: number };
+  [RoutesNames.WatchNative]: { uri: string; title: string; player: string };
+  [RoutesNames.WatchWebView]: { uri: string };
+  [RoutesNames.WatchError]: { playerName: string; animeId: number };
 };
 
 export type HomePageProps = NativeStackScreenProps<
@@ -73,17 +73,17 @@ export type SeriesPageProps = NativeStackScreenProps<
 >;
 export type EpisodesPageProps = NativeStackScreenProps<
   RootStackParamList,
-  RoutesNames.Series
+  RoutesNames.Episodes
 >;
 export type WatchNativePageProps = NativeStackScreenProps<
   RootStackParamList,
-  RoutesNames.Series
+  RoutesNames.WatchNative
 >;
 export type WatchWebViewPageProps = NativeStackScreenProps<
   RootStackParamList,
-  RoutesNames.Series
+  RoutesNames.WatchWebView
 >;
 export type WatchErrorPageProps = NativeStackScreenProps<
   RootStackParamList,
-  RoutesNames.Series
+  RoutesNames.WatchError
 >;

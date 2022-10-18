@@ -71,6 +71,8 @@ const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
               onPress={() => {
                 navigation.navigate(RoutesNames.Episodes, {
                   title: data.title.romaji,
+                  numOfAiredEpisodes:
+                    data.nextAiringEpisode?.episode ?? data.episodes,
                 });
               }}
               style={[]}>

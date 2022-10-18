@@ -1,6 +1,8 @@
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Linking, Platform, StyleSheet } from 'react-native';
+
 import { animeId } from '../../pages/series/SeriesPage';
-import { RoutesNames } from '../../routes/RoutesNames.enum';
+import { RootStackParamList, RoutesNames } from '../../routes/interfaces';
 import { darkColor, darkStyle } from '../../styles/darkMode.style';
 import { LinkElement } from './interfaces';
 
@@ -9,7 +11,11 @@ export const navigateToPlayer = async ({
   player,
   title,
 }: {
-  navigation: any;
+  navigation: NativeStackNavigationProp<
+    RootStackParamList,
+    RoutesNames.Episodes,
+    undefined
+  >;
   player: LinkElement;
   title: string;
 }) => {

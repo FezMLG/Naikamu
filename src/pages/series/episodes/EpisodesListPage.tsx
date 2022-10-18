@@ -7,18 +7,27 @@ import {
 } from 'react-native';
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { getTitle } from '../../../api/rest/frixy/getTitle';
+import { Text } from 'react-native-paper';
+
 import { darkStyle } from '../../../styles/darkMode.style';
-import { IEpisode } from '../../../components/episode/interfaces';
 import { EpisodeMobile } from '../../../components/episode/Episode.mobile';
 import { EpisodeTV } from '../../../components/episode/Episode.tv';
-import { Text } from 'react-native-paper';
 import { globalStyle } from '../../../styles/global.style';
+import { APIClient } from '../../../api/APIClient';
+import { EpisodesPageProps } from '../../../routes/interfaces';
+import { AnimeEpisode } from '../../../interfaces';
+
 const { isTV } = Platform;
 
-const EpisodesListPage = ({ navigation, route }: any) => {
-  const { isLoading, data } = useQuery([route.params.title], () =>
-    getTitle(route.params.title),
+const EpisodesListPage = ({ navigation, route }: EpisodesPageProps) => {
+  const apiClient = new APIClient();
+  const { isLoading, data } = useQuery(
+    ['anime', route.params.title, 'episodes'],
+    () =>
+      apiClient.getEpisodes(
+        route.params.title,
+        route.params.numOfAiredEpisodes,
+      ),
   );
 
   return (
@@ -26,7 +35,7 @@ const EpisodesListPage = ({ navigation, route }: any) => {
       <ScrollView style={styles.scrollView}>
         {isLoading && <ActivityIndicator size="large" />}
         {data &&
-          data.episodes.map((episode: IEpisode, index: number) => {
+          data.episodes.map((episode: AnimeEpisode, index: number) => {
             if (isTV) {
               return (
                 <EpisodeTV
