@@ -10,15 +10,16 @@ import {
 } from 'react-native';
 import React from 'react';
 import { format } from 'date-fns';
-import { RoutesNames } from '../../routes/RoutesNames.enum';
-import { useQuery } from '@apollo/client';
-import { IALTitleInfo } from '../../interfaces';
-import { TITLE_INFO } from '../../api/graphql/anilist/titleInfo';
 import WebView from 'react-native-webview';
+import { useQuery } from '@tanstack/react-query';
+import { ActivityIndicator, Chip, Text } from 'react-native-paper';
+
 import { darkColor, darkStyle } from '../../styles/darkMode.style';
 import { defaultRadius, globalStyle } from '../../styles/global.style';
-import { ActivityIndicator, Chip, Text } from 'react-native-paper';
 import { FocusButton } from '../../components/FocusButton';
+import { RoutesNames, SeriesPageProps } from '../../routes/interfaces';
+import { AnimeDetails } from '../../interfaces';
+import { APIClient } from '../../api/APIClient';
 
 const { isTV } = Platform;
 const QuickInfo = ({
@@ -44,14 +45,12 @@ const QuickInfo = ({
 
 export let animeId: number;
 
-const SeriesPage = ({ navigation, route }: any) => {
-  const { id } = route.params;
-  animeId = id;
-  const { data } = useQuery<IALTitleInfo>(TITLE_INFO, {
-    variables: {
-      id,
-    },
-  });
+const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
+  const apiClient = new APIClient();
+  const { title } = route.params;
+  const { data } = useQuery<AnimeDetails>(['anime', 'details', title], () =>
+    apiClient.getAnimeDetails(title),
+  );
 
   return (
     <SafeAreaView style={[styles.container]}>
@@ -60,9 +59,9 @@ const SeriesPage = ({ navigation, route }: any) => {
           <Image
             style={[styles.banner]}
             source={{
-              uri: data.Media.bannerImage
-                ? data.Media.bannerImage
-                : data.Media.coverImage.extraLarge,
+              uri: data.bannerImage
+                ? data.bannerImage
+                : data.coverImage.extraLarge,
             }}
           />
           <View style={styles.body}>
@@ -71,7 +70,7 @@ const SeriesPage = ({ navigation, route }: any) => {
               icon="view-list"
               onPress={() => {
                 navigation.navigate(RoutesNames.Episodes, {
-                  title: data.Media.title.romaji,
+                  title: data.title.romaji,
                 });
               }}
               style={[]}>
@@ -79,19 +78,19 @@ const SeriesPage = ({ navigation, route }: any) => {
             </FocusButton>
             <View style={[globalStyle.spacer]} />
             <Text variant="headlineLarge" style={darkStyle.font}>
-              {data.Media.title.romaji}
+              {data.title.romaji}
             </Text>
             <Text variant="titleSmall" style={darkStyle.font}>
-              {data.Media.title.english}
+              {data.title.english}
             </Text>
             <Text
               variant="bodyMedium"
               style={[darkStyle.font, globalStyle.spacer]}>
-              {data.Media.description.replace(/<[^>]*>?/gm, '')}
+              {data.description.replace(/<[^>]*>?/gm, '')}
             </Text>
             <Text style={[styles.titleType, darkStyle.font]}>Genres</Text>
             <View style={styles.chipContainer}>
-              {data.Media.genres.map((genre, index) => {
+              {data.genres.map((genre, index) => {
                 return (
                   <Chip key={index} style={styles.chipGenre}>
                     {genre}
@@ -104,36 +103,33 @@ const SeriesPage = ({ navigation, route }: any) => {
               style={[styles.quickInfoScroll, styles.categorySpacer]}>
               <QuickInfo
                 name="Format"
-                value={data.Media.format}
+                value={data.format}
                 style={[styles.paddingLeft]}
               />
-              <QuickInfo name="Episodes" value={data.Media.episodes} />
-              <QuickInfo
-                name="Duration"
-                value={`${data.Media.duration} mins`}
-              />
+              <QuickInfo name="Episodes" value={data.episodes} />
+              <QuickInfo name="Duration" value={`${data.duration} mins`} />
               <QuickInfo
                 name="AniList Score"
-                value={`${data.Media.averageScore} / 100`}
+                value={`${data.averageScore} / 100`}
               />
               <QuickInfo
                 name="Season"
-                value={`${data.Media.season} ${data.Media.seasonYear}`}
+                value={`${data.season} ${data.seasonYear}`}
               />
             </ScrollView>
-            {data.Media.nextAiringEpisode && (
+            {data.nextAiringEpisode && (
               <>
                 <QuickInfo
                   name="Next Episode"
                   value={format(
-                    new Date(data.Media.nextAiringEpisode.airingAt * 1000),
+                    new Date(data.nextAiringEpisode.airingAt * 1000),
                     'dd MM yyyy',
                   )}
                   style={[styles.marginV]}
                 />
                 <QuickInfo
                   name="Next Airing Episode"
-                  value={data.Media.nextAiringEpisode.episode}
+                  value={data.nextAiringEpisode.episode}
                   style={[styles.marginV]}
                 />
               </>
@@ -146,7 +142,7 @@ const SeriesPage = ({ navigation, route }: any) => {
               style={[styles.webview, globalStyle.spacer]}
               javaScriptEnabled={true}
               source={{
-                uri: `https://www.youtube.com/embed/${data.Media.trailer.id}`,
+                uri: `https://www.youtube.com/embed/${data.trailer?.id}`,
               }}
             />
             <Text
