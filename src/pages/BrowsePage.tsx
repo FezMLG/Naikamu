@@ -1,57 +1,31 @@
-import { StyleSheet, ActivityIndicator, FlatList, View } from 'react-native';
+import { StyleSheet, ActivityIndicator, FlatList } from 'react-native';
 import React, { useRef, useState } from 'react';
-import { NetworkStatus, useQuery } from '@apollo/client';
-import { LIST_OF_ANIME } from '../api/graphql/anilist/listOfAnime';
-import { IALListOfAnime, Media } from '../interfaces';
-import BrowseElement from '../components/browse/BrowseElement';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { maxWidth } from '../components/maxDimensions';
 import { FAB } from 'react-native-paper';
+import { useInfiniteQuery } from '@tanstack/react-query';
+
+import BrowseElement from '../components/browse/BrowseElement';
+import { maxWidth } from '../components/maxDimensions';
+import { AnimeList, Media } from '../interfaces';
+import { APIClient } from '../api/APIClient';
 
 const perPage = 25;
 const BrowsePage = ({ navigation }: any) => {
-  const { loading, data, error, fetchMore, refetch, networkStatus } =
-    useQuery<IALListOfAnime>(LIST_OF_ANIME, {
-      variables: {
-        page: 1,
-        perPage: perPage,
+  const apiClient = new APIClient();
+  const { isLoading, data, error, refetch, fetchNextPage } =
+    useInfiniteQuery<AnimeList>(
+      ['browse'],
+      () =>
+        apiClient.getAnimeList({
+          perPage: perPage,
+        }),
+      {
+        getNextPageParam: lastPage => lastPage.Page.pageInfo.currentPage + 1,
       },
-      notifyOnNetworkStatusChange: true,
-    });
+    );
   const listRef = useRef<FlatList>(null);
   const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
   const CONTENT_OFFSET_THRESHOLD = 300;
-
-  const handleOnEndReached = () => {
-    if (data?.Page.pageInfo.hasNextPage) {
-      console.log('has next page');
-      return fetchMore({
-        variables: {
-          page: data.Page.pageInfo.currentPage + 1,
-          perPage: perPage,
-        },
-        updateQuery: (previousResult, { fetchMoreResult }) => {
-          const newEntries = fetchMoreResult.Page.media;
-          return {
-            Page: {
-              pageInfo: fetchMoreResult.Page.pageInfo,
-              media: [...previousResult.Page.media, ...newEntries],
-            },
-          };
-        },
-      });
-    }
-  };
-
-  const refreshing = networkStatus === NetworkStatus.refetch;
-  // prevent the loading indicator from appearing while refreshing
-  if (loading && data?.Page.media.length === 0 && !refreshing) {
-    return (
-      <View>
-        <ActivityIndicator size="large" color="rgb(0, 122, 255)" />
-      </View>
-    );
-  }
 
   const renderItem = ({ item }: { item: Media }) => (
     <BrowseElement anime={item} navigation={navigation} />
@@ -63,19 +37,20 @@ const BrowsePage = ({ navigation }: any) => {
 
   return (
     <SafeAreaView style={[styles.container]}>
+      {isLoading && <ActivityIndicator size="large" />}
+
       {data && (
         <>
           <FlatList
             ref={listRef}
-            data={data.Page.media}
+            data={data.pages.map(page => page.Page.media).flat()}
             renderItem={renderItem}
             numColumns={Math.floor(maxWidth() / 240)}
             contentContainerStyle={{ flexGrow: 1 }}
             keyExtractor={(_, index) => index.toString()}
             onEndReachedThreshold={1}
-            onEndReached={handleOnEndReached}
             onRefresh={refetch}
-            refreshing={refreshing}
+            onEndReached={() => fetchNextPage()}
             onScroll={event => {
               setContentVerticalOffset(event.nativeEvent.contentOffset.y);
             }}
@@ -91,7 +66,6 @@ const BrowsePage = ({ navigation }: any) => {
           )}
         </>
       )}
-      {loading && <ActivityIndicator size="large" />}
     </SafeAreaView>
   );
 };
