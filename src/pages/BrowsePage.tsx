@@ -8,9 +8,10 @@ import BrowseElement from '../components/browse/BrowseElement';
 import { maxWidth } from '../components/maxDimensions';
 import { AnimeList, Media } from '../interfaces';
 import { APIClient } from '../api/APIClient';
+import { BrowsePageProps, RoutesNames } from '../routes/interfaces';
 
 const perPage = 25;
-const BrowsePage = ({ navigation }: any) => {
+const BrowsePage = ({ navigation }: BrowsePageProps) => {
   const apiClient = new APIClient();
   const { isLoading, data, error, refetch, fetchNextPage } =
     useInfiniteQuery<AnimeList>(
@@ -28,7 +29,14 @@ const BrowsePage = ({ navigation }: any) => {
   const CONTENT_OFFSET_THRESHOLD = 300;
 
   const renderItem = ({ item }: { item: Media }) => (
-    <BrowseElement anime={item} navigation={navigation} />
+    <BrowseElement
+      anime={item}
+      handlePageChange={() => {
+        navigation.navigate(RoutesNames.Series, {
+          title: item.title.romaji,
+        });
+      }}
+    />
   );
 
   if (error) {

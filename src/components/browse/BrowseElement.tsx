@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Pressable } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Pressable,
+  GestureResponderEvent,
+} from 'react-native';
 import CardShadow from '../CardShadow';
 import { Media } from '../../interfaces';
-import { RoutesNames } from '../../routes/RoutesNames.enum';
 import { darkStyle } from '../../styles/darkMode.style';
 import { ProgressiveImage } from '../ProgressiveImage';
 
 const BrowseElement = ({
   anime,
-  navigation,
+  handlePageChange,
 }: {
   anime: Media;
-  navigation: any;
+  handlePageChange: ((event: GestureResponderEvent) => void) | null | undefined;
 }) => {
   const [focus, setFocus] = useState(false);
 
@@ -31,12 +36,7 @@ const BrowseElement = ({
         style={[styles.card, darkStyle.card]}
         onFocus={() => setFocus(!focus)}
         onBlur={() => setFocus(!focus)}
-        onPress={() => {
-          navigation.navigate(RoutesNames.Series, {
-            id: anime.id,
-            title: anime.title.romaji,
-          });
-        }}>
+        onPress={handlePageChange}>
         <View>
           <View
             style={[
