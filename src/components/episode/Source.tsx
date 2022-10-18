@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 
-import { LinkElement } from './interfaces';
 import { navigateToPlayer } from './Episode';
 import { FocusButton } from '../FocusButton';
+import { AnimePlayer } from '../../interfaces';
 
 export const Source = ({
   navigation,
@@ -11,7 +11,7 @@ export const Source = ({
   title,
 }: {
   navigation: any;
-  player: LinkElement;
+  player: AnimePlayer;
   title: string;
 }) => {
   return (
@@ -24,7 +24,7 @@ export const Source = ({
         });
       }}
       style={[styles.buttonLink]}>
-      {player.name}
+      {player.player_name}
     </FocusButton>
   );
 };
