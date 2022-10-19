@@ -2,7 +2,6 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import NativeVideoPlayerPage from '../pages/series/episodes/player/VideoPlayerPage';
-import { RoutesNames } from './RoutesNames.enum';
 import BrowsePage from '../pages/BrowsePage';
 import SeriesPage from '../pages/series/SeriesPage';
 import EpisodesListPage from '../pages/series/episodes/EpisodesListPage';
@@ -12,13 +11,14 @@ import ErrorPlayerPage from '../pages/series/episodes/player/ErrorPlayerPage';
 import { IconButton } from 'react-native-paper';
 import GoogleCast from 'react-native-google-cast';
 import SplashPage from '../pages/SplashPage';
+import { RootStackParamList, RoutesNames } from './interfaces';
 
 const linking = {
   prefixes: ['aniwatch://'],
   config: {
     screens: {
       [RoutesNames.Browse]: 'browse',
-      [RoutesNames.Series]: 'browse/:id',
+      [RoutesNames.Series]: 'browse/:title',
     },
   },
 };
@@ -29,7 +29,7 @@ const defaultOptions = ({ title }: { title?: string }) => {
   };
 };
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const Routes = ({ theme }: any) => {
   return (

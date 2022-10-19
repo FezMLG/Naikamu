@@ -1,9 +1,11 @@
 import { StyleSheet, SafeAreaView } from 'react-native';
 import React from 'react';
 import WebView from 'react-native-webview';
-import { maxHeight, maxWidth } from '../../../../components/maxDimensions';
 
-const WebViewPlayerPage = ({ route }: any) => {
+import { maxHeight, maxWidth } from '../../../../components/maxDimensions';
+import { WatchWebViewPageProps } from '../../../../routes/interfaces';
+
+const WebViewPlayerPage = ({ route }: WatchWebViewPageProps) => {
   const { uri } = route.params;
 
   // function setOrientation() {

@@ -1,20 +1,25 @@
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Linking, Platform, StyleSheet } from 'react-native';
-import { animeId } from '../../pages/series/SeriesPage';
-import { RoutesNames } from '../../routes/RoutesNames.enum';
+import { AnimePlayer } from '../../interfaces';
+
+import { RootStackParamList, RoutesNames } from '../../routes/interfaces';
 import { darkColor, darkStyle } from '../../styles/darkMode.style';
-import { LinkElement } from './interfaces';
 
 export const navigateToPlayer = async ({
   navigation,
   player,
   title,
 }: {
-  navigation: any;
-  player: LinkElement;
+  navigation: NativeStackNavigationProp<
+    RootStackParamList,
+    RoutesNames.Episodes,
+    undefined
+  >;
+  player: AnimePlayer;
   title: string;
 }) => {
   const { isTV } = Platform;
-  const name = player.name
+  const name = player.player_name
     .replace(/[\u0250-\ue007]/g, '')
     .replace(/\s/g, '')
     .toLowerCase();
@@ -22,24 +27,24 @@ export const navigateToPlayer = async ({
   switch (name) {
     case 'cda':
       return navigation.navigate(RoutesNames.WatchNative, {
-        uri: player.link,
+        uri: player.player_link,
         title: title,
         player: name,
       });
 
     case 'pobierz':
-      await Linking.canOpenURL(player.link);
-      return Linking.openURL(player.link);
+      await Linking.canOpenURL(player.player_link);
+      return Linking.openURL(player.player_link);
 
     default:
       if (isTV) {
         return navigation.navigate(RoutesNames.WatchError, {
           playerName: name,
-          animeId: animeId,
+          animeTitle: title,
         });
       }
       return navigation.navigate(RoutesNames.WatchWebView, {
-        uri: player.link,
+        uri: player.player_link,
       });
   }
 };

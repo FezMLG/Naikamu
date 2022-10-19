@@ -6,9 +6,11 @@ import { darkStyle } from '../../../../styles/darkMode.style';
 import { maxHeight, maxWidth } from '../../../../components/maxDimensions';
 import { Text } from 'react-native-paper';
 import { fontStyles, globalStyle } from '../../../../styles/global.style';
+import { WatchErrorPageProps } from '../../../../routes/interfaces';
+import { makeRouteFromTitle } from '../../../../utils';
 
-const ErrorPlayerPage = ({ route }: any) => {
-  const { playerName, animeId } = route.params;
+const ErrorPlayerPage = ({ route }: WatchErrorPageProps) => {
+  const { playerName, animeTitle } = route.params;
   //TODO styling for this page
   return (
     <SafeAreaView style={[styles.container]}>
@@ -27,7 +29,7 @@ const ErrorPlayerPage = ({ route }: any) => {
       <QRCode
         size={maxHeight() / 3}
         quietZone={10}
-        value={`aniwatch://browse/${encodeURI(animeId)}`}
+        value={`aniwatch://browse/${makeRouteFromTitle(animeTitle)}`}
       />
     </SafeAreaView>
   );

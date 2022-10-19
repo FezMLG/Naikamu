@@ -1,8 +1,8 @@
 import React from 'react';
-import GraphQLClient from './src/api/graphql/GraphQLClient';
-import QueryClientWrap from './src/api/rest/QueryClientWrap';
+import QueryClientWrap from './src/api/QueryClientWrap';
 import Routes from './src/routes/Routes';
 import { DarkTheme as NavigationDarkTheme } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   MD3DarkTheme as PaperDarkTheme,
   Provider as PaperProvider,
@@ -17,11 +17,13 @@ const CombinedDarkTheme = {
 const App = () => {
   return (
     <QueryClientWrap>
-      <GraphQLClient>
-        <PaperProvider theme={CombinedDarkTheme}>
-          <Routes theme={CombinedDarkTheme} />
-        </PaperProvider>
-      </GraphQLClient>
+      <PaperProvider
+        settings={{
+          icon: props => <Icon {...props} />,
+        }}
+        theme={CombinedDarkTheme}>
+        <Routes theme={CombinedDarkTheme} />
+      </PaperProvider>
     </QueryClientWrap>
   );
 };

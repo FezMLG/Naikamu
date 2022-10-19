@@ -1,13 +1,13 @@
 import { Image, StyleSheet, View } from 'react-native';
 import React from 'react';
-import { RoutesNames } from '../routes/RoutesNames.enum';
 import { darkStyle } from '../styles/darkMode.style';
 import { Text } from 'react-native-paper';
 import { globalStyle } from '../styles/global.style';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FocusButton } from '../components/FocusButton';
+import { HomePageProps, RoutesNames } from '../routes/interfaces';
 
-const HomePage = ({ navigation }: any) => {
+const HomePage = ({ navigation }: HomePageProps) => {
   return (
     <SafeAreaView style={[styles.container]}>
       <Text variant="headlineLarge" style={darkStyle.font}>

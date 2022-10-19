@@ -1,81 +1,125 @@
-import { StyleSheet, ActivityIndicator, FlatList, View } from 'react-native';
+import { StyleSheet, ActivityIndicator, FlatList } from 'react-native';
 import React, { useRef, useState } from 'react';
-import { NetworkStatus, useQuery } from '@apollo/client';
-import { LIST_OF_ANIME } from '../api/graphql/anilist/listOfAnime';
-import { IALListOfAnime, Media } from '../interfaces';
-import BrowseElement from '../components/browse/BrowseElement';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { maxWidth } from '../components/maxDimensions';
-import { FAB } from 'react-native-paper';
+import {
+  Dialog,
+  FAB,
+  Portal,
+  Button,
+  SegmentedButtons,
+  TextInput,
+} from 'react-native-paper';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
-const perPage = 25;
-const BrowsePage = ({ navigation }: any) => {
-  const { loading, data, error, fetchMore, refetch, networkStatus } =
-    useQuery<IALListOfAnime>(LIST_OF_ANIME, {
-      variables: {
-        page: 1,
-        perPage: perPage,
+import BrowseElement from '../components/browse/BrowseElement';
+import { maxWidth } from '../components/maxDimensions';
+import { AnimeList, Media } from '../interfaces';
+import { APIClient } from '../api/APIClient';
+import { BrowsePageProps, RoutesNames } from '../routes/interfaces';
+import { AnimeSeason } from '../enums/anime-season.enum';
+
+const getAnimeSeason = (month: number = new Date().getMonth() + 1) => {
+  switch (month) {
+    case 1:
+    case 2:
+    case 3:
+      return AnimeSeason.Winter;
+    case 4:
+    case 5:
+    case 6:
+      return AnimeSeason.Spring;
+    case 7:
+    case 8:
+    case 9:
+      return AnimeSeason.Summer;
+    default:
+      return AnimeSeason.Fall;
+  }
+};
+
+const BrowsePage = ({ navigation }: BrowsePageProps) => {
+  const apiClient = new APIClient();
+  const [season, setSeason] = useState(getAnimeSeason());
+  const [seasonYear, setSeasonYear] = useState(new Date().getFullYear());
+  const [visible, setVisible] = React.useState(false);
+
+  const hideDialog = () => setVisible(false);
+
+  const { isLoading, data, error, refetch, fetchNextPage, isRefetching } =
+    useInfiniteQuery<AnimeList>(
+      ['browse', season, seasonYear],
+      ({ pageParam }) =>
+        apiClient.getAnimeList({ page: pageParam, season, seasonYear }),
+      {
+        getNextPageParam: lastPage => lastPage.Page.pageInfo.currentPage + 1,
       },
-      notifyOnNetworkStatusChange: true,
-    });
+    );
   const listRef = useRef<FlatList>(null);
   const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
   const CONTENT_OFFSET_THRESHOLD = 300;
 
-  const handleOnEndReached = () => {
-    if (data?.Page.pageInfo.hasNextPage) {
-      console.log('has next page');
-      return fetchMore({
-        variables: {
-          page: data.Page.pageInfo.currentPage + 1,
-          perPage: perPage,
-        },
-        updateQuery: (previousResult, { fetchMoreResult }) => {
-          const newEntries = fetchMoreResult.Page.media;
-          return {
-            Page: {
-              pageInfo: fetchMoreResult.Page.pageInfo,
-              media: [...previousResult.Page.media, ...newEntries],
-            },
-          };
-        },
-      });
-    }
-  };
-
-  const refreshing = networkStatus === NetworkStatus.refetch;
-  // prevent the loading indicator from appearing while refreshing
-  if (loading && data?.Page.media.length === 0 && !refreshing) {
-    return (
-      <View>
-        <ActivityIndicator size="large" color="rgb(0, 122, 255)" />
-      </View>
-    );
-  }
-
   const renderItem = ({ item }: { item: Media }) => (
-    <BrowseElement anime={item} navigation={navigation} />
+    <BrowseElement
+      anime={item}
+      handlePageChange={() => {
+        navigation.navigate(RoutesNames.Series, {
+          title: item.title.romaji,
+        });
+      }}
+    />
   );
 
   if (error) {
+    console.log(BrowsePage.name);
     console.log(error);
+  }
+
+  if (data) {
+    console.log(data.pageParams);
   }
 
   return (
     <SafeAreaView style={[styles.container]}>
+      <SegmentedButtons
+        value={season}
+        onValueChange={value => setSeason(value as AnimeSeason)}
+        buttons={[
+          {
+            value: AnimeSeason.Winter,
+            label: 'Winter',
+            icon: 'snowflake',
+          },
+          {
+            value: AnimeSeason.Spring,
+            label: 'Spring',
+            icon: 'flower',
+          },
+          {
+            value: AnimeSeason.Summer,
+            label: 'Summer',
+            icon: 'white-balance-sunny',
+          },
+          {
+            value: AnimeSeason.Fall,
+            label: 'Fall',
+            icon: 'leaf',
+          },
+        ]}
+      />
+      {isLoading && <ActivityIndicator size="large" />}
       {data && (
         <>
           <FlatList
             ref={listRef}
-            data={data.Page.media}
+            data={data.pages.map(page => page.Page.media).flat()}
             renderItem={renderItem}
             numColumns={Math.floor(maxWidth() / 240)}
             contentContainerStyle={{ flexGrow: 1 }}
             keyExtractor={(_, index) => index.toString()}
             onEndReachedThreshold={1}
-            onEndReached={handleOnEndReached}
+            refreshing={isRefetching}
             onRefresh={refetch}
-            refreshing={refreshing}
+            onEndReached={() => fetchNextPage()}
             onScroll={event => {
               setContentVerticalOffset(event.nativeEvent.contentOffset.y);
             }}
@@ -91,7 +135,28 @@ const BrowsePage = ({ navigation }: any) => {
           )}
         </>
       )}
-      {loading && <ActivityIndicator size="large" />}
+      <FAB
+        icon={'magnify'}
+        style={styles.menu}
+        onPress={() => setVisible(true)}
+      />
+      <Portal>
+        <Dialog visible={visible} onDismiss={hideDialog}>
+          <Dialog.Content>
+            <TextInput
+              keyboardType={'numeric'}
+              label="Year"
+              value={seasonYear.toString()}
+              onChangeText={text => setSeasonYear(Number(text))}
+            />
+          </Dialog.Content>
+
+          <Dialog.Actions>
+            <Button onPress={hideDialog}>Cancel</Button>
+            <Button onPress={hideDialog}>Ok</Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
     </SafeAreaView>
   );
 };
@@ -132,6 +197,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   fab: {
+    position: 'absolute',
+    margin: 16,
+    left: 0,
+    bottom: 0,
+  },
+  menu: {
     position: 'absolute',
     margin: 16,
     right: 0,

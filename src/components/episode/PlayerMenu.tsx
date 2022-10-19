@@ -1,16 +1,21 @@
 import React from 'react';
 import { CastChromecast } from '../CastChromecast';
-import GoogleCast from 'react-native-google-cast';
-import { getVideoUrl } from '../../api/video/getVideoUrl';
 import { useQuery } from '@tanstack/react-query';
-import { LinkElement } from './interfaces';
 import { Button, Menu } from 'react-native-paper';
 
-export const PlayerMenu = ({ player }: { player: LinkElement }) => {
+import GoogleCast from 'react-native-google-cast';
+import { getVideoUrl } from '../../api/video/getVideoUrl';
+import { AnimePlayer } from '../../interfaces';
+
+export const PlayerMenu = ({ player }: { player: AnimePlayer }) => {
   const [visible, setVisible] = React.useState(false);
-  const { data } = useQuery(['aaaa'], () => getVideoUrl('cda', player.link), {
-    retry: false,
-  });
+  const { data } = useQuery(
+    ['anime', 'episode', player.player_link],
+    () => getVideoUrl('cda', player.player_link),
+    {
+      retry: false,
+    },
+  );
 
   const openMenu = () => setVisible(true);
 
