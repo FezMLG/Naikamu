@@ -1,5 +1,6 @@
 export const makeRouteFromTitle = (title: string) => {
-  title.replace(/[^a-z0-9]/gi, '');
-  title.replace(/ /g, '-');
+  title = title.toLowerCase();
+  title = title.replace(/[^\w\s]/gi, '');
+  title = title.replace(/ /g, '-');
   return title;
 };

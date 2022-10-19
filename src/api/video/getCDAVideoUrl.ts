@@ -7,7 +7,7 @@ export const getCDAVideoUrl = async (ebdUri: string) => {
   const { data } = await axios.get(ebdUri + '?wersja=1080p');
   var firstMatch = file.exec(data);
   if (!firstMatch) {
-    throw new Error('New Error');
+    return '';
   }
   let match = decodeURIComponent(firstMatch[1]);
   removeKeys.forEach(key => {
@@ -23,6 +23,5 @@ export const getCDAVideoUrl = async (ebdUri: string) => {
   result = result.replace('.cda.mp4', '');
   result = result.replace('.2cda.pl', '.cda.pl');
   result = result.replace('.3cda.pl', '.cda.pl');
-  console.log(`https://${result}.mp4`);
   return `https://${result}.mp4`;
 };

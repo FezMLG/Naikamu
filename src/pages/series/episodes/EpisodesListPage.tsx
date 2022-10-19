@@ -43,6 +43,7 @@ const EpisodesListPage = ({ navigation, route }: EpisodesPageProps) => {
                   num={index + 1}
                   navigation={navigation}
                   episode={episode}
+                  posterUrl={route.params.posterUrl}
                 />
               );
             }
@@ -52,6 +53,8 @@ const EpisodesListPage = ({ navigation, route }: EpisodesPageProps) => {
                 num={index + 1}
                 navigation={navigation}
                 episode={episode}
+                posterUrl={route.params.posterUrl}
+                animeName={route.params.title}
               />
             );
           })}

@@ -52,7 +52,11 @@ export type RootStackParamList = {
   [RoutesNames.Home]: undefined;
   [RoutesNames.Browse]: undefined;
   [RoutesNames.Series]: { title: string };
-  [RoutesNames.Episodes]: { title: string; numOfAiredEpisodes: number };
+  [RoutesNames.Episodes]: {
+    title: string;
+    numOfAiredEpisodes: number;
+    posterUrl: string;
+  };
   [RoutesNames.WatchNative]: { uri: string; title: string; player: string };
   [RoutesNames.WatchWebView]: { uri: string };
   [RoutesNames.WatchError]: { playerName: string; animeTitle: string };

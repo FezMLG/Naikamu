@@ -1,7 +1,14 @@
 import { StyleSheet, ActivityIndicator, FlatList } from 'react-native';
 import React, { useRef, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { FAB } from 'react-native-paper';
+import {
+  Dialog,
+  FAB,
+  Portal,
+  Button,
+  SegmentedButtons,
+  TextInput,
+} from 'react-native-paper';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import BrowseElement from '../components/browse/BrowseElement';
@@ -9,17 +16,40 @@ import { maxWidth } from '../components/maxDimensions';
 import { AnimeList, Media } from '../interfaces';
 import { APIClient } from '../api/APIClient';
 import { BrowsePageProps, RoutesNames } from '../routes/interfaces';
+import { AnimeSeason } from '../enums/anime-season.enum';
 
-const perPage = 25;
+const getAnimeSeason = (month: number = new Date().getMonth() + 1) => {
+  switch (month) {
+    case 1:
+    case 2:
+    case 3:
+      return AnimeSeason.Winter;
+    case 4:
+    case 5:
+    case 6:
+      return AnimeSeason.Spring;
+    case 7:
+    case 8:
+    case 9:
+      return AnimeSeason.Summer;
+    default:
+      return AnimeSeason.Fall;
+  }
+};
+
 const BrowsePage = ({ navigation }: BrowsePageProps) => {
   const apiClient = new APIClient();
-  const { isLoading, data, error, refetch, fetchNextPage } =
+  const [season, setSeason] = useState(getAnimeSeason());
+  const [seasonYear, setSeasonYear] = useState(new Date().getFullYear());
+  const [visible, setVisible] = React.useState(false);
+
+  const hideDialog = () => setVisible(false);
+
+  const { isLoading, data, error, refetch, fetchNextPage, isRefetching } =
     useInfiniteQuery<AnimeList>(
-      ['browse'],
-      () =>
-        apiClient.getAnimeList({
-          perPage: perPage,
-        }),
+      ['browse', season, seasonYear],
+      ({ pageParam }) =>
+        apiClient.getAnimeList({ page: pageParam, season, seasonYear }),
       {
         getNextPageParam: lastPage => lastPage.Page.pageInfo.currentPage + 1,
       },
@@ -40,13 +70,43 @@ const BrowsePage = ({ navigation }: BrowsePageProps) => {
   );
 
   if (error) {
+    console.log(BrowsePage.name);
     console.log(error);
+  }
+
+  if (data) {
+    console.log(data.pageParams);
   }
 
   return (
     <SafeAreaView style={[styles.container]}>
+      <SegmentedButtons
+        value={season}
+        onValueChange={value => setSeason(value as AnimeSeason)}
+        buttons={[
+          {
+            value: AnimeSeason.Winter,
+            label: 'Winter',
+            icon: 'snowflake',
+          },
+          {
+            value: AnimeSeason.Spring,
+            label: 'Spring',
+            icon: 'flower',
+          },
+          {
+            value: AnimeSeason.Summer,
+            label: 'Summer',
+            icon: 'white-balance-sunny',
+          },
+          {
+            value: AnimeSeason.Fall,
+            label: 'Fall',
+            icon: 'leaf',
+          },
+        ]}
+      />
       {isLoading && <ActivityIndicator size="large" />}
-
       {data && (
         <>
           <FlatList
@@ -57,6 +117,7 @@ const BrowsePage = ({ navigation }: BrowsePageProps) => {
             contentContainerStyle={{ flexGrow: 1 }}
             keyExtractor={(_, index) => index.toString()}
             onEndReachedThreshold={1}
+            refreshing={isRefetching}
             onRefresh={refetch}
             onEndReached={() => fetchNextPage()}
             onScroll={event => {
@@ -74,6 +135,28 @@ const BrowsePage = ({ navigation }: BrowsePageProps) => {
           )}
         </>
       )}
+      <FAB
+        icon={'magnify'}
+        style={styles.menu}
+        onPress={() => setVisible(true)}
+      />
+      <Portal>
+        <Dialog visible={visible} onDismiss={hideDialog}>
+          <Dialog.Content>
+            <TextInput
+              keyboardType={'numeric'}
+              label="Year"
+              value={seasonYear.toString()}
+              onChangeText={text => setSeasonYear(Number(text))}
+            />
+          </Dialog.Content>
+
+          <Dialog.Actions>
+            <Button onPress={hideDialog}>Cancel</Button>
+            <Button onPress={hideDialog}>Ok</Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
     </SafeAreaView>
   );
 };
@@ -114,6 +197,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   fab: {
+    position: 'absolute',
+    margin: 16,
+    left: 0,
+    bottom: 0,
+  },
+  menu: {
     position: 'absolute',
     margin: 16,
     right: 0,

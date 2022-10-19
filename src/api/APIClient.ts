@@ -1,6 +1,11 @@
 import axios, { AxiosInstance } from 'axios';
 import { AnimeSeason } from '../enums/anime-season.enum';
-import { AnimeList, AnimeDetails, AnimeEpisodes } from '../interfaces';
+import {
+  AnimeList,
+  AnimeDetails,
+  AnimeEpisodes,
+  AnimePlayers,
+} from '../interfaces';
 import { makeRouteFromTitle } from '../utils';
 
 interface GetAnimeListDTO {
@@ -15,6 +20,7 @@ export class APIClient {
 
   constructor() {
     this.instance = axios.create({
+      // baseURL: 'http://192.168.50.189:3333/api',
       baseURL: 'https://api-aniwatch.herokuapp.com/api',
       timeout: 2000,
       headers: {
@@ -34,12 +40,19 @@ export class APIClient {
     return data;
   }
 
-  async getAnimeList(options: GetAnimeListDTO): Promise<AnimeList> {
-    return this.post<AnimeList>('/anime', options);
+  async getAnimeList({
+    page,
+    season,
+    seasonYear,
+    perPage = 25,
+  }: GetAnimeListDTO): Promise<AnimeList> {
+    return this.get<AnimeList>(
+      `/anime?per-page=${perPage}&page=${page}&season=${season}&season-year=${seasonYear}`,
+    );
   }
 
   async getAnimeDetails(animeName: string): Promise<AnimeDetails> {
-    return this.get<AnimeDetails>(`/${makeRouteFromTitle(animeName)}`);
+    return this.get<AnimeDetails>(`/anime/${makeRouteFromTitle(animeName)}`);
   }
 
   async getEpisodes(
@@ -47,7 +60,7 @@ export class APIClient {
     expectedEpisodes: number,
   ): Promise<AnimeEpisodes> {
     return this.post<AnimeEpisodes>(
-      `/${makeRouteFromTitle(animeName)}/episodes`,
+      `/anime/${makeRouteFromTitle(animeName)}/episodes`,
       {
         expected_episodes: expectedEpisodes,
       },
@@ -57,9 +70,9 @@ export class APIClient {
   async getEpisodePlayers(
     animeName: string,
     episode: number,
-  ): Promise<AnimeEpisodes> {
-    return this.get<AnimeEpisodes>(
-      `/${makeRouteFromTitle(animeName)}/episode/${episode}`,
+  ): Promise<AnimePlayers> {
+    return this.get<AnimePlayers>(
+      `/anime/${makeRouteFromTitle(animeName)}/episode/${episode}`,
     );
   }
 }

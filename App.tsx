@@ -2,6 +2,7 @@ import React from 'react';
 import QueryClientWrap from './src/api/QueryClientWrap';
 import Routes from './src/routes/Routes';
 import { DarkTheme as NavigationDarkTheme } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   MD3DarkTheme as PaperDarkTheme,
   Provider as PaperProvider,
@@ -16,7 +17,11 @@ const CombinedDarkTheme = {
 const App = () => {
   return (
     <QueryClientWrap>
-      <PaperProvider theme={CombinedDarkTheme}>
+      <PaperProvider
+        settings={{
+          icon: props => <Icon {...props} />,
+        }}
+        theme={CombinedDarkTheme}>
         <Routes theme={CombinedDarkTheme} />
       </PaperProvider>
     </QueryClientWrap>

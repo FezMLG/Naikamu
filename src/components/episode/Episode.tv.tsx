@@ -14,6 +14,7 @@ export const EpisodeTV = ({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   navigation,
   episode,
+  posterUrl,
 }: {
   num: number;
   navigation: NativeStackNavigationProp<
@@ -22,10 +23,14 @@ export const EpisodeTV = ({
     undefined
   >;
   episode: AnimeEpisode;
+  posterUrl: string;
 }) => (
   <View style={[styles.episodeContainer]}>
     <View style={[styles.card]}>
-      <Image style={styles.poster} source={{ uri: episode.poster_url ?? '' }} />
+      <Image
+        style={styles.poster}
+        source={{ uri: episode.poster_url ?? posterUrl }}
+      />
       <Text
         variant="titleLarge"
         accessible={false}
