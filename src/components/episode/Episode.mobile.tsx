@@ -14,10 +14,12 @@ import { PlayerMenu } from './PlayerMenu';
 
 export const EpisodeMobileLink = ({
   animeName,
+  episodeTitle,
   navigation,
   players,
 }: {
   animeName: string;
+  episodeTitle: string;
   navigation: NativeStackNavigationProp<
     RootStackParamList,
     RoutesNames.Episodes,
@@ -37,7 +39,8 @@ export const EpisodeMobileLink = ({
               await navigateToPlayer({
                 navigation: navigation,
                 player: player,
-                title: animeName,
+                episodeTitle: episodeTitle,
+                animeTitle: animeName,
               });
             }}
             right={() => <PlayerMenu player={player} />}
@@ -103,6 +106,7 @@ export const EpisodeMobile = ({
               animeName={animeName}
               players={data}
               navigation={navigation}
+              episodeTitle={episode.title}
             />
           ) : (
             <ActivityIndicator size="large" />

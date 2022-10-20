@@ -7,6 +7,7 @@ import {
   Platform,
   StyleProp,
   ViewStyle,
+  TextStyle,
 } from 'react-native';
 import React from 'react';
 import { format } from 'date-fns';
@@ -25,18 +26,20 @@ const { isTV } = Platform;
 const QuickInfo = ({
   name,
   value,
-  style = [],
+  styleView = [],
+  styleText = [],
 }: {
   name: string;
   value: any;
-  style?: StyleProp<ViewStyle>[];
+  styleView?: StyleProp<ViewStyle>[];
+  styleText?: StyleProp<TextStyle>[];
 }) => {
   return (
-    <View style={[styles.quickInfoContainer, ...style]}>
+    <View style={[styles.quickInfoContainer, ...styleView]}>
       <Text style={[isTV ? styles.titleType : null, darkStyle.font]}>
         {name}
       </Text>
-      <Text style={[isTV ? null : styles.titleType, darkStyle.font]}>
+      <Text style={[isTV ? null : styles.titleType, darkStyle.font, styleText]}>
         {value}
       </Text>
     </View>
@@ -47,9 +50,9 @@ export let animeId: number;
 
 const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
   const apiClient = new APIClient();
-  const { title } = route.params;
+  const { title, id } = route.params;
   const { data } = useQuery<AnimeDetails>(['anime', title, 'details'], () =>
-    apiClient.getAnimeDetails(title),
+    apiClient.getAnimeDetails(title, id),
   );
 
   return (
@@ -108,9 +111,14 @@ const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
               <QuickInfo
                 name="Format"
                 value={data.format}
-                style={[styles.paddingLeft]}
+                styleView={[styles.paddingLeft]}
               />
-              <QuickInfo name="Episodes" value={data.episodes} />
+              <QuickInfo
+                name="Status"
+                value={data.status}
+                styleText={[styles.textCapitalize]}
+              />
+              <QuickInfo name="Episodes" value={data.episodes ?? '?'} />
               <QuickInfo name="Duration" value={`${data.duration} mins`} />
               <QuickInfo
                 name="AniList Score"
@@ -119,6 +127,7 @@ const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
               <QuickInfo
                 name="Season"
                 value={`${data.season} ${data.seasonYear}`}
+                styleText={[styles.textCapitalize]}
               />
             </ScrollView>
             {data.nextAiringEpisode && (
@@ -129,12 +138,12 @@ const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
                     new Date(data.nextAiringEpisode.airingAt * 1000),
                     'dd MM yyyy',
                   )}
-                  style={[styles.marginV]}
+                  styleView={[styles.marginV]}
                 />
                 <QuickInfo
                   name="Next Airing Episode"
                   value={data.nextAiringEpisode.episode}
-                  style={[styles.marginV]}
+                  styleView={[styles.marginV]}
                 />
               </>
             )}
@@ -208,6 +217,9 @@ const styles = StyleSheet.create({
   },
   categorySpacer: {
     marginTop: 40,
+  },
+  textCapitalize: {
+    textTransform: 'capitalize',
   },
 });
 

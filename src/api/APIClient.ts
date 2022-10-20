@@ -7,6 +7,7 @@ import {
   AnimePlayers,
 } from '../interfaces';
 import { makeRouteFromTitle } from '../utils';
+import { API_URL } from '@env';
 
 interface GetAnimeListDTO {
   page?: number;
@@ -20,8 +21,7 @@ export class APIClient {
 
   constructor() {
     this.instance = axios.create({
-      // baseURL: 'http://192.168.50.189:3333/api',
-      baseURL: 'https://api-aniwatch.herokuapp.com/api',
+      baseURL: API_URL,
       timeout: 2000,
       headers: {
         Accept: 'application/json',
@@ -51,8 +51,10 @@ export class APIClient {
     );
   }
 
-  async getAnimeDetails(animeName: string): Promise<AnimeDetails> {
-    return this.get<AnimeDetails>(`/anime/${makeRouteFromTitle(animeName)}`);
+  async getAnimeDetails(animeName: string, id: number): Promise<AnimeDetails> {
+    return this.get<AnimeDetails>(
+      `/anime/${makeRouteFromTitle(animeName)}?source=anilist&id=${id}`,
+    );
   }
 
   async getEpisodes(
