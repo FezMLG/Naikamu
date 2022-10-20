@@ -1,4 +1,10 @@
-import { StyleSheet, useTVEventHandler, HWEvent, View } from 'react-native';
+import {
+  StyleSheet,
+  useTVEventHandler,
+  HWEvent,
+  View,
+  Platform,
+} from 'react-native';
 import React, { useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Video from 'react-native-video';
@@ -18,7 +24,7 @@ const NativeVideoPlayerPage = ({ route, navigation }: WatchNativePageProps) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [status, setStatus] = useState<any>({});
   const [isPaused, setIsPaused] = useState<boolean>(false);
-  // let { isTV } = Platform;
+  let { isTV } = Platform;
   // if (DEBUG) {
   //   isTV = !isTV;
   // }
@@ -55,17 +61,31 @@ const NativeVideoPlayerPage = ({ route, navigation }: WatchNativePageProps) => {
         {error && <Text>{JSON.stringify(error)}</Text>}
         {data ? (
           <>
-            <VideoPlayer
-              ref={video}
-              style={styles.absoluteFill}
-              source={{
-                uri: data,
-              }}
-              resizeMode={'contain'}
-              paused={isPaused}
-              fullscreen={true}
-              onBack={navigation.goBack}
-            />
+            {isTV ? (
+              <Video
+                ref={video}
+                style={styles.absoluteFill}
+                source={{
+                  uri: data,
+                }}
+                controls={true}
+                resizeMode={'contain'}
+                paused={isPaused}
+                fullscreen={true}
+              />
+            ) : (
+              <VideoPlayer
+                ref={video}
+                style={styles.absoluteFill}
+                source={{
+                  uri: data,
+                }}
+                resizeMode={'contain'}
+                paused={isPaused}
+                fullscreen={true}
+                onBack={navigation.goBack}
+              />
+            )}
           </>
         ) : (
           <ActivityIndicator size="large" color={'#C539F7'} />

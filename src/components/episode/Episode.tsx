@@ -8,7 +8,9 @@ import { darkColor, darkStyle } from '../../styles/darkMode.style';
 export const navigateToPlayer = async ({
   navigation,
   player,
-  title,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  episodeTitle,
+  animeTitle,
 }: {
   navigation: NativeStackNavigationProp<
     RootStackParamList,
@@ -16,7 +18,8 @@ export const navigateToPlayer = async ({
     undefined
   >;
   player: AnimePlayer;
-  title: string;
+  episodeTitle: string;
+  animeTitle: string;
 }) => {
   const { isTV } = Platform;
   const name = player.player_name
@@ -28,7 +31,7 @@ export const navigateToPlayer = async ({
     case 'cda':
       return navigation.navigate(RoutesNames.WatchNative, {
         uri: player.player_link,
-        title: title,
+        title: animeTitle,
         player: name,
       });
 
@@ -40,7 +43,7 @@ export const navigateToPlayer = async ({
       if (isTV) {
         return navigation.navigate(RoutesNames.WatchError, {
           playerName: name,
-          animeTitle: title,
+          animeTitle: animeTitle,
         });
       }
       return navigation.navigate(RoutesNames.WatchWebView, {

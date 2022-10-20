@@ -8,11 +8,13 @@ import { AnimePlayer } from '../../interfaces';
 export const Source = ({
   navigation,
   player,
-  title,
+  animeTitle,
+  episodeTitle,
 }: {
   navigation: any;
   player: AnimePlayer;
-  title: string;
+  animeTitle: string;
+  episodeTitle: string;
 }) => {
   return (
     <FocusButton
@@ -20,11 +22,12 @@ export const Source = ({
         await navigateToPlayer({
           navigation: navigation,
           player: player,
-          title: title,
+          episodeTitle,
+          animeTitle,
         });
       }}
       style={[styles.buttonLink]}>
-      {player.player_name}
+      {player.translator_name + ' ' + player.player_name}
     </FocusButton>
   );
 };

@@ -44,6 +44,7 @@ const EpisodesListPage = ({ navigation, route }: EpisodesPageProps) => {
                   navigation={navigation}
                   episode={episode}
                   posterUrl={route.params.posterUrl}
+                  animeName={route.params.title}
                 />
               );
             }
