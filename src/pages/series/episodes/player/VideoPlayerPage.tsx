@@ -16,13 +16,9 @@ import { WatchNativePageProps } from '../../../../routes/interfaces';
 
 const NativeVideoPlayerPage = ({ route, navigation }: WatchNativePageProps) => {
   const { uri, player } = route.params;
-  const { data, isError, error } = useQuery(
-    [uri],
-    () => getVideoUrl(player, uri),
-    {
-      retry: false,
-    },
-  );
+  const { data, error } = useQuery([uri], () => getVideoUrl(player, uri), {
+    retry: false,
+  });
   // const DEBUG = true;
   const video = useRef<Video>(null);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
