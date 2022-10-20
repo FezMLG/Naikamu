@@ -51,7 +51,7 @@ export const ScreenRoutes = {
 export type RootStackParamList = {
   [RoutesNames.Home]: undefined;
   [RoutesNames.Browse]: undefined;
-  [RoutesNames.Series]: { title: string };
+  [RoutesNames.Series]: { title: string; id: number };
   [RoutesNames.Episodes]: {
     title: string;
     numOfAiredEpisodes: number;

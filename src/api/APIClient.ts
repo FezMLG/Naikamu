@@ -51,8 +51,10 @@ export class APIClient {
     );
   }
 
-  async getAnimeDetails(animeName: string): Promise<AnimeDetails> {
-    return this.get<AnimeDetails>(`/anime/${makeRouteFromTitle(animeName)}`);
+  async getAnimeDetails(animeName: string, id: number): Promise<AnimeDetails> {
+    return this.get<AnimeDetails>(
+      `/anime/${makeRouteFromTitle(animeName)}?source=anilist&id=${id}`,
+    );
   }
 
   async getEpisodes(

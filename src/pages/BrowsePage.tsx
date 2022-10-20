@@ -64,6 +64,7 @@ const BrowsePage = ({ navigation }: BrowsePageProps) => {
       handlePageChange={() => {
         navigation.navigate(RoutesNames.Series, {
           title: item.title.romaji,
+          id: item.id,
         });
       }}
     />
