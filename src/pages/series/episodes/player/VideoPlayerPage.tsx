@@ -1,9 +1,4 @@
-import {
-  StyleSheet,
-  SafeAreaView,
-  useTVEventHandler,
-  HWEvent,
-} from 'react-native';
+import { StyleSheet, useTVEventHandler, HWEvent, View } from 'react-native';
 import React, { useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Video from 'react-native-video';
@@ -11,7 +6,6 @@ import { ActivityIndicator, Text } from 'react-native-paper';
 import VideoPlayer from 'react-native-video-controls';
 
 import { getVideoUrl } from '../../../../api/video/getVideoUrl';
-import { maxHeight, maxWidth } from '../../../../components/maxDimensions';
 import { WatchNativePageProps } from '../../../../routes/interfaces';
 
 const NativeVideoPlayerPage = ({ route, navigation }: WatchNativePageProps) => {
@@ -56,14 +50,14 @@ const NativeVideoPlayerPage = ({ route, navigation }: WatchNativePageProps) => {
   // }
 
   return (
-    <SafeAreaView style={[styles.container]}>
+    <View style={styles.fullscreenVideo}>
       <>
         {error && <Text>{JSON.stringify(error)}</Text>}
         {data ? (
           <>
             <VideoPlayer
               ref={video}
-              style={styles.video}
+              style={styles.absoluteFill}
               source={{
                 uri: data,
               }}
@@ -84,24 +78,29 @@ const NativeVideoPlayerPage = ({ route, navigation }: WatchNativePageProps) => {
         />
       )} */}
       </>
-    </SafeAreaView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: maxWidth(),
-    height: maxHeight(),
-  },
-  video: {
-    flex: 1,
-    alignSelf: 'stretch',
-  },
   buttons: {
     margin: 16,
+  },
+  absoluteFill: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+  },
+  fullscreenVideo: {
+    backgroundColor: 'black',
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    elevation: 1,
   },
 });
 
