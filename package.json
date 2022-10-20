@@ -30,6 +30,7 @@
     "react-native": "npm:react-native-tvos@latest",
     "react-native-fast-image": "^8.6.1",
     "react-native-google-cast": "^4.5.0",
+    "react-native-orientation-locker": "^1.5.0",
     "react-native-paper": "5.0.0-rc.6",
     "react-native-qrcode-svg": "^6.1.2",
     "react-native-safe-area-context": "^4.3.4",
@@ -38,6 +39,7 @@
     "react-native-svg": "^13.2.0",
     "react-native-vector-icons": "^9.2.0",
     "react-native-video": "^5.2.1",
+    "react-native-video-controls": "^2.8.1",
     "react-native-webview": "^11.23.1"
   },
   "devDependencies": {

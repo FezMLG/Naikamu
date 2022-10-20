@@ -8,17 +8,20 @@ import React, { useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Video from 'react-native-video';
 import { ActivityIndicator, Text } from 'react-native-paper';
+import VideoPlayer from 'react-native-video-controls';
 
 import { getVideoUrl } from '../../../../api/video/getVideoUrl';
 import { maxHeight, maxWidth } from '../../../../components/maxDimensions';
 import { WatchNativePageProps } from '../../../../routes/interfaces';
 
-const NativeVideoPlayerPage = ({ route }: WatchNativePageProps) => {
-  const { title, uri, player } = route.params;
-  const { data, isError } = useQuery(
-    [player + ':' + title],
+const NativeVideoPlayerPage = ({ route, navigation }: WatchNativePageProps) => {
+  const { uri, player } = route.params;
+  const { data, isError, error } = useQuery(
+    [uri],
     () => getVideoUrl(player, uri),
-    { retry: false },
+    {
+      retry: false,
+    },
   );
   // const DEBUG = true;
   const video = useRef<Video>(null);
@@ -58,33 +61,33 @@ const NativeVideoPlayerPage = ({ route }: WatchNativePageProps) => {
 
   return (
     <SafeAreaView style={[styles.container]}>
-      {isError && <Text>The source is not implemented</Text>}
-      {data ? (
-        <>
-          <Video
-            ref={video}
-            style={styles.video}
-            source={{
-              uri: data
-                ? data
-                : 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-            }}
-            controls={true}
-            resizeMode={'contain'}
-            paused={isPaused}
-            fullscreen={true}
-          />
-        </>
-      ) : (
-        <ActivityIndicator size="large" color={'#C539F7'} />
-      )}
-      {/* {isTV && (
+      <>
+        {error && <Text>{JSON.stringify(error)}</Text>}
+        {data ? (
+          <>
+            <VideoPlayer
+              ref={video}
+              style={styles.video}
+              source={{
+                uri: data,
+              }}
+              resizeMode={'contain'}
+              paused={isPaused}
+              fullscreen={true}
+              onBack={navigation.goBack}
+            />
+          </>
+        ) : (
+          <ActivityIndicator size="large" color={'#C539F7'} />
+        )}
+        {/* {isTV && (
         <Controls
           status={status}
           video={video}
           title={route.params.videoTitle}
         />
       )} */}
+      </>
     </SafeAreaView>
   );
 };
