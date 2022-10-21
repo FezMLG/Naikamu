@@ -7,7 +7,6 @@ import { maxHeight, maxWidth } from '../../../../components/maxDimensions';
 import { Text } from 'react-native-paper';
 import { fontStyles, globalStyle } from '../../../../styles/global.style';
 import { WatchErrorPageProps } from '../../../../routes/interfaces';
-import { makeRouteFromTitle } from '../../../../utils';
 
 const ErrorPlayerPage = ({ route }: WatchErrorPageProps) => {
   const { playerName, animeTitle } = route.params;
@@ -29,7 +28,7 @@ const ErrorPlayerPage = ({ route }: WatchErrorPageProps) => {
       <QRCode
         size={maxHeight() / 3}
         quietZone={10}
-        value={`aniwatch://browse/${makeRouteFromTitle(animeTitle)}`}
+        value={`aniwatch://browse/${encodeURI(animeTitle)}?source=anilist&id=`}
       />
     </SafeAreaView>
   );

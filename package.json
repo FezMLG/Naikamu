@@ -20,7 +20,8 @@
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "app:release": "cd android && ./gradlew bundleRelease",
-    "apk:release": "cd android && ./gradlew assembleRelease && open app/build/outputs/apk/release"
+    "apk:beta:release": "cd android && fastlane beta && open app/build/outputs/apk/production/release",
+    "apk:release": "cd android && ./gradlew assembleRelease && open app/build/outputs/apk/production/release"
   },
   "dependencies": {
     "@apollo/client": "^3.6.9",
