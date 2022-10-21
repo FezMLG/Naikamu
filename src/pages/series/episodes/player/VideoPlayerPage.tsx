@@ -15,19 +15,13 @@ import { getVideoUrl } from '../../../../api/video/getVideoUrl';
 import { WatchNativePageProps } from '../../../../routes/interfaces';
 
 const NativeVideoPlayerPage = ({ route, navigation }: WatchNativePageProps) => {
+  const { isTV } = Platform;
   const { uri, player } = route.params;
+  const video = useRef<Video>(null);
+  const [isPaused, setIsPaused] = useState<boolean>(false);
   const { data, error } = useQuery([uri], () => getVideoUrl(player, uri), {
     retry: false,
   });
-  // const DEBUG = true;
-  const video = useRef<Video>(null);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [status, setStatus] = useState<any>({});
-  const [isPaused, setIsPaused] = useState<boolean>(false);
-  let { isTV } = Platform;
-  // if (DEBUG) {
-  //   isTV = !isTV;
-  // }
 
   const myTVEventHandler = (evt: HWEvent) => {
     switch (evt.eventType) {
@@ -44,16 +38,6 @@ const NativeVideoPlayerPage = ({ route, navigation }: WatchNativePageProps) => {
   };
 
   useTVEventHandler(myTVEventHandler);
-
-  // function setOrientation() {
-  //   if (Dimensions.get('window').height > Dimensions.get('window').width) {
-  //     //Device is in portrait mode, rotate to landscape mode.
-  //     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
-  //   } else {
-  //     //Device is in landscape mode, rotate to portrait mode.
-  //     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
-  //   }
-  // }
 
   return (
     <View style={styles.fullscreenVideo}>
