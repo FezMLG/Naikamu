@@ -12,8 +12,13 @@ import { HomePageProps, RoutesNames } from '../routes/interfaces';
 const HomePage = ({ navigation }: HomePageProps) => {
   return (
     <SafeAreaView style={[styles.container]}>
-      <Text variant="headlineLarge" style={darkStyle.font}>
-        Welcome to AniWatch
+      <Text variant="titleLarge" style={darkStyle.font}>
+        Welcome to
+      </Text>
+      <Text
+        variant="displayMedium"
+        style={[darkStyle.font, { fontWeight: 'bold' }]}>
+        AniWatch
       </Text>
       <View style={[globalStyle.spacerBig]} />
       <Image
@@ -24,8 +29,10 @@ const HomePage = ({ navigation }: HomePageProps) => {
       <FocusButton
         onPress={() => navigation.navigate(RoutesNames.Browse)}
         style={[]}>
-        <Text variant="titleLarge" style={darkStyle.fontReverse}>
-          Browse
+        <Text
+          variant="titleLarge"
+          style={[darkStyle.fontReverse, darkStyle.font]}>
+          Get Started
         </Text>
       </FocusButton>
       {ENV !== 'prod' && <Text>api_url: {API_URL}</Text>}
