@@ -169,26 +169,41 @@ const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
               style={[styles.titleType, styles.categorySpacer, darkStyle.font]}>
               Links
             </Text>
-            {data.externalLinks.map((link, index) => {
-              return (
-                <View style={styles.linkContainer}>
-                  {link.icon ? (
-                    <ProgressiveImage
-                      source={link.icon}
-                      style={[styles.icon]}
-                    />
-                  ) : (
-                    <View style={styles.icon} />
-                  )}
-                  <Button
-                    key={index}
-                    mode={'text'}
-                    onPress={() => Linking.openURL(link.url)}>
-                    {link.site} {link.language ? link.language : ''}
-                  </Button>
-                </View>
-              );
-            })}
+            <View style={styles.linksContainer}>
+              <View style={styles.linkContainer}>
+                <ProgressiveImage
+                  source={'https://anilist.co/img/icons/favicon-32x32.png'}
+                  style={[styles.icon]}
+                />
+                <Button
+                  mode={'text'}
+                  onPress={() =>
+                    Linking.openURL('https://anilist.co/anime/' + animeId)
+                  }>
+                  AniList
+                </Button>
+              </View>
+              {data.externalLinks.map((link, index) => {
+                return (
+                  <View style={styles.linkContainer} key={index}>
+                    {link.icon ? (
+                      <ProgressiveImage
+                        source={link.icon}
+                        style={[styles.icon]}
+                      />
+                    ) : (
+                      <View style={styles.icon} />
+                    )}
+                    <Button
+                      mode={'text'}
+                      onPress={() => Linking.openURL(link.url)}>
+                      {link.site} {link.language ? link.language : ''}
+                    </Button>
+                  </View>
+                );
+                // https://anilist.co/anime/
+              })}
+            </View>
             <Text
               variant="bodySmall"
               style={[globalStyle.disclaimer, darkStyle.font]}>
@@ -249,6 +264,7 @@ const styles = StyleSheet.create({
   textCapitalize: {
     textTransform: 'capitalize',
   },
+  linksContainer: {},
   linkContainer: {
     flexDirection: 'row',
     alignItems: 'center',
