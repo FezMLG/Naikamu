@@ -17,35 +17,19 @@ import { AnimeList, Media } from '../interfaces';
 import { APIClient } from '../api/APIClient';
 import { BrowsePageProps, RoutesNames } from '../routes/interfaces';
 import { AnimeSeason } from '../enums/anime-season.enum';
-
-const getAnimeSeason = (month: number = new Date().getMonth() + 1) => {
-  switch (month) {
-    case 1:
-    case 2:
-    case 3:
-      return AnimeSeason.Winter;
-    case 4:
-    case 5:
-    case 6:
-      return AnimeSeason.Spring;
-    case 7:
-    case 8:
-    case 9:
-      return AnimeSeason.Summer;
-    default:
-      return AnimeSeason.Fall;
-  }
-};
+import { getAnimeSeason } from '../utils/getAnimeSeason';
 
 const BrowsePage = ({ navigation }: BrowsePageProps) => {
+  const CONTENT_OFFSET_THRESHOLD = 300;
   const apiClient = new APIClient();
   const [season, setSeason] = useState(getAnimeSeason());
   const [seasonYear, setSeasonYear] = useState(new Date().getFullYear());
   const [visible, setVisible] = React.useState(false);
-
+  const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
+  const listRef = useRef<FlatList>(null);
   const hideDialog = () => setVisible(false);
 
-  const { isLoading, data, error, refetch, fetchNextPage, isRefetching } =
+  const { isLoading, data, refetch, fetchNextPage, isRefetching } =
     useInfiniteQuery<AnimeList>(
       ['browse', season, seasonYear],
       ({ pageParam }) =>
@@ -54,9 +38,6 @@ const BrowsePage = ({ navigation }: BrowsePageProps) => {
         getNextPageParam: lastPage => lastPage.Page.pageInfo.currentPage + 1,
       },
     );
-  const listRef = useRef<FlatList>(null);
-  const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
-  const CONTENT_OFFSET_THRESHOLD = 300;
 
   const renderItem = ({ item }: { item: Media }) => (
     <BrowseElement
@@ -69,15 +50,6 @@ const BrowsePage = ({ navigation }: BrowsePageProps) => {
       }}
     />
   );
-
-  if (error) {
-    console.log(BrowsePage.name);
-    console.log(error);
-  }
-
-  if (data) {
-    console.log(data.pageParams);
-  }
 
   return (
     <SafeAreaView style={[styles.container]}>
@@ -115,7 +87,7 @@ const BrowsePage = ({ navigation }: BrowsePageProps) => {
             data={data.pages.map(page => page.Page.media).flat()}
             renderItem={renderItem}
             numColumns={Math.floor(maxWidth() / 240)}
-            contentContainerStyle={{ flexGrow: 1 }}
+            contentContainerStyle={styles.flatList}
             keyExtractor={(_, index) => index.toString()}
             onEndReachedThreshold={1}
             refreshing={isRefetching}
@@ -151,7 +123,6 @@ const BrowsePage = ({ navigation }: BrowsePageProps) => {
               onChangeText={text => setSeasonYear(Number(text))}
             />
           </Dialog.Content>
-
           <Dialog.Actions>
             <Button onPress={hideDialog}>Cancel</Button>
             <Button onPress={hideDialog}>Ok</Button>
@@ -208,6 +179,9 @@ const styles = StyleSheet.create({
     margin: 16,
     right: 0,
     bottom: 0,
+  },
+  flatList: {
+    flexGrow: 1,
   },
 });
 
