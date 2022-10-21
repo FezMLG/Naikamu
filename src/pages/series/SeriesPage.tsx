@@ -48,8 +48,6 @@ const QuickInfo = ({
   );
 };
 
-export let animeId: number;
-
 const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
   const apiClient = new APIClient();
   const { title, id } = route.params;
@@ -165,10 +163,7 @@ const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
                 />
               </>
             )}
-            <Text
-              style={[styles.titleType, styles.categorySpacer, darkStyle.font]}>
-              Links
-            </Text>
+            <Text style={[styles.titleType, darkStyle.font]}>Links</Text>
             <View style={styles.linksContainer}>
               <View style={styles.linkContainer}>
                 <ProgressiveImage
@@ -178,7 +173,7 @@ const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
                 <Button
                   mode={'text'}
                   onPress={() =>
-                    Linking.openURL('https://anilist.co/anime/' + animeId)
+                    Linking.openURL('https://anilist.co/anime/' + id)
                   }>
                   AniList
                 </Button>
