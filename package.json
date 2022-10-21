@@ -39,6 +39,7 @@
     "react-native-dotenv": "^3.3.1",
     "react-native-fast-image": "^8.6.1",
     "react-native-google-cast": "^4.5.0",
+    "react-native-linear-gradient": "^2.6.2",
     "react-native-orientation-locker": "^1.5.0",
     "react-native-paper": "5.0.0-rc.6",
     "react-native-qrcode-svg": "^6.1.2",

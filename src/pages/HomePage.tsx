@@ -1,12 +1,13 @@
-import { Image, StyleSheet, View } from 'react-native';
 import React from 'react';
-import { darkStyle } from '../styles/darkMode.style';
+import { Image, StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
-import { globalStyle } from '../styles/global.style';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { FocusButton } from '../components/FocusButton';
-import { HomePageProps, RoutesNames } from '../routes/interfaces';
 import { API_URL, ENV } from '@env';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+import { globalStyle } from '../styles/global.style';
+import { FocusButton } from '../components/FocusButton';
+import { darkStyle } from '../styles/darkMode.style';
+import { HomePageProps, RoutesNames } from '../routes/interfaces';
 
 const HomePage = ({ navigation }: HomePageProps) => {
   return (
