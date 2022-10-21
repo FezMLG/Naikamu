@@ -4,10 +4,6 @@ import {
   ScrollView,
   Image,
   View,
-  Platform,
-  StyleProp,
-  ViewStyle,
-  TextStyle,
   Linking,
 } from 'react-native';
 import React from 'react';
@@ -23,30 +19,7 @@ import { RoutesNames, SeriesPageProps } from '../../routes/interfaces';
 import { AnimeDetails } from '../../interfaces';
 import { APIClient } from '../../api/APIClient';
 import { ProgressiveImage } from '../../components/ProgressiveImage';
-
-const { isTV } = Platform;
-const QuickInfo = ({
-  name,
-  value,
-  styleView = [],
-  styleText = [],
-}: {
-  name: string;
-  value: any;
-  styleView?: StyleProp<ViewStyle>[];
-  styleText?: StyleProp<TextStyle>[];
-}) => {
-  return (
-    <View style={[styles.quickInfoContainer, ...styleView]}>
-      <Text style={[isTV ? styles.titleType : null, darkStyle.font]}>
-        {name}
-      </Text>
-      <Text style={[isTV ? null : styles.titleType, darkStyle.font, styleText]}>
-        {value}
-      </Text>
-    </View>
-  );
-};
+import { QuickInfo } from '../../components/series/QuickInfo';
 
 const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
   const apiClient = new APIClient();
@@ -196,7 +169,6 @@ const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
                     </Button>
                   </View>
                 );
-                // https://anilist.co/anime/
               })}
             </View>
             <Text
