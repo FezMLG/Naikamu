@@ -3,6 +3,11 @@ import { StyleSheet } from 'react-native';
 export const defaultRadius = 8;
 
 export const globalStyle = StyleSheet.create({
+  centered: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+  },
   spacerBig: {
     marginVertical: 40,
   },

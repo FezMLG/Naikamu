@@ -11,9 +11,9 @@ import {
 } from 'react-native';
 import React from 'react';
 import { format } from 'date-fns';
-import WebView from 'react-native-webview';
 import { useQuery } from '@tanstack/react-query';
 import { ActivityIndicator, Chip, Text } from 'react-native-paper';
+import YoutubePlayer from 'react-native-youtube-iframe';
 
 import { darkColor, darkStyle } from '../../styles/darkMode.style';
 import { defaultRadius, globalStyle } from '../../styles/global.style';
@@ -69,8 +69,15 @@ const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
           />
           <View style={styles.body}>
             <View style={[globalStyle.spacer]} />
+            <Text variant="headlineLarge" style={darkStyle.font}>
+              {data.title.romaji}
+            </Text>
+            <Text variant="titleSmall" style={darkStyle.font}>
+              {data.title.english}
+            </Text>
+            <View style={[globalStyle.spacer]} />
             <FocusButton
-              icon="view-list"
+              icon="play-box-multiple"
               onPress={() => {
                 navigation.navigate(RoutesNames.Episodes, {
                   title: data.title.romaji,
@@ -81,30 +88,8 @@ const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
                 });
               }}
               style={[]}>
-              List of episodes
+              See Episodes
             </FocusButton>
-            <View style={[globalStyle.spacer]} />
-            <Text variant="headlineLarge" style={darkStyle.font}>
-              {data.title.romaji}
-            </Text>
-            <Text variant="titleSmall" style={darkStyle.font}>
-              {data.title.english}
-            </Text>
-            <Text
-              variant="bodyMedium"
-              style={[darkStyle.font, globalStyle.spacer]}>
-              {data.description.replace(/<[^>]*>?/gm, '')}
-            </Text>
-            <Text style={[styles.titleType, darkStyle.font]}>Genres</Text>
-            <View style={styles.chipContainer}>
-              {data.genres.map((genre, index) => {
-                return (
-                  <Chip key={index} style={styles.chipGenre}>
-                    {genre}
-                  </Chip>
-                );
-              })}
-            </View>
             <ScrollView
               horizontal={true}
               style={[styles.quickInfoScroll, styles.categorySpacer]}>
@@ -114,23 +99,22 @@ const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
                   value={
                     'Ep ' +
                     data.nextAiringEpisode.episode +
-                    ' ' +
+                    ': ' +
                     format(
                       new Date(data.nextAiringEpisode.airingAt * 1000),
-                      'dd-MM H:mm',
+                      'dd/MM H:mm',
                     )
                   }
-                  styleView={[styles.marginV]}
+                  styleView={[styles.paddingLeft]}
                 />
               )}
               <QuickInfo
                 name="Format"
                 value={data.format}
-                styleView={[styles.paddingLeft]}
+                styleView={[!data.nextAiringEpisode && styles.paddingLeft]}
               />
-
-              <QuickInfo name="Duration" value={`${data.duration} mins`} />
               <QuickInfo name="Episodes" value={data.episodes ?? '?'} />
+              <QuickInfo name="Duration" value={`${data.duration} mins`} />
               <QuickInfo
                 name="Status"
                 value={data.status}
@@ -147,16 +131,36 @@ const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
               />
             </ScrollView>
             <Text
-              style={[styles.titleType, styles.categorySpacer, darkStyle.font]}>
-              Trailer
+              variant="bodyMedium"
+              style={[darkStyle.font, styles.categorySpacer]}>
+              {data.description.replace(/<[^>]*>?/gm, '')}
             </Text>
-            <WebView
-              style={[styles.webview, globalStyle.spacer]}
-              javaScriptEnabled={true}
-              source={{
-                uri: `https://www.youtube.com/embed/${data.trailer?.id}`,
-              }}
-            />
+            <View style={[styles.chipContainer, styles.categorySpacer]}>
+              {data.genres.map((genre, index) => {
+                return (
+                  <Chip key={index} style={styles.chipGenre}>
+                    {genre}
+                  </Chip>
+                );
+              })}
+            </View>
+            {data.trailer && (
+              <>
+                <Text
+                  style={[
+                    styles.titleType,
+                    styles.categorySpacer,
+                    darkStyle.font,
+                  ]}>
+                  Trailer
+                </Text>
+                <YoutubePlayer
+                  height={300}
+                  videoId={data.trailer?.id}
+                  webViewStyle={styles.marginV}
+                />
+              </>
+            )}
             <Text
               variant="bodySmall"
               style={[globalStyle.disclaimer, darkStyle.font]}>
@@ -165,7 +169,9 @@ const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
           </View>
         </ScrollView>
       ) : (
-        <ActivityIndicator size="large" />
+        <View style={globalStyle.centered}>
+          <ActivityIndicator size="large" />
+        </View>
       )}
     </SafeAreaView>
   );
@@ -175,18 +181,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  webview: {
-    width: '100%',
-    maxWidth: 600,
-    aspectRatio: 16 / 9,
-  },
   scrollView: {},
   body: {
     paddingHorizontal: 20,
   },
   banner: {
     width: '100%',
-    height: 100,
+    height: 200,
     resizeMode: 'cover',
   },
   chipContainer: {
