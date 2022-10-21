@@ -19,6 +19,7 @@ export interface AnimeDetails {
     month: number;
     day: number;
   };
+  externalLinks: ExternalLink[];
   relations: Relation[];
   popularity: number;
   description: string;
@@ -50,4 +51,12 @@ export interface Relation {
 interface Title {
   english?: string;
   romaji: string;
+}
+
+interface ExternalLink {
+  url: string;
+  site: string;
+  type: string;
+  icon: null | string;
+  language: null | string;
 }

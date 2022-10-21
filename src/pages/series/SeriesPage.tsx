@@ -8,11 +8,12 @@ import {
   StyleProp,
   ViewStyle,
   TextStyle,
+  Linking,
 } from 'react-native';
 import React from 'react';
 import { format } from 'date-fns';
 import { useQuery } from '@tanstack/react-query';
-import { ActivityIndicator, Chip, Text } from 'react-native-paper';
+import { ActivityIndicator, Button, Chip, Text } from 'react-native-paper';
 import YoutubePlayer from 'react-native-youtube-iframe';
 
 import { darkColor, darkStyle } from '../../styles/darkMode.style';
@@ -21,6 +22,7 @@ import { FocusButton } from '../../components/FocusButton';
 import { RoutesNames, SeriesPageProps } from '../../routes/interfaces';
 import { AnimeDetails } from '../../interfaces';
 import { APIClient } from '../../api/APIClient';
+import { ProgressiveImage } from '../../components/ProgressiveImage';
 
 const { isTV } = Platform;
 const QuickInfo = ({
@@ -68,9 +70,9 @@ const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
             }}
           />
           <View style={styles.body}>
-            <View style={[globalStyle.spacer]} />
+            <View style={[styles.categorySpacer]} />
             <Text variant="headlineLarge" style={darkStyle.font}>
-              {data.title.romaji}
+              {data.title.romaji ?? data.title.english}
             </Text>
             {data.title.romaji !== data.title.english && (
               <Text variant="titleSmall" style={darkStyle.font}>
@@ -164,6 +166,30 @@ const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
               </>
             )}
             <Text
+              style={[styles.titleType, styles.categorySpacer, darkStyle.font]}>
+              Links
+            </Text>
+            {data.externalLinks.map((link, index) => {
+              return (
+                <View style={styles.linkContainer}>
+                  {link.icon ? (
+                    <ProgressiveImage
+                      source={link.icon}
+                      style={[styles.icon]}
+                    />
+                  ) : (
+                    <View style={styles.icon} />
+                  )}
+                  <Button
+                    key={index}
+                    mode={'text'}
+                    onPress={() => Linking.openURL(link.url)}>
+                    {link.site} {link.language ? link.language : ''}
+                  </Button>
+                </View>
+              );
+            })}
+            <Text
               variant="bodySmall"
               style={[globalStyle.disclaimer, darkStyle.font]}>
               (Source: AniList)
@@ -222,6 +248,15 @@ const styles = StyleSheet.create({
   },
   textCapitalize: {
     textTransform: 'capitalize',
+  },
+  linkContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 5,
+  },
+  icon: {
+    width: 20,
+    height: 20,
   },
 });
 
