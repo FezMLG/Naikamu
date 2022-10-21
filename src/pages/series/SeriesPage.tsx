@@ -108,18 +108,34 @@ const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
             <ScrollView
               horizontal={true}
               style={[styles.quickInfoScroll, styles.categorySpacer]}>
+              {data.nextAiringEpisode && (
+                <QuickInfo
+                  name="Next Episode"
+                  value={
+                    'Ep ' +
+                    data.nextAiringEpisode.episode +
+                    ' ' +
+                    format(
+                      new Date(data.nextAiringEpisode.airingAt * 1000),
+                      'dd-MM H:mm',
+                    )
+                  }
+                  styleView={[styles.marginV]}
+                />
+              )}
               <QuickInfo
                 name="Format"
                 value={data.format}
                 styleView={[styles.paddingLeft]}
               />
+
+              <QuickInfo name="Duration" value={`${data.duration} mins`} />
+              <QuickInfo name="Episodes" value={data.episodes ?? '?'} />
               <QuickInfo
                 name="Status"
                 value={data.status}
                 styleText={[styles.textCapitalize]}
               />
-              <QuickInfo name="Episodes" value={data.episodes ?? '?'} />
-              <QuickInfo name="Duration" value={`${data.duration} mins`} />
               <QuickInfo
                 name="AniList Score"
                 value={`${data.averageScore} / 100`}
@@ -130,23 +146,6 @@ const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
                 styleText={[styles.textCapitalize]}
               />
             </ScrollView>
-            {data.nextAiringEpisode && (
-              <>
-                <QuickInfo
-                  name="Next Episode"
-                  value={format(
-                    new Date(data.nextAiringEpisode.airingAt * 1000),
-                    'dd MM yyyy',
-                  )}
-                  styleView={[styles.marginV]}
-                />
-                <QuickInfo
-                  name="Next Airing Episode"
-                  value={data.nextAiringEpisode.episode}
-                  styleView={[styles.marginV]}
-                />
-              </>
-            )}
             <Text
               style={[styles.titleType, styles.categorySpacer, darkStyle.font]}>
               Trailer
