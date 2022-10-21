@@ -8,10 +8,7 @@ export interface AnimeDetails {
     extraLarge: string;
     color: string;
   };
-  title: {
-    english?: string;
-    romaji: string;
-  };
+  title: Title;
   startDate: {
     year: number;
     month: number;
@@ -22,6 +19,7 @@ export interface AnimeDetails {
     month: number;
     day: number;
   };
+  relations: Relation[];
   popularity: number;
   description: string;
   status: string;
@@ -41,4 +39,15 @@ export interface AnimeDetails {
     site: string;
     thumbnail: string;
   };
+}
+
+export interface Relation {
+  relationType: string;
+  id: number;
+  title: Title;
+}
+
+interface Title {
+  english?: string;
+  romaji: string;
 }
