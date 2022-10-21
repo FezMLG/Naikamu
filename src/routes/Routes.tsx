@@ -29,7 +29,7 @@ const defaultOptions = ({ title }: { title?: string }) => {
   };
 };
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const StackAuthorized = createNativeStackNavigator<RootStackParamList>();
 
 const Routes = ({ theme }: any) => {
   return (
@@ -37,8 +37,8 @@ const Routes = ({ theme }: any) => {
       linking={linking}
       fallback={<SplashPage />}
       theme={theme}>
-      <Stack.Navigator>
-        <Stack.Screen
+      <StackAuthorized.Navigator>
+        <StackAuthorized.Screen
           name={RoutesNames.Home}
           component={HomePage}
           options={{
@@ -47,15 +47,16 @@ const Routes = ({ theme }: any) => {
             headerShown: false,
           }}
         />
-        <Stack.Screen
+        <StackAuthorized.Screen
           name={RoutesNames.Browse}
           component={BrowsePage}
           options={{
             ...defaultOptions({ title: RoutesNames.Browse }),
             animation: 'slide_from_right',
+            headerBackVisible: false,
           }}
         />
-        <Stack.Screen
+        <StackAuthorized.Screen
           name={RoutesNames.Series}
           component={SeriesPage}
           options={({ route }: any) => ({
@@ -63,7 +64,7 @@ const Routes = ({ theme }: any) => {
             animation: 'slide_from_right',
           })}
         />
-        <Stack.Screen
+        <StackAuthorized.Screen
           name={RoutesNames.Episodes}
           component={EpisodesListPage}
           options={({ route }: any) => ({
@@ -78,7 +79,7 @@ const Routes = ({ theme }: any) => {
             ),
           })}
         />
-        <Stack.Screen
+        <StackAuthorized.Screen
           name={RoutesNames.WatchNative}
           component={NativeVideoPlayerPage}
           options={{
@@ -86,7 +87,7 @@ const Routes = ({ theme }: any) => {
             headerShown: false,
           }}
         />
-        <Stack.Screen
+        <StackAuthorized.Screen
           name={RoutesNames.WatchWebView}
           component={WebViewPlayerPage}
           options={{
@@ -94,7 +95,7 @@ const Routes = ({ theme }: any) => {
             headerShown: false,
           }}
         />
-        <Stack.Screen
+        <StackAuthorized.Screen
           name={RoutesNames.WatchError}
           component={ErrorPlayerPage}
           options={{
@@ -102,7 +103,7 @@ const Routes = ({ theme }: any) => {
             animation: 'slide_from_right',
           }}
         />
-      </Stack.Navigator>
+      </StackAuthorized.Navigator>
     </NavigationContainer>
   );
 };
