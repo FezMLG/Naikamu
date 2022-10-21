@@ -72,9 +72,11 @@ const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
             <Text variant="headlineLarge" style={darkStyle.font}>
               {data.title.romaji}
             </Text>
-            <Text variant="titleSmall" style={darkStyle.font}>
-              {data.title.english}
-            </Text>
+            {data.title.romaji !== data.title.english && (
+              <Text variant="titleSmall" style={darkStyle.font}>
+                {data.title.english}
+              </Text>
+            )}
             <View style={[globalStyle.spacer]} />
             <FocusButton
               icon="play-box-multiple"
