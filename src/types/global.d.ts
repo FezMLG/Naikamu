@@ -1,1 +1,1 @@
-declare module 'react-native-video-controls';
+declare module 'rn-flipper-async-storage-advanced';

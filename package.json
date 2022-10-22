@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.6.9",
+    "@react-native-async-storage/async-storage": "^1.17.10",
     "@react-navigation/bottom-tabs": "^6.4.0",
     "@react-navigation/native": "^6.0.13",
     "@react-navigation/native-stack": "^6.9.0",
@@ -38,6 +39,7 @@
     "react-native-config": "^1.4.11",
     "react-native-dotenv": "^3.3.1",
     "react-native-fast-image": "^8.6.1",
+    "react-native-flipper": "^0.171.1",
     "react-native-google-cast": "^4.5.0",
     "react-native-linear-gradient": "^2.6.2",
     "react-native-orientation-locker": "^1.5.0",
@@ -51,7 +53,8 @@
     "react-native-video": "^5.2.1",
     "react-native-video-controls": "^2.8.1",
     "react-native-webview": "^11.23.1",
-    "react-native-youtube-iframe": "^2.2.2"
+    "react-native-youtube-iframe": "^2.2.2",
+    "rn-flipper-async-storage-advanced": "^1.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

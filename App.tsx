@@ -1,4 +1,5 @@
 import React from 'react';
+import FlipperAsyncStorage from 'rn-flipper-async-storage-advanced';
 import QueryClientWrap from './src/api/QueryClientWrap';
 import Routes from './src/routes/Routes';
 import { DarkTheme as NavigationDarkTheme } from '@react-navigation/native';
@@ -22,6 +23,7 @@ const App = () => {
           icon: props => <Icon {...props} />,
         }}
         theme={CombinedDarkTheme}>
+        <FlipperAsyncStorage />
         <Routes theme={CombinedDarkTheme} />
       </PaperProvider>
     </QueryClientWrap>

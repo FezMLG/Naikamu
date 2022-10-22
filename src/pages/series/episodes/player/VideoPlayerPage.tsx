@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import React, { useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import Video from 'react-native-video';
+import Video, { OnProgressData } from 'react-native-video';
 import { ActivityIndicator } from 'react-native-paper';
 import VideoPlayer from 'react-native-video-controls';
 
@@ -16,11 +16,13 @@ import {
   RoutesNames,
   WatchNativePageProps,
 } from '../../../../routes/interfaces';
+import { storageGetData, storageStoreData } from '../../../../utils';
 
 const NativeVideoPlayerPage = ({ route, navigation }: WatchNativePageProps) => {
   const { isTV } = Platform;
   const { uri, player } = route.params;
   const video = useRef<Video>(null);
+  const videoPlayer = useRef<VideoPlayer>(null);
   const [isPaused, setIsPaused] = useState<boolean>(false);
   const { data, error } = useQuery([uri], () => getVideoUrl(player, uri), {
     retry: 3,
@@ -41,6 +43,23 @@ const NativeVideoPlayerPage = ({ route, navigation }: WatchNativePageProps) => {
   };
 
   useTVEventHandler(myTVEventHandler);
+
+  const handleProgress = async (progress: OnProgressData) => {
+    if (Math.round(progress.currentTime) % 5 === 0) {
+      await storageStoreData(`${uri}`, progress);
+    }
+  };
+
+  const handleVideoLoad = async () => {
+    console.log('handled load');
+    const progress = await storageGetData<OnProgressData>(`${uri}`);
+    if (video) {
+      video.current?.seek(progress?.currentTime ?? 0);
+    }
+    if (videoPlayer) {
+      videoPlayer.current?.player.ref.seek(progress?.currentTime ?? 0);
+    }
+  };
 
   if (error) {
     navigation.navigate(RoutesNames.WatchWebView, {
@@ -64,10 +83,12 @@ const NativeVideoPlayerPage = ({ route, navigation }: WatchNativePageProps) => {
                 resizeMode={'contain'}
                 paused={isPaused}
                 fullscreen={true}
+                onProgress={handleProgress}
+                onVideoLoad={handleVideoLoad}
               />
             ) : (
               <VideoPlayer
-                ref={video}
+                ref={videoPlayer}
                 style={styles.absoluteFill}
                 source={{
                   uri: data,
@@ -76,6 +97,8 @@ const NativeVideoPlayerPage = ({ route, navigation }: WatchNativePageProps) => {
                 paused={isPaused}
                 fullscreen={true}
                 onBack={navigation.goBack}
+                onProgress={handleProgress}
+                onLoad={handleVideoLoad}
               />
             )}
           </>
