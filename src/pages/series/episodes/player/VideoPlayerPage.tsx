@@ -8,11 +8,14 @@ import {
 import React, { useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Video from 'react-native-video';
-import { ActivityIndicator, Text } from 'react-native-paper';
+import { ActivityIndicator } from 'react-native-paper';
 import VideoPlayer from 'react-native-video-controls';
 
 import { getVideoUrl } from '../../../../api/video/getVideoUrl';
-import { WatchNativePageProps } from '../../../../routes/interfaces';
+import {
+  RoutesNames,
+  WatchNativePageProps,
+} from '../../../../routes/interfaces';
 
 const NativeVideoPlayerPage = ({ route, navigation }: WatchNativePageProps) => {
   const { isTV } = Platform;
@@ -20,7 +23,7 @@ const NativeVideoPlayerPage = ({ route, navigation }: WatchNativePageProps) => {
   const video = useRef<Video>(null);
   const [isPaused, setIsPaused] = useState<boolean>(false);
   const { data, error } = useQuery([uri], () => getVideoUrl(player, uri), {
-    retry: false,
+    retry: 3,
   });
 
   const myTVEventHandler = (evt: HWEvent) => {
@@ -39,10 +42,15 @@ const NativeVideoPlayerPage = ({ route, navigation }: WatchNativePageProps) => {
 
   useTVEventHandler(myTVEventHandler);
 
+  if (error) {
+    navigation.navigate(RoutesNames.WatchWebView, {
+      uri: uri,
+    });
+  }
+
   return (
     <View style={styles.fullscreenVideo}>
       <>
-        {error && <Text>{JSON.stringify(error)}</Text>}
         {data ? (
           <>
             {isTV ? (
