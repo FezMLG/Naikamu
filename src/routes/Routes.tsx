@@ -11,7 +11,9 @@ import ErrorPlayerPage from '../pages/series/episodes/player/ErrorPlayerPage';
 import { IconButton } from 'react-native-paper';
 import GoogleCast from 'react-native-google-cast';
 import SplashPage from '../pages/SplashPage';
-import { RootStackParamList, RoutesNames } from './interfaces';
+import { BrowsePageProps, RootStackParamList, RoutesNames } from './interfaces';
+import SearchPage from '../pages/search/SearchPage';
+import SearchResultsPage from '../pages/search/SearchResultsPage';
 
 const linking = {
   prefixes: ['aniwatch://'],
@@ -50,10 +52,34 @@ const Routes = ({ theme }: any) => {
         <StackAuthorized.Screen
           name={RoutesNames.Browse}
           component={BrowsePage}
-          options={{
+          options={({ navigation }: BrowsePageProps) => ({
             ...defaultOptions({ title: RoutesNames.Browse }),
             animation: 'slide_from_right',
             headerBackVisible: false,
+            // Add a placeholder button without the `onPress` to avoid flicker
+            headerRight: () => (
+              <IconButton
+                icon="magnify"
+                size={24}
+                onPress={() => navigation.navigate(RoutesNames.Search)}
+              />
+            ),
+          })}
+        />
+        <StackAuthorized.Screen
+          name={RoutesNames.Search}
+          component={SearchPage}
+          options={{
+            ...defaultOptions({ title: RoutesNames.Search }),
+            animation: 'slide_from_right',
+          }}
+        />
+        <StackAuthorized.Screen
+          name={RoutesNames.SearchResults}
+          component={SearchResultsPage}
+          options={{
+            ...defaultOptions({ title: RoutesNames.SearchResults }),
+            animation: 'slide_from_right',
           }}
         />
         <StackAuthorized.Screen

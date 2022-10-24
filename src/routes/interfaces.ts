@@ -1,15 +1,10 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import BrowsePage from '../pages/BrowsePage';
-import HomePage from '../pages/HomePage';
-import EpisodesListPage from '../pages/series/episodes/EpisodesListPage';
-import ErrorPlayerPage from '../pages/series/episodes/player/ErrorPlayerPage';
-import NativeVideoPlayerPage from '../pages/series/episodes/player/VideoPlayerPage';
-import WebViewPlayerPage from '../pages/series/episodes/player/WebViewPlayerPage';
-import SeriesPage from '../pages/series/SeriesPage';
 
 export enum RoutesNames {
   Home = 'Home',
   Browse = 'Browse',
+  Search = 'Search',
+  SearchResults = 'SearchResults',
   Series = 'Series',
   WatchNative = 'WatchNative',
   WatchWebView = 'WatchWebView',
@@ -17,40 +12,11 @@ export enum RoutesNames {
   Episodes = 'Episodes',
 }
 
-export const ScreenRoutes = {
-  home: {
-    name: RoutesNames.Home,
-    component: HomePage,
-  },
-  browse: {
-    name: RoutesNames.Browse,
-    component: BrowsePage,
-  },
-  series: {
-    name: RoutesNames.Series,
-    component: SeriesPage,
-  },
-  episodes: {
-    name: RoutesNames.Episodes,
-    component: EpisodesListPage,
-  },
-  watchNative: {
-    name: RoutesNames.WatchNative,
-    component: NativeVideoPlayerPage,
-  },
-  watchWebView: {
-    name: RoutesNames.WatchWebView,
-    component: WebViewPlayerPage,
-  },
-  watchError: {
-    name: RoutesNames.WatchError,
-    component: ErrorPlayerPage,
-  },
-};
-
 export type RootStackParamList = {
   [RoutesNames.Home]: undefined;
   [RoutesNames.Browse]: undefined;
+  [RoutesNames.Search]: undefined;
+  [RoutesNames.SearchResults]: { phrase?: string };
   [RoutesNames.Series]: { title: string; id: number };
   [RoutesNames.Episodes]: {
     title: string;
@@ -70,6 +36,14 @@ export type HomePageProps = NativeStackScreenProps<
 export type BrowsePageProps = NativeStackScreenProps<
   RootStackParamList,
   RoutesNames.Browse
+>;
+export type SearchPageProps = NativeStackScreenProps<
+  RootStackParamList,
+  RoutesNames.Search
+>;
+export type SearchResultsPageProps = NativeStackScreenProps<
+  RootStackParamList,
+  RoutesNames.SearchResults
 >;
 export type SeriesPageProps = NativeStackScreenProps<
   RootStackParamList,
