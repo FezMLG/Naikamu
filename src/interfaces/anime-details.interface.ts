@@ -4,21 +4,10 @@ export interface AnimeDetails {
   sourceId: number;
   dataSource: string;
   bannerImage: string;
-  coverImage: {
-    extraLarge: string;
-    color: string;
-  };
+  coverImage: CoverImage;
   title: Title;
-  startDate: {
-    year: number;
-    month: number;
-    day: number;
-  };
-  endDate: {
-    year: number;
-    month: number;
-    day: number;
-  };
+  startDate: AirDate;
+  endDate: AirDate;
   externalLinks: ExternalLink[];
   relations: Relation[];
   popularity: number;
@@ -46,6 +35,10 @@ export interface Relation {
   relationType: string;
   id: number;
   title: Title;
+  status: string;
+  format: string;
+  type: string;
+  coverImage: CoverImage;
 }
 
 interface Title {
@@ -59,4 +52,17 @@ interface ExternalLink {
   type: string;
   icon: null | string;
   language: null | string;
+}
+
+interface CoverImage {
+  extraLarge: string;
+  large: string;
+  medium: string;
+  color: string;
+}
+
+interface AirDate {
+  year: number;
+  month: number;
+  day: number;
 }

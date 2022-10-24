@@ -20,6 +20,7 @@ import { AnimeDetails } from '../../interfaces';
 import { APIClient } from '../../api/APIClient';
 import { ProgressiveImage } from '../../components/ProgressiveImage';
 import { QuickInfo } from '../../components/series/QuickInfo';
+import { AnimeRelation } from '../../components/series/Relation';
 
 const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
   const apiClient = new APIClient();
@@ -118,6 +119,34 @@ const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
                   </Chip>
                 );
               })}
+            </View>
+            <View style={styles.categorySpacer}>
+              <Text style={[styles.titleType, darkStyle.font]}>Relations</Text>
+              <ScrollView horizontal={true}>
+                {data.relations.map((relation, index) => {
+                  return (
+                    <AnimeRelation
+                      key={index}
+                      relation={relation}
+                      handleNavigation={() => {
+                        if (relation.format !== 'ANIME') {
+                          navigation.navigate(RoutesNames.Series, {
+                            id: relation.id,
+                            title: relation.title.romaji,
+                          });
+                        } else {
+                          Linking.openURL(
+                            'https://anilist.co/' +
+                              relation.type.toLowerCase() +
+                              '/' +
+                              relation.id,
+                          );
+                        }
+                      }}
+                    />
+                  );
+                })}
+              </ScrollView>
             </View>
             {data.trailer && (
               <>
