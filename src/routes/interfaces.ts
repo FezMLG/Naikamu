@@ -23,7 +23,12 @@ export type RootStackParamList = {
     numOfAiredEpisodes: number;
     posterUrl: string;
   };
-  [RoutesNames.WatchNative]: { uri: string; title: string; player: string };
+  [RoutesNames.WatchNative]: {
+    uri: string;
+    title: string;
+    episodeTitle: string;
+    player: string;
+  };
   [RoutesNames.WatchWebView]: { uri: string };
   [RoutesNames.WatchError]: { playerName: string; animeTitle: string };
 };

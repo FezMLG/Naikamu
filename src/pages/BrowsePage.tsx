@@ -1,14 +1,7 @@
 import { StyleSheet, ActivityIndicator, FlatList } from 'react-native';
 import React, { useRef, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {
-  Dialog,
-  FAB,
-  Portal,
-  Button,
-  SegmentedButtons,
-  TextInput,
-} from 'react-native-paper';
+import { FAB, SegmentedButtons } from 'react-native-paper';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import BrowseElement from '../components/browse/BrowseElement';
@@ -26,11 +19,9 @@ const BrowsePage = ({ navigation }: BrowsePageProps) => {
   const { translate } = useTranslate();
 
   const [season, setSeason] = useState(getAnimeSeason());
-  const [seasonYear, setSeasonYear] = useState(new Date().getFullYear());
-  const [visible, setVisible] = React.useState(false);
+  const [seasonYear] = useState(new Date().getFullYear());
   const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
   const listRef = useRef<FlatList>(null);
-  const hideDialog = () => setVisible(false);
 
   const { isLoading, data, refetch, fetchNextPage, isRefetching } =
     useInfiniteQuery<AnimeList>(
@@ -111,27 +102,6 @@ const BrowsePage = ({ navigation }: BrowsePageProps) => {
           )}
         </>
       )}
-      <FAB
-        icon={'magnify'}
-        style={styles.menu}
-        onPress={() => setVisible(true)}
-      />
-      <Portal>
-        <Dialog visible={visible} onDismiss={hideDialog}>
-          <Dialog.Content>
-            <TextInput
-              keyboardType={'numeric'}
-              label="Year"
-              value={seasonYear.toString()}
-              onChangeText={text => setSeasonYear(Number(text))}
-            />
-          </Dialog.Content>
-          <Dialog.Actions>
-            <Button onPress={hideDialog}>Cancel</Button>
-            <Button onPress={hideDialog}>Ok</Button>
-          </Dialog.Actions>
-        </Dialog>
-      </Portal>
     </SafeAreaView>
   );
 };
@@ -174,7 +144,7 @@ const styles = StyleSheet.create({
   fab: {
     position: 'absolute',
     margin: 16,
-    left: 0,
+    right: 0,
     bottom: 0,
   },
   menu: {

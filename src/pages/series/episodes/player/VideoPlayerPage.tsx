@@ -20,7 +20,7 @@ import { storageGetData, storageStoreData } from '../../../../utils';
 
 const NativeVideoPlayerPage = ({ route, navigation }: WatchNativePageProps) => {
   const { isTV } = Platform;
-  const { uri, player } = route.params;
+  const { uri, player, episodeTitle } = route.params;
   const video = useRef<Video>(null);
   const videoPlayer = useRef<VideoPlayer>(null);
   const [isPaused, setIsPaused] = useState<boolean>(false);
@@ -51,13 +51,12 @@ const NativeVideoPlayerPage = ({ route, navigation }: WatchNativePageProps) => {
   };
 
   const handleVideoLoad = async () => {
-    console.log('handled load');
     const progress = await storageGetData<OnProgressData>(`${uri}`);
     if (video) {
       video.current?.seek(progress?.currentTime ?? 0);
     }
     if (videoPlayer) {
-      videoPlayer.current?.player.ref.seek(progress?.currentTime ?? 0);
+      videoPlayer.current?.seekTo(progress?.currentTime ?? 0);
     }
   };
 
@@ -90,6 +89,7 @@ const NativeVideoPlayerPage = ({ route, navigation }: WatchNativePageProps) => {
               <VideoPlayer
                 ref={videoPlayer}
                 style={styles.absoluteFill}
+                title={episodeTitle}
                 source={{
                   uri: data,
                 }}

@@ -8,7 +8,6 @@ import { darkColor, darkStyle } from '../../styles/darkMode.style';
 export const navigateToPlayer = async ({
   navigation,
   player,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   episodeTitle,
   animeTitle,
 }: {
@@ -32,6 +31,7 @@ export const navigateToPlayer = async ({
       return navigation.navigate(RoutesNames.WatchNative, {
         uri: player.player_link,
         title: animeTitle,
+        episodeTitle: episodeTitle,
         player: name,
       });
 

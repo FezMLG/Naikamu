@@ -52,7 +52,7 @@ export const EpisodeTV = ({
           accessible={false}
           numberOfLines={2}
           style={[styles.title, darkStyle.font]}>
-          {num + ' ' + episode.title}
+          {num + '. ' + episode.title}
         </Text>
         <Text
           variant="bodyMedium"

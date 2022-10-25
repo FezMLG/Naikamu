@@ -1,7 +1,7 @@
 import React from 'react';
 import { CastChromecast } from '../CastChromecast';
 import { useQuery } from '@tanstack/react-query';
-import { Button, Menu } from 'react-native-paper';
+import { IconButton, Menu } from 'react-native-paper';
 
 import GoogleCast from 'react-native-google-cast';
 import { getVideoUrl } from '../../api/video/getVideoUrl';
@@ -25,7 +25,9 @@ export const PlayerMenu = ({ player }: { player: AnimePlayer }) => {
     <Menu
       visible={visible}
       onDismiss={closeMenu}
-      anchor={<Button onPress={openMenu}>Options</Button>}>
+      anchor={
+        <IconButton icon="dots-horizontal" size={24} onPress={openMenu} />
+      }>
       {data && <CastChromecast linkToMP4={data} />}
       <Menu.Item
         leadingIcon="remote"

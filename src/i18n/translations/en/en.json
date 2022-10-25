@@ -1,4 +1,8 @@
 {
+  "routes": {
+    "Browse": "Browse",
+    "Episodes": "Episodes"
+  },
   "welcomeScreen": {
     "welcome": "Welcome to",
     "cto": "Get started"

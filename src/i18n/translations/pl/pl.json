@@ -1,4 +1,8 @@
 {
+  "routes": {
+    "Browse": "Przeglądaj",
+    "Episodes": "Epizody"
+  },
   "welcomeScreen": {
     "welcome": "Witaj w",
     "cto": "Zaczynamy"
@@ -14,10 +18,10 @@
     "FALL": "Jesień"
   },
   "anime_details": {
-    "see_episodes": "Zobacz odcinki",
+    "see_episodes": "Zobacz epizody",
     "next_episode": "Następny odcinek",
     "format": "Format",
-    "episodes": "Odcinki",
+    "episodes": "Epizody",
     "duration": "Długość",
     "status": "Status",
     "status_list": {

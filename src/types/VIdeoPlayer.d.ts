@@ -60,6 +60,8 @@ declare module 'react-native-video-controls' {
     disableTimer?: boolean;
     /** Hide the back button */
     disableBack?: boolean;
+
+    title?: string;
   }
 
   export default class VideoPlayer extends Component<VideoPlayerProperties> {

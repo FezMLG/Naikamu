@@ -25,7 +25,7 @@ i18n.use(initReactI18next).init({
   lng: findBestLanguage(),
   fallbackLng: 'pl',
   resources: resources,
-  debug: true,
+  debug: false,
   interpolation: {
     escapeValue: false,
   },

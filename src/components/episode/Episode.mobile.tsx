@@ -3,7 +3,7 @@ import { Image, SafeAreaView, StyleSheet, View } from 'react-native';
 import { ActivityIndicator, List, Text } from 'react-native-paper';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import { darkStyle } from '../../styles/darkMode.style';
+import { darkColor, darkStyle } from '../../styles/darkMode.style';
 import { mainEpisodeStyles, navigateToPlayer } from './Episode';
 import { defaultRadius } from '../../styles/global.style';
 import { AnimeEpisode, AnimePlayer, AnimePlayers } from '../../interfaces';
@@ -91,7 +91,7 @@ export const EpisodeMobile = ({
           accessible={false}
           numberOfLines={2}
           style={[styles.title, darkStyle.font]}>
-          {num + ' ' + episode.title}
+          {num + '. ' + episode.title}
         </Text>
         <Text
           variant="bodyMedium"
@@ -102,7 +102,8 @@ export const EpisodeMobile = ({
         <List.Accordion
           title={translate('anime_episodes.available_players')}
           left={props => <List.Icon {...props} icon="folder" />}
-          onPress={refetch}>
+          onPress={refetch}
+          style={styles.playersList}>
           {data ? (
             <EpisodeMobileLink
               animeName={animeName}
@@ -135,5 +136,8 @@ const styles = StyleSheet.create({
   },
   borderRadius: {
     borderRadius: defaultRadius,
+  },
+  playersList: {
+    backgroundColor: darkColor.C900,
   },
 });

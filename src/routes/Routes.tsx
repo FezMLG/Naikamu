@@ -14,6 +14,7 @@ import SplashPage from '../pages/SplashPage';
 import { BrowsePageProps, RootStackParamList, RoutesNames } from './interfaces';
 import SearchPage from '../pages/search/SearchPage';
 import SearchResultsPage from '../pages/search/SearchResultsPage';
+import { useTranslate } from '../i18n/useTranslate';
 
 const linking = {
   prefixes: ['aniwatch://'],
@@ -34,6 +35,8 @@ const defaultOptions = ({ title }: { title?: string }) => {
 const StackAuthorized = createNativeStackNavigator<RootStackParamList>();
 
 const Routes = ({ theme }: any) => {
+  const { translate } = useTranslate();
+
   return (
     <NavigationContainer
       linking={linking}
@@ -53,7 +56,9 @@ const Routes = ({ theme }: any) => {
           name={RoutesNames.Browse}
           component={BrowsePage}
           options={({ navigation }: BrowsePageProps) => ({
-            ...defaultOptions({ title: RoutesNames.Browse }),
+            ...defaultOptions({
+              title: translate('routes.' + RoutesNames.Browse),
+            }),
             animation: 'slide_from_right',
             headerBackVisible: false,
             // Add a placeholder button without the `onPress` to avoid flicker
@@ -94,7 +99,11 @@ const Routes = ({ theme }: any) => {
           name={RoutesNames.Episodes}
           component={EpisodesListPage}
           options={({ route }: any) => ({
-            ...defaultOptions({ title: `Episodes: ${route.params.title}` }),
+            ...defaultOptions({
+              title: `${translate('routes.' + RoutesNames.Episodes)}: ${
+                route.params.title
+              }`,
+            }),
             animation: 'slide_from_right',
             headerRight: () => (
               <IconButton
