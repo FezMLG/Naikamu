@@ -17,7 +17,7 @@
     "android:prod-release": "react-native run-android --variant=productionrelease",
     "ios": "react-native run-ios",
     "start": "react-native start",
-    "start:clear": "react-native start --reset-cache",
+    "start:clear": "watchman watch-del $INIT_CWD ; watchman watch-project $INIT_CWD && react-native start --reset-cache",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "app:release": "cd android && ./gradlew bundleRelease",
