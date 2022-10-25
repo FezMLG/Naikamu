@@ -135,9 +135,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   borderRadius: {
-    borderRadius: defaultRadius,
+    borderTopRightRadius: defaultRadius,
+    borderTopLeftRadius: defaultRadius,
   },
   playersList: {
     backgroundColor: darkColor.C900,
+    borderBottomRightRadius: defaultRadius,
+    borderBottomLeftRadius: defaultRadius,
   },
 });
