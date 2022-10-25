@@ -6,27 +6,18 @@ import {
   Platform,
 } from 'react-native';
 import React, { useRef, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
 import Video, { OnProgressData } from 'react-native-video';
-import { ActivityIndicator } from 'react-native-paper';
 import VideoPlayer from 'react-native-video-controls';
 
-import { getVideoUrl } from '../../../../api/video/getVideoUrl';
-import {
-  RoutesNames,
-  WatchNativePageProps,
-} from '../../../../routes/interfaces';
+import { WatchNativePageProps } from '../../../../routes/interfaces';
 import { storageGetData, storageStoreData } from '../../../../utils';
 
 const NativeVideoPlayerPage = ({ route, navigation }: WatchNativePageProps) => {
   const { isTV } = Platform;
-  const { uri, player, episodeTitle } = route.params;
+  const { uri, episodeTitle } = route.params;
   const video = useRef<Video>(null);
   const videoPlayer = useRef<VideoPlayer>(null);
   const [isPaused, setIsPaused] = useState<boolean>(false);
-  const { data, error } = useQuery([uri], () => getVideoUrl(player, uri), {
-    retry: 3,
-  });
 
   const myTVEventHandler = (evt: HWEvent) => {
     switch (evt.eventType) {
@@ -60,59 +51,45 @@ const NativeVideoPlayerPage = ({ route, navigation }: WatchNativePageProps) => {
     }
   };
 
-  if (error) {
-    navigation.navigate(RoutesNames.WatchWebView, {
-      uri: uri,
-    });
-  }
-
   return (
     <View style={styles.fullscreenVideo}>
-      <>
-        {data ? (
-          <>
-            {isTV ? (
-              <Video
-                ref={video}
-                style={styles.absoluteFill}
-                source={{
-                  uri: data,
-                }}
-                controls={true}
-                resizeMode={'contain'}
-                paused={isPaused}
-                fullscreen={true}
-                onProgress={handleProgress}
-                onVideoLoad={handleVideoLoad}
-              />
-            ) : (
-              <VideoPlayer
-                ref={videoPlayer}
-                style={styles.absoluteFill}
-                title={episodeTitle}
-                source={{
-                  uri: data,
-                }}
-                resizeMode={'contain'}
-                paused={isPaused}
-                fullscreen={true}
-                onBack={navigation.goBack}
-                onProgress={handleProgress}
-                onLoad={handleVideoLoad}
-              />
-            )}
-          </>
-        ) : (
-          <ActivityIndicator size="large" color={'#C539F7'} />
-        )}
-        {/* {isTV && (
+      {isTV ? (
+        <Video
+          ref={video}
+          style={styles.absoluteFill}
+          source={{
+            uri: uri,
+          }}
+          controls={true}
+          resizeMode={'contain'}
+          paused={isPaused}
+          fullscreen={true}
+          onProgress={handleProgress}
+          onVideoLoad={handleVideoLoad}
+        />
+      ) : (
+        <VideoPlayer
+          ref={videoPlayer}
+          style={styles.absoluteFill}
+          title={episodeTitle}
+          source={{
+            uri: uri,
+          }}
+          resizeMode={'contain'}
+          paused={isPaused}
+          fullscreen={true}
+          onBack={navigation.goBack}
+          onProgress={handleProgress}
+          onLoad={handleVideoLoad}
+        />
+      )}
+      {/* {isTV && (
         <Controls
           status={status}
           video={video}
           title={route.params.videoTitle}
         />
       )} */}
-      </>
     </View>
   );
 };

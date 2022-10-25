@@ -74,7 +74,7 @@ export class APIClient {
     episode: number,
   ): Promise<AnimePlayers> {
     return this.get<AnimePlayers>(
-      `/anime/${makeRouteFromTitle(animeName)}/episode/${episode}`,
+      `/anime/${makeRouteFromTitle(animeName)}/episode/${episode}?resolve=true`,
     );
   }
 }

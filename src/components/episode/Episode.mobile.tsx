@@ -78,7 +78,9 @@ export const EpisodeMobile = ({
       enabled: false,
     },
   );
-
+  if (data) {
+    console.log(data);
+  }
   return (
     <SafeAreaView style={[styles.episodeContainerMobile]}>
       <View style={[styles.card, darkStyle.card]}>
