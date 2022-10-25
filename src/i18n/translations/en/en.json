@@ -3,16 +3,24 @@
     "welcome": "Welcome to",
     "cto": "Get started"
   },
-  "mainScreen": {
-    "header": "Ekran główny",
-    "results": "wyniki",
-    "noResults": "Brak wyników"
+  "animeSeason": {
+    "winter": "Winter",
+    "spring": "Spring",
+    "summer": "Summer",
+    "fall": "Fall"
   },
-  "global": {
-    "search": "Szukaj"
-  },
-  "userDetails": {
-    "followers": "Obserwujący",
-    "following": "Obserwowani"
+  "anime_details": {
+    "see_episodes": "See episodes",
+    "next_episode": "Next Episode",
+    "format": "Format",
+    "episodes": "Episodes",
+    "duration": "Durations",
+    "status": "Status",
+    "score": "Score",
+    "season": "Season",
+    "relations": "Relations",
+    "trailer": "Trailer",
+    "links": "Links",
+    "source": "Source"
   }
 }

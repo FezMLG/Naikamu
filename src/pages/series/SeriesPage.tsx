@@ -21,10 +21,12 @@ import { APIClient } from '../../api/APIClient';
 import { ProgressiveImage } from '../../components/ProgressiveImage';
 import { QuickInfo } from '../../components/series/QuickInfo';
 import { AnimeRelation } from '../../components/series/Relation';
+import { useTranslate } from '../../i18n/useTranslate';
 
 const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
   const apiClient = new APIClient();
   const { title, id } = route.params;
+  const { translate } = useTranslate();
   const { data } = useQuery<AnimeDetails>(['anime', title, 'details'], () =>
     apiClient.getAnimeDetails(title, id),
   );
@@ -64,14 +66,14 @@ const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
                 });
               }}
               style={[]}>
-              See Episodes
+              {translate('anime_details.see_episodes')}
             </FocusButton>
             <ScrollView
               horizontal={true}
               style={[styles.quickInfoScroll, styles.categorySpacer]}>
               {data.nextAiringEpisode && (
                 <QuickInfo
-                  name="Next Episode"
+                  name={translate('anime_details.next_episode')}
                   value={
                     'Ep ' +
                     data.nextAiringEpisode.episode +
@@ -85,23 +87,23 @@ const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
                 />
               )}
               <QuickInfo
-                name="Format"
+                name={translate('anime_details.format')}
                 value={data.format}
                 styleView={[!data.nextAiringEpisode && styles.paddingLeft]}
               />
               <QuickInfo name="Episodes" value={data.episodes ?? '?'} />
               <QuickInfo name="Duration" value={`${data.duration} mins`} />
               <QuickInfo
-                name="Status"
+                name={translate('anime_details.status')}
                 value={data.status}
                 styleText={[styles.textCapitalize]}
               />
               <QuickInfo
-                name="AniList Score"
+                name={`${data.dataSource} ${translate('anime_details.score')}`}
                 value={`${data.averageScore} / 100`}
               />
               <QuickInfo
-                name="Season"
+                name={translate('anime_details.season')}
                 value={`${data.season} ${data.seasonYear}`}
                 styleText={[styles.textCapitalize]}
               />
@@ -121,7 +123,9 @@ const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
               })}
             </View>
             <View style={styles.categorySpacer}>
-              <Text style={[styles.titleType, darkStyle.font]}>Relations</Text>
+              <Text style={[styles.titleType, darkStyle.font]}>
+                {translate('anime_details.relations')}
+              </Text>
               <ScrollView horizontal={true}>
                 {data.relations.map((relation, index) => {
                   return (
@@ -156,7 +160,7 @@ const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
                     styles.categorySpacer,
                     darkStyle.font,
                   ]}>
-                  Trailer
+                  {translate('anime_details.trailer')}
                 </Text>
                 <YoutubePlayer
                   height={300}
@@ -165,7 +169,9 @@ const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
                 />
               </>
             )}
-            <Text style={[styles.titleType, darkStyle.font]}>Links</Text>
+            <Text style={[styles.titleType, darkStyle.font]}>
+              {translate('anime_details.links')}
+            </Text>
             <View style={styles.linksContainer}>
               <View style={styles.linkContainer}>
                 <ProgressiveImage
@@ -203,7 +209,7 @@ const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
             <Text
               variant="bodySmall"
               style={[globalStyle.disclaimer, darkStyle.font]}>
-              (Source: AniList)
+              ({translate('anime_details.source')}: AniList)
             </Text>
           </View>
         </ScrollView>

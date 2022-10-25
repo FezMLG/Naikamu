@@ -18,10 +18,13 @@ import { APIClient } from '../api/APIClient';
 import { BrowsePageProps, RoutesNames } from '../routes/interfaces';
 import { AnimeSeason } from '../enums/anime-season.enum';
 import { getAnimeSeason } from '../utils/getAnimeSeason';
+import { useTranslate } from '../i18n/useTranslate';
 
 const BrowsePage = ({ navigation }: BrowsePageProps) => {
   const CONTENT_OFFSET_THRESHOLD = 300;
   const apiClient = new APIClient();
+  const { translate } = useTranslate();
+
   const [season, setSeason] = useState(getAnimeSeason());
   const [seasonYear, setSeasonYear] = useState(new Date().getFullYear());
   const [visible, setVisible] = React.useState(false);
@@ -59,22 +62,22 @@ const BrowsePage = ({ navigation }: BrowsePageProps) => {
         buttons={[
           {
             value: AnimeSeason.Winter,
-            label: 'Winter',
+            label: translate('animeSeason.winter'),
             icon: 'snowflake',
           },
           {
             value: AnimeSeason.Spring,
-            label: 'Spring',
+            label: translate('animeSeason.spring'),
             icon: 'flower',
           },
           {
             value: AnimeSeason.Summer,
-            label: 'Summer',
+            label: translate('animeSeason.summer'),
             icon: 'white-balance-sunny',
           },
           {
             value: AnimeSeason.Fall,
-            label: 'Fall',
+            label: translate('animeSeason.fall'),
             icon: 'leaf',
           },
         ]}

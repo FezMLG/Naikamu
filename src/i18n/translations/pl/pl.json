@@ -3,16 +3,24 @@
     "welcome": "Witaj w",
     "cto": "Zaczynamy"
   },
-  "mainScreen": {
-    "header": "Ekran główny",
-    "results": "wyniki",
-    "noResults": "Brak wyników"
+  "animeSeason": {
+    "winter": "Zima",
+    "spring": "Wiosna",
+    "summer": "Lato",
+    "fall": "Jesień"
   },
-  "global": {
-    "search": "Szukaj"
-  },
-  "userDetails": {
-    "followers": "Obserwujący",
-    "following": "Obserwowani"
+  "anime_details": {
+    "see_episodes": "Zobacz odcinki",
+    "next_episode": "Następny odcinek",
+    "format": "Format",
+    "episodes": "Odcinki",
+    "duration": "Długość",
+    "status": "Status",
+    "score": "Ranking",
+    "season": "sezon",
+    "relations": "Relacje",
+    "trailer": "Zwiastun",
+    "links": "Linki",
+    "source": "Źródło"
   }
 }
