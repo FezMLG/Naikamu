@@ -48,5 +48,12 @@
     "trailer": "Trailer",
     "links": "Links",
     "source": "Source"
+  },
+  "anime_episodes": {
+    "players_not_found": "Players not found",
+    "Episode": "Episode",
+    "available_players": "Available players",
+    "load_players": "Load players",
+    "disclaimer": "AniWatch does not host any files on its own servers, we only provide links to content hosted on third-party servers."
   }
 }

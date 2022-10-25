@@ -48,5 +48,12 @@
     "trailer": "Zwiastun",
     "links": "Linki",
     "source": "Źródło"
+  },
+  "anime_episodes": {
+    "players_not_found": "Nie znaleziono odtwarzaczy",
+    "Episode": "Odcinek",
+    "available_players": "Dostępne odtwarzacze",
+    "load_players": "Załaduj odtwarzacze",
+    "disclaimer": "AniWatch nie hostuje żadnych plików na własnych serwerach, udostępniamy jedynie linki do treści hostowanych na serwerach stron trzecich."
   }
 }

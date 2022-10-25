@@ -16,12 +16,15 @@ import { globalStyle } from '../../../styles/global.style';
 import { APIClient } from '../../../api/APIClient';
 import { EpisodesPageProps } from '../../../routes/interfaces';
 import { AnimeEpisode } from '../../../interfaces';
+import { useTranslate } from '../../../i18n/useTranslate';
 
 const { isTV } = Platform;
 
 const EpisodesListPage = ({ navigation, route }: EpisodesPageProps) => {
   const apiClient = new APIClient();
-  const { isLoading, data } = useQuery(
+  const { translate } = useTranslate();
+
+  const { isLoading, data, isError } = useQuery(
     ['anime', route.params.title, 'episodes'],
     () =>
       apiClient.getEpisodes(
@@ -34,6 +37,9 @@ const EpisodesListPage = ({ navigation, route }: EpisodesPageProps) => {
     <SafeAreaView style={[styles.container]}>
       <ScrollView style={styles.scrollView}>
         {isLoading && <ActivityIndicator size="large" />}
+        {isError && (
+          <Text>{translate('anime_episodes.players_not_found')}</Text>
+        )}
         {data &&
           data.episodes.map((episode: AnimeEpisode, index: number) => {
             if (isTV) {
@@ -62,8 +68,7 @@ const EpisodesListPage = ({ navigation, route }: EpisodesPageProps) => {
         <Text
           variant="bodySmall"
           style={[globalStyle.disclaimer, darkStyle.font]}>
-          AniWatch does not host any files on its own servers, we only provide
-          links to content hosted on third-party servers.
+          {translate('anime_episodes.disclaimer')}
         </Text>
       </ScrollView>
     </SafeAreaView>

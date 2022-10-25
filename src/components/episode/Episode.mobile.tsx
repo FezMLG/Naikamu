@@ -11,6 +11,7 @@ import { RootStackParamList, RoutesNames } from '../../routes/interfaces';
 import { APIClient } from '../../api/APIClient';
 import { useQuery } from '@tanstack/react-query';
 import { PlayerMenu } from './PlayerMenu';
+import { useTranslate } from '../../i18n/useTranslate';
 
 export const EpisodeMobileLink = ({
   animeName,
@@ -69,6 +70,7 @@ export const EpisodeMobile = ({
   animeName: string;
 }) => {
   const apiClient = new APIClient();
+  const { translate } = useTranslate();
   const { data, refetch } = useQuery(
     ['anime', 'episodes', num],
     () => apiClient.getEpisodePlayers(animeName, num),
@@ -98,7 +100,7 @@ export const EpisodeMobile = ({
           {episode.description}
         </Text>
         <List.Accordion
-          title={'Available Players'}
+          title={translate('anime_episodes.available_players')}
           left={props => <List.Icon {...props} icon="folder" />}
           onPress={refetch}>
           {data ? (

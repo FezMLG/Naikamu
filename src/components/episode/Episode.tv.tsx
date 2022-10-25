@@ -11,6 +11,7 @@ import { RootStackParamList, RoutesNames } from '../../routes/interfaces';
 import { AnimeEpisode, AnimePlayer } from '../../interfaces';
 import { APIClient } from '../../api/APIClient';
 import { Source } from './Source';
+import { useTranslate } from '../../i18n/useTranslate';
 
 export const EpisodeTV = ({
   num,
@@ -30,6 +31,7 @@ export const EpisodeTV = ({
   animeName: string;
 }) => {
   const apiClient = new APIClient();
+  const { translate } = useTranslate();
   const { data, refetch } = useQuery(
     ['anime', 'episodes', num],
     () => apiClient.getEpisodePlayers(animeName, num),
@@ -64,10 +66,12 @@ export const EpisodeTV = ({
           variant="titleSmall"
           accessible={false}
           style={[styles.title, darkStyle.font]}>
-          Available players:
+          {translate('anime_episodes.available_players')}
         </Text>
         <View style={styles.linksBox}>
-          <Button onPress={refetch}>Load players</Button>
+          <Button onPress={refetch}>
+            {translate('anime_episodes.available_players')}
+          </Button>
           {data &&
             data.players.map((player: AnimePlayer, index: number) => {
               return (
