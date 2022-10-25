@@ -7,7 +7,11 @@
     "winter": "Zima",
     "spring": "Wiosna",
     "summer": "Lato",
-    "fall": "Jesień"
+    "fall": "Jesień",
+    "WINTER": "Zima",
+    "SPRING": "Wiosna",
+    "SUMMER": "Lato",
+    "FALL": "Jesień"
   },
   "anime_details": {
     "see_episodes": "Zobacz odcinki",
@@ -16,9 +20,31 @@
     "episodes": "Odcinki",
     "duration": "Długość",
     "status": "Status",
+    "status_list": {
+      "FINISHED": "Zakończona",
+      "RELEASING": "Emitowane",
+      "NOT_YET_RELEASED": "Zapowiedź",
+      "CANCELED": "Anulowana",
+      "HIATUS": "Wstrzymana"
+    },
     "score": "Ranking",
-    "season": "sezon",
+    "season": "Sezon",
     "relations": "Relacje",
+    "relations_list": {
+      "ADAPTATION": "Adaptacja",
+      "PREQUEL": "Prequel",
+      "SEQUEL": "Sequel",
+      "PARENT": "Rodzic",
+      "SIDE_STORY": "Historia poboczna",
+      "CHARACTER": "Wspólna postać",
+      "SUMMARY": "Podsumowanie",
+      "ALTERNATIVE": "Historia alternatywna",
+      "SPIN_OFF": "Spin off",
+      "OTHER": "Inne",
+      "SOURCE": "Źródło",
+      "COMPILATION": "Kompilacja",
+      "CONTAINS": "Zawiera"
+    },
     "trailer": "Zwiastun",
     "links": "Linki",
     "source": "Źródło"

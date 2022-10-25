@@ -91,11 +91,17 @@ const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
                 value={data.format}
                 styleView={[!data.nextAiringEpisode && styles.paddingLeft]}
               />
-              <QuickInfo name="Episodes" value={data.episodes ?? '?'} />
-              <QuickInfo name="Duration" value={`${data.duration} mins`} />
+              <QuickInfo
+                name={translate('anime_details.episodes')}
+                value={data.episodes ?? '?'}
+              />
+              <QuickInfo
+                name={translate('anime_details.duration')}
+                value={`${data.duration} mins`}
+              />
               <QuickInfo
                 name={translate('anime_details.status')}
-                value={data.status}
+                value={translate('anime_details.status_list.' + data.status)}
                 styleText={[styles.textCapitalize]}
               />
               <QuickInfo
@@ -104,7 +110,9 @@ const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
               />
               <QuickInfo
                 name={translate('anime_details.season')}
-                value={`${data.season} ${data.seasonYear}`}
+                value={`${translate('animeSeason.' + data.season)} ${
+                  data.seasonYear
+                }`}
                 styleText={[styles.textCapitalize]}
               />
             </ScrollView>

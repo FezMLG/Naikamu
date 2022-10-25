@@ -6,6 +6,7 @@ import {
   View,
 } from 'react-native';
 import { Text } from 'react-native-paper';
+import { useTranslate } from '../../i18n/useTranslate';
 import { Relation } from '../../interfaces';
 import { darkColor } from '../../styles/darkMode.style';
 import { ProgressiveImage } from '../ProgressiveImage';
@@ -17,6 +18,8 @@ export const AnimeRelation = ({
   relation: Relation;
   handleNavigation: ((event: GestureResponderEvent) => void) | null | undefined;
 }) => {
+  const { translate } = useTranslate();
+
   return (
     <Pressable style={[styles.container]} onPress={handleNavigation}>
       <ProgressiveImage
@@ -26,7 +29,7 @@ export const AnimeRelation = ({
       <View style={styles.details}>
         <View style={[styles.flexColumn, styles.marginTop]}>
           <Text variant="bodySmall" style={[styles.textCapitalize]}>
-            {relation.relationType}
+            {translate('anime_details.relations_list.' + relation.relationType)}
           </Text>
           <Text variant="titleMedium" style={styles.title} numberOfLines={3}>
             {relation.title.romaji}

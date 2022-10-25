@@ -7,7 +7,11 @@
     "winter": "Winter",
     "spring": "Spring",
     "summer": "Summer",
-    "fall": "Fall"
+    "fall": "Fall",
+    "WINTER": "Winter",
+    "SPRING": "Spring",
+    "SUMMER": "Summer",
+    "FALL": "Fall"
   },
   "anime_details": {
     "see_episodes": "See episodes",
@@ -16,9 +20,31 @@
     "episodes": "Episodes",
     "duration": "Durations",
     "status": "Status",
+    "status_list": {
+      "FINISHED": "Finished",
+      "RELEASING": "Releasing",
+      "NOT_YET_RELEASED": "Announced",
+      "CANCELED": "Canceled",
+      "HIATUS": "Paused"
+    },
     "score": "Score",
     "season": "Season",
     "relations": "Relations",
+    "relations_list": {
+      "ADAPTATION": "Adaptation",
+      "PREQUEL": "Prequel",
+      "SEQUEL": "Sequel",
+      "PARENT": "Parent",
+      "SIDE_STORY": "Side story",
+      "CHARACTER": "Character",
+      "SUMMARY": "Summary",
+      "ALTERNATIVE": "Alternative",
+      "SPIN_OFF": "Spin off",
+      "OTHER": "Other",
+      "SOURCE": "Source",
+      "COMPILATION": "Compilation",
+      "CONTAINS": "Contains"
+    },
     "trailer": "Trailer",
     "links": "Links",
     "source": "Source"
