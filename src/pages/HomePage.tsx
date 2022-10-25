@@ -8,12 +8,15 @@ import { globalStyle } from '../styles/global.style';
 import { FocusButton } from '../components/FocusButton';
 import { darkStyle } from '../styles/darkMode.style';
 import { HomePageProps, RoutesNames } from '../routes/interfaces';
+import { useTranslate } from '../i18n/useTranslate';
 
 const HomePage = ({ navigation }: HomePageProps) => {
+  const { translate } = useTranslate();
+
   return (
     <SafeAreaView style={[styles.container]}>
       <Text variant="titleLarge" style={darkStyle.font}>
-        Welcome to
+        {translate('welcomeScreen.welcome')}
       </Text>
       <Text
         variant="displayMedium"
@@ -32,7 +35,7 @@ const HomePage = ({ navigation }: HomePageProps) => {
         <Text
           variant="titleLarge"
           style={[darkStyle.fontReverse, darkStyle.font]}>
-          Get Started
+          {translate('welcomeScreen.cto')}
         </Text>
       </FocusButton>
       {ENV !== 'prod' && <Text>api_url: {API_URL}</Text>}

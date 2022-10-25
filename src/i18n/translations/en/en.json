@@ -1,0 +1,18 @@
+{
+  "welcomeScreen": {
+    "welcome": "Welcome to",
+    "cto": "Get started"
+  },
+  "mainScreen": {
+    "header": "Ekran główny",
+    "results": "wyniki",
+    "noResults": "Brak wyników"
+  },
+  "global": {
+    "search": "Szukaj"
+  },
+  "userDetails": {
+    "followers": "Obserwujący",
+    "following": "Obserwowani"
+  }
+}

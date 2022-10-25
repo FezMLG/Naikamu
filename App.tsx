@@ -8,6 +8,7 @@ import {
   MD3DarkTheme as PaperDarkTheme,
   Provider as PaperProvider,
 } from 'react-native-paper';
+import LanguagesProvider from './src/i18n/LanguagesProvider';
 
 const CombinedDarkTheme = {
   ...NavigationDarkTheme,
@@ -24,7 +25,9 @@ const App = () => {
         }}
         theme={CombinedDarkTheme}>
         <FlipperAsyncStorage />
-        <Routes theme={CombinedDarkTheme} />
+        <LanguagesProvider>
+          <Routes theme={CombinedDarkTheme} />
+        </LanguagesProvider>
       </PaperProvider>
     </QueryClientWrap>
   );
