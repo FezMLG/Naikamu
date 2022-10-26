@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "235555521653",
+    "project_id": "aniwatch-1f64a",
+    "storage_bucket": "aniwatch-1f64a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:235555521653:android:d5901c47d8bf7a8014243c",
+        "android_client_info": {
+          "package_name": "com.aniwatch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "235555521653-l0r1lu5v1rj6sf2lm5o0jdcu3096ba2v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aniwatch",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "235555521653-u912a0ccok2j0kmbpv11i4jlpfu29obf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBt9KGuQDfQNZXXRIRv0YC95L8gmA9Mdok"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "235555521653-u912a0ccok2j0kmbpv11i4jlpfu29obf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
