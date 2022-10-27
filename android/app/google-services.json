@@ -7,17 +7,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:235555521653:android:d5901c47d8bf7a8014243c",
+        "mobilesdk_app_id": "1:235555521653:android:d409a549410629e414243c",
         "android_client_info": {
-          "package_name": "com.aniwatch"
+          "package_name": "com.aniwatch.dev"
         }
       },
       "oauth_client": [
         {
-          "client_id": "235555521653-l0r1lu5v1rj6sf2lm5o0jdcu3096ba2v.apps.googleusercontent.com",
+          "client_id": "235555521653-8ldlff6gito14n264o4mutobj1labe8k.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.aniwatch",
+            "package_name": "com.aniwatch.dev",
             "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
           }
         },

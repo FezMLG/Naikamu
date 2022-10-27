@@ -70,3 +70,23 @@ export type WatchErrorPageProps = NativeStackScreenProps<
   RootStackParamList,
   RoutesNames.WatchError
 >;
+
+export enum AuthRoutesNames {
+  Login = 'Login',
+  SignUp = 'SignUp',
+}
+
+export type AuthStackParamList = {
+  [AuthRoutesNames.Login]: undefined;
+  [AuthRoutesNames.SignUp]: undefined;
+};
+
+export type LoginPageProps = NativeStackScreenProps<
+  AuthStackParamList,
+  AuthRoutesNames.Login
+>;
+
+export type SignupPageProps = NativeStackScreenProps<
+  AuthStackParamList,
+  AuthRoutesNames.SignUp
+>;

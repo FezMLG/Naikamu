@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
-import { Text } from 'react-native-paper';
+import { Button, Text } from 'react-native-paper';
 import { API_URL, ENV } from '@env';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -9,9 +9,12 @@ import { FocusButton } from '../components/FocusButton';
 import { darkStyle } from '../styles/darkMode.style';
 import { HomePageProps, RoutesNames } from '../routes/interfaces';
 import { useTranslate } from '../i18n/useTranslate';
+import { useAppDispatch } from '../services/store/store';
+import { logoutUser } from '../services/auth.service';
 
 const HomePage = ({ navigation }: HomePageProps) => {
   const { translate } = useTranslate();
+  const dispatch = useAppDispatch();
 
   return (
     <SafeAreaView style={[styles.container]}>
@@ -38,6 +41,7 @@ const HomePage = ({ navigation }: HomePageProps) => {
           {translate('welcomeScreen.cto')}
         </Text>
       </FocusButton>
+      <Button onPress={() => dispatch(logoutUser())}>Logout</Button>
       {ENV !== 'prod' && <Text>api_url: {API_URL}</Text>}
     </SafeAreaView>
   );

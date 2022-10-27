@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance, AxiosRequestHeaders } from 'axios';
 import { AnimeSeason } from '../enums/anime-season.enum';
 import {
   AnimeList,
@@ -8,6 +8,7 @@ import {
 } from '../interfaces';
 import { makeRouteFromTitle } from '../utils';
 import { API_URL } from '@env';
+import { retrieveTokensFromStorage } from '../services/auth-storage.service';
 
 interface GetAnimeListDTO {
   page?: number;
@@ -30,13 +31,21 @@ export class APIClient {
     });
   }
 
-  private async get<T>(url: string): Promise<T> {
-    const { data } = await this.instance.get<T>(url);
+  private async get<T>(url: string, headers?: AxiosRequestHeaders): Promise<T> {
+    const { data } = await this.instance.get<T>(url, {
+      headers: headers,
+    });
     return data;
   }
 
-  private async post<T>(url: string, dataToSend: Object): Promise<T> {
-    const { data } = await this.instance.post<T>(url, dataToSend);
+  private async post<T>(
+    url: string,
+    dataToSend: Object,
+    headers?: AxiosRequestHeaders,
+  ): Promise<T> {
+    const { data } = await this.instance.post<T>(url, dataToSend, {
+      headers: headers,
+    });
     return data;
   }
 
@@ -46,14 +55,18 @@ export class APIClient {
     seasonYear,
     perPage = 25,
   }: GetAnimeListDTO): Promise<AnimeList> {
+    const token = await this.withToken();
     return this.get<AnimeList>(
       `/anime?per-page=${perPage}&page=${page}&season=${season}&season-year=${seasonYear}`,
+      { ...token },
     );
   }
 
   async getAnimeDetails(animeName: string, id: number): Promise<AnimeDetails> {
+    const token = await this.withToken();
     return this.get<AnimeDetails>(
       `/anime/${makeRouteFromTitle(animeName)}?source=anilist&id=${id}`,
+      { ...token },
     );
   }
 
@@ -61,11 +74,13 @@ export class APIClient {
     animeName: string,
     expectedEpisodes: number,
   ): Promise<AnimeEpisodes> {
+    const token = await this.withToken();
     return this.post<AnimeEpisodes>(
       `/anime/${makeRouteFromTitle(animeName)}/episodes`,
       {
         expected_episodes: expectedEpisodes,
       },
+      { ...token },
     );
   }
 
@@ -73,8 +88,17 @@ export class APIClient {
     animeName: string,
     episode: number,
   ): Promise<AnimePlayers> {
+    const token = await this.withToken();
     return this.get<AnimePlayers>(
       `/anime/${makeRouteFromTitle(animeName)}/episode/${episode}?resolve=true`,
+      { ...token },
     );
+  }
+
+  async withToken() {
+    const token = await retrieveTokensFromStorage();
+    return {
+      Authorization: 'Bearer ' + token,
+    };
   }
 }

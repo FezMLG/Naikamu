@@ -32,6 +32,7 @@
     "@react-navigation/bottom-tabs": "^6.4.0",
     "@react-navigation/native": "^6.0.13",
     "@react-navigation/native-stack": "^6.9.0",
+    "@reduxjs/toolkit": "^1.8.6",
     "@tanstack/react-query": "^4.3.9",
     "axios": "^0.27.2",
     "date-fns": "^2.29.3",
@@ -45,6 +46,7 @@
     "react-native-fast-image": "^8.6.1",
     "react-native-flipper": "^0.171.1",
     "react-native-google-cast": "^4.5.0",
+    "react-native-keychain": "^8.1.1",
     "react-native-linear-gradient": "^2.6.2",
     "react-native-localize": "^2.2.4",
     "react-native-orientation-locker": "^1.5.0",
@@ -59,6 +61,7 @@
     "react-native-video-controls": "^2.8.1",
     "react-native-webview": "^11.23.1",
     "react-native-youtube-iframe": "^2.2.2",
+    "react-redux": "^8.0.4",
     "rn-flipper-async-storage-advanced": "^1.0.4"
   },
   "devDependencies": {
