@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { User } from '../interfaces';
 
 interface UserReducer {
-  user: unknown;
+  user: User | null;
   isFetching: boolean;
 }
 
@@ -17,7 +18,7 @@ export const userSlice = createSlice({
     getUserPending(state: UserReducer) {
       state.isFetching = true;
     },
-    getUserFulfilled(state: UserReducer, action: PayloadAction<unknown>) {
+    getUserFulfilled(state: UserReducer, action: PayloadAction<User>) {
       state.user = action.payload;
       state.isFetching = false;
     },

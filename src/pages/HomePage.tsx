@@ -9,15 +9,18 @@ import { FocusButton } from '../components/FocusButton';
 import { darkStyle } from '../styles/darkMode.style';
 import { HomePageProps, RoutesNames } from '../routes/interfaces';
 import { useTranslate } from '../i18n/useTranslate';
-import { useAppDispatch } from '../services/store/store';
+import { RootState, useAppDispatch } from '../services/store/store';
 import { logoutUser } from '../services/auth.service';
+import { useSelector } from 'react-redux';
 
 const HomePage = ({ navigation }: HomePageProps) => {
   const { translate } = useTranslate();
   const dispatch = useAppDispatch();
+  const { user } = useSelector((state: RootState) => state.user);
 
   return (
     <SafeAreaView style={[styles.container]}>
+      <Text>{user?.displayName ? user?.displayName : user?.email}</Text>
       <Text variant="titleLarge" style={darkStyle.font}>
         {translate('welcomeScreen.welcome')}
       </Text>

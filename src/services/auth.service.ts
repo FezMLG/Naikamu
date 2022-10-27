@@ -1,4 +1,5 @@
 import auth from '@react-native-firebase/auth';
+import { User } from '../interfaces';
 
 import {
   clearAuthenticatedUser,
@@ -11,14 +12,6 @@ import {
   saveTokensToStorage,
 } from './auth-storage.service';
 import { AppDispatch } from './store/store';
-
-export interface User {
-  displayName: string | null;
-  email: string | null;
-  emailVerified: boolean;
-  isAnonymous: boolean;
-  uid: string;
-}
 
 export const loginUser =
   (email: string, password: string) => async (dispatch: AppDispatch) => {
