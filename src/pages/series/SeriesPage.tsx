@@ -28,7 +28,7 @@ const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
   const { title, id } = route.params;
   const { translate } = useTranslate();
   const { data } = useQuery<AnimeDetails>(['anime', title, 'details'], () =>
-    apiClient.getAnimeDetails(title, id),
+    apiClient.getAnimeDetails(id),
   );
 
   return (

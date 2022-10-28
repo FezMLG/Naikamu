@@ -6,7 +6,6 @@ import {
   AnimeEpisodes,
   AnimePlayers,
 } from '../interfaces';
-import { makeRouteFromTitle } from '../utils';
 import { API_URL } from '@env';
 
 interface GetAnimeListDTO {
@@ -51,30 +50,30 @@ export class APIClient {
     );
   }
 
-  async getAnimeDetails(animeName: string, id: number): Promise<AnimeDetails> {
-    return this.get<AnimeDetails>(
-      `/anime/${makeRouteFromTitle(animeName)}?source=anilist&id=${id}`,
-    );
+  async getAnimeDetails(id: number): Promise<AnimeDetails> {
+    return this.post<AnimeDetails>('/anime', {
+      dataSource: 'anilist',
+      sourceId: id,
+    });
   }
 
   async getEpisodes(
     animeName: string,
     expectedEpisodes: number,
   ): Promise<AnimeEpisodes> {
-    return this.post<AnimeEpisodes>(
-      `/anime/${makeRouteFromTitle(animeName)}/episodes`,
-      {
-        expected_episodes: expectedEpisodes,
-      },
-    );
+    return this.post<AnimeEpisodes>('/anime/episodes', {
+      animeName: animeName,
+      expected_episodes: expectedEpisodes,
+    });
   }
 
   async getEpisodePlayers(
     animeName: string,
     episode: number,
   ): Promise<AnimePlayers> {
-    return this.get<AnimePlayers>(
-      `/anime/${makeRouteFromTitle(animeName)}/episode/${episode}?resolve=true`,
-    );
+    return this.post<AnimePlayers>(`/anime/episode/${episode}`, {
+      animeName: animeName,
+      resolve: true,
+    });
   }
 }
