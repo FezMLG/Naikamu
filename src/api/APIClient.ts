@@ -53,7 +53,7 @@ export class APIClient {
   async getAnimeDetails(id: number): Promise<AnimeDetails> {
     return this.post<AnimeDetails>('/anime', {
       dataSource: 'anilist',
-      sourceId: id,
+      sourceId: String(id),
     });
   }
 
