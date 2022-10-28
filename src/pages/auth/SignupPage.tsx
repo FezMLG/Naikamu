@@ -5,6 +5,7 @@ import { registerUser } from '../../services/auth.service';
 import { useAppDispatch } from '../../services/store/store';
 
 export const SignUpPage = () => {
+  const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useAppDispatch();
@@ -12,6 +13,13 @@ export const SignUpPage = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Create an account</Text>
+      <TextInput
+        value={displayName}
+        placeholder="Username"
+        onChangeText={text => setDisplayName(text)}
+        autoCapitalize="none"
+        autoCorrect={false}
+      />
       <TextInput
         value={email}
         placeholder="Email"
@@ -24,9 +32,11 @@ export const SignUpPage = () => {
         value={password}
         placeholder="Password"
         onChangeText={userPassword => setPassword(userPassword)}
+        autoCapitalize="none"
         secureTextEntry={true}
       />
-      <Button onPress={() => dispatch(registerUser(email, password))}>
+      <Button
+        onPress={() => dispatch(registerUser(displayName, email, password))}>
         Sign up
       </Button>
     </View>

@@ -19,6 +19,14 @@ export const loginUser =
       email,
       password,
     );
+
+    if (!newAuthState.user.emailVerified) {
+      await newAuthState.user.sendEmailVerification({
+        handleCodeInApp: true,
+        url: 'https://aniwatch-1f64a.firebaseapp.com/__/auth/action',
+      });
+    }
+
     const token = await newAuthState.user.getIdToken();
     await saveTokensToStorage(token);
     dispatch(getUser());
@@ -37,6 +45,32 @@ export const logoutUser = () => async (dispatch: AppDispatch) => {
 };
 
 export const registerUser =
+  (displayName: string, email: string, password: string) =>
+  async (dispatch: AppDispatch) => {
+    try {
+      const createdUser = await auth().createUserWithEmailAndPassword(
+        email,
+        password,
+      );
+
+      await createdUser.user.updateProfile({
+        displayName: displayName,
+      });
+
+      await createdUser.user.sendEmailVerification({
+        handleCodeInApp: true,
+        url: 'https://aniwatch-1f64a.firebaseapp.com/__/auth/action',
+      });
+
+      await resetTokensStorage();
+
+      dispatch(clearAuthenticatedUser());
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+export const verifyEmail =
   (email: string, password: string) => async (dispatch: AppDispatch) => {
     try {
       await auth().createUserWithEmailAndPassword(email, password);
