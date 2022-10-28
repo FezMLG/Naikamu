@@ -61,9 +61,10 @@ export class APIClient {
     animeName: string,
     expectedEpisodes: number,
   ): Promise<AnimeEpisodes> {
+    console.log('name', animeName);
     return this.post<AnimeEpisodes>('/anime/episodes', {
       animeName: animeName,
-      expected_episodes: expectedEpisodes,
+      expectedEpisodes: expectedEpisodes,
     });
   }
 
