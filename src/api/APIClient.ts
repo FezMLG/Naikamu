@@ -63,15 +63,14 @@ export class APIClient {
 
   async getAnimeDetails(animeName: string, id: number): Promise<AnimeDetails> {
     const token = await this.withToken();
-    return this.get<AnimeDetails>(
-      `/anime/${makeRouteFromTitle(animeName)}?source=anilist&id=${id}`,
+    return this.post<AnimeDetails>(
+      '/anime',
+      {
+        dataSource: 'anilist',
+        sourceId: String(id),
+      },
       { ...token },
     );
-  async getAnimeDetails(id: number): Promise<AnimeDetails> {
-    return this.post<AnimeDetails>('/anime', {
-      dataSource: 'anilist',
-      sourceId: String(id),
-    });
   }
 
   async getEpisodes(
@@ -80,17 +79,13 @@ export class APIClient {
   ): Promise<AnimeEpisodes> {
     const token = await this.withToken();
     return this.post<AnimeEpisodes>(
-      `/anime/${makeRouteFromTitle(animeName)}/episodes`,
+      '/anime/episodes',
       {
-        expected_episodes: expectedEpisodes,
+        animeName: animeName,
+        expectedEpisodes: expectedEpisodes,
       },
       { ...token },
     );
-    console.log('name', animeName);
-    return this.post<AnimeEpisodes>('/anime/episodes', {
-      animeName: animeName,
-      expectedEpisodes: expectedEpisodes,
-    });
   }
 
   async getEpisodePlayers(
@@ -98,14 +93,14 @@ export class APIClient {
     episode: number,
   ): Promise<AnimePlayers> {
     const token = await this.withToken();
-    return this.get<AnimePlayers>(
-      `/anime/${makeRouteFromTitle(animeName)}/episode/${episode}?resolve=true`,
+    return this.post<AnimePlayers>(
+      `/anime/episode/${episode}`,
+      {
+        animeName: animeName,
+        resolve: true,
+      },
       { ...token },
     );
-    return this.post<AnimePlayers>(`/anime/episode/${episode}`, {
-      animeName: animeName,
-      resolve: true,
-    });
   }
 
   async withToken() {
