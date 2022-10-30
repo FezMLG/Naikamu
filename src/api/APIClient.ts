@@ -6,7 +6,6 @@ import {
   AnimeEpisodes,
   AnimePlayers,
 } from '../interfaces';
-import { makeRouteFromTitle } from '../utils';
 import { API_URL } from '@env';
 import { retrieveTokensFromStorage } from '../services/auth-storage.service';
 
@@ -68,6 +67,11 @@ export class APIClient {
       `/anime/${makeRouteFromTitle(animeName)}?source=anilist&id=${id}`,
       { ...token },
     );
+  async getAnimeDetails(id: number): Promise<AnimeDetails> {
+    return this.post<AnimeDetails>('/anime', {
+      dataSource: 'anilist',
+      sourceId: String(id),
+    });
   }
 
   async getEpisodes(
@@ -82,6 +86,11 @@ export class APIClient {
       },
       { ...token },
     );
+    console.log('name', animeName);
+    return this.post<AnimeEpisodes>('/anime/episodes', {
+      animeName: animeName,
+      expectedEpisodes: expectedEpisodes,
+    });
   }
 
   async getEpisodePlayers(
@@ -93,6 +102,10 @@ export class APIClient {
       `/anime/${makeRouteFromTitle(animeName)}/episode/${episode}?resolve=true`,
       { ...token },
     );
+    return this.post<AnimePlayers>(`/anime/episode/${episode}`, {
+      animeName: animeName,
+      resolve: true,
+    });
   }
 
   async withToken() {
