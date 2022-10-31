@@ -9,8 +9,8 @@ import React, { useRef, useState } from 'react';
 import Video, { OnProgressData } from 'react-native-video';
 import VideoPlayer from 'react-native-video-controls';
 
-import { WatchNativePageProps } from '../../../../routes/interfaces';
 import { storageGetData, storageStoreData } from '../../../../utils';
+import { WatchNativePageProps } from '../../../../routes/main';
 
 const NativeVideoPlayerScreen = ({
   route,

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
-import { AuthRoutesNames, LoginPageProps } from '../../routes/interfaces';
+
+import { LoginPageProps, AuthRoutesNames } from '../../routes/auth';
 import { fireLoginUser } from '../../services/firebase/fire-auth.service';
 import { useAppDispatch } from '../../services/store/store';
 

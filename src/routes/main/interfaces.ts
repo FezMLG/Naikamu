@@ -1,7 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 export enum RoutesNames {
-  Home = 'Home',
   Browse = 'Browse',
   Search = 'Search',
   SearchResults = 'SearchResults',
@@ -13,7 +12,6 @@ export enum RoutesNames {
 }
 
 export type RootStackParamList = {
-  [RoutesNames.Home]: undefined;
   [RoutesNames.Browse]: undefined;
   [RoutesNames.Search]: undefined;
   [RoutesNames.SearchResults]: { phrase?: string };
@@ -32,11 +30,6 @@ export type RootStackParamList = {
   [RoutesNames.WatchWebView]: { uri: string };
   [RoutesNames.WatchError]: { playerName: string; animeTitle: string };
 };
-
-export type HomePageProps = NativeStackScreenProps<
-  RootStackParamList,
-  RoutesNames.Home
->;
 
 export type BrowsePageProps = NativeStackScreenProps<
   RootStackParamList,
@@ -69,24 +62,4 @@ export type WatchWebViewPageProps = NativeStackScreenProps<
 export type WatchErrorPageProps = NativeStackScreenProps<
   RootStackParamList,
   RoutesNames.WatchError
->;
-
-export enum AuthRoutesNames {
-  Login = 'Login',
-  SignUp = 'SignUp',
-}
-
-export type AuthStackParamList = {
-  [AuthRoutesNames.Login]: undefined;
-  [AuthRoutesNames.SignUp]: undefined;
-};
-
-export type LoginPageProps = NativeStackScreenProps<
-  AuthStackParamList,
-  AuthRoutesNames.Login
->;
-
-export type SignupPageProps = NativeStackScreenProps<
-  AuthStackParamList,
-  AuthRoutesNames.SignUp
 >;

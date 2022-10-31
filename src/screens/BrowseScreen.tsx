@@ -8,10 +8,10 @@ import BrowseElement from '../components/browse/BrowseElement';
 import { maxWidth } from '../components/maxDimensions';
 import { AnimeList, Media } from '../interfaces';
 import { APIClient } from '../api/APIClient';
-import { BrowsePageProps, RoutesNames } from '../routes/interfaces';
 import { AnimeSeason } from '../enums/anime-season.enum';
 import { getAnimeSeason } from '../utils/getAnimeSeason';
 import { useTranslate } from '../i18n/useTranslate';
+import { BrowsePageProps, RoutesNames } from '../routes/main';
 
 const BrowseScreen = ({ navigation }: BrowsePageProps) => {
   const CONTENT_OFFSET_THRESHOLD = 300;

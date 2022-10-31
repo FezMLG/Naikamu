@@ -3,10 +3,11 @@ import React, { useRef, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FAB } from 'react-native-paper';
 import { useInfiniteQuery } from '@tanstack/react-query';
+
 import { APIClient } from '../../api/APIClient';
 import { AnimeList, Media } from '../../interfaces';
 import BrowseElement from '../../components/browse/BrowseElement';
-import { RoutesNames, SearchResultsPageProps } from '../../routes/interfaces';
+import { SearchResultsPageProps, RoutesNames } from '../../routes/main';
 import { maxWidth } from '../../components/maxDimensions';
 
 const SearchResultsScreen = ({ navigation, route }: SearchResultsPageProps) => {

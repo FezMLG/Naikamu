@@ -3,15 +3,15 @@ import { Image, StyleSheet, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 import { API_URL, ENV } from '@env';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSelector } from 'react-redux';
 
 import { globalStyle } from '../styles/global.style';
 import { FocusButton } from '../components/FocusButton';
 import { darkStyle } from '../styles/darkMode.style';
-import { HomePageProps, RoutesNames } from '../routes/interfaces';
 import { useTranslate } from '../i18n/useTranslate';
 import { RootState, useAppDispatch } from '../services/store/store';
 import { fireLogoutUser } from '../services/firebase/fire-auth.service';
-import { useSelector } from 'react-redux';
+import { HomePageProps, RoutesNames } from '../routes/main';
 
 const HomeScreen = ({ navigation }: HomePageProps) => {
   const { translate } = useTranslate();

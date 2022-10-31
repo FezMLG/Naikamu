@@ -1,12 +1,12 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 
-import SplashScreen from '../screens/SplashScreen';
-import { RoutesNames } from './interfaces';
-import HomeStack from './HomeStack';
-import AuthStack from './AuthStack';
+import MainStack from './main/MainStack';
+import AuthStack from './auth/AuthStack';
 import { useSelector } from 'react-redux';
 import { RootState } from '../services/store/store';
+import { RoutesNames } from './main';
+import SplashScreen from '../screens/SplashScreen';
 
 const linking = {
   prefixes: ['aniwatch://'],
@@ -26,7 +26,7 @@ const Routes = ({ theme }: any) => {
       linking={linking}
       fallback={<SplashScreen />}
       theme={theme}>
-      {user ? <HomeStack /> : <AuthStack />}
+      {user ? <MainStack /> : <AuthStack />}
     </NavigationContainer>
   );
 };

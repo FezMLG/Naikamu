@@ -1,12 +1,12 @@
 import { StyleSheet, SafeAreaView } from 'react-native';
 import React from 'react';
 import QRCode from 'react-native-qrcode-svg';
+import { Text } from 'react-native-paper';
 
 import { darkStyle } from '../../../../styles/darkMode.style';
 import { maxHeight, maxWidth } from '../../../../components/maxDimensions';
-import { Text } from 'react-native-paper';
 import { fontStyles, globalStyle } from '../../../../styles/global.style';
-import { WatchErrorPageProps } from '../../../../routes/interfaces';
+import { WatchErrorPageProps } from '../../../../routes/main';
 
 const ErrorPlayerScreen = ({ route }: WatchErrorPageProps) => {
   const { playerName, animeTitle } = route.params;

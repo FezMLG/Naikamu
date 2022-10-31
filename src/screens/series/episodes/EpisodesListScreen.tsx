@@ -14,9 +14,9 @@ import { EpisodeMobile } from '../../../components/episode/Episode.mobile';
 import { EpisodeTV } from '../../../components/episode/Episode.tv';
 import { globalStyle } from '../../../styles/global.style';
 import { APIClient } from '../../../api/APIClient';
-import { EpisodesPageProps } from '../../../routes/interfaces';
 import { AnimeEpisode } from '../../../interfaces';
 import { useTranslate } from '../../../i18n/useTranslate';
+import { EpisodesPageProps } from '../../../routes/main';
 
 const { isTV } = Platform;
 

@@ -3,20 +3,35 @@ import { Image, StyleSheet, View } from 'react-native';
 import { ActivityIndicator, Text } from 'react-native-paper';
 import { API_URL, ENV } from '@env';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSelector } from 'react-redux';
 
 import { globalStyle } from '../styles/global.style';
 import { darkStyle } from '../styles/darkMode.style';
-import { HomePageProps } from '../routes/interfaces';
 import { useTranslate } from '../i18n/useTranslate';
 import { RootState, useAppDispatch } from '../services/store/store';
-import { useSelector } from 'react-redux';
+import { fireRetrieveTokensFromStorage } from '../services/firebase/fire-auth-storage.service';
+import { fireGetUser } from '../services/firebase/fire-auth.service';
+import { AppLoadingPageProps } from '../routes/auth';
 
-const AppLoadScreen = ({ navigation }: HomePageProps) => {
+const AppLoadScreen = ({ navigation }: AppLoadingPageProps) => {
   const { translate } = useTranslate();
   const dispatch = useAppDispatch();
   const { user } = useSelector((state: RootState) => state.user);
 
-  useEffect(() => {});
+  const handleLoginCheck = async () => {
+    const token = await fireRetrieveTokensFromStorage();
+    if (token) {
+      dispatch(fireGetUser());
+      if (!user?.emailVerified) {
+        // navigate to verify email
+      }
+      // navigate to app
+    }
+  };
+
+  useEffect(() => {
+    handleLoginCheck();
+  });
 
   return (
     <SafeAreaView style={[styles.container]}>

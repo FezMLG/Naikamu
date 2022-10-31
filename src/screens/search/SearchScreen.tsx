@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, SafeAreaView } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 
-import { RoutesNames, SearchPageProps } from '../../routes/interfaces';
+import { SearchPageProps, RoutesNames } from '../../routes/main';
 
 const SearchScreen = ({ navigation }: SearchPageProps) => {
   const [search, setSearch] = useState('');

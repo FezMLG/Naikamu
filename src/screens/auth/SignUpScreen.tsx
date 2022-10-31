@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
+
 import { fireRegisterUser } from '../../services/firebase/fire-auth.service';
 import { useAppDispatch } from '../../services/store/store';
 

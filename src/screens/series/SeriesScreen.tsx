@@ -15,13 +15,13 @@ import YoutubePlayer from 'react-native-youtube-iframe';
 import { darkColor, darkStyle } from '../../styles/darkMode.style';
 import { defaultRadius, globalStyle } from '../../styles/global.style';
 import { FocusButton } from '../../components/FocusButton';
-import { RoutesNames, SeriesPageProps } from '../../routes/interfaces';
 import { AnimeDetails } from '../../interfaces';
 import { APIClient } from '../../api/APIClient';
 import { ProgressiveImage } from '../../components/ProgressiveImage';
 import { QuickInfo } from '../../components/series/QuickInfo';
 import { AnimeRelation } from '../../components/series/Relation';
 import { useTranslate } from '../../i18n/useTranslate';
+import { SeriesPageProps, RoutesNames } from '../../routes/main';
 
 const SeriesScreen = ({ navigation, route }: SeriesPageProps) => {
   const apiClient = new APIClient();
