@@ -1,17 +1,17 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import NativeVideoPlayerPage from '../pages/series/episodes/player/VideoPlayerPage';
-import BrowsePage from '../pages/BrowsePage';
-import SeriesPage from '../pages/series/SeriesPage';
-import EpisodesListPage from '../pages/series/episodes/EpisodesListPage';
-import WebViewPlayerPage from '../pages/series/episodes/player/WebViewPlayerPage';
-import HomePage from '../pages/HomePage';
-import ErrorPlayerPage from '../pages/series/episodes/player/ErrorPlayerPage';
+import NativeVideoPlayerScreen from '../screens/series/episodes/player/VideoPlayerScreen';
+import BrowseScreen from '../screens/BrowseScreen';
+import SeriesScreen from '../screens/series/SeriesScreen';
+import EpisodesListScreen from '../screens/series/episodes/EpisodesListScreen';
+import WebViewPlayerScreen from '../screens/series/episodes/player/WebViewPlayerScreen';
+import HomeScreen from '../screens/HomeScreen';
+import ErrorPlayerScreen from '../screens/series/episodes/player/ErrorPlayerScreen';
 import { IconButton } from 'react-native-paper';
 import GoogleCast from 'react-native-google-cast';
 import { BrowsePageProps, RootStackParamList, RoutesNames } from './interfaces';
-import SearchPage from '../pages/search/SearchPage';
-import SearchResultsPage from '../pages/search/SearchResultsPage';
+import SearchScreen from '../screens/search/SearchScreen';
+import SearchResultsScreen from '../screens/search/SearchResultsScreen';
 import { useTranslate } from '../i18n/useTranslate';
 
 const defaultOptions = ({ title }: { title?: string }) => {
@@ -29,7 +29,7 @@ const HomeStack = () => {
     <StackAuthorized.Navigator>
       <StackAuthorized.Screen
         name={RoutesNames.Home}
-        component={HomePage}
+        component={HomeScreen}
         options={{
           ...defaultOptions({ title: RoutesNames.Home }),
           animation: 'slide_from_right',
@@ -38,7 +38,7 @@ const HomeStack = () => {
       />
       <StackAuthorized.Screen
         name={RoutesNames.Browse}
-        component={BrowsePage}
+        component={BrowseScreen}
         options={({ navigation }: BrowsePageProps) => ({
           ...defaultOptions({
             title: translate('routes.' + RoutesNames.Browse),
@@ -57,7 +57,7 @@ const HomeStack = () => {
       />
       <StackAuthorized.Screen
         name={RoutesNames.Search}
-        component={SearchPage}
+        component={SearchScreen}
         options={{
           ...defaultOptions({ title: RoutesNames.Search }),
           animation: 'slide_from_right',
@@ -65,7 +65,7 @@ const HomeStack = () => {
       />
       <StackAuthorized.Screen
         name={RoutesNames.SearchResults}
-        component={SearchResultsPage}
+        component={SearchResultsScreen}
         options={{
           ...defaultOptions({ title: RoutesNames.SearchResults }),
           animation: 'slide_from_right',
@@ -73,7 +73,7 @@ const HomeStack = () => {
       />
       <StackAuthorized.Screen
         name={RoutesNames.Series}
-        component={SeriesPage}
+        component={SeriesScreen}
         options={({ route }: any) => ({
           ...defaultOptions({ title: route.params.title }),
           animation: 'slide_from_right',
@@ -81,7 +81,7 @@ const HomeStack = () => {
       />
       <StackAuthorized.Screen
         name={RoutesNames.Episodes}
-        component={EpisodesListPage}
+        component={EpisodesListScreen}
         options={({ route }: any) => ({
           ...defaultOptions({
             title: `${translate('routes.' + RoutesNames.Episodes)}: ${
@@ -100,7 +100,7 @@ const HomeStack = () => {
       />
       <StackAuthorized.Screen
         name={RoutesNames.WatchNative}
-        component={NativeVideoPlayerPage}
+        component={NativeVideoPlayerScreen}
         options={{
           animation: 'slide_from_right',
           headerShown: false,
@@ -108,7 +108,7 @@ const HomeStack = () => {
       />
       <StackAuthorized.Screen
         name={RoutesNames.WatchWebView}
-        component={WebViewPlayerPage}
+        component={WebViewPlayerScreen}
         options={{
           animation: 'slide_from_right',
           headerShown: false,
@@ -116,7 +116,7 @@ const HomeStack = () => {
       />
       <StackAuthorized.Screen
         name={RoutesNames.WatchError}
-        component={ErrorPlayerPage}
+        component={ErrorPlayerScreen}
         options={{
           ...defaultOptions({ title: 'Go To App' }),
           animation: 'slide_from_right',

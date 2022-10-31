@@ -12,7 +12,10 @@ import VideoPlayer from 'react-native-video-controls';
 import { WatchNativePageProps } from '../../../../routes/interfaces';
 import { storageGetData, storageStoreData } from '../../../../utils';
 
-const NativeVideoPlayerPage = ({ route, navigation }: WatchNativePageProps) => {
+const NativeVideoPlayerScreen = ({
+  route,
+  navigation,
+}: WatchNativePageProps) => {
   const { isTV } = Platform;
   const { uri, episodeTitle } = route.params;
   const video = useRef<Video>(null);
@@ -116,4 +119,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NativeVideoPlayerPage;
+export default NativeVideoPlayerScreen;

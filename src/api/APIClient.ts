@@ -61,7 +61,7 @@ export class APIClient {
     );
   }
 
-  async getAnimeDetails(animeName: string, id: number): Promise<AnimeDetails> {
+  async getAnimeDetails(id: number): Promise<AnimeDetails> {
     const token = await this.withToken();
     return this.post<AnimeDetails>(
       '/anime',

@@ -4,7 +4,7 @@ import WebView from 'react-native-webview';
 
 import { WatchWebViewPageProps } from '../../../../routes/interfaces';
 
-const WebViewPlayerPage = ({ route }: WatchWebViewPageProps) => {
+const WebViewPlayerScreen = ({ route }: WatchWebViewPageProps) => {
   const { uri } = route.params;
 
   return (
@@ -20,4 +20,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default WebViewPlayerPage;
+export default WebViewPlayerScreen;

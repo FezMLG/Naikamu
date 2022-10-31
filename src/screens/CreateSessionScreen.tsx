@@ -8,7 +8,7 @@ import { useTranslate } from '../i18n/useTranslate';
 import { RootState, useAppDispatch } from '../services/store/store';
 import { useSelector } from 'react-redux';
 
-const HomePage = ({ navigation }: HomePageProps) => {
+const CreateSessionScreen = ({ navigation }: HomePageProps) => {
   const { translate } = useTranslate();
   const dispatch = useAppDispatch();
   const { user } = useSelector((state: RootState) => state.user);
@@ -37,4 +37,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomePage;
+export default CreateSessionScreen;

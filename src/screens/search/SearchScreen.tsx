@@ -4,7 +4,7 @@ import { Button, TextInput } from 'react-native-paper';
 
 import { RoutesNames, SearchPageProps } from '../../routes/interfaces';
 
-const SearchPage = ({ navigation }: SearchPageProps) => {
+const SearchScreen = ({ navigation }: SearchPageProps) => {
   const [search, setSearch] = useState('');
 
   return (
@@ -34,4 +34,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SearchPage;
+export default SearchScreen;

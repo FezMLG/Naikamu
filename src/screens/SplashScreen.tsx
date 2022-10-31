@@ -1,15 +1,12 @@
 import { StyleSheet } from 'react-native';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ActivityIndicator, Text } from 'react-native-paper';
+import { ActivityIndicator } from 'react-native-paper';
 
-const SplashPage = () => {
-  useEffect(() => {});
-
+const SplashScreen = () => {
   return (
     <SafeAreaView style={[styles.container]}>
-      <Text>Please verify your email first</Text>
-      <ActivityIndicator />
+      <ActivityIndicator size={'large'} />
     </SafeAreaView>
   );
 };
@@ -26,4 +23,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SplashPage;
+export default SplashScreen;

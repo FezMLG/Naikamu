@@ -4,7 +4,7 @@ import { Button, TextInput } from 'react-native-paper';
 import { fireRegisterUser } from '../../services/firebase/fire-auth.service';
 import { useAppDispatch } from '../../services/store/store';
 
-export const SignUpPage = () => {
+export const SignUpScreen = () => {
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

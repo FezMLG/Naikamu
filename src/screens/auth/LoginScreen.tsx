@@ -5,7 +5,7 @@ import { AuthRoutesNames, LoginPageProps } from '../../routes/interfaces';
 import { fireLoginUser } from '../../services/firebase/fire-auth.service';
 import { useAppDispatch } from '../../services/store/store';
 
-export default function LoginPage({ navigation }: LoginPageProps) {
+export default function LoginScreen({ navigation }: LoginPageProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useAppDispatch();

@@ -23,7 +23,7 @@ import { QuickInfo } from '../../components/series/QuickInfo';
 import { AnimeRelation } from '../../components/series/Relation';
 import { useTranslate } from '../../i18n/useTranslate';
 
-const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
+const SeriesScreen = ({ navigation, route }: SeriesPageProps) => {
   const apiClient = new APIClient();
   const { title, id } = route.params;
   const { translate } = useTranslate();
@@ -286,4 +286,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SeriesPage;
+export default SeriesScreen;

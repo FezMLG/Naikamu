@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 
-import SplashPage from '../pages/SplashPage';
+import SplashScreen from '../screens/SplashScreen';
 import { RoutesNames } from './interfaces';
 import HomeStack from './HomeStack';
 import AuthStack from './AuthStack';
@@ -24,7 +24,7 @@ const Routes = ({ theme }: any) => {
   return (
     <NavigationContainer
       linking={linking}
-      fallback={<SplashPage />}
+      fallback={<SplashScreen />}
       theme={theme}>
       {user ? <HomeStack /> : <AuthStack />}
     </NavigationContainer>

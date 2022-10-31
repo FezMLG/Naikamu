@@ -20,7 +20,7 @@ import { useTranslate } from '../../../i18n/useTranslate';
 
 const { isTV } = Platform;
 
-const EpisodesListPage = ({ navigation, route }: EpisodesPageProps) => {
+const EpisodesListScreen = ({ navigation, route }: EpisodesPageProps) => {
   const apiClient = new APIClient();
   const { translate } = useTranslate();
 
@@ -85,4 +85,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EpisodesListPage;
+export default EpisodesListScreen;

@@ -9,7 +9,7 @@ import BrowseElement from '../../components/browse/BrowseElement';
 import { RoutesNames, SearchResultsPageProps } from '../../routes/interfaces';
 import { maxWidth } from '../../components/maxDimensions';
 
-const SearchResultsPage = ({ navigation, route }: SearchResultsPageProps) => {
+const SearchResultsScreen = ({ navigation, route }: SearchResultsPageProps) => {
   const CONTENT_OFFSET_THRESHOLD = 300;
   const { phrase } = route.params;
   const apiClient = new APIClient();
@@ -124,4 +124,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SearchResultsPage;
+export default SearchResultsScreen;

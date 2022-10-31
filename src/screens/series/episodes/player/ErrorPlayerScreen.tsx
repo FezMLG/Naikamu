@@ -8,7 +8,7 @@ import { Text } from 'react-native-paper';
 import { fontStyles, globalStyle } from '../../../../styles/global.style';
 import { WatchErrorPageProps } from '../../../../routes/interfaces';
 
-const ErrorPlayerPage = ({ route }: WatchErrorPageProps) => {
+const ErrorPlayerScreen = ({ route }: WatchErrorPageProps) => {
   const { playerName, animeTitle } = route.params;
   //TODO styling for this page
   return (
@@ -46,4 +46,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ErrorPlayerPage;
+export default ErrorPlayerScreen;

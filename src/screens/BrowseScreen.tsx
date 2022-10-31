@@ -13,7 +13,7 @@ import { AnimeSeason } from '../enums/anime-season.enum';
 import { getAnimeSeason } from '../utils/getAnimeSeason';
 import { useTranslate } from '../i18n/useTranslate';
 
-const BrowsePage = ({ navigation }: BrowsePageProps) => {
+const BrowseScreen = ({ navigation }: BrowsePageProps) => {
   const CONTENT_OFFSET_THRESHOLD = 300;
   const apiClient = new APIClient();
   const { translate } = useTranslate();
@@ -158,4 +158,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BrowsePage;
+export default BrowseScreen;
