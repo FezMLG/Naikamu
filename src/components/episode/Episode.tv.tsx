@@ -7,11 +7,11 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { darkStyle, darkColor } from '../../styles/darkMode.style';
 import { mainEpisodeStyles } from './Episode';
 import { defaultRadius } from '../../styles/global.style';
-import { RootStackParamList, RoutesNames } from '../../routes/interfaces';
 import { AnimeEpisode, AnimePlayer } from '../../interfaces';
 import { APIClient } from '../../api/APIClient';
 import { Source } from './Source';
 import { useTranslate } from '../../i18n/useTranslate';
+import { RootStackParamList, RoutesNames } from '../../routes/main';
 
 export const EpisodeTV = ({
   num,

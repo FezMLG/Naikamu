@@ -1,8 +1,8 @@
 import React from 'react';
-import { CastChromecast } from '../CastChromecast';
+import GoogleCast from 'react-native-google-cast';
 import { IconButton, Menu } from 'react-native-paper';
 
-import GoogleCast from 'react-native-google-cast';
+import { CastChromecast } from '../CastChromecast';
 import { AnimePlayer } from '../../interfaces';
 
 export const PlayerMenu = ({ player }: { player: AnimePlayer }) => {

@@ -2,16 +2,16 @@ import React from 'react';
 import { Image, SafeAreaView, StyleSheet, View } from 'react-native';
 import { ActivityIndicator, List, Text } from 'react-native-paper';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useQuery } from '@tanstack/react-query';
 
 import { darkColor, darkStyle } from '../../styles/darkMode.style';
 import { mainEpisodeStyles, navigateToPlayer } from './Episode';
 import { defaultRadius } from '../../styles/global.style';
 import { AnimeEpisode, AnimePlayer, AnimePlayers } from '../../interfaces';
-import { RootStackParamList, RoutesNames } from '../../routes/interfaces';
 import { APIClient } from '../../api/APIClient';
-import { useQuery } from '@tanstack/react-query';
 import { PlayerMenu } from './PlayerMenu';
 import { useTranslate } from '../../i18n/useTranslate';
+import { RootStackParamList, RoutesNames } from '../../routes/main';
 
 export const EpisodeMobileLink = ({
   animeName,
