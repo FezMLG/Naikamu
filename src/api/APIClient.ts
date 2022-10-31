@@ -7,7 +7,7 @@ import {
   AnimePlayers,
 } from '../interfaces';
 import { API_URL } from '@env';
-import { fireRetrieveTokensFromStorage } from '../services/firebase/fire-auth-storage';
+import { fireRetrieveTokensFromStorage } from '../services/firebase/fire-auth-storage.service';
 
 interface GetAnimeListDTO {
   page?: number;

@@ -11,7 +11,7 @@ import { AppDispatch } from '../store/store';
 import {
   fireSaveTokensToStorage,
   fireResetTokensStorage,
-} from './fire-auth-storage';
+} from './fire-auth-storage.service';
 
 export const fireLoginUser =
   (email: string, password: string) => async (dispatch: AppDispatch) => {
