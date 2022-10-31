@@ -7,7 +7,7 @@ import {
   AnimePlayers,
 } from '../interfaces';
 import { API_URL } from '@env';
-import { retrieveTokensFromStorage } from '../services/auth-storage.service';
+import { fireRetrieveTokensFromStorage } from '../services/firebase/fire-auth-storage';
 
 interface GetAnimeListDTO {
   page?: number;
@@ -104,7 +104,7 @@ export class APIClient {
   }
 
   async withToken() {
-    const token = await retrieveTokensFromStorage();
+    const token = await fireRetrieveTokensFromStorage();
     return {
       Authorization: 'Bearer ' + token,
     };
