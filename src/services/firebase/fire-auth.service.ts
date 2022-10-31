@@ -63,8 +63,11 @@ export const fireRegisterUser =
       });
 
       await fireResetTokensStorage();
-
       dispatch(clearAuthenticatedUser());
+
+      const token = await createdUser.user.getIdToken();
+      await fireSaveTokensToStorage(token);
+      dispatch(fireGetUser());
     } catch (e) {
       console.log(e);
     }

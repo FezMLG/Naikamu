@@ -5,7 +5,6 @@ export enum AuthRoutesNames {
   Hello = 'Hello',
   Login = 'Login',
   SignUp = 'SignUp',
-  CreateSession = 'CreateSession',
   VerifyEmail = 'VerifyEmail',
 }
 
@@ -14,7 +13,6 @@ export type AuthStackParamList = {
   [AuthRoutesNames.Hello]: undefined;
   [AuthRoutesNames.Login]: undefined;
   [AuthRoutesNames.SignUp]: undefined;
-  [AuthRoutesNames.CreateSession]: undefined;
   [AuthRoutesNames.VerifyEmail]: undefined;
 };
 
@@ -36,11 +34,6 @@ export type LoginScreenProps = NativeStackScreenProps<
 export type SignUpScreenProps = NativeStackScreenProps<
   AuthStackParamList,
   AuthRoutesNames.SignUp
->;
-
-export type CreateSessionScreenProps = NativeStackScreenProps<
-  AuthStackParamList,
-  AuthRoutesNames.CreateSession
 >;
 
 export type VerifyEmailScreenProps = NativeStackScreenProps<

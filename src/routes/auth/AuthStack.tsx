@@ -6,6 +6,7 @@ import AppLoadScreen from '../../screens/AppLoadScreen';
 import { AuthStackParamList, AuthRoutesNames } from './interfaces';
 import LoginScreen from '../../screens/auth/LoginScreen';
 import HomeScreen from '../../screens/HomeScreen';
+import VerifyEmailScreen from '../../screens/VerifyEmailScreen';
 
 const Stack = createNativeStackNavigator<AuthStackParamList>();
 
@@ -28,6 +29,10 @@ export default function AuthStack() {
         options={{ header: () => null }}
       />
       <Stack.Screen name={AuthRoutesNames.SignUp} component={SignUpScreen} />
+      <Stack.Screen
+        name={AuthRoutesNames.VerifyEmail}
+        component={VerifyEmailScreen}
+      />
     </Stack.Navigator>
   );
 }
