@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 
-import { LoginPageProps, AuthRoutesNames } from '../../routes/auth';
+import { LoginScreenProps, AuthRoutesNames } from '../../routes/auth';
 import { fireLoginUser } from '../../services/firebase/fire-auth.service';
 import { useAppDispatch } from '../../services/store/store';
 
-export default function LoginScreen({ navigation }: LoginPageProps) {
+export default function LoginScreen({ navigation }: LoginScreenProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useAppDispatch();

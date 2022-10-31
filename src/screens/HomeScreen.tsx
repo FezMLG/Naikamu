@@ -10,9 +10,9 @@ import { darkStyle } from '../styles/darkMode.style';
 import { useTranslate } from '../i18n/useTranslate';
 import { RootState, useAppDispatch } from '../services/store/store';
 import { fireLogoutUser } from '../services/firebase/fire-auth.service';
-import { AuthRoutesNames, HelloPageProps } from '../routes/auth';
+import { AuthRoutesNames, HelloScreenProps } from '../routes/auth';
 
-const HomeScreen = ({ navigation }: HelloPageProps) => {
+const HomeScreen = ({ navigation }: HelloScreenProps) => {
   const { translate } = useTranslate();
   const dispatch = useAppDispatch();
   const { user } = useSelector((state: RootState) => state.user);

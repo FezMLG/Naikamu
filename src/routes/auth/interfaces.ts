@@ -18,32 +18,32 @@ export type AuthStackParamList = {
   [AuthRoutesNames.VerifyEmail]: undefined;
 };
 
-export type AppLoadingPageProps = NativeStackScreenProps<
+export type AppLoadingScreenProps = NativeStackScreenProps<
   AuthStackParamList,
   AuthRoutesNames.AppLoading
 >;
 
-export type HelloPageProps = NativeStackScreenProps<
+export type HelloScreenProps = NativeStackScreenProps<
   AuthStackParamList,
   AuthRoutesNames.Hello
 >;
 
-export type LoginPageProps = NativeStackScreenProps<
+export type LoginScreenProps = NativeStackScreenProps<
   AuthStackParamList,
   AuthRoutesNames.Login
 >;
 
-export type SignupPageProps = NativeStackScreenProps<
+export type SignUpScreenProps = NativeStackScreenProps<
   AuthStackParamList,
   AuthRoutesNames.SignUp
 >;
 
-export type CreateSessionPageProps = NativeStackScreenProps<
+export type CreateSessionScreenProps = NativeStackScreenProps<
   AuthStackParamList,
   AuthRoutesNames.CreateSession
 >;
 
-export type VerifyEmailPageProps = NativeStackScreenProps<
+export type VerifyEmailScreenProps = NativeStackScreenProps<
   AuthStackParamList,
   AuthRoutesNames.VerifyEmail
 >;

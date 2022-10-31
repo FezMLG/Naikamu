@@ -11,9 +11,9 @@ import { useTranslate } from '../i18n/useTranslate';
 import { RootState, useAppDispatch } from '../services/store/store';
 import { fireRetrieveTokensFromStorage } from '../services/firebase/fire-auth-storage.service';
 import { fireGetUser } from '../services/firebase/fire-auth.service';
-import { AppLoadingPageProps } from '../routes/auth';
+import { AppLoadingScreenProps } from '../routes/auth';
 
-const AppLoadScreen = ({ navigation }: AppLoadingPageProps) => {
+const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
   const { translate } = useTranslate();
   const dispatch = useAppDispatch();
   const { user } = useSelector((state: RootState) => state.user);

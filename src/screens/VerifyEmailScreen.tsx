@@ -3,9 +3,9 @@ import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ActivityIndicator, Text } from 'react-native-paper';
 
-import { VerifyEmailPageProps } from '../routes/auth';
+import { VerifyEmailScreenProps } from '../routes/auth';
 
-const VerifyEmailScreen = ({}: VerifyEmailPageProps) => {
+const VerifyEmailScreen = ({}: VerifyEmailScreenProps) => {
   useEffect(() => {});
 
   return (

@@ -5,9 +5,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { RootState, useAppDispatch } from '../services/store/store';
 import { useSelector } from 'react-redux';
-import { CreateSessionPageProps } from '../routes/auth';
+import { CreateSessionScreenProps } from '../routes/auth';
 
-const CreateSessionScreen = ({ navigation }: CreateSessionPageProps) => {
+const CreateSessionScreen = ({ navigation }: CreateSessionScreenProps) => {
   const dispatch = useAppDispatch();
   const { user } = useSelector((state: RootState) => state.user);
 
