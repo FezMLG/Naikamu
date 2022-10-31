@@ -1,14 +1,21 @@
 import * as Keychain from 'react-native-keychain';
 
-export const TOKEN = 'TOKEN';
-
-export const saveTokensToStorage = async (idToken: string) => {
-  await Keychain.setGenericPassword(TOKEN, JSON.stringify(idToken));
+export const saveTokensToStorage = async (
+  idToken: string,
+  tokenKey: string,
+) => {
+  await Keychain.setGenericPassword(tokenKey, JSON.stringify(idToken), {
+    service: tokenKey,
+  });
 };
 
-export const retrieveTokensFromStorage = async (): Promise<string | null> => {
+export const retrieveTokensFromStorage = async (
+  tokenKey: string,
+): Promise<string | null> => {
   try {
-    const credentials = await Keychain.getGenericPassword();
+    const credentials = await Keychain.getGenericPassword({
+      service: tokenKey,
+    });
     if (credentials) {
       const token: string = JSON.parse(credentials.password);
 
@@ -22,6 +29,8 @@ export const retrieveTokensFromStorage = async (): Promise<string | null> => {
   }
 };
 
-export const resetTokensStorage = async () => {
-  await Keychain.resetGenericPassword();
+export const resetTokensStorage = async (tokenKey: string) => {
+  await Keychain.resetGenericPassword({
+    service: tokenKey,
+  });
 };

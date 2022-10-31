@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
-import { registerUser } from '../../services/auth.service';
+import { fireRegisterUser } from '../../services/firebase/fire-auth.service';
 import { useAppDispatch } from '../../services/store/store';
 
 export const SignUpPage = () => {
@@ -36,7 +36,9 @@ export const SignUpPage = () => {
         secureTextEntry={true}
       />
       <Button
-        onPress={() => dispatch(registerUser(displayName, email, password))}>
+        onPress={() =>
+          dispatch(fireRegisterUser(displayName, email, password))
+        }>
         Sign up
       </Button>
     </View>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import { AuthRoutesNames, LoginPageProps } from '../../routes/interfaces';
-import { loginUser } from '../../services/auth.service';
+import { fireLoginUser } from '../../services/firebase/fire-auth.service';
 import { useAppDispatch } from '../../services/store/store';
 
 export default function LoginPage({ navigation }: LoginPageProps) {
@@ -27,7 +27,7 @@ export default function LoginPage({ navigation }: LoginPageProps) {
         onChangeText={userPassword => setPassword(userPassword)}
         secureTextEntry={true}
       />
-      <Button onPress={() => dispatch(loginUser(email, password))}>
+      <Button onPress={() => dispatch(fireLoginUser(email, password))}>
         Login
       </Button>
       <Button onPress={() => navigation.navigate(AuthRoutesNames.SignUp)}>

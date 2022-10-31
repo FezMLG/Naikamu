@@ -1,19 +1,19 @@
 import auth from '@react-native-firebase/auth';
-import { User } from '../interfaces';
+import { User } from '../../interfaces';
 
 import {
   clearAuthenticatedUser,
   getUserFulfilled,
   getUserPending,
   getUserRejected,
-} from '../reducers/user.reducer';
+} from '../../reducers/user.reducer';
+import { AppDispatch } from '../store/store';
 import {
-  resetTokensStorage,
-  saveTokensToStorage,
-} from './auth-storage.service';
-import { AppDispatch } from './store/store';
+  fireSaveTokensToStorage,
+  fireResetTokensStorage,
+} from './fire-auth-storage';
 
-export const loginUser =
+export const fireLoginUser =
   (email: string, password: string) => async (dispatch: AppDispatch) => {
     const newAuthState = await auth().signInWithEmailAndPassword(
       email,
@@ -28,15 +28,15 @@ export const loginUser =
     }
 
     const token = await newAuthState.user.getIdToken();
-    await saveTokensToStorage(token);
-    dispatch(getUser());
+    await fireSaveTokensToStorage(token);
+    dispatch(fireGetUser());
   };
 
-export const logoutUser = () => async (dispatch: AppDispatch) => {
+export const fireLogoutUser = () => async (dispatch: AppDispatch) => {
   try {
     await auth().signOut();
 
-    await resetTokensStorage();
+    await fireResetTokensStorage();
 
     dispatch(clearAuthenticatedUser());
   } catch (e) {
@@ -44,7 +44,7 @@ export const logoutUser = () => async (dispatch: AppDispatch) => {
   }
 };
 
-export const registerUser =
+export const fireRegisterUser =
   (displayName: string, email: string, password: string) =>
   async (dispatch: AppDispatch) => {
     try {
@@ -62,7 +62,7 @@ export const registerUser =
         url: 'https://aniwatch-1f64a.firebaseapp.com/__/auth/action',
       });
 
-      await resetTokensStorage();
+      await fireResetTokensStorage();
 
       dispatch(clearAuthenticatedUser());
     } catch (e) {
@@ -70,12 +70,12 @@ export const registerUser =
     }
   };
 
-export const verifyEmail =
+export const fireVerifyEmail =
   (email: string, password: string) => async (dispatch: AppDispatch) => {
     try {
       await auth().createUserWithEmailAndPassword(email, password);
 
-      await resetTokensStorage();
+      await fireResetTokensStorage();
 
       dispatch(clearAuthenticatedUser());
     } catch (e) {
@@ -83,7 +83,7 @@ export const verifyEmail =
     }
   };
 
-export const getUser = () => async (dispatch: AppDispatch) => {
+export const fireGetUser = () => async (dispatch: AppDispatch) => {
   try {
     dispatch(getUserPending());
 
