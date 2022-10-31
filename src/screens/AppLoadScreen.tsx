@@ -11,7 +11,7 @@ import { useTranslate } from '../i18n/useTranslate';
 import { RootState, useAppDispatch } from '../services/store/store';
 import { fireRetrieveTokensFromStorage } from '../services/firebase/fire-auth-storage.service';
 import { fireGetUser } from '../services/firebase/fire-auth.service';
-import { AppLoadingScreenProps } from '../routes/auth';
+import { AppLoadingScreenProps, AuthRoutesNames } from '../routes/auth';
 
 const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
   const { translate } = useTranslate();
@@ -23,7 +23,7 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
     if (token) {
       dispatch(fireGetUser());
       if (!user?.emailVerified) {
-        // navigate to verify email
+        navigation.navigate(AuthRoutesNames.VerifyEmail);
       }
       // navigate to app
     }

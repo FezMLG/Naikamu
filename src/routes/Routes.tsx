@@ -26,7 +26,7 @@ const Routes = ({ theme }: any) => {
       linking={linking}
       fallback={<SplashScreen />}
       theme={theme}>
-      {user ? <MainStack /> : <AuthStack />}
+      {user && user.emailVerified ? <MainStack /> : <AuthStack />}
     </NavigationContainer>
   );
 };
