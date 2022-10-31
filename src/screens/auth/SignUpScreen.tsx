@@ -1,15 +1,25 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
+import { useSelector } from 'react-redux';
 
+import { AuthRoutesNames, SignUpScreenProps } from '../../routes/auth';
 import { fireRegisterUser } from '../../services/firebase/fire-auth.service';
-import { useAppDispatch } from '../../services/store/store';
+import { RootState, useAppDispatch } from '../../services/store/store';
 
-export const SignUpScreen = () => {
+export const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useAppDispatch();
+  const { user } = useSelector((state: RootState) => state.user);
+
+  const handleSignUp = () => {
+    dispatch(fireRegisterUser(displayName, email, password));
+    if (user) {
+      navigation.navigate(AuthRoutesNames.VerifyEmail);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -36,12 +46,7 @@ export const SignUpScreen = () => {
         autoCapitalize="none"
         secureTextEntry={true}
       />
-      <Button
-        onPress={() =>
-          dispatch(fireRegisterUser(displayName, email, password))
-        }>
-        Sign up
-      </Button>
+      <Button onPress={handleSignUp}>Sign up</Button>
     </View>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { ActivityIndicator, Text } from 'react-native-paper';
 import { API_URL, ENV } from '@env';
@@ -18,20 +18,21 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
   const dispatch = useAppDispatch();
   const { user } = useSelector((state: RootState) => state.user);
 
-  const handleLoginCheck = async () => {
+  const handleLoginCheck = useCallback(async () => {
     const token = await fireRetrieveTokensFromStorage();
     if (token) {
       dispatch(fireGetUser());
       if (!user?.emailVerified) {
         navigation.navigate(AuthRoutesNames.VerifyEmail);
       }
-      // navigate to app
+      navigation.navigate(AuthRoutesNames.VerifyEmail);
     }
-  };
+    navigation.navigate(AuthRoutesNames.Hello);
+  }, [dispatch, navigation, user?.emailVerified]);
 
   useEffect(() => {
     handleLoginCheck();
-  });
+  }, [handleLoginCheck]);
 
   return (
     <SafeAreaView style={[styles.container]}>

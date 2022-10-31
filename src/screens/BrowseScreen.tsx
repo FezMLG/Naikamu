@@ -1,7 +1,7 @@
 import { StyleSheet, ActivityIndicator, FlatList } from 'react-native';
 import React, { useRef, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { FAB, SegmentedButtons } from 'react-native-paper';
+import { FAB, SegmentedButtons, Button } from 'react-native-paper';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import BrowseElement from '../components/browse/BrowseElement';
@@ -12,11 +12,14 @@ import { AnimeSeason } from '../enums/anime-season.enum';
 import { getAnimeSeason } from '../utils/getAnimeSeason';
 import { useTranslate } from '../i18n/useTranslate';
 import { BrowsePageProps, RoutesNames } from '../routes/main';
+import { fireLogoutUser } from '../services/firebase/fire-auth.service';
+import { useAppDispatch } from '../services/store/store';
 
 const BrowseScreen = ({ navigation }: BrowsePageProps) => {
   const CONTENT_OFFSET_THRESHOLD = 300;
   const apiClient = new APIClient();
   const { translate } = useTranslate();
+  const dispatch = useAppDispatch();
 
   const [season, setSeason] = useState(getAnimeSeason());
   const [seasonYear] = useState(new Date().getFullYear());
@@ -47,6 +50,7 @@ const BrowseScreen = ({ navigation }: BrowsePageProps) => {
 
   return (
     <SafeAreaView style={[styles.container]}>
+      <Button onPress={() => dispatch(fireLogoutUser())}>Logout</Button>
       <SegmentedButtons
         value={season}
         onValueChange={value => setSeason(value as AnimeSeason)}

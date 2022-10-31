@@ -12,7 +12,7 @@ import { RootState, useAppDispatch } from '../services/store/store';
 import { fireLogoutUser } from '../services/firebase/fire-auth.service';
 import { AuthRoutesNames, HelloScreenProps } from '../routes/auth';
 
-const HomeScreen = ({ navigation }: HelloScreenProps) => {
+const HelloScreen = ({ navigation }: HelloScreenProps) => {
   const { translate } = useTranslate();
   const dispatch = useAppDispatch();
   const { user } = useSelector((state: RootState) => state.user);
@@ -65,4 +65,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default HelloScreen;

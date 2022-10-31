@@ -1,15 +1,31 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
+import { useSelector } from 'react-redux';
 
 import { LoginScreenProps, AuthRoutesNames } from '../../routes/auth';
 import { fireLoginUser } from '../../services/firebase/fire-auth.service';
-import { useAppDispatch } from '../../services/store/store';
+import { RootState, useAppDispatch } from '../../services/store/store';
 
 export default function LoginScreen({ navigation }: LoginScreenProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, isLoading] = useState(false);
   const dispatch = useAppDispatch();
+  const { user } = useSelector((state: RootState) => state.user);
+
+  const handleLogin = async () => {
+    try {
+      isLoading(true);
+      await dispatch(fireLoginUser(email, password));
+      if (user && !user.emailVerified) {
+        navigation.navigate(AuthRoutesNames.VerifyEmail);
+      }
+    } catch (error) {
+      isLoading(false);
+      console.error(error);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -28,7 +44,11 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
         onChangeText={userPassword => setPassword(userPassword)}
         secureTextEntry={true}
       />
-      <Button onPress={() => dispatch(fireLoginUser(email, password))}>
+      <Button
+        loading={loading}
+        onPress={handleLogin}
+        mode={'contained'}
+        disabled={loading}>
         Login
       </Button>
       <Button onPress={() => navigation.navigate(AuthRoutesNames.SignUp)}>

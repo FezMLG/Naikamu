@@ -48,6 +48,9 @@ export const fireRegisterUser =
   (displayName: string, email: string, password: string) =>
   async (dispatch: AppDispatch) => {
     try {
+      // dispatch(clearAuthenticatedUser());
+      await fireResetTokensStorage();
+
       const createdUser = await auth().createUserWithEmailAndPassword(
         email,
         password,
@@ -62,9 +65,6 @@ export const fireRegisterUser =
         url: 'https://aniwatch-1f64a.firebaseapp.com/__/auth/action',
       });
 
-      await fireResetTokensStorage();
-      dispatch(clearAuthenticatedUser());
-
       const token = await createdUser.user.getIdToken();
       await fireSaveTokensToStorage(token);
       dispatch(fireGetUser());
@@ -73,18 +73,18 @@ export const fireRegisterUser =
     }
   };
 
-export const fireVerifyEmail =
-  (email: string, password: string) => async (dispatch: AppDispatch) => {
-    try {
-      await auth().createUserWithEmailAndPassword(email, password);
+// export const fireVerifyEmail = () => async () => {
+//   try {
+//     const fUser = auth().currentUser;
 
-      await fireResetTokensStorage();
-
-      dispatch(clearAuthenticatedUser());
-    } catch (e) {
-      console.log(e);
-    }
-  };
+//     await fUser?.user.sendEmailVerification({
+//       handleCodeInApp: true,
+//       url: 'https://aniwatch-1f64a.firebaseapp.com/__/auth/action',
+//     });
+//   } catch (e) {
+//     console.log(e);
+//   }
+// };
 
 export const fireGetUser = () => async (dispatch: AppDispatch) => {
   try {
