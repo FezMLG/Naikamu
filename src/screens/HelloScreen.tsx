@@ -8,13 +8,11 @@ import { useSelector } from 'react-redux';
 import { globalStyle } from '../styles/global.style';
 import { darkStyle } from '../styles/darkMode.style';
 import { useTranslate } from '../i18n/useTranslate';
-import { RootState, useAppDispatch } from '../services/store/store';
-import { fireLogoutUser } from '../services/firebase/fire-auth.service';
+import { RootState } from '../services/store/store';
 import { AuthRoutesNames, HelloScreenProps } from '../routes/auth';
 
 const HelloScreen = ({ navigation }: HelloScreenProps) => {
   const { translate } = useTranslate();
-  const dispatch = useAppDispatch();
   const { user } = useSelector((state: RootState) => state.user);
 
   return (
@@ -36,14 +34,15 @@ const HelloScreen = ({ navigation }: HelloScreenProps) => {
       <View style={[globalStyle.spacerBig]} />
       <Button
         mode={'contained'}
+        style={[styles.button]}
         onPress={() => navigation.navigate(AuthRoutesNames.Login)}>
         {translate('auth.login')}
       </Button>
-      <Button onPress={() => navigation.navigate(AuthRoutesNames.SignUp)}>
+      <Button
+        mode={'contained-tonal'}
+        style={[styles.button, globalStyle.marginTopSmall]}
+        onPress={() => navigation.navigate(AuthRoutesNames.SignUp)}>
         {translate('auth.register')}
-      </Button>
-      <Button onPress={() => dispatch(fireLogoutUser())}>
-        {translate('auth.logout')}
       </Button>
       {ENV !== 'prod' && <Text>api_url: {API_URL}</Text>}
     </SafeAreaView>
@@ -62,6 +61,11 @@ const styles = StyleSheet.create({
   },
   buttons: {
     margin: 16,
+  },
+  button: {
+    maxWidth: 500,
+    width: '90%',
+    minWidth: 10,
   },
   logo: {
     maxWidth: 200,

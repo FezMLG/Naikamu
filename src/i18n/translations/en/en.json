@@ -3,7 +3,8 @@
     "Browse": "Browse",
     "Episodes": "Episodes",
     "Login": "Login",
-    "SignUp": "Sign Up"
+    "SignUp": "Sign Up",
+    "ForgotPassword": "Forgot Password"
   },
   "auth": {
     "login": "Login",
@@ -14,7 +15,9 @@
     "logout": "Logout",
     "username": "Username",
     "email_verify": "Please verify your email",
-    "required_field": "This field is required"
+    "required_field": "This field is required",
+    "email_sent": "Sent email",
+    "email_has_been_sent": "Email has been sent"
   },
   "welcomeScreen": {
     "welcome": "Welcome to",

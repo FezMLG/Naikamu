@@ -7,15 +7,17 @@ import { useSelector } from 'react-redux';
 import { VerifyEmailScreenProps } from '../routes/auth';
 import { RootState, useAppDispatch } from '../services/store/store';
 import { fireGetUser } from '../services/firebase/fire-auth.service';
+import { useTranslate } from '../i18n/useTranslate';
 
-const VerifyEmailScreen = ({ navigation }: VerifyEmailScreenProps) => {
+const VerifyEmailScreen = ({}: VerifyEmailScreenProps) => {
   const [loading, isLoading] = useState(false);
   const { user } = useSelector((state: RootState) => state.user);
   const dispatch = useAppDispatch();
+  const { translate } = useTranslate();
 
-  const handleVerify = () => {
+  const handleVerify = async () => {
     isLoading(true);
-    dispatch(fireGetUser());
+    await dispatch(fireGetUser());
   };
 
   return (

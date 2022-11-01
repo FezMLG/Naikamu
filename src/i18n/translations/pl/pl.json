@@ -3,7 +3,8 @@
     "Browse": "Przeglądaj",
     "Episodes": "Epizody",
     "Login": "Zaloguj się",
-    "SignUp": "Zarejestrój się"
+    "SignUp": "Zarejestruj się",
+    "ForgotPassword": "Nie pamiętam hasła"
   },
   "auth": {
     "login": "Zaloguj",
@@ -14,7 +15,9 @@
     "logout": "Wyloguj",
     "username": "Nazwa użytkownia",
     "email_verify": "Zweryfikuj swój adres email",
-    "required_field": "To pole jest wymagane"
+    "required_field": "To pole jest wymagane",
+    "email_sent": "Wyślij email",
+    "email_has_been_sent": "Email został wysłany"
   },
   "welcomeScreen": {
     "welcome": "Witaj w",

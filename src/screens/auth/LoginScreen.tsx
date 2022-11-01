@@ -110,11 +110,9 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
           {translate('auth.login')}
         </Button>
         <Button
-          loading={loading}
-          onPress={handleSubmit(handleLogin)}
           mode={'text'}
-          disabled={loading}
-          style={[styles.width90]}>
+          style={[styles.width90, globalStyle.marginTopSmall]}
+          onPress={() => navigation.navigate(AuthRoutesNames.ForgotPassword)}>
           {translate('auth.forgot_password')}
         </Button>
       </View>

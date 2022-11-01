@@ -6,8 +6,9 @@ import AppLoadScreen from '../../screens/AppLoadScreen';
 import { AuthStackParamList, AuthRoutesNames } from './interfaces';
 import LoginScreen from '../../screens/auth/LoginScreen';
 import HelloScreen from '../../screens/HelloScreen';
-import VerifyEmailScreen from '../../screens/VerifyEmailScreen';
 import { useTranslate } from '../../i18n/useTranslate';
+import ForgotPasswordScreen from '../../screens/ForgotPasswordScreen';
+import VerifyEmailScreen from '../../screens/VerifyEmailScreen';
 
 const Stack = createNativeStackNavigator<AuthStackParamList>();
 
@@ -46,6 +47,14 @@ export default function AuthStack() {
         name={AuthRoutesNames.VerifyEmail}
         component={VerifyEmailScreen}
         options={{ header: () => null }}
+      />
+      <Stack.Screen
+        name={AuthRoutesNames.ForgotPassword}
+        component={ForgotPasswordScreen}
+        options={{
+          title: translate('routes.' + AuthRoutesNames.ForgotPassword),
+          animation: 'slide_from_right',
+        }}
       />
     </Stack.Navigator>
   );

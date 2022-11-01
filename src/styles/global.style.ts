@@ -30,6 +30,9 @@ export const globalStyle = StyleSheet.create({
     marginTop: 20,
     marginBottom: 10,
   },
+  errors: {
+    color: '#CF6679',
+  },
 });
 
 export const fontStyles = StyleSheet.create({

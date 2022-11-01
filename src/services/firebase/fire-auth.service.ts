@@ -73,6 +73,14 @@ export const fireRegisterUser =
     }
   };
 
+export const fireForgotPassword = (email: string) => async () => {
+  try {
+    await auth().sendPasswordResetEmail(email);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 // export const fireVerifyEmail = () => async () => {
 //   try {
 //     const fUser = auth().currentUser;

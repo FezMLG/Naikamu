@@ -34,6 +34,12 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
     handleLoginCheck();
   }, [handleLoginCheck]);
 
+  useEffect(() => {
+    navigation.addListener('beforeRemove', e => {
+      e.preventDefault();
+    });
+  }, [navigation]);
+
   return (
     <SafeAreaView style={[styles.container]}>
       <Text>{user?.displayName ? user?.displayName : user?.email}</Text>
