@@ -1,7 +1,20 @@
 {
   "routes": {
     "Browse": "Przeglądaj",
-    "Episodes": "Epizody"
+    "Episodes": "Epizody",
+    "Login": "Zaloguj się",
+    "SignUp": "Zarejestrój się"
+  },
+  "auth": {
+    "login": "Zaloguj",
+    "register": "Zarejestruj się",
+    "forgot_password": "Nie pamiętasz hasła?",
+    "password": "Hasło",
+    "new_user": "New user? Join here",
+    "logout": "Wyloguj",
+    "username": "Nazwa użytkownia",
+    "email_verify": "Zweryfikuj swój adres email",
+    "required_field": "To pole jest wymagane"
   },
   "welcomeScreen": {
     "welcome": "Witaj w",

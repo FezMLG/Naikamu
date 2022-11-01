@@ -7,10 +7,13 @@ import { AuthStackParamList, AuthRoutesNames } from './interfaces';
 import LoginScreen from '../../screens/auth/LoginScreen';
 import HelloScreen from '../../screens/HelloScreen';
 import VerifyEmailScreen from '../../screens/VerifyEmailScreen';
+import { useTranslate } from '../../i18n/useTranslate';
 
 const Stack = createNativeStackNavigator<AuthStackParamList>();
 
 export default function AuthStack() {
+  const { translate } = useTranslate();
+
   return (
     <Stack.Navigator initialRouteName={AuthRoutesNames.AppLoading}>
       <Stack.Screen
@@ -26,12 +29,23 @@ export default function AuthStack() {
       <Stack.Screen
         name={AuthRoutesNames.Login}
         component={LoginScreen}
-        options={{ header: () => null }}
+        options={{
+          title: translate('routes.' + AuthRoutesNames.Login),
+          animation: 'slide_from_right',
+        }}
       />
-      <Stack.Screen name={AuthRoutesNames.SignUp} component={SignUpScreen} />
+      <Stack.Screen
+        name={AuthRoutesNames.SignUp}
+        component={SignUpScreen}
+        options={{
+          title: translate('routes.' + AuthRoutesNames.SignUp),
+          animation: 'slide_from_right',
+        }}
+      />
       <Stack.Screen
         name={AuthRoutesNames.VerifyEmail}
         component={VerifyEmailScreen}
+        options={{ header: () => null }}
       />
     </Stack.Navigator>
   );

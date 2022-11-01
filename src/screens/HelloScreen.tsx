@@ -34,13 +34,17 @@ const HelloScreen = ({ navigation }: HelloScreenProps) => {
         source={require('../../assets/aniwatch_logo_t.png')}
       />
       <View style={[globalStyle.spacerBig]} />
-      <Button onPress={() => navigation.navigate(AuthRoutesNames.Login)}>
-        Login
+      <Button
+        mode={'contained'}
+        onPress={() => navigation.navigate(AuthRoutesNames.Login)}>
+        {translate('auth.login')}
       </Button>
       <Button onPress={() => navigation.navigate(AuthRoutesNames.SignUp)}>
-        New user? Join here
+        {translate('auth.register')}
       </Button>
-      <Button onPress={() => dispatch(fireLogoutUser())}>Logout</Button>
+      <Button onPress={() => dispatch(fireLogoutUser())}>
+        {translate('auth.logout')}
+      </Button>
       {ENV !== 'prod' && <Text>api_url: {API_URL}</Text>}
     </SafeAreaView>
   );

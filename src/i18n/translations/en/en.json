@@ -1,7 +1,20 @@
 {
   "routes": {
     "Browse": "Browse",
-    "Episodes": "Episodes"
+    "Episodes": "Episodes",
+    "Login": "Login",
+    "SignUp": "Sign Up"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Sign up",
+    "forgot_password": "Forgot password?",
+    "password": "Password",
+    "new_user": "New user? Join here",
+    "logout": "Logout",
+    "username": "Username",
+    "email_verify": "Please verify your email",
+    "required_field": "This field is required"
   },
   "welcomeScreen": {
     "welcome": "Welcome to",

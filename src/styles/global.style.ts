@@ -17,6 +17,15 @@ export const globalStyle = StyleSheet.create({
   spacerSmall: {
     marginVertical: 10,
   },
+  marginTopBig: {
+    marginTop: 40,
+  },
+  marginTop: {
+    marginTop: 20,
+  },
+  marginTopSmall: {
+    marginTop: 10,
+  },
   disclaimer: {
     marginTop: 20,
     marginBottom: 10,
