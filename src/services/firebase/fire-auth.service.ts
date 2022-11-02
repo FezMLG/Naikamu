@@ -99,17 +99,20 @@ export const fireGetUser = () => async (dispatch: AppDispatch) => {
     dispatch(getUserPending());
 
     const fUser = auth().currentUser;
-
-    if (fUser) {
-      const user: User = {
-        displayName: fUser.displayName,
-        email: fUser.email,
-        emailVerified: fUser.emailVerified,
-        isAnonymous: fUser.isAnonymous,
-        uid: fUser.uid,
-      };
-      dispatch(getUserFulfilled(user));
-    } else {
+    try {
+      if (fUser) {
+        const user: User = {
+          displayName: fUser.displayName,
+          email: fUser.email,
+          emailVerified: fUser.emailVerified,
+          isAnonymous: fUser.isAnonymous,
+          uid: fUser.uid,
+        };
+        dispatch(getUserFulfilled(user));
+      } else {
+        dispatch(getUserRejected());
+      }
+    } catch (error) {
       dispatch(getUserRejected());
     }
   } catch (e: unknown) {
