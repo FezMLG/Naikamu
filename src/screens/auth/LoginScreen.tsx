@@ -33,11 +33,15 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
 
   const handleLogin = async (data: LoginUser) => {
     try {
-      console.log(data);
       isLoading(true);
       await dispatch(fireLoginUser(data.email, data.password));
+      isLoading(false);
       if (user && !user.emailVerified) {
-        navigation.navigate(AuthRoutesNames.VerifyEmail);
+        try {
+          navigation.navigate(AuthRoutesNames.VerifyEmail);
+        } catch (error) {
+          console.log(error);
+        }
       }
     } catch (error) {
       isLoading(false);

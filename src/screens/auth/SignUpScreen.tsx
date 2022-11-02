@@ -124,7 +124,34 @@ export const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
               mode={'outlined'}
             />
           )}
-          name="displayName"
+          name="password"
+        />
+        {errors.email && (
+          <Text style={styles.errors}>{translate('auth.required_field')}</Text>
+        )}
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+            maxLength: 100,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              value={value}
+              onBlur={onBlur}
+              placeholder={translate('auth.password_again')}
+              onChangeText={onChange}
+              autoCapitalize="none"
+              secureTextEntry={true}
+              style={[
+                styles.textInput,
+                styles.width90,
+                globalStyle.marginTopSmall,
+              ]}
+              mode={'outlined'}
+            />
+          )}
+          name="password"
         />
         {errors.email && (
           <Text style={styles.errors}>{translate('auth.required_field')}</Text>

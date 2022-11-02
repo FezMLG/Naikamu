@@ -110,7 +110,7 @@ export const fireGetUser = () => async (dispatch: AppDispatch) => {
       };
       dispatch(getUserFulfilled(user));
     } else {
-      throw new Error('User get error');
+      dispatch(getUserRejected());
     }
   } catch (e: unknown) {
     dispatch(getUserRejected());

@@ -11,10 +11,14 @@
     "register": "Sign up",
     "forgot_password": "Forgot password?",
     "password": "Password",
+    "password_again": "Password again",
     "new_user": "New user? Join here",
     "logout": "Logout",
     "username": "Username",
-    "email_verify": "Please verify your email",
+    "email_verify": {
+      "top": "Please verify your email",
+      "bottom": "and login again"
+    },
     "required_field": "This field is required",
     "email_sent": "Sent email",
     "email_has_been_sent": "Email has been sent"

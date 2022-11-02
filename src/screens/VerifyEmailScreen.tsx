@@ -4,12 +4,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Text } from 'react-native-paper';
 import { useSelector } from 'react-redux';
 
-import { VerifyEmailScreenProps } from '../routes/auth';
+import { AuthRoutesNames, VerifyEmailScreenProps } from '../routes/auth';
 import { RootState, useAppDispatch } from '../services/store/store';
 import { fireGetUser } from '../services/firebase/fire-auth.service';
 import { useTranslate } from '../i18n/useTranslate';
 
-const VerifyEmailScreen = ({}: VerifyEmailScreenProps) => {
+const VerifyEmailScreen = ({ navigation }: VerifyEmailScreenProps) => {
   const [loading, isLoading] = useState(false);
   const { user } = useSelector((state: RootState) => state.user);
   const dispatch = useAppDispatch();
@@ -18,14 +18,16 @@ const VerifyEmailScreen = ({}: VerifyEmailScreenProps) => {
   const handleVerify = async () => {
     isLoading(true);
     await dispatch(fireGetUser());
+    isLoading(false);
   };
 
   return (
     <SafeAreaView style={[styles.container]}>
-      <Text>Please verify your email first</Text>
+      <Text> {translate('auth.email_verify.top')}</Text>
       <Text>{user?.email}</Text>
-      <Button loading={loading} onPress={handleVerify} mode={'contained'}>
-        Verify
+      <Text> {translate('auth.email_verify.bottom')}</Text>
+      <Button onPress={() => navigation.navigate(AuthRoutesNames.Login)}>
+        Go Back
       </Button>
     </SafeAreaView>
   );

@@ -11,10 +11,14 @@
     "register": "Zarejestruj się",
     "forgot_password": "Nie pamiętasz hasła?",
     "password": "Hasło",
+    "password_again": "Hasło ponownie",
     "new_user": "New user? Join here",
     "logout": "Wyloguj",
     "username": "Nazwa użytkownia",
-    "email_verify": "Zweryfikuj swój adres email",
+    "email_verify": {
+      "top": "Zweryfikuj swój adres email",
+      "bottom": "i zaloguj się ponownie"
+    },
     "required_field": "To pole jest wymagane",
     "email_sent": "Wyślij email",
     "email_has_been_sent": "Email został wysłany"
