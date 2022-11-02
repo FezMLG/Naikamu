@@ -13,6 +13,7 @@ import { BrowsePageProps, RootStackParamList, RoutesNames } from './interfaces';
 import SearchScreen from '../../screens/search/SearchScreen';
 import SearchResultsScreen from '../../screens/search/SearchResultsScreen';
 import { useTranslate } from '../../i18n/useTranslate';
+import { DrawerActions } from '@react-navigation/native';
 
 const defaultOptions = ({ title }: { title?: string }) => {
   return {
@@ -42,6 +43,13 @@ const MainStack = () => {
               icon="magnify"
               size={24}
               onPress={() => navigation.navigate(RoutesNames.Search)}
+            />
+          ),
+          headerLeft: () => (
+            <IconButton
+              icon="menu"
+              size={24}
+              onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
             />
           ),
         })}
