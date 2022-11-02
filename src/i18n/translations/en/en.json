@@ -6,6 +6,9 @@
     "SignUp": "Sign Up",
     "ForgotPassword": "Forgot Password"
   },
+  "buttons": {
+    "go_back": "Go Back"
+  },
   "auth": {
     "login": "Login",
     "register": "Sign up",
@@ -25,7 +28,10 @@
     "errors": {
       "invalid_email": "Invalid email",
       "user_not_found": "User was not found or wrong password",
-      "unknown": "Unknown error, please contact support"
+      "unknown": "Unknown error, please contact support",
+      "email_already_in_use": "This user already exist",
+      "passwords_do_not_match": "Passwords do not match",
+      "weak_password": "Password should be at least 6 characters"
     }
   },
   "welcomeScreen": {

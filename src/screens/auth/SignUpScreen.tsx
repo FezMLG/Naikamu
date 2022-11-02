@@ -14,10 +14,12 @@ interface SignUpUser {
   displayName: string;
   email: string;
   password: string;
+  passwordAgain: string;
 }
 
 export const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
   const [loading, isLoading] = useState(false);
+  const [authError, setAuthError] = useState<null | string>(null);
   const dispatch = useAppDispatch();
   const { translate } = useTranslate();
   const { user } = useSelector((state: RootState) => state.user);
@@ -31,22 +33,44 @@ export const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
       displayName: '',
       email: '',
       password: '',
+      passwordAgain: '',
     },
   });
 
   const handleSignUp = async (data: SignUpUser) => {
     isLoading(true);
-    await dispatch(
-      fireRegisterUser(data.displayName, data.email, data.password),
-    );
-    if (user) {
-      navigation.navigate(AuthRoutesNames.VerifyEmail);
+    try {
+      if (data.password !== data.passwordAgain) {
+        throw { code: 'auth/passwords-do-not-match' };
+      }
+      await dispatch(
+        fireRegisterUser(data.displayName, data.email, data.password),
+      );
+      if (user) {
+        navigation.navigate(AuthRoutesNames.VerifyEmail);
+      }
+    } catch (error: any) {
+      console.log(error);
+      if (error.code === 'auth/invalid-email') {
+        setAuthError(translate('auth.errors.invalid_email'));
+      } else if (error.code === 'auth/email-already-in-use') {
+        setAuthError(translate('auth.errors.email_already_in_use'));
+      } else if (error.code === 'auth/passwords-do-not-match') {
+        setAuthError(translate('auth.errors.passwords_do_not_match'));
+      } else if (error.code === 'auth/weak-password') {
+        setAuthError(translate('auth.errors.weak_password'));
+      } else {
+        console.log(error);
+        setAuthError(translate('auth.errors.unknown'));
+      }
     }
+    isLoading(false);
   };
 
   return (
     <View style={styles.container}>
       <View style={[styles.formInputs, globalStyle.spacerBig]}>
+        {authError && <Text style={globalStyle.errors}>{authError}</Text>}
         <Controller
           control={control}
           rules={{
@@ -71,7 +95,7 @@ export const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
           )}
           name="displayName"
         />
-        {errors.email && (
+        {errors.displayName && (
           <Text style={styles.errors}>{translate('auth.required_field')}</Text>
         )}
         <Controller
@@ -126,7 +150,7 @@ export const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
           )}
           name="password"
         />
-        {errors.email && (
+        {errors.password && (
           <Text style={styles.errors}>{translate('auth.required_field')}</Text>
         )}
         <Controller
@@ -151,9 +175,9 @@ export const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
               mode={'outlined'}
             />
           )}
-          name="password"
+          name="passwordAgain"
         />
-        {errors.email && (
+        {errors.passwordAgain && (
           <Text style={styles.errors}>{translate('auth.required_field')}</Text>
         )}
         <Button

@@ -6,6 +6,9 @@
     "SignUp": "Zarejestruj się",
     "ForgotPassword": "Nie pamiętam hasła"
   },
+  "buttons": {
+    "go_back": "Powrót"
+  },
   "auth": {
     "login": "Zaloguj",
     "register": "Zarejestruj się",
@@ -25,7 +28,10 @@
     "errors": {
       "invalid_email": "Email jest niepoprawny",
       "user_not_found": "Użytkownik nie został znaleziony lub hasło jest niepoprawne",
-      "unknown": "Wystąpił nieznany błąd, skontaktuj się ze wsparciem"
+      "unknown": "Wystąpił nieznany błąd, skontaktuj się ze wsparciem",
+      "email_already_in_use": "Ten użytkownik już istnieje",
+      "passwords_do_not_match": "Hasła nie są takie same",
+      "weak_password": "Hasło powinno mieć co najmniej 6 znaków"
     }
   },
   "welcomeScreen": {
