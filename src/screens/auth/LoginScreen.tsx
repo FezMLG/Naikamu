@@ -17,6 +17,7 @@ interface LoginUser {
 
 export default function LoginScreen({ navigation }: LoginScreenProps) {
   const [loading, isLoading] = useState(false);
+  const [authError, setAuthError] = useState<null | string>(null);
   const dispatch = useAppDispatch();
   const { translate } = useTranslate();
   const { user } = useSelector((state: RootState) => state.user);
@@ -43,10 +44,20 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
           console.log(error);
         }
       }
-    } catch (error) {
-      isLoading(false);
-      console.error(error);
+    } catch (error: any) {
+      if (error.code === 'auth/invalid-email') {
+        setAuthError(translate('auth.errors.invalid_email'));
+      } else if (
+        error.code === 'auth/user-not-found' ||
+        error.code === 'auth/wrong-password'
+      ) {
+        setAuthError(translate('auth.errors.user_not_found'));
+      } else {
+        console.log(error);
+        setAuthError(translate('auth.errors.unknown'));
+      }
     }
+    isLoading(false);
   };
 
   useEffect(() => {});
@@ -54,6 +65,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={[styles.formInputs, globalStyle.spacerBig]}>
+        {authError && <Text style={globalStyle.errors}>{authError}</Text>}
         <Controller
           control={control}
           rules={{
@@ -67,7 +79,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
               autoCapitalize="none"
               keyboardType="email-address"
               autoCorrect={false}
-              style={[styles.textInput, styles.width90]}
+              style={[styles.textInput, styles.width90, globalStyle.marginTop]}
               mode={'outlined'}
               onBlur={onBlur}
               onChangeText={onChange}
@@ -76,7 +88,9 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
           name="email"
         />
         {errors.email && (
-          <Text style={styles.errors}>{translate('auth.required_field')}</Text>
+          <Text style={globalStyle.errors}>
+            {translate('auth.required_field')}
+          </Text>
         )}
 
         <Controller
@@ -103,7 +117,9 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
           name="password"
         />
         {errors.password && (
-          <Text style={styles.errors}>{translate('auth.required_field')}</Text>
+          <Text style={globalStyle.errors}>
+            {translate('auth.required_field')}
+          </Text>
         )}
         <Button
           loading={loading}
@@ -135,9 +151,6 @@ const styles = StyleSheet.create({
   textInput: {},
   formInputs: {
     alignItems: 'center',
-  },
-  errors: {
-    color: '#CF6679',
   },
   width90: {
     maxWidth: 500,

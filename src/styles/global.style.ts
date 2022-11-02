@@ -32,6 +32,7 @@ export const globalStyle = StyleSheet.create({
   },
   errors: {
     color: '#CF6679',
+    textAlign: 'center',
   },
 });
 

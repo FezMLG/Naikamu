@@ -21,7 +21,12 @@
     },
     "required_field": "To pole jest wymagane",
     "email_sent": "Wyślij email",
-    "email_has_been_sent": "Email został wysłany"
+    "email_has_been_sent": "Email został wysłany",
+    "errors": {
+      "invalid_email": "Email jest niepoprawny",
+      "user_not_found": "Użytkownik nie został znaleziony lub hasło jest niepoprawne",
+      "unknown": "Wystąpił nieznany błąd, skontaktuj się ze wsparciem"
+    }
   },
   "welcomeScreen": {
     "welcome": "Witaj w",

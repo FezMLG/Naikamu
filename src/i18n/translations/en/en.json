@@ -21,7 +21,12 @@
     },
     "required_field": "This field is required",
     "email_sent": "Sent email",
-    "email_has_been_sent": "Email has been sent"
+    "email_has_been_sent": "Email has been sent",
+    "errors": {
+      "invalid_email": "Invalid email",
+      "user_not_found": "User was not found or wrong password",
+      "unknown": "Unknown error, please contact support"
+    }
   },
   "welcomeScreen": {
     "welcome": "Welcome to",
