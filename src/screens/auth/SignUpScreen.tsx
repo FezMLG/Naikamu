@@ -50,7 +50,7 @@ export const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
         navigation.navigate(AuthRoutesNames.VerifyEmail);
       }
     } catch (error: any) {
-      console.log(error);
+      console.error(error);
       if (error.code === 'auth/invalid-email') {
         setAuthError(translate('auth.errors.invalid_email'));
       } else if (error.code === 'auth/email-already-in-use') {
@@ -60,7 +60,7 @@ export const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
       } else if (error.code === 'auth/weak-password') {
         setAuthError(translate('auth.errors.weak_password'));
       } else {
-        console.log(error);
+        console.error(error);
         setAuthError(translate('auth.errors.unknown'));
       }
     }
