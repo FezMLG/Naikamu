@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 import { API_URL, ENV } from '@env';
@@ -14,6 +14,12 @@ import { AuthRoutesNames, HelloScreenProps } from '../routes/auth';
 const HelloScreen = ({ navigation }: HelloScreenProps) => {
   const { translate } = useTranslate();
   const { user } = useSelector((state: RootState) => state.user);
+
+  useEffect(() => {
+    navigation.addListener('beforeRemove', e => {
+      e.preventDefault();
+    });
+  }, [navigation]);
 
   return (
     <SafeAreaView style={[styles.container]}>
