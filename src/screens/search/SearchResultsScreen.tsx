@@ -7,10 +7,13 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { APIClient } from '../../api/APIClient';
 import { AnimeList, Media } from '../../interfaces';
 import BrowseElement from '../../components/browse/BrowseElement';
-import { SearchResultsPageProps, ScreenNames } from '../../routes/main';
+import { SearchResultsScreenProps, ScreenNames } from '../../routes/main';
 import { maxWidth } from '../../components/maxDimensions';
 
-const SearchResultsScreen = ({ navigation, route }: SearchResultsPageProps) => {
+const SearchResultsScreen = ({
+  navigation,
+  route,
+}: SearchResultsScreenProps) => {
   const CONTENT_OFFSET_THRESHOLD = 300;
   const { phrase } = route.params;
   const apiClient = new APIClient();

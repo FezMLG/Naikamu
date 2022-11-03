@@ -26,7 +26,6 @@ export const fireLoginUser =
         url: 'https://aniwatch.page.link/V9Hh',
       });
     }
-
     const token = await newAuthState.user.getIdToken();
     await fireSaveTokensToStorage(token);
     dispatch(fireGetUser());

@@ -10,12 +10,12 @@ import Video, { OnProgressData } from 'react-native-video';
 import VideoPlayer from 'react-native-video-controls';
 
 import { storageGetData, storageStoreData } from '../../../../utils';
-import { WatchNativePageProps } from '../../../../routes/main';
+import { WatchNativeScreenProps } from '../../../../routes/main';
 
 const NativeVideoPlayerScreen = ({
   route,
   navigation,
-}: WatchNativePageProps) => {
+}: WatchNativeScreenProps) => {
   const { isTV } = Platform;
   const { uri, episodeTitle } = route.params;
   const video = useRef<Video>(null);

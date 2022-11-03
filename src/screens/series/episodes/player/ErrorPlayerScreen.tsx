@@ -6,9 +6,9 @@ import { Text } from 'react-native-paper';
 import { darkStyle } from '../../../../styles/darkMode.style';
 import { maxHeight, maxWidth } from '../../../../components/maxDimensions';
 import { fontStyles, globalStyle } from '../../../../styles/global.style';
-import { WatchErrorPageProps } from '../../../../routes/main';
+import { WatchErrorScreenProps } from '../../../../routes/main';
 
-const ErrorPlayerScreen = ({ route }: WatchErrorPageProps) => {
+const ErrorPlayerScreen = ({ route }: WatchErrorScreenProps) => {
   const { playerName, animeTitle } = route.params;
   //TODO styling for this page
   return (

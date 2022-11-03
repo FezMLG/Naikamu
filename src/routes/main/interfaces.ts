@@ -33,11 +33,11 @@ export type RootStackParamList = {
   [ScreenNames.WatchError]: { playerName: string; animeTitle: string };
 };
 
-export type BrowsePageProps = NativeStackScreenProps<
+export type BrowseScreenProps = NativeStackScreenProps<
   RootStackParamList,
   ScreenNames.Browse
 >;
-export type SearchPageProps = NativeStackScreenProps<
+export type SearchScreenProps = NativeStackScreenProps<
   RootStackParamList,
   ScreenNames.Search
 >;
@@ -45,27 +45,27 @@ export type HomeDrawerScreenProps = NativeStackScreenProps<
   RootStackParamList,
   ScreenNames.HomeDrawer
 >;
-export type SearchResultsPageProps = NativeStackScreenProps<
+export type SearchResultsScreenProps = NativeStackScreenProps<
   RootStackParamList,
   ScreenNames.SearchResults
 >;
-export type SeriesPageProps = NativeStackScreenProps<
+export type SeriesScreenProps = NativeStackScreenProps<
   RootStackParamList,
   ScreenNames.Series
 >;
-export type EpisodesPageProps = NativeStackScreenProps<
+export type EpisodesScreenProps = NativeStackScreenProps<
   RootStackParamList,
   ScreenNames.Episodes
 >;
-export type WatchNativePageProps = NativeStackScreenProps<
+export type WatchNativeScreenProps = NativeStackScreenProps<
   RootStackParamList,
   ScreenNames.WatchNative
 >;
-export type WatchWebViewPageProps = NativeStackScreenProps<
+export type WatchWebViewScreenProps = NativeStackScreenProps<
   RootStackParamList,
   ScreenNames.WatchWebView
 >;
-export type WatchErrorPageProps = NativeStackScreenProps<
+export type WatchErrorScreenProps = NativeStackScreenProps<
   RootStackParamList,
   ScreenNames.WatchError
 >;

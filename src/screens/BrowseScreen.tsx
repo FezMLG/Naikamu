@@ -11,11 +11,11 @@ import { APIClient } from '../api/APIClient';
 import { AnimeSeason } from '../enums/anime-season.enum';
 import { getAnimeSeason } from '../utils/getAnimeSeason';
 import { useTranslate } from '../i18n/useTranslate';
-import { BrowsePageProps, ScreenNames } from '../routes/main';
+import { BrowseScreenProps, ScreenNames } from '../routes/main';
 import { fireLogoutUser } from '../services/firebase/fire-auth.service';
 import { useAppDispatch } from '../services/store/store';
 
-const BrowseScreen = ({ navigation }: BrowsePageProps) => {
+const BrowseScreen = ({ navigation }: BrowseScreenProps) => {
   const CONTENT_OFFSET_THRESHOLD = 300;
   const apiClient = new APIClient();
   const { translate } = useTranslate();

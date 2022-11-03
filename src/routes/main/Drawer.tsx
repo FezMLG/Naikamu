@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import {
-  BrowsePageProps,
+  BrowseScreenProps,
   RootStackParamList,
   ScreenNames,
-  SearchPageProps,
+  SearchScreenProps,
 } from './interfaces';
 import BrowseScreen from '../../screens/BrowseScreen';
 import SearchScreen from '../../screens/search/SearchScreen';
@@ -28,7 +28,7 @@ export const DrawerNav = () => {
       <Drawer.Screen
         name={ScreenNames.Browse}
         component={BrowseScreen}
-        options={({ navigation }: BrowsePageProps) => ({
+        options={({ navigation }: BrowseScreenProps) => ({
           ...defaultOptions({
             title: translate('routes.' + ScreenNames.Browse),
           }),
@@ -54,7 +54,7 @@ export const DrawerNav = () => {
       <Drawer.Screen
         name={ScreenNames.Search}
         component={SearchScreen}
-        options={({ navigation }: SearchPageProps) => ({
+        options={({ navigation }: SearchScreenProps) => ({
           ...defaultOptions({ title: ScreenNames.Search }),
           animation: 'slide_from_right',
           headerLeft: () => (
