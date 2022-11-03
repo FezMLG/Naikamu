@@ -22,7 +22,7 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
   const { user } = useSelector((state: RootState) => state.user);
 
   const handleLoginCheck = useCallback(async () => {
-    await fireGetNewIdToken();
+    dispatch(await fireGetNewIdToken());
     const token = await fireRetrieveTokensFromStorage();
     if (token) {
       dispatch(fireGetUser());
