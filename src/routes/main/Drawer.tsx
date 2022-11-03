@@ -3,7 +3,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import {
   BrowsePageProps,
   RootStackParamList,
-  RoutesNames,
+  ScreenNames,
   SearchPageProps,
 } from './interfaces';
 import BrowseScreen from '../../screens/BrowseScreen';
@@ -24,13 +24,13 @@ export const DrawerNav = () => {
   const { translate } = useTranslate();
 
   return (
-    <Drawer.Navigator initialRouteName={RoutesNames.Browse}>
+    <Drawer.Navigator initialRouteName={ScreenNames.Browse}>
       <Drawer.Screen
-        name={RoutesNames.Browse}
+        name={ScreenNames.Browse}
         component={BrowseScreen}
         options={({ navigation }: BrowsePageProps) => ({
           ...defaultOptions({
-            title: translate('routes.' + RoutesNames.Browse),
+            title: translate('routes.' + ScreenNames.Browse),
           }),
           animation: 'slide_from_right',
           headerBackVisible: false,
@@ -52,10 +52,10 @@ export const DrawerNav = () => {
         })}
       />
       <Drawer.Screen
-        name={RoutesNames.Search}
+        name={ScreenNames.Search}
         component={SearchScreen}
         options={({ navigation }: SearchPageProps) => ({
-          ...defaultOptions({ title: RoutesNames.Search }),
+          ...defaultOptions({ title: ScreenNames.Search }),
           animation: 'slide_from_right',
           headerLeft: () => (
             <IconButton

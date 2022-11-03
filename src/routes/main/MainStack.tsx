@@ -8,7 +8,7 @@ import SeriesScreen from '../../screens/series/SeriesScreen';
 import EpisodesListScreen from '../../screens/series/episodes/EpisodesListScreen';
 import WebViewPlayerScreen from '../../screens/series/episodes/player/WebViewPlayerScreen';
 import ErrorPlayerScreen from '../../screens/series/episodes/player/ErrorPlayerScreen';
-import { RootStackParamList, RoutesNames } from './interfaces';
+import { RootStackParamList, ScreenNames } from './interfaces';
 import SearchResultsScreen from '../../screens/search/SearchResultsScreen';
 import { useTranslate } from '../../i18n/useTranslate';
 import { DrawerNav } from './Drawer';
@@ -25,7 +25,7 @@ const MainStack = () => {
   const { translate } = useTranslate();
 
   return (
-    <StackAuthorized.Navigator initialRouteName={RoutesNames.Browse}>
+    <StackAuthorized.Navigator initialRouteName={ScreenNames.Browse}>
       {/* <StackAuthorized.Screen
         name={RoutesNames.Browse}
         component={BrowseScreen}
@@ -61,7 +61,7 @@ const MainStack = () => {
         }}
       /> */}
       <StackAuthorized.Screen
-        name={RoutesNames.HomeDrawer}
+        name={ScreenNames.HomeDrawer}
         component={DrawerNav}
         options={{
           animation: 'slide_from_right',
@@ -69,15 +69,15 @@ const MainStack = () => {
         }}
       />
       <StackAuthorized.Screen
-        name={RoutesNames.SearchResults}
+        name={ScreenNames.SearchResults}
         component={SearchResultsScreen}
         options={{
-          ...defaultOptions({ title: RoutesNames.SearchResults }),
+          ...defaultOptions({ title: ScreenNames.SearchResults }),
           animation: 'slide_from_right',
         }}
       />
       <StackAuthorized.Screen
-        name={RoutesNames.Series}
+        name={ScreenNames.Series}
         component={SeriesScreen}
         options={({ route }: any) => ({
           ...defaultOptions({ title: route.params.title }),
@@ -85,11 +85,11 @@ const MainStack = () => {
         })}
       />
       <StackAuthorized.Screen
-        name={RoutesNames.Episodes}
+        name={ScreenNames.Episodes}
         component={EpisodesListScreen}
         options={({ route }: any) => ({
           ...defaultOptions({
-            title: `${translate('routes.' + RoutesNames.Episodes)}: ${
+            title: `${translate('routes.' + ScreenNames.Episodes)}: ${
               route.params.title
             }`,
           }),
@@ -104,7 +104,7 @@ const MainStack = () => {
         })}
       />
       <StackAuthorized.Screen
-        name={RoutesNames.WatchNative}
+        name={ScreenNames.WatchNative}
         component={NativeVideoPlayerScreen}
         options={{
           animation: 'slide_from_right',
@@ -112,7 +112,7 @@ const MainStack = () => {
         }}
       />
       <StackAuthorized.Screen
-        name={RoutesNames.WatchWebView}
+        name={ScreenNames.WatchWebView}
         component={WebViewPlayerScreen}
         options={{
           animation: 'slide_from_right',
@@ -120,7 +120,7 @@ const MainStack = () => {
         }}
       />
       <StackAuthorized.Screen
-        name={RoutesNames.WatchError}
+        name={ScreenNames.WatchError}
         component={ErrorPlayerScreen}
         options={{
           ...defaultOptions({ title: 'Go To App' }),

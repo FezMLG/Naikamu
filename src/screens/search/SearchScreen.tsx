@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, SafeAreaView } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 
-import { SearchPageProps, RoutesNames } from '../../routes/main';
+import { SearchPageProps, ScreenNames } from '../../routes/main';
 
 const SearchScreen = ({ navigation }: SearchPageProps) => {
   const [search, setSearch] = useState('');
@@ -18,7 +18,7 @@ const SearchScreen = ({ navigation }: SearchPageProps) => {
       <Button
         mode={'contained'}
         onPress={() =>
-          navigation.navigate(RoutesNames.SearchResults, {
+          navigation.navigate(ScreenNames.SearchResults, {
             phrase: search,
           })
         }>

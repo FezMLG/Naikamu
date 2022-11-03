@@ -7,7 +7,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { APIClient } from '../../api/APIClient';
 import { AnimeList, Media } from '../../interfaces';
 import BrowseElement from '../../components/browse/BrowseElement';
-import { SearchResultsPageProps, RoutesNames } from '../../routes/main';
+import { SearchResultsPageProps, ScreenNames } from '../../routes/main';
 import { maxWidth } from '../../components/maxDimensions';
 
 const SearchResultsScreen = ({ navigation, route }: SearchResultsPageProps) => {
@@ -30,7 +30,7 @@ const SearchResultsScreen = ({ navigation, route }: SearchResultsPageProps) => {
     <BrowseElement
       anime={item}
       handlePageChange={() => {
-        navigation.navigate(RoutesNames.Series, {
+        navigation.navigate(ScreenNames.Series, {
           title: item.title.romaji,
           id: item.id,
         });

@@ -11,7 +11,7 @@ import { AnimeEpisode, AnimePlayer } from '../../interfaces';
 import { APIClient } from '../../api/APIClient';
 import { Source } from './Source';
 import { useTranslate } from '../../i18n/useTranslate';
-import { RootStackParamList, RoutesNames } from '../../routes/main';
+import { RootStackParamList, ScreenNames } from '../../routes/main';
 
 export const EpisodeTV = ({
   num,
@@ -23,7 +23,7 @@ export const EpisodeTV = ({
   num: number;
   navigation: NativeStackNavigationProp<
     RootStackParamList,
-    RoutesNames.Episodes,
+    ScreenNames.Episodes,
     undefined
   >;
   episode: AnimeEpisode;

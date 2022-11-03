@@ -11,7 +11,7 @@ import { AnimeEpisode, AnimePlayer, AnimePlayers } from '../../interfaces';
 import { APIClient } from '../../api/APIClient';
 import { PlayerMenu } from './PlayerMenu';
 import { useTranslate } from '../../i18n/useTranslate';
-import { RootStackParamList, RoutesNames } from '../../routes/main';
+import { RootStackParamList, ScreenNames } from '../../routes/main';
 
 export const EpisodeMobileLink = ({
   animeName,
@@ -23,7 +23,7 @@ export const EpisodeMobileLink = ({
   episodeTitle: string;
   navigation: NativeStackNavigationProp<
     RootStackParamList,
-    RoutesNames.Episodes,
+    ScreenNames.Episodes,
     undefined
   >;
   players: AnimePlayers;
@@ -62,7 +62,7 @@ export const EpisodeMobile = ({
   num: number;
   navigation: NativeStackNavigationProp<
     RootStackParamList,
-    RoutesNames.Episodes,
+    ScreenNames.Episodes,
     undefined
   >;
   episode: AnimeEpisode;

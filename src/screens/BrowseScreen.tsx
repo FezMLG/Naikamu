@@ -11,7 +11,7 @@ import { APIClient } from '../api/APIClient';
 import { AnimeSeason } from '../enums/anime-season.enum';
 import { getAnimeSeason } from '../utils/getAnimeSeason';
 import { useTranslate } from '../i18n/useTranslate';
-import { BrowsePageProps, RoutesNames } from '../routes/main';
+import { BrowsePageProps, ScreenNames } from '../routes/main';
 import { fireLogoutUser } from '../services/firebase/fire-auth.service';
 import { useAppDispatch } from '../services/store/store';
 
@@ -40,7 +40,7 @@ const BrowseScreen = ({ navigation }: BrowsePageProps) => {
     <BrowseElement
       anime={item}
       handlePageChange={() => {
-        navigation.navigate(RoutesNames.Series, {
+        navigation.navigate(ScreenNames.Series, {
           title: item.title.romaji,
           id: item.id,
         });

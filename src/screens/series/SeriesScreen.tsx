@@ -21,7 +21,7 @@ import { ProgressiveImage } from '../../components/ProgressiveImage';
 import { QuickInfo } from '../../components/series/QuickInfo';
 import { AnimeRelation } from '../../components/series/Relation';
 import { useTranslate } from '../../i18n/useTranslate';
-import { SeriesPageProps, RoutesNames } from '../../routes/main';
+import { SeriesPageProps, ScreenNames } from '../../routes/main';
 
 const SeriesScreen = ({ navigation, route }: SeriesPageProps) => {
   const apiClient = new APIClient();
@@ -57,7 +57,7 @@ const SeriesScreen = ({ navigation, route }: SeriesPageProps) => {
             <FocusButton
               icon="play-box-multiple"
               onPress={() => {
-                navigation.navigate(RoutesNames.Episodes, {
+                navigation.navigate(ScreenNames.Episodes, {
                   title: data.title.romaji,
                   numOfAiredEpisodes: data.nextAiringEpisode?.episode
                     ? data.nextAiringEpisode?.episode - 1
@@ -142,7 +142,7 @@ const SeriesScreen = ({ navigation, route }: SeriesPageProps) => {
                       relation={relation}
                       handleNavigation={() => {
                         if (relation.format !== 'ANIME') {
-                          navigation.navigate(RoutesNames.Series, {
+                          navigation.navigate(ScreenNames.Series, {
                             id: relation.id,
                             title: relation.title.romaji,
                           });

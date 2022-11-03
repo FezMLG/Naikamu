@@ -5,15 +5,15 @@ import MainStack from './main/MainStack';
 import AuthStack from './auth/AuthStack';
 import { useSelector } from 'react-redux';
 import { RootState } from '../services/store/store';
-import { RoutesNames } from './main';
+import { ScreenNames } from './main';
 import SplashScreen from '../screens/SplashScreen';
 
 const linking = {
   prefixes: ['aniwatch://'],
   config: {
     screens: {
-      [RoutesNames.Browse]: 'browse',
-      [RoutesNames.Series]: 'browse/:title',
+      [ScreenNames.Browse]: 'browse',
+      [ScreenNames.Series]: 'browse/:title',
     },
   },
 };

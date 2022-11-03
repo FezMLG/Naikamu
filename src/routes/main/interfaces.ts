@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-export enum RoutesNames {
+export enum ScreenNames {
   Browse = 'Browse',
   Search = 'Search',
   HomeDrawer = 'HomeDrawer',
@@ -13,59 +13,59 @@ export enum RoutesNames {
 }
 
 export type RootStackParamList = {
-  [RoutesNames.Browse]: undefined;
-  [RoutesNames.Search]: undefined;
-  [RoutesNames.HomeDrawer]: undefined;
-  [RoutesNames.SearchResults]: { phrase?: string };
-  [RoutesNames.Series]: { title: string; id: number };
-  [RoutesNames.Episodes]: {
+  [ScreenNames.Browse]: undefined;
+  [ScreenNames.Search]: undefined;
+  [ScreenNames.HomeDrawer]: undefined;
+  [ScreenNames.SearchResults]: { phrase?: string };
+  [ScreenNames.Series]: { title: string; id: number };
+  [ScreenNames.Episodes]: {
     title: string;
     numOfAiredEpisodes: number;
     posterUrl: string;
   };
-  [RoutesNames.WatchNative]: {
+  [ScreenNames.WatchNative]: {
     uri: string;
     title: string;
     episodeTitle: string;
     player: string;
   };
-  [RoutesNames.WatchWebView]: { uri: string };
-  [RoutesNames.WatchError]: { playerName: string; animeTitle: string };
+  [ScreenNames.WatchWebView]: { uri: string };
+  [ScreenNames.WatchError]: { playerName: string; animeTitle: string };
 };
 
 export type BrowsePageProps = NativeStackScreenProps<
   RootStackParamList,
-  RoutesNames.Browse
+  ScreenNames.Browse
 >;
 export type SearchPageProps = NativeStackScreenProps<
   RootStackParamList,
-  RoutesNames.Search
+  ScreenNames.Search
 >;
 export type HomeDrawerScreenProps = NativeStackScreenProps<
   RootStackParamList,
-  RoutesNames.HomeDrawer
+  ScreenNames.HomeDrawer
 >;
 export type SearchResultsPageProps = NativeStackScreenProps<
   RootStackParamList,
-  RoutesNames.SearchResults
+  ScreenNames.SearchResults
 >;
 export type SeriesPageProps = NativeStackScreenProps<
   RootStackParamList,
-  RoutesNames.Series
+  ScreenNames.Series
 >;
 export type EpisodesPageProps = NativeStackScreenProps<
   RootStackParamList,
-  RoutesNames.Episodes
+  ScreenNames.Episodes
 >;
 export type WatchNativePageProps = NativeStackScreenProps<
   RootStackParamList,
-  RoutesNames.WatchNative
+  ScreenNames.WatchNative
 >;
 export type WatchWebViewPageProps = NativeStackScreenProps<
   RootStackParamList,
-  RoutesNames.WatchWebView
+  ScreenNames.WatchWebView
 >;
 export type WatchErrorPageProps = NativeStackScreenProps<
   RootStackParamList,
-  RoutesNames.WatchError
+  ScreenNames.WatchError
 >;
