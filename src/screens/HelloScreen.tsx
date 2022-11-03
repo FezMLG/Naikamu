@@ -10,6 +10,7 @@ import { darkStyle } from '../styles/darkMode.style';
 import { useTranslate } from '../i18n/useTranslate';
 import { RootState } from '../services/store/store';
 import { AuthRoutesNames, HelloScreenProps } from '../routes/auth';
+import GoogleSignIn from '../components/GoogleSignIn';
 
 const HelloScreen = ({ navigation }: HelloScreenProps) => {
   const { translate } = useTranslate();
@@ -40,7 +41,7 @@ const HelloScreen = ({ navigation }: HelloScreenProps) => {
       <View style={[globalStyle.spacerBig]} />
       <Button
         mode={'contained'}
-        style={[styles.button]}
+        style={[styles.button, globalStyle.marginTopSmall]}
         onPress={() => navigation.navigate(AuthRoutesNames.Login)}>
         {translate('auth.login')}
       </Button>
@@ -50,6 +51,8 @@ const HelloScreen = ({ navigation }: HelloScreenProps) => {
         onPress={() => navigation.navigate(AuthRoutesNames.SignUp)}>
         {translate('auth.register')}
       </Button>
+      <Text style={globalStyle.spacer}>{translate('auth.continue_with')}</Text>
+      <GoogleSignIn />
       {ENV !== 'prod' && <Text>api_url: {API_URL}</Text>}
     </SafeAreaView>
   );

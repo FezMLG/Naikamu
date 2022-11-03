@@ -36,7 +36,8 @@
       "email_already_in_use": "This user already exist",
       "passwords_do_not_match": "Passwords do not match",
       "weak_password": "Password should be at least 6 characters"
-    }
+    },
+    "continue_with": "or continue with"
   },
   "welcomeScreen": {
     "welcome": "Welcome to",

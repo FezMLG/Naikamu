@@ -14,7 +14,7 @@
     "go_back": "Powrót"
   },
   "auth": {
-    "login": "Zaloguj",
+    "login": "Zaloguj się",
     "register": "Zarejestruj się",
     "forgot_password": "Nie pamiętasz hasła?",
     "password": "Hasło",
@@ -36,7 +36,8 @@
       "email_already_in_use": "Ten użytkownik już istnieje",
       "passwords_do_not_match": "Hasła nie są takie same",
       "weak_password": "Hasło powinno mieć co najmniej 6 znaków"
-    }
+    },
+    "continue_with": "lub kontynuuj z"
   },
   "welcomeScreen": {
     "welcome": "Witaj w",
