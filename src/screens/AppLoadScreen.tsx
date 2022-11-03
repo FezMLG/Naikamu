@@ -22,16 +22,17 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
   const { user } = useSelector((state: RootState) => state.user);
 
   const handleLoginCheck = useCallback(async () => {
-    dispatch(await fireGetNewIdToken());
     const token = await fireRetrieveTokensFromStorage();
     if (token) {
-      dispatch(fireGetUser());
-      if (!user?.emailVerified) {
+      await dispatch(await fireGetNewIdToken());
+      await dispatch(fireGetUser());
+      if (!user?.emailVerified && user?.emailVerified !== undefined) {
+        console.log('here', user?.emailVerified);
         navigation.navigate(AuthRoutesNames.VerifyEmail);
       }
-      navigation.navigate(AuthRoutesNames.VerifyEmail);
+    } else {
+      navigation.navigate(AuthRoutesNames.Hello);
     }
-    navigation.navigate(AuthRoutesNames.Hello);
   }, [dispatch, navigation, user?.emailVerified]);
 
   useEffect(() => {
