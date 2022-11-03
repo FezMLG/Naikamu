@@ -27,7 +27,6 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
       await dispatch(await fireGetNewIdToken());
       await dispatch(fireGetUser());
       if (!user?.emailVerified && user?.emailVerified !== undefined) {
-        console.log('here', user?.emailVerified);
         navigation.navigate(AuthRoutesNames.VerifyEmail);
       }
     } else {
