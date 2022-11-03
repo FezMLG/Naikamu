@@ -14,12 +14,13 @@ import {
 import BrowseScreen from '../../screens/BrowseScreen';
 import SearchScreen from '../../screens/search/SearchScreen';
 import { DrawerActions } from '@react-navigation/native';
-import { Button, IconButton } from 'react-native-paper';
+import { Button, IconButton, Text } from 'react-native-paper';
 import { useTranslate } from '../../i18n/useTranslate';
 import { fireLogoutUser } from '../../services/firebase/fire-auth.service';
-import { useAppDispatch } from '../../services/store/store';
+import { RootState, useAppDispatch } from '../../services/store/store';
 import { globalStyle } from '../../styles/global.style';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { useSelector } from 'react-redux';
 
 const defaultOptions = ({ title }: { title?: string }) => {
   return {
@@ -31,9 +32,17 @@ const Drawer = createDrawerNavigator<RootStackParamList>();
 
 const DrawerContent = (props: DrawerContentComponentProps) => {
   const dispatch = useAppDispatch();
+  const { user } = useSelector((state: RootState) => state.user);
+  const { translate } = useTranslate();
 
   return (
     <DrawerContentScrollView {...props}>
+      <View style={[styles.itemMargin, globalStyle.spacer]}>
+        <Text variant="bodyMedium">{translate('text.hello')},</Text>
+        <Text variant="titleMedium">
+          {user?.displayName ? user.displayName : user?.email}
+        </Text>
+      </View>
       <DrawerItemList {...props} />
       <Button
         mode={'outlined'}
@@ -76,7 +85,9 @@ export const DrawerNav = () => {
         name={ScreenNames.Search}
         component={SearchScreen}
         options={({ navigation }: SearchScreenProps) => ({
-          ...defaultOptions({ title: ScreenNames.Search }),
+          ...defaultOptions({
+            title: translate('routes.' + ScreenNames.Search),
+          }),
           animation: 'slide_from_right',
           headerLeft: () => (
             <IconButton
@@ -93,4 +104,7 @@ export const DrawerNav = () => {
 
 const styles = StyleSheet.create({
   center: { alignSelf: 'center' },
+  itemMargin: {
+    marginLeft: 15,
+  },
 });

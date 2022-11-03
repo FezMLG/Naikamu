@@ -4,7 +4,11 @@
     "Episodes": "Episodes",
     "Login": "Login",
     "SignUp": "Sign Up",
-    "ForgotPassword": "Forgot Password"
+    "ForgotPassword": "Forgot Password",
+    "Search": "Search"
+  },
+  "text": {
+    "hello": "Hello"
   },
   "buttons": {
     "go_back": "Go Back"

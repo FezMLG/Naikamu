@@ -4,7 +4,11 @@
     "Episodes": "Epizody",
     "Login": "Zaloguj się",
     "SignUp": "Zarejestruj się",
-    "ForgotPassword": "Nie pamiętam hasła"
+    "ForgotPassword": "Nie pamiętam hasła",
+    "Search": "Wyszukaj"
+  },
+  "text": {
+    "hello": "Witaj"
   },
   "buttons": {
     "go_back": "Powrót"
