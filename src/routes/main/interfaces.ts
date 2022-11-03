@@ -3,6 +3,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 export enum RoutesNames {
   Browse = 'Browse',
   Search = 'Search',
+  HomeDrawer = 'HomeDrawer',
   SearchResults = 'SearchResults',
   Series = 'Series',
   WatchNative = 'WatchNative',
@@ -14,6 +15,7 @@ export enum RoutesNames {
 export type RootStackParamList = {
   [RoutesNames.Browse]: undefined;
   [RoutesNames.Search]: undefined;
+  [RoutesNames.HomeDrawer]: undefined;
   [RoutesNames.SearchResults]: { phrase?: string };
   [RoutesNames.Series]: { title: string; id: number };
   [RoutesNames.Episodes]: {
@@ -38,6 +40,10 @@ export type BrowsePageProps = NativeStackScreenProps<
 export type SearchPageProps = NativeStackScreenProps<
   RootStackParamList,
   RoutesNames.Search
+>;
+export type HomeDrawerScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  RoutesNames.HomeDrawer
 >;
 export type SearchResultsPageProps = NativeStackScreenProps<
   RootStackParamList,
