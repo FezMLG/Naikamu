@@ -9,8 +9,8 @@ import { globalStyle } from '../styles/global.style';
 import { darkStyle } from '../styles/darkMode.style';
 import { useTranslate } from '../i18n/useTranslate';
 import { RootState, useAppDispatch } from '../services/store/store';
-import { fireRetrieveTokensFromStorage } from '../services/firebase/fire-auth-storage.service';
 import {
+  fireGetIdToken,
   fireGetNewIdToken,
   fireGetUser,
 } from '../services/firebase/fire-auth.service';
@@ -22,7 +22,7 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
   const { user } = useSelector((state: RootState) => state.user);
 
   const handleLoginCheck = useCallback(async () => {
-    const token = await fireRetrieveTokensFromStorage();
+    const token = await fireGetIdToken();
     if (token) {
       await dispatch(await fireGetNewIdToken());
       await dispatch(fireGetUser());

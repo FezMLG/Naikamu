@@ -17,10 +17,7 @@ export const fireLoginUser =
     );
 
     if (!newAuthState.user.emailVerified) {
-      await newAuthState.user.sendEmailVerification({
-        handleCodeInApp: true,
-        url: 'https://aniwatch.page.link/V9Hh',
-      });
+      await sendEmailVerification();
     }
     dispatch(fireGetUser());
   };
@@ -49,18 +46,15 @@ export const fireLogoutUser = () => async (dispatch: AppDispatch) => {
 export const fireRegisterUser =
   (displayName: string, email: string, password: string) =>
   async (dispatch: AppDispatch) => {
-    // dispatch(clearAuthenticatedUser());
+    dispatch(clearAuthenticatedUser());
 
     await auth().createUserWithEmailAndPassword(email, password);
 
-    // await createdUser.user.updateProfile({
-    //   displayName: displayName,
-    // });
+    await auth().currentUser?.updateProfile({
+      displayName: displayName,
+    });
 
-    // await createdUser.user.sendEmailVerification({
-    //   handleCodeInApp: true,
-    //   url: 'https://aniwatch-1f64a.firebaseapp.com/__/auth/action',
-    // });
+    await sendEmailVerification();
     dispatch(fireGetUser());
   };
 
@@ -72,18 +66,12 @@ export const fireForgotPassword = (email: string) => async () => {
   }
 };
 
-// export const fireVerifyEmail = () => async () => {
-//   try {
-//     const fUser = auth().currentUser;
-
-//     await fUser?.user.sendEmailVerification({
-//       handleCodeInApp: true,
-//       url: 'https://aniwatch-1f64a.firebaseapp.com/__/auth/action',
-//     });
-//   } catch (e) {
-//     console.log(e);
-//   }
-// };
+const sendEmailVerification = async () => {
+  await auth().currentUser?.sendEmailVerification({
+    handleCodeInApp: true,
+    url: 'https://aniwatch.page.link/V9Hh',
+  });
+};
 
 export const fireGetUser = () => async (dispatch: AppDispatch) => {
   try {
