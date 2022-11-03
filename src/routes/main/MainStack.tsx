@@ -26,40 +26,6 @@ const MainStack = () => {
 
   return (
     <StackAuthorized.Navigator initialRouteName={ScreenNames.Browse}>
-      {/* <StackAuthorized.Screen
-        name={RoutesNames.Browse}
-        component={BrowseScreen}
-        options={({ navigation }: BrowsePageProps) => ({
-          ...defaultOptions({
-            title: translate('routes.' + RoutesNames.Browse),
-          }),
-          animation: 'slide_from_right',
-          headerBackVisible: false,
-          // Add a placeholder button without the `onPress` to avoid flicker
-          headerRight: () => (
-            <IconButton
-              icon="magnify"
-              size={24}
-              onPress={() => navigation.navigate(RoutesNames.Search)}
-            />
-          ),
-          headerLeft: () => (
-            <IconButton
-              icon="menu"
-              size={24}
-              onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
-            />
-          ),
-        })}
-      />
-      <StackAuthorized.Screen
-        name={RoutesNames.Search}
-        component={SearchScreen}
-        options={{
-          ...defaultOptions({ title: RoutesNames.Search }),
-          animation: 'slide_from_right',
-        }}
-      /> */}
       <StackAuthorized.Screen
         name={ScreenNames.HomeDrawer}
         component={DrawerNav}

@@ -1,5 +1,10 @@
 import * as React from 'react';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import {
+  createDrawerNavigator,
+  DrawerContentComponentProps,
+  DrawerContentScrollView,
+  DrawerItemList,
+} from '@react-navigation/drawer';
 import {
   BrowseScreenProps,
   RootStackParamList,
@@ -9,8 +14,12 @@ import {
 import BrowseScreen from '../../screens/BrowseScreen';
 import SearchScreen from '../../screens/search/SearchScreen';
 import { DrawerActions } from '@react-navigation/native';
-import { IconButton } from 'react-native-paper';
+import { Button, IconButton } from 'react-native-paper';
 import { useTranslate } from '../../i18n/useTranslate';
+import { fireLogoutUser } from '../../services/firebase/fire-auth.service';
+import { useAppDispatch } from '../../services/store/store';
+import { globalStyle } from '../../styles/global.style';
+import { StyleSheet } from 'react-native';
 
 const defaultOptions = ({ title }: { title?: string }) => {
   return {
@@ -20,11 +29,31 @@ const defaultOptions = ({ title }: { title?: string }) => {
 
 const Drawer = createDrawerNavigator<RootStackParamList>();
 
+const DrawerContent = (props: DrawerContentComponentProps) => {
+  const dispatch = useAppDispatch();
+
+  return (
+    <DrawerContentScrollView {...props}>
+      <DrawerItemList {...props} />
+      <Button
+        mode={'outlined'}
+        style={[styles.center, globalStyle.marginTopBig]}
+        onPress={() => dispatch(fireLogoutUser())}>
+        Logout
+      </Button>
+    </DrawerContentScrollView>
+  );
+};
+
 export const DrawerNav = () => {
   const { translate } = useTranslate();
 
   return (
-    <Drawer.Navigator initialRouteName={ScreenNames.Browse}>
+    <Drawer.Navigator
+      initialRouteName={ScreenNames.Browse}
+      drawerContent={props => {
+        return <DrawerContent {...props} />;
+      }}>
       <Drawer.Screen
         name={ScreenNames.Browse}
         component={BrowseScreen}
@@ -34,14 +63,6 @@ export const DrawerNav = () => {
           }),
           animation: 'slide_from_right',
           headerBackVisible: false,
-          // Add a placeholder button without the `onPress` to avoid flicker
-          // headerRight: () => (
-          //   <IconButton
-          //     icon="magnify"
-          //     size={24}
-          //     onPress={() => navigation.navigate(RoutesNames.Search)}
-          //   />
-          // ),
           headerLeft: () => (
             <IconButton
               icon="menu"
@@ -69,3 +90,7 @@ export const DrawerNav = () => {
     </Drawer.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  center: { alignSelf: 'center' },
+});
