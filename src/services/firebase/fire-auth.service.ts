@@ -1,6 +1,6 @@
 import auth from '@react-native-firebase/auth';
-import { User } from '../../interfaces';
 
+import { User } from '../../interfaces';
 import {
   clearAuthenticatedUser,
   getUserFulfilled,
@@ -30,6 +30,15 @@ export const fireLoginUser =
     await fireSaveTokensToStorage(token);
     dispatch(fireGetUser());
   };
+
+export const fireGetNewIdToken = async () => async (dispatch: AppDispatch) => {
+  const user = auth().currentUser;
+  if (user) {
+    const token = await user.getIdToken();
+    await fireSaveTokensToStorage(token);
+    dispatch(fireGetUser());
+  }
+};
 
 export const fireLogoutUser = () => async (dispatch: AppDispatch) => {
   try {
@@ -91,7 +100,6 @@ export const fireForgotPassword = (email: string) => async () => {
 export const fireGetUser = () => async (dispatch: AppDispatch) => {
   try {
     dispatch(getUserPending());
-
     const fUser = auth().currentUser;
     try {
       if (fUser) {

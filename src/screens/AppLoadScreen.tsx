@@ -10,7 +10,10 @@ import { darkStyle } from '../styles/darkMode.style';
 import { useTranslate } from '../i18n/useTranslate';
 import { RootState, useAppDispatch } from '../services/store/store';
 import { fireRetrieveTokensFromStorage } from '../services/firebase/fire-auth-storage.service';
-import { fireGetUser } from '../services/firebase/fire-auth.service';
+import {
+  fireGetNewIdToken,
+  fireGetUser,
+} from '../services/firebase/fire-auth.service';
 import { AppLoadingScreenProps, AuthRoutesNames } from '../routes/auth';
 
 const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
@@ -19,6 +22,7 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
   const { user } = useSelector((state: RootState) => state.user);
 
   const handleLoginCheck = useCallback(async () => {
+    await fireGetNewIdToken();
     const token = await fireRetrieveTokensFromStorage();
     if (token) {
       dispatch(fireGetUser());
