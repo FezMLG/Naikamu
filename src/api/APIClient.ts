@@ -7,13 +7,14 @@ import {
   AnimePlayers,
 } from '../interfaces';
 import { API_URL } from '@env';
-import { fireRetrieveTokensFromStorage } from '../services/firebase/fire-auth-storage.service';
+import { fireGetIdToken } from '../services/firebase/fire-auth.service';
 
 interface GetAnimeListDTO {
   page?: number;
   perPage?: number;
   season?: AnimeSeason;
   seasonYear?: number;
+  search?: string | null;
 }
 
 export class APIClient {
@@ -53,10 +54,18 @@ export class APIClient {
     season,
     seasonYear,
     perPage = 25,
+    search = null,
   }: GetAnimeListDTO): Promise<AnimeList> {
     const token = await this.withToken();
-    return this.get<AnimeList>(
-      `/anime?per-page=${perPage}&page=${page}&season=${season}&season-year=${seasonYear}`,
+    return this.post<AnimeList>(
+      '/anime',
+      {
+        page,
+        season,
+        seasonYear,
+        perPage,
+        search,
+      },
       { ...token },
     );
   }
@@ -64,7 +73,7 @@ export class APIClient {
   async getAnimeDetails(id: number): Promise<AnimeDetails> {
     const token = await this.withToken();
     return this.post<AnimeDetails>(
-      '/anime',
+      '/anime/details',
       {
         dataSource: 'anilist',
         sourceId: String(id),
@@ -79,7 +88,7 @@ export class APIClient {
   ): Promise<AnimeEpisodes> {
     const token = await this.withToken();
     return this.post<AnimeEpisodes>(
-      '/anime/episodes',
+      '/anime/details/episodes',
       {
         animeName: animeName,
         expectedEpisodes: expectedEpisodes,
@@ -94,7 +103,7 @@ export class APIClient {
   ): Promise<AnimePlayers> {
     const token = await this.withToken();
     return this.post<AnimePlayers>(
-      `/anime/episode/${episode}`,
+      `/anime/details/episode/${episode}`,
       {
         animeName: animeName,
         resolve: true,
@@ -104,7 +113,7 @@ export class APIClient {
   }
 
   async withToken() {
-    const token = await fireRetrieveTokensFromStorage();
+    const token = await fireGetIdToken();
     return {
       Authorization: 'Bearer ' + token,
     };
