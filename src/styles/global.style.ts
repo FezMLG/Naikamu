@@ -34,6 +34,9 @@ export const globalStyle = StyleSheet.create({
     color: '#CF6679',
     textAlign: 'center',
   },
+  textCenter: {
+    textAlign: 'center',
+  },
 });
 
 export const fontStyles = StyleSheet.create({

@@ -10,7 +10,6 @@ import {
   RootStackParamList,
   ScreenNames,
   SearchScreenProps,
-  SettingsScreenProps,
 } from './interfaces';
 import BrowseScreen from '../../screens/BrowseScreen';
 import SearchScreen from '../../screens/search/SearchScreen';
@@ -21,7 +20,7 @@ import { RootState } from '../../services/store/store';
 import { globalStyle } from '../../styles/global.style';
 import { StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
-import SettingsScreen from '../../screens/SettingsScreen';
+import SettingsStack from '../settings/SettingsStack';
 
 const defaultOptions = ({ title }: { title?: string }) => {
   return {
@@ -93,21 +92,11 @@ export const DrawerNav = () => {
         })}
       />
       <Drawer.Screen
-        name={ScreenNames.Settings}
-        component={SettingsScreen}
-        options={({ navigation }: SettingsScreenProps) => ({
-          ...defaultOptions({
-            title: translate('routes.' + ScreenNames.Settings),
-          }),
-          animation: 'slide_from_right',
-          headerLeft: () => (
-            <IconButton
-              icon="menu"
-              size={24}
-              onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
-            />
-          ),
-        })}
+        name={ScreenNames.SettingsStack}
+        component={SettingsStack}
+        options={{
+          headerShown: false,
+        }}
       />
     </Drawer.Navigator>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { KeyboardTypeOptions, StyleSheet, View } from 'react-native';
+import { Image, KeyboardTypeOptions, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Text, TextInput } from 'react-native-paper';
 import { useSelector } from 'react-redux';
@@ -7,13 +7,15 @@ import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '../services/store/store';
 import { useTranslate } from '../i18n/useTranslate';
 import { globalStyle } from '../styles/global.style';
-import { SettingsScreenProps } from '../routes/main';
+import { ScreenNames, SettingsScreenProps } from '../routes/main';
 import {
+  fireDeleteAccount,
   fireLogoutUser,
   fireUpdateUser,
 } from '../services/firebase/fire-auth.service';
 import { useForm, Controller, Control, FieldErrorsImpl } from 'react-hook-form';
 import { ProgressiveImage } from '../components/ProgressiveImage';
+import { ActionType } from '../enums';
 
 export interface SettingsForm {
   displayName: string;
@@ -71,7 +73,7 @@ const FormTextInput = ({
   );
 };
 
-const SettingsScreen = ({}: SettingsScreenProps) => {
+const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
   const { user } = useSelector((state: RootState) => state.user);
   const dispatch = useAppDispatch();
   const { translate } = useTranslate();
@@ -90,13 +92,33 @@ const SettingsScreen = ({}: SettingsScreenProps) => {
     await dispatch(fireUpdateUser(data));
   };
 
+  const handleAccountDelete = async () => {
+    try {
+      await dispatch(fireDeleteAccount());
+    } catch (error: any) {
+      if (error.code === 'auth/requires-recent-login') {
+        await dispatch(fireLogoutUser());
+      } else {
+        console.error(error);
+      }
+    }
+  };
+
   return (
     <SafeAreaView style={[styles.container]}>
       <View>
-        {user?.picture && (
+        {user?.picture ? (
           <ProgressiveImage source={user.picture} style={[styles.logo]} />
+        ) : (
+          <Image
+            style={styles.logo}
+            source={require('../../assets/anya.jpeg')}
+          />
         )}
-        <Text style={styles.textCenter} variant="titleLarge">
+
+        <Text
+          style={[styles.textCenter, globalStyle.marginTop]}
+          variant="titleLarge">
           {user?.displayName}
         </Text>
         <Text style={styles.textCenter} variant="titleMedium">
@@ -129,6 +151,25 @@ const SettingsScreen = ({}: SettingsScreenProps) => {
         onPress={() => dispatch(fireLogoutUser())}>
         {translate('auth.logout')}
       </Button>
+      <Button
+        mode={'outlined'}
+        style={[
+          styles.center,
+          globalStyle.marginTopBig,
+          { borderColor: '#f85149' },
+        ]}
+        onPress={() =>
+          navigation.navigate(ScreenNames.ActionConfirm, {
+            action: () => {
+              handleAccountDelete();
+            },
+            type: ActionType.AccountDelete,
+          })
+        }>
+        <Text style={{ color: '#f85149' }}>
+          {translate('auth.delete_account')}
+        </Text>
+      </Button>
     </SafeAreaView>
   );
 };
@@ -145,6 +186,7 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     resizeMode: 'cover',
     backgroundColor: 'transparent',
+    alignSelf: 'center',
   },
   highlight: {
     fontWeight: 'bold',

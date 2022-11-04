@@ -1,7 +1,9 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { ActionType } from '../../enums';
 
 export enum ScreenNames {
   Settings = 'Settings',
+  SettingsStack = 'SettingsStack',
   Browse = 'Browse',
   Search = 'Search',
   HomeDrawer = 'HomeDrawer',
@@ -11,10 +13,13 @@ export enum ScreenNames {
   WatchWebView = 'WatchWebView',
   WatchError = 'WatchError',
   Episodes = 'Episodes',
+  ActionConfirm = 'ActionConfirm',
 }
 
 export type RootStackParamList = {
   [ScreenNames.Settings]: undefined;
+  [ScreenNames.SettingsStack]: undefined;
+  [ScreenNames.ActionConfirm]: { action: () => void; type: ActionType };
   [ScreenNames.Browse]: undefined;
   [ScreenNames.Search]: undefined;
   [ScreenNames.HomeDrawer]: undefined;
@@ -38,6 +43,14 @@ export type RootStackParamList = {
 export type SettingsScreenProps = NativeStackScreenProps<
   RootStackParamList,
   ScreenNames.Settings
+>;
+export type SettingsStackScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  ScreenNames.SettingsStack
+>;
+export type ActionConfirmScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  ScreenNames.ActionConfirm
 >;
 export type BrowseScreenProps = NativeStackScreenProps<
   RootStackParamList,

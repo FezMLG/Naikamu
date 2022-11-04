@@ -6,13 +6,21 @@
     "SignUp": "Zarejestruj się",
     "ForgotPassword": "Nie pamiętam hasła",
     "Search": "Wyszukaj",
-    "Settings": "Ustawienia"
+    "Settings": "Ustawienia",
+    "ActionConfirm": "Potwierdź Akcję"
   },
   "forms": {
     "save": "Zapisz",
     "fields": {
       "displayName": "Nazwa użytkownika",
       "email": "Email"
+    }
+  },
+  "actions": {
+    "AccountDelete": {
+      "action_name": "Usuwanie konta",
+      "message": "Jeżeli zostaniesz wylogowany, spróbuj zalogować się ponownie. Jeżeli akcja się nie powiedzie, spróbuj ponownie",
+      "confirm": "Chcę usunąć swoje konto"
     }
   },
   "text": {
@@ -45,7 +53,8 @@
       "passwords_do_not_match": "Hasła nie są takie same",
       "weak_password": "Hasło powinno mieć co najmniej 6 znaków"
     },
-    "continue_with": "lub kontynuuj z"
+    "continue_with": "lub kontynuuj z",
+    "delete_account": "Usuń konto"
   },
   "welcomeScreen": {
     "welcome": "Witaj w",

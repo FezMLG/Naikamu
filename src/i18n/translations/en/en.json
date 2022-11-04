@@ -6,13 +6,21 @@
     "SignUp": "Sign Up",
     "ForgotPassword": "Forgot Password",
     "Search": "Search",
-    "Settings": "Settings"
+    "Settings": "Settings",
+    "ActionConfirm": "Confirm Action"
   },
   "forms": {
     "save": "Save",
     "fields": {
       "displayName": "Username",
       "email": "Email"
+    }
+  },
+  "actions": {
+    "AccountDelete": {
+      "action_name": "Account Delete",
+      "message": "If you are logged out, try logging in again. If the action fails, try again",
+      "confirm": "I want to delete my account"
     }
   },
   "text": {
@@ -45,7 +53,8 @@
       "passwords_do_not_match": "Passwords do not match",
       "weak_password": "Password should be at least 6 characters"
     },
-    "continue_with": "or continue with"
+    "continue_with": "or continue with",
+    "delete_account": "Delete account"
   },
   "welcomeScreen": {
     "welcome": "Welcome to",

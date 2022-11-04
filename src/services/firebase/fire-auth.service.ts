@@ -97,6 +97,11 @@ export const fireUpdateUser =
     }
   };
 
+export const fireDeleteAccount = () => async (dispatch: AppDispatch) => {
+  await auth().currentUser?.delete();
+  dispatch(clearAuthenticatedUser());
+};
+
 export const fireGetUser = () => async (dispatch: AppDispatch) => {
   try {
     dispatch(getUserPending());
