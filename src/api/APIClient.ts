@@ -65,6 +65,7 @@ export class APIClient {
         seasonYear,
         perPage,
         search,
+        dataSource: 'AniList',
       },
       { ...token },
     );
@@ -75,7 +76,7 @@ export class APIClient {
     return this.post<AnimeDetails>(
       '/anime/details',
       {
-        dataSource: 'anilist',
+        dataSource: 'AniList',
         sourceId: String(id),
       },
       { ...token },
