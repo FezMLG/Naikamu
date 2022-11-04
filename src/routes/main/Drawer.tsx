@@ -95,6 +95,7 @@ export const DrawerNav = () => {
         name={ScreenNames.SettingsStack}
         component={SettingsStack}
         options={{
+          title: translate('routes.' + ScreenNames.Settings),
           headerShown: false,
         }}
       />
