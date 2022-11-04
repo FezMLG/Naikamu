@@ -7,6 +7,7 @@ import {
   getUserPending,
   getUserRejected,
 } from '../../reducers/user.reducer';
+import { SettingsForm } from '../../screens/SettingsScreen';
 import { AppDispatch } from '../store/store';
 
 export const fireLoginUser =
@@ -73,6 +74,29 @@ const sendEmailVerification = async () => {
   });
 };
 
+export const fireUpdateUser =
+  (form: SettingsForm) => async (dispatch: AppDispatch) => {
+    try {
+      const currentUser = auth().currentUser;
+      if (currentUser) {
+        if (form.displayName !== currentUser.displayName) {
+          await currentUser.updateProfile({
+            displayName: form.displayName,
+          });
+        }
+        // if (form.email !== currentUser.email) {
+        //   await currentUser.verifyBeforeUpdateEmail(form.email, {
+        //     handleCodeInApp: true,
+        //     url: 'https://aniwatch.page.link/V9Hh',
+        //   });
+        // }
+      }
+      dispatch(fireGetUser());
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 export const fireGetUser = () => async (dispatch: AppDispatch) => {
   try {
     dispatch(getUserPending());
@@ -85,6 +109,7 @@ export const fireGetUser = () => async (dispatch: AppDispatch) => {
           emailVerified: fUser.emailVerified,
           isAnonymous: fUser.isAnonymous,
           uid: fUser.uid,
+          picture: fUser.photoURL,
         };
         dispatch(getUserFulfilled(user));
       } else {

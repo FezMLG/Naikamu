@@ -10,17 +10,18 @@ import {
   RootStackParamList,
   ScreenNames,
   SearchScreenProps,
+  SettingsScreenProps,
 } from './interfaces';
 import BrowseScreen from '../../screens/BrowseScreen';
 import SearchScreen from '../../screens/search/SearchScreen';
 import { DrawerActions } from '@react-navigation/native';
-import { Button, IconButton, Text } from 'react-native-paper';
+import { IconButton, Text } from 'react-native-paper';
 import { useTranslate } from '../../i18n/useTranslate';
-import { fireLogoutUser } from '../../services/firebase/fire-auth.service';
-import { RootState, useAppDispatch } from '../../services/store/store';
+import { RootState } from '../../services/store/store';
 import { globalStyle } from '../../styles/global.style';
 import { StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
+import SettingsScreen from '../../screens/SettingsScreen';
 
 const defaultOptions = ({ title }: { title?: string }) => {
   return {
@@ -31,7 +32,6 @@ const defaultOptions = ({ title }: { title?: string }) => {
 const Drawer = createDrawerNavigator<RootStackParamList>();
 
 const DrawerContent = (props: DrawerContentComponentProps) => {
-  const dispatch = useAppDispatch();
   const { user } = useSelector((state: RootState) => state.user);
   const { translate } = useTranslate();
 
@@ -44,12 +44,6 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
         </Text>
       </View>
       <DrawerItemList {...props} />
-      <Button
-        mode={'outlined'}
-        style={[styles.center, globalStyle.marginTopBig]}
-        onPress={() => dispatch(fireLogoutUser())}>
-        Logout
-      </Button>
     </DrawerContentScrollView>
   );
 };
@@ -87,6 +81,23 @@ export const DrawerNav = () => {
         options={({ navigation }: SearchScreenProps) => ({
           ...defaultOptions({
             title: translate('routes.' + ScreenNames.Search),
+          }),
+          animation: 'slide_from_right',
+          headerLeft: () => (
+            <IconButton
+              icon="menu"
+              size={24}
+              onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
+            />
+          ),
+        })}
+      />
+      <Drawer.Screen
+        name={ScreenNames.Settings}
+        component={SettingsScreen}
+        options={({ navigation }: SettingsScreenProps) => ({
+          ...defaultOptions({
+            title: translate('routes.' + ScreenNames.Settings),
           }),
           animation: 'slide_from_right',
           headerLeft: () => (

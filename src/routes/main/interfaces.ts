@@ -1,6 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 export enum ScreenNames {
+  Settings = 'Settings',
   Browse = 'Browse',
   Search = 'Search',
   HomeDrawer = 'HomeDrawer',
@@ -13,6 +14,7 @@ export enum ScreenNames {
 }
 
 export type RootStackParamList = {
+  [ScreenNames.Settings]: undefined;
   [ScreenNames.Browse]: undefined;
   [ScreenNames.Search]: undefined;
   [ScreenNames.HomeDrawer]: undefined;
@@ -33,6 +35,10 @@ export type RootStackParamList = {
   [ScreenNames.WatchError]: { playerName: string; animeTitle: string };
 };
 
+export type SettingsScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  ScreenNames.Settings
+>;
 export type BrowseScreenProps = NativeStackScreenProps<
   RootStackParamList,
   ScreenNames.Browse

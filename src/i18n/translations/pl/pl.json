@@ -5,7 +5,15 @@
     "Login": "Zaloguj się",
     "SignUp": "Zarejestruj się",
     "ForgotPassword": "Nie pamiętam hasła",
-    "Search": "Wyszukaj"
+    "Search": "Wyszukaj",
+    "Settings": "Ustawienia"
+  },
+  "forms": {
+    "save": "Zapisz",
+    "fields": {
+      "displayName": "Nazwa użytkownika",
+      "email": "Email"
+    }
   },
   "text": {
     "hello": "Witaj"

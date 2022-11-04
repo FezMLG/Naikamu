@@ -5,7 +5,15 @@
     "Login": "Login",
     "SignUp": "Sign Up",
     "ForgotPassword": "Forgot Password",
-    "Search": "Search"
+    "Search": "Search",
+    "Settings": "Settings"
+  },
+  "forms": {
+    "save": "Save",
+    "fields": {
+      "displayName": "Username",
+      "email": "Email"
+    }
   },
   "text": {
     "hello": "Hello"
