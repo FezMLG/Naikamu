@@ -1,7 +1,60 @@
 {
   "routes": {
     "Browse": "Przeglądaj",
-    "Episodes": "Epizody"
+    "Episodes": "Epizody",
+    "Login": "Zaloguj się",
+    "SignUp": "Zarejestruj się",
+    "ForgotPassword": "Nie pamiętam hasła",
+    "Search": "Wyszukaj",
+    "Settings": "Ustawienia",
+    "ActionConfirm": "Potwierdź Akcję"
+  },
+  "forms": {
+    "save": "Zapisz",
+    "fields": {
+      "displayName": "Nazwa użytkownika",
+      "email": "Email"
+    }
+  },
+  "actions": {
+    "AccountDelete": {
+      "action_name": "Usuwanie konta",
+      "message": "Jeżeli zostaniesz wylogowany, spróbuj zalogować się ponownie. Jeżeli akcja się nie powiedzie, spróbuj ponownie",
+      "confirm": "Chcę usunąć swoje konto"
+    }
+  },
+  "text": {
+    "hello": "Witaj"
+  },
+  "buttons": {
+    "go_back": "Powrót"
+  },
+  "auth": {
+    "login": "Zaloguj się",
+    "register": "Zarejestruj się",
+    "forgot_password": "Nie pamiętasz hasła?",
+    "password": "Hasło",
+    "password_again": "Hasło ponownie",
+    "new_user": "New user? Join here",
+    "logout": "Wyloguj",
+    "username": "Nazwa użytkownia",
+    "email_verify": {
+      "top": "Zweryfikuj swój adres email",
+      "bottom": "i zaloguj się ponownie"
+    },
+    "required_field": "To pole jest wymagane",
+    "email_sent": "Wyślij email",
+    "email_has_been_sent": "Email został wysłany",
+    "errors": {
+      "invalid_email": "Email jest niepoprawny",
+      "user_not_found": "Użytkownik nie został znaleziony lub hasło jest niepoprawne",
+      "unknown": "Wystąpił nieznany błąd, skontaktuj się ze wsparciem",
+      "email_already_in_use": "Ten użytkownik już istnieje",
+      "passwords_do_not_match": "Hasła nie są takie same",
+      "weak_password": "Hasło powinno mieć co najmniej 6 znaków"
+    },
+    "continue_with": "lub kontynuuj z",
+    "delete_account": "Usuń konto"
   },
   "welcomeScreen": {
     "welcome": "Witaj w",

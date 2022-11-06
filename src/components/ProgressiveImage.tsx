@@ -23,7 +23,7 @@ export const ProgressiveImage = (props: {
         uri: source,
         priority: FastImage.priority.normal,
       }}
-      style={style}
+      style={[style]}
       resizeMode={FastImage.resizeMode.cover}
       onLoad={onImageLoad}
     />

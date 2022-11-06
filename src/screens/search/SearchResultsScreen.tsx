@@ -1,33 +1,30 @@
 import { StyleSheet, ActivityIndicator, FlatList } from 'react-native';
 import React, { useRef, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { FAB, SegmentedButtons } from 'react-native-paper';
+import { FAB } from 'react-native-paper';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
-import BrowseElement from '../components/browse/BrowseElement';
-import { maxWidth } from '../components/maxDimensions';
-import { AnimeList, Media } from '../interfaces';
-import { APIClient } from '../api/APIClient';
-import { BrowsePageProps, RoutesNames } from '../routes/interfaces';
-import { AnimeSeason } from '../enums/anime-season.enum';
-import { getAnimeSeason } from '../utils/getAnimeSeason';
-import { useTranslate } from '../i18n/useTranslate';
+import { APIClient } from '../../api/APIClient';
+import { AnimeList, Media } from '../../interfaces';
+import BrowseElement from '../../components/browse/BrowseElement';
+import { SearchResultsScreenProps, ScreenNames } from '../../routes/main';
+import { maxWidth } from '../../components/maxDimensions';
 
-const BrowsePage = ({ navigation }: BrowsePageProps) => {
+const SearchResultsScreen = ({
+  navigation,
+  route,
+}: SearchResultsScreenProps) => {
   const CONTENT_OFFSET_THRESHOLD = 300;
+  const { phrase } = route.params;
   const apiClient = new APIClient();
-  const { translate } = useTranslate();
-
-  const [season, setSeason] = useState(getAnimeSeason());
-  const [seasonYear] = useState(new Date().getFullYear());
   const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
   const listRef = useRef<FlatList>(null);
 
   const { isLoading, data, refetch, fetchNextPage, isRefetching } =
     useInfiniteQuery<AnimeList>(
-      ['browse', season, seasonYear],
+      ['search results', phrase],
       ({ pageParam }) =>
-        apiClient.getAnimeList({ page: pageParam, season, seasonYear }),
+        apiClient.getAnimeList({ page: pageParam, search: phrase }),
       {
         getNextPageParam: lastPage => lastPage.Page.pageInfo.currentPage + 1,
       },
@@ -37,7 +34,7 @@ const BrowsePage = ({ navigation }: BrowsePageProps) => {
     <BrowseElement
       anime={item}
       handlePageChange={() => {
-        navigation.navigate(RoutesNames.Series, {
+        navigation.navigate(ScreenNames.Series, {
           title: item.title.romaji,
           id: item.id,
         });
@@ -47,32 +44,6 @@ const BrowsePage = ({ navigation }: BrowsePageProps) => {
 
   return (
     <SafeAreaView style={[styles.container]}>
-      <SegmentedButtons
-        value={season}
-        onValueChange={value => setSeason(value as AnimeSeason)}
-        buttons={[
-          {
-            value: AnimeSeason.Winter,
-            label: translate('animeSeason.winter'),
-            icon: 'snowflake',
-          },
-          {
-            value: AnimeSeason.Spring,
-            label: translate('animeSeason.spring'),
-            icon: 'flower',
-          },
-          {
-            value: AnimeSeason.Summer,
-            label: translate('animeSeason.summer'),
-            icon: 'white-balance-sunny',
-          },
-          {
-            value: AnimeSeason.Fall,
-            label: translate('animeSeason.fall'),
-            icon: 'leaf',
-          },
-        ]}
-      />
       {isLoading && <ActivityIndicator size="large" />}
       {data && (
         <>
@@ -144,7 +115,7 @@ const styles = StyleSheet.create({
   fab: {
     position: 'absolute',
     margin: 16,
-    right: 0,
+    left: 0,
     bottom: 0,
   },
   menu: {
@@ -158,4 +129,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BrowsePage;
+export default SearchResultsScreen;

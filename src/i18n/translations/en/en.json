@@ -1,7 +1,60 @@
 {
   "routes": {
     "Browse": "Browse",
-    "Episodes": "Episodes"
+    "Episodes": "Episodes",
+    "Login": "Login",
+    "SignUp": "Sign Up",
+    "ForgotPassword": "Forgot Password",
+    "Search": "Search",
+    "Settings": "Settings",
+    "ActionConfirm": "Confirm Action"
+  },
+  "forms": {
+    "save": "Save",
+    "fields": {
+      "displayName": "Username",
+      "email": "Email"
+    }
+  },
+  "actions": {
+    "AccountDelete": {
+      "action_name": "Account Delete",
+      "message": "If you are logged out, try logging in again. If the action fails, try again",
+      "confirm": "I want to delete my account"
+    }
+  },
+  "text": {
+    "hello": "Hello"
+  },
+  "buttons": {
+    "go_back": "Go Back"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Sign up",
+    "forgot_password": "Forgot password?",
+    "password": "Password",
+    "password_again": "Password again",
+    "new_user": "New user? Join here",
+    "logout": "Logout",
+    "username": "Username",
+    "email_verify": {
+      "top": "Please verify your email",
+      "bottom": "and login again"
+    },
+    "required_field": "This field is required",
+    "email_sent": "Sent email",
+    "email_has_been_sent": "Email has been sent",
+    "errors": {
+      "invalid_email": "Invalid email",
+      "user_not_found": "User was not found or wrong password",
+      "unknown": "Unknown error, please contact support",
+      "email_already_in_use": "This user already exist",
+      "passwords_do_not_match": "Passwords do not match",
+      "weak_password": "Password should be at least 6 characters"
+    },
+    "continue_with": "or continue with",
+    "delete_account": "Delete account"
   },
   "welcomeScreen": {
     "welcome": "Welcome to",

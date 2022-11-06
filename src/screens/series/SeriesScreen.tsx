@@ -15,15 +15,15 @@ import YoutubePlayer from 'react-native-youtube-iframe';
 import { darkColor, darkStyle } from '../../styles/darkMode.style';
 import { defaultRadius, globalStyle } from '../../styles/global.style';
 import { FocusButton } from '../../components/FocusButton';
-import { RoutesNames, SeriesPageProps } from '../../routes/interfaces';
 import { AnimeDetails } from '../../interfaces';
 import { APIClient } from '../../api/APIClient';
 import { ProgressiveImage } from '../../components/ProgressiveImage';
 import { QuickInfo } from '../../components/series/QuickInfo';
 import { AnimeRelation } from '../../components/series/Relation';
 import { useTranslate } from '../../i18n/useTranslate';
+import { SeriesScreenProps, ScreenNames } from '../../routes/main';
 
-const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
+const SeriesScreen = ({ navigation, route }: SeriesScreenProps) => {
   const apiClient = new APIClient();
   const { title, id } = route.params;
   const { translate } = useTranslate();
@@ -57,7 +57,7 @@ const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
             <FocusButton
               icon="play-box-multiple"
               onPress={() => {
-                navigation.navigate(RoutesNames.Episodes, {
+                navigation.navigate(ScreenNames.Episodes, {
                   title: data.title.romaji,
                   numOfAiredEpisodes: data.nextAiringEpisode?.episode
                     ? data.nextAiringEpisode?.episode - 1
@@ -142,7 +142,7 @@ const SeriesPage = ({ navigation, route }: SeriesPageProps) => {
                       relation={relation}
                       handleNavigation={() => {
                         if (relation.format !== 'ANIME') {
-                          navigation.navigate(RoutesNames.Series, {
+                          navigation.navigate(ScreenNames.Series, {
                             id: relation.id,
                             title: relation.title.romaji,
                           });
@@ -286,4 +286,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SeriesPage;
+export default SeriesScreen;

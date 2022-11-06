@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance, AxiosRequestHeaders } from 'axios';
 import { AnimeSeason } from '../enums/anime-season.enum';
 import {
   AnimeList,
@@ -7,12 +7,14 @@ import {
   AnimePlayers,
 } from '../interfaces';
 import { API_URL } from '@env';
+import { fireGetIdToken } from '../services/firebase/fire-auth.service';
 
 interface GetAnimeListDTO {
   page?: number;
   perPage?: number;
   season?: AnimeSeason;
   seasonYear?: number;
+  search?: string | null;
 }
 
 export class APIClient {
@@ -29,13 +31,21 @@ export class APIClient {
     });
   }
 
-  private async get<T>(url: string): Promise<T> {
-    const { data } = await this.instance.get<T>(url);
+  private async get<T>(url: string, headers?: AxiosRequestHeaders): Promise<T> {
+    const { data } = await this.instance.get<T>(url, {
+      headers: headers,
+    });
     return data;
   }
 
-  private async post<T>(url: string, dataToSend: Object): Promise<T> {
-    const { data } = await this.instance.post<T>(url, dataToSend);
+  private async post<T>(
+    url: string,
+    dataToSend: Object,
+    headers?: AxiosRequestHeaders,
+  ): Promise<T> {
+    const { data } = await this.instance.post<T>(url, dataToSend, {
+      headers: headers,
+    });
     return data;
   }
 
@@ -44,37 +54,69 @@ export class APIClient {
     season,
     seasonYear,
     perPage = 25,
+    search = null,
   }: GetAnimeListDTO): Promise<AnimeList> {
-    return this.get<AnimeList>(
-      `/anime?per-page=${perPage}&page=${page}&season=${season}&season-year=${seasonYear}`,
+    const token = await this.withToken();
+    return this.post<AnimeList>(
+      '/anime',
+      {
+        page,
+        season,
+        seasonYear,
+        perPage,
+        search,
+        dataSource: 'AniList',
+      },
+      { ...token },
     );
   }
 
   async getAnimeDetails(id: number): Promise<AnimeDetails> {
-    return this.post<AnimeDetails>('/anime', {
-      dataSource: 'anilist',
-      sourceId: String(id),
-    });
+    const token = await this.withToken();
+    return this.post<AnimeDetails>(
+      '/anime/details',
+      {
+        dataSource: 'AniList',
+        sourceId: String(id),
+      },
+      { ...token },
+    );
   }
 
   async getEpisodes(
     animeName: string,
     expectedEpisodes: number,
   ): Promise<AnimeEpisodes> {
-    console.log('name', animeName);
-    return this.post<AnimeEpisodes>('/anime/episodes', {
-      animeName: animeName,
-      expectedEpisodes: expectedEpisodes,
-    });
+    const token = await this.withToken();
+    return this.post<AnimeEpisodes>(
+      '/anime/details/episodes',
+      {
+        animeName: animeName,
+        expectedEpisodes: expectedEpisodes,
+      },
+      { ...token },
+    );
   }
 
   async getEpisodePlayers(
     animeName: string,
     episode: number,
   ): Promise<AnimePlayers> {
-    return this.post<AnimePlayers>(`/anime/episode/${episode}`, {
-      animeName: animeName,
-      resolve: true,
-    });
+    const token = await this.withToken();
+    return this.post<AnimePlayers>(
+      `/anime/details/episode/${episode}`,
+      {
+        animeName: animeName,
+        resolve: true,
+      },
+      { ...token },
+    );
+  }
+
+  async withToken() {
+    const token = await fireGetIdToken();
+    return {
+      Authorization: 'Bearer ' + token,
+    };
   }
 }

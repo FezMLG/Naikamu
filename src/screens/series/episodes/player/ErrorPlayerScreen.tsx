@@ -1,14 +1,14 @@
 import { StyleSheet, SafeAreaView } from 'react-native';
 import React from 'react';
 import QRCode from 'react-native-qrcode-svg';
+import { Text } from 'react-native-paper';
 
 import { darkStyle } from '../../../../styles/darkMode.style';
 import { maxHeight, maxWidth } from '../../../../components/maxDimensions';
-import { Text } from 'react-native-paper';
 import { fontStyles, globalStyle } from '../../../../styles/global.style';
-import { WatchErrorPageProps } from '../../../../routes/interfaces';
+import { WatchErrorScreenProps } from '../../../../routes/main';
 
-const ErrorPlayerPage = ({ route }: WatchErrorPageProps) => {
+const ErrorPlayerScreen = ({ route }: WatchErrorScreenProps) => {
   const { playerName, animeTitle } = route.params;
   //TODO styling for this page
   return (
@@ -46,4 +46,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ErrorPlayerPage;
+export default ErrorPlayerScreen;

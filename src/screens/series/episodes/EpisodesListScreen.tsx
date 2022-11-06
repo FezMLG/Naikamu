@@ -14,13 +14,13 @@ import { EpisodeMobile } from '../../../components/episode/Episode.mobile';
 import { EpisodeTV } from '../../../components/episode/Episode.tv';
 import { globalStyle } from '../../../styles/global.style';
 import { APIClient } from '../../../api/APIClient';
-import { EpisodesPageProps } from '../../../routes/interfaces';
 import { AnimeEpisode } from '../../../interfaces';
 import { useTranslate } from '../../../i18n/useTranslate';
+import { EpisodesScreenProps } from '../../../routes/main';
 
 const { isTV } = Platform;
 
-const EpisodesListPage = ({ navigation, route }: EpisodesPageProps) => {
+const EpisodesListScreen = ({ navigation, route }: EpisodesScreenProps) => {
   const apiClient = new APIClient();
   const { translate } = useTranslate();
 
@@ -85,4 +85,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EpisodesListPage;
+export default EpisodesListScreen;

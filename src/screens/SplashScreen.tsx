@@ -3,7 +3,7 @@ import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ActivityIndicator } from 'react-native-paper';
 
-const SplashPage = () => {
+const SplashScreen = () => {
   return (
     <SafeAreaView style={[styles.container]}>
       <ActivityIndicator size={'large'} />
@@ -23,4 +23,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SplashPage;
+export default SplashScreen;
