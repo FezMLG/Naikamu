@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://img.shields.io/badge/platform-android-brightgreen" />
+</p>
+
 # AniWatch
 
 AniWatch is an application that allows you to watch anime from Polish subs.
