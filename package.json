@@ -1,9 +1,12 @@
 {
-  "name": "root",
-  "private": false,
+  "name": "AniWatch",
+  "private": true,
   "workspaces": [
     "packages/*"
   ],
+  "scripts": {
+    "start": "lerna run start --stream"
+  },
   "devDependencies": {
     "lerna": "^6.0.1"
   }
