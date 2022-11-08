@@ -11,7 +11,7 @@
   },
   "scripts": {
     "start": "lerna run start --stream",
-    "apk:beta:release": "lerna run apk:beta:release --stream"
+    "apk:beta:release": "lerna run apk:beta:release --stream --concurrency 1"
   },
   "devDependencies": {
     "lerna": "^6.0.1"
