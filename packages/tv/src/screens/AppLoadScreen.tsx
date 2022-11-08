@@ -47,7 +47,7 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
       <Text
         variant="displayMedium"
         style={[darkStyle.font, { fontWeight: 'bold' }]}>
-        AniWatch
+        AniWatchTV
       </Text>
       <View style={[globalStyle.spacerBig]} />
       <Image

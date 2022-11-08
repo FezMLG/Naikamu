@@ -22,7 +22,7 @@ const ErrorPlayerScreen = ({ route }: WatchErrorScreenProps) => {
         variant="titleLarge"
         style={[darkStyle.font, globalStyle.spacer, styles.description]}>
         To watch video from this source on your tv, please scan QR code or open
-        AniWatch mobile app, select this source and use built in cast to
+        AniWatchTV mobile app, select this source and use built in cast to
         Chromecast feature if available
       </Text>
       <QRCode

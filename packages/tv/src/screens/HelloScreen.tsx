@@ -31,7 +31,7 @@ const HelloScreen = ({ navigation }: HelloScreenProps) => {
       <Text
         variant="displayMedium"
         style={[darkStyle.font, { fontWeight: 'bold' }]}>
-        AniWatch
+        AniWatchTV
       </Text>
       <View style={[globalStyle.spacerBig]} />
       <Image

@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "AniWatch.app"
-               BlueprintName = "AniWatch"
-               ReferencedContainer = "container:AniWatch.xcodeproj">
+               BuildableName = "AniWatchTV.app"
+               BlueprintName = "AniWatchTV"
+               ReferencedContainer = "container:AniWatchTV.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
                BuildableName = "AniWatchTests.xctest"
                BlueprintName = "AniWatchTests"
-               ReferencedContainer = "container:AniWatch.xcodeproj">
+               ReferencedContainer = "container:AniWatchTV.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "AniWatch.app"
-            BlueprintName = "AniWatch"
-            ReferencedContainer = "container:AniWatch.xcodeproj">
+            BuildableName = "AniWatchTV.app"
+            BlueprintName = "AniWatchTV"
+            ReferencedContainer = "container:AniWatchTV.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "AniWatch.app"
-            BlueprintName = "AniWatch"
-            ReferencedContainer = "container:AniWatch.xcodeproj">
+            BuildableName = "AniWatchTV.app"
+            BlueprintName = "AniWatchTV"
+            ReferencedContainer = "container:AniWatchTV.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
