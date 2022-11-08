@@ -152,26 +152,26 @@ android {
     productFlavors {
         production {
             minSdkVersion rootProject.ext.minSdkVersion
-            applicationId "com.aniwatch"
+            applicationId "com.aniwatch.tv"
             targetSdkVersion rootProject.ext.targetSdkVersion
-            resValue "string", "build_config_package", "com.aniwatch"
+            resValue "string", "build_config_package", "com.aniwatch.tv"
         }
         staging {
             minSdkVersion rootProject.ext.minSdkVersion
-            applicationId "com.aniwatch.stg"
+            applicationId "com.aniwatch.tv.stg"
             targetSdkVersion rootProject.ext.targetSdkVersion
-            resValue "string", "build_config_package", "com.aniwatch"
+            resValue "string", "build_config_package", "com.aniwatch.tv"
         }
         development {
             minSdkVersion rootProject.ext.minSdkVersion
-            applicationId "com.aniwatch.dev"
+            applicationId "com.aniwatch.tv.dev"
             targetSdkVersion rootProject.ext.targetSdkVersion
-            resValue "string", "build_config_package", "com.aniwatch"
+            resValue "string", "build_config_package", "com.aniwatch.tv"
         }
     }
 
     defaultConfig {
-        applicationId "com.aniwatch"
+        applicationId "com.aniwatch.tv"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

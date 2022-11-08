@@ -1,4 +1,4 @@
-package com.aniwatch.newarchitecture;
+package com.aniwatch.tv.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.aniwatch.BuildConfig;
-import com.aniwatch.newarchitecture.components.MainComponentsRegistry;
-import com.aniwatch.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.aniwatch.tv.BuildConfig;
+import com.aniwatch.tv.newarchitecture.components.MainComponentsRegistry;
+import com.aniwatch.tv.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 
