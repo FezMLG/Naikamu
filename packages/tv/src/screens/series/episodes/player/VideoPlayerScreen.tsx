@@ -1,10 +1,4 @@
-import {
-  StyleSheet,
-  useTVEventHandler,
-  HWEvent,
-  View,
-  Platform,
-} from 'react-native';
+import { StyleSheet, useTVEventHandler, HWEvent, View } from 'react-native';
 import React, { useRef, useState } from 'react';
 import Video, { OnProgressData } from 'react-native-video';
 import VideoPlayer from 'react-native-video-controls';
@@ -16,7 +10,6 @@ const NativeVideoPlayerScreen = ({
   route,
   navigation,
 }: WatchNativeScreenProps) => {
-  const { isTV } = Platform;
   const { uri, episodeTitle } = route.params;
   const video = useRef<Video>(null);
   const videoPlayer = useRef<VideoPlayer>(null);
@@ -56,36 +49,19 @@ const NativeVideoPlayerScreen = ({
 
   return (
     <View style={styles.fullscreenVideo}>
-      {isTV ? (
-        <Video
-          ref={video}
-          style={styles.absoluteFill}
-          source={{
-            uri: uri,
-          }}
-          controls={true}
-          resizeMode={'contain'}
-          paused={isPaused}
-          fullscreen={true}
-          onProgress={handleProgress}
-          onVideoLoad={handleVideoLoad}
-        />
-      ) : (
-        <VideoPlayer
-          ref={videoPlayer}
-          style={styles.absoluteFill}
-          title={episodeTitle}
-          source={{
-            uri: uri,
-          }}
-          resizeMode={'contain'}
-          paused={isPaused}
-          fullscreen={true}
-          onBack={navigation.goBack}
-          onProgress={handleProgress}
-          onLoad={handleVideoLoad}
-        />
-      )}
+      <Video
+        ref={video}
+        style={styles.absoluteFill}
+        source={{
+          uri: uri,
+        }}
+        controls={true}
+        resizeMode={'contain'}
+        paused={isPaused}
+        fullscreen={true}
+        onProgress={handleProgress}
+        onVideoLoad={handleVideoLoad}
+      />
       {/* {isTV && (
         <Controls
           status={status}

@@ -1,5 +1,5 @@
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { Linking, Platform, StyleSheet } from 'react-native';
+import { Linking, StyleSheet } from 'react-native';
 
 import { RootStackParamList, ScreenNames } from '../../routes/main';
 import { AnimePlayer } from '../../interfaces';
@@ -20,7 +20,6 @@ export const navigateToPlayer = async ({
   episodeTitle: string;
   animeTitle: string;
 }) => {
-  const { isTV } = Platform;
   const name = player.player_name
     .replace(/[\u0250-\ue007]/g, '')
     .replace(/\s/g, '')
@@ -40,14 +39,9 @@ export const navigateToPlayer = async ({
       return Linking.openURL(player.player_link);
 
     default:
-      if (isTV) {
-        return navigation.navigate(ScreenNames.WatchError, {
-          playerName: name,
-          animeTitle: animeTitle,
-        });
-      }
-      return navigation.navigate(ScreenNames.WatchWebView, {
-        uri: player.player_link,
+      return navigation.navigate(ScreenNames.WatchError, {
+        playerName: name,
+        animeTitle: animeTitle,
       });
   }
 };
