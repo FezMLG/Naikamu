@@ -1,11 +1,17 @@
 {
   "name": "AniWatch",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**"
+    ]
+  },
   "scripts": {
-    "start": "lerna run start --stream"
+    "start": "lerna run start --stream",
+    "apk:beta:release": "lerna run apk:beta:release --stream"
   },
   "devDependencies": {
     "lerna": "^6.0.1"
