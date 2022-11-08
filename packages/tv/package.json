@@ -1,5 +1,5 @@
 {
-  "name": "AniWatch",
+  "name": "AniWatchTV",
   "version": "0.0.1",
   "private": true,
   "engines": {
@@ -9,11 +9,11 @@
   },
   "packageManager": "yarn",
   "scripts": {
-    "android:staging": "react-native run-android --variant=stagingdebug --appId=com.aniwatch.stg",
+    "android:staging": "react-native run-android --variant=stagingdebug --appId=com.aniwatch.tv.stg",
     "android:staging-release": "react-native run-android --variant=stagingrelease",
-    "android:dev": "react-native run-android --variant=developmentdebug --appId=com.aniwatch.dev",
+    "android:dev": "react-native run-android --variant=developmentdebug --appId=com.aniwatch.tv.dev",
     "android:dev-release": "react-native run-android --variant=developmentrelease",
-    "android:prod": "react-native run-android --variant=productiondebug --appId=com.aniwatch",
+    "android:prod": "react-native run-android --variant=productiondebug --appId=com.aniwatch.tv",
     "android:prod-release": "react-native run-android --variant=productionrelease",
     "ios": "react-native run-ios",
     "start": "react-native start",

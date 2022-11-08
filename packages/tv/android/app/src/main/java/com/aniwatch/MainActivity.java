@@ -1,4 +1,4 @@
-package com.aniwatch;
+package com.aniwatch.tv;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

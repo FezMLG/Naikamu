@@ -1,4 +1,4 @@
-package com.aniwatch.newarchitecture.components;
+package com.aniwatch.tv.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;

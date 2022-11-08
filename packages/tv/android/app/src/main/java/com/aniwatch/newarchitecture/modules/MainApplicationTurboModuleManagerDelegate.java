@@ -1,4 +1,4 @@
-package com.aniwatch.newarchitecture.modules;
+package com.aniwatch.tv.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;
