@@ -7,14 +7,14 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:235555521653:android:4929bba930b780c714243c",
+        "mobilesdk_app_id": "1:235555521653:android:b1cd7053f3ed15b514243c",
         "android_client_info": {
           "package_name": "com.aniwatch.tv"
         }
       },
       "oauth_client": [
         {
-          "client_id": "235555521653-6dgp83lpgepat1o6h661sv3ksfs5cq6r.apps.googleusercontent.com",
+          "client_id": "235555521653-u2ge8191m9rldeh94cp65pl6jqbs5oui.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.aniwatch.tv",
@@ -44,14 +44,14 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:235555521653:android:d409a549410629e414243c",
+        "mobilesdk_app_id": "1:235555521653:android:cda978d9bf41215a14243c",
         "android_client_info": {
           "package_name": "com.aniwatch.tv.dev"
         }
       },
       "oauth_client": [
         {
-          "client_id": "235555521653-8ldlff6gito14n264o4mutobj1labe8k.apps.googleusercontent.com",
+          "client_id": "235555521653-c70bbimam8urj36sd4ijoh3nl8bk7lhi.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.aniwatch.tv.dev",
@@ -81,14 +81,14 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:235555521653:android:5b54ca501a32862914243c",
+        "mobilesdk_app_id": "1:235555521653:android:f0031d83dd82f81714243c",
         "android_client_info": {
           "package_name": "com.aniwatch.tv.stg"
         }
       },
       "oauth_client": [
         {
-          "client_id": "235555521653-1d1hlrio36kc1dfogqasct7j8i99q5fb.apps.googleusercontent.com",
+          "client_id": "235555521653-ud503ldr23ee6ksfboh66nblsnuep9pg.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.aniwatch.tv.stg",
