@@ -1,5 +1,5 @@
 {
-  "name": "AniWatch",
+  "name": "@aniwatch/core",
   "private": true,
   "workspaces": {
     "packages": [
