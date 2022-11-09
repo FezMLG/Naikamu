@@ -1,2 +1,1 @@
-export * from "./i18n/useTranslate";
-export * from "./i18n/LanguagesProvider";
+export * as default from './i18n/i18n';
