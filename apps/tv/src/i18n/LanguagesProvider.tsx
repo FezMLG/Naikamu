@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { withTranslation } from 'react-i18next';
-import '@aniwatch/translations';
+import './i18n';
 import LanguagesContext, { LanguagesContextType } from './LanguagesContext';
 
 interface LanguageProviderType extends LanguagesContextType {

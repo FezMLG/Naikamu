@@ -1,8 +1,8 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import * as RNLocalize from 'react-native-localize';
-import pl from './translations/pl/pl.json';
-import en from './translations/pl/pl.json';
+import pl from '../../../../translations/pl/pl.json';
+import en from '../../../../translations/pl/pl.json';
 
 const resources = {
   pl: {
