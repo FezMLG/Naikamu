@@ -1,5 +1,5 @@
 {
-  "name": "AniWatch",
+  "name": "@aniwatch/mobile",
   "version": "0.0.1",
   "private": true,
   "engines": {
