@@ -1,7 +1,7 @@
-import React, { ReactNode } from 'react';
-import { withTranslation } from 'react-i18next';
-import './i18n';
-import LanguagesContext, { LanguagesContextType } from './LanguagesContext';
+import React, { ReactNode } from "react";
+import { withTranslation } from "react-i18next";
+import "./i18n";
+import LanguagesContext, { LanguagesContextType } from "./LanguagesContext";
 
 interface LanguageProviderType extends LanguagesContextType {
   children: ReactNode;
@@ -17,4 +17,4 @@ const LanguagesProvider = (props: LanguageProviderType) => {
   );
 };
 
-export default withTranslation()(LanguagesProvider);
+export default withTranslation()(LanguagesProvider); 
