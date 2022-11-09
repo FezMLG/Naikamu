@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export interface LanguagesContextType {
   t: (key: string, data?: Record<string, unknown>) => string;
@@ -6,7 +6,7 @@ export interface LanguagesContextType {
 }
 
 const LanguagesContext = React.createContext<LanguagesContextType>({
-  t: () => '',
+  t: () => "",
   i18n: {},
 });
 
