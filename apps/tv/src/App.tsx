@@ -8,10 +8,10 @@ import {
   Provider as PaperProvider,
 } from 'react-native-paper';
 
-import QueryClientWrap from './src/api/QueryClientWrap';
-import Routes from './src/routes/Routes';
-import LanguagesProvider from './src/i18n/LanguagesProvider';
-import { store } from './src/services/store/store';
+import QueryClientWrap from './api/QueryClientWrap';
+import Routes from './routes/Routes';
+import LanguagesProvider from './i18n/LanguagesProvider';
+import { store } from './services/store/store';
 
 const CombinedDarkTheme = {
   ...NavigationDarkTheme,
