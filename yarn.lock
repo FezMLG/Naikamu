@@ -9500,11 +9500,6 @@ react-native-localize@^2.2.4:
   resolved "https://registry.npmjs.org/react-native-localize/-/react-native-localize-2.2.4.tgz"
   integrity sha512-gVmbyAEQQnBQ8vKlAQchFfIISeId3qT6Lc7LHmKF39nsYWX9KN4PHuG6Hk+7gduMI6IHKeZGKcLsOdh6wvN6cg==
 
-react-native-orientation-locker@^1.5.0:
-  version "1.5.0"
-  resolved "https://registry.npmjs.org/react-native-orientation-locker/-/react-native-orientation-locker-1.5.0.tgz"
-  integrity sha512-4XOCGmNN4BXg5JUFjUuXpsfhPJmbA3LkQilJO1ed+6vL97teTdG2w5IEevKiqL9/hPjeWE8YYtX/YW+yp53hkg==
-
 react-native-paper@5.0.0-rc.6:
   version "5.0.0-rc.6"
   resolved "https://registry.npmjs.org/react-native-paper/-/react-native-paper-5.0.0-rc.6.tgz"
