@@ -25,7 +25,6 @@
     "apk:release": "cd android && ./gradlew assembleRelease && open app/build/outputs/apk/production/release"
   },
   "dependencies": {
-    "@apollo/client": "^3.6.9",
     "@react-native-async-storage/async-storage": "^1.17.10",
     "@react-native-firebase/analytics": "^16.4.2",
     "@react-native-firebase/app": "^16.4.2",
@@ -40,7 +39,6 @@
     "@tanstack/react-query": "^4.3.9",
     "axios": "^0.27.2",
     "date-fns": "^2.29.3",
-    "graphql": "^16.6.0",
     "i18next": "^22.0.2",
     "react": "18.0.0",
     "react-hook-form": "^7.38.0",
