@@ -1,5 +1,4 @@
 import React from 'react';
-import FlipperAsyncStorage from 'rn-flipper-async-storage-advanced';
 import { Provider as ReduxProvider } from 'react-redux';
 import { DarkTheme as NavigationDarkTheme } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -27,7 +26,6 @@ const App = () => {
           icon: props => <Icon {...props} />,
         }}
         theme={CombinedDarkTheme}>
-        <FlipperAsyncStorage />
         <ReduxProvider store={store}>
           <LanguagesProvider>
             <Routes theme={CombinedDarkTheme} />

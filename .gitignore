@@ -67,3 +67,5 @@ buck-out/
 .env*.local
 
 dist
+
+.cache

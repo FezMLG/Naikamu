@@ -31,13 +31,6 @@ public class MainActivity extends ReactActivity {
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
-    try {
-      // lazy load Google Cast context
-      CastContext.getSharedInstance(this);
-    } catch (Exception e) {
-      // cast framework not supported
-    }
   }
 
   public static class MainActivityDelegate extends ReactActivityDelegate {

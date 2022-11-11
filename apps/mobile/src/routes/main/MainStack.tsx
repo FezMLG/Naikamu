@@ -1,7 +1,5 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { IconButton } from 'react-native-paper';
-import GoogleCast from 'react-native-google-cast';
 
 import NativeVideoPlayerScreen from '../../screens/series/episodes/player/VideoPlayerScreen';
 import SeriesScreen from '../../screens/series/SeriesScreen';
@@ -60,13 +58,6 @@ const MainStack = () => {
             }`,
           }),
           animation: 'slide_from_right',
-          headerRight: () => (
-            <IconButton
-              icon="remote"
-              size={24}
-              onPress={() => GoogleCast.showExpandedControls()}
-            />
-          ),
         })}
       />
       <StackAuthorized.Screen

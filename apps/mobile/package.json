@@ -16,8 +16,9 @@
     "android:prod": "react-native run-android --variant=productiondebug --appId=com.aniwatch",
     "android:prod-release": "react-native run-android --variant=productionrelease",
     "ios": "react-native run-ios",
+    "pod": "npx pod-install ios",
     "start": "react-native start",
-    "start:clear": "watchman watch-del $INIT_CWD ; watchman watch-project $INIT_CWD && react-native start --reset-cache",
+    "start:clear": "react-native start --reset-cache",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "app:release": "cd android && ./gradlew bundleRelease",
@@ -25,6 +26,7 @@
     "apk:release": "cd android && ./gradlew assembleRelease && open app/build/outputs/apk/production/release"
   },
   "dependencies": {
+    "@aniwatch/translations": "^1.0.0",
     "@react-native-async-storage/async-storage": "^1.17.10",
     "@react-native-firebase/analytics": "^16.4.2",
     "@react-native-firebase/app": "^16.4.2",
@@ -47,9 +49,7 @@
     "react-native-config": "^1.4.11",
     "react-native-dotenv": "^3.3.1",
     "react-native-fast-image": "^8.6.1",
-    "react-native-flipper": "^0.171.1",
     "react-native-gesture-handler": "^2.8.0",
-    "react-native-google-cast": "^4.5.0",
     "react-native-keychain": "^8.1.1",
     "react-native-linear-gradient": "^2.6.2",
     "react-native-localize": "^2.2.4",
@@ -65,8 +65,7 @@
     "react-native-video-controls": "^2.8.1",
     "react-native-webview": "^11.23.1",
     "react-native-youtube-iframe": "^2.2.2",
-    "react-redux": "^8.0.4",
-    "rn-flipper-async-storage-advanced": "^1.0.4"
+    "react-redux": "^8.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

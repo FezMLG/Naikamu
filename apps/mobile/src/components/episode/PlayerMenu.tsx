@@ -1,8 +1,6 @@
 import React from 'react';
-import GoogleCast from 'react-native-google-cast';
 import { IconButton, Menu } from 'react-native-paper';
 
-import { CastChromecast } from '../CastChromecast';
 import { AnimePlayer } from '../../interfaces';
 
 export const PlayerMenu = ({ player }: { player: AnimePlayer }) => {
@@ -19,16 +17,7 @@ export const PlayerMenu = ({ player }: { player: AnimePlayer }) => {
       anchor={
         <IconButton icon="dots-horizontal" size={24} onPress={openMenu} />
       }>
-      {player.player_name === 'CDA' ? (
-        <CastChromecast linkToMP4={player.player_link} />
-      ) : (
-        <></>
-      )}
-      <Menu.Item
-        leadingIcon="remote"
-        onPress={() => GoogleCast.showExpandedControls()}
-        title="Cast Controls"
-      />
+      {player.player_name === 'CDA' ? <></> : <></>}
     </Menu>
   );
 };
