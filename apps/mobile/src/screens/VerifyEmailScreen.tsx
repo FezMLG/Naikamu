@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 
 import { AuthRoutesNames, VerifyEmailScreenProps } from '../routes/auth';
 import { RootState } from '../services/store/store';
-import { useTranslate } from '../../../../lib/shared/dist';
+import { useTranslate } from '../i18n/useTranslate';
 import { globalStyle } from '../styles/global.style';
 
 const VerifyEmailScreen = ({ navigation }: VerifyEmailScreenProps) => {

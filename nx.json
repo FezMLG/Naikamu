@@ -1,0 +1,72 @@
+{
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "nx/tasks-runners/default",
+      "options": {
+        "cacheableOperations": [],
+        "cacheDirectory": "./.cache/nx"
+      }
+    }
+  },
+  "namedInputs": {
+    "default": [
+      "{projectRoot}/**/*"
+    ],
+    "prod": [
+      "!{projectRoot}/**/*.spec.ts",
+      "!{projectRoot}/**/*.e2e-spec.ts",
+      "!{projectRoot}/__tests__/**/*"
+    ]
+  },
+  "targetDefaults": {
+    "build": {
+      "inputs": [
+        "prod",
+        "^prod"
+      ],
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "{projectRoot}/dist",
+        "{projectRoot}/.next"
+      ]
+    },
+    "build:ci": {
+      "inputs": [
+        "prod",
+        "^prod"
+      ],
+      "dependsOn": [
+        "^build:ci"
+      ],
+      "outputs": [
+        "{projectRoot}/dist",
+        "{projectRoot}/build",
+        "{projectRoot}/.next"
+      ]
+    },
+    "test": {
+      "inputs": [
+        "default",
+        "^prod"
+      ],
+      "dependsOn": [
+        "^build:ci"
+      ]
+    },
+    "test:ci": {
+      "inputs": [
+        "default",
+        "^prod"
+      ],
+      "dependsOn": [
+        "^build:ci"
+      ]
+    }
+  },
+  "defaultBase": "main",
+  "affected": {
+    "defaultBase": "main"
+  }
+}

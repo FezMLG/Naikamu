@@ -73,8 +73,8 @@ const BrowseScreen = ({ navigation }: BrowseScreenProps) => {
           },
         ]}
       />
-      {isLoading && <ActivityIndicator size="large" />}
-      {data && (
+      {isLoading ? <ActivityIndicator size="large" /> : null}
+      {data ? (
         <>
           <FlatList
             ref={listRef}
@@ -101,7 +101,7 @@ const BrowseScreen = ({ navigation }: BrowseScreenProps) => {
             />
           )}
         </>
-      )}
+      ) : null}
     </SafeAreaView>
   );
 };

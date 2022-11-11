@@ -16,6 +16,7 @@
     "android:prod": "react-native run-android --variant=productiondebug --appId=com.aniwatch.tv",
     "android:prod-release": "react-native run-android --variant=productionrelease",
     "ios": "react-native run-ios",
+    "pod": "npx pod-install ios",
     "start": "react-native start",
     "start:clear": "watchman watch-del $INIT_CWD ; watchman watch-project $INIT_CWD && react-native start --reset-cache",
     "test": "jest",

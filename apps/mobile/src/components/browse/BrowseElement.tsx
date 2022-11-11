@@ -5,7 +5,6 @@ import {
   Pressable,
   GestureResponderEvent,
 } from 'react-native';
-import CardShadow from '../CardShadow';
 import { Media } from '../../interfaces';
 import { darkStyle } from '../../styles/darkMode.style';
 import { ProgressiveImage } from '../ProgressiveImage';
@@ -22,38 +21,31 @@ const BrowseElement = ({
   const [focus, setFocus] = useState(false);
 
   return (
-    <CardShadow focus={focus} shadowColor={anime.coverImage.color}>
-      <Pressable
-        key={anime.id}
-        style={[styles.card, darkStyle.card]}
-        onFocus={() => setFocus(!focus)}
-        onBlur={() => setFocus(!focus)}
-        onPress={handlePageChange}>
-        <View>
-          <View
-            style={[
-              styles.poster,
-              { backgroundColor: anime.coverImage.color },
-            ]}>
-            <ProgressiveImage
-              source={anime.coverImage.extraLarge}
-              style={styles.poster}
-            />
-            <LinearGradient
-              colors={['transparent', 'black']}
-              locations={[0, 1]}
-              style={styles.linearGradient}
-            />
-          </View>
-          <Text
-            variant="titleMedium"
-            numberOfLines={2}
-            style={[styles.title, darkStyle.font]}>
-            {anime.title.romaji}
-          </Text>
-        </View>
-      </Pressable>
-    </CardShadow>
+    <Pressable
+      key={anime.id}
+      style={[styles.card, darkStyle.card]}
+      onFocus={() => setFocus(!focus)}
+      onBlur={() => setFocus(!focus)}
+      onPress={handlePageChange}>
+      <View
+        style={[styles.poster, { backgroundColor: anime.coverImage.color }]}>
+        <ProgressiveImage
+          source={anime.coverImage.extraLarge}
+          style={styles.poster}
+        />
+        <LinearGradient
+          colors={['transparent', 'black']}
+          locations={[0, 1]}
+          style={styles.linearGradient}
+        />
+      </View>
+      <Text
+        variant="titleMedium"
+        numberOfLines={2}
+        style={[styles.title, darkStyle.font]}>
+        {anime.title.romaji}
+      </Text>
+    </Pressable>
   );
 };
 
