@@ -2562,7 +2562,7 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/eslint-plugin/-/eslint-plugin-1.3.0.tgz#9e558170c106bbafaa1ef502bd8e6d4651012bf9"
   integrity sha512-+zDZ20NUnSWghj7Ku5aFphMzuM9JulqCW+aPXT6IfIXFbb8tzYTTOSeRFOtuekJ99ibW2fUCSsjuKNlwDIbHFg==
 
-"@react-native-firebase/analytics@^16.4.2":
+"@react-native-firebase/analytics@^16.4.2", "@react-native-firebase/analytics@^16.4.3":
   version "16.4.3"
   resolved "https://registry.yarnpkg.com/@react-native-firebase/analytics/-/analytics-16.4.3.tgz#1f0b318fccc8a9fdeb6404b37128f079672417e6"
   integrity sha512-N930rgrnP6jjiZouCY+YsRI62gm/I7NGRMRecbhSO60HgObrLfVfPhNY3Ugm0VRlNxHMTME9SRER0qL4eZK/3w==
@@ -2576,7 +2576,7 @@
     opencollective-postinstall "^2.0.1"
     superstruct "^0.6.2"
 
-"@react-native-firebase/auth@^16.3.0":
+"@react-native-firebase/auth@^16.3.0", "@react-native-firebase/auth@^16.4.3":
   version "16.4.3"
   resolved "https://registry.yarnpkg.com/@react-native-firebase/auth/-/auth-16.4.3.tgz#07969c4b55b6ff22c2859821f7c9bae725927055"
   integrity sha512-3/cTmRHgwVsmmhM3dmm4N53D6S/xV0L4YHmZyCcFgPqUddFJFFKpYc6tPO/sE47mBgl+s0vCalod4bZEimMGUA==
@@ -2584,7 +2584,7 @@
     "@expo/config-plugins" "^5.0.1"
     plist "^3.0.5"
 
-"@react-native-firebase/crashlytics@^16.4.2":
+"@react-native-firebase/crashlytics@^16.4.2", "@react-native-firebase/crashlytics@^16.4.3":
   version "16.4.3"
   resolved "https://registry.yarnpkg.com/@react-native-firebase/crashlytics/-/crashlytics-16.4.3.tgz#169dc675fe32bf18fa99815c3bde8534a14ff949"
   integrity sha512-l1JY1vvodNVeqkV0PAbzBl99oOiHu34847evwxlleioecCm4jG7XHpY+IAxgRYt8Bv35GqNmO7WIDSYInE7tNw==
