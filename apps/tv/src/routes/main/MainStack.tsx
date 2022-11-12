@@ -1,7 +1,5 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { IconButton } from 'react-native-paper';
-import GoogleCast from 'react-native-google-cast';
 
 import NativeVideoPlayerScreen from '../../screens/series/episodes/player/VideoPlayerScreen';
 import SeriesScreen from '../../screens/series/SeriesScreen';
@@ -11,7 +9,7 @@ import ErrorPlayerScreen from '../../screens/series/episodes/player/ErrorPlayerS
 import { RootStackParamList, ScreenNames } from './interfaces';
 import SearchResultsScreen from '../../screens/search/SearchResultsScreen';
 import { useTranslate } from '../../i18n/useTranslate';
-import { DrawerNav } from './Drawer';
+import BrowseScreen from '../../screens/BrowseScreen';
 
 const defaultOptions = ({ title }: { title?: string }) => {
   return {
@@ -27,8 +25,8 @@ const MainStack = () => {
   return (
     <StackAuthorized.Navigator initialRouteName={ScreenNames.Browse}>
       <StackAuthorized.Screen
-        name={ScreenNames.HomeDrawer}
-        component={DrawerNav}
+        name={ScreenNames.Browse}
+        component={BrowseScreen}
         options={{
           animation: 'slide_from_right',
           headerShown: false,
@@ -60,13 +58,6 @@ const MainStack = () => {
             }`,
           }),
           animation: 'slide_from_right',
-          headerRight: () => (
-            <IconButton
-              icon="remote"
-              size={24}
-              onPress={() => GoogleCast.showExpandedControls()}
-            />
-          ),
         })}
       />
       <StackAuthorized.Screen
