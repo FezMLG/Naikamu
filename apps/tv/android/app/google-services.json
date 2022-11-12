@@ -30,24 +30,7 @@
         {
           "current_key": "AIzaSyBt9KGuQDfQNZXXRIRv0YC95L8gmA9Mdok"
         }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "235555521653-u912a0ccok2j0kmbpv11i4jlpfu29obf.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "235555521653-0psihep90o2s63ubvvbadt6hg3tilscp.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.aniwatch.tv.dev"
-              }
-            }
-          ]
-        }
-      }
+      ]
     },
     {
       "client_info": {
@@ -74,24 +57,7 @@
         {
           "current_key": "AIzaSyBt9KGuQDfQNZXXRIRv0YC95L8gmA9Mdok"
         }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "235555521653-u912a0ccok2j0kmbpv11i4jlpfu29obf.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "235555521653-0psihep90o2s63ubvvbadt6hg3tilscp.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.aniwatch.tv.dev"
-              }
-            }
-          ]
-        }
-      }
+      ]
     },
     {
       "client_info": {
@@ -118,24 +84,7 @@
         {
           "current_key": "AIzaSyBt9KGuQDfQNZXXRIRv0YC95L8gmA9Mdok"
         }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "235555521653-u912a0ccok2j0kmbpv11i4jlpfu29obf.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "235555521653-0psihep90o2s63ubvvbadt6hg3tilscp.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.aniwatch.tv.dev"
-              }
-            }
-          ]
-        }
-      }
+      ]
     },
     {
       "client_info": {
@@ -206,24 +155,7 @@
         {
           "current_key": "AIzaSyBt9KGuQDfQNZXXRIRv0YC95L8gmA9Mdok"
         }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "235555521653-u912a0ccok2j0kmbpv11i4jlpfu29obf.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "235555521653-0psihep90o2s63ubvvbadt6hg3tilscp.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.aniwatch.tv.dev"
-              }
-            }
-          ]
-        }
-      }
+      ]
     },
     {
       "client_info": {
@@ -250,24 +182,7 @@
         {
           "current_key": "AIzaSyBt9KGuQDfQNZXXRIRv0YC95L8gmA9Mdok"
         }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "235555521653-u912a0ccok2j0kmbpv11i4jlpfu29obf.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "235555521653-0psihep90o2s63ubvvbadt6hg3tilscp.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.aniwatch.tv.dev"
-              }
-            }
-          ]
-        }
-      }
+      ]
     }
   ],
   "configuration_version": "1"
