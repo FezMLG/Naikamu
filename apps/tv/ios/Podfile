@@ -10,7 +10,7 @@ install! 'cocoapods', :deterministic_uuids => false
 production = ENV["PRODUCTION"] == "1"
 
 target 'AniWatchTV' do
-  use_frameworks! :linkage => :static
+  use_frameworks!
 
   platform :ios, '12.4'
 
@@ -37,8 +37,6 @@ target 'AniWatchTV' do
 end
 
 target 'AniWatchTV-tvOS' do
-  use_frameworks!
-
   platform :tvos, '12.4'
 
   config = use_native_modules!
