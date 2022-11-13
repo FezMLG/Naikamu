@@ -15,7 +15,7 @@
     "build": "lerna run build",
     "apk:beta:release": "lerna run apk:beta:release --stream --concurrency 1",
     "pod": "lerna run pod --stream --concurrency 1",
-    "reset_cache": "watchman watch-del $INIT_CWD ; watchman watch-project $INIT_CWD"
+    "watchman:reset": "watchman watch-del $INIT_CWD ; watchman watch-project $INIT_CWD"
   },
   "devDependencies": {
     "lerna": "^6.0.1",
