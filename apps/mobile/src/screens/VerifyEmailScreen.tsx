@@ -1,6 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 import { useSelector } from 'react-redux';
 

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper';
 
 import { ForgotPasswordScreenProps } from '../routes/auth';

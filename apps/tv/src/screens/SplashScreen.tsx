@@ -1,6 +1,5 @@
-import { StyleSheet } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import React from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { ActivityIndicator } from 'react-native-paper';
 
 const SplashScreen = () => {

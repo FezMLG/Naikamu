@@ -2699,19 +2699,12 @@
     "@types/react" "*"
     "@types/react-native" "*"
 
-"@types/react-native@*":
+"@types/react-native@*", "@types/react-native@^0.70.6":
   version "0.70.6"
   resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.70.6.tgz#0d1bc3014111f64f13e0df643aec2ab03f021fdb"
   integrity sha512-ynQ2jj0km9d7dbnyKqVdQ6Nti7VQ8SLTA/KKkkS5+FnvGyvij2AOo1/xnkBR/jnSNXuzrvGVzw2n0VWfppmfKw==
   dependencies:
     "@types/react" "*"
-
-"@types/react-native@^0.68.0":
-  version "0.68.9"
-  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.68.9.tgz#8ec2ef12c3d65222c06cf0e6d62a85cf82b34691"
-  integrity sha512-/1nbdoynVMjNsudurxHiEf9rSdviKAkV+pVgwpNk21v7gKJfzoHyT3nFunPuMoDgvvdZR5ofUrOJuCPbzF2GUw==
-  dependencies:
-    "@types/react" "^17"
 
 "@types/react-native@^0.69.5":
   version "0.69.15"
@@ -2727,7 +2720,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^17", "@types/react@^18", "@types/react@^18.0.25":
+"@types/react@*", "@types/react@^18", "@types/react@^18.0.25":
   version "18.0.25"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-18.0.25.tgz#8b1dcd7e56fe7315535a4af25435e0bb55c8ae44"
   integrity sha512-xD6c0KDT4m7n9uD4ZHi02lzskaiqcBxf4zi+tXZY98a04wvc0hi/TcCPC2FOESZi51Nd7tlUeOJY8RofL799/g==

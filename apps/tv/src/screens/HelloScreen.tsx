@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, SafeAreaView, StyleSheet, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 import { API_URL, ENV } from '@env';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
 
 import { globalStyle } from '../styles/global.style';

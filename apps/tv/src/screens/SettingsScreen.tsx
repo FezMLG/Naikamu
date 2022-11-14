@@ -1,6 +1,11 @@
 import React from 'react';
-import { Image, KeyboardTypeOptions, StyleSheet, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {
+  Image,
+  KeyboardTypeOptions,
+  SafeAreaView,
+  StyleSheet,
+  View,
+} from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper';
 import { useSelector } from 'react-redux';
 
