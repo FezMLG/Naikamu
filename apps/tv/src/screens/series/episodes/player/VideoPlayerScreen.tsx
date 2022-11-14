@@ -6,11 +6,8 @@ import VideoPlayer from 'react-native-video-controls';
 import { storageGetData, storageStoreData } from '../../../../utils';
 import { WatchNativeScreenProps } from '../../../../routes/main';
 
-const NativeVideoPlayerScreen = ({
-  route,
-  navigation,
-}: WatchNativeScreenProps) => {
-  const { uri, episodeTitle } = route.params;
+const NativeVideoPlayerScreen = ({ route }: WatchNativeScreenProps) => {
+  const { uri } = route.params;
   const video = useRef<Video>(null);
   const videoPlayer = useRef<VideoPlayer>(null);
   const [isPaused, setIsPaused] = useState<boolean>(false);

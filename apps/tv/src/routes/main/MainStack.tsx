@@ -4,7 +4,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import NativeVideoPlayerScreen from '../../screens/series/episodes/player/VideoPlayerScreen';
 import SeriesScreen from '../../screens/series/SeriesScreen';
 import EpisodesListScreen from '../../screens/series/episodes/EpisodesListScreen';
-import WebViewPlayerScreen from '../../screens/series/episodes/player/WebViewPlayerScreen';
 import ErrorPlayerScreen from '../../screens/series/episodes/player/ErrorPlayerScreen';
 import { RootStackParamList, ScreenNames } from './interfaces';
 import SearchResultsScreen from '../../screens/search/SearchResultsScreen';
@@ -63,14 +62,6 @@ const MainStack = () => {
       <StackAuthorized.Screen
         name={ScreenNames.WatchNative}
         component={NativeVideoPlayerScreen}
-        options={{
-          animation: 'slide_from_right',
-          headerShown: false,
-        }}
-      />
-      <StackAuthorized.Screen
-        name={ScreenNames.WatchWebView}
-        component={WebViewPlayerScreen}
         options={{
           animation: 'slide_from_right',
           headerShown: false,

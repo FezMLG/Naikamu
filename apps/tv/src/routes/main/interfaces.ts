@@ -10,7 +10,6 @@ export enum ScreenNames {
   SearchResults = 'SearchResults',
   Series = 'Series',
   WatchNative = 'WatchNative',
-  WatchWebView = 'WatchWebView',
   WatchError = 'WatchError',
   Episodes = 'Episodes',
   ActionConfirm = 'ActionConfirm',
@@ -36,7 +35,6 @@ export type RootStackParamList = {
     episodeTitle: string;
     player: string;
   };
-  [ScreenNames.WatchWebView]: { uri: string };
   [ScreenNames.WatchError]: { playerName: string; animeTitle: string };
 };
 
@@ -79,10 +77,6 @@ export type EpisodesScreenProps = NativeStackScreenProps<
 export type WatchNativeScreenProps = NativeStackScreenProps<
   RootStackParamList,
   ScreenNames.WatchNative
->;
-export type WatchWebViewScreenProps = NativeStackScreenProps<
-  RootStackParamList,
-  ScreenNames.WatchWebView
 >;
 export type WatchErrorScreenProps = NativeStackScreenProps<
   RootStackParamList,
