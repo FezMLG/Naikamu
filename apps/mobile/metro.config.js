@@ -6,13 +6,7 @@
  */
 
 const path = require('path');
-
-const extraNodeModules = {
-  '@aniwatch/translations': path.resolve(
-    __dirname + '/../../lib/translations/',
-  ),
-};
-const watchFolders = [path.resolve(__dirname + '/../../lib/translations/')];
+const watchFolders = [path.resolve(__dirname, '/../../lib/translations/')];
 
 module.exports = {
   transformer: {
@@ -22,9 +16,6 @@ module.exports = {
         inlineRequires: true,
       },
     }),
-  },
-  resolver: {
-    extraNodeModules,
   },
   watchFolders,
 };
