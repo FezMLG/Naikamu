@@ -18,8 +18,8 @@
     "watchman:reset": "watchman watch-del $INIT_CWD ; watchman watch-project $INIT_CWD"
   },
   "devDependencies": {
+    "@nrwl/nx-cloud": "latest",
     "lerna": "^6.0.1",
-    "nx": "15.0.13",
-    "@nrwl/nx-cloud": "latest"
+    "nx": "15.0.13"
   }
 }

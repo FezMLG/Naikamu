@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { Image, SafeAreaView, StyleSheet, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
-import { API_URL, ENV } from '@env';
 import { useSelector } from 'react-redux';
+import { API_URL, ENV } from '@env';
 
 import { globalStyle } from '../styles/global.style';
 import { darkStyle } from '../styles/darkMode.style';

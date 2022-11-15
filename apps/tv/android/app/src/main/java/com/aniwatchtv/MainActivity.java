@@ -1,12 +1,14 @@
 package com.aniwatchtv;
 
 import android.os.Bundle;
+import androidx.annotation.Nullable;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
 
 public class MainActivity extends ReactActivity {
+
   /**
    * Returns the name of the main component registered from JavaScript. This is used to schedule
    * rendering of the component.
@@ -15,8 +17,6 @@ public class MainActivity extends ReactActivity {
   protected String getMainComponentName() {
     return "AniWatchTV";
   }
-
-
 
   /**
    * Returns the instance of the {@link ReactActivityDelegate}. There the RootView is created and
@@ -29,8 +29,8 @@ public class MainActivity extends ReactActivity {
   }
 
   @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(null);
+  protected void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
   }
 
   public static class MainActivityDelegate extends ReactActivityDelegate {

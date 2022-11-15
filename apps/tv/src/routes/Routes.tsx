@@ -5,30 +5,12 @@ import MainStack from './main/MainStack';
 import AuthStack from './auth/AuthStack';
 import { useSelector } from 'react-redux';
 import { RootState } from '../services/store/store';
-import { ScreenNames } from './main';
 import SplashScreen from '../screens/SplashScreen';
-import { Text } from 'react-native-paper';
-import { View } from 'react-native';
-import BrowseScreen from '../screens/BrowseScreen';
-
-const linking = {
-  prefixes: ['aniwatch://'],
-  config: {
-    screens: {
-      [ScreenNames.Browse]: 'browse',
-      [ScreenNames.Series]: 'browse/:title',
-    },
-  },
-};
 
 const Routes = ({ theme }: any) => {
   const { user } = useSelector((state: RootState) => state.user);
-
   return (
-    <NavigationContainer
-      linking={linking}
-      fallback={<SplashScreen />}
-      theme={theme}>
+    <NavigationContainer fallback={<SplashScreen />} theme={theme}>
       {user && user.emailVerified ? <MainStack /> : <AuthStack />}
     </NavigationContainer>
   );

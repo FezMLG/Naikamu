@@ -20,7 +20,6 @@ const StackAuthorized = createNativeStackNavigator<RootStackParamList>();
 
 const MainStack = () => {
   const { translate } = useTranslate();
-
   return (
     <StackAuthorized.Navigator initialRouteName={ScreenNames.Browse}>
       <StackAuthorized.Screen
