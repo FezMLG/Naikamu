@@ -1,7 +1,7 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import * as RNLocalize from 'react-native-localize';
-import { pl, en } from '@aniwatch/translations';
+import { pl, en } from '../../../../lib/translations';
 
 const resources = {
   pl: {

@@ -1,25 +1,16 @@
 {
   "name": "@aniwatch/core",
   "private": true,
-  "workspaces": {
-    "packages": [
-      "apps/*",
-      "lib/*"
-    ],
-    "nohoist": [
-      "**"
-    ]
-  },
   "scripts": {
+    "install": "yarn install:mobile && yarn install:tv && yarn install:translations && yarn install:shared",
+    "install:mobile": "cd $INIT_CWD/apps/mobile && yarn",
+    "install:tv": "cd $INIT_CWD/apps/tv && yarn",
+    "install:translations": "cd $INIT_CWD/lib/translations && yarn",
+    "install:shared": "cd $INIT_CWD/lib/shared && yarn",
     "start": "lerna run start --stream",
     "build": "lerna run build",
     "apk:beta:release": "lerna run apk:beta:release --stream --concurrency 1",
     "pod": "lerna run pod --stream --concurrency 1",
     "watchman:reset": "watchman watch-del $INIT_CWD ; watchman watch-project $INIT_CWD"
-  },
-  "devDependencies": {
-    "@nrwl/nx-cloud": "latest",
-    "lerna": "^6.0.1",
-    "nx": "15.0.13"
   }
 }
