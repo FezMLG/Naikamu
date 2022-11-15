@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestHeaders } from 'axios';
+import axios, { AxiosInstance, RawAxiosRequestHeaders } from 'axios';
 import { AnimeSeason } from '../enums/anime-season.enum';
 import {
   AnimeList,
@@ -31,7 +31,10 @@ export class APIClient {
     });
   }
 
-  private async get<T>(url: string, headers?: AxiosRequestHeaders): Promise<T> {
+  private async get<T>(
+    url: string,
+    headers?: RawAxiosRequestHeaders,
+  ): Promise<T> {
     const { data } = await this.instance.get<T>(url, {
       headers: headers,
     });
@@ -41,7 +44,7 @@ export class APIClient {
   private async post<T>(
     url: string,
     dataToSend: Object,
-    headers?: AxiosRequestHeaders,
+    headers?: RawAxiosRequestHeaders,
   ): Promise<T> {
     const { data } = await this.instance.post<T>(url, dataToSend, {
       headers: headers,
