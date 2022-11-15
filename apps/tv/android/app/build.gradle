@@ -13,9 +13,10 @@ project.ext.envConfigFiles = [
 ]
 
 project.ext.vectoricons = [
-    iconFontNames: [ 'MaterialIcons.ttf' ] // Name of the font files you want to copy
+    iconFontNames: [ 'MaterialCommunityIcons.ttf' ] // Name of the font files you want to copy
 ]
 
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
 import com.android.build.OutputFile
