@@ -59,7 +59,8 @@ const styles = StyleSheet.create({
     borderColor: 'pink',
     borderWidth: 1,
     borderRadius: defaultRadius,
-    width: 200,
+    width: '100%',
+    maxWidth: 400,
   },
   marginLeft: {
     marginLeft: 10,

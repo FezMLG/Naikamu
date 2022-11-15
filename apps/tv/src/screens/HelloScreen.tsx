@@ -23,36 +23,45 @@ const HelloScreen = ({ navigation }: HelloScreenProps) => {
 
   return (
     <SafeAreaView style={[styles.container]}>
-      <Text>{user?.displayName ? user?.displayName : user?.email}</Text>
-      <Text variant="titleLarge" style={darkStyle.font}>
-        {translate('welcomeScreen.welcome')}
-      </Text>
-      <Text
-        variant="displayMedium"
-        style={[darkStyle.font, { fontWeight: 'bold' }]}>
-        AniWatchTV
-      </Text>
-      <View style={[globalStyle.spacerBig]} />
-      <Image
-        style={styles.logo}
-        source={require('../../assets/aniwatch_logo_t.png')}
-      />
-      <View style={[globalStyle.spacerBig]} />
-      <Button
-        mode={'contained'}
-        style={[styles.button, globalStyle.marginTopSmall]}
-        onPress={() => navigation.navigate(AuthRoutesNames.Login)}>
-        {translate('auth.login')}
-      </Button>
-      <Button
-        mode={'contained-tonal'}
-        style={[styles.button, globalStyle.marginTopSmall]}
-        onPress={() => navigation.navigate(AuthRoutesNames.SignUp)}>
-        {translate('auth.register')}
-      </Button>
-      <Text style={globalStyle.spacer}>{translate('auth.continue_with')}</Text>
-      <GoogleSignIn />
-      {ENV !== 'prod' && <Text>api_url: {API_URL}</Text>}
+      <View style={styles.centerRow}>
+        <Text>{user?.displayName ? user?.displayName : user?.email}</Text>
+        <Text variant="titleLarge" style={darkStyle.font}>
+          {translate('welcomeScreen.welcome')}
+        </Text>
+        <Text
+          variant="displayMedium"
+          style={[darkStyle.font, { fontWeight: 'bold' }]}>
+          AniWatchTV
+        </Text>
+        <View style={[globalStyle.spacerBig]} />
+        <Image
+          style={styles.logo}
+          source={require('../../assets/aniwatch_logo_t.png')}
+        />
+      </View>
+      <View style={styles.stretch}>
+        <Button
+          mode={'contained'}
+          style={[styles.button, globalStyle.marginTopSmall]}
+          onPress={() => navigation.navigate(AuthRoutesNames.Login)}>
+          {translate('auth.login')}
+        </Button>
+        <Button
+          mode={'contained-tonal'}
+          style={[styles.button, globalStyle.marginTopSmall]}
+          onPress={() => navigation.navigate(AuthRoutesNames.SignUp)}>
+          {translate('auth.register')}
+        </Button>
+        <Text style={[globalStyle.spacer, styles.textCenter]}>
+          {translate('auth.continue_with')}
+        </Text>
+        <GoogleSignIn />
+        {ENV !== 'prod' && (
+          <Text>
+            api_url: {API_URL}, {ENV}
+          </Text>
+        )}
+      </View>
     </SafeAreaView>
   );
 };
@@ -61,7 +70,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
+    flexDirection: 'row',
   },
   video: {
     flex: 1,
@@ -71,13 +81,22 @@ const styles = StyleSheet.create({
     margin: 16,
   },
   button: {
-    maxWidth: 500,
-    width: '90%',
+    maxWidth: 400,
+    width: '100%',
     minWidth: 10,
   },
   logo: {
     maxWidth: 200,
     maxHeight: 200,
+  },
+  stretch: {
+    alignItems: 'stretch',
+  },
+  centerRow: {
+    alignItems: 'center',
+  },
+  textCenter: {
+    textAlign: 'center',
   },
 });
 

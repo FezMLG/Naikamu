@@ -1,7 +1,7 @@
 import { StyleSheet, ActivityIndicator, FlatList } from 'react-native';
 import React, { useRef, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { FAB, SegmentedButtons } from 'react-native-paper';
+import { FAB, SegmentedButtons, Text } from 'react-native-paper';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import BrowseElement from '../components/browse/BrowseElement';
@@ -12,6 +12,7 @@ import { AnimeSeason } from '../enums/anime-season.enum';
 import { getAnimeSeason } from '../utils/getAnimeSeason';
 import { useTranslate } from '../i18n/useTranslate';
 import { BrowseScreenProps, ScreenNames } from '../routes/main';
+import { API_URL, ENV } from '@env';
 
 const BrowseScreen = ({ navigation }: BrowseScreenProps) => {
   const CONTENT_OFFSET_THRESHOLD = 300;
@@ -47,6 +48,11 @@ const BrowseScreen = ({ navigation }: BrowseScreenProps) => {
 
   return (
     <SafeAreaView style={[styles.container]}>
+      {ENV !== 'prod' && (
+        <Text>
+          api_url: {API_URL}, {ENV}
+        </Text>
+      )}
       <SegmentedButtons
         value={season}
         onValueChange={value => setSeason(value as AnimeSeason)}
