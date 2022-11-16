@@ -9,6 +9,7 @@ import { Text } from 'react-native-paper';
 import { useTranslate } from '../../i18n/useTranslate';
 import { Relation } from '../../interfaces';
 import { darkColor } from '../../styles/darkMode.style';
+import { defaultRadius } from '../../styles/global.style';
 import { ProgressiveImage } from '../ProgressiveImage';
 
 export const AnimeRelation = ({
@@ -56,8 +57,7 @@ const styles = StyleSheet.create({
     maxWidth: 300,
     height: 115,
     backgroundColor: darkColor.C800,
-    borderTopRightRadius: 8,
-    borderBottomRightRadius: 8,
+    borderRadius: defaultRadius,
     marginTop: 10,
     marginLeft: 20,
   },

@@ -70,7 +70,7 @@ export const EpisodeTV = ({
         </Text>
         <View style={styles.linksBox}>
           <Button onPress={refetch}>
-            {translate('anime_episodes.available_players')}
+            {translate('anime_episodes.load_players')}
           </Button>
           {data &&
             data.players.map((player: AnimePlayer, index: number) => {

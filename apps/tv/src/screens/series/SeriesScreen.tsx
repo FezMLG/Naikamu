@@ -34,6 +34,13 @@ import { CombinedDarkTheme } from '../../App';
 
 const SeriesScreen = ({ navigation, route }: SeriesScreenProps) => {
   const apiClient = new APIClient();
+  const acceptedLinks = [
+    'Netflix',
+    'Hulu',
+    'Disney Plus',
+    'Crunchyroll',
+    'YouTube',
+  ];
   const { title, id } = route.params;
   const { translate } = useTranslate();
   const [textWidth, setTextWidth] = useState(0);
@@ -236,38 +243,27 @@ const SeriesScreen = ({ navigation, route }: SeriesScreenProps) => {
               {translate('anime_details.links')}
             </Text>
             <View style={styles.linksContainer}>
-              <View style={styles.linkContainer}>
-                <ProgressiveImage
-                  source={'https://anilist.co/img/icons/favicon-32x32.png'}
-                  style={[styles.icon]}
-                />
-                <Button
-                  mode={'text'}
-                  onPress={() =>
-                    Linking.openURL('https://anilist.co/anime/' + id)
-                  }>
-                  AniList
-                </Button>
-              </View>
-              {data.externalLinks.map((link, index) => {
-                return (
-                  <View style={styles.linkContainer} key={index}>
-                    {link.icon ? (
-                      <ProgressiveImage
-                        source={link.icon}
-                        style={[styles.icon]}
-                      />
-                    ) : (
-                      <View style={styles.icon} />
-                    )}
-                    <Button
-                      mode={'text'}
-                      onPress={() => Linking.openURL(link.url)}>
-                      {link.site} {link.language ? link.language : ''}
-                    </Button>
-                  </View>
-                );
-              })}
+              {data.externalLinks
+                .filter(item => acceptedLinks.includes(item.site))
+                .map((link, index) => {
+                  return (
+                    <View style={styles.linkContainer} key={index}>
+                      {link.icon ? (
+                        <ProgressiveImage
+                          source={link.icon}
+                          style={[styles.icon]}
+                        />
+                      ) : (
+                        <View style={styles.icon} />
+                      )}
+                      <Button
+                        mode={'text'}
+                        onPress={() => Linking.openURL(link.url)}>
+                        {link.site} {link.language ? link.language : ''}
+                      </Button>
+                    </View>
+                  );
+                })}
             </View>
             <Text
               variant="bodySmall"
@@ -346,7 +342,10 @@ const styles = StyleSheet.create({
   textCapitalize: {
     textTransform: 'capitalize',
   },
-  linksContainer: {},
+  linksContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
   linkContainer: {
     flexDirection: 'row',
     alignItems: 'center',
