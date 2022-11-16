@@ -207,13 +207,6 @@ const SeriesScreen = ({ navigation, route }: SeriesScreenProps) => {
                             id: relation.id,
                             title: relation.title.romaji,
                           });
-                        } else {
-                          Linking.openURL(
-                            'https://anilist.co/' +
-                              relation.type.toLowerCase() +
-                              '/' +
-                              relation.id,
-                          );
                         }
                       }}
                     />
@@ -233,6 +226,7 @@ const SeriesScreen = ({ navigation, route }: SeriesScreenProps) => {
                 </Text>
                 <YoutubePlayer
                   height={300}
+                  width={500}
                   videoId={data.trailer?.id}
                   webViewStyle={styles.marginV}
                 />
