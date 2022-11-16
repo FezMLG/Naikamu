@@ -3,7 +3,7 @@ import { Pressable, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 import { IconSource } from 'react-native-paper/lib/typescript/components/Icon';
 
-export const FocusButton = (props: {
+export const TVButton = (props: {
   children: React.ReactNode;
   onPress: () => void;
   style: any[];

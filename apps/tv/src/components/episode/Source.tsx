@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 
 import { navigateToPlayer } from './Episode';
-import { FocusButton } from '../FocusButton';
+import { TVButton } from '../FocusButton';
 import { AnimePlayer } from '../../interfaces';
 
 export const Source = ({
@@ -17,7 +17,7 @@ export const Source = ({
   episodeTitle: string;
 }) => {
   return (
-    <FocusButton
+    <TVButton
       onPress={async () => {
         await navigateToPlayer({
           navigation: navigation,
@@ -28,7 +28,7 @@ export const Source = ({
       }}
       style={[styles.buttonLink]}>
       {player.translator_name + ' ' + player.player_name}
-    </FocusButton>
+    </TVButton>
   );
 };
 

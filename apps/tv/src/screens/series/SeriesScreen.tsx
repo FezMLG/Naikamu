@@ -22,7 +22,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import { darkStyle } from '../../styles/darkMode.style';
 import { globalStyle } from '../../styles/global.style';
-import { FocusButton } from '../../components/FocusButton';
+import { TVButton } from '../../components/FocusButton';
 import { AnimeDetails } from '../../interfaces';
 import { APIClient } from '../../api/APIClient';
 import { ProgressiveImage } from '../../components/ProgressiveImage';
@@ -125,7 +125,7 @@ const SeriesScreen = ({ navigation, route }: SeriesScreenProps) => {
                 </Button>
               </View>
               <View style={[globalStyle.spacer]} />
-              <FocusButton
+              <TVButton
                 icon="play-box-multiple"
                 onPress={() => {
                   navigation.navigate(ScreenNames.Episodes, {
@@ -138,7 +138,7 @@ const SeriesScreen = ({ navigation, route }: SeriesScreenProps) => {
                 }}
                 style={[]}>
                 {translate('anime_details.see_episodes')}
-              </FocusButton>
+              </TVButton>
               <View style={[styles.quickInfoContainer, styles.categorySpacer]}>
                 {data.nextAiringEpisode && (
                   <QuickInfo
