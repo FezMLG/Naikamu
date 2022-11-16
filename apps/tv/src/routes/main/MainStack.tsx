@@ -41,8 +41,8 @@ const MainStack = () => {
       <StackAuthorized.Screen
         name={ScreenNames.Series}
         component={SeriesScreen}
-        options={({ route }: any) => ({
-          ...defaultOptions({ title: route.params.title }),
+        options={() => ({
+          headerShown: false,
           animation: 'slide_from_right',
         })}
       />

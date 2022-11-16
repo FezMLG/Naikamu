@@ -21,7 +21,7 @@ const EpisodesListScreen = ({ navigation, route }: EpisodesScreenProps) => {
   const { translate } = useTranslate();
 
   const { isLoading, data, isError } = useQuery(
-    ['anime', route.params.title, 'episodes'],
+    ['episodes', route.params.title],
     () =>
       apiClient.getEpisodes(
         route.params.title,

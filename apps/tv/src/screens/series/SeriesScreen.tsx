@@ -9,7 +9,14 @@ import {
 import React, { useState } from 'react';
 import { format } from 'date-fns';
 import { useQuery } from '@tanstack/react-query';
-import { ActivityIndicator, Button, Chip, Text } from 'react-native-paper';
+import {
+  ActivityIndicator,
+  Button,
+  Chip,
+  Modal,
+  Portal,
+  Text,
+} from 'react-native-paper';
 import YoutubePlayer from 'react-native-youtube-iframe';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -23,12 +30,17 @@ import { QuickInfo } from '../../components/series/QuickInfo';
 import { AnimeRelation } from '../../components/series/Relation';
 import { useTranslate } from '../../i18n/useTranslate';
 import { SeriesScreenProps, ScreenNames } from '../../routes/main';
+import { CombinedDarkTheme } from '../../App';
 
 const SeriesScreen = ({ navigation, route }: SeriesScreenProps) => {
   const apiClient = new APIClient();
   const { title, id } = route.params;
   const { translate } = useTranslate();
   const [textWidth, setTextWidth] = useState(0);
+  const [visible, setVisible] = React.useState(false);
+
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
   const { data } = useQuery<AnimeDetails>(['anime', title, 'details'], () =>
     apiClient.getAnimeDetails(id),
   );
@@ -37,23 +49,42 @@ const SeriesScreen = ({ navigation, route }: SeriesScreenProps) => {
     <SafeAreaView style={[styles.container]}>
       {data ? (
         <ScrollView style={styles.scrollView}>
-          <Image
-            style={[styles.banner]}
-            // source={{
-            //   uri: data.bannerImage
-            //     ? data.bannerImage
-            //     : data.coverImage.extraLarge,
-            // }}
-            source={require('../../../assets/anya.jpeg')}
-          />
-          <LinearGradient
-            colors={['transparent', 'black']}
-            start={{ x: 1, y: 0 }}
-            end={{ x: 0, y: 0 }}
-            locations={[0, 0.45]}
-            style={styles.linearGradient}
-          />
-          <View style={styles.body}>
+          <Portal>
+            <Modal
+              visible={visible}
+              onDismiss={hideModal}
+              contentContainerStyle={styles.modal}>
+              <Text
+                variant="bodyMedium"
+                style={[
+                  darkStyle.font,
+                  globalStyle.spacerSmall,
+                  styles.description,
+                ]}>
+                {data.description.replace(/<[^>]*>?/gm, '')}
+              </Text>
+              <Button onPress={hideModal} focusable={visible}>
+                Press back on remote to close
+              </Button>
+            </Modal>
+          </Portal>
+          <View style={styles.topContainer}>
+            <Image
+              style={[styles.banner]}
+              // source={{
+              //   uri: data.bannerImage
+              //     ? data.bannerImage
+              //     : data.coverImage.extraLarge,
+              // }}
+              source={require('../../../assets/anya.jpeg')}
+            />
+            <LinearGradient
+              colors={['transparent', CombinedDarkTheme.colors.background]}
+              start={{ x: 1, y: 0 }}
+              end={{ x: 0, y: 0 }}
+              locations={[0, 0.45]}
+              style={styles.linearGradient}
+            />
             <View style={styles.leftContainer}>
               <View style={[styles.categorySpacer]} />
               <Text variant="headlineLarge" style={darkStyle.font}>
@@ -80,11 +111,11 @@ const SeriesScreen = ({ navigation, route }: SeriesScreenProps) => {
                   onLayout={e => {
                     setTextWidth(e.nativeEvent.layout.width);
                   }}>
-                  <Text style={{ color: 'white' }}>
-                    {data.description.replace(/<[^>]*>?/gm, '')}
-                  </Text>
+                  <Text>{data.description.replace(/<[^>]*>?/gm, '')}</Text>
                 </View>
-                <Button>{textWidth > 300 ? 'Show more' : null}</Button>
+                <Button onPress={showModal}>
+                  {textWidth > 300 ? 'Show more' : null}
+                </Button>
               </View>
               <View style={[globalStyle.spacer]} />
               <FocusButton
@@ -149,100 +180,100 @@ const SeriesScreen = ({ navigation, route }: SeriesScreenProps) => {
                 />
               </View>
             </View>
-            <View style={styles.bottomContainer}>
-              <View style={[styles.chipContainer, styles.categorySpacer]}>
-                {data.genres.map((genre, index) => {
-                  return (
-                    <Chip key={index} style={styles.chipGenre}>
-                      {genre}
-                    </Chip>
-                  );
-                })}
-              </View>
-              <View style={styles.categorySpacer}>
-                <Text style={[styles.titleType, darkStyle.font]}>
-                  {translate('anime_details.relations')}
-                </Text>
-                <ScrollView horizontal={true}>
-                  {data.relations.map((relation, index) => {
-                    return (
-                      <AnimeRelation
-                        key={index}
-                        relation={relation}
-                        handleNavigation={() => {
-                          if (relation.format !== 'ANIME') {
-                            navigation.navigate(ScreenNames.Series, {
-                              id: relation.id,
-                              title: relation.title.romaji,
-                            });
-                          } else {
-                            Linking.openURL(
-                              'https://anilist.co/' +
-                                relation.type.toLowerCase() +
-                                '/' +
-                                relation.id,
-                            );
-                          }
-                        }}
-                      />
-                    );
-                  })}
-                </ScrollView>
-              </View>
-              {data.trailer && (
-                <>
-                  <Text
-                    style={[
-                      styles.titleType,
-                      styles.categorySpacer,
-                      darkStyle.font,
-                    ]}>
-                    {translate('anime_details.trailer')}
-                  </Text>
-                  <YoutubePlayer
-                    height={300}
-                    videoId={data.trailer?.id}
-                    webViewStyle={styles.marginV}
-                  />
-                </>
-              )}
+          </View>
+          <View style={styles.bottomContainer}>
+            <View style={[styles.chipContainer, styles.categorySpacer]}>
+              {data.genres.map((genre, index) => {
+                return (
+                  <Chip key={index} style={styles.chipGenre}>
+                    {genre}
+                  </Chip>
+                );
+              })}
+            </View>
+            <View style={styles.categorySpacer}>
               <Text style={[styles.titleType, darkStyle.font]}>
-                {translate('anime_details.links')}
+                {translate('anime_details.relations')}
               </Text>
-              <View style={styles.linksContainer}>
-                <View style={styles.linkContainer}>
-                  <ProgressiveImage
-                    source={'https://anilist.co/img/icons/favicon-32x32.png'}
-                    style={[styles.icon]}
-                  />
-                  <Button
-                    mode={'text'}
-                    onPress={() =>
-                      Linking.openURL('https://anilist.co/anime/' + id)
-                    }>
-                    AniList
-                  </Button>
-                </View>
-                {data.externalLinks.map((link, index) => {
+              <ScrollView horizontal={true}>
+                {data.relations.map((relation, index) => {
                   return (
-                    <View style={styles.linkContainer} key={index}>
-                      {link.icon ? (
-                        <ProgressiveImage
-                          source={link.icon}
-                          style={[styles.icon]}
-                        />
-                      ) : (
-                        <View style={styles.icon} />
-                      )}
-                      <Button
-                        mode={'text'}
-                        onPress={() => Linking.openURL(link.url)}>
-                        {link.site} {link.language ? link.language : ''}
-                      </Button>
-                    </View>
+                    <AnimeRelation
+                      key={index}
+                      relation={relation}
+                      handleNavigation={() => {
+                        if (relation.format !== 'ANIME') {
+                          navigation.navigate(ScreenNames.Series, {
+                            id: relation.id,
+                            title: relation.title.romaji,
+                          });
+                        } else {
+                          Linking.openURL(
+                            'https://anilist.co/' +
+                              relation.type.toLowerCase() +
+                              '/' +
+                              relation.id,
+                          );
+                        }
+                      }}
+                    />
                   );
                 })}
+              </ScrollView>
+            </View>
+            {data.trailer && (
+              <>
+                <Text
+                  style={[
+                    styles.titleType,
+                    styles.categorySpacer,
+                    darkStyle.font,
+                  ]}>
+                  {translate('anime_details.trailer')}
+                </Text>
+                <YoutubePlayer
+                  height={300}
+                  videoId={data.trailer?.id}
+                  webViewStyle={styles.marginV}
+                />
+              </>
+            )}
+            <Text style={[styles.titleType, darkStyle.font]}>
+              {translate('anime_details.links')}
+            </Text>
+            <View style={styles.linksContainer}>
+              <View style={styles.linkContainer}>
+                <ProgressiveImage
+                  source={'https://anilist.co/img/icons/favicon-32x32.png'}
+                  style={[styles.icon]}
+                />
+                <Button
+                  mode={'text'}
+                  onPress={() =>
+                    Linking.openURL('https://anilist.co/anime/' + id)
+                  }>
+                  AniList
+                </Button>
               </View>
+              {data.externalLinks.map((link, index) => {
+                return (
+                  <View style={styles.linkContainer} key={index}>
+                    {link.icon ? (
+                      <ProgressiveImage
+                        source={link.icon}
+                        style={[styles.icon]}
+                      />
+                    ) : (
+                      <View style={styles.icon} />
+                    )}
+                    <Button
+                      mode={'text'}
+                      onPress={() => Linking.openURL(link.url)}>
+                      {link.site} {link.language ? link.language : ''}
+                    </Button>
+                  </View>
+                );
+              })}
             </View>
             <Text
               variant="bodySmall"
@@ -264,6 +295,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  modal: {
+    backgroundColor: darkStyle.background.backgroundColor,
+    margin: 20,
+    padding: 20,
+  },
   scrollView: {},
   body: {},
   leftContainer: {
@@ -275,16 +311,17 @@ const styles = StyleSheet.create({
   },
   banner: {
     width: '70%',
-    height: 400,
+    height: '100%',
     resizeMode: 'cover',
     position: 'absolute',
     right: 0,
     top: 0,
   },
+  topContainer: {},
   linearGradient: {
     position: 'absolute',
     width: '60%',
-    height: 400,
+    height: '100%',
   },
   description: {},
   chipContainer: {

@@ -12,7 +12,7 @@ import Routes from './routes/Routes';
 import LanguagesProvider from './i18n/LanguagesProvider';
 import { store } from './services/store/store';
 
-const CombinedDarkTheme = {
+export const CombinedDarkTheme = {
   ...NavigationDarkTheme,
   ...PaperDarkTheme,
   colors: { ...NavigationDarkTheme.colors, ...PaperDarkTheme.colors },
