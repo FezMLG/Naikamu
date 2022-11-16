@@ -2,7 +2,6 @@ import {
   StyleSheet,
   SafeAreaView,
   ScrollView,
-  Image,
   View,
   Linking,
 } from 'react-native';
@@ -76,14 +75,9 @@ const SeriesScreen = ({ navigation, route }: SeriesScreenProps) => {
             </Modal>
           </Portal>
           <View style={styles.topContainer}>
-            <Image
+            <ProgressiveImage
               style={[styles.banner]}
-              // source={{
-              //   uri: data.bannerImage
-              //     ? data.bannerImage
-              //     : data.coverImage.extraLarge,
-              // }}
-              source={require('../../../assets/anya.jpeg')}
+              source={data.coverImage.extraLarge}
             />
             <LinearGradient
               colors={['transparent', CombinedDarkTheme.colors.background]}
@@ -94,16 +88,23 @@ const SeriesScreen = ({ navigation, route }: SeriesScreenProps) => {
             />
             <View style={styles.leftContainer}>
               <View style={[styles.categorySpacer]} />
-              <Text variant="headlineLarge" style={darkStyle.font}>
+              <Text
+                variant="headlineLarge"
+                style={darkStyle.font}
+                accessible={false}>
                 {data.title.romaji ?? data.title.english}
               </Text>
               {data.title.romaji !== data.title.english && (
-                <Text variant="titleSmall" style={darkStyle.font}>
+                <Text
+                  variant="titleSmall"
+                  style={darkStyle.font}
+                  accessible={false}>
                   {data.title.english}
                 </Text>
               )}
               <View>
                 <Text
+                  accessible={false}
                   variant="bodyMedium"
                   numberOfLines={10}
                   style={[

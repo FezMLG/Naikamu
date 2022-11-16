@@ -12,6 +12,9 @@ import { ProgressiveImage } from '../ProgressiveImage';
 import { Text } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
 
+const cardHeight = 220;
+const cardWidth = 150;
+
 const BrowseElement = ({
   anime,
   handlePageChange,
@@ -66,13 +69,13 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   poster: {
-    width: 200,
-    height: 300,
+    width: cardWidth,
+    height: cardHeight,
     borderRadius: 8,
     resizeMode: 'cover',
   },
   title: {
-    width: 200,
+    width: cardWidth,
     paddingVertical: 5,
     paddingHorizontal: 10,
     position: 'relative',
@@ -80,17 +83,17 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   card: {
-    height: 300,
-    width: 200,
-    maxWidth: 220,
+    height: cardHeight,
+    width: cardWidth,
+    maxWidth: cardWidth + 20,
     marginVertical: 10,
     margin: 10,
   },
   linearGradient: {
     position: 'relative',
-    bottom: 100,
-    width: 200,
-    height: 100,
+    bottom: cardHeight / 3,
+    width: cardWidth,
+    height: cardHeight / 3,
     borderRadius: 8,
   },
 });

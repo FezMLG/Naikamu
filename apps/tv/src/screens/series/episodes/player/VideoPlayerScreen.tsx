@@ -1,15 +1,13 @@
 import { StyleSheet, useTVEventHandler, HWEvent, View } from 'react-native';
 import React, { useRef, useState } from 'react';
 import Video, { OnProgressData } from 'react-native-video';
-import VideoPlayer from 'react-native-video-controls';
 
 import { storageGetData, storageStoreData } from '../../../../utils';
 import { WatchNativeScreenProps } from '../../../../routes/main';
 
 const NativeVideoPlayerScreen = ({ route }: WatchNativeScreenProps) => {
-  const { uri } = route.params;
+  const { uri, title, episodeTitle } = route.params;
   const video = useRef<Video>(null);
-  const videoPlayer = useRef<VideoPlayer>(null);
   const [isPaused, setIsPaused] = useState<boolean>(false);
 
   const myTVEventHandler = (evt: HWEvent) => {
@@ -35,12 +33,11 @@ const NativeVideoPlayerScreen = ({ route }: WatchNativeScreenProps) => {
   };
 
   const handleVideoLoad = async () => {
-    const progress = await storageGetData<OnProgressData>(`${uri}`);
+    const progress = await storageGetData<OnProgressData>(
+      `${title} ${episodeTitle}`,
+    );
     if (video) {
       video.current?.seek(progress?.currentTime ?? 0);
-    }
-    if (videoPlayer) {
-      videoPlayer.current?.seekTo(progress?.currentTime ?? 0);
     }
   };
 
