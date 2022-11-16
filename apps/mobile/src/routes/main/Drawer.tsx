@@ -21,6 +21,7 @@ import { globalStyle } from '../../styles/global.style';
 import { StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import SettingsStack from '../settings/SettingsStack';
+import { ENV, API_URL } from '@env';
 
 const defaultOptions = ({ title }: { title?: string }) => {
   return {
@@ -43,6 +44,9 @@ const DrawerContent = (props: DrawerContentComponentProps) => {
         </Text>
       </View>
       <DrawerItemList {...props} />
+      <Text style={{ color: '#f85149' }}>
+        {ENV !== 'prod' && <Text>api_url: {API_URL}</Text>}
+      </Text>
     </DrawerContentScrollView>
   );
 };

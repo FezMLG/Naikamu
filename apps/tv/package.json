@@ -9,7 +9,6 @@
   },
   "packageManager": "yarn",
   "scripts": {
-    "android": "react-native run-android",
     "android:staging": "react-native run-android --variant=stagingdebug --appId=com.aniwatchtv.stg",
     "android:staging-release": "react-native run-android --variant=stagingrelease",
     "android:dev": "react-native run-android --variant=developmentdebug --appId=com.aniwatchtv.dev",
