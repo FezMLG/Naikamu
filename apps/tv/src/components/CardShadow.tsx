@@ -7,7 +7,7 @@ const CardShadow = (props: {
   children: React.ReactNode;
   focus: boolean;
   shadowColor?: string;
-  style?: [StyleProp<ViewStyle>];
+  style?: StyleProp<ViewStyle>[];
 }) => {
   const defaultShadow = {
     distance: 2,
@@ -17,8 +17,8 @@ const CardShadow = (props: {
 
   const focusShadow = {
     distance: 2,
-    startColor: props.shadowColor ?? '#C539F7',
-    finalColor: props.shadowColor ?? '#C539F7',
+    startColor: props.shadowColor ?? '#CC8899',
+    finalColor: props.shadowColor ?? '#CC8899',
   };
 
   return (
