@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 
 import { navigateToPlayer } from './Episode';
-import { TVButton } from '../FocusButton';
+import { TVButton } from '../TVButton';
 import { AnimePlayer } from '../../interfaces';
 
 export const Source = ({

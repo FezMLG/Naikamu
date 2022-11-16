@@ -22,7 +22,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import { darkStyle } from '../../styles/darkMode.style';
 import { globalStyle } from '../../styles/global.style';
-import { TVButton } from '../../components/FocusButton';
+import { TVButton } from '../../components/TVButton';
 import { AnimeDetails } from '../../interfaces';
 import { APIClient } from '../../api/APIClient';
 import { ProgressiveImage } from '../../components/ProgressiveImage';
