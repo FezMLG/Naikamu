@@ -10,7 +10,7 @@ import { useTranslate } from '../../i18n/useTranslate';
 import { Relation } from '../../interfaces';
 import { darkColor } from '../../styles/darkMode.style';
 import { defaultRadius } from '../../styles/global.style';
-import CardShadow from '../CardShadow';
+
 import { ProgressiveImage } from '../ProgressiveImage';
 
 export const AnimeRelation = ({
