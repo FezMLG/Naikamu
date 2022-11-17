@@ -20,7 +20,7 @@ import {
 } from '../services/firebase/fire-auth.service';
 import { useForm, Controller, Control, FieldErrorsImpl } from 'react-hook-form';
 import { ProgressiveImage } from '../components/ProgressiveImage';
-import { ActionType } from '../enums';
+import { ActionType } from '@aniwatch/shared';
 
 export interface SettingsForm {
   displayName: string;

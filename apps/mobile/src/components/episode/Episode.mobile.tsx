@@ -7,7 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import { darkColor, darkStyle } from '../../styles/darkMode.style';
 import { mainEpisodeStyles, navigateToPlayer } from './Episode';
 import { defaultRadius } from '../../styles/global.style';
-import { AnimeEpisode, AnimePlayer, AnimePlayers } from '../../interfaces';
+import { AnimeEpisode, AnimePlayer, AnimePlayers } from '@aniwatch/shared';
 import { APIClient } from '../../api/APIClient';
 import { PlayerMenu } from './PlayerMenu';
 import { useTranslate } from '../../i18n/useTranslate';

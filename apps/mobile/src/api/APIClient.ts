@@ -1,11 +1,11 @@
 import axios, { AxiosInstance, AxiosRequestHeaders } from 'axios';
-import { AnimeSeason } from '../enums/anime-season.enum';
 import {
   AnimeList,
   AnimeDetails,
   AnimeEpisodes,
   AnimePlayers,
-} from '../interfaces';
+  AnimeSeason,
+} from '@aniwatch/shared';
 import { API_URL } from '@env';
 import { fireGetIdToken } from '../services/firebase/fire-auth.service';
 

@@ -5,7 +5,7 @@ import {
   Pressable,
   GestureResponderEvent,
 } from 'react-native';
-import { Media } from '../../interfaces';
+import { Media } from '@aniwatch/shared';
 import { darkStyle } from '../../styles/darkMode.style';
 import { ProgressiveImage } from '../ProgressiveImage';
 import { Text } from 'react-native-paper';

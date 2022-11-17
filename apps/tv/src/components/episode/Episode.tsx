@@ -2,7 +2,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Linking, StyleSheet } from 'react-native';
 
 import { RootStackParamList, ScreenNames } from '../../routes/main';
-import { AnimePlayer } from '../../interfaces';
+import { AnimePlayer } from '@aniwatch/shared';
 import { darkColor, darkStyle } from '../../styles/darkMode.style';
 
 export const navigateToPlayer = async ({

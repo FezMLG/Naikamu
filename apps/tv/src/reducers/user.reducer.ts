@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User } from '../interfaces';
+import { User } from '@aniwatch/shared';
 
 interface UserReducer {
   user: User | null;

@@ -9,7 +9,7 @@ import { FAB } from 'react-native-paper';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { APIClient } from '../../api/APIClient';
-import { AnimeList, Media } from '../../interfaces';
+import { AnimeList, Media } from '@aniwatch/shared';
 import BrowseElement from '../../components/browse/BrowseElement';
 import { SearchResultsScreenProps, ScreenNames } from '../../routes/main';
 import { maxWidth } from '../../components/maxDimensions';

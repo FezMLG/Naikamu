@@ -1,4 +1,4 @@
-import { AnimeSeason } from '../enums/anime-season.enum';
+import { AnimeSeason } from '@aniwatch/shared';
 
 export const getAnimeSeason = (month: number = new Date().getMonth() + 1) => {
   switch (month) {

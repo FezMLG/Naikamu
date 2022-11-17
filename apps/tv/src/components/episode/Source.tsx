@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 
 import { navigateToPlayer } from './Episode';
 import { TVButton } from '../TVButton';
-import { AnimePlayer } from '../../interfaces';
+import { AnimePlayer } from '@aniwatch/shared';
 
 export const Source = ({
   navigation,

@@ -5,12 +5,13 @@ import {
   Pressable,
   GestureResponderEvent,
 } from 'react-native';
-import CardShadow from '../CardShadow';
-import { Media } from '../../interfaces';
-import { darkStyle } from '../../styles/darkMode.style';
-import { ProgressiveImage } from '../ProgressiveImage';
 import { Text } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
+
+import CardShadow from '../CardShadow';
+import { Media } from '@aniwatch/shared';
+import { darkStyle } from '../../styles/darkMode.style';
+import { ProgressiveImage } from '../ProgressiveImage';
 
 const cardHeight = 220;
 const cardWidth = 150;

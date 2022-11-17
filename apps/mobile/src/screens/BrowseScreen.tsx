@@ -6,9 +6,8 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 
 import BrowseElement from '../components/browse/BrowseElement';
 import { maxWidth } from '../components/maxDimensions';
-import { AnimeList, Media } from '../interfaces';
+import { AnimeSeason, AnimeList, Media } from '@aniwatch/shared';
 import { APIClient } from '../api/APIClient';
-import { AnimeSeason } from '../enums/anime-season.enum';
 import { getAnimeSeason } from '../utils/getAnimeSeason';
 import { useTranslate } from '../i18n/useTranslate';
 import { BrowseScreenProps, ScreenNames } from '../routes/main';

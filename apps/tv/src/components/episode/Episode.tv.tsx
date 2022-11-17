@@ -7,7 +7,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { darkStyle, darkColor } from '../../styles/darkMode.style';
 import { mainEpisodeStyles } from './Episode';
 import { defaultRadius } from '../../styles/global.style';
-import { AnimeEpisode, AnimePlayer } from '../../interfaces';
+import { AnimeEpisode, AnimePlayer } from '@aniwatch/shared';
 import { APIClient } from '../../api/APIClient';
 import { Source } from './Source';
 import { useTranslate } from '../../i18n/useTranslate';

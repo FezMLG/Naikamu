@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { Text } from 'react-native-paper';
 import { useTranslate } from '../../i18n/useTranslate';
-import { Relation } from '../../interfaces';
+import { Relation } from '@aniwatch/shared';
 import { darkColor } from '../../styles/darkMode.style';
 import { ProgressiveImage } from '../ProgressiveImage';
 

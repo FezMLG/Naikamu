@@ -1,6 +1,6 @@
 import auth from '@react-native-firebase/auth';
 
-import { User } from '../../interfaces';
+import { User } from '@aniwatch/shared';
 import {
   clearAuthenticatedUser,
   getUserFulfilled,

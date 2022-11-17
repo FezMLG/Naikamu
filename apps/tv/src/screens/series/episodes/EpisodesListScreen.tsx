@@ -12,7 +12,7 @@ import { darkStyle } from '../../../styles/darkMode.style';
 import { EpisodeTV } from '../../../components/episode/Episode.tv';
 import { globalStyle } from '../../../styles/global.style';
 import { APIClient } from '../../../api/APIClient';
-import { AnimeEpisode } from '../../../interfaces';
+import { AnimeEpisode } from '@aniwatch/shared';
 import { useTranslate } from '../../../i18n/useTranslate';
 import { EpisodesScreenProps } from '../../../routes/main';
 

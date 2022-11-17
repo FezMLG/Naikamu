@@ -1,7 +1,7 @@
 import React from 'react';
 import { IconButton, Menu } from 'react-native-paper';
 
-import { AnimePlayer } from '../../interfaces';
+import { AnimePlayer } from '@aniwatch/shared';
 
 export const PlayerMenu = ({ player }: { player: AnimePlayer }) => {
   const [visible, setVisible] = React.useState(false);
