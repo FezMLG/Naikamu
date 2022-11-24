@@ -1,9 +1,10 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { ActionType } from '@aniwatch/shared/src/enums';
+import { ActionType } from '@aniwatch/shared';
 
 export enum ScreenNames {
   Settings = 'Settings',
   SettingsStack = 'SettingsStack',
+  Home = 'Home',
   Browse = 'Browse',
   Search = 'Search',
   HomeDrawer = 'HomeDrawer',
@@ -21,6 +22,7 @@ export type RootStackParamList = {
   [ScreenNames.SettingsStack]: undefined;
   [ScreenNames.ActionConfirm]: { action: () => void; type: ActionType };
   [ScreenNames.Browse]: undefined;
+  [ScreenNames.Home]: undefined;
   [ScreenNames.Search]: undefined;
   [ScreenNames.HomeDrawer]: undefined;
   [ScreenNames.SearchResults]: { phrase?: string };
@@ -55,6 +57,10 @@ export type ActionConfirmScreenProps = NativeStackScreenProps<
 export type BrowseScreenProps = NativeStackScreenProps<
   RootStackParamList,
   ScreenNames.Browse
+>;
+export type HomeScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  ScreenNames.Home
 >;
 export type SearchScreenProps = NativeStackScreenProps<
   RootStackParamList,
