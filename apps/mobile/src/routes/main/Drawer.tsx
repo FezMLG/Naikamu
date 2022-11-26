@@ -22,6 +22,7 @@ import { StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import SettingsStack from '../settings/SettingsStack';
 import { ENV, API_URL } from '@env';
+import { SettingsScreenNames } from '../settings/interfaces';
 
 const defaultOptions = ({ title }: { title?: string }) => {
   return {
@@ -99,7 +100,7 @@ export const DrawerNav = () => {
         name={ScreenNames.SettingsStack}
         component={SettingsStack}
         options={{
-          title: translate('routes.' + ScreenNames.Settings),
+          title: translate('routes.' + SettingsScreenNames.Settings),
           headerShown: false,
         }}
       />

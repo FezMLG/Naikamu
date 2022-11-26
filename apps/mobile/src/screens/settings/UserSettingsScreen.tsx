@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Image,
   KeyboardTypeOptions,
   SafeAreaView,
   StyleSheet,
@@ -8,26 +7,20 @@ import {
 } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper';
 import { useSelector } from 'react-redux';
-
-import { RootState, useAppDispatch } from '../services/store/store';
-import { useTranslate } from '../i18n/useTranslate';
-import { globalStyle } from '../styles/global.style';
-import { ScreenNames, SettingsScreenProps } from '../routes/main';
-import {
-  fireDeleteAccount,
-  fireLogoutUser,
-  fireUpdateUser,
-} from '../services/firebase/fire-auth.service';
 import { useForm, Controller, Control, FieldErrorsImpl } from 'react-hook-form';
-import { ProgressiveImage } from '../components/ProgressiveImage';
-import { ActionType } from '@aniwatch/shared';
 
-export interface SettingsForm {
+import { RootState, useAppDispatch } from '../../services/store/store';
+import { useTranslate } from '../../i18n/useTranslate';
+import { globalStyle } from '../../styles/global.style';
+import { fireUpdateUser } from '../../services/firebase/fire-auth.service';
+import { UserSettingsScreenProps } from '../../routes/settings/interfaces';
+
+export interface UserSettingsForm {
   displayName: string;
   email: string;
 }
 
-type SettingsFormType = keyof SettingsForm;
+type UserSettingsFormType = keyof UserSettingsForm;
 
 const FormTextInput = ({
   control,
@@ -36,11 +29,11 @@ const FormTextInput = ({
   keyboardType,
   autoCorrect = false,
 }: {
-  control: Control<SettingsForm, any>;
-  name: SettingsFormType;
+  control: Control<UserSettingsForm, any>;
+  name: UserSettingsFormType;
   keyboardType?: KeyboardTypeOptions;
   autoCorrect?: boolean;
-  errors: Partial<FieldErrorsImpl<SettingsForm>>;
+  errors: Partial<FieldErrorsImpl<UserSettingsForm>>;
 }) => {
   const { translate } = useTranslate();
   return (
@@ -78,7 +71,7 @@ const FormTextInput = ({
   );
 };
 
-const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
+const UserSettingsScreen = ({}: UserSettingsScreenProps) => {
   const { user } = useSelector((state: RootState) => state.user);
   const dispatch = useAppDispatch();
   const { translate } = useTranslate();
@@ -93,34 +86,14 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
     },
   });
 
-  const handleSettingsSubmit = async (data: SettingsForm) => {
+  const handleSettingsSubmit = async (data: UserSettingsForm) => {
+    //TODO confirmation about updated data
     await dispatch(fireUpdateUser(data));
-  };
-
-  const handleAccountDelete = async () => {
-    try {
-      await dispatch(fireDeleteAccount());
-    } catch (error: any) {
-      if (error.code === 'auth/requires-recent-login') {
-        await dispatch(fireLogoutUser());
-      } else {
-        console.error(error);
-      }
-    }
   };
 
   return (
     <SafeAreaView style={[styles.container]}>
       <View>
-        {user?.picture ? (
-          <ProgressiveImage source={user.picture} style={[styles.logo]} />
-        ) : (
-          <Image
-            style={styles.logo}
-            source={require('../../assets/anya.jpeg')}
-          />
-        )}
-
         <Text
           style={[styles.textCenter, globalStyle.marginTop]}
           variant="titleLarge">
@@ -150,31 +123,6 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
           {translate('forms.save')}
         </Button>
       </View>
-      <Button
-        mode={'outlined'}
-        style={[styles.center, globalStyle.marginTopBig]}
-        onPress={() => dispatch(fireLogoutUser())}>
-        {translate('auth.logout')}
-      </Button>
-      <Button
-        mode={'outlined'}
-        style={[
-          styles.center,
-          globalStyle.marginTopBig,
-          { borderColor: '#f85149' },
-        ]}
-        onPress={() =>
-          navigation.navigate(ScreenNames.ActionConfirm, {
-            action: () => {
-              handleAccountDelete();
-            },
-            type: ActionType.AccountDelete,
-          })
-        }>
-        <Text style={{ color: '#f85149' }}>
-          {translate('auth.delete_account')}
-        </Text>
-      </Button>
     </SafeAreaView>
   );
 };
@@ -213,4 +161,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SettingsScreen;
+export default UserSettingsScreen;

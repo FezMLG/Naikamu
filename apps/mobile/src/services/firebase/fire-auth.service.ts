@@ -7,7 +7,7 @@ import {
   getUserPending,
   getUserRejected,
 } from '../../reducers/user.reducer';
-import { SettingsForm } from '../../screens/SettingsScreen';
+import { SettingsForm } from '../../screens/settings/SettingsScreen';
 import { AppDispatch } from '../store/store';
 
 export const fireLoginUser =

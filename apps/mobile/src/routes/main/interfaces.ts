@@ -1,8 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { ActionType } from '@aniwatch/shared';
 
 export enum ScreenNames {
-  Settings = 'Settings',
   SettingsStack = 'SettingsStack',
   Home = 'Home',
   Browse = 'Browse',
@@ -14,13 +12,10 @@ export enum ScreenNames {
   WatchWebView = 'WatchWebView',
   WatchError = 'WatchError',
   Episodes = 'Episodes',
-  ActionConfirm = 'ActionConfirm',
 }
 
 export type RootStackParamList = {
-  [ScreenNames.Settings]: undefined;
   [ScreenNames.SettingsStack]: undefined;
-  [ScreenNames.ActionConfirm]: { action: () => void; type: ActionType };
   [ScreenNames.Browse]: undefined;
   [ScreenNames.Home]: undefined;
   [ScreenNames.Search]: undefined;
@@ -42,17 +37,9 @@ export type RootStackParamList = {
   [ScreenNames.WatchError]: { playerName: string; animeTitle: string };
 };
 
-export type SettingsScreenProps = NativeStackScreenProps<
-  RootStackParamList,
-  ScreenNames.Settings
->;
 export type SettingsStackScreenProps = NativeStackScreenProps<
   RootStackParamList,
   ScreenNames.SettingsStack
->;
-export type ActionConfirmScreenProps = NativeStackScreenProps<
-  RootStackParamList,
-  ScreenNames.ActionConfirm
 >;
 export type BrowseScreenProps = NativeStackScreenProps<
   RootStackParamList,
