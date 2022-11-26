@@ -3,11 +3,13 @@ import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Text } from 'react-native-paper';
 
-import { ActionConfirmScreenProps } from '../../routes/main';
 import { useTranslate } from '../../i18n/useTranslate';
 import { globalStyle } from '../../styles/global.style';
+import { SettingsActionConfirmScreenProps } from '../../routes/settings/interfaces';
 
-const ActionConfirmScreen = ({ route }: ActionConfirmScreenProps) => {
+const SettingsActionConfirmScreen = ({
+  route,
+}: SettingsActionConfirmScreenProps) => {
   const { action, type } = route.params;
   const { translate } = useTranslate();
 
@@ -48,4 +50,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ActionConfirmScreen;
+export default SettingsActionConfirmScreen;

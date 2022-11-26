@@ -1,13 +1,18 @@
 import React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { IconButton } from 'react-native-paper';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { DrawerActions } from '@react-navigation/native';
 
 import { useTranslate } from '../../i18n/useTranslate';
-import { DrawerActions } from '@react-navigation/native';
-import SettingsScreen from '../../screens/SettingsScreen';
-import { RootStackParamList, ScreenNames, SettingsScreenProps } from '../main';
-import ActionConfirmScreen from '../../screens/auth/ActionConfirmScreen';
-import { LogBox } from 'react-native';
+import SettingsScreen from '../../screens/settings/SettingsScreen';
+import SettingsActionConfirmScreen from '../../screens/settings/ActionConfirmScreen';
+import {
+  SettingsScreenNames,
+  SettingsScreenProps,
+  SettingsStackParamList,
+} from './interfaces';
+import UserSettingsScreen from '../../screens/settings/UserSettingsScreen';
+import DangerSettingsScreen from '../../screens/settings/DangerSettingsScreen';
 
 const defaultOptions = ({ title }: { title?: string }) => {
   return {
@@ -15,23 +20,21 @@ const defaultOptions = ({ title }: { title?: string }) => {
   };
 };
 
-LogBox.ignoreLogs([
-  'Non-serializable values were found in the navigation state',
-]);
-
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const Stack = createNativeStackNavigator<SettingsStackParamList>();
 
 const SettingsStack = () => {
   const { translate } = useTranslate();
 
   return (
-    <Stack.Navigator initialRouteName={ScreenNames.Settings}>
+    <Stack.Navigator initialRouteName={SettingsScreenNames.Settings}>
       <Stack.Screen
-        name={ScreenNames.Settings}
+        name={SettingsScreenNames.Settings}
         component={SettingsScreen}
         options={({ navigation }: SettingsScreenProps) => ({
           ...defaultOptions({
-            title: translate('routes.' + ScreenNames.Settings),
+            title: translate(
+              'settings.categories.' + SettingsScreenNames.Settings,
+            ),
           }),
           animation: 'slide_from_right',
           headerLeft: () => (
@@ -44,11 +47,38 @@ const SettingsStack = () => {
         })}
       />
       <Stack.Screen
-        name={ScreenNames.ActionConfirm}
-        component={ActionConfirmScreen}
+        name={SettingsScreenNames.UserSettings}
+        component={UserSettingsScreen}
+        options={() => ({
+          ...defaultOptions({
+            title: translate(
+              'settings.categories.' + SettingsScreenNames.Settings,
+            ),
+          }),
+          animation: 'slide_from_right',
+        })}
+      />
+      <Stack.Screen
+        name={SettingsScreenNames.DangerSettings}
+        component={DangerSettingsScreen}
+        options={() => ({
+          ...defaultOptions({
+            title: translate(
+              'settings.categories.' + SettingsScreenNames.Settings,
+            ),
+          }),
+          animation: 'slide_from_right',
+        })}
+      />
+      <Stack.Screen
+        name={SettingsScreenNames.SettingsActionConfirm}
+        component={SettingsActionConfirmScreen}
         options={{
           ...defaultOptions({
-            title: translate('routes.' + ScreenNames.ActionConfirm),
+            title: translate(
+              'settings.categories.' +
+                SettingsScreenNames.SettingsActionConfirm,
+            ),
           }),
           animation: 'slide_from_right',
         }}

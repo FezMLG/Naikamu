@@ -1,4 +1,7 @@
+import { enSettings } from './categories';
+
 export const en = {
+  ...enSettings,
   routes: {
     Browse: 'Browse',
     Episodes: 'Episodes',

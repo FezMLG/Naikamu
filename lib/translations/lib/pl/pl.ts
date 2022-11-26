@@ -1,4 +1,7 @@
+import { plSettings } from './categories';
+
 export const pl = {
+  ...plSettings,
   routes: {
     Browse: 'Przeglądaj',
     Episodes: 'Epizody',
