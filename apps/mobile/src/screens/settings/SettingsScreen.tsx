@@ -26,7 +26,7 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
         ) : (
           <Image
             style={styles.logo}
-            source={require('../../assets/anya.jpeg')}
+            source={require('../../../assets/anya.jpeg')}
           />
         )}
 
