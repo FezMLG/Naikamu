@@ -23,6 +23,7 @@ export type RootStackParamList = {
   [ScreenNames.SearchResults]: { phrase?: string };
   [ScreenNames.Series]: { title: string; id: number };
   [ScreenNames.Episodes]: {
+    id: string;
     title: string;
     numOfAiredEpisodes: number;
     posterUrl: string;

@@ -1,6 +1,7 @@
 import { AnimeSeason } from '../enums/anime-season.enum';
 
 export interface AnimeDetails {
+  id: string;
   sourceId: number;
   dataSource: string;
   bannerImage: string;

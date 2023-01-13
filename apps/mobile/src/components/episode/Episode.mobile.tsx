@@ -1,7 +1,6 @@
 import React from 'react';
 import { Image, SafeAreaView, StyleSheet, View } from 'react-native';
 import { ActivityIndicator, List, Text } from 'react-native-paper';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useQuery } from '@tanstack/react-query';
 
 import { darkColor, darkStyle } from '../../styles/darkMode.style';
@@ -11,23 +10,20 @@ import { AnimeEpisode, AnimePlayer, AnimePlayers } from '@aniwatch/shared';
 import { APIClient } from '../../api/APIClient';
 import { PlayerMenu } from './PlayerMenu';
 import { useTranslate } from '../../i18n/useTranslate';
-import { RootStackParamList, ScreenNames } from '../../routes/main';
+import { SeriesScreenProps } from '../../routes/main';
+import { useNavigation } from '@react-navigation/native';
 
 export const EpisodeMobileLink = ({
   animeName,
   episodeTitle,
-  navigation,
   players,
 }: {
   animeName: string;
   episodeTitle: string;
-  navigation: NativeStackNavigationProp<
-    RootStackParamList,
-    ScreenNames.Episodes,
-    undefined
-  >;
   players: AnimePlayers;
 }) => {
+  const navigation = useNavigation<SeriesScreenProps>();
+
   return (
     <>
       {players.players.map((player: AnimePlayer, index: number) => {
@@ -54,26 +50,22 @@ export const EpisodeMobileLink = ({
 
 export const EpisodeMobile = ({
   num,
-  navigation,
   episode,
   posterUrl,
+  id,
   animeName,
 }: {
   num: number;
-  navigation: NativeStackNavigationProp<
-    RootStackParamList,
-    ScreenNames.Episodes,
-    undefined
-  >;
   episode: AnimeEpisode;
   posterUrl: string;
+  id: string;
   animeName: string;
 }) => {
   const apiClient = new APIClient();
   const { translate } = useTranslate();
   const { data, refetch } = useQuery(
     ['anime', 'episodes', num],
-    () => apiClient.getEpisodePlayers(animeName, num),
+    () => apiClient.getEpisodePlayers(id, num),
     {
       enabled: false,
     },
@@ -108,7 +100,6 @@ export const EpisodeMobile = ({
             <EpisodeMobileLink
               animeName={animeName}
               players={data}
-              navigation={navigation}
               episodeTitle={episode.title}
             />
           ) : (
