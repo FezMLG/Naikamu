@@ -1,13 +1,9 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import classNames from 'classnames';
-import { ActivityIndicator, Button as PaperButton } from 'react-native-paper';
+import { Button as PaperButton } from 'react-native-paper';
 
-interface ResponsiveButtonProps {
-  block?: boolean;
-}
-
-interface ButtonProps extends ResponsiveButtonProps {
-  htmlType?: 'button' | 'submit';
+interface ButtonProps {
+  mode?: 'text' | 'outlined' | 'contained' | 'elevated' | 'contained-tonal';
   type?:
     | 'primary'
     | 'secondary'
@@ -18,23 +14,11 @@ interface ButtonProps extends ResponsiveButtonProps {
     | 'danger'
     | 'link';
   disabled?: boolean;
-  readonly?: boolean;
   size?: '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-  suffix?: ReactElement;
-  prefix?: ReactElement;
-  onClick?:
-    | ((
-        event: React.MouseEvent<HTMLAnchorElement> &
-          React.MouseEvent<HTMLButtonElement>,
-      ) => void)
-    | (() => void);
+  onPress?: (() => void) | undefined;
   loading?: boolean;
-  href?: string;
-  target?: '_blank';
   className?: string;
-  testId?: string;
   form?: string;
-  download?: boolean;
 }
 
 export const Button = React.forwardRef<
@@ -42,44 +26,28 @@ export const Button = React.forwardRef<
   React.PropsWithChildren<ButtonProps>
 >(function Button(props, ref) {
   const {
-    htmlType,
     type = 'primary',
+    mode = 'contained',
     disabled,
-    readonly,
     size = 'md',
-    prefix,
-    suffix,
-    block,
-    onClick,
+    onPress,
     loading,
-    href,
-    target,
     className = '',
-    testId,
     form,
-    download,
     children,
   } = props;
 
   const buttonProps = {
-    type: htmlType,
+    mode: mode,
     className: classNames(
       `inline-flex items-center font-medium border transition rounded-3xl btn--${type} btn--${size} `,
       className,
     ),
-    disabled: disabled || loading,
-    onClick: onClick,
-    'data-testid': testId,
+    loading: loading,
+    disabled: disabled,
+    onPress: onPress,
     form,
-    download,
-    children: (
-      <>
-        {prefix && <span className="btn-prefix">{prefix}</span>}
-        {children}
-        {loading && <ActivityIndicator color="inherit" />}
-        {suffix && <span className="btn-suffix">{suffix}</span>}
-      </>
-    ),
+    children: <>{children}</>,
   };
 
   return <PaperButton {...buttonProps} />;
