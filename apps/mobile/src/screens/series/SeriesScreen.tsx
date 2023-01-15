@@ -58,6 +58,7 @@ const SeriesScreen = ({ navigation, route }: SeriesScreenProps) => {
               icon="play-box-multiple"
               onPress={() => {
                 navigation.navigate(ScreenNames.Episodes, {
+                  id: data.id,
                   title: data.title.romaji,
                   numOfAiredEpisodes: data.nextAiringEpisode?.episode
                     ? data.nextAiringEpisode?.episode - 1

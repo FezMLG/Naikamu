@@ -1,7 +1,6 @@
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Linking, StyleSheet } from 'react-native';
 
-import { RootStackParamList, ScreenNames } from '../../routes/main';
+import { ScreenNames, SeriesScreenProps } from '../../routes/main';
 import { AnimePlayer } from '@aniwatch/shared';
 import { darkColor, darkStyle } from '../../styles/darkMode.style';
 
@@ -11,11 +10,7 @@ export const navigateToPlayer = async ({
   episodeTitle,
   animeTitle,
 }: {
-  navigation: NativeStackNavigationProp<
-    RootStackParamList,
-    ScreenNames.Episodes,
-    undefined
-  >;
+  navigation: SeriesScreenProps;
   player: AnimePlayer;
   episodeTitle: string;
   animeTitle: string;
@@ -27,7 +22,7 @@ export const navigateToPlayer = async ({
 
   switch (name) {
     case 'cda':
-      return navigation.navigate(ScreenNames.WatchNative, {
+      return navigation.navigation.navigate(ScreenNames.WatchNative, {
         uri: player.player_link,
         title: animeTitle,
         episodeTitle: episodeTitle,
@@ -39,7 +34,7 @@ export const navigateToPlayer = async ({
       return Linking.openURL(player.player_link);
 
     default:
-      return navigation.navigate(ScreenNames.WatchWebView, {
+      return navigation.navigation.navigate(ScreenNames.WatchWebView, {
         uri: player.player_link,
       });
   }

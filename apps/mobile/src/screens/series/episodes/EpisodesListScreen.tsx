@@ -8,25 +8,23 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Text } from 'react-native-paper';
 
+import { AnimeEpisode } from '@aniwatch/shared';
+
 import { darkStyle } from '../../../styles/darkMode.style';
 import { EpisodeMobile } from '../../../components/episode/Episode.mobile';
 import { globalStyle } from '../../../styles/global.style';
 import { APIClient } from '../../../api/APIClient';
-import { AnimeEpisode } from '../@aniwatch/shared';
 import { useTranslate } from '../../../i18n/useTranslate';
 import { EpisodesScreenProps } from '../../../routes/main';
 
-const EpisodesListScreen = ({ navigation, route }: EpisodesScreenProps) => {
+const EpisodesListScreen = ({ route }: EpisodesScreenProps) => {
   const apiClient = new APIClient();
   const { translate } = useTranslate();
 
   const { isLoading, data, isError } = useQuery(
-    ['anime', route.params.title, 'episodes'],
+    ['anime', route.params.id, 'episodes'],
     () =>
-      apiClient.getEpisodes(
-        route.params.title,
-        route.params.numOfAiredEpisodes,
-      ),
+      apiClient.getEpisodes(route.params.id, route.params.numOfAiredEpisodes),
   );
 
   return (
@@ -42,9 +40,9 @@ const EpisodesListScreen = ({ navigation, route }: EpisodesScreenProps) => {
               <EpisodeMobile
                 key={index}
                 num={index + 1}
-                navigation={navigation}
                 episode={episode}
                 posterUrl={route.params.posterUrl}
+                id={route.params.id}
                 animeName={route.params.title}
               />
             );

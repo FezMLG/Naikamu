@@ -1,32 +1,31 @@
 import { StyleSheet, ActivityIndicator, FlatList } from 'react-native';
 import React, { useRef, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { FAB, SegmentedButtons } from 'react-native-paper';
+import { FAB } from 'react-native-paper';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import BrowseElement from '../components/browse/BrowseElement';
 import { maxWidth } from '../components/maxDimensions';
-import { AnimeSeason, AnimeList, Media } from '@aniwatch/shared';
+import { AnimeList, Media } from '@aniwatch/shared';
 import { APIClient } from '../api/APIClient';
 import { getAnimeSeason } from '../utils/getAnimeSeason';
-import { useTranslate } from '../i18n/useTranslate';
 import { BrowseScreenProps, ScreenNames } from '../routes/main';
+import { SeasonYearSelectButtons } from '../components';
 
 const BrowseScreen = ({ navigation }: BrowseScreenProps) => {
   const CONTENT_OFFSET_THRESHOLD = 300;
   const apiClient = new APIClient();
-  const { translate } = useTranslate();
 
   const [season, setSeason] = useState(getAnimeSeason());
-  const [seasonYear] = useState(new Date().getFullYear());
+  const [year, setYear] = useState(new Date().getFullYear());
   const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
   const listRef = useRef<FlatList>(null);
 
   const { isLoading, data, refetch, fetchNextPage, isRefetching } =
     useInfiniteQuery<AnimeList>(
-      ['browse', season, seasonYear],
+      ['browse', season, year],
       ({ pageParam }) =>
-        apiClient.getAnimeList({ page: pageParam, season, seasonYear }),
+        apiClient.getAnimeList({ page: pageParam, season, seasonYear: year }),
       {
         getNextPageParam: lastPage => lastPage.Page.pageInfo.currentPage + 1,
       },
@@ -46,31 +45,11 @@ const BrowseScreen = ({ navigation }: BrowseScreenProps) => {
 
   return (
     <SafeAreaView style={[styles.container]}>
-      <SegmentedButtons
-        value={season}
-        onValueChange={value => setSeason(value as AnimeSeason)}
-        buttons={[
-          {
-            value: AnimeSeason.Winter,
-            label: translate('animeSeason.winter'),
-            icon: 'snowflake',
-          },
-          {
-            value: AnimeSeason.Spring,
-            label: translate('animeSeason.spring'),
-            icon: 'flower',
-          },
-          {
-            value: AnimeSeason.Summer,
-            label: translate('animeSeason.summer'),
-            icon: 'white-balance-sunny',
-          },
-          {
-            value: AnimeSeason.Fall,
-            label: translate('animeSeason.fall'),
-            icon: 'leaf',
-          },
-        ]}
+      <SeasonYearSelectButtons
+        season={season}
+        setSeason={setSeason}
+        year={year}
+        setYear={setYear}
       />
       {isLoading ? <ActivityIndicator size="large" /> : null}
       {data ? (
