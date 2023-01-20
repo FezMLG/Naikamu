@@ -2,7 +2,6 @@ module.exports = {
   presets: ['module:metro-react-native-babel-preset'],
   plugins: [
     ['module:react-native-dotenv'],
-    ['react-native-reanimated/plugin'],
     [
       'module-resolver',
       {
@@ -11,5 +10,6 @@ module.exports = {
         },
       },
     ],
+    ['react-native-reanimated/plugin'],
   ],
 };
