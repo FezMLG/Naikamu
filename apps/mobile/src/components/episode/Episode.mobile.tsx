@@ -10,7 +10,6 @@ import { AnimeEpisode, AnimePlayer, AnimePlayers } from '@aniwatch/shared';
 import { APIClient } from '../../api/APIClient';
 import { PlayerMenu } from './PlayerMenu';
 import { useTranslate } from '../../i18n/useTranslate';
-import { SeriesScreenProps } from '../../routes/main';
 import { useNavigation } from '@react-navigation/native';
 
 export const EpisodeMobileLink = ({
@@ -22,7 +21,7 @@ export const EpisodeMobileLink = ({
   episodeTitle: string;
   players: AnimePlayers;
 }) => {
-  const navigation = useNavigation<SeriesScreenProps>();
+  const navigation = useNavigation();
 
   return (
     <>
