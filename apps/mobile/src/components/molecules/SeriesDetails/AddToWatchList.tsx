@@ -17,7 +17,7 @@ export const AddToWatchList = ({ animeId }: AddToWatchListProps) => {
   return (
     <View>
       {mutation.isLoading ? (
-        'Adding todo...'
+        'Adding to watchlist...'
       ) : (
         <>
           {mutation.isError ? (
