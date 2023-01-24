@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import React from 'react';
+import { View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 import { APIClient } from '../../../api/APIClient';
 
@@ -14,15 +15,13 @@ export const AddToWatchList = ({ animeId }: AddToWatchListProps) => {
   });
 
   return (
-    <div>
+    <View>
       {mutation.isLoading ? (
         'Adding todo...'
       ) : (
         <>
           {mutation.isError ? (
-            <Text>
-              <>An error occurred: {mutation.error}</>
-            </Text>
+            <Text>{'An error occurred ' + mutation.error}</Text>
           ) : null}
 
           {mutation.isSuccess ? <Text>Added to watchlist</Text> : null}
@@ -35,6 +34,6 @@ export const AddToWatchList = ({ animeId }: AddToWatchListProps) => {
           </Button>
         </>
       )}
-    </div>
+    </View>
   );
 };
