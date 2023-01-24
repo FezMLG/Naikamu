@@ -8,7 +8,7 @@ import { useTranslate } from '../../../i18n/useTranslate';
 import { APIClient } from '../../../api/APIClient';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { ScreenNames, SeriesScreenProps } from '../../../routes/main';
+import { ScreenNames } from '../../../routes/main';
 import { Button, Text } from 'react-native-paper';
 import { AddToWatchList } from './AddToWatchList';
 
