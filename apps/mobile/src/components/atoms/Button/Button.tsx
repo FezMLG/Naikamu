@@ -1,5 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
 import { Button as PaperButton } from 'react-native-paper';
 
 interface ButtonProps {
@@ -39,10 +38,6 @@ export const Button = React.forwardRef<
 
   const buttonProps = {
     mode: mode,
-    className: classNames(
-      `inline-flex items-center font-medium border transition rounded-3xl btn--${type} btn--${size} `,
-      className,
-    ),
     loading: loading,
     disabled: disabled,
     onPress: onPress,

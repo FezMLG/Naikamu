@@ -22,6 +22,7 @@ import { QuickInfo } from '../../components/series/QuickInfo';
 import { AnimeRelation } from '../../components/series/Relation';
 import { useTranslate } from '../../i18n/useTranslate';
 import { SeriesScreenProps, ScreenNames } from '../../routes/main';
+import { SeriesDetailsWatch } from '../../components';
 
 const SeriesScreen = ({ navigation, route }: SeriesScreenProps) => {
   const apiClient = new APIClient();
@@ -54,21 +55,7 @@ const SeriesScreen = ({ navigation, route }: SeriesScreenProps) => {
               </Text>
             )}
             <View style={[globalStyle.spacer]} />
-            <FocusButton
-              icon="play-box-multiple"
-              onPress={() => {
-                navigation.navigate(ScreenNames.Episodes, {
-                  id: data.id,
-                  title: data.title.romaji,
-                  numOfAiredEpisodes: data.nextAiringEpisode?.episode
-                    ? data.nextAiringEpisode?.episode - 1
-                    : data.episodes,
-                  posterUrl: data.coverImage.extraLarge,
-                });
-              }}
-              style={[]}>
-              {translate('anime_details.see_episodes')}
-            </FocusButton>
+            <SeriesDetailsWatch series={data} />
             <ScrollView
               horizontal={true}
               style={[styles.quickInfoScroll, styles.categorySpacer]}>
