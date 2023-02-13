@@ -10,7 +10,6 @@ import React from 'react';
 import { format } from 'date-fns';
 import { useQuery } from '@tanstack/react-query';
 import { ActivityIndicator, Button, Chip, Text } from 'react-native-paper';
-import YoutubePlayer from 'react-native-youtube-iframe';
 
 import { AnimeDetails } from '@aniwatch/shared';
 
@@ -149,58 +148,59 @@ const SeriesScreen = ({ navigation, route }: SeriesScreenProps) => {
               </ScrollView>
             </View>
             {data.trailer && (
-              <>
-                <Text
-                  style={[
-                    styles.titleType,
-                    styles.categorySpacer,
-                    darkStyle.font,
-                  ]}>
+              <View style={styles.categorySpacer}>
+                <Text style={[styles.titleType, darkStyle.font]}>
                   {translate('anime_details.trailer')}
                 </Text>
-                <YoutubePlayer
-                  height={300}
-                  videoId={data.trailer?.id}
-                  webViewStyle={styles.marginV}
-                />
-              </>
-            )}
-            <Text style={[styles.titleType, darkStyle.font]}>
-              {translate('anime_details.links')}
-            </Text>
-            <View style={styles.linksContainer}>
-              <View style={styles.linkContainer}>
-                <ProgressiveImage
-                  source={'https://anilist.co/img/icons/favicon-32x32.png'}
-                  style={[styles.icon]}
-                />
                 <Button
-                  mode={'text'}
+                  mode="outlined"
                   onPress={() =>
-                    Linking.openURL('https://anilist.co/anime/' + id)
+                    Linking.openURL(
+                      'https://www.youtube.com/watch?v=' + data.trailer!.id,
+                    )
                   }>
-                  AniList
+                  <Text>Show trailer</Text>
                 </Button>
               </View>
-              {data.externalLinks.map((link, index) => {
-                return (
-                  <View style={styles.linkContainer} key={index}>
-                    {link.icon ? (
-                      <ProgressiveImage
-                        source={link.icon}
-                        style={[styles.icon]}
-                      />
-                    ) : (
-                      <View style={styles.icon} />
-                    )}
-                    <Button
-                      mode={'text'}
-                      onPress={() => Linking.openURL(link.url)}>
-                      {link.site} {link.language ? link.language : ''}
-                    </Button>
-                  </View>
-                );
-              })}
+            )}
+            <View style={styles.categorySpacer}>
+              <Text style={[styles.titleType, darkStyle.font]}>
+                {translate('anime_details.links')}
+              </Text>
+              <View style={styles.linksContainer}>
+                <View style={styles.linkContainer}>
+                  <ProgressiveImage
+                    source={'https://anilist.co/img/icons/favicon-32x32.png'}
+                    style={[styles.icon]}
+                  />
+                  <Button
+                    mode={'text'}
+                    onPress={() =>
+                      Linking.openURL('https://anilist.co/anime/' + id)
+                    }>
+                    AniList
+                  </Button>
+                </View>
+                {data.externalLinks.map((link, index) => {
+                  return (
+                    <View style={styles.linkContainer} key={index}>
+                      {link.icon ? (
+                        <ProgressiveImage
+                          source={link.icon}
+                          style={[styles.icon]}
+                        />
+                      ) : (
+                        <View style={styles.icon} />
+                      )}
+                      <Button
+                        mode={'text'}
+                        onPress={() => Linking.openURL(link.url)}>
+                        {link.site} {link.language ? link.language : ''}
+                      </Button>
+                    </View>
+                  );
+                })}
+              </View>
             </View>
             <Text
               variant="bodySmall"
