@@ -1,6 +1,5 @@
 export interface AnimeEpisodes {
   episodes: AnimeEpisode[];
-  num_of_episodes: number;
 }
 
 export interface AnimeEpisode {
@@ -9,4 +8,5 @@ export interface AnimeEpisode {
   title: string;
   number: number;
   description: string;
+  isWatched: boolean;
 }

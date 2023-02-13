@@ -21,32 +21,34 @@ const EpisodesListScreen = ({ route }: EpisodesScreenProps) => {
   const apiClient = new APIClient();
   const { translate } = useTranslate();
 
-  const { isLoading, data, isError } = useQuery(
-    ['anime', route.params.id, 'episodes'],
-    () =>
-      apiClient.getEpisodes(route.params.id, route.params.numOfAiredEpisodes),
+  const episodes = useQuery(['anime', route.params.id, 'episodes'], () =>
+    apiClient.getEpisodes(route.params.id, route.params.numOfAiredEpisodes),
   );
 
   return (
     <SafeAreaView style={[styles.container]}>
       <ScrollView style={styles.scrollView}>
-        {isLoading && <ActivityIndicator size="large" />}
-        {isError && (
+        {episodes.isLoading && <ActivityIndicator size="large" />}
+        {episodes.isError && (
           <Text>{translate('anime_episodes.players_not_found')}</Text>
         )}
-        {data &&
-          data.episodes.map((episode: AnimeEpisode, index: number) => {
-            return (
-              <EpisodeMobile
-                key={index}
-                num={index + 1}
-                episode={episode}
-                posterUrl={route.params.posterUrl}
-                id={route.params.id}
-                animeName={route.params.title}
-              />
-            );
-          })}
+        {episodes.data
+          ? episodes.data.episodes.map(
+              (episode: AnimeEpisode, index: number) => {
+                return (
+                  <EpisodeMobile
+                    key={index}
+                    num={index + 1}
+                    episode={episode}
+                    posterUrl={route.params.posterUrl}
+                    id={route.params.id}
+                    animeName={route.params.title}
+                    isWatched={episode.isWatched}
+                  />
+                );
+              },
+            )
+          : null}
         <Text
           variant="bodySmall"
           style={[globalStyle.disclaimer, darkStyle.font]}>

@@ -11,6 +11,7 @@ import { APIClient } from '../../api/APIClient';
 import { PlayerMenu } from './PlayerMenu';
 import { useTranslate } from '../../i18n/useTranslate';
 import { useNavigation } from '@react-navigation/native';
+import { UpdateEpisodeWatchStatus } from '../molecules';
 
 export const EpisodeMobileLink = ({
   animeName,
@@ -53,12 +54,14 @@ export const EpisodeMobile = ({
   posterUrl,
   id,
   animeName,
+  isWatched,
 }: {
   num: number;
   episode: AnimeEpisode;
   posterUrl: string;
   id: string;
   animeName: string;
+  isWatched: boolean;
 }) => {
   const apiClient = new APIClient();
   const { translate } = useTranslate();
@@ -77,13 +80,20 @@ export const EpisodeMobile = ({
           style={[styles.poster, styles.borderRadius]}
           source={{ uri: episode.poster_url ?? posterUrl }}
         />
-        <Text
-          variant="titleLarge"
-          accessible={false}
-          numberOfLines={2}
-          style={[styles.title, darkStyle.font]}>
-          {num + '. ' + episode.title}
-        </Text>
+        <View style={styles.titleRow}>
+          <Text
+            variant="titleLarge"
+            accessible={false}
+            numberOfLines={2}
+            style={[styles.title, darkStyle.font]}>
+            {num + '. ' + episode.title}
+          </Text>
+          <UpdateEpisodeWatchStatus
+            animeId={id}
+            isWatched={isWatched}
+            episode={episode.number}
+          />
+        </View>
         <Text
           variant="bodyMedium"
           accessible={false}
@@ -132,5 +142,15 @@ const styles = StyleSheet.create({
     backgroundColor: darkColor.C900,
     borderBottomRightRadius: defaultRadius,
     borderBottomLeftRadius: defaultRadius,
+  },
+  titleRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    minHeight: 45,
+  },
+  title: {
+    ...mainEpisodeStyles.title,
+    width: 'auto',
+    maxWidth: 300,
   },
 });

@@ -1,5 +1,6 @@
 export const enSettings = {
   settings: {
+    Setting: 'Settings',
     categories: {
       UserSettings: 'User settings',
       ProvidersSettings: 'Connected providers',

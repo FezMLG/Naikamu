@@ -10,18 +10,18 @@ import React from 'react';
 import { format } from 'date-fns';
 import { useQuery } from '@tanstack/react-query';
 import { ActivityIndicator, Button, Chip, Text } from 'react-native-paper';
-import YoutubePlayer from 'react-native-youtube-iframe';
+
+import { AnimeDetails } from '@aniwatch/shared';
 
 import { darkColor, darkStyle } from '../../styles/darkMode.style';
 import { defaultRadius, globalStyle } from '../../styles/global.style';
-import { FocusButton } from '../../components/FocusButton';
-import { AnimeDetails } from '@aniwatch/shared';
 import { APIClient } from '../../api/APIClient';
 import { ProgressiveImage } from '../../components/ProgressiveImage';
 import { QuickInfo } from '../../components/series/QuickInfo';
 import { AnimeRelation } from '../../components/series/Relation';
 import { useTranslate } from '../../i18n/useTranslate';
 import { SeriesScreenProps, ScreenNames } from '../../routes/main';
+import { SeriesDetailsWatch } from '../../components';
 
 const SeriesScreen = ({ navigation, route }: SeriesScreenProps) => {
   const apiClient = new APIClient();
@@ -54,21 +54,7 @@ const SeriesScreen = ({ navigation, route }: SeriesScreenProps) => {
               </Text>
             )}
             <View style={[globalStyle.spacer]} />
-            <FocusButton
-              icon="play-box-multiple"
-              onPress={() => {
-                navigation.navigate(ScreenNames.Episodes, {
-                  id: data.id,
-                  title: data.title.romaji,
-                  numOfAiredEpisodes: data.nextAiringEpisode?.episode
-                    ? data.nextAiringEpisode?.episode - 1
-                    : data.episodes,
-                  posterUrl: data.coverImage.extraLarge,
-                });
-              }}
-              style={[]}>
-              {translate('anime_details.see_episodes')}
-            </FocusButton>
+            <SeriesDetailsWatch series={data} />
             <ScrollView
               horizontal={true}
               style={[styles.quickInfoScroll, styles.categorySpacer]}>
@@ -162,58 +148,59 @@ const SeriesScreen = ({ navigation, route }: SeriesScreenProps) => {
               </ScrollView>
             </View>
             {data.trailer && (
-              <>
-                <Text
-                  style={[
-                    styles.titleType,
-                    styles.categorySpacer,
-                    darkStyle.font,
-                  ]}>
+              <View style={styles.categorySpacer}>
+                <Text style={[styles.titleType, darkStyle.font]}>
                   {translate('anime_details.trailer')}
                 </Text>
-                <YoutubePlayer
-                  height={300}
-                  videoId={data.trailer?.id}
-                  webViewStyle={styles.marginV}
-                />
-              </>
-            )}
-            <Text style={[styles.titleType, darkStyle.font]}>
-              {translate('anime_details.links')}
-            </Text>
-            <View style={styles.linksContainer}>
-              <View style={styles.linkContainer}>
-                <ProgressiveImage
-                  source={'https://anilist.co/img/icons/favicon-32x32.png'}
-                  style={[styles.icon]}
-                />
                 <Button
-                  mode={'text'}
+                  mode="outlined"
                   onPress={() =>
-                    Linking.openURL('https://anilist.co/anime/' + id)
+                    Linking.openURL(
+                      'https://www.youtube.com/watch?v=' + data.trailer!.id,
+                    )
                   }>
-                  AniList
+                  <Text>Show trailer</Text>
                 </Button>
               </View>
-              {data.externalLinks.map((link, index) => {
-                return (
-                  <View style={styles.linkContainer} key={index}>
-                    {link.icon ? (
-                      <ProgressiveImage
-                        source={link.icon}
-                        style={[styles.icon]}
-                      />
-                    ) : (
-                      <View style={styles.icon} />
-                    )}
-                    <Button
-                      mode={'text'}
-                      onPress={() => Linking.openURL(link.url)}>
-                      {link.site} {link.language ? link.language : ''}
-                    </Button>
-                  </View>
-                );
-              })}
+            )}
+            <View style={styles.categorySpacer}>
+              <Text style={[styles.titleType, darkStyle.font]}>
+                {translate('anime_details.links')}
+              </Text>
+              <View style={styles.linksContainer}>
+                <View style={styles.linkContainer}>
+                  <ProgressiveImage
+                    source={'https://anilist.co/img/icons/favicon-32x32.png'}
+                    style={[styles.icon]}
+                  />
+                  <Button
+                    mode={'text'}
+                    onPress={() =>
+                      Linking.openURL('https://anilist.co/anime/' + id)
+                    }>
+                    AniList
+                  </Button>
+                </View>
+                {data.externalLinks.map((link, index) => {
+                  return (
+                    <View style={styles.linkContainer} key={index}>
+                      {link.icon ? (
+                        <ProgressiveImage
+                          source={link.icon}
+                          style={[styles.icon]}
+                        />
+                      ) : (
+                        <View style={styles.icon} />
+                      )}
+                      <Button
+                        mode={'text'}
+                        onPress={() => Linking.openURL(link.url)}>
+                        {link.site} {link.language ? link.language : ''}
+                      </Button>
+                    </View>
+                  );
+                })}
+              </View>
             </View>
             <Text
               variant="bodySmall"

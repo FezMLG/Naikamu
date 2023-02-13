@@ -44,12 +44,12 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
           onPress={() => navigation.navigate(SettingsScreenNames.UserSettings)}>
           {translate('settings.categories.UserSettings')}
         </Button>
-        <Button
+        {/* <Button
           onPress={() =>
             navigation.navigate(SettingsScreenNames.ProviderSettings)
           }>
           {translate('settings.categories.ProviderSettings')}
-        </Button>
+        </Button> */}
         <Button
           onPress={() =>
             navigation.navigate(SettingsScreenNames.DangerSettings)
