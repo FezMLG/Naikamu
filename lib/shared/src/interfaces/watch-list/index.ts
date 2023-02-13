@@ -10,12 +10,15 @@ export interface WatchList {
   readonly status: WatchStatus;
 }
 
-export interface WatchListAnime {
+export interface WatchListSeries {
+  readonly id: string;
+  readonly animeId: string;
   readonly status: WatchStatus;
-  readonly watched: WatchListAnimeEpisodes[];
+  readonly watched: WatchListSeriesEpisode[];
 }
 
-export interface WatchListAnimeEpisodes {
+export interface WatchListSeriesEpisode {
   readonly episode: number;
   readonly progress: number;
+  readonly isWatched: boolean;
 }

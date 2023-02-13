@@ -11,6 +11,7 @@ import { APIClient } from '../../api/APIClient';
 import { PlayerMenu } from './PlayerMenu';
 import { useTranslate } from '../../i18n/useTranslate';
 import { useNavigation } from '@react-navigation/native';
+import { UpdateEpisodeWatchStatus } from '../molecules';
 
 export const EpisodeMobileLink = ({
   animeName,
@@ -53,12 +54,14 @@ export const EpisodeMobile = ({
   posterUrl,
   id,
   animeName,
+  isWatched,
 }: {
   num: number;
   episode: AnimeEpisode;
   posterUrl: string;
   id: string;
   animeName: string;
+  isWatched: boolean;
 }) => {
   const apiClient = new APIClient();
   const { translate } = useTranslate();
@@ -84,6 +87,11 @@ export const EpisodeMobile = ({
           style={[styles.title, darkStyle.font]}>
           {num + '. ' + episode.title}
         </Text>
+        <UpdateEpisodeWatchStatus
+          animeId={id}
+          isWatched={isWatched}
+          episode={episode.number}
+        />
         <Text
           variant="bodyMedium"
           accessible={false}

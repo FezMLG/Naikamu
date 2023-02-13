@@ -1,7 +1,9 @@
+import { WatchStatus } from '../enums';
 import { AnimeSeason } from '../enums/anime-season.enum';
 
 export interface AnimeDetails {
   id: string;
+  watchStatus: WatchStatus;
   sourceId: number;
   dataSource: string;
   bannerImage: string;

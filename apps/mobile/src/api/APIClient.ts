@@ -6,7 +6,8 @@ import {
   AnimePlayers,
   AnimeSeason,
   WatchList,
-  WatchListAnime,
+  WatchListSeriesEpisode,
+  WatchListSeries,
 } from '@aniwatch/shared';
 import { API_URL } from '@env';
 import { fireGetIdToken } from '../services/firebase/fire-auth.service';
@@ -119,14 +120,24 @@ export class APIClient {
   }
 
   async getUserWatchListSeries(animeId: string) {
-    return this.get<WatchListAnime>(`user/watch-list/${animeId}`, {
+    return this.get<WatchListSeries>(`user/watch-list/${animeId}`, {
       ...(await this.withToken()),
     });
   }
 
-  async addUserWatchListSeries(animeId: string) {
-    return this.post<void>(
+  async addToUserSeriesWatchList(animeId: string) {
+    return this.post<WatchListSeries>(
       `user/watch-list/${animeId}`,
+      {},
+      {
+        ...(await this.withToken()),
+      },
+    );
+  }
+
+  async updateUserSeriesWatchProgress(animeId: string, episode: number) {
+    return this.post<WatchListSeriesEpisode>(
+      `user/watch-list/${animeId}/${episode}`,
       {},
       {
         ...(await this.withToken()),

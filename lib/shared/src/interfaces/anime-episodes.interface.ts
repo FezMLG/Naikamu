@@ -8,4 +8,5 @@ export interface AnimeEpisode {
   title: string;
   number: number;
   description: string;
+  isWatched: boolean;
 }

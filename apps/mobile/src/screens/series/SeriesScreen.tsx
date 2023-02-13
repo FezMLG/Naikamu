@@ -12,10 +12,10 @@ import { useQuery } from '@tanstack/react-query';
 import { ActivityIndicator, Button, Chip, Text } from 'react-native-paper';
 import YoutubePlayer from 'react-native-youtube-iframe';
 
+import { AnimeDetails } from '@aniwatch/shared';
+
 import { darkColor, darkStyle } from '../../styles/darkMode.style';
 import { defaultRadius, globalStyle } from '../../styles/global.style';
-import { FocusButton } from '../../components/FocusButton';
-import { AnimeDetails } from '@aniwatch/shared';
 import { APIClient } from '../../api/APIClient';
 import { ProgressiveImage } from '../../components/ProgressiveImage';
 import { QuickInfo } from '../../components/series/QuickInfo';

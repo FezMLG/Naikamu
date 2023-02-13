@@ -1,15 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
-import {
-  AnimeDetails,
-  WatchListAnime,
-  WatchStatus,
-} from '../../../../../../lib/shared/dist';
-import { useTranslate } from '../../../i18n/useTranslate';
-import { APIClient } from '../../../api/APIClient';
 import React from 'react';
+import { AnimeDetails } from '../../../../../../lib/shared/dist';
+import { useTranslate } from '../../../i18n/useTranslate';
 import { useNavigation } from '@react-navigation/native';
 import { ScreenNames } from '../../../routes/main';
-import { Button, Text } from 'react-native-paper';
+import { Button } from 'react-native-paper';
 import { AddToWatchList } from './AddToWatchList';
 
 interface SeriesDetailsWatchProps {
@@ -17,13 +11,8 @@ interface SeriesDetailsWatchProps {
 }
 
 export const SeriesDetailsWatch = ({ series }: SeriesDetailsWatchProps) => {
-  const apiClient = new APIClient();
   const navigation = useNavigation<any>();
   const { translate } = useTranslate();
-  const { data } = useQuery<WatchListAnime>(
-    ['anime', series.id, 'watch-list'],
-    () => apiClient.getUserWatchListSeries(series.id),
-  );
 
   return (
     <>
@@ -42,16 +31,7 @@ export const SeriesDetailsWatch = ({ series }: SeriesDetailsWatchProps) => {
         mode={'contained'}>
         {translate('anime_details.see_episodes')}
       </Button>
-      {data ? (
-        <>
-          {data.status == WatchStatus.OnList ||
-          data.status == WatchStatus.Watching ? (
-            <Text>On List</Text>
-          ) : null}
-        </>
-      ) : (
-        <AddToWatchList animeId={series.id} />
-      )}
+      <AddToWatchList seriesId={series.id} watchStatus={series.watchStatus} />
     </>
   );
 };
