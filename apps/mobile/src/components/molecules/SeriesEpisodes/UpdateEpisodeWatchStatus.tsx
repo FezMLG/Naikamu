@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { ActivityIndicator, IconButton } from 'react-native-paper';
 import { APIClient } from '../../../api/APIClient';
 
@@ -26,7 +26,7 @@ export const UpdateEpisodeWatchStatus = ({
 
   //TODO
   return (
-    <View>
+    <View style={styles.container}>
       {mutation.isLoading ? (
         <ActivityIndicator size={'small'} />
       ) : (
@@ -53,3 +53,12 @@ export const UpdateEpisodeWatchStatus = ({
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    width: 45,
+    height: 45,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
