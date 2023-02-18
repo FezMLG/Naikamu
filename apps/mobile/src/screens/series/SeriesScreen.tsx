@@ -25,9 +25,9 @@ import { SeriesDetailsWatch } from '../../components';
 
 const SeriesScreen = ({ navigation, route }: SeriesScreenProps) => {
   const apiClient = new APIClient();
-  const { title, id } = route.params;
+  const { id } = route.params;
   const { translate } = useTranslate();
-  const { data } = useQuery<AnimeDetails>(['anime', title, 'details'], () =>
+  const { data } = useQuery<AnimeDetails>(['anime', id, 'details'], () =>
     apiClient.getAnimeDetails(id),
   );
 
