@@ -66,7 +66,7 @@ export const EpisodeMobile = ({
   const apiClient = new APIClient();
   const { translate } = useTranslate();
   const { data, refetch } = useQuery(
-    ['anime', 'episodes', num],
+    ['anime', id, 'episodes', num],
     () => apiClient.getEpisodePlayers(id, num),
     {
       enabled: false,
