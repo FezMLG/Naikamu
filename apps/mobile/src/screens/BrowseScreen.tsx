@@ -2,7 +2,7 @@ import { StyleSheet, ActivityIndicator, FlatList } from 'react-native';
 import React, { useRef, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FAB } from 'react-native-paper';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 
 import BrowseElement from '../components/browse/BrowseElement';
 import { maxWidth } from '../components/maxDimensions';
@@ -21,12 +21,28 @@ const BrowseScreen = ({ navigation }: BrowseScreenProps) => {
   const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
   const listRef = useRef<FlatList>(null);
 
+  const queryClient = useQueryClient();
+  const initialData = () =>
+    queryClient.getQueryState<AnimeList>(['browse', season, year])?.data;
   const { isLoading, data, refetch, fetchNextPage, isRefetching } =
     useInfiniteQuery<AnimeList>(
       ['browse', season, year],
-      ({ pageParam }) =>
+      ({
+        pageParam = initialData()
+          ? initialData()!.Page.pageInfo.currentPage
+          : 0,
+      }) =>
         apiClient.getAnimeList({ page: pageParam, season, seasonYear: year }),
       {
+        initialData: () => {
+          const temp = initialData();
+          if (temp) {
+            return {
+              pageParams: [undefined],
+              pages: [temp],
+            };
+          }
+        },
         getNextPageParam: lastPage => lastPage.Page.pageInfo.currentPage + 1,
       },
     );

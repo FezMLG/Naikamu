@@ -7,8 +7,8 @@ import {
   getUserPending,
   getUserRejected,
 } from '../../reducers/user.reducer';
-import { SettingsForm } from '../../screens/settings/SettingsScreen';
 import { AppDispatch } from '../store/store';
+import { UserSettingsForm } from '../../screens/settings/UserSettingsScreen';
 
 export const fireLoginUser =
   (email: string, password: string) => async (dispatch: AppDispatch) => {
@@ -75,7 +75,7 @@ const sendEmailVerification = async () => {
 };
 
 export const fireUpdateUser =
-  (form: SettingsForm) => async (dispatch: AppDispatch) => {
+  (form: UserSettingsForm) => async (dispatch: AppDispatch) => {
     try {
       const currentUser = auth().currentUser;
       if (currentUser) {
