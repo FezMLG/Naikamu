@@ -2,7 +2,7 @@ import { StyleSheet, ActivityIndicator, FlatList } from 'react-native';
 import React, { useRef, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FAB } from 'react-native-paper';
-import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 import BrowseElement from '../components/browse/BrowseElement';
 import { maxWidth } from '../components/maxDimensions';
