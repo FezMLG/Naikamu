@@ -5,6 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import { APIClient } from '../../../api/APIClient';
 import { WatchStatus } from '../../../../../../lib/shared/dist';
+import { ENV } from '@env';
 
 interface AddToWatchListProps {
   seriesId: string;
@@ -31,9 +32,10 @@ export const AddToWatchList = ({
         <Text>Adding to watchlist...</Text>
       ) : (
         <>
-          {mutation.isError ? (
+          {ENV !== 'prod' && mutation.isError ? (
             <Text>{'An error occurred ' + mutation.error}</Text>
           ) : null}
+
           {watching === WatchStatus.Following ? (
             <Button
               onPress={() => {
