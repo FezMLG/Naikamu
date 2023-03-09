@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
-import { Button, Text } from 'react-native-paper';
+import { StyleSheet, View } from 'react-native';
+import { ActivityIndicator, Button, Text } from 'react-native-paper';
 import { useMutation } from '@tanstack/react-query';
 
 import { APIClient } from '../../../api/APIClient';
@@ -25,34 +25,38 @@ export const AddToWatchList = ({
     },
   });
 
-  //TODO
   return (
-    <View>
+    <View style={styles.center}>
       {mutation.isLoading ? (
-        <Text>Adding to watchlist...</Text>
+        <ActivityIndicator size={'small'} style={styles.pad} />
       ) : (
         <>
           {ENV !== 'prod' && mutation.isError ? (
             <Text>{'An error occurred ' + mutation.error}</Text>
           ) : null}
-
-          {watching === WatchStatus.Following ? (
-            <Button
-              onPress={() => {
-                mutation.mutate();
-              }}>
-              Remove from watchlist
-            </Button>
-          ) : (
-            <Button
-              onPress={() => {
-                mutation.mutate();
-              }}>
-              Add to watchlist
-            </Button>
-          )}
+          <Button
+            onPress={() => {
+              mutation.mutate();
+            }}>
+            {watching === WatchStatus.Following ? (
+              <Text>Remove from watchlist</Text>
+            ) : (
+              <Text>Add to watchlist</Text>
+            )}
+          </Button>
         </>
       )}
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  center: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 45,
+  },
+  pad: {
+    paddingHorizontal: 10,
+  },
+});
