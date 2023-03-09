@@ -109,7 +109,7 @@ export const EpisodeMobile = ({
             <EpisodeMobileLink
               animeName={animeName}
               players={data}
-              episodeTitle={episode.title}
+              episodeTitle={'E' + episode.number + ' ' + episode.title}
             />
           ) : (
             <ActivityIndicator size="large" />
