@@ -33,6 +33,7 @@ export type RootStackParamList = {
     title: string;
     episodeTitle: string;
     player: string;
+    episodeNumber: number;
   };
   [ScreenNames.WatchWebView]: { uri: string };
   [ScreenNames.WatchError]: { playerName: string; animeTitle: string };

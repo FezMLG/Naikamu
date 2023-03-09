@@ -10,19 +10,22 @@ const NativeVideoPlayerScreen = ({
   route,
   navigation,
 }: WatchNativeScreenProps) => {
-  const { uri, episodeTitle } = route.params;
+  const { uri, episodeTitle, episodeNumber, title } = route.params;
   const videoPlayer = useRef<Video>(null);
+  const storageKey = `${title} ${episodeNumber}`;
 
   const handleProgress = async (progress: OnProgressData) => {
     if (Math.round(progress.currentTime) % 5 === 0) {
-      await storageStoreData(`${uri}`, progress);
+      await storageStoreData(storageKey, progress);
     }
   };
 
   const handleVideoLoad = async () => {
-    const progress = await storageGetData<OnProgressData>(`${uri}`);
+    const progress = await storageGetData<OnProgressData>(storageKey);
     if (videoPlayer) {
-      videoPlayer.current?.seek(progress?.currentTime ?? 0);
+      videoPlayer.current?.seek(
+        progress?.currentTime ? progress.currentTime - 15 : 0,
+      );
     }
   };
 
@@ -43,7 +46,6 @@ const NativeVideoPlayerScreen = ({
         doubleTapTime={130}
         disableFullscreen={true}
         disableVolume={true}
-        showTimeRemaining={true}
         showDuration={true}
       />
     </View>

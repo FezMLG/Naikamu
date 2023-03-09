@@ -38,6 +38,7 @@ export const EpisodeMobileLink = ({
                 player: player,
                 episodeTitle: episodeTitle,
                 animeTitle: animeName,
+                episodeNumber: players.episode_number,
               });
             }}
             right={() => <PlayerMenu player={player} />}
