@@ -1,39 +1,38 @@
 import { StyleSheet, View } from 'react-native';
 import React, { useRef } from 'react';
 import Video, { OnProgressData } from 'react-native-video';
-import VideoPlayer from 'react-native-video-controls';
 
 import { storageGetData, storageStoreData } from '../../../../utils';
 import { WatchNativeScreenProps } from '../../../../routes/main';
+import VideoPlayer from 'react-native-media-console';
 
 const NativeVideoPlayerScreen = ({
   route,
   navigation,
 }: WatchNativeScreenProps) => {
-  const { uri, episodeTitle } = route.params;
-  const video = useRef<Video>(null);
-  const videoPlayer = useRef<VideoPlayer>(null);
+  const { uri, episodeTitle, episodeNumber, title } = route.params;
+  const videoPlayer = useRef<Video>(null);
+  const storageKey = `${title} ${episodeNumber}`;
 
   const handleProgress = async (progress: OnProgressData) => {
     if (Math.round(progress.currentTime) % 5 === 0) {
-      await storageStoreData(`${uri}`, progress);
+      await storageStoreData(storageKey, progress);
     }
   };
 
   const handleVideoLoad = async () => {
-    const progress = await storageGetData<OnProgressData>(`${uri}`);
-    if (video) {
-      video.current?.seek(progress?.currentTime ?? 0);
-    }
+    const progress = await storageGetData<OnProgressData>(storageKey);
     if (videoPlayer) {
-      videoPlayer.current?.seekTo(progress?.currentTime ?? 0);
+      videoPlayer.current?.seek(
+        progress?.currentTime ? progress.currentTime - 15 : 0,
+      );
     }
   };
 
   return (
     <View style={styles.fullscreenVideo}>
       <VideoPlayer
-        ref={videoPlayer}
+        videoRef={videoPlayer}
         style={styles.absoluteFill}
         title={episodeTitle}
         source={{
@@ -44,6 +43,10 @@ const NativeVideoPlayerScreen = ({
         onBack={navigation.goBack}
         onProgress={handleProgress}
         onLoad={handleVideoLoad}
+        doubleTapTime={130}
+        disableFullscreen={true}
+        disableVolume={true}
+        showDuration={true}
       />
     </View>
   );

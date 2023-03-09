@@ -9,11 +9,13 @@ export const navigateToPlayer = async ({
   player,
   episodeTitle,
   animeTitle,
+  episodeNumber,
 }: {
   navigation: any;
   player: AnimePlayer;
   episodeTitle: string;
   animeTitle: string;
+  episodeNumber: number;
 }) => {
   const name = player.player_name
     .replace(/[\u0250-\ue007]/g, '')
@@ -25,8 +27,9 @@ export const navigateToPlayer = async ({
       return navigation.navigate(ScreenNames.WatchNative, {
         uri: player.player_link,
         title: animeTitle,
-        episodeTitle: episodeTitle,
+        episodeTitle,
         player: name,
+        episodeNumber,
       });
 
     case 'pobierz':
