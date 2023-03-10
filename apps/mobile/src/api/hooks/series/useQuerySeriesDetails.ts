@@ -4,7 +4,7 @@ import { AnimeDetails } from '@aniwatch/shared';
 
 import { APIClient } from '../../APIClient';
 
-export const useApiSeriesDetails = (id: number) => {
+export const useQuerySeriesDetails = (id: number) => {
   const apiClient = new APIClient();
 
   const { data } = useQuery<AnimeDetails>(['anime', id, 'details'], () =>

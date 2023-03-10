@@ -4,7 +4,7 @@ import { AnimeList } from '../../../../../../lib/shared/dist';
 import { getAnimeSeason } from '../../../utils';
 import { APIClient } from '../../APIClient';
 
-export const useApiSeriesList = () => {
+export const useQuerySeriesList = () => {
   const apiClient = new APIClient();
 
   const [season, setSeason] = useState(getAnimeSeason());

@@ -12,7 +12,7 @@ import { Media } from '@aniwatch/shared';
 // import { getAnimeSeason } from '../utils/getAnimeSeason';
 import { BrowseScreenProps, ScreenNames } from '../routes/main';
 import { SeasonYearSelectButtons } from '../components';
-import { useApiSeriesList } from '../api/hooks';
+import { useQuerySeriesList } from '../api/hooks';
 
 const BrowseScreen = ({ navigation }: BrowseScreenProps) => {
   const CONTENT_OFFSET_THRESHOLD = 300;
@@ -33,7 +33,7 @@ const BrowseScreen = ({ navigation }: BrowseScreenProps) => {
   //     },
   //   );
 
-  const { api, season, year, setSeason, setYear } = useApiSeriesList();
+  const { api, season, year, setSeason, setYear } = useQuerySeriesList();
 
   const renderItem = ({ item }: { item: Media }) => (
     <BrowseElement

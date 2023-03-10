@@ -12,7 +12,7 @@ import { PlayerMenu } from './PlayerMenu';
 import { useTranslate } from '../../i18n/useTranslate';
 import { useNavigation } from '@react-navigation/native';
 import { UpdateEpisodeWatchStatus } from '../molecules';
-import { useApiSeriesEpisodePlayers } from '../../api/hooks';
+import { useQuerySeriesEpisodePlayers } from '../../api/hooks';
 
 export const EpisodeMobileLink = ({
   animeName,
@@ -75,7 +75,7 @@ export const EpisodeMobile = ({
   //   },
   // );
 
-  const { data, refetch } = useApiSeriesEpisodePlayers(id, num);
+  const { data, refetch } = useQuerySeriesEpisodePlayers(id, num);
 
   return (
     <SafeAreaView style={[styles.episodeContainerMobile]}>

@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { APIClient } from '../../APIClient';
 
-export const useApiSeriesEpisodePlayers = (id: string, num: number) => {
+export const useQuerySeriesEpisodePlayers = (id: string, num: number) => {
   const apiClient = new APIClient();
 
   const { data, refetch } = useQuery(

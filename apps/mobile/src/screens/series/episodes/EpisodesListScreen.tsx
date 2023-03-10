@@ -16,7 +16,7 @@ import { globalStyle } from '../../../styles/global.style';
 // import { APIClient } from '../../../api/APIClient';
 import { useTranslate } from '../../../i18n/useTranslate';
 import { EpisodesScreenProps } from '../../../routes/main';
-import { useApiSeriesEpisodes } from '../../../api/hooks';
+import { useQuerySeriesEpisodes } from '../../../api/hooks';
 
 const EpisodesListScreen = ({ route }: EpisodesScreenProps) => {
   // const apiClient = new APIClient();
@@ -26,7 +26,7 @@ const EpisodesListScreen = ({ route }: EpisodesScreenProps) => {
   //   apiClient.getEpisodes(route.params.id, route.params.numOfAiredEpisodes),
   // );
 
-  const { episodes } = useApiSeriesEpisodes(
+  const { episodes } = useQuerySeriesEpisodes(
     route.params.id,
     route.params.numOfAiredEpisodes,
   );

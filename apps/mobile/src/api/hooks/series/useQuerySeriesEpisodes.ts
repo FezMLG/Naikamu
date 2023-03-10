@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { APIClient } from '../../APIClient';
 
-export const useApiSeriesEpisodes = (
+export const useQuerySeriesEpisodes = (
   id: string,
   numOfAiredEpisodes: number,
 ) => {

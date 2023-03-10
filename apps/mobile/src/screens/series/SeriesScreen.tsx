@@ -22,7 +22,7 @@ import { AnimeRelation } from '../../components/series/Relation';
 import { useTranslate } from '../../i18n/useTranslate';
 import { SeriesScreenProps, ScreenNames } from '../../routes/main';
 import { SeriesDetailsWatch } from '../../components';
-import { useApiSeriesDetails } from '../../api/hooks';
+import { useQuerySeriesDetails } from '../../api/hooks';
 
 const SeriesScreen = ({ navigation, route }: SeriesScreenProps) => {
   // const apiClient = new APIClient();
@@ -31,7 +31,7 @@ const SeriesScreen = ({ navigation, route }: SeriesScreenProps) => {
   // const { data } = useQuery<AnimeDetails>(['anime', id, 'details'], () =>
   //   apiClient.getAnimeDetails(id),
   // );
-  const { data } = useApiSeriesDetails(id);
+  const { data } = useQuerySeriesDetails(id);
 
   return (
     <SafeAreaView style={[styles.container]}>
