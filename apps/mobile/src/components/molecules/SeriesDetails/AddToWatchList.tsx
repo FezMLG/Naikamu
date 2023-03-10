@@ -7,7 +7,7 @@ import { ActivityIndicator, Button, Text } from 'react-native-paper';
 // import { APIClient } from '../../../api/APIClient';
 import { WatchStatus } from '@aniwatch/shared';
 import { ENV } from '@env';
-import { useMutateUpdateUserWatchList } from '../../../api/hooks';
+import { useMutationUpdateUserWatchList } from '../../../api/hooks';
 
 interface AddToWatchListProps {
   seriesId: string;
@@ -27,7 +27,7 @@ export const AddToWatchList = ({
   //   },
   // });
 
-  const { watching, mutation } = useMutateUpdateUserWatchList(
+  const { watching, mutation } = useMutationUpdateUserWatchList(
     watchStatus,
     seriesId,
   );

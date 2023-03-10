@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { WatchStatus } from '../../../../../../lib/shared/dist';
 import { APIClient } from '../../APIClient';
 
-export const useMutateUpdateUserWatchList = (
+export const useMutationUpdateUserWatchList = (
   watchStatus: WatchStatus,
   seriesId: string,
 ) => {

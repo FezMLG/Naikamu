@@ -1,1 +1,2 @@
-export * from './useMutateUpdateUserWatchList';
+export * from './useMutationUpdateUserWatchList';
+export * from './useMutationUpdateUserSeriesWatchProgress';
