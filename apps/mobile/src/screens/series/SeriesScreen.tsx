@@ -8,28 +8,30 @@ import {
 } from 'react-native';
 import React from 'react';
 import { format } from 'date-fns';
-import { useQuery } from '@tanstack/react-query';
+// import { useQuery } from '@tanstack/react-query';
 import { ActivityIndicator, Button, Chip, Text } from 'react-native-paper';
 
-import { AnimeDetails } from '@aniwatch/shared';
+// import { AnimeDetails } from '@aniwatch/shared';
 
 import { darkColor, darkStyle } from '../../styles/darkMode.style';
 import { defaultRadius, globalStyle } from '../../styles/global.style';
-import { APIClient } from '../../api/APIClient';
+// import { APIClient } from '../../api/APIClient';
 import { ProgressiveImage } from '../../components/ProgressiveImage';
 import { QuickInfo } from '../../components/series/QuickInfo';
 import { AnimeRelation } from '../../components/series/Relation';
 import { useTranslate } from '../../i18n/useTranslate';
 import { SeriesScreenProps, ScreenNames } from '../../routes/main';
 import { SeriesDetailsWatch } from '../../components';
+import { useApiSeriesDetails } from '../../api/hooks';
 
 const SeriesScreen = ({ navigation, route }: SeriesScreenProps) => {
-  const apiClient = new APIClient();
+  // const apiClient = new APIClient();
   const { id } = route.params;
   const { translate } = useTranslate();
-  const { data } = useQuery<AnimeDetails>(['anime', id, 'details'], () =>
-    apiClient.getAnimeDetails(id),
-  );
+  // const { data } = useQuery<AnimeDetails>(['anime', id, 'details'], () =>
+  //   apiClient.getAnimeDetails(id),
+  // );
+  const { data } = useApiSeriesDetails(id);
 
   return (
     <SafeAreaView style={[styles.container]}>

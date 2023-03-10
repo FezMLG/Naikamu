@@ -5,7 +5,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import React from 'react';
-import { useQuery } from '@tanstack/react-query';
+// import { useQuery } from '@tanstack/react-query';
 import { Text } from 'react-native-paper';
 
 import { AnimeEpisode } from '@aniwatch/shared';
@@ -13,16 +13,22 @@ import { AnimeEpisode } from '@aniwatch/shared';
 import { darkStyle } from '../../../styles/darkMode.style';
 import { EpisodeMobile } from '../../../components/episode/Episode.mobile';
 import { globalStyle } from '../../../styles/global.style';
-import { APIClient } from '../../../api/APIClient';
+// import { APIClient } from '../../../api/APIClient';
 import { useTranslate } from '../../../i18n/useTranslate';
 import { EpisodesScreenProps } from '../../../routes/main';
+import { useApiSeriesEpisodes } from '../../../api/hooks';
 
 const EpisodesListScreen = ({ route }: EpisodesScreenProps) => {
-  const apiClient = new APIClient();
+  // const apiClient = new APIClient();
   const { translate } = useTranslate();
 
-  const episodes = useQuery(['anime', route.params.id, 'episodes'], () =>
-    apiClient.getEpisodes(route.params.id, route.params.numOfAiredEpisodes),
+  // const episodes = useQuery(['anime', route.params.id, 'episodes'], () =>
+  //   apiClient.getEpisodes(route.params.id, route.params.numOfAiredEpisodes),
+  // );
+
+  const { episodes } = useApiSeriesEpisodes(
+    route.params.id,
+    route.params.numOfAiredEpisodes,
   );
 
   return (

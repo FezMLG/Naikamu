@@ -2,34 +2,38 @@ import { StyleSheet, ActivityIndicator, FlatList } from 'react-native';
 import React, { useRef, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FAB } from 'react-native-paper';
-import { useInfiniteQuery } from '@tanstack/react-query';
+// import { useInfiniteQuery } from '@tanstack/react-query';
 
 import BrowseElement from '../components/browse/BrowseElement';
 import { maxWidth } from '../components/maxDimensions';
-import { AnimeList, Media } from '@aniwatch/shared';
-import { APIClient } from '../api/APIClient';
-import { getAnimeSeason } from '../utils/getAnimeSeason';
+import { Media } from '@aniwatch/shared';
+// import { AnimeList, Media } from '@aniwatch/shared';
+// import { APIClient } from '../api/APIClient';
+// import { getAnimeSeason } from '../utils/getAnimeSeason';
 import { BrowseScreenProps, ScreenNames } from '../routes/main';
 import { SeasonYearSelectButtons } from '../components';
+import { useApiSeriesList } from '../api/hooks';
 
 const BrowseScreen = ({ navigation }: BrowseScreenProps) => {
   const CONTENT_OFFSET_THRESHOLD = 300;
-  const apiClient = new APIClient();
+  // const apiClient = new APIClient();
 
-  const [season, setSeason] = useState(getAnimeSeason());
-  const [year, setYear] = useState(new Date().getFullYear());
+  // const [season, setSeason] = useState(getAnimeSeason());
+  // const [year, setYear] = useState(new Date().getFullYear());
   const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
   const listRef = useRef<FlatList>(null);
 
-  const { isLoading, data, refetch, fetchNextPage, isRefetching } =
-    useInfiniteQuery<AnimeList>(
-      ['browse', season, year],
-      ({ pageParam }) =>
-        apiClient.getAnimeList({ page: pageParam, season, seasonYear: year }),
-      {
-        getNextPageParam: lastPage => lastPage.Page.pageInfo.currentPage + 1,
-      },
-    );
+  // const { isLoading, data, refetch, fetchNextPage, isRefetching } =
+  //   useInfiniteQuery<AnimeList>(
+  //     ['browse', season, year],
+  //     ({ pageParam }) =>
+  //       apiClient.getAnimeList({ page: pageParam, season, seasonYear: year }),
+  //     {
+  //       getNextPageParam: lastPage => lastPage.Page.pageInfo.currentPage + 1,
+  //     },
+  //   );
+
+  const { api, season, year, setSeason, setYear } = useApiSeriesList();
 
   const renderItem = ({ item }: { item: Media }) => (
     <BrowseElement
@@ -51,20 +55,20 @@ const BrowseScreen = ({ navigation }: BrowseScreenProps) => {
         year={year}
         setYear={setYear}
       />
-      {isLoading ? <ActivityIndicator size="large" /> : null}
-      {data ? (
+      {api.isLoading ? <ActivityIndicator size="large" /> : null}
+      {api.data ? (
         <>
           <FlatList
             ref={listRef}
-            data={data.pages.map(page => page.Page.media).flat()}
+            data={api.data.pages.map(page => page.Page.media).flat()}
             renderItem={renderItem}
             numColumns={Math.floor(maxWidth() / 240)}
             contentContainerStyle={styles.flatList}
             keyExtractor={(_, index) => index.toString()}
             onEndReachedThreshold={1}
-            refreshing={isRefetching}
-            onRefresh={refetch}
-            onEndReached={() => fetchNextPage()}
+            refreshing={api.isRefetching}
+            onRefresh={api.refetch}
+            onEndReached={() => api.fetchNextPage()}
             onScroll={event => {
               setContentVerticalOffset(event.nativeEvent.contentOffset.y);
             }}
