@@ -9,7 +9,6 @@ import { Media } from '@aniwatch/shared';
 import { darkStyle } from '../../styles/darkMode.style';
 import { ProgressiveImage } from '../ProgressiveImage';
 import { Text } from 'react-native-paper';
-import LinearGradient from 'react-native-linear-gradient';
 
 const BrowseElement = ({
   anime,
@@ -19,6 +18,7 @@ const BrowseElement = ({
   handlePageChange: ((event: GestureResponderEvent) => void) | null | undefined;
 }) => {
   const [focus, setFocus] = useState(false);
+  const [textHeight, setTextHeight] = useState(140);
 
   return (
     <Pressable
@@ -33,18 +33,20 @@ const BrowseElement = ({
           source={anime.coverImage.extraLarge}
           style={styles.poster}
         />
-        <LinearGradient
-          colors={['transparent', 'black']}
-          locations={[0, 1]}
-          style={styles.linearGradient}
-        />
       </View>
-      <Text
-        variant="titleMedium"
-        numberOfLines={2}
-        style={[styles.title, darkStyle.font]}>
-        {anime.title.romaji}
-      </Text>
+      <View
+        onLayout={e => setTextHeight(e.nativeEvent.layout.height)}
+        style={[styles.titleContainer, { bottom: textHeight }]}>
+        <Text variant="titleMedium" numberOfLines={4}>
+          {anime.title.romaji}
+        </Text>
+        <Text
+          variant="titleMedium"
+          style={[darkStyle.font, { color: anime.coverImage.color }]}
+          numberOfLines={1}>
+          {anime.studios.nodes[0].name}
+        </Text>
+      </View>
     </Pressable>
   );
 };
@@ -58,18 +60,13 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   poster: {
-    width: 200,
+    width: '100%',
     height: 300,
     borderRadius: 8,
     resizeMode: 'cover',
   },
   title: {
-    width: 200,
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    position: 'relative',
-    bottom: 65,
-    fontWeight: 'bold',
+    fontWeight: '700',
   },
   card: {
     height: 300,
@@ -78,12 +75,14 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     margin: 10,
   },
-  linearGradient: {
+  titleContainer: {
+    paddingVertical: 5,
+    paddingHorizontal: 10,
     position: 'relative',
-    bottom: 100,
-    width: 200,
-    height: 100,
-    borderRadius: 8,
+    width: '100%',
+    backgroundColor: '#00000090',
+    borderBottomStartRadius: 8,
+    borderBottomEndRadius: 8,
   },
 });
 

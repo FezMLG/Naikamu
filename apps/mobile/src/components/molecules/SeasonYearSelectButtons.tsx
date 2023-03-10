@@ -1,48 +1,17 @@
 import React, { useState } from 'react';
+import { Pressable, StyleSheet, View } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   Button,
   Dialog,
+  Menu,
   Portal,
-  SegmentedButtons,
+  Text,
   TextInput,
 } from 'react-native-paper';
 
-import { AnimeSeason } from '../../../../../lib/shared/dist';
 import { useTranslate } from '../../i18n/useTranslate';
-
-const getButtons = (
-  translate: (
-    key: string,
-    data?: Record<string, unknown> | undefined,
-  ) => string,
-): {
-  value: AnimeSeason;
-  label: any;
-  icon: string;
-}[] => {
-  const winter = {
-    value: AnimeSeason.Winter,
-    label: translate('animeSeason.winter'),
-    icon: 'snowflake',
-  };
-  const spring = {
-    value: AnimeSeason.Spring,
-    label: translate('animeSeason.spring'),
-    icon: 'flower',
-  };
-  const summer = {
-    value: AnimeSeason.Summer,
-    label: translate('animeSeason.summer'),
-    icon: 'white-balance-sunny',
-  };
-  const fall = {
-    value: AnimeSeason.Fall,
-    label: translate('animeSeason.fall'),
-    icon: 'leaf',
-  };
-  let buttons = [winter, spring, summer, fall];
-  return buttons;
-};
+import { AnimeSeasons, IAnimeSeasons } from '../../utils';
 
 export const SeasonYearSelectButtons = ({
   season,
@@ -50,8 +19,8 @@ export const SeasonYearSelectButtons = ({
   year,
   setYear,
 }: {
-  season: AnimeSeason;
-  setSeason: (season: AnimeSeason) => void;
+  season: IAnimeSeasons;
+  setSeason: (season: IAnimeSeasons) => void;
   year: number;
   setYear: (year: number) => void;
 }): JSX.Element => {
@@ -60,15 +29,24 @@ export const SeasonYearSelectButtons = ({
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
   const [newYear, setNewYear] = React.useState(year.toString());
-
+  const [visibleM, setVisibleM] = React.useState(false);
+  const openMenu = () => setVisibleM(true);
+  const closeMenu = () => setVisibleM(false);
+  const handleSeasonChange = (s: IAnimeSeasons) => {
+    setSeason(s);
+    closeMenu();
+  };
   return (
-    <>
-      <SegmentedButtons
-        value={season}
-        onValueChange={value => setSeason(value as AnimeSeason)}
-        buttons={getButtons(translate)}
-      />
-      <Button onPress={showDialog}>{year}</Button>
+    <View style={styles.container}>
+      <Pressable onPress={showDialog} style={styles.buttonContainer}>
+        <Icon
+          name={'calendar-month'}
+          size={24}
+          color="#ffffff"
+          style={{ marginRight: 20 }}
+        />
+        <Text style={{ fontSize: 16 }}>{year}</Text>
+      </Pressable>
       <Portal>
         <Dialog visible={visible} onDismiss={hideDialog}>
           <Dialog.Title>Type year</Dialog.Title>
@@ -90,6 +68,56 @@ export const SeasonYearSelectButtons = ({
           </Dialog.Actions>
         </Dialog>
       </Portal>
-    </>
+      <Menu
+        visible={visibleM}
+        onDismiss={closeMenu}
+        anchorPosition={'bottom'}
+        anchor={
+          <Pressable onPress={openMenu} style={styles.buttonContainer}>
+            <Icon
+              name={season.icon}
+              size={24}
+              color="#ffffff"
+              style={{ marginRight: 10 }}
+            />
+            <Text style={{ fontSize: 16 }}>{translate(season.titleKey)}</Text>
+            <Icon
+              name={visibleM ? 'chevron-up' : 'chevron-down'}
+              size={24}
+              color="#ffffff"
+              style={{ marginLeft: 20 }}
+            />
+          </Pressable>
+        }>
+        {Object.entries(AnimeSeasons).map(([_, value], index) => {
+          return (
+            <Menu.Item
+              onPress={() => handleSeasonChange(value)}
+              title={translate(value.titleKey)}
+              leadingIcon={value.icon}
+              key={index}
+            />
+          );
+        })}
+      </Menu>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingHorizontal: 16,
+  },
+  buttonContainer: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 8,
+    borderColor: '#ffffff',
+    borderWidth: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+  },
+});

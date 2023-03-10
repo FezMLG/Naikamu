@@ -14,7 +14,11 @@ export const useQuerySeriesList = () => {
     useInfiniteQuery<AnimeList>(
       ['browse', season, year],
       ({ pageParam }) =>
-        apiClient.getAnimeList({ page: pageParam, season, seasonYear: year }),
+        apiClient.getAnimeList({
+          page: pageParam,
+          season: season.value,
+          seasonYear: year,
+        }),
       {
         getNextPageParam: lastPage => lastPage.Page.pageInfo.currentPage + 1,
       },

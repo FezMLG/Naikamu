@@ -11,6 +11,13 @@ export interface Media {
   id: number;
   title: Title;
   coverImage: CoverImage;
+  studios: IStudios;
+}
+
+interface IStudios {
+  nodes: {
+    name: string;
+  }[];
 }
 
 interface CoverImage {
