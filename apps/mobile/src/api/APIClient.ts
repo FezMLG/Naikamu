@@ -125,7 +125,7 @@ export class APIClient {
     });
   }
 
-  async addToUserSeriesWatchList(animeId: string) {
+  async updateUserSeriesWatchList(animeId: string) {
     return this.post<WatchListSeries>(
       `user/watch-list/${animeId}`,
       {},
