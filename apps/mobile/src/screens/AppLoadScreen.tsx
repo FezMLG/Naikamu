@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Image, SafeAreaView, StyleSheet, View } from 'react-native';
-import { ActivityIndicator, Text } from 'react-native-paper';
+import { ActivityIndicator, ProgressBar, Text } from 'react-native-paper';
 import { API_URL, ENV } from '@env';
 import { useSelector } from 'react-redux';
 
@@ -20,10 +20,16 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
   const dispatch = useAppDispatch();
   const { user } = useSelector((state: RootState) => state.user);
 
+  const [progress, setProgress] = useState<number>(0);
+
   const handleLoginCheck = useCallback(async () => {
+    setProgress(0.2);
     const token = await fireGetIdToken();
+    setProgress(0.4);
     if (token) {
+      setProgress(0.6);
       await dispatch(await fireGetNewIdToken());
+      setProgress(0.8);
       await dispatch(fireGetUser());
       if (!user?.emailVerified && user?.emailVerified !== undefined) {
         navigation.navigate(AuthRoutesNames.VerifyEmail);
@@ -55,6 +61,7 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
       />
       <View style={[globalStyle.spacerBig]} />
       <ActivityIndicator size={'large'} />
+      <ProgressBar progress={progress} />
       {ENV !== 'prod' && <Text>api_url: {API_URL}</Text>}
     </SafeAreaView>
   );

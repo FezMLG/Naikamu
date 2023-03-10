@@ -1,38 +1,20 @@
-import { StyleSheet, ActivityIndicator, FlatList } from 'react-native';
 import React, { useRef, useState } from 'react';
+import { StyleSheet, ActivityIndicator, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FAB } from 'react-native-paper';
-// import { useInfiniteQuery } from '@tanstack/react-query';
+
+import { Media } from '@aniwatch/shared';
 
 import BrowseElement from '../components/browse/BrowseElement';
 import { maxWidth } from '../components/maxDimensions';
-import { Media } from '@aniwatch/shared';
-// import { AnimeList, Media } from '@aniwatch/shared';
-// import { APIClient } from '../api/APIClient';
-// import { getAnimeSeason } from '../utils/getAnimeSeason';
 import { BrowseScreenProps, ScreenNames } from '../routes/main';
 import { SeasonYearSelectButtons } from '../components';
 import { useQuerySeriesList } from '../api/hooks';
 
 const BrowseScreen = ({ navigation }: BrowseScreenProps) => {
   const CONTENT_OFFSET_THRESHOLD = 300;
-  // const apiClient = new APIClient();
-
-  // const [season, setSeason] = useState(getAnimeSeason());
-  // const [year, setYear] = useState(new Date().getFullYear());
-  const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
   const listRef = useRef<FlatList>(null);
-
-  // const { isLoading, data, refetch, fetchNextPage, isRefetching } =
-  //   useInfiniteQuery<AnimeList>(
-  //     ['browse', season, year],
-  //     ({ pageParam }) =>
-  //       apiClient.getAnimeList({ page: pageParam, season, seasonYear: year }),
-  //     {
-  //       getNextPageParam: lastPage => lastPage.Page.pageInfo.currentPage + 1,
-  //     },
-  //   );
-
+  const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
   const { api, season, year, setSeason, setYear } = useQuerySeriesList();
 
   const renderItem = ({ item }: { item: Media }) => (

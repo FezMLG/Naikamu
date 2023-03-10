@@ -1,9 +1,7 @@
-// import { useMutation } from '@tanstack/react-query';
 import React from 'react';
-// import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ActivityIndicator, IconButton } from 'react-native-paper';
-// import { APIClient } from '../../../api/APIClient';
+
 import { useMutationUpdateUserSeriesWatchProgress } from '../../../api/hooks';
 
 interface UpdateEpisodeWatchStatusProps {
@@ -17,22 +15,12 @@ export const UpdateEpisodeWatchStatus = ({
   episode,
   isWatched,
 }: UpdateEpisodeWatchStatusProps) => {
-  // const [watched, setWatched] = useState<boolean>(isWatched);
-  // const apiClient = new APIClient();
-  // const mutation = useMutation({
-  //   mutationFn: () => apiClient.updateUserSeriesWatchProgress(animeId, episode),
-  //   onSuccess(data) {
-  //     setWatched(data.isWatched);
-  //   },
-  // });
-
   const { watched, mutation } = useMutationUpdateUserSeriesWatchProgress(
     isWatched,
     animeId,
     episode,
   );
 
-  //TODO
   return (
     <View style={styles.container}>
       {mutation.isLoading ? (

@@ -1,16 +1,15 @@
 import React from 'react';
 import { Image, SafeAreaView, StyleSheet, View } from 'react-native';
 import { ActivityIndicator, List, Text } from 'react-native-paper';
-// import { useQuery } from '@tanstack/react-query';
+import { useNavigation } from '@react-navigation/native';
+
+import { AnimeEpisode, AnimePlayer, AnimePlayers } from '@aniwatch/shared';
 
 import { darkColor, darkStyle } from '../../styles/darkMode.style';
 import { mainEpisodeStyles, navigateToPlayer } from './Episode';
 import { defaultRadius } from '../../styles/global.style';
-import { AnimeEpisode, AnimePlayer, AnimePlayers } from '@aniwatch/shared';
-// import { APIClient } from '../../api/APIClient';
 import { PlayerMenu } from './PlayerMenu';
 import { useTranslate } from '../../i18n/useTranslate';
-import { useNavigation } from '@react-navigation/native';
 import { UpdateEpisodeWatchStatus } from '../molecules';
 import { useQuerySeriesEpisodePlayers } from '../../api/hooks';
 
@@ -65,16 +64,7 @@ export const EpisodeMobile = ({
   animeName: string;
   isWatched: boolean;
 }) => {
-  // const apiClient = new APIClient();
   const { translate } = useTranslate();
-  // const { data, refetch } = useQuery(
-  //   ['anime', id, 'episodes', num],
-  //   () => apiClient.getEpisodePlayers(id, num),
-  //   {
-  //     enabled: false,
-  //   },
-  // );
-
   const { data, refetch } = useQuerySeriesEpisodePlayers(id, num);
 
   return (
