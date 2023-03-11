@@ -74,8 +74,7 @@ const styles = StyleSheet.create({
   card: {
     height: 280,
     width: 180,
-    marginVertical: 10,
-    margin: 10,
+    margin: 8,
   },
   titleContainer: {
     paddingVertical: 5,
