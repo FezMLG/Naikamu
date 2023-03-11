@@ -4,6 +4,7 @@ import {
   DrawerContentComponentProps,
   DrawerContentScrollView,
   DrawerItemList,
+  DrawerNavigationOptions,
 } from '@react-navigation/drawer';
 import {
   BrowseScreenProps,
@@ -24,9 +25,22 @@ import SettingsStack from '../settings/SettingsStack';
 import { ENV, API_URL } from '@env';
 import { SettingsScreenNames } from '../settings/interfaces';
 
-const defaultOptions = ({ title }: { title?: string }) => {
+const defaultOptions = ({
+  title,
+}: {
+  title?: string;
+}): DrawerNavigationOptions => {
   return {
     title: title,
+    headerTitleStyle: {
+      fontFamily: 'Catamaran-Black',
+      fontSize: 36,
+    },
+    headerStyle: {
+      backgroundColor: 'none',
+      height: 80,
+    },
+    headerLeft: () => <></>,
   };
 };
 
@@ -68,9 +82,9 @@ export const DrawerNav = () => {
           ...defaultOptions({
             title: translate('routes.' + ScreenNames.Browse),
           }),
-          animation: 'slide_from_right',
           headerBackVisible: false,
-          headerLeft: () => (
+          animation: 'slide_from_right',
+          headerRight: () => (
             <IconButton
               icon="menu"
               size={24}
@@ -87,7 +101,7 @@ export const DrawerNav = () => {
             title: translate('routes.' + ScreenNames.Search),
           }),
           animation: 'slide_from_right',
-          headerLeft: () => (
+          headerRight: () => (
             <IconButton
               icon="menu"
               size={24}

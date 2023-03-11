@@ -4,11 +4,11 @@ import {
   View,
   Pressable,
   GestureResponderEvent,
+  Text,
 } from 'react-native';
 import { Media } from '@aniwatch/shared';
 import { darkStyle } from '../../styles/darkMode.style';
 import { ProgressiveImage } from '../ProgressiveImage';
-import { Text } from 'react-native-paper';
 
 const BrowseElement = ({
   anime,
@@ -37,12 +37,11 @@ const BrowseElement = ({
       <View
         onLayout={e => setTextHeight(e.nativeEvent.layout.height)}
         style={[styles.titleContainer, { bottom: textHeight }]}>
-        <Text variant="titleMedium" numberOfLines={4}>
+        <Text style={[darkStyle.font, styles.title]} numberOfLines={4}>
           {anime.title.romaji}
         </Text>
         <Text
-          variant="titleMedium"
-          style={[darkStyle.font, { color: anime.coverImage.color }]}
+          style={[{ color: anime.coverImage.color }, styles.subTitle]}
           numberOfLines={1}>
           {anime.studios.nodes[0].name}
         </Text>
@@ -61,17 +60,20 @@ const styles = StyleSheet.create({
   },
   poster: {
     width: '100%',
-    height: 300,
+    height: '100%',
     borderRadius: 8,
     resizeMode: 'cover',
   },
   title: {
-    fontWeight: '700',
+    fontFamily: 'Lato-Regular',
+    fontSize: 16,
+  },
+  subTitle: {
+    fontSize: 14,
   },
   card: {
-    height: 300,
-    width: 200,
-    maxWidth: 220,
+    height: 280,
+    width: 180,
     marginVertical: 10,
     margin: 10,
   },
@@ -80,7 +82,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     position: 'relative',
     width: '100%',
-    backgroundColor: '#00000090',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
     borderBottomStartRadius: 8,
     borderBottomEndRadius: 8,
   },

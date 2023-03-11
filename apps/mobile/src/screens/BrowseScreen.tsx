@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { StyleSheet, ActivityIndicator, FlatList } from 'react-native';
+import { StyleSheet, ActivityIndicator, FlatList, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FAB } from 'react-native-paper';
 
@@ -39,13 +39,14 @@ const BrowseScreen = ({ navigation }: BrowseScreenProps) => {
       />
       {api.isLoading ? <ActivityIndicator size="large" /> : null}
       {api.data ? (
-        <>
+        <View>
           <FlatList
+            style={styles.flatList}
             ref={listRef}
             data={api.data.pages.map(page => page.Page.media).flat()}
             renderItem={renderItem}
-            numColumns={Math.floor(maxWidth() / 240)}
-            contentContainerStyle={styles.flatList}
+            numColumns={Math.floor(maxWidth() / 180)}
+            contentContainerStyle={styles.flatListContent}
             keyExtractor={(_, index) => index.toString()}
             onEndReachedThreshold={1}
             refreshing={api.isRefetching}
@@ -60,11 +61,11 @@ const BrowseScreen = ({ navigation }: BrowseScreenProps) => {
               icon={'arrow-up-circle'}
               style={styles.fab}
               onPress={() => {
-                listRef.current!.scrollToOffset({ offset: 0, animated: true });
+                listRef.current?.scrollToOffset({ offset: 0, animated: true });
               }}
             />
           )}
-        </>
+        </View>
       ) : null}
     </SafeAreaView>
   );
@@ -118,6 +119,9 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   flatList: {
+    marginTop: 10,
+  },
+  flatListContent: {
     flexGrow: 1,
   },
 });
