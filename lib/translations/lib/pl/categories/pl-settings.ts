@@ -1,6 +1,6 @@
 export const plSettings = {
   settings: {
-    Setting: 'Ustawienia',
+    Settings: 'Ustawienia',
     categories: {
       UserSettings: 'Ustawienia użytkownika',
       ProvidersSettings: 'Połączone usługi',
