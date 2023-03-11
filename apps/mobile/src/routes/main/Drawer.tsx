@@ -4,7 +4,6 @@ import {
   DrawerContentComponentProps,
   DrawerContentScrollView,
   DrawerItemList,
-  DrawerNavigationOptions,
 } from '@react-navigation/drawer';
 import {
   BrowseScreenProps,
@@ -23,13 +22,8 @@ import { StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import SettingsStack from '../settings/SettingsStack';
 import { ENV, API_URL } from '@env';
-import { SettingsScreenNames } from '../settings/interfaces';
 
-const defaultOptions = ({
-  title,
-}: {
-  title?: string;
-}): DrawerNavigationOptions => {
+const defaultHeaderOptions = ({ title }: { title?: string }) => {
   return {
     title: title,
     headerTitleStyle: {
@@ -79,7 +73,7 @@ export const DrawerNav = () => {
         name={ScreenNames.Browse}
         component={BrowseScreen}
         options={({ navigation }: BrowseScreenProps) => ({
-          ...defaultOptions({
+          ...defaultHeaderOptions({
             title: translate('routes.' + ScreenNames.Browse),
           }),
           headerBackVisible: false,
@@ -97,7 +91,7 @@ export const DrawerNav = () => {
         name={ScreenNames.Search}
         component={SearchScreen}
         options={({ navigation }: SearchScreenProps) => ({
-          ...defaultOptions({
+          ...defaultHeaderOptions({
             title: translate('routes.' + ScreenNames.Search),
           }),
           animation: 'slide_from_right',
@@ -114,7 +108,6 @@ export const DrawerNav = () => {
         name={ScreenNames.SettingsStack}
         component={SettingsStack}
         options={{
-          title: translate('routes.' + SettingsScreenNames.Settings),
           headerShown: false,
         }}
       />

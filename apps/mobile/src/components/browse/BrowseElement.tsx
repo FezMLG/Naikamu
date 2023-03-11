@@ -17,15 +17,12 @@ const BrowseElement = ({
   anime: Media;
   handlePageChange: ((event: GestureResponderEvent) => void) | null | undefined;
 }) => {
-  const [focus, setFocus] = useState(false);
   const [textHeight, setTextHeight] = useState(140);
 
   return (
     <Pressable
       key={anime.id}
       style={[styles.card, darkStyle.card]}
-      onFocus={() => setFocus(!focus)}
-      onBlur={() => setFocus(!focus)}
       onPress={handlePageChange}>
       <View
         style={[styles.poster, { backgroundColor: anime.coverImage.color }]}>

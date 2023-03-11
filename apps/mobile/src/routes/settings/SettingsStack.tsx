@@ -1,7 +1,5 @@
 import React from 'react';
-import { IconButton } from 'react-native-paper';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { DrawerActions } from '@react-navigation/native';
 
 import { useTranslate } from '../../i18n/useTranslate';
 import SettingsScreen from '../../screens/settings/SettingsScreen';
@@ -13,12 +11,7 @@ import {
 } from './interfaces';
 import UserSettingsScreen from '../../screens/settings/UserSettingsScreen';
 import DangerSettingsScreen from '../../screens/settings/DangerSettingsScreen';
-
-const defaultOptions = ({ title }: { title?: string }) => {
-  return {
-    title: title,
-  };
-};
+import { defaultHeaderOptions } from '../main/BottomTabNavigation';
 
 const Stack = createNativeStackNavigator<SettingsStackParamList>();
 
@@ -30,30 +23,19 @@ const SettingsStack = () => {
       <Stack.Screen
         name={SettingsScreenNames.Settings}
         component={SettingsScreen}
-        options={({ navigation }: SettingsScreenProps) => ({
-          ...defaultOptions({
-            title: translate(
-              'settings.categories.' + SettingsScreenNames.Settings,
-            ),
+        options={({}: SettingsScreenProps) => ({
+          ...defaultHeaderOptions({
+            title: translate('settings.' + SettingsScreenNames.Settings),
           }),
           animation: 'slide_from_right',
-          headerLeft: () => (
-            <IconButton
-              icon="menu"
-              size={24}
-              onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
-            />
-          ),
         })}
       />
       <Stack.Screen
         name={SettingsScreenNames.UserSettings}
         component={UserSettingsScreen}
         options={() => ({
-          ...defaultOptions({
-            title: translate(
-              'settings.categories.' + SettingsScreenNames.Settings,
-            ),
+          ...defaultHeaderOptions({
+            title: translate('settings.' + SettingsScreenNames.Settings),
           }),
           animation: 'slide_from_right',
         })}
@@ -62,10 +44,8 @@ const SettingsStack = () => {
         name={SettingsScreenNames.DangerSettings}
         component={DangerSettingsScreen}
         options={() => ({
-          ...defaultOptions({
-            title: translate(
-              'settings.categories.' + SettingsScreenNames.Settings,
-            ),
+          ...defaultHeaderOptions({
+            title: translate('settings.' + SettingsScreenNames.Settings),
           }),
           animation: 'slide_from_right',
         })}
@@ -74,7 +54,7 @@ const SettingsStack = () => {
         name={SettingsScreenNames.SettingsActionConfirm}
         component={SettingsActionConfirmScreen}
         options={{
-          ...defaultOptions({
+          ...defaultHeaderOptions({
             title: translate(
               'settings.categories.' +
                 SettingsScreenNames.SettingsActionConfirm,

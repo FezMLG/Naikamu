@@ -10,12 +10,14 @@ import { maxWidth } from '../components/maxDimensions';
 import { BrowseScreenProps, ScreenNames } from '../routes/main';
 import { SeasonYearSelectButtons } from '../components';
 import { useQuerySeriesList } from '../api/hooks';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
 const BrowseScreen = ({ navigation }: BrowseScreenProps) => {
   const CONTENT_OFFSET_THRESHOLD = 300;
   const listRef = useRef<FlatList>(null);
   const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
   const { api, season, year, setSeason, setYear } = useQuerySeriesList();
+  const tabHeight = useBottomTabBarHeight();
 
   const renderItem = ({ item }: { item: Media }) => (
     <BrowseElement
@@ -41,12 +43,12 @@ const BrowseScreen = ({ navigation }: BrowseScreenProps) => {
       {api.data ? (
         <View>
           <FlatList
-            style={styles.flatList}
+            style={[styles.flatList]}
             ref={listRef}
             data={api.data.pages.map(page => page.Page.media).flat()}
             renderItem={renderItem}
             numColumns={Math.floor(maxWidth() / 180)}
-            contentContainerStyle={styles.flatListContent}
+            contentContainerStyle={[styles.flatListContent]}
             keyExtractor={(_, index) => index.toString()}
             onEndReachedThreshold={1}
             refreshing={api.isRefetching}
@@ -55,6 +57,8 @@ const BrowseScreen = ({ navigation }: BrowseScreenProps) => {
             onScroll={event => {
               setContentVerticalOffset(event.nativeEvent.contentOffset.y);
             }}
+            ListFooterComponent={<View />}
+            ListFooterComponentStyle={{ height: tabHeight * 2, width: '100%' }}
           />
           {contentVerticalOffset > CONTENT_OFFSET_THRESHOLD && (
             <FAB
@@ -72,55 +76,18 @@ const BrowseScreen = ({ navigation }: BrowseScreenProps) => {
 };
 
 const styles = StyleSheet.create({
-  autoGrid: {
-    flexGrow: 0,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    width: '100%',
-    justifyContent: 'center',
-  },
   container: {
     flex: 1,
     alignItems: 'center',
-  },
-  scrollView: {
-    marginHorizontal: 20,
-  },
-  poster: {
-    width: 200,
-    height: 300,
-    borderTopLeftRadius: 5,
-    borderTopRightRadius: 5,
-  },
-  title: {
-    width: 200,
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-  },
-  card: {
-    height: 350,
-    width: 200,
-    marginVertical: 10,
-  },
-  wrapperFocused: {
-    borderColor: 'purple',
-    borderWidth: 1,
   },
   fab: {
     position: 'absolute',
     margin: 16,
     right: 0,
-    bottom: 50,
-  },
-  menu: {
-    position: 'absolute',
-    margin: 16,
-    right: 0,
-    bottom: 0,
+    bottom: 120,
   },
   flatList: {
     marginTop: 10,
-    marginBottom: 60,
   },
   flatListContent: {
     flexGrow: 1,
