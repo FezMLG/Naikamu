@@ -43,7 +43,7 @@ const BrowseElement = ({
         <Text
           style={[{ color: anime.coverImage.color }, styles.subTitle]}
           numberOfLines={1}>
-          {anime.studios.nodes[0].name}
+          {anime.studios.nodes[0]?.name ?? ''}
         </Text>
       </View>
     </Pressable>

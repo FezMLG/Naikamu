@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     margin: 16,
     right: 0,
-    bottom: 0,
+    bottom: 50,
   },
   menu: {
     position: 'absolute',
@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
   },
   flatList: {
     marginTop: 10,
+    marginBottom: 60,
   },
   flatListContent: {
     flexGrow: 1,
