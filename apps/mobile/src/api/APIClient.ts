@@ -52,6 +52,16 @@ export class APIClient {
     return data;
   }
 
+  async getApiHealth(): Promise<{
+    status: number;
+    message: string;
+  }> {
+    return this.get<{
+      status: number;
+      message: string;
+    }>('/health');
+  }
+
   async getAnimeList({
     page,
     season,

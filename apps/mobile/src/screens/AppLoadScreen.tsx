@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Image, SafeAreaView, StyleSheet, View } from 'react-native';
-import { ActivityIndicator, ProgressBar, Text } from 'react-native-paper';
+import { ActivityIndicator, Text } from 'react-native-paper';
 import { API_URL, ENV } from '@env';
 import { useSelector } from 'react-redux';
 
@@ -14,22 +14,19 @@ import {
   fireGetUser,
 } from '../services/firebase/fire-auth.service';
 import { AppLoadingScreenProps, AuthRoutesNames } from '../routes/auth';
+import { useQueryApiHealth } from '../api/hooks';
 
 const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
   const { translate } = useTranslate();
   const dispatch = useAppDispatch();
   const { user } = useSelector((state: RootState) => state.user);
 
-  const [progress, setProgress] = useState<number>(0);
+  const apiCheck = useQueryApiHealth();
 
   const handleLoginCheck = useCallback(async () => {
-    setProgress(0.2);
     const token = await fireGetIdToken();
-    setProgress(0.4);
     if (token) {
-      setProgress(0.6);
       await dispatch(await fireGetNewIdToken());
-      setProgress(0.8);
       await dispatch(fireGetUser());
       if (!user?.emailVerified && user?.emailVerified !== undefined) {
         navigation.navigate(AuthRoutesNames.VerifyEmail);
@@ -40,8 +37,10 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
   }, [dispatch, navigation, user?.emailVerified]);
 
   useEffect(() => {
-    handleLoginCheck();
-  }, [handleLoginCheck]);
+    if (apiCheck.data) {
+      handleLoginCheck();
+    }
+  }, [apiCheck.data, handleLoginCheck]);
 
   return (
     <SafeAreaView style={[styles.container]}>
@@ -61,7 +60,7 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
       />
       <View style={[globalStyle.spacerBig]} />
       <ActivityIndicator size={'large'} />
-      <ProgressBar progress={progress} />
+      {apiCheck.isError ?? <Text>{JSON.stringify(apiCheck.error)}</Text>}
       {ENV !== 'prod' && <Text>api_url: {API_URL}</Text>}
     </SafeAreaView>
   );
