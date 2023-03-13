@@ -85,9 +85,7 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
           onPress={() =>
             Linking.openURL('https://github.com/FezMLG/AniWatch/issues/new')
           }
-          style={{
-            alignItems: 'center',
-          }}>
+          style={styles.centerBox}>
           <Text style={[fontStyles.text, colors.error, globalStyle.textCenter]}>
             {translate('welcomeScreen.apiError')}
           </Text>
@@ -119,6 +117,9 @@ const styles = StyleSheet.create({
   logo: {
     maxWidth: 200,
     maxHeight: 200,
+  },
+  centerBox: {
+    alignItems: 'center',
   },
 });
 
