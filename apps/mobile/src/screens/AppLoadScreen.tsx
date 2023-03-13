@@ -1,11 +1,18 @@
-import React, { useCallback, useEffect } from 'react';
-import { Image, SafeAreaView, StyleSheet, View } from 'react-native';
-import { ActivityIndicator, Text } from 'react-native-paper';
+import React, { useCallback, useEffect, useState } from 'react';
+import {
+  Image,
+  Linking,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import { ActivityIndicator } from 'react-native-paper';
 import { API_URL, ENV } from '@env';
 import { useSelector } from 'react-redux';
 
-import { globalStyle } from '../styles/global.style';
-import { darkStyle } from '../styles/darkMode.style';
+import { colors, fontStyles, globalStyle } from '../styles/global.style';
 import { useTranslate } from '../i18n/useTranslate';
 import { RootState, useAppDispatch } from '../services/store/store';
 import {
@@ -20,6 +27,8 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
   const { translate } = useTranslate();
   const dispatch = useAppDispatch();
   const { user } = useSelector((state: RootState) => state.user);
+  const [longLoading, setLongLoading] = useState(false);
+  const [apiError, setApiError] = useState(false);
 
   const apiCheck = useQueryApiHealth();
 
@@ -42,17 +51,23 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
     }
   }, [apiCheck.data, handleLoginCheck]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setLongLoading(true);
+    }, 3000);
+    setTimeout(() => {
+      setLongLoading(false);
+      setApiError(true);
+    }, 15000);
+  }, []);
+
   return (
     <SafeAreaView style={[styles.container]}>
       <Text>{user?.displayName ? user?.displayName : user?.email}</Text>
-      <Text variant="titleLarge" style={darkStyle.font}>
+      <Text style={[colors.textLight, fontStyles.text]}>
         {translate('welcomeScreen.welcome')}
       </Text>
-      <Text
-        variant="displayMedium"
-        style={[darkStyle.font, { fontWeight: 'bold' }]}>
-        AniWatch
-      </Text>
+      <Text style={[colors.textLight, fontStyles.screenHeader]}>AniWatch</Text>
       <View style={[globalStyle.spacerBig]} />
       <Image
         style={styles.logo}
@@ -60,6 +75,30 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
       />
       <View style={[globalStyle.spacerBig]} />
       <ActivityIndicator size={'large'} />
+      {longLoading && (
+        <Text style={[fontStyles.text, globalStyle.textCenter]}>
+          {translate('welcomeScreen.apiLoading')}
+        </Text>
+      )}
+      {apiError && (
+        <Pressable
+          onPress={() =>
+            Linking.openURL('https://github.com/FezMLG/AniWatch/issues/new')
+          }
+          style={styles.centerBox}>
+          <Text style={[fontStyles.text, colors.error, globalStyle.textCenter]}>
+            {translate('welcomeScreen.apiError')}
+          </Text>
+          <Text
+            style={[
+              fontStyles.text,
+              fontStyles.underline,
+              globalStyle.textCenter,
+            ]}>
+            {translate('welcomeScreen.apiContact')}
+          </Text>
+        </Pressable>
+      )}
       {apiCheck.isError ?? <Text>{JSON.stringify(apiCheck.error)}</Text>}
       {ENV !== 'prod' && <Text>api_url: {API_URL}</Text>}
     </SafeAreaView>
@@ -78,6 +117,9 @@ const styles = StyleSheet.create({
   logo: {
     maxWidth: 200,
     maxHeight: 200,
+  },
+  centerBox: {
+    alignItems: 'center',
   },
 });
 

@@ -64,6 +64,9 @@ export const pl = {
   welcomeScreen: {
     welcome: 'Witaj w',
     cto: 'Zaczynamy',
+    apiLoading: 'Proszę czekać, nasze serwery rozgrzewają się',
+    apiError: 'Wystąpiłem problem z serwerami',
+    apiContact: 'Kiliknij tutaj, aby się z nami skontaktować',
   },
   animeSeason: {
     winter: 'Zima',

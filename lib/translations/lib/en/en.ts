@@ -63,6 +63,9 @@ export const en = {
   welcomeScreen: {
     welcome: 'Welcome to',
     cto: 'Get started',
+    apiLoading: 'Please wait, our servers are starting up',
+    apiError: 'There is problem with servers',
+    apiContact: 'Click here to contact us',
   },
   animeSeason: {
     winter: 'Winter',
