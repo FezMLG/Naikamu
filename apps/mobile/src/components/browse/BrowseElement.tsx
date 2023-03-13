@@ -9,6 +9,7 @@ import {
 import { Media } from '@aniwatch/shared';
 import { darkStyle } from '../../styles/darkMode.style';
 import { ProgressiveImage } from '../ProgressiveImage';
+import { defaultRadius } from '../../styles/global.style';
 
 const BrowseElement = ({
   anime,
@@ -58,7 +59,7 @@ const styles = StyleSheet.create({
   poster: {
     width: '100%',
     height: '100%',
-    borderRadius: 8,
+    borderRadius: defaultRadius,
     resizeMode: 'cover',
   },
   title: {
@@ -79,8 +80,8 @@ const styles = StyleSheet.create({
     position: 'relative',
     width: '100%',
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
-    borderBottomStartRadius: 8,
-    borderBottomEndRadius: 8,
+    borderBottomStartRadius: defaultRadius,
+    borderBottomEndRadius: defaultRadius,
   },
 });
 
