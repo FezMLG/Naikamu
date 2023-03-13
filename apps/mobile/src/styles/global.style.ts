@@ -54,10 +54,16 @@ export const fontStyles = StyleSheet.create({
   text: {
     fontFamily: 'Roboto-Regular',
     fontSize: 16,
+    lineHeight: 16 * 1.4,
   },
   label: {
     fontFamily: 'Lato-Regular',
     fontSize: 12,
+  },
+  underline: {
+    textDecorationStyle: 'solid',
+    textDecorationColor: '#ffffff',
+    textDecorationLine: 'underline',
   },
 });
 

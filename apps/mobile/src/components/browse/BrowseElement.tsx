@@ -63,10 +63,11 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   title: {
-    fontFamily: 'Lato-Regular',
+    fontFamily: 'Lato-Bold',
     fontSize: 16,
   },
   subTitle: {
+    fontFamily: 'Lato-Regular',
     fontSize: 14,
   },
   card: {
