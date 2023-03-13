@@ -43,4 +43,41 @@ export const fontStyles = StyleSheet.create({
   warning: {
     color: '#B00020',
   },
+  screenHeader: {
+    fontFamily: 'Catamaran-Black',
+    fontSize: 36,
+  },
+  subScreenHeader: {
+    fontFamily: 'Catamaran-Black',
+    fontSize: 24,
+  },
+  text: {
+    fontFamily: 'Roboto-Regular',
+    fontSize: 16,
+  },
+  label: {
+    fontFamily: 'Lato-Regular',
+    fontSize: 12,
+  },
+});
+
+export const colors = StyleSheet.create({
+  background: {
+    color: '#1C1C1E',
+  },
+  onBackground: {
+    color: '#F2F2F2',
+  },
+  accent: {
+    color: '#FF6932',
+  },
+  textDark: {
+    color: '#000000',
+  },
+  textLight: {
+    color: '#F2F2F2',
+  },
+  error: {
+    color: '#FF453A',
+  },
 });

@@ -13,7 +13,7 @@ const linking = {
   config: {
     screens: {
       [ScreenNames.Browse]: 'browse',
-      [ScreenNames.Series]: 'browse/:title',
+      [ScreenNames.Series]: 'browse/:id',
     },
   },
 };

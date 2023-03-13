@@ -1,5 +1,5 @@
 import React from 'react';
-import { AnimeDetails } from '../../../../../../lib/shared/dist';
+import { AnimeDetails } from '@aniwatch/shared';
 import { useTranslate } from '../../../i18n/useTranslate';
 import { useNavigation } from '@react-navigation/native';
 import { ScreenNames } from '../../../routes/main';

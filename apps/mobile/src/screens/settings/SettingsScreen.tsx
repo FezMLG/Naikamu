@@ -12,6 +12,7 @@ import {
   SettingsScreenNames,
   SettingsScreenProps,
 } from '../../routes/settings/interfaces';
+import { ENV, API_URL } from '@env';
 
 const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
   const { user } = useSelector((state: RootState) => state.user);
@@ -57,6 +58,7 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
           {translate('settings.categories.DangerSettings')}
         </Button>
       </View>
+      {ENV === 'prod' ? null : <Text>{API_URL}</Text>}
       <Button
         mode={'outlined'}
         style={[styles.center, globalStyle.marginTopBig]}

@@ -4,12 +4,12 @@ import {
   View,
   Pressable,
   GestureResponderEvent,
+  Text,
 } from 'react-native';
 import { Media } from '@aniwatch/shared';
 import { darkStyle } from '../../styles/darkMode.style';
 import { ProgressiveImage } from '../ProgressiveImage';
-import { Text } from 'react-native-paper';
-import LinearGradient from 'react-native-linear-gradient';
+import { defaultRadius } from '../../styles/global.style';
 
 const BrowseElement = ({
   anime,
@@ -18,14 +18,12 @@ const BrowseElement = ({
   anime: Media;
   handlePageChange: ((event: GestureResponderEvent) => void) | null | undefined;
 }) => {
-  const [focus, setFocus] = useState(false);
+  const [textHeight, setTextHeight] = useState(140);
 
   return (
     <Pressable
       key={anime.id}
       style={[styles.card, darkStyle.card]}
-      onFocus={() => setFocus(!focus)}
-      onBlur={() => setFocus(!focus)}
       onPress={handlePageChange}>
       <View
         style={[styles.poster, { backgroundColor: anime.coverImage.color }]}>
@@ -33,18 +31,19 @@ const BrowseElement = ({
           source={anime.coverImage.extraLarge}
           style={styles.poster}
         />
-        <LinearGradient
-          colors={['transparent', 'black']}
-          locations={[0, 1]}
-          style={styles.linearGradient}
-        />
       </View>
-      <Text
-        variant="titleMedium"
-        numberOfLines={2}
-        style={[styles.title, darkStyle.font]}>
-        {anime.title.romaji}
-      </Text>
+      <View
+        onLayout={e => setTextHeight(e.nativeEvent.layout.height)}
+        style={[styles.titleContainer, { bottom: textHeight }]}>
+        <Text style={[darkStyle.font, styles.title]} numberOfLines={4}>
+          {anime.title.romaji}
+        </Text>
+        <Text
+          style={[{ color: anime.coverImage.color }, styles.subTitle]}
+          numberOfLines={1}>
+          {anime.studios.nodes[0]?.name ?? ''}
+        </Text>
+      </View>
     </Pressable>
   );
 };
@@ -58,32 +57,31 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   poster: {
-    width: 200,
-    height: 300,
-    borderRadius: 8,
+    width: '100%',
+    height: '100%',
+    borderRadius: defaultRadius,
     resizeMode: 'cover',
   },
   title: {
-    width: 200,
+    fontFamily: 'Lato-Regular',
+    fontSize: 16,
+  },
+  subTitle: {
+    fontSize: 14,
+  },
+  card: {
+    height: 280,
+    width: 180,
+    margin: 8,
+  },
+  titleContainer: {
     paddingVertical: 5,
     paddingHorizontal: 10,
     position: 'relative',
-    bottom: 65,
-    fontWeight: 'bold',
-  },
-  card: {
-    height: 300,
-    width: 200,
-    maxWidth: 220,
-    marginVertical: 10,
-    margin: 10,
-  },
-  linearGradient: {
-    position: 'relative',
-    bottom: 100,
-    width: 200,
-    height: 100,
-    borderRadius: 8,
+    width: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    borderBottomStartRadius: defaultRadius,
+    borderBottomEndRadius: defaultRadius,
   },
 });
 

@@ -1,3 +1,3 @@
 export * from './MainStack';
 export * from './interfaces';
-export * from './Drawer';
+export * from './BottomTabNavigation';

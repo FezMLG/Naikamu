@@ -32,6 +32,13 @@ export interface AnimeDetails {
     site: string;
     thumbnail: string;
   };
+  studios: IStudios;
+}
+
+interface IStudios {
+  nodes: {
+    name: string;
+  }[];
 }
 
 export interface Relation {
