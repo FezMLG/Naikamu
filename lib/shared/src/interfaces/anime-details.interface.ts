@@ -18,7 +18,7 @@ export interface AnimeDetails {
   status: string;
   genres: string[];
   format: string;
-  episodes: number;
+  episodes?: number;
   duration: number;
   averageScore: number;
   season: AnimeSeason;

@@ -56,7 +56,7 @@ const MainStack = () => {
           headerLeft: () => (
             <Icon
               name="chevron-left"
-              size={36}
+              size={30}
               color={'white'}
               style={{
                 backgroundColor: 'rgba(0, 0, 0, 0.5)',

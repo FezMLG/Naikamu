@@ -114,6 +114,10 @@ export const pl = {
     links: 'Linki',
     source: 'Źródło',
   },
+  watch_list: {
+    watching: 'Oglądam',
+    add: 'Dodaj do listy',
+  },
   anime_episodes: {
     players_not_found: 'Nie znaleziono odtwarzaczy',
     Episode: 'Odcinek',

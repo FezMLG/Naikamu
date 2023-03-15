@@ -3,13 +3,14 @@ import {
   GestureResponderEvent,
   Pressable,
   StyleSheet,
+  Text,
   View,
 } from 'react-native';
-import { Text } from 'react-native-paper';
 import { useTranslate } from '../../i18n/useTranslate';
 import { Relation } from '@aniwatch/shared';
 import { darkColor } from '../../styles/darkMode.style';
 import { ProgressiveImage } from '../ProgressiveImage';
+import { colors, fontStyles } from '../../styles';
 
 export const SeriesRelations = ({
   relation,
@@ -28,19 +29,22 @@ export const SeriesRelations = ({
       />
       <View style={styles.details}>
         <View style={[styles.flexColumn, styles.marginTop]}>
-          <Text variant="bodySmall" style={[styles.textCapitalize]}>
+          <Text
+            style={[styles.textCapitalize, fontStyles.label, colors.textLight]}>
             {translate('anime_details.relations_list.' + relation.relationType)}
           </Text>
-          <Text variant="titleMedium" style={styles.title} numberOfLines={3}>
+          <Text style={[styles.title, colors.textLight]} numberOfLines={4}>
             {relation.title.romaji}
           </Text>
         </View>
-        <View style={[styles.flexRow, styles.marginBottom]}>
-          <Text variant="bodyMedium" style={styles.textCapitalize}>
+        <View style={[styles.type, styles.marginBottom]}>
+          <Text
+            style={[styles.textCapitalize, fontStyles.label, colors.textLight]}>
             {relation.format}
           </Text>
-          <Text> · </Text>
-          <Text variant="bodyMedium" style={styles.textCapitalize}>
+          <Text>•</Text>
+          <Text
+            style={[styles.textCapitalize, fontStyles.label, colors.textLight]}>
             {relation.status}
           </Text>
         </View>
@@ -54,19 +58,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flex: 1,
     maxWidth: 300,
-    height: 115,
+    height: 150,
     backgroundColor: darkColor.C800,
     borderTopRightRadius: 8,
     borderBottomRightRadius: 8,
     marginTop: 10,
-    marginLeft: 20,
+    marginRight: 20,
   },
   title: {
+    ...fontStyles.text,
+    fontFamily: 'Roboto-Bold',
     width: 185,
   },
   poster: {
-    maxHeight: 115,
-    width: 90,
+    height: '100%',
+    width: 100,
     borderTopLeftRadius: 8,
     borderBottomLeftRadius: 8,
     resizeMode: 'cover',
@@ -81,8 +87,10 @@ const styles = StyleSheet.create({
   flexColumn: {
     flexDirection: 'column',
   },
-  flexRow: {
+  type: {
     flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
   },
   marginTop: {
     marginLeft: 10,

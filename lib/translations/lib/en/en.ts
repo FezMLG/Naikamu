@@ -113,6 +113,10 @@ export const en = {
     links: 'Links',
     source: 'Source',
   },
+  watch_list: {
+    watching: 'Watching',
+    add: 'Add to list',
+  },
   anime_episodes: {
     players_not_found: 'Players not found',
     Episode: 'Episode',

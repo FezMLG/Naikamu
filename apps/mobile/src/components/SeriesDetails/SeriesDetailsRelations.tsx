@@ -25,18 +25,20 @@ export const SeriesDetailsRelations = (props: {
               key={index}
               relation={relation}
               handleNavigation={() => {
-                if (relation.format !== 'ANIME') {
-                  navigation.navigate(ScreenNames.Series, {
-                    id: relation.id,
-                    title: relation.title.romaji,
-                  });
-                } else {
-                  Linking.openURL(
-                    'https://anilist.co/' +
-                      relation.type.toLowerCase() +
-                      '/' +
-                      relation.id,
-                  );
+                switch (relation.type.toLocaleLowerCase()) {
+                  case 'anime':
+                    navigation.navigate(ScreenNames.Series, {
+                      id: relation.id,
+                      title: relation.title.romaji,
+                    });
+                    break;
+                  default:
+                    Linking.openURL(
+                      'https://anilist.co/' +
+                        relation.type.toLowerCase() +
+                        '/' +
+                        relation.id,
+                    );
                 }
               }}
             />
@@ -49,6 +51,7 @@ export const SeriesDetailsRelations = (props: {
 
 const styles = StyleSheet.create({
   titleType: {
-    fontWeight: 'bold',
+    fontFamily: 'Lato-Bold',
+    fontSize: 24,
   },
 });

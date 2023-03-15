@@ -9,6 +9,7 @@ import {
   EpisodesButton,
   SeriesDetails,
   SeriesDetailsRelations,
+  WatchList,
 } from '../../components/SeriesDetails';
 
 const SeriesScreen = ({ route }: SeriesScreenProps) => {
@@ -34,13 +35,20 @@ const SeriesScreen = ({ route }: SeriesScreenProps) => {
             />
             <View style={globalStyle.marginTop} />
             <SeriesDetails.QuickInfoContainer data={data} />
-            <View style={globalStyle.marginTop} />
+            {data.nextAiringEpisode ? (
+              <View style={globalStyle.marginTop} />
+            ) : null}
             <SeriesDetails.NextEpisode
               airingAt={data.nextAiringEpisode?.airingAt}
               episode={data.nextAiringEpisode?.episode}
             />
             <View style={globalStyle.marginTop} />
             <EpisodesButton series={data} />
+            <View style={globalStyle.marginTop} />
+            <View style={styles.watchlistTrailerContainer}>
+              <WatchList seriesId={data.id} watchStatus={data.watchStatus} />
+              <SeriesDetails.Trailer trailer={data.trailer} />
+            </View>
             <View style={globalStyle.marginTop} />
             <SeriesDetails.Genres
               genres={data.genres}
@@ -70,6 +78,11 @@ const styles = StyleSheet.create({
   scrollView: {},
   body: {
     paddingHorizontal: 16,
+  },
+  watchlistTrailerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 50,
   },
 });
 

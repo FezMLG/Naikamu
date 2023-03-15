@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { ActivityIndicator, Button, Text } from 'react-native-paper';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { WatchStatus } from '@aniwatch/shared';
@@ -8,6 +8,7 @@ import { ENV } from '@env';
 
 import { useMutationUpdateUserWatchList } from '../../api/hooks';
 import { useTranslate } from '../../i18n/useTranslate';
+import { colors, fontStyles } from '../../styles';
 
 interface WatchListProps {
   seriesId: string;
@@ -22,7 +23,7 @@ export const WatchList = ({ seriesId, watchStatus }: WatchListProps) => {
   );
 
   return (
-    <View style={styles.center}>
+    <View style={styles.container}>
       {mutation.isLoading ? (
         <ActivityIndicator size={'small'} style={styles.pad} />
       ) : (
@@ -30,22 +31,40 @@ export const WatchList = ({ seriesId, watchStatus }: WatchListProps) => {
           {ENV !== 'prod' && mutation.isError ? (
             <Text>{'An error occurred ' + mutation.error}</Text>
           ) : null}
-          <Button
+          <Pressable
+            style={styles.statusInfo}
             onPress={() => {
               mutation.mutate();
             }}>
             {watching === WatchStatus.Following ? (
-              <View>
-                <Icon name={'movie-open-check'} />
-                <Text>Watching</Text>
-              </View>
+              <>
+                <Icon
+                  name={'movie-open-check'}
+                  size={30}
+                  color={colors.textLight.color}
+                />
+                <Text
+                  style={[
+                    fontStyles.text,
+                    colors.textLight,
+                    { fontFamily: 'Roboto-Bold' },
+                  ]}>
+                  {translate('watch_list.watching')}
+                </Text>
+              </>
             ) : (
-              <View>
-                <Icon name={'movie-open-plus'} />
-                <Text>Add to list</Text>
-              </View>
+              <>
+                <Icon
+                  name={'movie-open-plus'}
+                  size={30}
+                  color={colors.textLight.color}
+                />
+                <Text style={[fontStyles.text, colors.textLight]}>
+                  {translate('watch_list.add')}
+                </Text>
+              </>
             )}
-          </Button>
+          </Pressable>
         </>
       )}
     </View>
@@ -53,12 +72,15 @@ export const WatchList = ({ seriesId, watchStatus }: WatchListProps) => {
 };
 
 const styles = StyleSheet.create({
-  center: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 45,
+  container: {
+    height: 60,
   },
   pad: {
     paddingHorizontal: 10,
+  },
+  statusInfo: {
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    gap: 5,
   },
 });
