@@ -1,21 +1,21 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ActivityIndicator, Button, Text } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { WatchStatus } from '@aniwatch/shared';
 import { ENV } from '@env';
 
-import { useMutationUpdateUserWatchList } from '../../../api/hooks';
+import { useMutationUpdateUserWatchList } from '../../api/hooks';
+import { useTranslate } from '../../i18n/useTranslate';
 
-interface AddToWatchListProps {
+interface WatchListProps {
   seriesId: string;
   watchStatus: WatchStatus;
 }
 
-export const AddToWatchList = ({
-  seriesId,
-  watchStatus,
-}: AddToWatchListProps) => {
+export const WatchList = ({ seriesId, watchStatus }: WatchListProps) => {
+  const { translate } = useTranslate();
   const { watching, mutation } = useMutationUpdateUserWatchList(
     watchStatus,
     seriesId,
@@ -35,9 +35,15 @@ export const AddToWatchList = ({
               mutation.mutate();
             }}>
             {watching === WatchStatus.Following ? (
-              <Text>Remove from watchlist</Text>
+              <View>
+                <Icon name={'movie-open-check'} />
+                <Text>Watching</Text>
+              </View>
             ) : (
-              <Text>Add to watchlist</Text>
+              <View>
+                <Icon name={'movie-open-plus'} />
+                <Text>Add to list</Text>
+              </View>
             )}
           </Button>
         </>

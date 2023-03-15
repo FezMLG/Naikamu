@@ -1,5 +1,9 @@
 import React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {
+  createNativeStackNavigator,
+  NativeStackNavigationOptions,
+} from '@react-navigation/native-stack';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import NativeVideoPlayerScreen from '../../screens/series/episodes/player/VideoPlayerScreen';
 import SeriesScreen from '../../screens/series/SeriesScreen';
@@ -11,9 +15,14 @@ import SearchResultsScreen from '../../screens/search/SearchResultsScreen';
 import { useTranslate } from '../../i18n/useTranslate';
 import { BottomTabNavigation } from './BottomTabNavigation';
 
-export const defaultSubHeaderOptions = ({ title }: { title?: string }) => {
+export const defaultSubHeaderOptions = ({
+  title,
+}: {
+  title?: string;
+}): NativeStackNavigationOptions => {
   return {
     title: title,
+    animation: 'slide_from_right',
   };
 };
 
@@ -37,34 +46,47 @@ const MainStack = () => {
         component={SearchResultsScreen}
         options={{
           ...defaultSubHeaderOptions({ title: ScreenNames.SearchResults }),
-          animation: 'slide_from_right',
         }}
       />
       <StackAuthorized.Screen
         name={ScreenNames.Series}
         component={SeriesScreen}
-        options={({ route }: any) => ({
-          ...defaultSubHeaderOptions({ title: route.params.title }),
-          animation: 'slide_from_right',
+        options={({ navigation }) => ({
+          ...defaultSubHeaderOptions({}),
+          headerLeft: () => (
+            <Icon
+              name="chevron-left"
+              size={36}
+              color={'white'}
+              style={{
+                backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                borderRadius: 100,
+              }}
+              onPress={() => {
+                navigation.goBack();
+              }}
+            />
+          ),
+          headerTransparent: true,
+          headerTitle: '',
         })}
       />
       <StackAuthorized.Screen
         name={ScreenNames.Episodes}
         component={EpisodesListScreen}
-        options={({ route }: any) => ({
+        options={({ route }) => ({
           ...defaultSubHeaderOptions({
             title: `${translate('routes.' + ScreenNames.Episodes)}: ${
               route.params.title
             }`,
           }),
-          animation: 'slide_from_right',
         })}
       />
       <StackAuthorized.Screen
         name={ScreenNames.WatchNative}
         component={NativeVideoPlayerScreen}
         options={{
-          animation: 'slide_from_right',
+          ...defaultSubHeaderOptions({}),
           headerShown: false,
         }}
       />
@@ -72,7 +94,7 @@ const MainStack = () => {
         name={ScreenNames.WatchWebView}
         component={WebViewPlayerScreen}
         options={{
-          animation: 'slide_from_right',
+          ...defaultSubHeaderOptions({}),
           headerShown: false,
         }}
       />
@@ -81,7 +103,6 @@ const MainStack = () => {
         component={ErrorPlayerScreen}
         options={{
           ...defaultSubHeaderOptions({ title: 'Go To App' }),
-          animation: 'slide_from_right',
         }}
       />
     </StackAuthorized.Navigator>

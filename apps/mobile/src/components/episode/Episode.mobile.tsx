@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, SafeAreaView, StyleSheet, View } from 'react-native';
 import { ActivityIndicator, List, Text } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 
 import { AnimeEpisode, AnimePlayer, AnimePlayers } from '@aniwatch/shared';
 
@@ -12,6 +12,7 @@ import { PlayerMenu } from './PlayerMenu';
 import { useTranslate } from '../../i18n/useTranslate';
 import { UpdateEpisodeWatchStatus } from '../molecules';
 import { useQuerySeriesEpisodePlayers } from '../../api/hooks';
+import { RootStackParamList } from '../../routes/main';
 
 export const EpisodeMobileLink = ({
   animeName,
@@ -22,7 +23,7 @@ export const EpisodeMobileLink = ({
   episodeTitle: string;
   players: AnimePlayers;
 }) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   return (
     <>
@@ -97,7 +98,7 @@ export const EpisodeMobile = ({
         <List.Accordion
           title={translate('anime_episodes.available_players')}
           left={props => <List.Icon {...props} icon="folder" />}
-          onPress={refetch}
+          onPress={() => refetch()}
           style={styles.playersList}>
           {data ? (
             <EpisodeMobileLink

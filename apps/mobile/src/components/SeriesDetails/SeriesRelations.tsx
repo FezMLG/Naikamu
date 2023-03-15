@@ -11,7 +11,7 @@ import { Relation } from '@aniwatch/shared';
 import { darkColor } from '../../styles/darkMode.style';
 import { ProgressiveImage } from '../ProgressiveImage';
 
-export const AnimeRelation = ({
+export const SeriesRelations = ({
   relation,
   handleNavigation,
 }: {
