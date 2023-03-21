@@ -3,7 +3,7 @@ import { Linking } from 'react-native';
 import { ScreenNames } from '../../routes/main';
 import { AnimePlayer } from '@aniwatch/shared';
 
-export const navigateToPlayer = async ({
+export const navigateToPlayer = ({
   navigation,
   player,
   episodeTitle,
@@ -31,13 +31,7 @@ export const navigateToPlayer = async ({
         episodeNumber,
       });
 
-    case 'pobierz':
-      await Linking.canOpenURL(player.player_link);
-      return Linking.openURL(player.player_link);
-
     default:
-      return navigation.navigate(ScreenNames.WatchWebView, {
-        uri: player.player_link,
-      });
+      return Linking.openURL(player.player_link);
   }
 };

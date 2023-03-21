@@ -38,8 +38,8 @@ export const EpisodePlayer = ({
           <Pressable
             key={index}
             style={styles.playersListItem}
-            onPress={async () => {
-              await navigateToPlayer({
+            onPress={() => {
+              navigateToPlayer({
                 navigation: navigation,
                 player: player,
                 episodeTitle: episodeTitle,
@@ -179,7 +179,7 @@ export const Episode = ({
                 episodeTitle={'E' + episode.number + ' ' + episode.title}
               />
             ) : (
-              <ActivityIndicator size="large" />
+              <ActivityIndicator size="large" style={styles.playersLoading} />
             )}
           </List.Accordion>
         </View>
@@ -255,6 +255,10 @@ const styles = StyleSheet.create({
     backgroundColor: darkColor.C800,
     borderRadius: defaultRadius,
     maxWidth: '100%',
+  },
+  playersLoading: {
+    height: 70,
+    width: '85%',
   },
   logo: {
     height: 20,

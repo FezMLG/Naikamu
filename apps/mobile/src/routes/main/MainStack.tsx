@@ -8,8 +8,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NativeVideoPlayerScreen from '../../screens/series/episodes/player/VideoPlayerScreen';
 import SeriesScreen from '../../screens/series/SeriesScreen';
 import EpisodesListScreen from '../../screens/series/episodes/EpisodesListScreen';
-import WebViewPlayerScreen from '../../screens/series/episodes/player/WebViewPlayerScreen';
-import ErrorPlayerScreen from '../../screens/series/episodes/player/ErrorPlayerScreen';
 import { RootStackParamList, ScreenNames } from './interfaces';
 import SearchResultsScreen from '../../screens/search/SearchResultsScreen';
 import { useTranslate } from '../../i18n/useTranslate';
@@ -98,21 +96,6 @@ const MainStack = () => {
         options={{
           ...defaultSubHeaderOptions({}),
           headerShown: false,
-        }}
-      />
-      <StackAuthorized.Screen
-        name={ScreenNames.WatchWebView}
-        component={WebViewPlayerScreen}
-        options={{
-          ...defaultSubHeaderOptions({}),
-          headerShown: false,
-        }}
-      />
-      <StackAuthorized.Screen
-        name={ScreenNames.WatchError}
-        component={ErrorPlayerScreen}
-        options={{
-          ...defaultSubHeaderOptions({ title: 'Go To App' }),
         }}
       />
     </StackAuthorized.Navigator>
