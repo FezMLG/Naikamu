@@ -11,6 +11,7 @@ export const pl = {
     Search: 'Wyszukaj',
     Settings: 'Ustawienia',
     ActionConfirm: 'Potwierdź Akcję',
+    SearchResults: 'Wyniki wyszukiwania',
   },
   forms: {
     save: 'Zapisz',

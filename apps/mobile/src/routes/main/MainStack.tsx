@@ -43,7 +43,9 @@ const MainStack = () => {
         name={ScreenNames.SearchResults}
         component={SearchResultsScreen}
         options={{
-          ...defaultSubHeaderOptions({ title: ScreenNames.SearchResults }),
+          ...defaultSubHeaderOptions({
+            title: translate('routes.' + ScreenNames.SearchResults),
+          }),
         }}
       />
       <StackAuthorized.Screen

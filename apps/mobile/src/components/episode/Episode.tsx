@@ -33,7 +33,6 @@ export const EpisodePlayer = ({
   return (
     <>
       {players.players.map((player: AnimePlayer, index: number) => {
-        // TODO on long press user can choose if he want to open in webview or open external browser (mobile only)
         return (
           <Pressable
             key={index}

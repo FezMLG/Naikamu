@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { StyleSheet, SafeAreaView } from 'react-native';
-import { Button, TextInput } from 'react-native-paper';
+import { StyleSheet, SafeAreaView, View } from 'react-native';
+import { TextInput } from 'react-native-paper';
+import { Button } from '../../components';
 
 import { SearchScreenProps, ScreenNames } from '../../routes/main';
+import { globalStyle } from '../../styles';
 
 const SearchScreen = ({ navigation }: SearchScreenProps) => {
   const [search, setSearch] = useState('');
@@ -15,15 +17,17 @@ const SearchScreen = ({ navigation }: SearchScreenProps) => {
         value={search}
         onChangeText={text => setSearch(text)}
       />
+      <View style={globalStyle.spacerSmall} />
       <Button
-        mode={'contained'}
+        label="Search"
+        type="secondary"
+        icon="magnify"
         onPress={() =>
           navigation.navigate(ScreenNames.SearchResults, {
             phrase: search,
           })
-        }>
-        Search
-      </Button>
+        }
+      />
     </SafeAreaView>
   );
 };
@@ -31,6 +35,7 @@ const SearchScreen = ({ navigation }: SearchScreenProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginHorizontal: 16,
   },
 });
 

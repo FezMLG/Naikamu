@@ -11,6 +11,7 @@ export const en = {
     Search: 'Search',
     Settings: 'Settings',
     ActionConfirm: 'Confirm Action',
+    SearchResults: 'Search Results',
   },
   forms: {
     save: 'Save',
