@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Image, Pressable, SafeAreaView, StyleSheet, View } from 'react-native';
-import { ActivityIndicator, List } from 'react-native-paper';
+import { ActivityIndicator, List, ProgressBar } from 'react-native-paper';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { Text } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -16,6 +16,8 @@ import { UpdateEpisodeWatchStatus } from '../molecules';
 import { useQuerySeriesEpisodePlayers } from '../../api/hooks';
 import { RootStackParamList } from '../../routes/main';
 import { maxWidth } from '../maxDimensions';
+import { storageGetData } from '../../utils';
+import { OnProgressData } from 'react-native-video';
 
 export const EpisodePlayer = ({
   animeName,
@@ -61,10 +63,10 @@ export const EpisodePlayer = ({
             </Text>
             <Image
               resizeMode="contain"
-              style={[styles.logo, { marginLeft: 'auto' }]}
+              style={[styles.logo, { maxWidth: 100 }]}
               source={require('../../../assets/logo_docchi.png')}
             />
-            {/* <PlayerMenu player={player} /> */}
+            <PlayerMenu player={player} />
           </Pressable>
         );
       })}
@@ -92,15 +94,23 @@ export const Episode = ({
   const { translate } = useTranslate();
   const { data, refetch } = useQuerySeriesEpisodePlayers(id, num);
   const [isSelected, setIsSelected] = useState(false);
+  const [progress, setProgress] = useState<number | undefined>(undefined);
 
-  const fontColor = isSelected ? colors.accent : colors.textLight;
+  const openDetails = () => {
+    setIsSelected(prev => !prev);
+    handleVideoProgress();
+  };
+
+  const handleVideoProgress = async () => {
+    const storageKey = `${animeName} ${episode.number}`;
+    const storageProgress = await storageGetData<OnProgressData>(storageKey);
+    setProgress(storageProgress?.currentTime);
+  };
 
   return (
     <SafeAreaView style={[styles.episodeContainer]}>
       <View style={[styles.cardContainer, isSelected && darkStyle.card]}>
-        <Pressable
-          style={[styles.innerCard]}
-          onPress={() => setIsSelected(prev => !prev)}>
+        <Pressable style={[styles.innerCard]} onPress={openDetails}>
           <Image
             style={[
               styles.poster,
@@ -109,7 +119,7 @@ export const Episode = ({
             source={{ uri: episode.poster_url ?? posterUrl }}
           />
           <View style={styles.titleRow}>
-            <Text numberOfLines={2} style={[styles.title, fontColor]}>
+            <Text numberOfLines={2} style={[styles.title, colors.textLight]}>
               {num + '. ' + episode.title}
             </Text>
             <Text
@@ -132,9 +142,21 @@ export const Episode = ({
           </View>
         </Pressable>
         {isSelected ? (
-          <Text style={[styles.description, darkStyle.font, fontStyles.text]}>
-            {episode.description}
-          </Text>
+          <>
+            {progress ? (
+              <ProgressBar
+                progress={progress / (24 * 60)}
+                theme={{
+                  colors: {
+                    primary: colors.accent.color,
+                  },
+                }}
+              />
+            ) : null}
+            <Text style={[styles.description, darkStyle.font, fontStyles.text]}>
+              {episode.description}
+            </Text>
+          </>
         ) : null}
       </View>
       {isSelected ? (
@@ -143,6 +165,12 @@ export const Episode = ({
             title={translate('anime_episodes.available_players')}
             left={props => <List.Icon {...props} icon="folder" />}
             onPress={() => refetch()}
+            theme={{
+              colors: {
+                primary: colors.accent.color,
+                secondary: colors.textDark.color,
+              },
+            }}
             style={styles.playersList}>
             {data ? (
               <EpisodePlayer
@@ -208,17 +236,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   playersList: {
+    marginTop: 10,
     backgroundColor: darkColor.C900,
     borderRadius: defaultRadius,
   },
   playersListItem: {
-    height: 60,
+    height: 70,
     width: '100%',
     borderWidth: 1,
     borderStyle: 'solid',
-    borderColor: 'blue',
+    borderColor: darkColor.C700,
+    borderRadius: 8,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
   playersListContainer: {
     backgroundColor: darkColor.C800,
@@ -227,5 +258,6 @@ const styles = StyleSheet.create({
   },
   logo: {
     height: 20,
+    opacity: 0.75,
   },
 });

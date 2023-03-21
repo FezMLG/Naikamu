@@ -1,7 +1,9 @@
 import React from 'react';
-import { IconButton, Menu } from 'react-native-paper';
+import { Menu } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { AnimePlayer } from '@aniwatch/shared';
+import { Linking, Pressable, StyleSheet, Text } from 'react-native';
 
 export const PlayerMenu = ({ player }: { player: AnimePlayer }) => {
   const [visible, setVisible] = React.useState(false);
@@ -14,10 +16,33 @@ export const PlayerMenu = ({ player }: { player: AnimePlayer }) => {
     <Menu
       visible={visible}
       onDismiss={closeMenu}
+      anchorPosition={'bottom'}
       anchor={
-        <IconButton icon="dots-horizontal" size={24} onPress={openMenu} />
+        <Pressable
+          onPress={openMenu}
+          android_ripple={{ color: '#fffff', radius: 20 }}
+          style={{
+            height: 48,
+            width: 48,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Icon name="dots-horizontal" size={30} />
+        </Pressable>
       }>
-      {player.player_name === 'CDA' ? <></> : <></>}
+      <Pressable
+        onPress={() => Linking.openURL(player.source_url)}
+        android_ripple={{ color: '#fffff', radius: 20 }}
+        style={styles.menuItem}>
+        <Text>Source Page</Text>
+      </Pressable>
     </Menu>
   );
 };
+
+const styles = StyleSheet.create({
+  menuItem: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+  },
+});
