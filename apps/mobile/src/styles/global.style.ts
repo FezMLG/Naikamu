@@ -89,4 +89,7 @@ export const colors = StyleSheet.create({
   error: {
     color: '#FF453A',
   },
+  transparent: {
+    color: 'transparent',
+  },
 });

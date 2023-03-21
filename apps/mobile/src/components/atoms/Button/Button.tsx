@@ -1,4 +1,5 @@
 import React from 'react';
+import { StyleProp, ViewStyle } from 'react-native';
 import {
   GestureResponderEvent,
   Pressable,
@@ -14,6 +15,7 @@ interface ButtonProps {
   disabled?: boolean;
   onPress?: (event: GestureResponderEvent) => void;
   icon?: string;
+  style?: StyleProp<ViewStyle>[];
 }
 
 export const Button = ({
@@ -22,19 +24,32 @@ export const Button = ({
   icon,
   onPress,
   disabled,
+  style = [],
 }: ButtonProps) => {
   let textStyle = colors.textLight;
-  let buttonStyle = colors.accent;
+  let buttonColor = colors.accent;
+  let buttonBorder = { ...styles.borderBase, borderColor: 'transparent' };
   switch (type) {
     case 'secondary':
       textStyle = colors.textDark;
-      buttonStyle = colors.onBackground;
+      buttonColor = colors.onBackground;
+      break;
+    case 'warning':
+      textStyle = colors.textLight;
+      buttonColor = colors.transparent;
+      buttonBorder.borderColor = colors.error.color;
+      break;
   }
 
   return (
     <Pressable
       onPress={onPress}
-      style={[styles.container, { backgroundColor: buttonStyle.color }]}
+      style={[
+        styles.container,
+        { backgroundColor: buttonColor.color },
+        ...style,
+        buttonBorder,
+      ]}
       disabled={disabled}>
       {icon ? (
         <Icon
@@ -64,5 +79,9 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 10,
+  },
+  borderBase: {
+    borderWidth: 1,
+    borderStyle: 'solid',
   },
 });
