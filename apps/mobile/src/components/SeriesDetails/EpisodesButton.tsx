@@ -27,6 +27,7 @@ export const EpisodesButton = ({ series }: EpisodesButtonProps) => {
             ? series.episodes
             : 12,
           posterUrl: series.coverImage.extraLarge,
+          episodeLength: series.duration,
         });
       }}
       label={translate('anime_details.see_episodes')}

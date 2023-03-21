@@ -10,7 +10,7 @@ import { Text } from 'react-native-paper';
 import { AnimeEpisode } from '@aniwatch/shared';
 
 import { darkStyle } from '../../../styles/darkMode.style';
-import { EpisodeMobile } from '../../../components/episode/Episode.mobile';
+import { Episode } from '../../../components/episode/Episode';
 import { globalStyle } from '../../../styles/global.style';
 import { useTranslate } from '../../../i18n/useTranslate';
 import { EpisodesScreenProps } from '../../../routes/main';
@@ -34,7 +34,7 @@ const EpisodesListScreen = ({ route }: EpisodesScreenProps) => {
           ? episodes.data.episodes.map(
               (episode: AnimeEpisode, index: number) => {
                 return (
-                  <EpisodeMobile
+                  <Episode
                     key={index}
                     num={index + 1}
                     episode={episode}
@@ -42,6 +42,7 @@ const EpisodesListScreen = ({ route }: EpisodesScreenProps) => {
                     id={route.params.id}
                     animeName={route.params.title}
                     isWatched={episode.isWatched}
+                    episodeLength={route.params.episodeLength}
                   />
                 );
               },
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   scrollView: {
-    marginHorizontal: 20,
+    marginHorizontal: 10,
   },
 });
 

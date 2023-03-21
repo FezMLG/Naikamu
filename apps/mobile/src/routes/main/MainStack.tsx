@@ -74,12 +74,22 @@ const MainStack = () => {
       <StackAuthorized.Screen
         name={ScreenNames.Episodes}
         component={EpisodesListScreen}
-        options={({ route }) => ({
+        options={({ navigation, route }) => ({
           ...defaultSubHeaderOptions({
             title: `${translate('routes.' + ScreenNames.Episodes)}: ${
               route.params.title
             }`,
           }),
+          headerLeft: () => (
+            <Icon
+              name="chevron-left"
+              size={30}
+              color={'white'}
+              onPress={() => {
+                navigation.goBack();
+              }}
+            />
+          ),
         })}
       />
       <StackAuthorized.Screen

@@ -27,6 +27,7 @@ export type RootStackParamList = {
     title: string;
     numOfAiredEpisodes: number;
     posterUrl: string;
+    episodeLength: number;
   };
   [ScreenNames.WatchNative]: {
     uri: string;

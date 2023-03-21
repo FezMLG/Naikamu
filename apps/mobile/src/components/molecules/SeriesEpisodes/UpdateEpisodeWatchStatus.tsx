@@ -31,6 +31,7 @@ export const UpdateEpisodeWatchStatus = ({
             <IconButton
               icon={'check-circle'}
               iconColor={'#ffffff'}
+              size={36}
               onPress={() => {
                 mutation.mutate();
               }}
@@ -39,6 +40,7 @@ export const UpdateEpisodeWatchStatus = ({
             <IconButton
               icon={'check-circle-outline'}
               iconColor={'#ffffff'}
+              size={36}
               onPress={() => {
                 mutation.mutate();
               }}
