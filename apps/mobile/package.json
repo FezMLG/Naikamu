@@ -5,9 +5,9 @@
   "engines": {
     "node": "16",
     "npm": "please-use-yarn",
-    "yarn": "1"
+    "yarn": "3"
   },
-  "packageManager": "yarn",
+  "engineStrict": true,
   "scripts": {
     "android:staging": "react-native run-android --variant=stagingdebug --appId=com.aniwatch.stg",
     "android:staging-release": "react-native run-android --variant=stagingrelease",
