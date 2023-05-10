@@ -13,6 +13,7 @@ import {
   SettingsScreenProps,
 } from '../../routes/settings/interfaces';
 import Config from 'react-native-config';
+import { Button } from '../../components';
 
 const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
   const { user } = useSelector((state: RootState) => state.user);
@@ -56,8 +57,8 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
             navigation.navigate(SettingsScreenNames.PlaybackSettings)
           }>
           {translate('settings.categories.PlaybackSettings')}
-        </Button>
-        <Button
+        </PaperButton>
+        <PaperButton
           onPress={() =>
             navigation.navigate(SettingsScreenNames.DangerSettings)
           }>
