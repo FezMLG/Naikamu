@@ -118,6 +118,7 @@ export const pl = {
   watch_list: {
     watching: 'Oglądam',
     add: 'Dodaj do listy',
+    finished: 'Objerzane',
   },
   anime_episodes: {
     players_not_found: 'Nie znaleziono odtwarzaczy',

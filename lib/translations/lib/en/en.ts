@@ -117,6 +117,7 @@ export const en = {
   watch_list: {
     watching: 'Watching',
     add: 'Add to list',
+    finished: 'Watched',
   },
   anime_episodes: {
     players_not_found: 'Players not found',

@@ -123,7 +123,7 @@ const Trailer = (props: { trailer: AnimeDetails['trailer'] }) => {
             onPress={() =>
               Linking.openURL('https://www.youtube.com/watch?v=' + trailer.id)
             }>
-            <Icon name={'movie'} size={30} color={'white'} />
+            <Icon name={'movie-play-outline'} size={30} color={'white'} />
             <Text style={[fontStyles.text, colors.textLight]}>
               {translate('anime_details.trailer')}
             </Text>
