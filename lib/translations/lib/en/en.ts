@@ -11,6 +11,7 @@ export const en = {
     Search: 'Search',
     Settings: 'Settings',
     ActionConfirm: 'Confirm Action',
+    SearchResults: 'Search Results',
   },
   forms: {
     save: 'Save',
@@ -112,6 +113,10 @@ export const en = {
     trailer: 'Trailer',
     links: 'Links',
     source: 'Source',
+  },
+  watch_list: {
+    watching: 'Watching',
+    add: 'Add to list',
   },
   anime_episodes: {
     players_not_found: 'Players not found',

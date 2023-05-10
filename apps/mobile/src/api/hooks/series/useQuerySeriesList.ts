@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useState } from 'react';
-import { AnimeList } from '../../../../../../lib/shared/dist';
+import { AnimeList } from '@aniwatch/shared';
 import { getAnimeSeason } from '../../../utils';
 import { APIClient } from '../../APIClient';
 
