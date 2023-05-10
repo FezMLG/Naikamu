@@ -53,12 +53,19 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
         </Button> */}
         <Button
           onPress={() =>
+            navigation.navigate(SettingsScreenNames.PlaybackSettings)
+          }>
+          {translate('settings.categories.PlaybackSettings')}
+        </Button>
+        <Button
+          onPress={() =>
             navigation.navigate(SettingsScreenNames.DangerSettings)
           }>
           {translate('settings.categories.DangerSettings')}
         </Button>
       </View>
       {ENV === 'prod' ? null : <Text>{API_URL}</Text>}
+      <Text>{ENV}</Text>
       <Button
         mode={'outlined'}
         style={[styles.center, globalStyle.marginTopBig]}

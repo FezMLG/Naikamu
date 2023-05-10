@@ -22,6 +22,7 @@ import {
 } from '../services/firebase/fire-auth.service';
 import { AppLoadingScreenProps, AuthRoutesNames } from '../routes/auth';
 import { useQueryApiHealth } from '../api/hooks';
+import { settingsService } from '../services/settings/settings.service';
 
 const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
   const { translate } = useTranslate();
@@ -34,6 +35,7 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
 
   const handleLoginCheck = useCallback(async () => {
     const token = await fireGetIdToken();
+    await dispatch(settingsService.getUserSettings());
     if (token) {
       await dispatch(await fireGetNewIdToken());
       await dispatch(fireGetUser());

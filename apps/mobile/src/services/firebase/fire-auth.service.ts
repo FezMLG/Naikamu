@@ -6,7 +6,7 @@ import {
   getUserFulfilled,
   getUserPending,
   getUserRejected,
-} from '../../reducers/user.reducer';
+} from '../store/reducers/user.reducer';
 import { UserSettingsForm } from '../../screens/settings/UserSettingsScreen';
 import { AppDispatch } from '../store/store';
 

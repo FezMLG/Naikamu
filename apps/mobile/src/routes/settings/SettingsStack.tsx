@@ -12,6 +12,7 @@ import {
 import UserSettingsScreen from '../../screens/settings/UserSettingsScreen';
 import DangerSettingsScreen from '../../screens/settings/DangerSettingsScreen';
 import { defaultHeaderOptions } from '../main/BottomTabNavigation';
+import PlaybackSettingsScreen from '../../screens/settings/PlaybackSettings';
 
 const Stack = createNativeStackNavigator<SettingsStackParamList>();
 
@@ -33,6 +34,16 @@ const SettingsStack = () => {
       <Stack.Screen
         name={SettingsScreenNames.UserSettings}
         component={UserSettingsScreen}
+        options={() => ({
+          ...defaultHeaderOptions({
+            title: translate('settings.' + SettingsScreenNames.Settings),
+          }),
+          animation: 'slide_from_right',
+        })}
+      />
+      <Stack.Screen
+        name={SettingsScreenNames.PlaybackSettings}
+        component={PlaybackSettingsScreen}
         options={() => ({
           ...defaultHeaderOptions({
             title: translate('settings.' + SettingsScreenNames.Settings),
