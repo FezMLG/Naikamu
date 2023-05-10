@@ -8,7 +8,6 @@ import { useTranslate } from '../../i18n/useTranslate';
 import { globalStyle } from '../../styles/global.style';
 import { fireLogoutUser } from '../../services/firebase/fire-auth.service';
 import { PlaybackSettingsScreenProps } from '../../routes/settings/interfaces';
-import { ENV, API_URL } from '@env';
 import { Resolution } from '../../services/store/reducers/interfaces';
 import { settingsService } from '../../services/settings/settings.service';
 

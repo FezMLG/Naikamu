@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { ActivityIndicator, Button, Text } from 'react-native-paper';
 
 import { WatchStatus } from '@aniwatch/shared';
-import { ENV } from '@env';
+import Config from 'react-native-config';
 
 import { useMutationUpdateUserWatchList } from '../../../api/hooks';
 
@@ -27,7 +27,7 @@ export const AddToWatchList = ({
         <ActivityIndicator size={'small'} style={styles.pad} />
       ) : (
         <>
-          {ENV !== 'prod' && mutation.isError ? (
+          {Config.ENV !== 'prod' && mutation.isError ? (
             <Text>{'An error occurred ' + mutation.error}</Text>
           ) : null}
           <Button

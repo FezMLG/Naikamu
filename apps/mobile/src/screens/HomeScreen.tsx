@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Text } from 'react-native-paper';
-import { API_URL, ENV } from '@env';
+import Config from 'react-native-config';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
 
@@ -15,7 +15,7 @@ const HomeScreen = ({}: HomeScreenProps) => {
 
   return (
     <SafeAreaView style={[styles.container]}>
-      {ENV !== 'prod' && <Text>api_url: {API_URL}</Text>}
+      {Config.ENV !== 'prod' && <Text>api_url: {Config.API_URL}</Text>}
     </SafeAreaView>
   );
 };

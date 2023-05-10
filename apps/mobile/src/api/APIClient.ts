@@ -9,7 +9,7 @@ import {
   WatchListSeriesEpisode,
   WatchListSeries,
 } from '@aniwatch/shared';
-import { API_URL } from '@env';
+import Config from 'react-native-config';
 import { fireGetIdToken } from '../services/firebase/fire-auth.service';
 
 interface GetAnimeListDTO {
@@ -25,7 +25,7 @@ export class APIClient {
 
   constructor() {
     this.instance = axios.create({
-      baseURL: API_URL,
+      baseURL: Config.API_URL,
       timeout: 2000,
       headers: {
         Accept: 'application/json',

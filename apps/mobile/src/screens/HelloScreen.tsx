@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
-import { API_URL, ENV } from '@env';
+import Config from 'react-native-config';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
 
@@ -53,7 +53,7 @@ const HelloScreen = ({ navigation }: HelloScreenProps) => {
       </Button>
       <Text style={globalStyle.spacer}>{translate('auth.continue_with')}</Text>
       <GoogleSignIn />
-      {ENV !== 'prod' && <Text>api_url: {API_URL}</Text>}
+      {Config.ENV !== 'prod' && <Text>api_url: {Config.API_URL}</Text>}
     </SafeAreaView>
   );
 };

@@ -12,7 +12,7 @@ import {
   SettingsScreenNames,
   SettingsScreenProps,
 } from '../../routes/settings/interfaces';
-import { ENV, API_URL } from '@env';
+import Config from 'react-native-config';
 
 const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
   const { user } = useSelector((state: RootState) => state.user);
@@ -64,8 +64,8 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
           {translate('settings.categories.DangerSettings')}
         </Button>
       </View>
-      {ENV === 'prod' ? null : <Text>{API_URL}</Text>}
-      <Text>{ENV}</Text>
+      {Config.ENV === 'prod' ? null : <Text>{Config.API_URL}</Text>}
+      <Text>{Config.ENV}</Text>
       <Button
         mode={'outlined'}
         style={[styles.center, globalStyle.marginTopBig]}

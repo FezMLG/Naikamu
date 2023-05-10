@@ -9,7 +9,7 @@ import {
   View,
 } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
-import { API_URL, ENV } from '@env';
+import Config from 'react-native-config';
 import { useSelector } from 'react-redux';
 
 import { colors, fontStyles, globalStyle } from '../styles/global.style';
@@ -102,7 +102,7 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
         </Pressable>
       )}
       {apiCheck.isError ?? <Text>{JSON.stringify(apiCheck.error)}</Text>}
-      {ENV !== 'prod' && <Text>api_url: {API_URL}</Text>}
+      {Config.ENV !== 'prod' && <Text>api_url: {Config.API_URL}</Text>}
     </SafeAreaView>
   );
 };
