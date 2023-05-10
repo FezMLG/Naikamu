@@ -1,6 +1,5 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
-import { Button, Text } from 'react-native-paper';
 
 import { useAppDispatch } from '../../services/store/store';
 import { useTranslate } from '../../i18n/useTranslate';
@@ -14,6 +13,7 @@ import {
   DangerSettingsScreenProps,
   SettingsScreenNames,
 } from '../../routes/settings/interfaces';
+import { Button } from '../../components';
 
 const DangerSettingsScreen = ({ navigation }: DangerSettingsScreenProps) => {
   const dispatch = useAppDispatch();
@@ -34,12 +34,9 @@ const DangerSettingsScreen = ({ navigation }: DangerSettingsScreenProps) => {
   return (
     <SafeAreaView style={[styles.container]}>
       <Button
-        mode={'outlined'}
-        style={[
-          styles.center,
-          globalStyle.marginTopBig,
-          { borderColor: '#f85149' },
-        ]}
+        label={translate('auth.delete_account')}
+        type={'warning'}
+        style={[styles.center, globalStyle.marginTopBig]}
         onPress={() =>
           navigation.navigate(SettingsScreenNames.SettingsActionConfirm, {
             action: () => {
@@ -47,11 +44,8 @@ const DangerSettingsScreen = ({ navigation }: DangerSettingsScreenProps) => {
             },
             type: ActionType.AccountDelete,
           })
-        }>
-        <Text style={{ color: '#f85149' }}>
-          {translate('auth.delete_account')}
-        </Text>
-      </Button>
+        }
+      />
     </SafeAreaView>
   );
 };

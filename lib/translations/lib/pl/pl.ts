@@ -11,6 +11,7 @@ export const pl = {
     Search: 'Wyszukaj',
     Settings: 'Ustawienia',
     ActionConfirm: 'Potwierdź Akcję',
+    SearchResults: 'Wyniki wyszukiwania',
   },
   forms: {
     save: 'Zapisz',
@@ -113,6 +114,10 @@ export const pl = {
     trailer: 'Zwiastun',
     links: 'Linki',
     source: 'Źródło',
+  },
+  watch_list: {
+    watching: 'Oglądam',
+    add: 'Dodaj do listy',
   },
   anime_episodes: {
     players_not_found: 'Nie znaleziono odtwarzaczy',

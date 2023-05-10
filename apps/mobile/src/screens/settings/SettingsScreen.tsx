@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, SafeAreaView, StyleSheet, View } from 'react-native';
-import { Button, Text } from 'react-native-paper';
+import { Button as PaperButton, Text } from 'react-native-paper';
 import { useSelector } from 'react-redux';
 
 import { RootState, useAppDispatch } from '../../services/store/store';
@@ -13,6 +13,7 @@ import {
   SettingsScreenProps,
 } from '../../routes/settings/interfaces';
 import { ENV, API_URL } from '@env';
+import { Button } from '../../components';
 
 const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
   const { user } = useSelector((state: RootState) => state.user);
@@ -41,30 +42,30 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
         </Text>
       </View>
       <View>
-        <Button
+        <PaperButton
           onPress={() => navigation.navigate(SettingsScreenNames.UserSettings)}>
           {translate('settings.categories.UserSettings')}
-        </Button>
+        </PaperButton>
         {/* <Button
           onPress={() =>
             navigation.navigate(SettingsScreenNames.ProviderSettings)
           }>
           {translate('settings.categories.ProviderSettings')}
         </Button> */}
-        <Button
+        <PaperButton
           onPress={() =>
             navigation.navigate(SettingsScreenNames.DangerSettings)
           }>
           {translate('settings.categories.DangerSettings')}
-        </Button>
+        </PaperButton>
       </View>
       {ENV === 'prod' ? null : <Text>{API_URL}</Text>}
       <Button
-        mode={'outlined'}
+        label={translate('auth.logout')}
+        type={'secondary'}
         style={[styles.center, globalStyle.marginTopBig]}
-        onPress={() => dispatch(fireLogoutUser())}>
-        {translate('auth.logout')}
-      </Button>
+        onPress={() => dispatch(fireLogoutUser())}
+      />
     </SafeAreaView>
   );
 };
