@@ -8,6 +8,7 @@ import { useTranslate } from '../../i18n/useTranslate';
 import { PlaybackSettingsScreenProps } from '../../routes/settings/interfaces';
 import { Resolution } from '../../services/store/reducers/interfaces';
 import { settingsService } from '../../services/settings/settings.service';
+import { colors, fontStyles } from '../../styles';
 
 const PlaybackSettingsScreen = ({}: PlaybackSettingsScreenProps) => {
   const { userSettings } = useSelector(
@@ -16,23 +17,26 @@ const PlaybackSettingsScreen = ({}: PlaybackSettingsScreenProps) => {
   const dispatch = useAppDispatch();
   const { translate } = useTranslate();
 
+  const handleQualityChange = (newValue: string) =>
+    dispatch(
+      settingsService.updateUserSettings({
+        preferredResolution: newValue as Resolution,
+      }),
+    );
+
   return (
     <SafeAreaView style={[styles.container]}>
       <RadioButton.Group
-        onValueChange={newValue =>
-          dispatch(
-            settingsService.updateUserSettings({
-              preferredResolution:
-                Resolution[newValue as keyof typeof Resolution],
-            }),
-          )
-        }
+        onValueChange={handleQualityChange}
         value={userSettings?.preferredResolution ?? Resolution['1080p']}>
         {Object.keys(Resolution).map(key => {
           return (
-            <View key={key}>
-              <Text>{key}</Text>
+            <View key={key} style={[styles.inline, styles.radioContainer]}>
               <RadioButton value={key} />
+              <Text
+                style={[fontStyles.text, colors.textLight, styles.radioLabel]}>
+                {Resolution[key as keyof typeof Resolution]}
+              </Text>
             </View>
           );
         })}
@@ -42,10 +46,27 @@ const PlaybackSettingsScreen = ({}: PlaybackSettingsScreenProps) => {
 };
 
 const styles = StyleSheet.create({
+  inline: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  modalContent: {
+    padding: 10,
+  },
+  checkboxContainer: {
+    marginTop: 20,
+    marginBottom: 40,
+  },
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  radioContainer: {
+    marginVertical: 10,
+  },
+  radioLabel: {
+    marginLeft: 20,
   },
   logo: {
     width: 100,

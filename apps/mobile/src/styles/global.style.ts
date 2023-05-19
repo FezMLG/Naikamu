@@ -65,6 +65,10 @@ export const fontStyles = StyleSheet.create({
     textDecorationColor: '#ffffff',
     textDecorationLine: 'underline',
   },
+  header: {
+    fontFamily: 'Lato-Bold',
+    fontSize: 24,
+  },
 });
 
 export const colors = StyleSheet.create({
