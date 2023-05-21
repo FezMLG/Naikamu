@@ -67,7 +67,7 @@ export const QualitySelect = ({}: PlaybackSettingsScreenProps) => {
           </View>
         </View>
       </View>
-      <Button label={'Play'} type={'primary'} />
+      <Button label={'Play'} type={'primary'} icon={'play'} />
     </Modal.Container>
   );
 };

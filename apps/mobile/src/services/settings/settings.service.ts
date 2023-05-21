@@ -27,15 +27,24 @@ const getUserSettings = () => async (dispatch: AppDispatch) => {
 };
 
 const updateUserSettings =
-  (settings: UserSettings) => async (dispatch: AppDispatch) => {
+  (settings: Partial<UserSettings>) => async (dispatch: AppDispatch) => {
     try {
       dispatch(getUserSettingsPending());
-      await storageStoreData<string>(STORE_KEY, JSON.stringify(settings));
-      const userSettings = await storageGetData<string>(STORE_KEY);
+      const existingSettings = await storageGetData<UserSettings>(STORE_KEY);
+      if (!existingSettings) {
+        return dispatch(getUserSettingsRejected());
+      }
+
+      const userSettings: UserSettings = {
+        ...existingSettings,
+        ...settings,
+      };
+
+      await storageStoreData<string>(STORE_KEY, JSON.stringify(userSettings));
 
       if (userSettings) {
         console.log('userSettings', userSettings);
-        dispatch(getUserSettingsFulfilled(JSON.parse(userSettings)));
+        dispatch(getUserSettingsFulfilled(userSettings));
       }
     } catch (e: unknown) {
       dispatch(getUserSettingsRejected());
