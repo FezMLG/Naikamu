@@ -14,6 +14,7 @@ import { useTranslate } from '../../i18n/useTranslate';
 import { globalStyle } from '../../styles/global.style';
 import { fireUpdateUser } from '../../services/firebase/fire-auth.service';
 import { UserSettingsScreenProps } from '../../routes/settings/interfaces';
+import AccountDelete from '../../components/settings/AccountDelete';
 
 export interface UserSettingsForm {
   displayName: string;
@@ -67,6 +68,7 @@ const FormTextInput = ({
           {translate('forms.fields.' + name)}
         </Text>
       )}
+      <AccountDelete />
     </View>
   );
 };

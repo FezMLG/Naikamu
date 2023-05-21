@@ -10,7 +10,6 @@ import {
   SettingsStackParamList,
 } from './interfaces';
 import UserSettingsScreen from '../../screens/settings/UserSettingsScreen';
-import DangerSettingsScreen from '../../screens/settings/DangerSettingsScreen';
 import { defaultHeaderOptions } from '../main/BottomTabNavigation';
 import AppSettingsScreen from '../../screens/settings/AppSettings';
 
@@ -44,16 +43,6 @@ const SettingsStack = () => {
       <Stack.Screen
         name={SettingsScreenNames.AppSettings}
         component={AppSettingsScreen}
-        options={() => ({
-          ...defaultHeaderOptions({
-            title: translate('settings.' + SettingsScreenNames.Settings),
-          }),
-          animation: 'slide_from_right',
-        })}
-      />
-      <Stack.Screen
-        name={SettingsScreenNames.DangerSettings}
-        component={DangerSettingsScreen}
         options={() => ({
           ...defaultHeaderOptions({
             title: translate('settings.' + SettingsScreenNames.Settings),

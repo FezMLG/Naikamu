@@ -10,14 +10,16 @@ import {
 } from '../../services/firebase/fire-auth.service';
 import { ActionType } from '@aniwatch/shared';
 import {
-  DangerSettingsScreenProps,
   SettingsScreenNames,
+  SettingsStackParamList,
 } from '../../routes/settings/interfaces';
 import { Button } from '../../components';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 
-const DangerSettingsScreen = ({ navigation }: DangerSettingsScreenProps) => {
+const AccountDelete = () => {
   const dispatch = useAppDispatch();
   const { translate } = useTranslate();
+  const navigation = useNavigation<NavigationProp<SettingsStackParamList>>();
 
   const handleAccountDelete = async () => {
     try {
@@ -84,4 +86,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DangerSettingsScreen;
+export default AccountDelete;
