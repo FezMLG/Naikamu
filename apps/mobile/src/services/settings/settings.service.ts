@@ -1,5 +1,5 @@
 import { storageGetData, storageStoreData } from '../../utils';
-import { UserSettings } from '../store/reducers/interfaces';
+import { Resolution, UserSettings } from '../store/reducers/interfaces';
 import {
   clearUserSettings,
   getUserSettingsFulfilled,
@@ -40,7 +40,7 @@ const updateUserSettings =
         ...settings,
       };
 
-      await storageStoreData<string>(STORE_KEY, JSON.stringify(userSettings));
+      await storageStoreData(STORE_KEY, userSettings);
 
       if (userSettings) {
         console.log('userSettings', userSettings);
