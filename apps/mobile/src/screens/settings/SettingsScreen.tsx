@@ -13,7 +13,7 @@ import {
   SettingsScreenProps,
 } from '../../routes/settings/interfaces';
 import Config from 'react-native-config';
-import { Button } from '../../components';
+import { Button, SectionButton } from '../../components';
 
 const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
   const { user } = useSelector((state: RootState) => state.user);
@@ -42,28 +42,16 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
         </Text>
       </View>
       <View>
-        <PaperButton
-          onPress={() => navigation.navigate(SettingsScreenNames.UserSettings)}>
-          {translate('settings.categories.UserSettings')}
-        </PaperButton>
-        {/* <Button
-          onPress={() =>
-            navigation.navigate(SettingsScreenNames.ProviderSettings)
-          }>
-          {translate('settings.categories.ProviderSettings')}
-        </Button> */}
-        <PaperButton
-          onPress={() =>
-            navigation.navigate(SettingsScreenNames.PlaybackSettings)
-          }>
-          {translate('settings.categories.PlaybackSettings')}
-        </PaperButton>
-        <PaperButton
-          onPress={() =>
-            navigation.navigate(SettingsScreenNames.DangerSettings)
-          }>
-          {translate('settings.categories.DangerSettings')}
-        </PaperButton>
+        <SectionButton
+          title={translate('settings.categories.UserSettings')}
+          icon={'account-cog'}
+          onPress={() => navigation.navigate(SettingsScreenNames.UserSettings)}
+        />
+        <SectionButton
+          title={translate('settings.categories.AppSettings')}
+          icon={'cog'}
+          onPress={() => navigation.navigate(SettingsScreenNames.AppSettings)}
+        />
       </View>
       {Config.ENV === 'prod' ? null : <Text>{Config.API_URL}</Text>}
       <Text>{Config.ENV}</Text>

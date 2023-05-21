@@ -7,7 +7,7 @@ export enum SettingsScreenNames {
   SettingsActionConfirm = 'SettingsActionConfirm',
   DangerSettings = 'DangerSettings',
   ProviderSettings = 'ProviderSettings',
-  PlaybackSettings = 'PlaybackSettings',
+  AppSettings = 'AppSettings',
 }
 
 export type SettingsStackParamList = {
@@ -15,7 +15,7 @@ export type SettingsStackParamList = {
   [SettingsScreenNames.UserSettings]: undefined;
   [SettingsScreenNames.DangerSettings]: undefined;
   [SettingsScreenNames.ProviderSettings]: undefined;
-  [SettingsScreenNames.PlaybackSettings]: undefined;
+  [SettingsScreenNames.AppSettings]: undefined;
   [SettingsScreenNames.SettingsActionConfirm]: {
     action: () => void;
     type: ActionType;
@@ -49,5 +49,5 @@ export type SettingsActionConfirmScreenProps = NativeStackScreenProps<
 
 export type PlaybackSettingsScreenProps = NativeStackScreenProps<
   SettingsStackParamList,
-  SettingsScreenNames.PlaybackSettings
+  SettingsScreenNames.AppSettings
 >;

@@ -10,7 +10,7 @@ import { Resolution } from '../../services/store/reducers/interfaces';
 import { settingsService } from '../../services/settings/settings.service';
 import { colors, fontStyles } from '../../styles';
 
-const PlaybackSettingsScreen = ({}: PlaybackSettingsScreenProps) => {
+const AppSettingsScreen = ({}: PlaybackSettingsScreenProps) => {
   const { userSettings } = useSelector(
     (state: RootState) => state.userSettings,
   );
@@ -96,4 +96,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PlaybackSettingsScreen;
+export default AppSettingsScreen;

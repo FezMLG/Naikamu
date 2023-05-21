@@ -12,7 +12,7 @@ import {
 import UserSettingsScreen from '../../screens/settings/UserSettingsScreen';
 import DangerSettingsScreen from '../../screens/settings/DangerSettingsScreen';
 import { defaultHeaderOptions } from '../main/BottomTabNavigation';
-import PlaybackSettingsScreen from '../../screens/settings/PlaybackSettings';
+import AppSettingsScreen from '../../screens/settings/AppSettings';
 
 const Stack = createNativeStackNavigator<SettingsStackParamList>();
 
@@ -42,8 +42,8 @@ const SettingsStack = () => {
         })}
       />
       <Stack.Screen
-        name={SettingsScreenNames.PlaybackSettings}
-        component={PlaybackSettingsScreen}
+        name={SettingsScreenNames.AppSettings}
+        component={AppSettingsScreen}
         options={() => ({
           ...defaultHeaderOptions({
             title: translate('settings.' + SettingsScreenNames.Settings),
