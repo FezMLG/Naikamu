@@ -8,7 +8,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { colors, darkColor, defaultRadius, fontStyles } from '../../styles';
+import { colors, defaultRadius, fontStyles } from '../../styles';
 
 export const SectionButton = ({
   title,
@@ -24,39 +24,27 @@ export const SectionButton = ({
   return (
     <Pressable onPress={onPress} style={[styles.container, style]}>
       <View style={styles.titleContainer}>
-        <Icon
-          name={icon}
-          size={24}
-          color={colors.textLight.color}
-          // style={styles.icon}
-        />
-        <Text style={[fontStyles.header, colors.textLight, styles.title]}>
-          {title}
-        </Text>
+        <Icon name={icon} size={24} color={colors.textDark.color} />
+        <Text style={[colors.textDark, styles.title]}>{title}</Text>
       </View>
-      <Icon
-        name={'chevron-right'}
-        size={24}
-        color={colors.textLight.color}
-        // style={styles.icon}
-      />
+      <Icon name={'chevron-right'} size={24} color={colors.textDark.color} />
     </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    height: 70,
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: defaultRadius,
-    backgroundColor: darkColor.C800,
+    backgroundColor: colors.onBackground.color,
     justifyContent: 'space-between',
+    marginVertical: 10,
   },
-  title: {
-    flex: 1,
-  },
+  title: {},
   titleContainer: {
     flexDirection: 'row',
     alignItems: 'center',

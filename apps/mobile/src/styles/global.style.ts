@@ -26,6 +26,9 @@ export const globalStyle = StyleSheet.create({
   marginTopSmall: {
     marginTop: 10,
   },
+  marginBottomSmall: {
+    marginBottom: 10,
+  },
   disclaimer: {
     marginTop: 20,
     marginBottom: 10,
@@ -68,6 +71,11 @@ export const fontStyles = StyleSheet.create({
   header: {
     fontFamily: 'Lato-Bold',
     fontSize: 24,
+  },
+  headerSmall: {
+    fontFamily: 'Lato-Bold',
+    fontSize: 18,
+    lineHeight: 18 * 1.4,
   },
 });
 

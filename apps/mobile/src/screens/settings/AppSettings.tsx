@@ -1,6 +1,6 @@
-import React from 'react';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
-import { RadioButton, Text } from 'react-native-paper';
+import React, { useState } from 'react';
+import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { RadioButton } from 'react-native-paper';
 import { useSelector } from 'react-redux';
 
 import { RootState, useAppDispatch } from '../../services/store/store';
@@ -8,27 +8,45 @@ import { useTranslate } from '../../i18n/useTranslate';
 import { PlaybackSettingsScreenProps } from '../../routes/settings/interfaces';
 import { Resolution } from '../../services/store/reducers/interfaces';
 import { settingsService } from '../../services/settings/settings.service';
-import { colors, fontStyles } from '../../styles';
+import {
+  colors,
+  darkColor,
+  defaultRadius,
+  fontStyles,
+  globalStyle,
+} from '../../styles';
+import Config from 'react-native-config';
+import { Button, Modal, SettingInputs, SettingsGroup } from '../../components';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Switch } from 'react-native-paper';
 
-const AppSettingsScreen = ({}: PlaybackSettingsScreenProps) => {
-  const { userSettings } = useSelector(
-    (state: RootState) => state.userSettings,
-  );
+const QualityModal = ({
+  isOpen,
+  setIsOpen,
+  quality,
+  setQuality,
+}: {
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
+  quality: string;
+  setQuality: (quality: string) => void;
+}) => {
   const dispatch = useAppDispatch();
   const { translate } = useTranslate();
 
-  const handleQualityChange = (newValue: string) =>
+  const handleQualityChange = (newResolution: Resolution) => {
     dispatch(
       settingsService.updateUserSettings({
-        preferredResolution: newValue as Resolution,
+        preferredResolution: newResolution,
       }),
     );
+    setIsOpen(false);
+  };
 
   return (
-    <SafeAreaView style={[styles.container]}>
-      <RadioButton.Group
-        onValueChange={handleQualityChange}
-        value={userSettings?.preferredResolution ?? Resolution['1080p']}>
+    <Modal.Container isOpen={isOpen} setIsOpen={setIsOpen}>
+      <Modal.Title title="Select quality" />
+      <RadioButton.Group onValueChange={setQuality} value={quality}>
         {Object.keys(Resolution).map(key => {
           return (
             <View key={key} style={[styles.inline, styles.radioContainer]}>
@@ -41,9 +59,105 @@ const AppSettingsScreen = ({}: PlaybackSettingsScreenProps) => {
           );
         })}
       </RadioButton.Group>
+      <Button
+        label={'Save'}
+        type={'primary'}
+        icon={'play'}
+        onPress={() => handleQualityChange(quality as Resolution)}
+      />
+    </Modal.Container>
+  );
+};
+
+const AppSettingsScreen = ({}: PlaybackSettingsScreenProps) => {
+  const { userSettings } = useSelector(
+    (state: RootState) => state.userSettings,
+  );
+  const [quality, setQuality] = useState<string>(
+    userSettings?.preferredResolution ?? Resolution['1080p'],
+  );
+
+  const { translate } = useTranslate();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const [isSwitchOn, setIsSwitchOn] = useState(false);
+
+  return (
+    <SafeAreaView style={[styles.container]}>
+      <QualityModal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        quality={quality}
+        setQuality={setQuality}
+      />
+      <SettingsGroup title={'Video Playback'}>
+        <SettingInputs.Select
+          text={quality ?? '1080p'}
+          setIsModalOpen={setIsOpen}
+          isFirst={true}
+        />
+        <SettingInputs.Switch
+          isSwitchOn={isSwitchOn}
+          setIsSwitchOn={setIsSwitchOn}
+          text={'aaa'}
+        />
+        <SettingInputs.Edit
+          label={'password'}
+          isSwitchOn={isSwitchOn}
+          setIsSwitchOn={setIsSwitchOn}
+          text={'*'.repeat(10)}
+        />
+        <SettingInputs.Edit
+          label={'email'}
+          isSwitchOn={isSwitchOn}
+          setIsSwitchOn={setIsSwitchOn}
+          text={'example@gmail.com'}
+          isLast={true}
+        />
+      </SettingsGroup>
+      <View style={globalStyle.marginTop}>
+        <Text style={[fontStyles.label, colors.textLight]}>Environment</Text>
+        <Text style={[fontStyles.text, colors.textLighter]}>{Config.ENV}</Text>
+        <Text
+          style={[
+            fontStyles.label,
+            colors.textLight,
+            globalStyle.marginTopSmall,
+          ]}>
+          API Endpoint
+        </Text>
+        <Text style={[fontStyles.text, colors.textLighter]}>
+          {Config.API_URL}
+        </Text>
+      </View>
     </SafeAreaView>
   );
 };
+
+const groupStyles = StyleSheet.create({
+  container: {
+    flexDirection: 'column',
+    borderRadius: defaultRadius,
+    width: '100%',
+    margin: 16,
+  },
+  setting: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    minHeight: 80,
+    backgroundColor: darkColor.C800,
+    paddingHorizontal: 10,
+  },
+  radiusTop: {
+    borderTopLeftRadius: defaultRadius,
+    borderTopRightRadius: defaultRadius,
+  },
+  radiusBottom: {
+    borderBottomLeftRadius: defaultRadius,
+    borderBottomRightRadius: defaultRadius,
+  },
+});
 
 const styles = StyleSheet.create({
   inline: {
@@ -61,6 +175,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    margin: 16,
   },
   radioContainer: {
     marginVertical: 10,
