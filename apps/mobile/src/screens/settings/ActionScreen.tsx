@@ -2,21 +2,25 @@ import React from 'react';
 import { KeyboardTypeOptions, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Text, TextInput } from 'react-native-paper';
+import { Control, Controller, FieldErrorsImpl, useForm } from 'react-hook-form';
 
 import { useTranslate } from '../../i18n/useTranslate';
 import { globalStyle } from '../../styles/global.style';
 import {
-  SettingsActionConfirmScreenProps,
+  SettingsActionScreenProps,
   SettingsScreenNames,
 } from '../../routes/settings/interfaces';
-import { Control, FieldErrorsImpl, Controller, useForm } from 'react-hook-form';
 import AccountDelete from '../../components/settings/AccountDelete';
-import { useAppDispatch } from '../../services/store/store';
-import { fireReauthenticate } from '../../services/firebase/fire-auth.service';
 import { Button } from '../../components';
+import { useAppDispatch } from '../../services/store/store';
+import { ActionType } from '../../../../../lib/shared/dist';
+import {
+  fireUpdatePassword,
+  fireUpdateUser,
+} from '../../services/firebase/fire-auth.service';
 
 interface SettingsForm {
-  password: string;
+  newValue: string;
 }
 
 type SettingsFormType = keyof SettingsForm;
@@ -71,10 +75,10 @@ const FormTextInput = ({
   );
 };
 
-const SettingsActionConfirmScreen = ({
+const SettingsActionScreen = ({
   route,
   navigation,
-}: SettingsActionConfirmScreenProps) => {
+}: SettingsActionScreenProps) => {
   const { action, type } = route.params;
   const { translate } = useTranslate();
   const dispatch = useAppDispatch();
@@ -85,22 +89,33 @@ const SettingsActionConfirmScreen = ({
     formState: { errors },
   } = useForm({
     defaultValues: {
-      password: '',
+      newValue: '',
     },
   });
 
   const handleAction = async (data: SettingsForm) => {
     console.log(data);
-    await dispatch(fireReauthenticate(data.password));
-    await dispatch(action(data.password));
-    navigation.navigate(SettingsScreenNames.UserSettings);
+    try {
+      console.log('1');
+      await dispatch(action(data.newValue));
+      console.log('2');
+    } catch (error: any) {
+      if (error.code === 'auth/requires-recent-login') {
+        console.log('requires recent login');
+        navigation.navigate(SettingsScreenNames.SettingsActionConfirm, {
+          action,
+          type,
+        });
+      }
+    }
+    console.log('3');
   };
 
   return (
     <SafeAreaView style={[styles.container]}>
       <FormTextInput
         control={control}
-        name={'password'}
+        name={'newValue'}
         keyboardType={'ascii-capable'}
         errors={errors}
       />
@@ -143,4 +158,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SettingsActionConfirmScreen;
+export default SettingsActionScreen;

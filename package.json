@@ -8,7 +8,12 @@
     "install:translations": "cd $INIT_CWD/lib/translations && yarn",
     "install:shared": "cd $INIT_CWD/lib/shared && yarn",
     "start": "lerna run start --stream",
-    "build": "lerna run build",
+    "start:mobile": "cd apps/mobile && yarn start",
+    "start:tv": "lerna run start --stream",
+    "android:mobile:dev": "cd apps/mobile && yarn android:dev",
+    "build": "npm run build:translations && npm run build:shared",
+    "build:translations": "cd lib/translations && yarn build",
+    "build:shared": "cd lib/shared && yarn build",
     "apk:beta:release": "lerna run apk:beta:release --stream --concurrency 1",
     "pod": "lerna run pod --stream --concurrency 1",
     "watchman:reset": "watchman watch-del $INIT_CWD ; watchman watch-project $INIT_CWD"

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, SafeAreaView, StyleSheet, View } from 'react-native';
-import { Button as PaperButton, Text } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 import { useSelector } from 'react-redux';
 
 import { RootState, useAppDispatch } from '../../services/store/store';

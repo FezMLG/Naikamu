@@ -7,7 +7,6 @@ import {
   getUserPending,
   getUserRejected,
 } from '../store/reducers/user.reducer';
-import { UserSettingsForm } from '../../screens/settings/UserSettingsScreen';
 import { AppDispatch } from '../store/store';
 
 export const fireLoginUser =
@@ -74,16 +73,17 @@ const sendEmailVerification = async () => {
   });
 };
 
-export const fireUpdateUser =
-  (form: UserSettingsForm) => async (dispatch: AppDispatch) => {
+export const fireUpdateUserDisplayName =
+  (newDisplayName: string) => async (dispatch: AppDispatch) => {
     try {
       const currentUser = auth().currentUser;
       if (currentUser) {
-        if (form.displayName !== currentUser.displayName) {
-          await currentUser.updateProfile({
-            displayName: form.displayName,
-          });
-        }
+        await currentUser.updateProfile({
+          displayName: newDisplayName,
+        });
+
+        console.log('updated!');
+
         // if (form.email !== currentUser.email) {
         //   await currentUser.verifyBeforeUpdateEmail(form.email, {
         //     handleCodeInApp: true,
@@ -95,6 +95,29 @@ export const fireUpdateUser =
     } catch (error) {
       console.error(error);
     }
+  };
+
+export const fireUpdatePassword =
+  (newPassword: string) => async (dispatch: AppDispatch) => {
+    const currentUser = auth().currentUser;
+    console.log('heh!');
+    if (currentUser) {
+      await currentUser.updatePassword(newPassword);
+      console.log('Password updated!');
+    }
+    dispatch(fireGetUser());
+  };
+
+export const fireReauthenticate =
+  (password: string) => async (dispatch: AppDispatch) => {
+    const currentUser = auth().currentUser;
+    if (currentUser) {
+      if (!currentUser.email) {
+        throw new Error('No email found');
+      }
+      dispatch(fireLoginUser(currentUser.email, password));
+    }
+    dispatch(fireGetUser());
   };
 
 export const fireDeleteAccount = () => async (dispatch: AppDispatch) => {

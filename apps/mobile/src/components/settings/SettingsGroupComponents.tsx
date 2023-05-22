@@ -93,20 +93,20 @@ const Switch = ({
 const Edit = ({
   label,
   text,
-  isSwitchOn,
-  setIsSwitchOn,
+  onPress,
   isFirst = false,
   isLast = false,
 }: {
   label: string;
   text: string;
-  isSwitchOn: boolean;
-  setIsSwitchOn: (value: boolean) => void;
+  onPress: () => void;
   isFirst?: boolean;
   isLast?: boolean;
 }) => {
   return (
-    <View style={[groupStyles.setting, isFirstOrLast(isFirst, isLast)]}>
+    <Pressable
+      style={[groupStyles.setting, isFirstOrLast(isFirst, isLast)]}
+      onPress={onPress}>
       <View>
         <Text
           style={[
@@ -119,7 +119,7 @@ const Edit = ({
         <Text style={[colors.textLight, fontStyles.headerSmall]}>{text}</Text>
       </View>
       <Icon name={'pencil'} size={28} color={colors.textLighter.color} />
-    </View>
+    </Pressable>
   );
 };
 

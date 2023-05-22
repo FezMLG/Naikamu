@@ -1,24 +1,16 @@
 import React, { useState } from 'react';
-import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 import { useSelector } from 'react-redux';
+import Config from 'react-native-config';
 
 import { RootState, useAppDispatch } from '../../services/store/store';
 import { useTranslate } from '../../i18n/useTranslate';
 import { PlaybackSettingsScreenProps } from '../../routes/settings/interfaces';
 import { Resolution } from '../../services/store/reducers/interfaces';
 import { settingsService } from '../../services/settings/settings.service';
-import {
-  colors,
-  darkColor,
-  defaultRadius,
-  fontStyles,
-  globalStyle,
-} from '../../styles';
-import Config from 'react-native-config';
+import { colors, fontStyles, globalStyle } from '../../styles';
 import { Button, Modal, SettingInputs, SettingsGroup } from '../../components';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Switch } from 'react-native-paper';
 
 const QualityModal = ({
   isOpen,
@@ -103,16 +95,14 @@ const AppSettingsScreen = ({}: PlaybackSettingsScreenProps) => {
         />
         <SettingInputs.Edit
           label={'password'}
-          isSwitchOn={isSwitchOn}
-          setIsSwitchOn={setIsSwitchOn}
           text={'*'.repeat(10)}
+          onPress={() => console.log('pressed')}
         />
         <SettingInputs.Edit
           label={'email'}
-          isSwitchOn={isSwitchOn}
-          setIsSwitchOn={setIsSwitchOn}
           text={'example@gmail.com'}
           isLast={true}
+          onPress={() => console.log('pressed')}
         />
       </SettingsGroup>
       <View style={globalStyle.marginTop}>
@@ -133,31 +123,6 @@ const AppSettingsScreen = ({}: PlaybackSettingsScreenProps) => {
     </SafeAreaView>
   );
 };
-
-const groupStyles = StyleSheet.create({
-  container: {
-    flexDirection: 'column',
-    borderRadius: defaultRadius,
-    width: '100%',
-    margin: 16,
-  },
-  setting: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    minHeight: 80,
-    backgroundColor: darkColor.C800,
-    paddingHorizontal: 10,
-  },
-  radiusTop: {
-    borderTopLeftRadius: defaultRadius,
-    borderTopRightRadius: defaultRadius,
-  },
-  radiusBottom: {
-    borderBottomLeftRadius: defaultRadius,
-    borderBottomRightRadius: defaultRadius,
-  },
-});
 
 const styles = StyleSheet.create({
   inline: {

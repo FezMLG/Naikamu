@@ -12,6 +12,7 @@ import {
 import UserSettingsScreen from '../../screens/settings/UserSettingsScreen';
 import { defaultHeaderOptions } from '../main/BottomTabNavigation';
 import AppSettingsScreen from '../../screens/settings/AppSettings';
+import SettingsActionScreen from '../../screens/settings/ActionScreen';
 
 const Stack = createNativeStackNavigator<SettingsStackParamList>();
 
@@ -60,6 +61,16 @@ const SettingsStack = () => {
                 SettingsScreenNames.SettingsActionConfirm,
             ),
           }),
+          animation: 'slide_from_right',
+        }}
+      />
+      <Stack.Screen
+        name={SettingsScreenNames.SettingsAction}
+        component={SettingsActionScreen}
+        options={{
+          title: translate(
+            'settings.categories.' + SettingsScreenNames.SettingsAction,
+          ),
           animation: 'slide_from_right',
         }}
       />
