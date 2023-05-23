@@ -74,7 +74,7 @@ const SettingsActionScreen = ({
   route,
   navigation,
 }: SettingsActionScreenProps) => {
-  const { type, action, requiresLogin } = route.params;
+  const { type, action, requiresLogin, origin } = route.params;
   const { translate } = useTranslate();
   const dispatch = useAppDispatch();
 
@@ -90,7 +90,18 @@ const SettingsActionScreen = ({
 
   const handleAction = async (data: SettingsForm) => {
     try {
-      await dispatch(action(data.newValue));
+      if (requiresLogin) {
+        console.log('requires recent login');
+        navigation.navigate(SettingsScreenNames.SettingsActionConfirm, {
+          action,
+          payload: data.newValue,
+          type,
+          origin,
+        });
+      } else {
+        console.log('not requires recent login');
+        await dispatch(action(data.newValue));
+      }
     } catch (error: any) {
       if (error.code === 'auth/requires-recent-login') {
         console.log('requires recent login');
@@ -98,9 +109,11 @@ const SettingsActionScreen = ({
           action,
           payload: data.newValue,
           type,
+          origin,
         });
       }
     }
+    navigation.navigate(origin);
   };
 
   return (

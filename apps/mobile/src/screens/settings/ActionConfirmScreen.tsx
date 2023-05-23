@@ -5,10 +5,7 @@ import { Text, TextInput } from 'react-native-paper';
 
 import { useTranslate } from '../../i18n/useTranslate';
 import { globalStyle } from '../../styles/global.style';
-import {
-  SettingsActionConfirmScreenProps,
-  SettingsScreenNames,
-} from '../../routes/settings/interfaces';
+import { SettingsActionConfirmScreenProps } from '../../routes/settings/interfaces';
 import { Control, FieldErrorsImpl, Controller, useForm } from 'react-hook-form';
 import AccountDelete from '../../components/settings/AccountDelete';
 import { useAppDispatch } from '../../services/store/store';
@@ -75,7 +72,7 @@ const SettingsActionConfirmScreen = ({
   route,
   navigation,
 }: SettingsActionConfirmScreenProps) => {
-  const { action, type, payload } = route.params;
+  const { action, type, payload, origin } = route.params;
   const { translate } = useTranslate();
   const dispatch = useAppDispatch();
 
@@ -90,10 +87,14 @@ const SettingsActionConfirmScreen = ({
   });
 
   const handleAction = async (data: SettingsForm) => {
-    console.log(data);
-    await dispatch(fireReauthenticate(data.password));
-    await dispatch(action(payload));
-    navigation.navigate(SettingsScreenNames.UserSettings);
+    try {
+      console.log(data);
+      await dispatch(fireReauthenticate(data.password));
+      await dispatch(action(payload));
+      navigation.navigate(origin);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

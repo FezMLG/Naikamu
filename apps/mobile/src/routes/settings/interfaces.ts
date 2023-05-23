@@ -19,11 +19,13 @@ export type SettingsStackParamList = {
     action: Function;
     payload: string;
     type: ActionType;
+    origin: any;
   };
   [SettingsScreenNames.SettingsAction]: {
     action: Function;
     requiresLogin: boolean;
     type: ActionType;
+    origin: any;
   };
 };
 

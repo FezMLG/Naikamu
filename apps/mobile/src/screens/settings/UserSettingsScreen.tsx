@@ -30,6 +30,7 @@ const UserSettingsScreen = ({ navigation }: UserSettingsScreenProps) => {
               action: fireUpdateUserDisplayName,
               requiresLogin: false,
               type: ActionType.NickChange,
+              origin: SettingsScreenNames.UserSettings,
             })
           }
         />
@@ -41,6 +42,7 @@ const UserSettingsScreen = ({ navigation }: UserSettingsScreenProps) => {
               action: fireUpdatePassword,
               requiresLogin: true,
               type: ActionType.PasswordChange,
+              origin: SettingsScreenNames.UserSettings,
             })
           }
         />
