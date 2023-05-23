@@ -19,13 +19,13 @@ export const fireLoginUser =
     if (!newAuthState.user.emailVerified) {
       await sendEmailVerification();
     }
-    dispatch(fireGetUser());
+    await dispatch(fireGetUser());
   };
 
 export const fireGetNewIdToken = async () => async (dispatch: AppDispatch) => {
   const user = auth().currentUser;
   if (user) {
-    dispatch(fireGetUser());
+    await dispatch(fireGetUser());
   }
 };
 
@@ -55,7 +55,7 @@ export const fireRegisterUser =
     });
 
     await sendEmailVerification();
-    dispatch(fireGetUser());
+    await dispatch(fireGetUser());
   };
 
 export const fireForgotPassword = (email: string) => async () => {
@@ -91,7 +91,7 @@ export const fireUpdateUserDisplayName =
         //   });
         // }
       }
-      dispatch(fireGetUser());
+      await dispatch(fireGetUser());
     } catch (error) {
       console.error(error);
     }
@@ -105,7 +105,7 @@ export const fireUpdatePassword =
       await currentUser.updatePassword(newPassword);
       console.log('Password updated!');
     }
-    dispatch(fireGetUser());
+    await dispatch(fireGetUser());
   };
 
 export const fireReauthenticate =
@@ -115,9 +115,10 @@ export const fireReauthenticate =
       if (!currentUser.email) {
         throw new Error('No email found');
       }
-      dispatch(fireLoginUser(currentUser.email, password));
+      await dispatch(fireLoginUser(currentUser.email, password));
+      console.log('Reauthenticated!');
     }
-    dispatch(fireGetUser());
+    await dispatch(fireGetUser());
   };
 
 export const fireDeleteAccount = () => async (dispatch: AppDispatch) => {
