@@ -75,7 +75,7 @@ const SettingsActionConfirmScreen = ({
   route,
   navigation,
 }: SettingsActionConfirmScreenProps) => {
-  const { action, type } = route.params;
+  const { action, type, payload } = route.params;
   const { translate } = useTranslate();
   const dispatch = useAppDispatch();
 
@@ -92,7 +92,7 @@ const SettingsActionConfirmScreen = ({
   const handleAction = async (data: SettingsForm) => {
     console.log(data);
     await dispatch(fireReauthenticate(data.password));
-    await dispatch(action(data.password));
+    await dispatch(action(payload));
     navigation.navigate(SettingsScreenNames.UserSettings);
   };
 

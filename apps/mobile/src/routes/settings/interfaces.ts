@@ -17,10 +17,12 @@ export type SettingsStackParamList = {
   [SettingsScreenNames.AppSettings]: undefined;
   [SettingsScreenNames.SettingsActionConfirm]: {
     action: Function;
+    payload: string;
     type: ActionType;
   };
   [SettingsScreenNames.SettingsAction]: {
     action: Function;
+    requiresLogin: boolean;
     type: ActionType;
   };
 };

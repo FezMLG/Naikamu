@@ -13,11 +13,6 @@ import {
 import AccountDelete from '../../components/settings/AccountDelete';
 import { Button } from '../../components';
 import { useAppDispatch } from '../../services/store/store';
-import { ActionType } from '../../../../../lib/shared/dist';
-import {
-  fireUpdatePassword,
-  fireUpdateUser,
-} from '../../services/firebase/fire-auth.service';
 
 interface SettingsForm {
   newValue: string;
@@ -79,7 +74,7 @@ const SettingsActionScreen = ({
   route,
   navigation,
 }: SettingsActionScreenProps) => {
-  const { action, type } = route.params;
+  const { type, action, requiresLogin } = route.params;
   const { translate } = useTranslate();
   const dispatch = useAppDispatch();
 
@@ -94,21 +89,18 @@ const SettingsActionScreen = ({
   });
 
   const handleAction = async (data: SettingsForm) => {
-    console.log(data);
     try {
-      console.log('1');
       await dispatch(action(data.newValue));
-      console.log('2');
     } catch (error: any) {
       if (error.code === 'auth/requires-recent-login') {
         console.log('requires recent login');
         navigation.navigate(SettingsScreenNames.SettingsActionConfirm, {
           action,
+          payload: data.newValue,
           type,
         });
       }
     }
-    console.log('3');
   };
 
   return (
@@ -121,7 +113,7 @@ const SettingsActionScreen = ({
       />
       <Button
         label={translate('actions.' + type + '.confirm')}
-        type={'link'}
+        type={requiresLogin ? 'primary' : 'secondary'}
         onPress={handleSubmit(handleAction)}
       />
     </SafeAreaView>

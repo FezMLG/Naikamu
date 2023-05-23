@@ -9,7 +9,7 @@ import {
   UserSettingsScreenProps,
 } from '../../routes/settings/interfaces';
 import { SettingInputs, SettingsGroup } from '../../components';
-import { ActionType } from '../../../../../lib/shared/dist';
+import { ActionType } from '@aniwatch/shared';
 import {
   fireUpdatePassword,
   fireUpdateUserDisplayName,
@@ -28,6 +28,7 @@ const UserSettingsScreen = ({ navigation }: UserSettingsScreenProps) => {
           onPress={() =>
             navigation.navigate(SettingsScreenNames.SettingsAction, {
               action: fireUpdateUserDisplayName,
+              requiresLogin: false,
               type: ActionType.NickChange,
             })
           }
@@ -38,6 +39,7 @@ const UserSettingsScreen = ({ navigation }: UserSettingsScreenProps) => {
           onPress={() =>
             navigation.navigate(SettingsScreenNames.SettingsAction, {
               action: fireUpdatePassword,
+              requiresLogin: true,
               type: ActionType.PasswordChange,
             })
           }
