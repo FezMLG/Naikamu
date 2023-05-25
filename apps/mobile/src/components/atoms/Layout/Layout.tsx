@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { SafeAreaView, StyleSheet, ViewStyle } from 'react-native';
 import { Snackbar } from '../Snackbar';
 
 const useInfoHandler = () => {
@@ -25,14 +25,16 @@ const Default = ({
   info,
   visible,
   setVisible,
+  style,
 }: {
   children: React.ReactNode;
   info: string;
   visible: boolean;
   setVisible: (visible: boolean) => void;
+  style: ViewStyle[];
 }) => {
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, ...style]}>
       {children}
       <Snackbar
         text={info}
@@ -47,7 +49,7 @@ const Default = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginVertical: 16,
+    marginHorizontal: 16,
   },
 });
 
@@ -56,9 +58,19 @@ export const Layout = () => {
   const { visible, setVisible } = useSnackbar();
 
   return {
-    PageLayout: ({ children }: { children: React.ReactNode }) => {
+    PageLayout: ({
+      children,
+      style,
+    }: {
+      children: React.ReactNode;
+      style?: ViewStyle[];
+    }) => {
       return (
-        <Default info={info} visible={visible} setVisible={setVisible}>
+        <Default
+          info={info}
+          visible={visible}
+          setVisible={setVisible}
+          style={style ? style : []}>
           {children}
         </Default>
       );

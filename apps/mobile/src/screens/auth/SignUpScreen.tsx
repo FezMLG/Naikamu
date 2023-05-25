@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { View, StyleSheet } from 'react-native';
-import { Button, Text, TextInput } from 'react-native-paper';
+import { Text, TextInput } from 'react-native-paper';
 import { useSelector } from 'react-redux';
 
 import { useTranslate } from '../../i18n/useTranslate';
@@ -9,7 +9,7 @@ import { AuthRoutesNames, SignUpScreenProps } from '../../routes/auth';
 import { fireRegisterUser } from '../../services/firebase/fire-auth.service';
 import { RootState, useAppDispatch } from '../../services/store/store';
 import { globalStyle } from '../../styles/global.style';
-import { Layout, useErrorHandler } from '../../components';
+import { Button, Layout, useErrorHandler } from '../../components';
 
 interface SignUpUser {
   displayName: string;
@@ -171,12 +171,13 @@ export const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
           <Text style={styles.errors}>{translate('auth.required_field')}</Text>
         )}
         <Button
-          loading={loading}
-          mode={'contained'}
+          label={translate('auth.register')}
+          type={'primary'}
+          disabled={loading}
+          // loading={loading}
+          style={[globalStyle.marginTopBig]}
           onPress={handleSubmit(handleSignUp)}
-          style={[styles.width90, globalStyle.marginTopBig]}>
-          {translate('auth.register')}
-        </Button>
+        />
       </View>
     </PageLayout>
   );

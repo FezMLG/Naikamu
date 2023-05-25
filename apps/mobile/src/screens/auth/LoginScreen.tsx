@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Button, Text, TextInput } from 'react-native-paper';
+import { PButton, Text, TextInput } from 'react-native-paper';
 import { useSelector } from 'react-redux';
 
 import { LoginScreenProps, AuthRoutesNames } from '../../routes/auth';
@@ -11,6 +11,7 @@ import { globalStyle } from '../../styles/global.style';
 import { useTranslate } from '../../i18n/useTranslate';
 import { useErrorHandler } from '../../components/atoms/ErrorHandler/ErrorHandler';
 import { Layout } from '../../components/atoms/Layout';
+import { Button } from '../../components';
 
 interface LoginUser {
   email: string;
@@ -113,19 +114,21 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
           </Text>
         )}
         <Button
-          loading={loading}
-          onPress={handleSubmit(handleLogin)}
-          mode={'contained'}
+          label={translate('auth.login')}
+          type={'primary'}
           disabled={loading}
-          style={[styles.width90, globalStyle.marginTopBig]}>
-          {translate('auth.login')}
-        </Button>
+          // loading={loading}
+          style={[globalStyle.marginTopBig]}
+          onPress={handleSubmit(handleLogin)}
+        />
         <Button
-          mode={'text'}
-          style={[styles.width90, globalStyle.marginTopSmall]}
-          onPress={() => navigation.navigate(AuthRoutesNames.ForgotPassword)}>
-          {translate('auth.forgot_password')}
-        </Button>
+          label={translate('auth.forgot_password')}
+          type={'link'}
+          disabled={loading}
+          // loading={loading}
+          style={[globalStyle.marginTopSmall]}
+          onPress={() => navigation.navigate(AuthRoutesNames.ForgotPassword)}
+        />
       </View>
     </PageLayout>
   );

@@ -39,6 +39,10 @@ export const Button = ({
       buttonColor = colors.transparent;
       buttonBorder.borderColor = colors.error.color;
       break;
+    case 'link':
+      textStyle = colors.textLight;
+      buttonColor = colors.transparent;
+      break;
   }
 
   return (
@@ -67,7 +71,7 @@ export const Button = ({
 const styles = StyleSheet.create({
   container: {
     height: 60,
-    width: '100%',
+    alignSelf: 'stretch',
     borderRadius: defaultRadius,
     justifyContent: 'center',
     alignItems: 'center',
