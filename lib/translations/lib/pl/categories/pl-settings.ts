@@ -14,6 +14,7 @@ export const plSettings = {
     groups: {
       accountDetails: 'Ustawienia konta',
       videoPlayback: 'Odtwarzanie wideo',
+      dangerZone: 'Niebezpieczna strefa',
     },
     titles: {
       videoQuality: 'Jakość wideo',

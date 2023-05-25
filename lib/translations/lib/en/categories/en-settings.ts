@@ -14,6 +14,7 @@ export const enSettings = {
     groups: {
       accountDetails: 'Account details',
       videoPlayback: 'Video playback',
+      dangerZone: 'Danger zone',
     },
     titles: {
       videoQuality: 'Video quality',

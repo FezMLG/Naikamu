@@ -46,6 +46,7 @@ const UserSettingsScreen = ({ navigation }: UserSettingsScreenProps) => {
               payload: user?.displayName!,
             })
           }
+          isFirst={true}
         />
         <SettingInputs.Edit
           label={translate('forms.labels.' + ActionType.PasswordChange)}
@@ -59,6 +60,7 @@ const UserSettingsScreen = ({ navigation }: UserSettingsScreenProps) => {
               payload: '*'.repeat(10),
             })
           }
+          isLast={true}
         />
       </SettingsGroup>
       <Button
@@ -67,7 +69,7 @@ const UserSettingsScreen = ({ navigation }: UserSettingsScreenProps) => {
         style={[globalStyle.marginTopBig, globalStyle.marginBottomBig]}
         onPress={() => dispatch(fireLogoutUser())}
       />
-      <SettingsGroup title={translate('settings.groups.accountDetails')}>
+      <SettingsGroup title={translate('settings.groups.dangerZone')}>
         <Button
           label={translate('auth.delete_account')}
           type={'warning'}
