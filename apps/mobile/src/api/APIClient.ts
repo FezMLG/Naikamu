@@ -9,8 +9,9 @@ import {
   WatchListSeriesEpisode,
   WatchListSeries,
 } from '@aniwatch/shared';
-import { API_URL } from '@env';
+import Config from 'react-native-config';
 import { fireGetIdToken } from '../services/firebase/fire-auth.service';
+import { Resolution } from '../services/store/reducers/interfaces';
 
 interface GetAnimeListDTO {
   page?: number;
@@ -25,7 +26,7 @@ export class APIClient {
 
   constructor() {
     this.instance = axios.create({
-      baseURL: API_URL,
+      baseURL: Config.API_URL,
       timeout: 2000,
       headers: {
         Accept: 'application/json',
@@ -111,13 +112,18 @@ export class APIClient {
     );
   }
 
-  async getEpisodePlayers(id: string, episode: number): Promise<AnimePlayers> {
+  async getEpisodePlayers(
+    id: string,
+    episode: number,
+    resolution: Resolution,
+  ): Promise<AnimePlayers> {
     const token = await this.withToken();
     return this.post<AnimePlayers>(
       `/anime/details/episode/${episode}`,
       {
         id: id,
         resolve: true,
+        resolution: resolution,
       },
       { ...token },
     );

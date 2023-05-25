@@ -1,137 +1,93 @@
 import React from 'react';
-import {
-  KeyboardTypeOptions,
-  SafeAreaView,
-  StyleSheet,
-  View,
-} from 'react-native';
-import { Button, Text, TextInput } from 'react-native-paper';
+import { StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
-import { useForm, Controller, Control, FieldErrorsImpl } from 'react-hook-form';
 
 import { RootState, useAppDispatch } from '../../services/store/store';
 import { useTranslate } from '../../i18n/useTranslate';
-import { globalStyle } from '../../styles/global.style';
-import { fireUpdateUser } from '../../services/firebase/fire-auth.service';
-import { UserSettingsScreenProps } from '../../routes/settings/interfaces';
+import {
+  SettingsScreenNames,
+  UserSettingsScreenProps,
+} from '../../routes/settings/interfaces';
+import {
+  useLayout,
+  SettingInputs,
+  SettingsGroup,
+  Button,
+} from '../../components';
+import { ActionType } from '@aniwatch/shared';
+import {
+  fireDeleteAccount,
+  fireLogoutUser,
+  fireUpdatePassword,
+  fireUpdateUserDisplayName,
+} from '../../services/firebase/fire-auth.service';
+import { globalStyle } from '../../styles';
 
-export interface UserSettingsForm {
-  displayName: string;
-  email: string;
-}
-
-type UserSettingsFormType = keyof UserSettingsForm;
-
-const FormTextInput = ({
-  control,
-  errors,
-  name,
-  keyboardType,
-  autoCorrect = false,
-}: {
-  control: Control<UserSettingsForm, any>;
-  name: UserSettingsFormType;
-  keyboardType?: KeyboardTypeOptions;
-  autoCorrect?: boolean;
-  errors: Partial<FieldErrorsImpl<UserSettingsForm>>;
-}) => {
-  const { translate } = useTranslate();
-  return (
-    <View>
-      <Text style={[globalStyle.marginTop]}>
-        {translate('forms.fields.' + name)}
-      </Text>
-      <Controller
-        control={control}
-        rules={{
-          required: true,
-          maxLength: 100,
-        }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            value={value}
-            placeholder={translate('forms.fields.' + name)}
-            autoCapitalize="none"
-            keyboardType={keyboardType}
-            autoCorrect={autoCorrect}
-            style={[styles.textInput, styles.width90]}
-            mode={'outlined'}
-            onBlur={onBlur}
-            onChangeText={onChange}
-          />
-        )}
-        name={name}
-      />
-      {errors[name] && (
-        <Text style={[globalStyle.marginTop]}>
-          {translate('forms.fields.' + name)}
-        </Text>
-      )}
-    </View>
-  );
-};
-
-const UserSettingsScreen = ({}: UserSettingsScreenProps) => {
+const UserSettingsScreen = ({ navigation }: UserSettingsScreenProps) => {
+  const { PageLayout } = useLayout();
   const { user } = useSelector((state: RootState) => state.user);
-  const dispatch = useAppDispatch();
   const { translate } = useTranslate();
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      displayName: user?.displayName ?? '',
-      email: user?.email ?? '',
-    },
-  });
-
-  const handleSettingsSubmit = async (data: UserSettingsForm) => {
-    //TODO confirmation about updated data
-    await dispatch(fireUpdateUser(data));
-  };
+  const dispatch = useAppDispatch();
 
   return (
-    <SafeAreaView style={[styles.container]}>
-      <View>
-        <Text
-          style={[styles.textCenter, globalStyle.marginTop]}
-          variant="titleLarge">
-          {user?.displayName}
-        </Text>
-        <Text style={styles.textCenter} variant="titleMedium">
-          {user?.email}
-        </Text>
-      </View>
-      <View style={[styles.formInputs, globalStyle.spacerBig]}>
-        <FormTextInput
-          control={control}
-          name={'displayName'}
-          keyboardType={'ascii-capable'}
-          errors={errors}
+    <PageLayout style={[styles.container]}>
+      <SettingsGroup title={translate('settings.groups.accountDetails')}>
+        <SettingInputs.Edit
+          label={translate('forms.labels.' + ActionType.NickChange)}
+          text={user?.displayName ?? ''}
+          onPress={() =>
+            navigation.navigate(SettingsScreenNames.SettingsAction, {
+              action: fireUpdateUserDisplayName,
+              requiresLogin: false,
+              type: ActionType.NickChange,
+              origin: SettingsScreenNames.UserSettings,
+              payload: user?.displayName!,
+            })
+          }
+          isFirst={true}
         />
-        {/* <FormTextInput
-          control={control}
-          name={'email'}
-          keyboardType={'email-address'}
-          errors={errors}
-        /> */}
+        <SettingInputs.Edit
+          label={translate('forms.labels.' + ActionType.PasswordChange)}
+          text={'*'.repeat(10)}
+          onPress={() =>
+            navigation.navigate(SettingsScreenNames.SettingsAction, {
+              action: fireUpdatePassword,
+              requiresLogin: true,
+              type: ActionType.PasswordChange,
+              origin: SettingsScreenNames.UserSettings,
+              payload: '*'.repeat(10),
+            })
+          }
+          isLast={true}
+        />
+      </SettingsGroup>
+      <Button
+        label={translate('auth.logout')}
+        type={'secondary'}
+        style={[globalStyle.marginTopBig, globalStyle.marginBottomBig]}
+        onPress={() => dispatch(fireLogoutUser())}
+      />
+      <SettingsGroup title={translate('settings.groups.dangerZone')}>
         <Button
-          mode={'contained'}
-          style={[styles.center, globalStyle.marginTopBig]}
-          onPress={handleSubmit(handleSettingsSubmit)}>
-          {translate('forms.save')}
-        </Button>
-      </View>
-    </SafeAreaView>
+          label={translate('auth.delete_account')}
+          type={'warning'}
+          onPress={() =>
+            navigation.navigate(SettingsScreenNames.SettingsActionConfirm, {
+              action: fireDeleteAccount,
+              type: ActionType.AccountDelete,
+              origin: SettingsScreenNames.UserSettings,
+              payload: '',
+            })
+          }
+        />
+      </SettingsGroup>
+    </PageLayout>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
   },
   logo: {
     width: 100,

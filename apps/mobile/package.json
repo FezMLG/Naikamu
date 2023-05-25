@@ -1,6 +1,6 @@
 {
   "name": "@aniwatch/mobile",
-  "version": "0.0.1",
+  "version": "1.0.0-beta.4.0.0",
   "private": true,
   "engines": {
     "node": "16",
@@ -22,7 +22,7 @@
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "app:release": "cd android && ./gradlew bundleRelease",
-    "apk:beta:release": "cd android && fastlane beta && open app/build/outputs/apk/production/release",
+    "apk:beta:release": "cd android && bundle exec fastlane beta && open app/build/outputs/apk/production/release",
     "apk:release": "cd android && ./gradlew assembleRelease && open app/build/outputs/apk/production/release"
   },
   "dependencies": {
@@ -47,7 +47,6 @@
     "react-i18next": "^12.0.0",
     "react-native": "0.71.1",
     "react-native-config": "^1.4.11",
-    "react-native-dotenv": "^3.3.1",
     "react-native-fast-image": "^8.6.1",
     "react-native-gesture-handler": "^2.8.0",
     "react-native-keychain": "^8.1.1",

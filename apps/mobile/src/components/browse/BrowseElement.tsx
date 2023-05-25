@@ -7,9 +7,8 @@ import {
   Text,
 } from 'react-native';
 import { Media } from '@aniwatch/shared';
-import { darkStyle } from '../../styles/darkMode.style';
+import { darkStyle, defaultRadius } from '../../styles';
 import { ProgressiveImage } from '../ProgressiveImage';
-import { defaultRadius } from '../../styles/global.style';
 
 const BrowseElement = ({
   anime,

@@ -9,7 +9,7 @@ import {
   View,
 } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
-import { API_URL, ENV } from '@env';
+import Config from 'react-native-config';
 import { useSelector } from 'react-redux';
 
 import { colors, fontStyles, globalStyle } from '../styles/global.style';
@@ -22,6 +22,7 @@ import {
 } from '../services/firebase/fire-auth.service';
 import { AppLoadingScreenProps, AuthRoutesNames } from '../routes/auth';
 import { useQueryApiHealth } from '../api/hooks';
+import { settingsService } from '../services/settings/settings.service';
 
 const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
   const { translate } = useTranslate();
@@ -34,6 +35,7 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
 
   const handleLoginCheck = useCallback(async () => {
     const token = await fireGetIdToken();
+    await dispatch(settingsService.getUserSettings());
     if (token) {
       await dispatch(await fireGetNewIdToken());
       await dispatch(fireGetUser());
@@ -100,7 +102,7 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
         </Pressable>
       )}
       {apiCheck.isError ?? <Text>{JSON.stringify(apiCheck.error)}</Text>}
-      {ENV !== 'prod' && <Text>api_url: {API_URL}</Text>}
+      {Config.ENV !== 'prod' && <Text>api_url: {Config.API_URL}</Text>}
     </SafeAreaView>
   );
 };

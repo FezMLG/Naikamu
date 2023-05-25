@@ -15,9 +15,24 @@ export const pl = {
   },
   forms: {
     save: 'Zapisz',
+    continue: 'Kontynuuj',
     fields: {
       displayName: 'Nazwa użytkownika',
       email: 'Email',
+      NickChange: 'Nazwa użytkownika',
+      EmailChange: 'example@example.com',
+      PasswordChange: '*************',
+    },
+    labels: {
+      password: 'Hasło',
+      NickChange: 'Nazwa użytkownika',
+      EmailChange: 'Email',
+      PasswordChange: 'Hasło',
+      new: {
+        NickChange: 'Nowa nazwa użytkownika',
+        EmailChange: 'Nowy email',
+        PasswordChange: 'Nowe hasło',
+      },
     },
   },
   actions: {
@@ -118,6 +133,7 @@ export const pl = {
   watch_list: {
     watching: 'Oglądam',
     add: 'Dodaj do listy',
+    finished: 'Objerzane',
   },
   anime_episodes: {
     players_not_found: 'Nie znaleziono odtwarzaczy',

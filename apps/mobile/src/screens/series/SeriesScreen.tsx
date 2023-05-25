@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, SafeAreaView, ScrollView, View } from 'react-native';
-import { ActivityIndicator } from 'react-native-paper';
 
 import { globalStyle } from '../../styles/global.style';
 import { SeriesScreenProps } from '../../routes/main';
@@ -11,6 +10,7 @@ import {
   SeriesDetailsRelations,
   WatchList,
 } from '../../components/SeriesDetails';
+import { ActivityIndicator } from '../../components';
 
 const SeriesScreen = ({ route }: SeriesScreenProps) => {
   const { id } = route.params;
@@ -64,7 +64,7 @@ const SeriesScreen = ({ route }: SeriesScreenProps) => {
         </ScrollView>
       ) : (
         <View style={globalStyle.centered}>
-          <ActivityIndicator size="large" />
+          <ActivityIndicator size="large" visible={true} />
         </View>
       )}
     </SafeAreaView>

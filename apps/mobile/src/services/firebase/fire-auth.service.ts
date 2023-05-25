@@ -6,8 +6,7 @@ import {
   getUserFulfilled,
   getUserPending,
   getUserRejected,
-} from '../../reducers/user.reducer';
-import { UserSettingsForm } from '../../screens/settings/UserSettingsScreen';
+} from '../store/reducers/user.reducer';
 import { AppDispatch } from '../store/store';
 
 export const fireLoginUser =
@@ -20,13 +19,13 @@ export const fireLoginUser =
     if (!newAuthState.user.emailVerified) {
       await sendEmailVerification();
     }
-    dispatch(fireGetUser());
+    await dispatch(fireGetUser());
   };
 
 export const fireGetNewIdToken = async () => async (dispatch: AppDispatch) => {
   const user = auth().currentUser;
   if (user) {
-    dispatch(fireGetUser());
+    await dispatch(fireGetUser());
   }
 };
 
@@ -56,7 +55,7 @@ export const fireRegisterUser =
     });
 
     await sendEmailVerification();
-    dispatch(fireGetUser());
+    await dispatch(fireGetUser());
   };
 
 export const fireForgotPassword = (email: string) => async () => {
@@ -74,16 +73,17 @@ const sendEmailVerification = async () => {
   });
 };
 
-export const fireUpdateUser =
-  (form: UserSettingsForm) => async (dispatch: AppDispatch) => {
+export const fireUpdateUserDisplayName =
+  (newDisplayName: string) => async (dispatch: AppDispatch) => {
     try {
       const currentUser = auth().currentUser;
       if (currentUser) {
-        if (form.displayName !== currentUser.displayName) {
-          await currentUser.updateProfile({
-            displayName: form.displayName,
-          });
-        }
+        await currentUser.updateProfile({
+          displayName: newDisplayName,
+        });
+
+        console.log('updated!');
+
         // if (form.email !== currentUser.email) {
         //   await currentUser.verifyBeforeUpdateEmail(form.email, {
         //     handleCodeInApp: true,
@@ -91,10 +91,34 @@ export const fireUpdateUser =
         //   });
         // }
       }
-      dispatch(fireGetUser());
+      await dispatch(fireGetUser());
     } catch (error) {
       console.error(error);
     }
+  };
+
+export const fireUpdatePassword =
+  (newPassword: string) => async (dispatch: AppDispatch) => {
+    const currentUser = auth().currentUser;
+    console.log('heh!');
+    if (currentUser) {
+      await currentUser.updatePassword(newPassword);
+      console.log('Password updated!');
+    }
+    await dispatch(fireGetUser());
+  };
+
+export const fireReauthenticate =
+  (password: string) => async (dispatch: AppDispatch) => {
+    const currentUser = auth().currentUser;
+    if (currentUser) {
+      if (!currentUser.email) {
+        throw new Error('No email found');
+      }
+      await dispatch(fireLoginUser(currentUser.email, password));
+      console.log('Reauthenticated!');
+    }
+    await dispatch(fireGetUser());
   };
 
 export const fireDeleteAccount = () => async (dispatch: AppDispatch) => {

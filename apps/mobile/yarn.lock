@@ -59,7 +59,6 @@ __metadata:
     react-i18next: ^12.0.0
     react-native: 0.71.1
     react-native-config: ^1.4.11
-    react-native-dotenv: ^3.3.1
     react-native-fast-image: ^8.6.1
     react-native-gesture-handler: ^2.8.0
     react-native-keychain: ^8.1.1
@@ -4602,13 +4601,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv@npm:^16.0.3":
-  version: 16.0.3
-  resolution: "dotenv@npm:16.0.3"
-  checksum: afcf03f373d7a6d62c7e9afea6328e62851d627a4e73f2e12d0a8deae1cd375892004f3021883f8aec85932cd2834b091f568ced92b4774625b321db83b827f8
-  languageName: node
-  linkType: hard
-
 "ee-first@npm:1.1.1":
   version: 1.1.1
   resolution: "ee-first@npm:1.1.1"
@@ -9024,18 +9016,6 @@ __metadata:
     react-native-windows:
       optional: true
   checksum: 5d14d2e2c067fc6d401ee41b22a803b3bd3162a8a566997f941de0244a277687e96cf6ddccad7e4f03ba82811059786df2d821669f274aefb43b3e43bdffc7da
-  languageName: node
-  linkType: hard
-
-"react-native-dotenv@npm:^3.3.1":
-  version: 3.4.7
-  resolution: "react-native-dotenv@npm:3.4.7"
-  dependencies:
-    dotenv: ^16.0.3
-  peerDependencies:
-    "@babel/core": ^7.20.5
-    "@babel/runtime": ^7.20.6
-  checksum: 87148432ef19305053813bdda96e6bc7fa08c3dd21a0983f0a636981b278f14ea26eb6ab5c7fdbdab60b00848dca9a49e7030b267578e3f8b18bc79c89245752
   languageName: node
   linkType: hard
 

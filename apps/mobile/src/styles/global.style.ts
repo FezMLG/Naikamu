@@ -26,6 +26,15 @@ export const globalStyle = StyleSheet.create({
   marginTopSmall: {
     marginTop: 10,
   },
+  marginBottomSmall: {
+    marginBottom: 10,
+  },
+  marginBottom: {
+    marginBottom: 20,
+  },
+  marginBottomBig: {
+    marginBottom: 40,
+  },
   disclaimer: {
     marginTop: 20,
     marginBottom: 10,
@@ -64,6 +73,15 @@ export const fontStyles = StyleSheet.create({
     textDecorationStyle: 'solid',
     textDecorationColor: '#ffffff',
     textDecorationLine: 'underline',
+  },
+  header: {
+    fontFamily: 'Lato-Bold',
+    fontSize: 24,
+  },
+  headerSmall: {
+    fontFamily: 'Lato-Bold',
+    fontSize: 18,
+    lineHeight: 18 * 1.4,
   },
 });
 

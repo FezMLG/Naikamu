@@ -1,27 +1,25 @@
 import React from 'react';
-import { Image, SafeAreaView, StyleSheet, View } from 'react-native';
-import { Button as PaperButton, Text } from 'react-native-paper';
+import { Image, StyleSheet, View } from 'react-native';
+import { Text } from 'react-native-paper';
 import { useSelector } from 'react-redux';
 
-import { RootState, useAppDispatch } from '../../services/store/store';
+import { RootState } from '../../services/store/store';
 import { useTranslate } from '../../i18n/useTranslate';
 import { globalStyle } from '../../styles/global.style';
-import { fireLogoutUser } from '../../services/firebase/fire-auth.service';
 import { ProgressiveImage } from '../../components/ProgressiveImage';
 import {
   SettingsScreenNames,
   SettingsScreenProps,
 } from '../../routes/settings/interfaces';
-import { ENV, API_URL } from '@env';
-import { Button } from '../../components';
+import { SectionButton, useLayout } from '../../components';
 
 const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
+  const { PageLayout } = useLayout();
   const { user } = useSelector((state: RootState) => state.user);
-  const dispatch = useAppDispatch();
   const { translate } = useTranslate();
 
   return (
-    <SafeAreaView style={[styles.container]}>
+    <PageLayout style={[styles.container]}>
       <View>
         {user?.picture ? (
           <ProgressiveImage source={user.picture} style={[styles.logo]} />
@@ -31,7 +29,6 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
             source={require('../../../assets/anya.jpeg')}
           />
         )}
-
         <Text
           style={[styles.textCenter, globalStyle.marginTop]}
           variant="titleLarge">
@@ -42,38 +39,23 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
         </Text>
       </View>
       <View>
-        <PaperButton
-          onPress={() => navigation.navigate(SettingsScreenNames.UserSettings)}>
-          {translate('settings.categories.UserSettings')}
-        </PaperButton>
-        {/* <Button
-          onPress={() =>
-            navigation.navigate(SettingsScreenNames.ProviderSettings)
-          }>
-          {translate('settings.categories.ProviderSettings')}
-        </Button> */}
-        <PaperButton
-          onPress={() =>
-            navigation.navigate(SettingsScreenNames.DangerSettings)
-          }>
-          {translate('settings.categories.DangerSettings')}
-        </PaperButton>
+        <SectionButton
+          title={translate('settings.categories.UserSettings')}
+          icon={'account-cog'}
+          onPress={() => navigation.navigate(SettingsScreenNames.UserSettings)}
+        />
+        <SectionButton
+          title={translate('settings.categories.AppSettings')}
+          icon={'cog'}
+          onPress={() => navigation.navigate(SettingsScreenNames.AppSettings)}
+        />
       </View>
-      {ENV === 'prod' ? null : <Text>{API_URL}</Text>}
-      <Button
-        label={translate('auth.logout')}
-        type={'secondary'}
-        style={[styles.center, globalStyle.marginTopBig]}
-        onPress={() => dispatch(fireLogoutUser())}
-      />
-    </SafeAreaView>
+    </PageLayout>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
   },
   logo: {
@@ -86,9 +68,6 @@ const styles = StyleSheet.create({
   },
   highlight: {
     fontWeight: 'bold',
-  },
-  center: {
-    alignSelf: 'center',
   },
   textInput: {},
   formInputs: {

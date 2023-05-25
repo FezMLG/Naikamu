@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { colors, defaultRadius } from '../../../styles';
+import { ActivityIndicator } from '../Loader';
 
 interface ButtonProps {
   label: string;
@@ -16,6 +17,7 @@ interface ButtonProps {
   onPress?: (event: GestureResponderEvent) => void;
   icon?: string;
   style?: StyleProp<ViewStyle>[];
+  loading?: boolean;
 }
 
 export const Button = ({
@@ -25,6 +27,7 @@ export const Button = ({
   onPress,
   disabled,
   style = [],
+  loading = false,
 }: ButtonProps) => {
   let textStyle = colors.textLight;
   let buttonColor = colors.accent;
@@ -39,6 +42,10 @@ export const Button = ({
       buttonColor = colors.transparent;
       buttonBorder.borderColor = colors.error.color;
       break;
+    case 'link':
+      textStyle = colors.textLight;
+      buttonColor = colors.transparent;
+      break;
   }
 
   return (
@@ -51,15 +58,21 @@ export const Button = ({
         buttonBorder,
       ]}
       disabled={disabled}>
-      {icon ? (
-        <Icon
-          name={icon}
-          size={24}
-          color={textStyle.color}
-          style={styles.icon}
-        />
-      ) : null}
-      <Text style={[styles.baseText, textStyle]}>{label}</Text>
+      {loading ? (
+        <ActivityIndicator visible={loading} size={'small'} />
+      ) : (
+        <>
+          {icon ? (
+            <Icon
+              name={icon}
+              size={24}
+              color={textStyle.color}
+              style={styles.icon}
+            />
+          ) : null}
+          <Text style={[styles.baseText, textStyle]}>{label}</Text>
+        </>
+      )}
     </Pressable>
   );
 };
@@ -67,7 +80,7 @@ export const Button = ({
 const styles = StyleSheet.create({
   container: {
     height: 60,
-    width: '100%',
+    alignSelf: 'stretch',
     borderRadius: defaultRadius,
     justifyContent: 'center',
     alignItems: 'center',
