@@ -15,9 +15,24 @@ export const pl = {
   },
   forms: {
     save: 'Zapisz',
+    continue: 'Kontynuuj',
     fields: {
       displayName: 'Nazwa użytkownika',
       email: 'Email',
+      NickChange: 'Nazwa użytkownika',
+      EmailChange: 'example@example.com',
+      PasswordChange: '*************',
+    },
+    labels: {
+      password: 'Hasło',
+      NickChange: 'Nazwa użytkownika',
+      EmailChange: 'Email',
+      PasswordChange: 'Hasło',
+      new: {
+        NickChange: 'Nowa nazwa użytkownika',
+        EmailChange: 'Nowy email',
+        PasswordChange: 'Nowe hasło',
+      },
     },
   },
   actions: {

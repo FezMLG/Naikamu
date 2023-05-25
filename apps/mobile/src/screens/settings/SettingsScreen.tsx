@@ -1,27 +1,25 @@
 import React from 'react';
-import { Image, SafeAreaView, StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import { useSelector } from 'react-redux';
 
-import { RootState, useAppDispatch } from '../../services/store/store';
+import { RootState } from '../../services/store/store';
 import { useTranslate } from '../../i18n/useTranslate';
 import { globalStyle } from '../../styles/global.style';
-import { fireLogoutUser } from '../../services/firebase/fire-auth.service';
 import { ProgressiveImage } from '../../components/ProgressiveImage';
 import {
   SettingsScreenNames,
   SettingsScreenProps,
 } from '../../routes/settings/interfaces';
-import Config from 'react-native-config';
-import { Button, SectionButton } from '../../components';
+import { SectionButton, useLayout } from '../../components';
 
 const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
+  const { PageLayout } = useLayout();
   const { user } = useSelector((state: RootState) => state.user);
-  const dispatch = useAppDispatch();
   const { translate } = useTranslate();
 
   return (
-    <SafeAreaView style={[styles.container]}>
+    <PageLayout style={[styles.container]}>
       <View>
         {user?.picture ? (
           <ProgressiveImage source={user.picture} style={[styles.logo]} />
@@ -31,7 +29,6 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
             source={require('../../../assets/anya.jpeg')}
           />
         )}
-
         <Text
           style={[styles.textCenter, globalStyle.marginTop]}
           variant="titleLarge">
@@ -53,20 +50,12 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
           onPress={() => navigation.navigate(SettingsScreenNames.AppSettings)}
         />
       </View>
-      <Button
-        label={translate('auth.logout')}
-        type={'secondary'}
-        style={[styles.center, globalStyle.marginTopBig]}
-        onPress={() => dispatch(fireLogoutUser())}
-      />
-    </SafeAreaView>
+    </PageLayout>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
   },
   logo: {
@@ -79,9 +68,6 @@ const styles = StyleSheet.create({
   },
   highlight: {
     fontWeight: 'bold',
-  },
-  center: {
-    alignSelf: 'center',
   },
   textInput: {},
   formInputs: {

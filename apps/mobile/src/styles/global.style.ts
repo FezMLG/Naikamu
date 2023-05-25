@@ -29,6 +29,12 @@ export const globalStyle = StyleSheet.create({
   marginBottomSmall: {
     marginBottom: 10,
   },
+  marginBottom: {
+    marginBottom: 20,
+  },
+  marginBottomBig: {
+    marginBottom: 40,
+  },
   disclaimer: {
     marginTop: 20,
     marginBottom: 10,

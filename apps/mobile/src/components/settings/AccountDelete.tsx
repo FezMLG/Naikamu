@@ -17,21 +17,8 @@ import { Button } from '../../components';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 
 const AccountDelete = () => {
-  const dispatch = useAppDispatch();
   const { translate } = useTranslate();
   const navigation = useNavigation<NavigationProp<SettingsStackParamList>>();
-
-  const handleAccountDelete = async () => {
-    try {
-      await dispatch(fireDeleteAccount());
-    } catch (error: any) {
-      if (error.code === 'auth/requires-recent-login') {
-        await dispatch(fireLogoutUser());
-      } else {
-        console.error(error);
-      }
-    }
-  };
 
   return (
     <SafeAreaView style={[styles.container]}>
@@ -41,10 +28,10 @@ const AccountDelete = () => {
         style={[styles.center, globalStyle.marginTopBig]}
         onPress={() =>
           navigation.navigate(SettingsScreenNames.SettingsActionConfirm, {
-            action: () => {
-              handleAccountDelete();
-            },
+            action: fireDeleteAccount,
             type: ActionType.AccountDelete,
+            origin: SettingsScreenNames.UserSettings,
+            payload: '',
           })
         }
       />

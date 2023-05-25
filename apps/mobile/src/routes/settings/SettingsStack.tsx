@@ -13,6 +13,7 @@ import UserSettingsScreen from '../../screens/settings/UserSettingsScreen';
 import { defaultHeaderOptions } from '../main/BottomTabNavigation';
 import AppSettingsScreen from '../../screens/settings/AppSettings';
 import SettingsActionScreen from '../../screens/settings/ActionScreen';
+import { defaultSubHeaderOptions } from '../main';
 
 const Stack = createNativeStackNavigator<SettingsStackParamList>();
 
@@ -35,7 +36,7 @@ const SettingsStack = () => {
         name={SettingsScreenNames.UserSettings}
         component={UserSettingsScreen}
         options={() => ({
-          ...defaultHeaderOptions({
+          ...defaultSubHeaderOptions({
             title: translate('settings.' + SettingsScreenNames.Settings),
           }),
           animation: 'slide_from_right',
@@ -45,7 +46,7 @@ const SettingsStack = () => {
         name={SettingsScreenNames.AppSettings}
         component={AppSettingsScreen}
         options={() => ({
-          ...defaultHeaderOptions({
+          ...defaultSubHeaderOptions({
             title: translate('settings.' + SettingsScreenNames.Settings),
           }),
           animation: 'slide_from_right',
@@ -55,7 +56,7 @@ const SettingsStack = () => {
         name={SettingsScreenNames.SettingsActionConfirm}
         component={SettingsActionConfirmScreen}
         options={{
-          ...defaultHeaderOptions({
+          ...defaultSubHeaderOptions({
             title: translate(
               'settings.categories.' +
                 SettingsScreenNames.SettingsActionConfirm,
@@ -68,9 +69,11 @@ const SettingsStack = () => {
         name={SettingsScreenNames.SettingsAction}
         component={SettingsActionScreen}
         options={{
-          title: translate(
-            'settings.categories.' + SettingsScreenNames.SettingsAction,
-          ),
+          ...defaultSubHeaderOptions({
+            title: translate(
+              'settings.categories.' + SettingsScreenNames.SettingsAction,
+            ),
+          }),
           animation: 'slide_from_right',
         }}
       />

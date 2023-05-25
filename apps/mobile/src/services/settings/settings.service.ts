@@ -1,5 +1,5 @@
 import { storageGetData, storageStoreData } from '../../utils';
-import { Resolution, UserSettings } from '../store/reducers/interfaces';
+import { UserSettings } from '../store/reducers/interfaces';
 import {
   clearUserSettings,
   getUserSettingsFulfilled,

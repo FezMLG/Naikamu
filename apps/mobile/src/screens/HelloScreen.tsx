@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
-import { Button as PButton, Text } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 import Config from 'react-native-config';
 import { useSelector } from 'react-redux';
 
@@ -10,10 +10,10 @@ import { useTranslate } from '../i18n/useTranslate';
 import { RootState } from '../services/store/store';
 import { AuthRoutesNames, HelloScreenProps } from '../routes/auth';
 import GoogleSignIn from '../components/GoogleSignIn';
-import { Button, Layout } from '../components';
+import { Button, useLayout } from '../components';
 
 const HelloScreen = ({ navigation }: HelloScreenProps) => {
-  const { PageLayout } = Layout();
+  const { PageLayout } = useLayout();
   const { translate } = useTranslate();
   const { user } = useSelector((state: RootState) => state.user);
 

@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { colors, defaultRadius } from '../../../styles';
+import { ActivityIndicator } from '../Loader';
 
 interface ButtonProps {
   label: string;
@@ -16,6 +17,7 @@ interface ButtonProps {
   onPress?: (event: GestureResponderEvent) => void;
   icon?: string;
   style?: StyleProp<ViewStyle>[];
+  loading?: boolean;
 }
 
 export const Button = ({
@@ -25,6 +27,7 @@ export const Button = ({
   onPress,
   disabled,
   style = [],
+  loading = false,
 }: ButtonProps) => {
   let textStyle = colors.textLight;
   let buttonColor = colors.accent;
@@ -55,15 +58,21 @@ export const Button = ({
         buttonBorder,
       ]}
       disabled={disabled}>
-      {icon ? (
-        <Icon
-          name={icon}
-          size={24}
-          color={textStyle.color}
-          style={styles.icon}
-        />
-      ) : null}
-      <Text style={[styles.baseText, textStyle]}>{label}</Text>
+      {loading ? (
+        <ActivityIndicator visible={loading} />
+      ) : (
+        <>
+          {icon ? (
+            <Icon
+              name={icon}
+              size={24}
+              color={textStyle.color}
+              style={styles.icon}
+            />
+          ) : null}
+          <Text style={[styles.baseText, textStyle]}>{label}</Text>
+        </>
+      )}
     </Pressable>
   );
 };

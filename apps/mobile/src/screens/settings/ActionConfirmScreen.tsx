@@ -7,10 +7,9 @@ import { useTranslate } from '../../i18n/useTranslate';
 import { globalStyle } from '../../styles/global.style';
 import { SettingsActionConfirmScreenProps } from '../../routes/settings/interfaces';
 import { Control, FieldErrorsImpl, Controller, useForm } from 'react-hook-form';
-import AccountDelete from '../../components/settings/AccountDelete';
 import { useAppDispatch } from '../../services/store/store';
 import { fireReauthenticate } from '../../services/firebase/fire-auth.service';
-import { Button } from '../../components';
+import { Button, useLayout } from '../../components';
 
 interface SettingsForm {
   password: string;
@@ -24,19 +23,21 @@ const FormTextInput = ({
   name,
   keyboardType,
   autoCorrect = false,
+  placeholder,
+  title,
 }: {
   control: Control<SettingsForm, any>;
   name: SettingsFormType;
   keyboardType?: KeyboardTypeOptions;
   autoCorrect?: boolean;
   errors: Partial<FieldErrorsImpl<SettingsForm>>;
+  placeholder: string;
+  title: string;
 }) => {
   const { translate } = useTranslate();
   return (
     <View>
-      <Text style={[globalStyle.marginTop]}>
-        {translate('forms.fields.' + name)}
-      </Text>
+      <Text style={[globalStyle.marginTop]}>{title}</Text>
       <Controller
         control={control}
         rules={{
@@ -46,7 +47,7 @@ const FormTextInput = ({
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
             value={value}
-            placeholder={translate('forms.fields.' + name)}
+            placeholder={placeholder}
             autoCapitalize="none"
             keyboardType={keyboardType}
             autoCorrect={autoCorrect}
@@ -63,7 +64,6 @@ const FormTextInput = ({
           {translate('forms.fields.' + name)}
         </Text>
       )}
-      <AccountDelete />
     </View>
   );
 };
@@ -72,6 +72,7 @@ const SettingsActionConfirmScreen = ({
   route,
   navigation,
 }: SettingsActionConfirmScreenProps) => {
+  const { PageLayout } = useLayout();
   const { action, type, payload, origin } = route.params;
   const { translate } = useTranslate();
   const dispatch = useAppDispatch();
@@ -98,28 +99,27 @@ const SettingsActionConfirmScreen = ({
   };
 
   return (
-    <SafeAreaView style={[styles.container]}>
+    <PageLayout style={[styles.container]}>
       <FormTextInput
+        title={translate('forms.labels.password')}
         control={control}
         name={'password'}
         keyboardType={'ascii-capable'}
         errors={errors}
+        placeholder={payload ?? translate('forms.fields.save')}
       />
       <Button
-        label={translate('actions.' + type + '.confirm')}
-        type={'link'}
+        label={translate('forms.save')}
+        type={'primary'}
         onPress={handleSubmit(handleAction)}
+        style={[globalStyle.marginTopBig]}
       />
-    </SafeAreaView>
+    </PageLayout>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    maxHeight: 400,
-    alignItems: 'center',
-  },
+  container: {},
   logo: {
     maxWidth: 200,
     maxHeight: 200,

@@ -9,7 +9,7 @@ import { AuthRoutesNames, SignUpScreenProps } from '../../routes/auth';
 import { fireRegisterUser } from '../../services/firebase/fire-auth.service';
 import { RootState, useAppDispatch } from '../../services/store/store';
 import { globalStyle } from '../../styles/global.style';
-import { Button, Layout, useErrorHandler } from '../../components';
+import { Button, useLayout, useErrorHandler } from '../../components';
 
 interface SignUpUser {
   displayName: string;
@@ -19,7 +19,7 @@ interface SignUpUser {
 }
 
 export const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
-  const { PageLayout, setInfo, setVisible } = Layout();
+  const { PageLayout, setInfo, setVisible } = useLayout();
   const [loading, isLoading] = useState(false);
   const dispatch = useAppDispatch();
   const { translate } = useTranslate();
@@ -174,7 +174,7 @@ export const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
           label={translate('auth.register')}
           type={'primary'}
           disabled={loading}
-          // loading={loading}
+          loading={loading}
           style={[globalStyle.marginTopBig]}
           onPress={handleSubmit(handleSignUp)}
         />

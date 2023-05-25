@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const Layout = () => {
+export const useLayout = () => {
   const { info, setInfo } = useInfoHandler();
   const { visible, setVisible } = useSnackbar();
 

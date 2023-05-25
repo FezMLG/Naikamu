@@ -1,6 +1,5 @@
 import React from 'react';
 import { KeyboardTypeOptions, StyleSheet, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Text, TextInput } from 'react-native-paper';
 import { Control, Controller, FieldErrorsImpl, useForm } from 'react-hook-form';
 
@@ -10,8 +9,7 @@ import {
   SettingsActionScreenProps,
   SettingsScreenNames,
 } from '../../routes/settings/interfaces';
-import AccountDelete from '../../components/settings/AccountDelete';
-import { Button } from '../../components';
+import { Button, useLayout } from '../../components';
 import { useAppDispatch } from '../../services/store/store';
 
 interface SettingsForm {
@@ -26,19 +24,21 @@ const FormTextInput = ({
   name,
   keyboardType,
   autoCorrect = false,
+  placeholder,
+  title,
 }: {
   control: Control<SettingsForm, any>;
   name: SettingsFormType;
   keyboardType?: KeyboardTypeOptions;
   autoCorrect?: boolean;
   errors: Partial<FieldErrorsImpl<SettingsForm>>;
+  placeholder: string;
+  title: string;
 }) => {
   const { translate } = useTranslate();
   return (
     <View>
-      <Text style={[globalStyle.marginTop]}>
-        {translate('forms.fields.' + name)}
-      </Text>
+      <Text style={[globalStyle.marginTop]}>{title}</Text>
       <Controller
         control={control}
         rules={{
@@ -48,7 +48,7 @@ const FormTextInput = ({
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
             value={value}
-            placeholder={translate('forms.fields.' + name)}
+            placeholder={placeholder}
             autoCapitalize="none"
             keyboardType={keyboardType}
             autoCorrect={autoCorrect}
@@ -65,7 +65,6 @@ const FormTextInput = ({
           {translate('forms.fields.' + name)}
         </Text>
       )}
-      <AccountDelete />
     </View>
   );
 };
@@ -74,7 +73,8 @@ const SettingsActionScreen = ({
   route,
   navigation,
 }: SettingsActionScreenProps) => {
-  const { type, action, requiresLogin, origin } = route.params;
+  const { PageLayout } = useLayout();
+  const { type, action, requiresLogin, origin, payload } = route.params;
   const { translate } = useTranslate();
   const dispatch = useAppDispatch();
 
@@ -91,20 +91,15 @@ const SettingsActionScreen = ({
   const handleAction = async (data: SettingsForm) => {
     try {
       if (requiresLogin) {
-        console.log('requires recent login');
-        navigation.navigate(SettingsScreenNames.SettingsActionConfirm, {
-          action,
-          payload: data.newValue,
-          type,
-          origin,
-        });
-      } else {
-        console.log('not requires recent login');
-        await dispatch(action(data.newValue));
+        console.log('requires recent login throw');
+        throw { code: 'auth/requires-recent-login' };
       }
+      console.log('not requires recent login');
+      // await dispatch(action(data.newValue));
+      navigation.navigate(origin);
     } catch (error: any) {
       if (error.code === 'auth/requires-recent-login') {
-        console.log('requires recent login');
+        console.log('requires recent login catch');
         navigation.navigate(SettingsScreenNames.SettingsActionConfirm, {
           action,
           payload: data.newValue,
@@ -113,32 +108,32 @@ const SettingsActionScreen = ({
         });
       }
     }
-    navigation.navigate(origin);
   };
 
   return (
-    <SafeAreaView style={[styles.container]}>
+    <PageLayout style={[styles.container]}>
       <FormTextInput
+        title={translate('forms.labels.new' + type)}
         control={control}
         name={'newValue'}
         keyboardType={'ascii-capable'}
         errors={errors}
+        placeholder={payload ?? translate('forms.fields.' + type)}
       />
       <Button
-        label={translate('actions.' + type + '.confirm')}
+        label={
+          requiresLogin ? translate('forms.continue') : translate('forms.save')
+        }
         type={requiresLogin ? 'primary' : 'secondary'}
         onPress={handleSubmit(handleAction)}
+        style={[globalStyle.marginTopBig]}
       />
-    </SafeAreaView>
+    </PageLayout>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    maxHeight: 400,
-    alignItems: 'center',
-  },
+  container: {},
   logo: {
     maxWidth: 200,
     maxHeight: 200,

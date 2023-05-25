@@ -36,11 +36,13 @@ const isFirstOrLast = (isFirst: boolean, isLast: boolean) => {
 };
 
 const Select = ({
+  title,
   text,
   setIsModalOpen,
   isFirst = false,
   isLast = false,
 }: {
+  title: string;
   text: string;
   setIsModalOpen: (value: boolean) => void;
   isFirst?: boolean;
@@ -50,9 +52,7 @@ const Select = ({
     <Pressable
       onPress={() => setIsModalOpen(true)}
       style={[groupStyles.setting, isFirstOrLast(isFirst, isLast)]}>
-      <Text style={[colors.textLight, fontStyles.headerSmall]}>
-        Default quality
-      </Text>
+      <Text style={[colors.textLight, fontStyles.headerSmall]}>{title}</Text>
       <View style={[styles.inline]}>
         <Text style={[colors.textLighter, fontStyles.text]}>{text}</Text>
         <Icon
@@ -131,6 +131,7 @@ const groupStyles = StyleSheet.create({
     margin: 16,
   },
   setting: {
+    alignSelf: 'stretch',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -158,6 +159,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
 });
+
 export const SettingInputs = {
   Select,
   Switch,

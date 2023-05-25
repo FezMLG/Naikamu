@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { PButton, Text, TextInput } from 'react-native-paper';
+import { Text, TextInput } from 'react-native-paper';
 import { useSelector } from 'react-redux';
 
 import { LoginScreenProps, AuthRoutesNames } from '../../routes/auth';
@@ -10,7 +10,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { globalStyle } from '../../styles/global.style';
 import { useTranslate } from '../../i18n/useTranslate';
 import { useErrorHandler } from '../../components/atoms/ErrorHandler/ErrorHandler';
-import { Layout } from '../../components/atoms/Layout';
+import { useLayout } from '../../components/atoms/Layout';
 import { Button } from '../../components';
 
 interface LoginUser {
@@ -19,7 +19,7 @@ interface LoginUser {
 }
 
 export default function LoginScreen({ navigation }: LoginScreenProps) {
-  const { PageLayout, setInfo, setVisible } = Layout();
+  const { PageLayout, setInfo, setVisible } = useLayout();
   const [loading, isLoading] = useState(false);
   const dispatch = useAppDispatch();
   const { translate } = useTranslate();
@@ -117,7 +117,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
           label={translate('auth.login')}
           type={'primary'}
           disabled={loading}
-          // loading={loading}
+          loading={loading}
           style={[globalStyle.marginTopBig]}
           onPress={handleSubmit(handleLogin)}
         />
@@ -125,7 +125,6 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
           label={translate('auth.forgot_password')}
           type={'link'}
           disabled={loading}
-          // loading={loading}
           style={[globalStyle.marginTopSmall]}
           onPress={() => navigation.navigate(AuthRoutesNames.ForgotPassword)}
         />

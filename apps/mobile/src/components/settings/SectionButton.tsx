@@ -8,7 +8,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { colors, defaultRadius, fontStyles } from '../../styles';
+import { colors, defaultRadius } from '../../styles';
 
 export const SectionButton = ({
   title,
@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.onBackground.color,
     justifyContent: 'space-between',
     marginVertical: 10,
+    alignSelf: 'stretch',
   },
   title: {},
   titleContainer: {

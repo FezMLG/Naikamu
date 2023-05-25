@@ -37,7 +37,7 @@ const QualityModal = ({
 
   return (
     <Modal.Container isOpen={isOpen} setIsOpen={setIsOpen}>
-      <Modal.Title title="Select quality" />
+      <Modal.Title title={translate('settings.modals.videoQuality')} />
       <RadioButton.Group onValueChange={setQuality} value={quality}>
         {Object.keys(Resolution).map(key => {
           return (
@@ -52,9 +52,8 @@ const QualityModal = ({
         })}
       </RadioButton.Group>
       <Button
-        label={'Save'}
+        label={translate('forms.save')}
         type={'primary'}
-        icon={'play'}
         onPress={() => handleQualityChange(quality as Resolution)}
       />
     </Modal.Container>
@@ -82,27 +81,12 @@ const AppSettingsScreen = ({}: PlaybackSettingsScreenProps) => {
         quality={quality}
         setQuality={setQuality}
       />
-      <SettingsGroup title={'Video Playback'}>
+      <SettingsGroup title={translate('settings.groups.videoPlayback')}>
         <SettingInputs.Select
+          title={translate('settings.titles.videoQuality')}
           text={quality ?? '1080p'}
           setIsModalOpen={setIsOpen}
           isFirst={true}
-        />
-        <SettingInputs.Switch
-          isSwitchOn={isSwitchOn}
-          setIsSwitchOn={setIsSwitchOn}
-          text={'aaa'}
-        />
-        <SettingInputs.Edit
-          label={'password'}
-          text={'*'.repeat(10)}
-          onPress={() => console.log('pressed')}
-        />
-        <SettingInputs.Edit
-          label={'email'}
-          text={'example@gmail.com'}
-          isLast={true}
-          onPress={() => console.log('pressed')}
         />
       </SettingsGroup>
       <View style={globalStyle.marginTop}>
