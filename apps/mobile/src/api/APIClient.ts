@@ -11,6 +11,7 @@ import {
 } from '@aniwatch/shared';
 import Config from 'react-native-config';
 import { fireGetIdToken } from '../services/firebase/fire-auth.service';
+import { Resolution } from '../services/store/reducers/interfaces';
 
 interface GetAnimeListDTO {
   page?: number;
@@ -99,6 +100,7 @@ export class APIClient {
   async getEpisodes(
     id: string,
     expectedEpisodes: number,
+    resolution: Resolution,
   ): Promise<AnimeEpisodes> {
     const token = await this.withToken();
     return this.post<AnimeEpisodes>(
@@ -106,6 +108,7 @@ export class APIClient {
       {
         id: id,
         expectedEpisodes: expectedEpisodes,
+        resolution: resolution,
       },
       { ...token },
     );

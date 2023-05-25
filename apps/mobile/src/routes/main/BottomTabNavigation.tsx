@@ -134,7 +134,9 @@ export const BottomTabNavigation = () => {
         name={ScreenNames.SettingsStack}
         component={SettingsStack}
         options={{
-          title: translate('routes.' + SettingsScreenNames.Settings),
+          ...defaultHeaderOptions({
+            title: translate('routes.' + SettingsScreenNames.Settings),
+          }),
           headerShown: false,
         }}
       />

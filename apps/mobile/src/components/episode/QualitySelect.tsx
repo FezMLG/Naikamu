@@ -5,19 +5,23 @@ import { useSelector } from 'react-redux';
 
 import { RootState, useAppDispatch } from '../../services/store/store';
 import { useTranslate } from '../../i18n/useTranslate';
-import { PlaybackSettingsScreenProps } from '../../routes/settings/interfaces';
 import { Resolution } from '../../services/store/reducers/interfaces';
 import { settingsService } from '../../services/settings/settings.service';
 import { Button, Modal } from '../../components';
 import { colors, fontStyles } from '../../styles';
 
-export const QualitySelect = ({}: PlaybackSettingsScreenProps) => {
+export const QualitySelect = ({
+  isOpen,
+  setIsOpen,
+}: {
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
+}) => {
   const { userSettings } = useSelector(
     (state: RootState) => state.userSettings,
   );
   const dispatch = useAppDispatch();
   const { translate } = useTranslate();
-  const [isOpen, setIsOpen] = useState(false);
   const [checked, setChecked] = useState(false);
 
   const handleQualityChange = (newValue: string) =>
@@ -30,7 +34,7 @@ export const QualitySelect = ({}: PlaybackSettingsScreenProps) => {
   return (
     <Modal.Container setIsOpen={setIsOpen} isOpen={isOpen}>
       <View style={styles.modalContent}>
-        <Modal.Title title="Select quality" />
+        <Modal.Title title={translate('settings.modals.videoQuality')} />
         <RadioButton.Group
           onValueChange={handleQualityChange}
           value={userSettings?.preferredResolution ?? Resolution['1080p']}>
