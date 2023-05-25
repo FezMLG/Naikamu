@@ -53,8 +53,6 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
           onPress={() => navigation.navigate(SettingsScreenNames.AppSettings)}
         />
       </View>
-      {Config.ENV === 'prod' ? null : <Text>{Config.API_URL}</Text>}
-      <Text>{Config.ENV}</Text>
       <Button
         label={translate('auth.logout')}
         type={'secondary'}

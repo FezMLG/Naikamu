@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text } from 'react-native';
 import { Snackbar as PaperSnackbar } from 'react-native-paper';
-import { colors, fontStyles } from '../../../styles';
+import { colors, darkColor, fontStyles } from '../../../styles';
 
 export const Snackbar = ({
   text,
@@ -18,6 +18,7 @@ export const Snackbar = ({
     <PaperSnackbar
       visible={visible}
       onDismiss={() => setVisible(false)}
+      style={{ backgroundColor: darkColor.C800 }}
       action={{
         label: actionLabel,
         onPress: () => {

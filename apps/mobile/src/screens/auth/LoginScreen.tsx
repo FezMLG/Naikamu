@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, SafeAreaView } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper';
 import { useSelector } from 'react-redux';
 
@@ -9,6 +9,8 @@ import { RootState, useAppDispatch } from '../../services/store/store';
 import { useForm, Controller } from 'react-hook-form';
 import { globalStyle } from '../../styles/global.style';
 import { useTranslate } from '../../i18n/useTranslate';
+import { useErrorHandler } from '../../components/atoms/ErrorHandler/ErrorHandler';
+import { Layout } from '../../components/atoms/Layout';
 
 interface LoginUser {
   email: string;
@@ -16,11 +18,12 @@ interface LoginUser {
 }
 
 export default function LoginScreen({ navigation }: LoginScreenProps) {
+  const { PageLayout, setInfo, setVisible } = Layout();
   const [loading, isLoading] = useState(false);
-  const [authError, setAuthError] = useState<null | string>(null);
   const dispatch = useAppDispatch();
   const { translate } = useTranslate();
   const { user } = useSelector((state: RootState) => state.user);
+  const { errorResolver } = useErrorHandler();
   const {
     control,
     handleSubmit,
@@ -45,27 +48,15 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
         }
       }
     } catch (error: any) {
-      if (error.code === 'auth/invalid-email') {
-        setAuthError(translate('auth.errors.invalid_email'));
-      } else if (
-        error.code === 'auth/user-not-found' ||
-        error.code === 'auth/wrong-password'
-      ) {
-        setAuthError(translate('auth.errors.user_not_found'));
-      } else {
-        console.log(error);
-        setAuthError(translate('auth.errors.unknown'));
-      }
+      setInfo(translate(errorResolver(error.code)));
+      setVisible(true);
     }
     isLoading(false);
   };
 
-  useEffect(() => {});
-
   return (
-    <SafeAreaView style={styles.container}>
+    <PageLayout>
       <View style={[styles.formInputs, globalStyle.spacerBig]}>
-        {authError && <Text style={globalStyle.errors}>{authError}</Text>}
         <Controller
           control={control}
           rules={{
@@ -136,14 +127,11 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
           {translate('auth.forgot_password')}
         </Button>
       </View>
-    </SafeAreaView>
+    </PageLayout>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   text: {
     fontSize: 24,
     marginBottom: 10,
