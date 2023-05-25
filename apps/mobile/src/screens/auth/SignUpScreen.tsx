@@ -3,12 +3,13 @@ import { Controller, useForm } from 'react-hook-form';
 import { View, StyleSheet } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper';
 import { useSelector } from 'react-redux';
-import { useTranslate } from '../../i18n/useTranslate';
 
+import { useTranslate } from '../../i18n/useTranslate';
 import { AuthRoutesNames, SignUpScreenProps } from '../../routes/auth';
 import { fireRegisterUser } from '../../services/firebase/fire-auth.service';
 import { RootState, useAppDispatch } from '../../services/store/store';
 import { globalStyle } from '../../styles/global.style';
+import { Layout, useErrorHandler } from '../../components';
 
 interface SignUpUser {
   displayName: string;
@@ -18,11 +19,12 @@ interface SignUpUser {
 }
 
 export const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
+  const { PageLayout, setInfo, setVisible } = Layout();
   const [loading, isLoading] = useState(false);
-  const [authError, setAuthError] = useState<null | string>(null);
   const dispatch = useAppDispatch();
   const { translate } = useTranslate();
   const { user } = useSelector((state: RootState) => state.user);
+  const { errorResolver } = useErrorHandler();
 
   const {
     control,
@@ -50,27 +52,15 @@ export const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
         navigation.navigate(AuthRoutesNames.VerifyEmail);
       }
     } catch (error: any) {
-      console.error(error);
-      if (error.code === 'auth/invalid-email') {
-        setAuthError(translate('auth.errors.invalid_email'));
-      } else if (error.code === 'auth/email-already-in-use') {
-        setAuthError(translate('auth.errors.email_already_in_use'));
-      } else if (error.code === 'auth/passwords-do-not-match') {
-        setAuthError(translate('auth.errors.passwords_do_not_match'));
-      } else if (error.code === 'auth/weak-password') {
-        setAuthError(translate('auth.errors.weak_password'));
-      } else {
-        console.error(error);
-        setAuthError(translate('auth.errors.unknown'));
-      }
+      setInfo(translate(errorResolver(error.code)));
+      setVisible(true);
     }
     isLoading(false);
   };
 
   return (
-    <View style={styles.container}>
+    <PageLayout>
       <View style={[styles.formInputs, globalStyle.spacerBig]}>
-        {authError && <Text style={globalStyle.errors}>{authError}</Text>}
         <Controller
           control={control}
           rules={{
@@ -188,14 +178,11 @@ export const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
           {translate('auth.register')}
         </Button>
       </View>
-    </View>
+    </PageLayout>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   text: {
     fontSize: 24,
     marginBottom: 10,
