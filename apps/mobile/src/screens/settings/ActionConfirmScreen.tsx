@@ -1,6 +1,5 @@
 import React from 'react';
 import { KeyboardTypeOptions, StyleSheet, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Text, TextInput } from 'react-native-paper';
 
 import { useTranslate } from '../../i18n/useTranslate';
@@ -73,7 +72,7 @@ const SettingsActionConfirmScreen = ({
   navigation,
 }: SettingsActionConfirmScreenProps) => {
   const { PageLayout } = useLayout();
-  const { action, type, payload, origin } = route.params;
+  const { action, payload, origin } = route.params;
   const { translate } = useTranslate();
   const dispatch = useAppDispatch();
 

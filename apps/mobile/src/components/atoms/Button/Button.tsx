@@ -59,7 +59,7 @@ export const Button = ({
       ]}
       disabled={disabled}>
       {loading ? (
-        <ActivityIndicator visible={loading} />
+        <ActivityIndicator visible={loading} size={'small'} />
       ) : (
         <>
           {icon ? (

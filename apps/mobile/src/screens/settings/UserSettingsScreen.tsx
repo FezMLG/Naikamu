@@ -22,8 +22,6 @@ import {
   fireUpdateUserDisplayName,
 } from '../../services/firebase/fire-auth.service';
 import { globalStyle } from '../../styles';
-import AccountDelete from '../../components/settings/AccountDelete';
-import { gl } from 'date-fns/locale';
 
 const UserSettingsScreen = ({ navigation }: UserSettingsScreenProps) => {
   const { PageLayout } = useLayout();

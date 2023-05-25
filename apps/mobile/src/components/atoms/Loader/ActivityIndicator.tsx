@@ -8,7 +8,7 @@ export const ActivityIndicator = ({
   size = 'small',
 }: {
   visible: boolean;
-  size: 'small' | 'large';
+  size?: 'small' | 'large';
 }) => {
   return <PIA size={size} animating={visible} color={colors.accent.color} />;
 };

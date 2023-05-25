@@ -10,7 +10,6 @@ import {
   SettingsScreenNames,
 } from '../../routes/settings/interfaces';
 import { Button, useLayout } from '../../components';
-import { useAppDispatch } from '../../services/store/store';
 
 interface SettingsForm {
   newValue: string;
@@ -76,7 +75,6 @@ const SettingsActionScreen = ({
   const { PageLayout } = useLayout();
   const { type, action, requiresLogin, origin, payload } = route.params;
   const { translate } = useTranslate();
-  const dispatch = useAppDispatch();
 
   const {
     control,

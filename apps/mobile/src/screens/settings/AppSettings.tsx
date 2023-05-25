@@ -71,8 +71,6 @@ const AppSettingsScreen = ({}: PlaybackSettingsScreenProps) => {
   const { translate } = useTranslate();
   const [isOpen, setIsOpen] = useState(false);
 
-  const [isSwitchOn, setIsSwitchOn] = useState(false);
-
   return (
     <SafeAreaView style={[styles.container]}>
       <QualityModal
