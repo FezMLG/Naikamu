@@ -63,6 +63,14 @@ export class APIClient {
     }>('/health');
   }
 
+  async getApiVersion(): Promise<{
+    version: string;
+  }> {
+    return this.get<{
+      version: string;
+    }>('/version');
+  }
+
   async getAnimeList({
     page,
     season,
