@@ -2,20 +2,26 @@
   "name": "@aniwatch/core",
   "private": true,
   "scripts": {
-    "install": "yarn install:mobile && yarn install:tv && yarn install:translations && yarn install:shared",
-    "install:mobile": "cd $INIT_CWD/apps/mobile && yarn",
-    "install:tv": "cd $INIT_CWD/apps/tv && yarn",
-    "install:translations": "cd $INIT_CWD/lib/translations && yarn",
-    "install:shared": "cd $INIT_CWD/lib/shared && yarn",
+    "install": "npm run install:mobile && npm run install:translations && npm run install:shared",
+    "install:mobile": "cd $INIT_CWD/apps/mobile && npm install",
+    "install:tv": "cd $INIT_CWD/apps/tv && npm install",
+    "install:translations": "cd $INIT_CWD/lib/translations && npm install",
+    "install:shared": "cd $INIT_CWD/lib/shared && npm install",
     "start": "lerna run start --stream",
-    "start:mobile": "cd apps/mobile && yarn start",
+    "start:mobile": "cd apps/mobile && npm start",
     "start:tv": "lerna run start --stream",
-    "android:mobile:dev": "cd apps/mobile && yarn android:dev",
+    "android:mobile:dev": "cd apps/mobile && npm android:dev",
     "build": "npm run build:translations && npm run build:shared",
-    "build:translations": "cd lib/translations && yarn build",
-    "build:shared": "cd lib/shared && yarn build",
+    "build:translations": "cd lib/translations && npm run build",
+    "build:shared": "cd lib/shared && npm run build",
     "apk:beta:release": "lerna run apk:beta:release --stream --concurrency 1",
     "pod": "lerna run pod --stream --concurrency 1",
-    "watchman:reset": "watchman watch-del $INIT_CWD ; watchman watch-project $INIT_CWD"
+    "watchman:reset": "watchman watch-del $INIT_CWD ; watchman watch-project $INIT_CWD",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.6.5",
+    "@commitlint/config-conventional": "^17.6.5",
+    "husky": "^8.0.3"
   }
 }
