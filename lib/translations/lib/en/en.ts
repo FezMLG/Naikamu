@@ -142,4 +142,13 @@ export const en = {
     disclaimer:
       'AniWatch does not host any files on its own servers, we only provide links to content hosted on third-party servers.',
   },
+  important: {
+    requireAppUpdate: {
+      title: 'Please update the app to newest version!',
+      message:
+        'This version of the app is no longer supported, please update to the newest version.',
+      action: 'Go to download',
+      actionAlt: 'Help',
+    },
+  },
 };

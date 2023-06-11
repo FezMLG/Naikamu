@@ -8,7 +8,6 @@ import {
   Text,
   View,
 } from 'react-native';
-import { ActivityIndicator } from 'react-native-paper';
 import Config from 'react-native-config';
 import { useSelector } from 'react-redux';
 
@@ -23,15 +22,26 @@ import {
 import { AppLoadingScreenProps, AuthRoutesNames } from '../routes/auth';
 import { useQueryApiHealth } from '../api/hooks';
 import { settingsService } from '../services/settings/settings.service';
+import semver from 'semver';
+import { ActivityIndicator } from '../components';
 
 const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
+  const supportedApiVersion = require('../../package.json').apiVersion;
+
   const { translate } = useTranslate();
   const dispatch = useAppDispatch();
   const { user } = useSelector((state: RootState) => state.user);
   const [longLoading, setLongLoading] = useState(false);
   const [apiError, setApiError] = useState(false);
 
-  const apiCheck = useQueryApiHealth();
+  const apiCheck = useQueryApiHealth(data => {
+    if (semver.satisfies(data.version, supportedApiVersion)) {
+      handleLoginCheck();
+    } else {
+      console.log('wrong api');
+      navigation.navigate(AuthRoutesNames.ActionRequired);
+    }
+  });
 
   const handleLoginCheck = useCallback(async () => {
     const token = await fireGetIdToken();
@@ -46,12 +56,6 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
       navigation.navigate(AuthRoutesNames.Hello);
     }
   }, [dispatch, navigation, user?.emailVerified]);
-
-  useEffect(() => {
-    if (apiCheck.data) {
-      handleLoginCheck();
-    }
-  }, [apiCheck.data, handleLoginCheck]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -76,7 +80,7 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
         source={require('../../assets/aniwatch_logo_t.png')}
       />
       <View style={[globalStyle.spacerBig]} />
-      <ActivityIndicator size={'large'} />
+      <ActivityIndicator size={'large'} visible={true} />
       {longLoading && (
         <Text style={[fontStyles.text, globalStyle.textCenter]}>
           {translate('welcomeScreen.apiLoading')}

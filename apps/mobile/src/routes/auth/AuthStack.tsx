@@ -9,6 +9,7 @@ import HelloScreen from '../../screens/HelloScreen';
 import { useTranslate } from '../../i18n/useTranslate';
 import ForgotPasswordScreen from '../../screens/ForgotPasswordScreen';
 import VerifyEmailScreen from '../../screens/VerifyEmailScreen';
+import ActionRequiredScreen from '../../screens/ActionRequiredScreen';
 
 const Stack = createNativeStackNavigator<AuthStackParamList>();
 
@@ -54,6 +55,13 @@ export default function AuthStack() {
         options={{
           title: translate('routes.' + AuthRoutesNames.ForgotPassword),
           animation: 'slide_from_right',
+        }}
+      />
+      <Stack.Screen
+        name={AuthRoutesNames.ActionRequired}
+        component={ActionRequiredScreen}
+        options={{
+          headerShown: false,
         }}
       />
     </Stack.Navigator>

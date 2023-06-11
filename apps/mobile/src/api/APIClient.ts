@@ -56,11 +56,21 @@ export class APIClient {
   async getApiHealth(): Promise<{
     status: number;
     message: string;
+    version: string;
   }> {
     return this.get<{
       status: number;
       message: string;
+      version: string;
     }>('/health');
+  }
+
+  async getApiVersion(): Promise<{
+    version: string;
+  }> {
+    return this.get<{
+      version: string;
+    }>('/version');
   }
 
   async getAnimeList({

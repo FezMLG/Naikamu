@@ -71,3 +71,4 @@ dist
 .cache
 
 .yarn
+apps/mobile/android/app/gradle.properties
