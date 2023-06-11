@@ -1,12 +1,12 @@
 import { StyleSheet } from 'react-native';
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ActivityIndicator } from 'react-native-paper';
+import { ActivityIndicator } from '../components';
 
 const SplashScreen = () => {
   return (
     <SafeAreaView style={[styles.container]}>
-      <ActivityIndicator size={'large'} />
+      <ActivityIndicator size={'large'} visible={true} />
     </SafeAreaView>
   );
 };

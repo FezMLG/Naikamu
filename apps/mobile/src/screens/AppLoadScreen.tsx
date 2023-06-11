@@ -8,7 +8,6 @@ import {
   Text,
   View,
 } from 'react-native';
-import { ActivityIndicator } from 'react-native-paper';
 import Config from 'react-native-config';
 import { useSelector } from 'react-redux';
 
@@ -24,6 +23,7 @@ import { AppLoadingScreenProps, AuthRoutesNames } from '../routes/auth';
 import { useQueryApiHealth } from '../api/hooks';
 import { settingsService } from '../services/settings/settings.service';
 import semver from 'semver';
+import { ActivityIndicator } from '../components';
 
 const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
   const supportedApiVersion = require('../../package.json').apiVersion;
@@ -80,7 +80,7 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
         source={require('../../assets/aniwatch_logo_t.png')}
       />
       <View style={[globalStyle.spacerBig]} />
-      <ActivityIndicator size={'large'} />
+      <ActivityIndicator size={'large'} visible={true} />
       {longLoading && (
         <Text style={[fontStyles.text, globalStyle.textCenter]}>
           {translate('welcomeScreen.apiLoading')}
