@@ -55,6 +55,7 @@ export const fontStyles = StyleSheet.create({
   screenHeader: {
     fontFamily: 'Catamaran-Black',
     fontSize: 36,
+    lineHeight: 36 * 1.4,
   },
   subScreenHeader: {
     fontFamily: 'Catamaran-Black',

@@ -1,7 +1,7 @@
 {
   "name": "@aniwatch/mobile",
   "version": "1.0.0-beta.4.0.0",
-  "apiVersion": "0",
+  "apiVersion": "0.x.x",
   "private": true,
   "engines": {
     "node": "18"
@@ -62,7 +62,8 @@
     "react-native-vector-icons": "^9.2.0",
     "react-native-video": "^5.2.1",
     "react-native-webview": "^11.23.1",
-    "react-redux": "^8.0.4"
+    "react-redux": "^8.0.4",
+    "semver": "^7.5.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

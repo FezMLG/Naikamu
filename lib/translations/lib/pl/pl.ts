@@ -143,4 +143,13 @@ export const pl = {
     disclaimer:
       'AniWatch nie hostuje żadnych plików na własnych serwerach, udostępniamy jedynie linki do treści hostowanych na serwerach stron trzecich.',
   },
+  important: {
+    requireAppUpdate: {
+      title: 'Wymagana aktualizacja',
+      message:
+        'Ta wersja aplikacji nie jest już wspierana. Wymagana aktualizacja aplikacji, aby kontynuować korzystanie z AniWatch.',
+      action: 'Zaktualizuj',
+      actionAlt: 'Pomoc',
+    },
+  },
 };

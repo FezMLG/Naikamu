@@ -56,10 +56,12 @@ export class APIClient {
   async getApiHealth(): Promise<{
     status: number;
     message: string;
+    version: string;
   }> {
     return this.get<{
       status: number;
       message: string;
+      version: string;
     }>('/health');
   }
 
