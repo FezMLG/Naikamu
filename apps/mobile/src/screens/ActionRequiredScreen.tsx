@@ -7,9 +7,17 @@ import { useTranslate } from '../i18n/useTranslate';
 import { ActionRequiredScreenProps } from '../routes/auth';
 import { Button } from '../components';
 
-const ActionRequiredScreen = ({}: ActionRequiredScreenProps) => {
+const ActionRequiredScreen = ({ navigation }: ActionRequiredScreenProps) => {
   const appVersion = require('../../package.json').version;
   const { translate } = useTranslate();
+
+  React.useEffect(
+    () =>
+      navigation.addListener('beforeRemove', e => {
+        e.preventDefault();
+      }),
+    [navigation],
+  );
 
   return (
     <SafeAreaView style={[styles.container]}>
