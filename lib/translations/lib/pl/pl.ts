@@ -12,6 +12,7 @@ export const pl = {
     Settings: 'Ustawienia',
     ActionConfirm: 'Potwierdź Akcję',
     SearchResults: 'Wyniki wyszukiwania',
+    MyListStack: 'Moja lista',
   },
   forms: {
     save: 'Zapisz',

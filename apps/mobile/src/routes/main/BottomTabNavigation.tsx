@@ -16,6 +16,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { maxWidth } from '../../components/maxDimensions';
 import { MyListStack } from './mylist/MyListTopTabsNavigation';
+import { defaultRadius } from '../../styles';
 
 export const defaultHeaderOptions = ({ title }: { title?: string }) => {
   return {
@@ -51,6 +52,11 @@ const BottomTabContent = (props: {
       break;
     case ScreenNames.SettingsStack:
       iconName = props.focused ? 'cog' : 'cog-outline';
+      break;
+    case ScreenNames.MyListStack:
+      iconName = props.focused
+        ? 'bookmark-box-multiple'
+        : 'bookmark-box-multiple-outline';
       break;
   }
 
@@ -104,8 +110,8 @@ export const BottomTabNavigation = () => {
         },
         tabBarItemStyle: {
           marginVertical: 8,
-          marginHorizontal: 20,
-          borderRadius: 8,
+          marginHorizontal: 8,
+          borderRadius: defaultRadius,
           paddingVertical: 5,
         },
         tabBarInactiveTintColor: 'white',
@@ -132,21 +138,20 @@ export const BottomTabNavigation = () => {
         })}
       />
       <BottomTab.Screen
+        name={ScreenNames.MyListStack}
+        component={MyListStack}
+        options={{
+          ...defaultHeaderOptions({
+            title: translate('routes.' + ScreenNames.MyListStack),
+          }),
+        }}
+      />
+      <BottomTab.Screen
         name={ScreenNames.SettingsStack}
         component={SettingsStack}
         options={{
           ...defaultHeaderOptions({
             title: translate('routes.' + SettingsScreenNames.Settings),
-          }),
-          headerShown: false,
-        }}
-      />
-      <BottomTab.Screen
-        name={ScreenNames.MyListStack}
-        component={MyListStack}
-        options={{
-          ...defaultHeaderOptions({
-            title: translate('routes.'),
           }),
           headerShown: false,
         }}
@@ -158,7 +163,7 @@ export const BottomTabNavigation = () => {
 const styles = StyleSheet.create({
   center: { alignSelf: 'center' },
   itemMargin: {
-    marginLeft: 15,
+    marginLeft: 10,
   },
   labelText: {
     fontSize: 12,

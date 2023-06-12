@@ -12,6 +12,7 @@ export const en = {
     Settings: 'Settings',
     ActionConfirm: 'Confirm Action',
     SearchResults: 'Search Results',
+    MyListStack: 'My List',
   },
   forms: {
     save: 'Save',
