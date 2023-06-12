@@ -15,6 +15,7 @@ import { SettingsScreenNames } from '../settings/interfaces';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { maxWidth } from '../../components/maxDimensions';
+import { MyListStack } from './mylist/MyListTopTabsNavigation';
 
 export const defaultHeaderOptions = ({ title }: { title?: string }) => {
   return {
@@ -136,6 +137,16 @@ export const BottomTabNavigation = () => {
         options={{
           ...defaultHeaderOptions({
             title: translate('routes.' + SettingsScreenNames.Settings),
+          }),
+          headerShown: false,
+        }}
+      />
+      <BottomTab.Screen
+        name={ScreenNames.MyListStack}
+        component={MyListStack}
+        options={{
+          ...defaultHeaderOptions({
+            title: translate('routes.'),
           }),
           headerShown: false,
         }}
