@@ -3,7 +3,10 @@ import { offlineFS } from './offline.fs';
 import { offlineStorage } from './offline.storage';
 
 const addOfflineSeries = async (series: OfflineSeries) => {
-  await offlineStorage.saveOfflineSeries(series);
+  const exist = await offlineStorage.getOfflineSeries(series.seriesId);
+  if (!exist) {
+    await offlineStorage.saveOfflineSeries(series);
+  }
 };
 
 const saveEpisodeOffline = async (

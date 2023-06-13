@@ -15,6 +15,7 @@ import { maxWidth } from '../maxDimensions';
 import { storageGetData } from '../../utils';
 import { OnProgressData } from 'react-native-video';
 import { EpisodePlayer } from './EpisodePlayer';
+import { offlineService } from '../../services/offline/offline.service';
 
 export const Episode = ({
   num,
@@ -51,7 +52,26 @@ export const Episode = ({
     setProgress(storageProgress?.currentTime);
   };
 
-  const handleDownload = () => {
+  const handleDownload = async (player: AnimePlayer) => {
+    const episodeToAdd = {
+      number: episode.number,
+      title: episode.title,
+      length: episodeLength,
+      translator: player.translator_name,
+      pathToFile: null,
+    };
+    await offlineService.addOfflineSeries({
+      seriesId: id,
+      title: animeName,
+      size: '',
+      quality: '1080p',
+      episodes: [],
+    });
+    await offlineService.saveEpisodeOffline(
+      id,
+      episodeToAdd,
+      player.player_link,
+    );
     setIsDownloaded(prev => !prev);
   };
 

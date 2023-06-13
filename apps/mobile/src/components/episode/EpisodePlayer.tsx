@@ -23,7 +23,7 @@ export const EpisodePlayer = ({
   player: AnimePlayer;
   episodeNumber: number;
   isDownloaded: boolean;
-  handleDownload: (url: string) => void;
+  handleDownload: (player: AnimePlayer) => void;
 }) => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
@@ -66,7 +66,7 @@ export const EpisodePlayer = ({
             size={24}
             name={isDownloaded ? 'download-circle' : 'download-circle-outline'}
             style={{ paddingHorizontal: 10 }}
-            onPress={() => handleDownload(player.player_link)}
+            onPress={() => handleDownload(player)}
           />
         )}
         <PlayerMenu player={player} />

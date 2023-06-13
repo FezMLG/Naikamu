@@ -1,7 +1,8 @@
+import { PermissionsAndroid } from 'react-native';
 import RNFS from 'react-native-fs';
 
 const folderNamingStrategy = (seriesId: string) => {
-  return `${RNFS.DocumentDirectoryPath}/aniwatch/downloads/${seriesId}`;
+  return `${RNFS.ExternalStorageDirectoryPath}/Documents/AniWatch/downloads/${seriesId}`;
 };
 
 const fileNamingStrategy = (seriesId: string, fileName: string) => {
@@ -17,6 +18,15 @@ const downloadFile = async (
   episodeNumber: number,
   fileUrl: string,
 ) => {
+  await PermissionsAndroid.request(
+    PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+  );
+  await PermissionsAndroid.request(
+    PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+  );
+
+  await RNFS.mkdir(folderNamingStrategy(seriesId));
+
   const fileExtension = fileUrl.split('.').pop();
   const pathToFile = fileNamingStrategy(
     seriesId,
@@ -28,11 +38,15 @@ const downloadFile = async (
     toFile: pathToFile,
   });
 
-  job.promise.then(() => {
-    console.log(
-      'successful video download! Save LOCAL_PATH_TO_VIDEO onto device for later use',
-    );
-  });
+  await job.promise
+    .then(() => {
+      console.log(
+        'successful video download! Save LOCAL_PATH_TO_VIDEO onto device for later use',
+      );
+    })
+    .catch(err => {
+      console.log(err);
+    });
 
   return pathToFile;
 };
