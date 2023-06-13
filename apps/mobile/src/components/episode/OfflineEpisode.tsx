@@ -10,8 +10,7 @@ import { useTranslate } from '../../i18n/useTranslate';
 import { maxWidth } from '../maxDimensions';
 import { storageGetData } from '../../utils';
 import { OnProgressData } from 'react-native-video';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { OfflineWatchParamList } from '../../routes/main/mylist/offline/interface';
+import { useNavigation } from '@react-navigation/native';
 import { ScreenNames } from '../../routes/main';
 
 export const OfflineEpisode = ({

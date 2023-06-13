@@ -16,7 +16,6 @@ export type OfflineWatchParamList = {
       title: string;
       length: number;
       translator: string;
-      fileName: string;
     }[];
   };
   [OfflineWatchScreenNames.WatchNative]: undefined;

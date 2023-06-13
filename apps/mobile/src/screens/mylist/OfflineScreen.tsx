@@ -9,21 +9,7 @@ import {
   OfflineWatchScreenNames,
   OfflineWatchScreenProps,
 } from '../../routes/main/mylist/offline/interface';
-
-export interface OfflineSeries {
-  animeId: string;
-  title: string;
-  size: string;
-  quality: string;
-  episodes: OfflineSeriesEpisodes[];
-}
-
-export interface OfflineSeriesEpisodes {
-  number: number;
-  title: string;
-  length: number;
-  translator: string;
-}
+import { OfflineSeriesEpisodes, OfflineSeries } from '../../services/offline/';
 
 const MyListSeries = ({
   animeId,
@@ -79,7 +65,7 @@ const OfflineScreen = ({}: OfflineWatchScreenProps) => {
   const handleLoadingOffline = async () => {
     return Promise.resolve([
       {
-        animeId: '1',
+        seriesId: '1',
         title: 'One Piece',
         size: '250',
         quality: '720p',
@@ -93,7 +79,7 @@ const OfflineScreen = ({}: OfflineWatchScreenProps) => {
         ],
       },
       {
-        animeId: '2',
+        seriesId: '2',
         title: 'attack on titan',
         size: (342 * 5).toString(),
         quality: '1080p',
@@ -113,9 +99,6 @@ const OfflineScreen = ({}: OfflineWatchScreenProps) => {
         ],
       },
     ]);
-    // const downloadedEpisodes = await storageGetData<OfflineSeries[]>('offline');
-    // console.log('downloadedEpisodes', downloadedEpisodes);
-    // return downloadedEpisodes;
   };
 
   useEffect(() => {
@@ -132,12 +115,12 @@ const OfflineScreen = ({}: OfflineWatchScreenProps) => {
       {/* <Icon name={'pencil-outline'} size={36} color={'white'} /> */}
       {offlineSeries.map(series => (
         <MyListSeries
-          key={series.animeId}
+          key={series.seriesId}
           title={series.title}
           episodes={series.episodes}
           size={series.size}
           quality={series.quality}
-          animeId={series.animeId}
+          animeId={series.seriesId}
         />
       ))}
     </PageLayout>

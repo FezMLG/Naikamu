@@ -1,77 +1,20 @@
 import React, { useState } from 'react';
 import { Image, Pressable, SafeAreaView, StyleSheet, View } from 'react-native';
 import { ActivityIndicator, List, ProgressBar } from 'react-native-paper';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { Text } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { AnimeEpisode, AnimePlayer, AnimePlayers } from '@aniwatch/shared';
+import { AnimeEpisode, AnimePlayer } from '@aniwatch/shared';
 
 import { darkColor, darkStyle } from '../../styles/darkMode.style';
-import { navigateToPlayer } from './navigateToPlayer';
 import { colors, defaultRadius, fontStyles } from '../../styles/global.style';
-import { PlayerMenu } from './PlayerMenu';
 import { useTranslate } from '../../i18n/useTranslate';
 import { UpdateEpisodeWatchStatus } from '../molecules';
 import { useQuerySeriesEpisodePlayers } from '../../api/hooks';
-import { RootStackParamList } from '../../routes/main';
 import { maxWidth } from '../maxDimensions';
 import { storageGetData } from '../../utils';
 import { OnProgressData } from 'react-native-video';
-
-export const EpisodePlayer = ({
-  animeName,
-  episodeTitle,
-  players,
-}: {
-  animeName: string;
-  episodeTitle: string;
-  players: AnimePlayers;
-}) => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-
-  return (
-    <>
-      {players.players.map((player: AnimePlayer, index: number) => {
-        return (
-          <Pressable
-            key={index}
-            style={styles.playersListItem}
-            onPress={() => {
-              navigateToPlayer({
-                navigation: navigation,
-                player: player,
-                episodeTitle: episodeTitle,
-                animeTitle: animeName,
-                episodeNumber: players.episode_number,
-              });
-            }}>
-            {player.player_name.toLocaleLowerCase() == 'cda' ? (
-              <Icon size={24} name={'play'} style={{ marginHorizontal: 10 }} />
-            ) : (
-              <Icon
-                size={24}
-                name={'open-in-new'}
-                style={{ marginHorizontal: 10 }}
-              />
-            )}
-            <Text>
-              {player.translator_name +
-                ' - ' +
-                player.player_name.toLocaleLowerCase()}
-            </Text>
-            <Image
-              resizeMode="contain"
-              style={[styles.logo, { maxWidth: 100 }]}
-              source={require('../../../assets/logo_docchi.png')}
-            />
-            <PlayerMenu player={player} />
-          </Pressable>
-        );
-      })}
-    </>
-  );
-};
+import { EpisodePlayer } from './EpisodePlayer';
 
 export const Episode = ({
   num,
@@ -90,6 +33,8 @@ export const Episode = ({
   isWatched: boolean;
   episodeLength: number;
 }) => {
+  const [isDownloaded, setIsDownloaded] = useState(false);
+
   const { translate } = useTranslate();
   const { data, refetch } = useQuerySeriesEpisodePlayers(id, num);
   const [isSelected, setIsSelected] = useState(false);
@@ -106,6 +51,10 @@ export const Episode = ({
     setProgress(storageProgress?.currentTime);
   };
 
+  const handleDownload = () => {
+    setIsDownloaded(prev => !prev);
+  };
+
   return (
     <SafeAreaView style={[styles.episodeContainer]}>
       <View style={[styles.cardContainer, isSelected && darkStyle.card]}>
@@ -113,7 +62,11 @@ export const Episode = ({
           <Image
             style={[
               styles.poster,
-              !isSelected && { borderBottomLeftRadius: defaultRadius },
+              !isSelected && episode.description
+                ? null
+                : {
+                    borderBottomLeftRadius: defaultRadius,
+                  },
             ]}
             source={{ uri: episode.poster_url ?? posterUrl }}
           />
@@ -152,9 +105,12 @@ export const Episode = ({
                 }}
               />
             ) : null}
-            <Text style={[styles.description, darkStyle.font, fontStyles.text]}>
-              {episode.description}
-            </Text>
+            {episode.description ? (
+              <Text
+                style={[styles.description, darkStyle.font, fontStyles.text]}>
+                {episode.description}
+              </Text>
+            ) : null}
           </>
         ) : null}
       </View>
@@ -172,11 +128,19 @@ export const Episode = ({
             }}
             style={styles.playersList}>
             {data ? (
-              <EpisodePlayer
-                animeName={animeName}
-                players={data}
-                episodeTitle={'E' + episode.number + ' ' + episode.title}
-              />
+              data.players.map((player: AnimePlayer, index: number) => {
+                return (
+                  <EpisodePlayer
+                    key={index}
+                    animeName={animeName}
+                    player={player}
+                    episodeTitle={'E' + episode.number + ' ' + episode.title}
+                    episodeNumber={episode.number}
+                    isDownloaded={isDownloaded}
+                    handleDownload={handleDownload}
+                  />
+                );
+              })
             ) : (
               <ActivityIndicator size="large" style={styles.playersLoading} />
             )}
@@ -262,5 +226,9 @@ const styles = StyleSheet.create({
   logo: {
     height: 20,
     opacity: 0.75,
+  },
+  rowCenter: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });
