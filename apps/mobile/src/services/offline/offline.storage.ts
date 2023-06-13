@@ -4,26 +4,36 @@ import { OfflineSeries, OfflineSeriesEpisodes } from './interfaces';
 const OFFLINE_SERIES_KEY = 'offlineSeries';
 
 //lista serii dostepnych offline
-const getOfflineSeries = async (): Promise<OfflineSeries[]> => {
+const getAllOfflineSeries = async (): Promise<OfflineSeries[]> => {
   const series =
     (await storageGetData<OfflineSeries[]>(OFFLINE_SERIES_KEY)) ?? [];
   console.log(series);
   return series;
 };
 
+const getOfflineSeries = async (
+  seriesId: string,
+): Promise<OfflineSeries | null> => {
+  const series = (await getAllOfflineSeries()).filter(
+    e => e.seriesId === seriesId,
+  );
+  console.log(series);
+  return series[0];
+};
+
 //lista odcinkow dla serii dostepnej offline
 const getOfflineEpisodes = async (
   seriesId: string,
 ): Promise<OfflineSeriesEpisodes[]> => {
-  const series = await getOfflineSeries();
-  const episodes = series.find(s => s.seriesId === seriesId)?.episodes ?? [];
+  const series = await getOfflineSeries(seriesId);
+  const episodes = series?.episodes ?? [];
   console.log(episodes);
   return episodes;
 };
 
 //zapisuje serie offline
 const saveOfflineSeries = async (seriesToAdd: OfflineSeries) => {
-  const series = await getOfflineSeries();
+  const series = await getAllOfflineSeries();
   console.log(series);
   series.push(seriesToAdd);
   await storageStoreData(OFFLINE_SERIES_KEY, series);
@@ -42,9 +52,8 @@ const saveOfflineEpisode = async (
 
 //usuwa serie offline
 const removeOfflineSeries = async (seriesId: string) => {
-  const series = await getOfflineSeries();
+  const series = await getOfflineSeries(seriesId);
 
-  series.filter(e => e.seriesId !== seriesId);
   await storageStoreData(OFFLINE_SERIES_KEY, series);
 };
 

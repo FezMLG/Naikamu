@@ -11,4 +11,5 @@ export interface OfflineSeriesEpisodes {
   title: string;
   length: number;
   translator: string;
+  pathToFile: string;
 }
