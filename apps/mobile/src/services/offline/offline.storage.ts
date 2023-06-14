@@ -18,6 +18,9 @@ const getOfflineSeries = async (
     e => e.seriesId === seriesId,
   );
   console.log(series);
+  if (series.length > 1) {
+    throw new Error('Too many series');
+  }
   return series[0];
 };
 
@@ -29,6 +32,19 @@ const getOfflineEpisodes = async (
   const episodes = series?.episodes ?? [];
   console.log(episodes);
   return episodes;
+};
+
+const getOfflineEpisode = async (
+  seriesId: string,
+  episodeNumber: number,
+): Promise<OfflineSeriesEpisodes | null> => {
+  const episodes = await getOfflineEpisodes(seriesId);
+  const episode = episodes.filter(e => e.number === episodeNumber);
+  console.log(episode);
+  if (episode.length > 1) {
+    throw new Error('Too many episodes');
+  }
+  return episode[0];
 };
 
 //zapisuje serie offline
@@ -69,8 +85,10 @@ const removeOfflineEpisode = async (
 };
 
 export const offlineStorage = {
+  getAllOfflineSeries,
   getOfflineSeries,
   getOfflineEpisodes,
+  getOfflineEpisode,
   saveOfflineSeries,
   saveOfflineEpisode,
   removeOfflineSeries,
