@@ -9,21 +9,35 @@ const fileNamingStrategy = (seriesId: string, fileName: string) => {
   return `${folderNamingStrategy(seriesId)}/${fileName}`;
 };
 
-// const getFile = async (seriesId: string, fileName: string) => {
-//   return 'https://www.w3schools.com/html/mov_bbb.mp4';
-// };
+const grantPermissions = async () => {
+  await PermissionsAndroid.requestMultiple([
+    PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+    PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+  ]);
+};
+
+const checkPermissions = async () => {
+  const write = await PermissionsAndroid.check(
+    PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+  );
+  const read = await PermissionsAndroid.check(
+    PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+  );
+  if (!write || !read) {
+    await grantPermissions();
+  }
+  return write && read;
+};
 
 const downloadFile = async (
   seriesId: string,
   episodeNumber: number,
   fileUrl: string,
 ) => {
-  await PermissionsAndroid.request(
-    PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-  );
-  await PermissionsAndroid.request(
-    PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-  );
+  const hasPermissions = await checkPermissions();
+  if (!hasPermissions) {
+    throw new Error('No permissions to download file');
+  }
 
   await RNFS.mkdir(folderNamingStrategy(seriesId));
 
@@ -51,11 +65,6 @@ const downloadFile = async (
   return pathToFile;
 };
 
-const deleteEpisode = async (seriesId: string, fileName: string) => {
-  const path = fileNamingStrategy(seriesId, fileName);
-  await deleteFile(path);
-};
-
 const deleteFile = async (path: string) => {
   await RNFS.unlink(path)
     .then(() => {
@@ -69,4 +78,5 @@ const deleteFile = async (path: string) => {
 
 export const offlineFS = {
   downloadFile,
+  deleteFile,
 };
