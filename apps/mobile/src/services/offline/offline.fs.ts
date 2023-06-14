@@ -29,11 +29,13 @@ const checkPermissions = async () => {
   return write && read;
 };
 
-const downloadFile = async (
+const startDownloadingFile = async (
   seriesId: string,
   episodeNumber: number,
   fileUrl: string,
-) => {
+  beginDownload: (res: RNFS.DownloadBeginCallbackResult) => void,
+  progressDownload: (res: RNFS.DownloadProgressCallbackResult) => void,
+): Promise<[string, number, Promise<RNFS.DownloadResult>]> => {
   const hasPermissions = await checkPermissions();
   if (!hasPermissions) {
     throw new Error('No permissions to download file');
@@ -50,19 +52,12 @@ const downloadFile = async (
   const job = RNFS.downloadFile({
     fromUrl: fileUrl,
     toFile: pathToFile,
+    begin: beginDownload,
+    progress: progressDownload,
+    progressInterval: 1000,
   });
 
-  await job.promise
-    .then(() => {
-      console.log(
-        'successful video download! Save LOCAL_PATH_TO_VIDEO onto device for later use',
-      );
-    })
-    .catch(err => {
-      console.log(err);
-    });
-
-  return pathToFile;
+  return [pathToFile, job.jobId, job.promise];
 };
 
 const deleteFile = async (path: string) => {
@@ -77,6 +72,6 @@ const deleteFile = async (path: string) => {
 };
 
 export const offlineFS = {
-  downloadFile,
+  startDownloadingFile,
   deleteFile,
 };

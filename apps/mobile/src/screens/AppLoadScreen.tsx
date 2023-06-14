@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux';
 
 import { colors, fontStyles, globalStyle } from '../styles/global.style';
 import { useTranslate } from '../i18n/useTranslate';
-import { RootState, useAppDispatch } from '../services/store/store';
+import { RootState, useAppDispatch } from '../services/redux/store';
 import {
   fireGetIdToken,
   fireGetNewIdToken,

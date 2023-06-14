@@ -15,12 +15,9 @@ const OfflineSeriesEpisodesScreen = ({
       {episodes.map(episode => (
         <OfflineEpisode
           key={episode.number}
-          number={episode.number}
-          title={episode.title}
-          length={episode.length}
-          translator={episode.translator}
           animeId={animeId}
           animeName={animeName}
+          episode={episode}
         />
       ))}
     </PageLayout>

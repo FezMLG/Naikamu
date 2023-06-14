@@ -3,9 +3,9 @@ import { StyleSheet, View } from 'react-native';
 import { Checkbox, RadioButton, Text } from 'react-native-paper';
 import { useSelector } from 'react-redux';
 
-import { RootState, useAppDispatch } from '../../services/store/store';
+import { RootState, useAppDispatch } from '../../services/redux/store';
 import { useTranslate } from '../../i18n/useTranslate';
-import { Resolution } from '../../services/store/reducers/interfaces';
+import { Resolution } from '../../services/redux/reducers/interfaces';
 import { settingsService } from '../../services/settings/settings.service';
 import { Button, Modal } from '../../components';
 import { colors, fontStyles } from '../../styles';

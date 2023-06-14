@@ -6,8 +6,8 @@ import {
   getUserFulfilled,
   getUserPending,
   getUserRejected,
-} from '../store/reducers/user.reducer';
-import { AppDispatch } from '../store/store';
+} from '../redux/reducers/user.reducer';
+import { AppDispatch } from '../redux/store';
 
 export const fireLoginUser =
   (email: string, password: string) => async (dispatch: AppDispatch) => {

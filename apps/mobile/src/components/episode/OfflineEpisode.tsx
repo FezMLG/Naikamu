@@ -6,31 +6,29 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { darkColor } from '../../styles/darkMode.style';
 import { colors, defaultRadius, fontStyles } from '../../styles/global.style';
-import { useTranslate } from '../../i18n/useTranslate';
+// import { useTranslate } from '../../i18n/useTranslate';
 import { maxWidth } from '../maxDimensions';
 import { storageGetData } from '../../utils';
 import { OnProgressData } from 'react-native-video';
 import { useNavigation } from '@react-navigation/native';
 import { ScreenNames } from '../../routes/main';
+import { useQuery } from '@tanstack/react-query';
+import { OfflineSeriesEpisodes } from '../../services/offline';
+import { useOfflineService } from '../../services/offline/offline.service';
 
 export const OfflineEpisode = ({
-  number,
-  title,
-  length,
-  translator,
+  episode,
   animeId,
   animeName,
 }: {
-  number: number;
-  title: string;
-  length: number;
-  translator: string;
+  episode: OfflineSeriesEpisodes;
   animeId: string;
   animeName: string;
 }) => {
   const navigation = useNavigation<any>();
-  const episodeKey = `${animeId}-${number}-${translator}`.toLowerCase();
-  const { translate } = useTranslate();
+  const episodeKey =
+    `${animeId}-${episode.number}-${episode.translator}`.toLowerCase();
+  // const { translate } = useTranslate();
   const [progress, setProgress] = useState<number | undefined>(undefined);
 
   const handleVideoProgress = async () => {
@@ -47,9 +45,9 @@ export const OfflineEpisode = ({
         style={[styles.innerCard]}
         onPress={() =>
           navigation.navigate(ScreenNames.WatchNative, {
-            uri: 'https://www.w3schools.com/html/mov_bbb.mp4',
-            episodeTitle: title,
-            episodeNumber: number,
+            uri: episode.pathToFile,
+            episodeTitle: episode.title,
+            episodeNumber: episode.number,
             title: animeName,
           })
         }>
@@ -62,10 +60,10 @@ export const OfflineEpisode = ({
           /> */}
         <View style={styles.titleRow}>
           <Text numberOfLines={2} style={[styles.title, colors.textLight]}>
-            {number + '. ' + title}
+            {episode.number + '. ' + episode.title}
           </Text>
           <Text numberOfLines={2} style={[fontStyles.label, colors.textLight]}>
-            {length} min | {translator}
+            {episode.length} min | {episode.translator} | {episode.size}
           </Text>
         </View>
         <View style={styles.watchStatus}>
@@ -74,7 +72,7 @@ export const OfflineEpisode = ({
       </Pressable>
       {progress ? (
         <ProgressBar
-          progress={progress / (length * 60)}
+          progress={progress / (episode.length * 60)}
           theme={{
             colors: {
               primary: colors.accent.color,

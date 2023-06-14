@@ -15,7 +15,7 @@ import { maxWidth } from '../maxDimensions';
 import { storageGetData } from '../../utils';
 import { OnProgressData } from 'react-native-video';
 import { EpisodePlayer } from './EpisodePlayer';
-import { offlineService } from '../../services/offline/offline.service';
+import { useOfflineService } from '../../services/offline/offline.service';
 
 export const Episode = ({
   num,
@@ -40,6 +40,7 @@ export const Episode = ({
   const { data, refetch } = useQuerySeriesEpisodePlayers(id, num);
   const [isSelected, setIsSelected] = useState(false);
   const [progress, setProgress] = useState<number | undefined>(undefined);
+  const { addOfflineSeries, saveEpisodeOffline } = useOfflineService();
 
   const openDetails = () => {
     setIsSelected(prev => !prev);
@@ -60,18 +61,14 @@ export const Episode = ({
       translator: player.translator_name,
       pathToFile: null,
     };
-    await offlineService.addOfflineSeries({
+    await addOfflineSeries({
       seriesId: id,
       title: animeName,
       size: '',
       quality: '1080p',
       episodes: [],
     });
-    await offlineService.saveEpisodeOffline(
-      id,
-      episodeToAdd,
-      player.player_link,
-    );
+    await saveEpisodeOffline(id, episodeToAdd, player.player_link);
     setIsDownloaded(prev => !prev);
   };
 

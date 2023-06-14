@@ -48,11 +48,18 @@ const getOfflineEpisode = async (
 };
 
 //zapisuje serie offline
-const saveOfflineSeries = async (seriesToAdd: OfflineSeries) => {
+const saveOrReplaceOfflineSeries = async (seriesToAdd: OfflineSeries) => {
   const series = await getAllOfflineSeries();
-  console.log(series);
-  series.push(seriesToAdd);
-  await storageStoreData(OFFLINE_SERIES_KEY, series);
+  const exist = series.filter(e => e.seriesId === seriesToAdd.seriesId);
+  if (exist.length > 0) {
+    const whiteout = series.filter(e => e.seriesId !== seriesToAdd.seriesId);
+    whiteout.push(seriesToAdd);
+    await storageStoreData(OFFLINE_SERIES_KEY, whiteout);
+  } else {
+    console.log(series);
+    series.push(seriesToAdd);
+    await storageStoreData(OFFLINE_SERIES_KEY, series);
+  }
 };
 
 //zapisuje odcinek offline
@@ -84,13 +91,18 @@ const removeOfflineEpisode = async (
   await storageStoreData(OFFLINE_SERIES_KEY, seriesEpisodes);
 };
 
+const clearOffline = async () => {
+  await storageStoreData(OFFLINE_SERIES_KEY, []);
+};
+
 export const offlineStorage = {
   getAllOfflineSeries,
   getOfflineSeries,
   getOfflineEpisodes,
   getOfflineEpisode,
-  saveOfflineSeries,
+  saveOrReplaceOfflineSeries,
   saveOfflineEpisode,
   removeOfflineSeries,
   removeOfflineEpisode,
+  clearOffline,
 };

@@ -1,12 +1,12 @@
 import { storageGetData, storageStoreData } from '../../utils';
-import { UserSettings } from '../store/reducers/interfaces';
+import { UserSettings } from '../redux/reducers/interfaces';
 import {
   clearUserSettings,
   getUserSettingsFulfilled,
   getUserSettingsPending,
   getUserSettingsRejected,
-} from '../store/reducers/settings.reducer';
-import { AppDispatch } from '../store/store';
+} from '../redux/reducers/settings.reducer';
+import { AppDispatch } from '../redux/store';
 
 const STORE_KEY = 'user-settings';
 

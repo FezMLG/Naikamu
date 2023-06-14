@@ -9,7 +9,7 @@ import {
 
 import QueryClientWrap from './api/QueryClientWrap';
 import Routes from './routes/Routes';
-import { store } from './services/store/store';
+import { store } from './services/redux/store';
 import LanguagesProvider from './i18n/LanguagesProvider';
 
 const CombinedDarkTheme = {

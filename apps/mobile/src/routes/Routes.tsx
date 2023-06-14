@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import MainStack from './main/MainStack';
 import AuthStack from './auth/AuthStack';
 import { useSelector } from 'react-redux';
-import { RootState } from '../services/store/store';
+import { RootState } from '../services/redux/store';
 import { ScreenNames } from './main';
 import SplashScreen from '../screens/SplashScreen';
 

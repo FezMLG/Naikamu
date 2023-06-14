@@ -3,7 +3,7 @@ import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper';
 
 import { ForgotPasswordScreenProps } from '../routes/auth';
-import { useAppDispatch } from '../services/store/store';
+import { useAppDispatch } from '../services/redux/store';
 import { fireForgotPassword } from '../services/firebase/fire-auth.service';
 import { useTranslate } from '../i18n/useTranslate';
 import { Controller, useForm } from 'react-hook-form';

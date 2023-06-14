@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 import { LoginScreenProps, AuthRoutesNames } from '../../routes/auth';
 import { fireLoginUser } from '../../services/firebase/fire-auth.service';
-import { RootState, useAppDispatch } from '../../services/store/store';
+import { RootState, useAppDispatch } from '../../services/redux/store';
 import { useForm, Controller } from 'react-hook-form';
 import { globalStyle } from '../../styles/global.style';
 import { useTranslate } from '../../i18n/useTranslate';

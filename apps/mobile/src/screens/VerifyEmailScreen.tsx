@@ -4,7 +4,7 @@ import { Button, Text } from 'react-native-paper';
 import { useSelector } from 'react-redux';
 
 import { AuthRoutesNames, VerifyEmailScreenProps } from '../routes/auth';
-import { RootState } from '../services/store/store';
+import { RootState } from '../services/redux/store';
 import { useTranslate } from '../i18n/useTranslate';
 import { globalStyle } from '../styles/global.style';
 

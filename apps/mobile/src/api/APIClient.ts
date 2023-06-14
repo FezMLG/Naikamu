@@ -11,7 +11,7 @@ import {
 } from '@aniwatch/shared';
 import Config from 'react-native-config';
 import { fireGetIdToken } from '../services/firebase/fire-auth.service';
-import { Resolution } from '../services/store/reducers/interfaces';
+import { Resolution } from '../services/redux/reducers/interfaces';
 
 interface GetAnimeListDTO {
   page?: number;

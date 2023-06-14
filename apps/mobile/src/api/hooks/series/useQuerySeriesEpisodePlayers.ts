@@ -2,8 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 
 import { APIClient } from '../../APIClient';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../services/store/store';
-import { Resolution } from '../../../services/store/reducers/interfaces';
+import { RootState } from '../../../services/redux/store';
+import { Resolution } from '../../../services/redux/reducers/interfaces';
 
 export const useQuerySeriesEpisodePlayers = (id: string, num: number) => {
   const apiClient = new APIClient();

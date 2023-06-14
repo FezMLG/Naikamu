@@ -3,7 +3,7 @@ import { Image, StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import { useSelector } from 'react-redux';
 
-import { RootState } from '../../services/store/store';
+import { RootState } from '../../services/redux/store';
 import { useTranslate } from '../../i18n/useTranslate';
 import { globalStyle } from '../../styles/global.style';
 import { ProgressiveImage } from '../../components/ProgressiveImage';

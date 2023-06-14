@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { useTranslate } from '../../i18n/useTranslate';
 import { AuthRoutesNames, SignUpScreenProps } from '../../routes/auth';
 import { fireRegisterUser } from '../../services/firebase/fire-auth.service';
-import { RootState, useAppDispatch } from '../../services/store/store';
+import { RootState, useAppDispatch } from '../../services/redux/store';
 import { globalStyle } from '../../styles/global.style';
 import { Button, useLayout, useErrorHandler } from '../../components';
 

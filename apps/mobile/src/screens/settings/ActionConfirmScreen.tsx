@@ -6,7 +6,7 @@ import { useTranslate } from '../../i18n/useTranslate';
 import { globalStyle } from '../../styles/global.style';
 import { SettingsActionConfirmScreenProps } from '../../routes/settings/interfaces';
 import { Control, FieldErrorsImpl, Controller, useForm } from 'react-hook-form';
-import { useAppDispatch } from '../../services/store/store';
+import { useAppDispatch } from '../../services/redux/store';
 import { fireReauthenticate } from '../../services/firebase/fire-auth.service';
 import { Button, useLayout } from '../../components';
 

@@ -4,7 +4,7 @@ import { Image, Pressable, StyleSheet } from 'react-native';
 import auth from '@react-native-firebase/auth';
 
 import { fireGetUser } from '../services/firebase/fire-auth.service';
-import { useAppDispatch } from '../services/store/store';
+import { useAppDispatch } from '../services/redux/store';
 import { ActivityIndicator, Text } from 'react-native-paper';
 import { defaultRadius } from '../styles/global.style';
 

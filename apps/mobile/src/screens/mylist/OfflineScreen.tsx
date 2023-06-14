@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Button, Pressable, StyleSheet, Text, View } from 'react-native';
 import { ProgressiveImage, useLayout } from '../../components';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { colors, defaultRadius, fontStyles, globalStyle } from '../../styles';
@@ -10,8 +10,7 @@ import {
   OfflineWatchScreenProps,
 } from '../../routes/main/mylist/offline/interface';
 import { OfflineSeriesEpisodes, OfflineSeries } from '../../services/offline/';
-import { offlineService } from '../../services/offline/offline.service';
-import { set } from 'date-fns';
+import { useOfflineService } from '../../services/offline/offline.service';
 
 const MyListSeries = ({
   animeId,
@@ -63,17 +62,20 @@ const MyListSeries = ({
 const OfflineScreen = ({}: OfflineWatchScreenProps) => {
   const { PageLayout, setInfo, setVisible } = useLayout();
   const [offlineSeries, setOfflineSeries] = useState<OfflineSeries[]>([]);
+  const { getActiveDownloads, getAllOfflineSeries, clearOffline } =
+    useOfflineService();
 
   const handleLoadingOffline = useCallback(async () => {
     try {
-      const offline = await offlineService.getAllOfflineSeries();
+      const offline = await getAllOfflineSeries();
+      console.log('offline', offline);
       return offline;
     } catch (error) {
       console.log(error);
       setInfo(JSON.stringify(error));
       setVisible(true);
     }
-  }, [setInfo, setVisible]);
+  }, [getAllOfflineSeries, setInfo, setVisible]);
 
   useEffect(() => {
     (async () => {
@@ -97,6 +99,13 @@ const OfflineScreen = ({}: OfflineWatchScreenProps) => {
           animeId={series.seriesId}
         />
       ))}
+      <Text>{JSON.stringify(getActiveDownloads())}</Text>
+      <Button
+        title={'Clear'}
+        onPress={() => {
+          clearOffline();
+        }}
+      />
     </PageLayout>
   );
 };

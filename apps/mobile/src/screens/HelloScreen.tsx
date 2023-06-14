@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { globalStyle } from '../styles/global.style';
 import { darkStyle } from '../styles/darkMode.style';
 import { useTranslate } from '../i18n/useTranslate';
-import { RootState } from '../services/store/store';
+import { RootState } from '../services/redux/store';
 import { AuthRoutesNames, HelloScreenProps } from '../routes/auth';
 import GoogleSignIn from '../components/GoogleSignIn';
 import { Button, useLayout } from '../components';
