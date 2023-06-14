@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Pressable, SafeAreaView, StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
 import { Text } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -42,59 +42,51 @@ export const OfflineEpisode = ({
   handleVideoProgress();
 
   return (
-    <SafeAreaView style={[styles.episodeContainer]}>
-      <View style={[styles.cardContainer]}>
-        <Pressable
-          style={[styles.innerCard]}
-          onPress={() =>
-            navigation.navigate(ScreenNames.WatchNative, {
-              uri: 'https://www.w3schools.com/html/mov_bbb.mp4',
-              episodeTitle: title,
-              episodeNumber: number,
-              title: animeName,
-            })
-          }>
-          {/* <Image
+    <View style={[styles.cardContainer]}>
+      <Pressable
+        style={[styles.innerCard]}
+        onPress={() =>
+          navigation.navigate(ScreenNames.WatchNative, {
+            uri: 'https://www.w3schools.com/html/mov_bbb.mp4',
+            episodeTitle: title,
+            episodeNumber: number,
+            title: animeName,
+          })
+        }>
+        {/* <Image
             style={[
               styles.poster,
               !isSelected && { borderBottomLeftRadius: defaultRadius },
             ]}
             source={{ uri: posterUrl }}
           /> */}
-          <View style={styles.titleRow}>
-            <Text numberOfLines={2} style={[styles.title, colors.textLight]}>
-              {number + '. ' + title}
-            </Text>
-            <Text
-              numberOfLines={2}
-              style={[fontStyles.label, colors.textLight]}>
-              {length} min | {translator}
-            </Text>
-          </View>
-          <View style={styles.watchStatus}>
-            <Icon name={'play'} size={30} color={colors.textLight.color} />
-          </View>
-        </Pressable>
-        {progress ? (
-          <ProgressBar
-            progress={progress / (length * 60)}
-            theme={{
-              colors: {
-                primary: colors.accent.color,
-              },
-            }}
-          />
-        ) : null}
-      </View>
-    </SafeAreaView>
+        <View style={styles.titleRow}>
+          <Text numberOfLines={2} style={[styles.title, colors.textLight]}>
+            {number + '. ' + title}
+          </Text>
+          <Text numberOfLines={2} style={[fontStyles.label, colors.textLight]}>
+            {length} min | {translator}
+          </Text>
+        </View>
+        <View style={styles.watchStatus}>
+          <Icon name={'play'} size={30} color={colors.textLight.color} />
+        </View>
+      </Pressable>
+      {progress ? (
+        <ProgressBar
+          progress={progress / (length * 60)}
+          theme={{
+            colors: {
+              primary: colors.accent.color,
+            },
+          }}
+        />
+      ) : null}
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  episodeContainer: {
-    marginVertical: 16,
-    width: '100%',
-  },
   poster: {
     width: 110,
     height: 80,
@@ -125,6 +117,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderStyle: 'solid',
     borderColor: darkColor.C800,
+    marginVertical: 16,
   },
   linksContainer: {
     width: '100%',
