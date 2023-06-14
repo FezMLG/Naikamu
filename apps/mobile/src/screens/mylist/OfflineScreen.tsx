@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { ProgressiveImage, useLayout } from '../../components';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -10,6 +10,8 @@ import {
   OfflineWatchScreenProps,
 } from '../../routes/main/mylist/offline/interface';
 import { OfflineSeriesEpisodes, OfflineSeries } from '../../services/offline/';
+import { offlineService } from '../../services/offline/offline.service';
+import { set } from 'date-fns';
 
 const MyListSeries = ({
   animeId,
@@ -59,47 +61,19 @@ const MyListSeries = ({
 };
 
 const OfflineScreen = ({}: OfflineWatchScreenProps) => {
-  const { PageLayout } = useLayout();
+  const { PageLayout, setInfo, setVisible } = useLayout();
   const [offlineSeries, setOfflineSeries] = useState<OfflineSeries[]>([]);
 
-  const handleLoadingOffline = async () => {
-    return Promise.resolve([
-      {
-        seriesId: '1',
-        title: 'One Piece',
-        size: '250',
-        quality: '720p',
-        episodes: [
-          {
-            number: 1,
-            title: 'Episode 1',
-            length: 24,
-            translator: 'wbijam',
-          },
-        ],
-      },
-      {
-        seriesId: '2',
-        title: 'attack on titan',
-        size: (342 * 5).toString(),
-        quality: '1080p',
-        episodes: [
-          {
-            number: 1,
-            title: 'Episode 1',
-            length: 24,
-            translator: 'wbijam',
-          },
-          {
-            number: 2,
-            title: 'Episode 2',
-            length: 24,
-            translator: 'wbijam',
-          },
-        ],
-      },
-    ]);
-  };
+  const handleLoadingOffline = useCallback(async () => {
+    try {
+      const offline = await offlineService.getAllOfflineSeries();
+      return offline;
+    } catch (error) {
+      console.log(error);
+      setInfo(JSON.stringify(error));
+      setVisible(true);
+    }
+  }, [setInfo, setVisible]);
 
   useEffect(() => {
     (async () => {
@@ -108,7 +82,7 @@ const OfflineScreen = ({}: OfflineWatchScreenProps) => {
         setOfflineSeries(offline);
       }
     })();
-  }, []);
+  }, [handleLoadingOffline]);
 
   return (
     <PageLayout>
