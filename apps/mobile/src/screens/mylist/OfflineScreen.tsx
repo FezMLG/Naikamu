@@ -40,7 +40,6 @@ const OfflineScreen = ({}: OfflineWatchScreenProps) => {
           key={series.seriesId}
           title={series.title}
           episodes={series.episodes}
-          size={series.size}
           quality={series.quality}
           animeId={series.seriesId}
         />

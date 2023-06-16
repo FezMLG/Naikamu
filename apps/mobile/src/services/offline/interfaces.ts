@@ -1,7 +1,6 @@
 export interface IOfflineSeries {
   seriesId: string;
   title: string;
-  size: string;
   quality: string;
   episodes: IOfflineSeriesEpisodes[];
 }
@@ -12,5 +11,5 @@ export interface IOfflineSeriesEpisodes {
   length: number;
   translator: string;
   pathToFile: string | null;
-  size?: number;
+  size: number;
 }

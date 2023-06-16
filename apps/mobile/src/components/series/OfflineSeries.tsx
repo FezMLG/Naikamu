@@ -10,17 +10,16 @@ import { IOfflineSeriesEpisodes } from '../../services';
 import { globalStyle, fontStyles, colors, defaultRadius } from '../../styles';
 import { ProgressiveImage } from '../ProgressiveImage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { humanFileSize } from '../../utils/humanFileSize';
 
 export const OfflineSeries = ({
   animeId,
   title,
-  size,
   quality,
   episodes,
 }: {
   animeId: string;
   title: string;
-  size: string;
   quality: string;
   episodes: IOfflineSeriesEpisodes[];
 }) => {
@@ -45,7 +44,11 @@ export const OfflineSeries = ({
           {title}
         </Text>
         <Text style={[fontStyles.label]}>
-          Episodes: {episodes.length} | {size} | {quality}
+          Episodes: {episodes.length} |{' '}
+          {humanFileSize(
+            episodes.reduce((partialSum, a) => partialSum + a.size, 0),
+          )}{' '}
+          | {quality}
         </Text>
       </View>
       <Icon

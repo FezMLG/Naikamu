@@ -55,11 +55,11 @@ export const Episode = ({
       length: episodeLength,
       translator: player.translator_name,
       pathToFile: null,
+      size: 0,
     };
     await addOfflineSeries({
       seriesId: id,
       title: animeName,
-      size: '',
       quality: '1080p',
       episodes: [],
     });
