@@ -6,34 +6,21 @@ import {
   OfflineWatchParamList,
   OfflineWatchScreenNames,
 } from '../../routes/main/mylist/offline/interface';
-import { IOfflineSeriesEpisodes } from '../../services';
+import { IOfflineSeries } from '../../services';
 import { globalStyle, fontStyles, colors, defaultRadius } from '../../styles';
 import { ProgressiveImage } from '../ProgressiveImage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { humanFileSize } from '../../utils/humanFileSize';
 
-export const OfflineSeries = ({
-  animeId,
-  title,
-  quality,
-  episodes,
-}: {
-  animeId: string;
-  title: string;
-  quality: string;
-  episodes: IOfflineSeriesEpisodes[];
-}) => {
+export const OfflineSeries = ({ series }: { series: IOfflineSeries }) => {
+  const { title, episodes, quality } = series;
   const navigation = useNavigation<NavigationProp<OfflineWatchParamList>>();
 
   return (
     <Pressable
       style={[styles.seriesContainer, globalStyle.spacer]}
       onPress={() =>
-        navigation.navigate(OfflineWatchScreenNames.OfflineEpisodes, {
-          animeId,
-          animeName: title,
-          episodes,
-        })
+        navigation.navigate(OfflineWatchScreenNames.OfflineEpisodes, series)
       }>
       <ProgressiveImage
         source={'https://i.imgur.com/2nCt3Sbl.jpg'}

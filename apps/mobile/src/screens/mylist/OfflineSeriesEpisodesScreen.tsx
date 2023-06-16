@@ -6,17 +6,17 @@ import { Text } from 'react-native';
 const OfflineSeriesEpisodesScreen = ({
   route,
 }: OfflineWatchSeriesEpisodesScreenProps) => {
-  const { animeId, animeName, episodes } = route.params;
+  const { seriesId, title, episodes } = route.params;
   const { PageLayout } = useLayout();
 
   return (
     <PageLayout>
-      <Text>{animeName}</Text>
+      <Text>{title}</Text>
       {episodes.map(episode => (
         <OfflineEpisode
           key={episode.number}
-          animeId={animeId}
-          animeName={animeName}
+          animeId={seriesId}
+          animeName={title}
           episode={episode}
         />
       ))}

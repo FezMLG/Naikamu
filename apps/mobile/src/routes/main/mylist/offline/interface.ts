@@ -1,4 +1,5 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { IOfflineSeries } from '../../../../services';
 
 export enum OfflineWatchScreenNames {
   Offline = 'Offline',
@@ -8,16 +9,7 @@ export enum OfflineWatchScreenNames {
 
 export type OfflineWatchParamList = {
   [OfflineWatchScreenNames.Offline]: undefined;
-  [OfflineWatchScreenNames.OfflineEpisodes]: {
-    animeId: string;
-    animeName: string;
-    episodes: {
-      number: number;
-      title: string;
-      length: number;
-      translator: string;
-    }[];
-  };
+  [OfflineWatchScreenNames.OfflineEpisodes]: IOfflineSeries;
   [OfflineWatchScreenNames.WatchNative]: undefined;
 };
 

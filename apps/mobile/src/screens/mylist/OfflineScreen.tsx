@@ -36,13 +36,7 @@ const OfflineScreen = ({}: OfflineWatchScreenProps) => {
     <PageLayout>
       {/* <Icon name={'pencil-outline'} size={36} color={'white'} /> */}
       {offlineSeries.map(series => (
-        <OfflineSeries
-          key={series.seriesId}
-          title={series.title}
-          episodes={series.episodes}
-          quality={series.quality}
-          animeId={series.seriesId}
-        />
+        <OfflineSeries key={series.seriesId} series={series} />
       ))}
       <Text>{JSON.stringify(getActiveDownloads())}</Text>
       <Button
