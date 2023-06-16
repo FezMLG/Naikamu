@@ -61,13 +61,19 @@ export const EpisodePlayer = ({
           style={[styles.logo, { maxWidth: 100 }]}
           source={require('../../../assets/logo_docchi.png')}
         />
-        {isDownloaded ? null : (
-          <Icon
-            size={24}
-            name={isDownloaded ? 'download-circle' : 'download-circle-outline'}
-            style={{ paddingHorizontal: 10 }}
-            onPress={() => handleDownload(player)}
-          />
+        {player.player_name.toLocaleLowerCase() !== 'cda' ? null : (
+          <>
+            {isDownloaded ? null : (
+              <Icon
+                size={24}
+                name={
+                  isDownloaded ? 'download-circle' : 'download-circle-outline'
+                }
+                style={{ paddingHorizontal: 10 }}
+                onPress={() => handleDownload(player)}
+              />
+            )}
+          </>
         )}
         <PlayerMenu player={player} />
       </View>
