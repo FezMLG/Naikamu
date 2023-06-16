@@ -37,7 +37,16 @@ export const OfflineEpisode = ({
   // const { translate } = useTranslate();
 
   return (
-    <View style={[styles.cardContainer]}>
+    <View
+      style={[
+        styles.cardContainer,
+        !progressMinutes
+          ? {
+              borderBottomLeftRadius: defaultRadius,
+              borderBottomRightRadius: defaultRadius,
+            }
+          : null,
+      ]}>
       <Pressable
         style={[styles.innerCard]}
         onPress={() =>
@@ -99,7 +108,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   cardContainer: {
-    borderRadius: 8,
+    borderTopLeftRadius: defaultRadius,
+    borderTopRightRadius: defaultRadius,
     width: '100%',
     borderWidth: 1,
     borderStyle: 'solid',

@@ -45,8 +45,8 @@ export const Episode = ({
 
   const openDetails = () => {
     setIsSelected(prev => !prev);
-    loadProgress();
   };
+  loadProgress();
 
   const handleDownload = async (player: AnimePlayer) => {
     const episodeToAdd = {
@@ -69,12 +69,22 @@ export const Episode = ({
 
   return (
     <SafeAreaView style={[styles.episodeContainer]}>
-      <View style={[styles.cardContainer, isSelected && darkStyle.card]}>
+      <View
+        style={[
+          styles.cardContainer,
+          isSelected && darkStyle.card,
+          !progress
+            ? {
+                borderBottomLeftRadius: defaultRadius,
+                borderBottomRightRadius: defaultRadius,
+              }
+            : null,
+        ]}>
         <Pressable style={[styles.innerCard]} onPress={openDetails}>
           <Image
             style={[
               styles.poster,
-              !isSelected && episode.description
+              (!isSelected && episode.description) || progress
                 ? null
                 : {
                     borderBottomLeftRadius: defaultRadius,
@@ -105,18 +115,19 @@ export const Episode = ({
             />
           </View>
         </Pressable>
+        {progress ? (
+          <ProgressBar
+            progress={progress / (24 * 60)}
+            style={{ zIndex: 1 }}
+            theme={{
+              colors: {
+                primary: colors.accent.color,
+              },
+            }}
+          />
+        ) : null}
         {isSelected ? (
           <>
-            {progress ? (
-              <ProgressBar
-                progress={progress / (24 * 60)}
-                theme={{
-                  colors: {
-                    primary: colors.accent.color,
-                  },
-                }}
-              />
-            ) : null}
             {episode.description ? (
               <Text
                 style={[styles.description, darkStyle.font, fontStyles.text]}>
@@ -193,7 +204,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   cardContainer: {
-    borderRadius: 8,
+    borderTopLeftRadius: defaultRadius,
+    borderTopRightRadius: defaultRadius,
     width: '100%',
     borderWidth: 1,
     borderStyle: 'solid',
