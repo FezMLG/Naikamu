@@ -15,6 +15,7 @@ import {
   createEpisodeProgressKey,
   useVideoProgress,
 } from '../../services/useVideoProgress';
+import { humanFileSize } from '../../utils/humanFileSize';
 
 export const OfflineEpisode = ({
   episode,
@@ -27,15 +28,13 @@ export const OfflineEpisode = ({
 }) => {
   const navigation = useNavigation<any>();
   const episodeKey = createEpisodeProgressKey(animeId, episode.number);
-  const { progress, loadProgress } = useVideoProgress(episodeKey);
+  const { progressMinutes, loadProgress } = useVideoProgress(episodeKey);
 
   useEffect(() => {
     loadProgress();
-    console.log(progress);
-  }, [loadProgress, progress]);
+  }, [loadProgress]);
 
   // const { translate } = useTranslate();
-  // const [progress, setProgress] = useState<number | undefined>(undefined);
 
   return (
     <View style={[styles.cardContainer]}>
@@ -54,23 +53,22 @@ export const OfflineEpisode = ({
             {episode.number + '. ' + episode.title}
           </Text>
           <Text numberOfLines={2} style={[fontStyles.label, colors.textLight]}>
-            {episode.length} min | {episode.translator} | {episode.size}
+            {episode.length} min | {episode.translator} |{' '}
+            {humanFileSize(episode.size ?? 0)}
           </Text>
         </View>
         <View style={styles.watchStatus}>
           <Icon name={'play'} size={30} color={colors.textLight.color} />
         </View>
       </Pressable>
-      {/* {progress ? ( */}
       <ProgressBar
-        progress={progress ?? 0 / (episode.length * 60)}
+        progress={progressMinutes / episode.length}
         theme={{
           colors: {
             primary: colors.accent.color,
           },
         }}
       />
-      {/* ) : null} */}
     </View>
   );
 };
