@@ -7,14 +7,14 @@ export const navigateToPlayer = ({
   navigation,
   player,
   episodeTitle,
-  animeTitle,
   episodeNumber,
+  seriesId,
 }: {
   navigation: any;
   player: AnimePlayer;
   episodeTitle: string;
-  animeTitle: string;
   episodeNumber: number;
+  seriesId: string;
 }) => {
   const name = player.player_name
     .replace(/[\u0250-\ue007]/g, '')
@@ -25,7 +25,7 @@ export const navigateToPlayer = ({
     case 'cda':
       return navigation.navigate(ScreenNames.WatchNative, {
         uri: player.player_link,
-        title: animeTitle,
+        seriesId,
         episodeTitle,
         player: name,
         episodeNumber,

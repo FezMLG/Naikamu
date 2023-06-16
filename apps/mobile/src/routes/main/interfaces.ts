@@ -30,7 +30,7 @@ export type RootStackParamList = {
   };
   [ScreenNames.WatchNative]: {
     uri: string;
-    title: string;
+    seriesId: string;
     episodeTitle: string;
     player: string;
     episodeNumber: number;

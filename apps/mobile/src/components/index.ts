@@ -8,3 +8,4 @@ export * from './GoogleSignIn';
 export * from './maxDimensions';
 export * from './ProgressiveImage';
 export * from './Timer';
+export * from './series';

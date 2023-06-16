@@ -1,19 +1,19 @@
 import { storageGetData, storageStoreData } from '../../utils';
-import { OfflineSeries, OfflineSeriesEpisodes } from './interfaces';
+import { IOfflineSeries, IOfflineSeriesEpisodes } from './interfaces';
 
 const OFFLINE_SERIES_KEY = 'offlineSeries';
 
 //lista serii dostepnych offline
-const getAllOfflineSeries = async (): Promise<OfflineSeries[]> => {
+const getAllOfflineSeries = async (): Promise<IOfflineSeries[]> => {
   const series =
-    (await storageGetData<OfflineSeries[]>(OFFLINE_SERIES_KEY)) ?? [];
+    (await storageGetData<IOfflineSeries[]>(OFFLINE_SERIES_KEY)) ?? [];
   console.log(series);
   return series;
 };
 
 const getOfflineSeries = async (
   seriesId: string,
-): Promise<OfflineSeries | null> => {
+): Promise<IOfflineSeries | null> => {
   const series = (await getAllOfflineSeries()).filter(
     e => e.seriesId === seriesId,
   );
@@ -27,7 +27,7 @@ const getOfflineSeries = async (
 //lista odcinkow dla serii dostepnej offline
 const getOfflineEpisodes = async (
   seriesId: string,
-): Promise<OfflineSeriesEpisodes[]> => {
+): Promise<IOfflineSeriesEpisodes[]> => {
   const series = await getOfflineSeries(seriesId);
   const episodes = series?.episodes ?? [];
   console.log(episodes);
@@ -37,7 +37,7 @@ const getOfflineEpisodes = async (
 const getOfflineEpisode = async (
   seriesId: string,
   episodeNumber: number,
-): Promise<OfflineSeriesEpisodes | null> => {
+): Promise<IOfflineSeriesEpisodes | null> => {
   const episodes = await getOfflineEpisodes(seriesId);
   const episode = episodes.filter(e => e.number === episodeNumber);
   console.log(episode);
@@ -48,7 +48,7 @@ const getOfflineEpisode = async (
 };
 
 //zapisuje serie offline
-const saveOrReplaceOfflineSeries = async (seriesToAdd: OfflineSeries) => {
+const saveOrReplaceOfflineSeries = async (seriesToAdd: IOfflineSeries) => {
   const series = await getAllOfflineSeries();
   const exist = series.filter(e => e.seriesId === seriesToAdd.seriesId);
   if (exist.length > 0) {
@@ -65,7 +65,7 @@ const saveOrReplaceOfflineSeries = async (seriesToAdd: OfflineSeries) => {
 //zapisuje odcinek offline
 const saveOfflineEpisode = async (
   seriesId: string,
-  episode: OfflineSeriesEpisodes,
+  episode: IOfflineSeriesEpisodes,
 ) => {
   const seriesEpisodes = await getOfflineEpisodes(seriesId);
 

@@ -5,14 +5,15 @@ import Video, { OnProgressData } from 'react-native-video';
 import { storageGetData, storageStoreData } from '../../../../utils';
 import { WatchNativeScreenProps } from '../../../../routes/main';
 import VideoPlayer from 'react-native-media-console';
+import { createEpisodeProgressKey } from '../../../../services';
 
 const NativeVideoPlayerScreen = ({
   route,
   navigation,
 }: WatchNativeScreenProps) => {
-  const { uri, episodeTitle, episodeNumber, title } = route.params;
+  const { uri, episodeTitle, episodeNumber, seriesId } = route.params;
   const videoPlayer = useRef<Video>(null);
-  const storageKey = `${title} ${episodeNumber}`;
+  const storageKey = createEpisodeProgressKey(seriesId, episodeNumber);
 
   const handleProgress = async (progress: OnProgressData) => {
     if (Math.round(progress.currentTime) % 5 === 0) {

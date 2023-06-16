@@ -1,15 +1,15 @@
 import RNFS from 'react-native-fs';
-import { OfflineSeries, OfflineSeriesEpisodes } from './interfaces';
+import { IOfflineSeries, IOfflineSeriesEpisodes } from './interfaces';
 import { offlineFS } from './offline.fs';
 import { offlineStorage } from './offline.storage';
 import { useDownloadsStore } from '../store/offline/offline.store';
 
-const getAllOfflineSeries = async (): Promise<OfflineSeries[]> => {
+const getAllOfflineSeries = async (): Promise<IOfflineSeries[]> => {
   const series = await offlineStorage.getAllOfflineSeries();
   return series;
 };
 
-const addOfflineSeries = async (series: OfflineSeries) => {
+const addOfflineSeries = async (series: IOfflineSeries) => {
   const exist = await offlineStorage.getOfflineSeries(series.seriesId);
   if (!exist) {
     await offlineStorage.saveOrReplaceOfflineSeries(series);
@@ -68,7 +68,7 @@ export const useOfflineService = () => {
     },
     saveEpisodeOffline: async (
       seriesId: string,
-      episode: OfflineSeriesEpisodes,
+      episode: IOfflineSeriesEpisodes,
       fileUrl: string,
     ) => {
       const series = await offlineStorage.getOfflineSeries(seriesId);

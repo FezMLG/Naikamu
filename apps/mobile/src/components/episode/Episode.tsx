@@ -12,10 +12,9 @@ import { useTranslate } from '../../i18n/useTranslate';
 import { UpdateEpisodeWatchStatus } from '../molecules';
 import { useQuerySeriesEpisodePlayers } from '../../api/hooks';
 import { maxWidth } from '../maxDimensions';
-import { storageGetData } from '../../utils';
-import { OnProgressData } from 'react-native-video';
 import { EpisodePlayer } from './EpisodePlayer';
 import { useOfflineService } from '../../services/offline/offline.service';
+import { useVideoProgress, createEpisodeProgressKey } from '../../services';
 
 export const Episode = ({
   num,
@@ -39,18 +38,14 @@ export const Episode = ({
   const { translate } = useTranslate();
   const { data, refetch } = useQuerySeriesEpisodePlayers(id, num);
   const [isSelected, setIsSelected] = useState(false);
-  const [progress, setProgress] = useState<number | undefined>(undefined);
   const { addOfflineSeries, saveEpisodeOffline } = useOfflineService();
+  const { progress, loadProgress } = useVideoProgress(
+    createEpisodeProgressKey(id, num),
+  );
 
   const openDetails = () => {
     setIsSelected(prev => !prev);
-    handleVideoProgress();
-  };
-
-  const handleVideoProgress = async () => {
-    const storageKey = `${animeName} ${episode.number}`;
-    const storageProgress = await storageGetData<OnProgressData>(storageKey);
-    setProgress(storageProgress?.currentTime);
+    loadProgress();
   };
 
   const handleDownload = async (player: AnimePlayer) => {
@@ -149,7 +144,7 @@ export const Episode = ({
                 return (
                   <EpisodePlayer
                     key={index}
-                    animeName={animeName}
+                    seriesId={id}
                     player={player}
                     episodeTitle={'E' + episode.number + ' ' + episode.title}
                     episodeNumber={episode.number}

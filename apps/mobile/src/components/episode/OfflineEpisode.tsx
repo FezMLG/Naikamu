@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
 import { Text } from 'react-native';
@@ -8,36 +8,34 @@ import { darkColor } from '../../styles/darkMode.style';
 import { colors, defaultRadius, fontStyles } from '../../styles/global.style';
 // import { useTranslate } from '../../i18n/useTranslate';
 import { maxWidth } from '../maxDimensions';
-import { storageGetData } from '../../utils';
-import { OnProgressData } from 'react-native-video';
 import { useNavigation } from '@react-navigation/native';
 import { ScreenNames } from '../../routes/main';
-import { useQuery } from '@tanstack/react-query';
-import { OfflineSeriesEpisodes } from '../../services/offline';
-import { useOfflineService } from '../../services/offline/offline.service';
+import { IOfflineSeriesEpisodes } from '../../services/offline';
+import {
+  createEpisodeProgressKey,
+  useVideoProgress,
+} from '../../services/useVideoProgress';
 
 export const OfflineEpisode = ({
   episode,
   animeId,
   animeName,
 }: {
-  episode: OfflineSeriesEpisodes;
+  episode: IOfflineSeriesEpisodes;
   animeId: string;
   animeName: string;
 }) => {
   const navigation = useNavigation<any>();
-  const episodeKey =
-    `${animeId}-${episode.number}-${episode.translator}`.toLowerCase();
+  const episodeKey = createEpisodeProgressKey(animeId, episode.number);
+  const { progress, loadProgress } = useVideoProgress(episodeKey);
+
+  useEffect(() => {
+    loadProgress();
+    console.log(progress);
+  }, [loadProgress, progress]);
+
   // const { translate } = useTranslate();
-  const [progress, setProgress] = useState<number | undefined>(undefined);
-
-  const handleVideoProgress = async () => {
-    const storageProgress = await storageGetData<OnProgressData>(episodeKey);
-    console.log(storageProgress);
-    setProgress(storageProgress?.currentTime);
-  };
-
-  handleVideoProgress();
+  // const [progress, setProgress] = useState<number | undefined>(undefined);
 
   return (
     <View style={[styles.cardContainer]}>
@@ -51,13 +49,6 @@ export const OfflineEpisode = ({
             title: animeName,
           })
         }>
-        {/* <Image
-            style={[
-              styles.poster,
-              !isSelected && { borderBottomLeftRadius: defaultRadius },
-            ]}
-            source={{ uri: posterUrl }}
-          /> */}
         <View style={styles.titleRow}>
           <Text numberOfLines={2} style={[styles.title, colors.textLight]}>
             {episode.number + '. ' + episode.title}
@@ -70,16 +61,16 @@ export const OfflineEpisode = ({
           <Icon name={'play'} size={30} color={colors.textLight.color} />
         </View>
       </Pressable>
-      {progress ? (
-        <ProgressBar
-          progress={progress / (episode.length * 60)}
-          theme={{
-            colors: {
-              primary: colors.accent.color,
-            },
-          }}
-        />
-      ) : null}
+      {/* {progress ? ( */}
+      <ProgressBar
+        progress={progress ?? 0 / (episode.length * 60)}
+        theme={{
+          colors: {
+            primary: colors.accent.color,
+          },
+        }}
+      />
+      {/* ) : null} */}
     </View>
   );
 };

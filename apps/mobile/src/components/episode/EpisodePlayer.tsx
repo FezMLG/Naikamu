@@ -11,14 +11,14 @@ import { navigateToPlayer } from './navigateToPlayer';
 import { RootStackParamList } from '../../routes/main';
 
 export const EpisodePlayer = ({
-  animeName,
+  seriesId,
   episodeTitle,
   player,
   episodeNumber,
   isDownloaded,
   handleDownload,
 }: {
-  animeName: string;
+  seriesId: string;
   episodeTitle: string;
   player: AnimePlayer;
   episodeNumber: number;
@@ -35,8 +35,8 @@ export const EpisodePlayer = ({
           navigation: navigation,
           player: player,
           episodeTitle: episodeTitle,
-          animeTitle: animeName,
           episodeNumber,
+          seriesId,
         });
       }}>
       <View style={styles.rowCenter}>

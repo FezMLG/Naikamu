@@ -1,12 +1,12 @@
-export interface OfflineSeries {
+export interface IOfflineSeries {
   seriesId: string;
   title: string;
   size: string;
   quality: string;
-  episodes: OfflineSeriesEpisodes[];
+  episodes: IOfflineSeriesEpisodes[];
 }
 
-export interface OfflineSeriesEpisodes {
+export interface IOfflineSeriesEpisodes {
   number: number;
   title: string;
   length: number;
