@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 import { RootState, useAppDispatch } from '../../services/redux/store';
 import { useTranslate } from '../../i18n/useTranslate';
-import { Resolution } from '../../services/redux/reducers/interfaces';
+import { Resolution } from '../../services/settings/interfaces';
 import { settingsService } from '../../services/settings/settings.service';
 import { Button, Modal } from '../../components';
 import { colors, fontStyles } from '../../styles';

@@ -2,7 +2,7 @@ import RNFS from 'react-native-fs';
 import { IOfflineSeries, IOfflineSeriesEpisodes } from './interfaces';
 import { offlineFS } from './offline.fs';
 import { offlineStorage } from './offline.storage';
-import { useDownloadsStore } from '../store/offline/offline.store';
+import { useDownloadsStore } from './offline.store';
 
 const getAllOfflineSeries = async (): Promise<IOfflineSeries[]> => {
   const series = await offlineStorage.getAllOfflineSeries();

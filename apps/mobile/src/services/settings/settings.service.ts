@@ -1,5 +1,5 @@
 import { storageGetData, storageStoreData } from '../../utils';
-import { UserSettings } from '../redux/reducers/interfaces';
+import { UserSettings } from './interfaces';
 import {
   clearUserSettings,
   getUserSettingsFulfilled,

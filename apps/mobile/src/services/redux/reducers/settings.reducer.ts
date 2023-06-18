@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { UserSettings } from './interfaces';
+import { UserSettings } from '../../settings/interfaces';
 
 interface UserSettingsReducer {
   userSettings: UserSettings | null;

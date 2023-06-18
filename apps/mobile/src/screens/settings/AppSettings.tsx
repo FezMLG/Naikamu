@@ -7,7 +7,7 @@ import Config from 'react-native-config';
 import { RootState, useAppDispatch } from '../../services/redux/store';
 import { useTranslate } from '../../i18n/useTranslate';
 import { PlaybackSettingsScreenProps } from '../../routes/settings/interfaces';
-import { Resolution } from '../../services/redux/reducers/interfaces';
+import { Resolution } from '../../services/settings/interfaces';
 import { settingsService } from '../../services/settings/settings.service';
 import { colors, fontStyles, globalStyle } from '../../styles';
 import { Button, Modal, SettingInputs, SettingsGroup } from '../../components';
