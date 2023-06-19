@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Checkbox, RadioButton, Text } from 'react-native-paper';
-import { useSelector } from 'react-redux';
 
-import { RootState, useAppDispatch } from '../../services/redux/store';
 import { useTranslate } from '../../i18n/useTranslate';
 import { Resolution } from '../../services/settings/interfaces';
-import { settingsService } from '../../services/settings/settings.service';
 import { Button, Modal } from '../../components';
 import { colors, fontStyles } from '../../styles';
+import { useUserSettingsService } from '../../services/settings/settings.service';
 
 export const QualitySelect = ({
   isOpen,
@@ -17,19 +15,14 @@ export const QualitySelect = ({
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
 }) => {
-  const { userSettings } = useSelector(
-    (state: RootState) => state.userSettings,
-  );
-  const dispatch = useAppDispatch();
+  const { userSettings, updateUserSettings } = useUserSettingsService();
   const { translate } = useTranslate();
   const [checked, setChecked] = useState(false);
 
   const handleQualityChange = (newValue: string) =>
-    dispatch(
-      settingsService.updateUserSettings({
-        preferredResolution: newValue as Resolution,
-      }),
-    );
+    updateUserSettings({
+      preferredResolution: newValue as Resolution,
+    });
 
   return (
     <Modal.Container setIsOpen={setIsOpen} isOpen={isOpen}>

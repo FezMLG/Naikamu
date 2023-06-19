@@ -15,6 +15,7 @@ interface UserSettingsState {
 export const useUserSettingsStore = create<UserSettingsState>(set => ({
   settings: {
     preferredResolution: Resolution['1080p'],
+    preferredDownloadQuality: Resolution['1080p'],
   },
   actions: {
     saveSettings: settings => {

@@ -1,39 +1,29 @@
 import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { RadioButton } from 'react-native-paper';
-import { useSelector } from 'react-redux';
 import Config from 'react-native-config';
 
-import { RootState, useAppDispatch } from '../../services/redux/store';
 import { useTranslate } from '../../i18n/useTranslate';
 import { PlaybackSettingsScreenProps } from '../../routes/settings/interfaces';
 import { Resolution } from '../../services/settings/interfaces';
-import { settingsService } from '../../services/settings/settings.service';
 import { colors, fontStyles, globalStyle } from '../../styles';
 import { Button, Modal, SettingInputs, SettingsGroup } from '../../components';
+import { useUserSettingsService } from '../../services/settings/settings.service';
 
 const QualityModal = ({
   isOpen,
   setIsOpen,
   quality,
   setQuality,
+  handleChange,
 }: {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
   quality: string;
   setQuality: (quality: string) => void;
+  handleChange: (quality: Resolution) => void;
 }) => {
-  const dispatch = useAppDispatch();
   const { translate } = useTranslate();
-
-  const handleQualityChange = (newResolution: Resolution) => {
-    dispatch(
-      settingsService.updateUserSettings({
-        preferredResolution: newResolution,
-      }),
-    );
-    setIsOpen(false);
-  };
 
   return (
     <Modal.Container isOpen={isOpen} setIsOpen={setIsOpen}>
@@ -54,37 +44,69 @@ const QualityModal = ({
       <Button
         label={translate('forms.save')}
         type={'primary'}
-        onPress={() => handleQualityChange(quality as Resolution)}
+        onPress={() => handleChange(quality as Resolution)}
       />
     </Modal.Container>
   );
 };
 
 const AppSettingsScreen = ({}: PlaybackSettingsScreenProps) => {
-  const { userSettings } = useSelector(
-    (state: RootState) => state.userSettings,
+  const {
+    userSettings: { preferredResolution, preferredDownloadQuality },
+  } = useUserSettingsService();
+  const [playbackQuality, setPlaybackQuality] =
+    useState<string>(preferredResolution);
+  const [downloadQuality, setDownloadQuality] = useState<string>(
+    preferredDownloadQuality,
   );
-  const [quality, setQuality] = useState<string>(
-    userSettings?.preferredResolution ?? Resolution['1080p'],
-  );
+  const { updateUserSettings, userSettings } = useUserSettingsService();
 
   const { translate } = useTranslate();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenP, setIsOpenP] = useState(false);
+  const [isOpenQ, setIsOpenQ] = useState(false);
+
+  const handlePlaybackQualityChange = async (newResolution: Resolution) => {
+    await updateUserSettings({ preferredResolution: newResolution });
+    setIsOpenP(false);
+  };
+
+  const handleDownloadQualityChange = async (newResolution: Resolution) => {
+    await updateUserSettings({ preferredDownloadQuality: newResolution });
+    setIsOpenQ(false);
+  };
 
   return (
     <SafeAreaView style={[styles.container]}>
       <QualityModal
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        quality={quality}
-        setQuality={setQuality}
+        isOpen={isOpenP}
+        setIsOpen={setIsOpenP}
+        quality={playbackQuality}
+        setQuality={setPlaybackQuality}
+        handleChange={handlePlaybackQualityChange}
+      />
+      <QualityModal
+        isOpen={isOpenQ}
+        setIsOpen={setIsOpenQ}
+        quality={downloadQuality}
+        setQuality={setDownloadQuality}
+        handleChange={handleDownloadQualityChange}
       />
       <SettingsGroup title={translate('settings.groups.videoPlayback')}>
         <SettingInputs.Select
           title={translate('settings.titles.videoQuality')}
-          text={quality ?? '1080p'}
-          setIsModalOpen={setIsOpen}
+          text={playbackQuality ?? '1080p'}
+          setIsModalOpen={setIsOpenP}
           isFirst={true}
+          isLast={true}
+        />
+      </SettingsGroup>
+      <SettingsGroup title={translate('settings.groups.videoDownload')}>
+        <SettingInputs.Select
+          title={translate('settings.titles.videoQuality')}
+          text={downloadQuality ?? '1080p'}
+          setIsModalOpen={setIsOpenQ}
+          isFirst={true}
+          isLast={true}
         />
       </SettingsGroup>
       <View style={globalStyle.marginTop}>
@@ -101,6 +123,21 @@ const AppSettingsScreen = ({}: PlaybackSettingsScreenProps) => {
         <Text style={[fontStyles.text, colors.textLighter]}>
           {Config.API_URL}
         </Text>
+        {Config.ENV === 'dev' && (
+          <>
+            <Text
+              style={[
+                fontStyles.label,
+                colors.textLight,
+                globalStyle.marginTopSmall,
+              ]}>
+              User Settings
+            </Text>
+            <Text style={[fontStyles.text, colors.textLighter]}>
+              {JSON.stringify(userSettings)}
+            </Text>
+          </>
+        )}
       </View>
     </SafeAreaView>
   );

@@ -21,7 +21,7 @@ import {
 } from '../services/firebase/fire-auth.service';
 import { AppLoadingScreenProps, AuthRoutesNames } from '../routes/auth';
 import { useQueryApiHealth } from '../api/hooks';
-import { settingsService } from '../services/settings/settings.service';
+import { useUserSettingsService } from '../services/settings/settings.service';
 import semver from 'semver';
 import { ActivityIndicator } from '../components';
 
@@ -33,6 +33,7 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
   const { user } = useSelector((state: RootState) => state.user);
   const [longLoading, setLongLoading] = useState(false);
   const [apiError, setApiError] = useState(false);
+  const { initializeUserSettings } = useUserSettingsService();
 
   const apiCheck = useQueryApiHealth(data => {
     if (semver.satisfies(data.version, supportedApiVersion)) {
@@ -44,8 +45,8 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
   });
 
   const handleLoginCheck = useCallback(async () => {
+    await initializeUserSettings();
     const token = await fireGetIdToken();
-    await dispatch(settingsService.getUserSettings());
     if (token) {
       await dispatch(await fireGetNewIdToken());
       await dispatch(fireGetUser());
@@ -55,7 +56,7 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
     } else {
       navigation.navigate(AuthRoutesNames.Hello);
     }
-  }, [dispatch, navigation, user?.emailVerified]);
+  }, [dispatch, initializeUserSettings, navigation, user?.emailVerified]);
 
   useEffect(() => {
     setTimeout(() => {

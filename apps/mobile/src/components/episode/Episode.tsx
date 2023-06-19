@@ -15,6 +15,7 @@ import { maxWidth } from '../maxDimensions';
 import { EpisodePlayer } from './EpisodePlayer';
 import { useOfflineService } from '../../services/offline/offline.service';
 import { useVideoProgress, createEpisodeProgressKey } from '../../services';
+import { useUserSettingsService } from '../../services/settings/settings.service';
 
 export const Episode = ({
   num,
@@ -42,6 +43,9 @@ export const Episode = ({
   const { progress, loadProgress } = useVideoProgress(
     createEpisodeProgressKey(id, num),
   );
+  const {
+    userSettings: { preferredDownloadQuality },
+  } = useUserSettingsService();
 
   const openDetails = () => {
     setIsSelected(prev => !prev);
@@ -60,7 +64,7 @@ export const Episode = ({
     await addOfflineSeries({
       seriesId: id,
       title: animeName,
-      quality: '1080p',
+      quality: preferredDownloadQuality,
       episodes: [],
     });
     await saveEpisodeOffline(id, episodeToAdd, player.player_link);
