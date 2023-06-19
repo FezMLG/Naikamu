@@ -7,7 +7,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { darkColor } from '../../styles/darkMode.style';
 import { colors, defaultRadius, fontStyles } from '../../styles/global.style';
 // import { useTranslate } from '../../i18n/useTranslate';
-import { maxWidth } from '../maxDimensions';
 import { useNavigation } from '@react-navigation/native';
 import { ScreenNames } from '../../routes/main';
 import { IOfflineSeriesEpisodes } from '../../services/offline';
@@ -89,13 +88,12 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: defaultRadius,
   },
   titleRow: {
-    width: maxWidth() - 110 - 45 - 22,
     paddingVertical: 5,
     paddingHorizontal: 10,
     flexDirection: 'column',
   },
   watchStatus: {
-    width: 45,
+    padding: 10,
     alignItems: 'center',
   },
   title: {
@@ -106,6 +104,8 @@ const styles = StyleSheet.create({
   innerCard: {
     width: '100%',
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   cardContainer: {
     borderTopLeftRadius: defaultRadius,

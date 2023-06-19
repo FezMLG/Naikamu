@@ -12,14 +12,16 @@ const OfflineSeriesEpisodesScreen = ({
   return (
     <PageLayout>
       <Text>{title}</Text>
-      {episodes.map(episode => (
-        <OfflineEpisode
-          key={episode.number}
-          animeId={seriesId}
-          animeName={title}
-          episode={episode}
-        />
-      ))}
+      {episodes
+        .sort((a, b) => a.number - b.number)
+        .map(episode => (
+          <OfflineEpisode
+            key={episode.number}
+            animeId={seriesId}
+            animeName={title}
+            episode={episode}
+          />
+        ))}
     </PageLayout>
   );
 };
