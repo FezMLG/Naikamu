@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Button, Text } from 'react-native';
+import { Button, Text, View } from 'react-native';
 import { OfflineSeries, useLayout } from '../../components';
 import { OfflineWatchScreenProps } from '../../routes/main/mylist/offline/interface';
 import { IOfflineSeries } from '../../services/offline/';
@@ -8,7 +8,7 @@ import { useOfflineService } from '../../services/offline/offline.service';
 const OfflineScreen = ({}: OfflineWatchScreenProps) => {
   const { PageLayout, setInfo, setVisible } = useLayout();
   const [offlineSeries, setOfflineSeries] = useState<IOfflineSeries[]>([]);
-  const { getActiveDownloads, getAllOfflineSeries, clearOffline } =
+  const { activeDownloads, getAllOfflineSeries, clearOffline } =
     useOfflineService();
 
   const handleLoadingOffline = useCallback(async () => {
@@ -38,7 +38,14 @@ const OfflineScreen = ({}: OfflineWatchScreenProps) => {
       {offlineSeries.map(series => (
         <OfflineSeries key={series.seriesId} series={series} />
       ))}
-      <Text>{JSON.stringify(getActiveDownloads())}</Text>
+      <Text>{JSON.stringify(activeDownloads)}</Text>
+      {activeDownloads.map(download => (
+        <View>
+          <Text>{download.seriesId}</Text>
+          <Text>{download.episodeNumber}</Text>
+          <Text>{download.progress}</Text>
+        </View>
+      ))}
       <Button
         title={'Clear'}
         onPress={() => {

@@ -34,8 +34,6 @@ export const Episode = ({
   isWatched: boolean;
   episodeLength: number;
 }) => {
-  const [isDownloaded, setIsDownloaded] = useState(false);
-
   const { translate } = useTranslate();
   const { data, refetch } = useQuerySeriesEpisodePlayers(id, num);
   const [isSelected, setIsSelected] = useState(false);
@@ -46,9 +44,13 @@ export const Episode = ({
   const {
     userSettings: { preferredDownloadQuality },
   } = useUserSettingsService();
+  const { checkIfEpisodeIsDownloaded } = useOfflineService();
+
+  const [isDownloaded, setIsDownloaded] = useState(false);
 
   const openDetails = () => {
     setIsSelected(prev => !prev);
+    checkIfEpisodeIsDownloaded(id, num).then(res => setIsDownloaded(res));
   };
   loadProgress();
 

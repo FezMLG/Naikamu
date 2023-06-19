@@ -56,8 +56,8 @@ export const useOfflineService = () => {
   const actions = useDownloadsStore(state => state.actions);
 
   return {
+    activeDownloads: jobs,
     addOfflineSeries,
-    getActiveDownloads: () => jobs,
     getAllOfflineSeries,
     getOfflineEpisodes: async (seriesId: string) => {
       const series = await offlineStorage.getOfflineSeries(seriesId);
@@ -88,7 +88,10 @@ export const useOfflineService = () => {
       const progressDownload = async (
         res: RNFS.DownloadProgressCallbackResult,
       ) => {
-        console.log('progress download', res.bytesWritten / res.contentLength);
+        console.log(
+          'progress download',
+          Math.round((res.bytesWritten / res.contentLength) * 100),
+        );
         actions.changeProgress(jobId, res.bytesWritten / res.contentLength);
       };
 
@@ -110,6 +113,17 @@ export const useOfflineService = () => {
         console.log('job done', series);
         await offlineStorage.saveOrReplaceOfflineSeries(series);
       });
+    },
+    checkIfEpisodeIsDownloaded: async (
+      seriesId: string,
+      episodeNumber: number,
+    ): Promise<boolean> => {
+      const series = await offlineStorage.getOfflineSeries(seriesId);
+      if (!series) {
+        return false;
+      }
+      const episode = series.episodes.find(e => e.number === episodeNumber);
+      return !!episode;
     },
     deleteEpisodeOffline,
     deleteSeriesOffline,
