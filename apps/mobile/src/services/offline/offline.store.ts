@@ -1,9 +1,10 @@
 import { create } from 'zustand';
+import { IOfflineSeries, IOfflineSeriesEpisodes } from './interfaces';
 
 interface EpisodeDownloadJob {
   jobId: number;
-  seriesId: string;
-  episodeNumber: number;
+  series: IOfflineSeries;
+  episode: IOfflineSeriesEpisodes;
   progress?: number;
 }
 

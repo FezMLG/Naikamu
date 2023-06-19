@@ -41,8 +41,12 @@ const OfflineScreen = ({}: OfflineWatchScreenProps) => {
       <Text>{JSON.stringify(activeDownloads)}</Text>
       {activeDownloads.map(download => (
         <View>
-          <Text>{download.seriesId}</Text>
-          <Text>{download.episodeNumber}</Text>
+          <Text>{download.series.seriesId}</Text>
+          <Text>{download.series.title}</Text>
+          <Text>{download.episode.length}</Text>
+          <Text>{download.episode.title}</Text>
+          <Text>{download.episode.length}</Text>
+          <Text>{download.episode.translator}</Text>
           <Text>{download.progress}</Text>
         </View>
       ))}

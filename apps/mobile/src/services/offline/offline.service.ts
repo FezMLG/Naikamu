@@ -80,8 +80,8 @@ export const useOfflineService = () => {
         console.log('begin download');
         actions.addDownload({
           jobId: res.jobId,
-          seriesId,
-          episodeNumber: episode.number,
+          series,
+          episode,
         });
       };
 
