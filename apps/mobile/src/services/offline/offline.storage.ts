@@ -74,21 +74,30 @@ const saveOfflineEpisode = async (
 };
 
 //usuwa serie offline
-const removeOfflineSeries = async (seriesId: string) => {
-  const series = await getOfflineSeries(seriesId);
-
-  await storageStoreData(OFFLINE_SERIES_KEY, series);
+const deleteOfflineSeries = async (seriesId: string) => {
+  const allSeries = await getAllOfflineSeries();
+  const filteredSeries = allSeries.filter(e => e.seriesId !== seriesId);
+  if (!filteredSeries) {
+    throw new Error('Series not found ' + seriesId);
+  }
+  await storageStoreData(OFFLINE_SERIES_KEY, filteredSeries);
 };
 
 //usuwa odcinek offline
-const removeOfflineEpisode = async (
-  episodeId: string,
+const deleteOfflineEpisode = async (
+  seriesId: string,
   episodeNumber: number,
 ) => {
-  const seriesEpisodes = await getOfflineEpisodes(episodeId);
-
-  seriesEpisodes.filter(e => e.number !== episodeNumber);
-  await storageStoreData(OFFLINE_SERIES_KEY, seriesEpisodes);
+  const series = await getOfflineSeries(seriesId);
+  if (!series) {
+    throw new Error('Series not found ' + seriesId);
+  }
+  series.episodes = series.episodes.filter(e => e.number !== episodeNumber);
+  if (series.episodes.length === 0) {
+    await deleteOfflineSeries(seriesId);
+    return;
+  }
+  await saveOrReplaceOfflineSeries(series);
 };
 
 const clearOffline = async () => {
@@ -102,7 +111,7 @@ export const offlineStorage = {
   getOfflineEpisode,
   saveOrReplaceOfflineSeries,
   saveOfflineEpisode,
-  removeOfflineSeries,
-  removeOfflineEpisode,
+  deleteOfflineSeries,
+  deleteOfflineEpisode,
   clearOffline,
 };

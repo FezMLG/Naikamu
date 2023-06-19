@@ -9,6 +9,7 @@ import { Resolution } from '../../services/settings/interfaces';
 import { colors, fontStyles, globalStyle } from '../../styles';
 import { Button, Modal, SettingInputs, SettingsGroup } from '../../components';
 import { useUserSettingsService } from '../../services/settings/settings.service';
+import { useOfflineService } from '../../services';
 
 const QualityModal = ({
   isOpen,
@@ -60,6 +61,7 @@ const AppSettingsScreen = ({}: PlaybackSettingsScreenProps) => {
     preferredDownloadQuality,
   );
   const { updateUserSettings, userSettings } = useUserSettingsService();
+  const { clearOffline } = useOfflineService();
 
   const { translate } = useTranslate();
   const [isOpenP, setIsOpenP] = useState(false);
@@ -138,6 +140,13 @@ const AppSettingsScreen = ({}: PlaybackSettingsScreenProps) => {
             </Text>
           </>
         )}
+        <Button
+          label={'Clear'}
+          type={'primary'}
+          onPress={() => {
+            clearOffline();
+          }}
+        />
       </View>
     </SafeAreaView>
   );

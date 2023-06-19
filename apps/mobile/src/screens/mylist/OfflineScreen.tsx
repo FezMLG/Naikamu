@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Button, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { OfflineSeries, useLayout } from '../../components';
 import { OfflineWatchScreenProps } from '../../routes/main/mylist/offline/interface';
 import { IOfflineSeries } from '../../services/offline/';
@@ -8,8 +8,7 @@ import { useOfflineService } from '../../services/offline/offline.service';
 const OfflineScreen = ({}: OfflineWatchScreenProps) => {
   const { PageLayout, setInfo, setVisible } = useLayout();
   const [offlineSeries, setOfflineSeries] = useState<IOfflineSeries[]>([]);
-  const { activeDownloads, getAllOfflineSeries, clearOffline } =
-    useOfflineService();
+  const { activeDownloads, getAllOfflineSeries } = useOfflineService();
 
   const handleLoadingOffline = useCallback(async () => {
     try {
@@ -43,19 +42,13 @@ const OfflineScreen = ({}: OfflineWatchScreenProps) => {
         <View>
           <Text>{download.series.seriesId}</Text>
           <Text>{download.series.title}</Text>
-          <Text>{download.episode.length}</Text>
+          <Text>{download.episode.number}</Text>
           <Text>{download.episode.title}</Text>
           <Text>{download.episode.length}</Text>
           <Text>{download.episode.translator}</Text>
           <Text>{download.progress}</Text>
         </View>
       ))}
-      <Button
-        title={'Clear'}
-        onPress={() => {
-          clearOffline();
-        }}
-      />
     </PageLayout>
   );
 };

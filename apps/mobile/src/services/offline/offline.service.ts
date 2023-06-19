@@ -30,7 +30,8 @@ const deleteEpisodeOffline = async (
   if (!episode.pathToFile) {
     throw new Error('Episode not downloaded');
   }
-  await offlineFS.deleteFile(episode.pathToFile);
+  offlineFS.deleteFile(episode.pathToFile);
+  await offlineStorage.deleteOfflineEpisode(seriesId, episodeNumber);
 };
 
 const deleteSeriesOffline = async (seriesId: string) => {
@@ -41,7 +42,7 @@ const deleteSeriesOffline = async (seriesId: string) => {
   if (!series.episodes) {
     throw new Error('Series not downloaded');
   }
-  await Promise.all(
+  Promise.all(
     series.episodes.map(async episode => {
       if (!episode.pathToFile) {
         throw new Error('Episode not downloaded');
@@ -49,6 +50,7 @@ const deleteSeriesOffline = async (seriesId: string) => {
       await offlineFS.deleteFile(episode.pathToFile);
     }),
   );
+  await offlineStorage.deleteOfflineSeries(seriesId);
 };
 
 export const useOfflineService = () => {

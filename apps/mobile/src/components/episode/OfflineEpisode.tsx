@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Button, Pressable, StyleSheet, View } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
 import { Text } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -9,7 +9,10 @@ import { colors, defaultRadius, fontStyles } from '../../styles/global.style';
 // import { useTranslate } from '../../i18n/useTranslate';
 import { useNavigation } from '@react-navigation/native';
 import { ScreenNames } from '../../routes/main';
-import { IOfflineSeriesEpisodes } from '../../services/offline';
+import {
+  IOfflineSeriesEpisodes,
+  useOfflineService,
+} from '../../services/offline';
 import {
   createEpisodeProgressKey,
   useVideoProgress,
@@ -28,6 +31,7 @@ export const OfflineEpisode = ({
   const navigation = useNavigation<any>();
   const episodeKey = createEpisodeProgressKey(animeId, episode.number);
   const { progressMinutes, loadProgress } = useVideoProgress(episodeKey);
+  const { deleteEpisodeOffline } = useOfflineService();
 
   useEffect(() => {
     loadProgress();
@@ -36,48 +40,58 @@ export const OfflineEpisode = ({
   // const { translate } = useTranslate();
 
   return (
-    <View
-      style={[
-        styles.cardContainer,
-        !progressMinutes
-          ? {
-              borderBottomLeftRadius: defaultRadius,
-              borderBottomRightRadius: defaultRadius,
-            }
-          : null,
-      ]}>
-      <Pressable
-        style={[styles.innerCard]}
-        onPress={() =>
-          navigation.navigate(ScreenNames.WatchNative, {
-            uri: episode.pathToFile,
-            episodeTitle: episode.title,
-            episodeNumber: episode.number,
-            title: animeName,
-          })
-        }>
-        <View style={styles.titleRow}>
-          <Text numberOfLines={2} style={[styles.title, colors.textLight]}>
-            {episode.number + '. ' + episode.title}
-          </Text>
-          <Text numberOfLines={2} style={[fontStyles.label, colors.textLight]}>
-            {episode.length} min | {episode.translator} |{' '}
-            {humanFileSize(episode.size ?? 0)}
-          </Text>
-        </View>
-        <View style={styles.watchStatus}>
-          <Icon name={'play'} size={30} color={colors.textLight.color} />
-        </View>
-      </Pressable>
-      <ProgressBar
-        progress={progressMinutes / episode.length}
-        theme={{
-          colors: {
-            primary: colors.accent.color,
-          },
+    <>
+      <View
+        style={[
+          styles.cardContainer,
+          !progressMinutes
+            ? {
+                borderBottomLeftRadius: defaultRadius,
+                borderBottomRightRadius: defaultRadius,
+              }
+            : null,
+        ]}>
+        <Pressable
+          style={[styles.innerCard]}
+          onPress={() =>
+            navigation.navigate(ScreenNames.WatchNative, {
+              uri: episode.pathToFile,
+              episodeTitle: episode.title,
+              episodeNumber: episode.number,
+              title: animeName,
+            })
+          }>
+          <View style={styles.titleRow}>
+            <Text numberOfLines={2} style={[styles.title, colors.textLight]}>
+              {episode.number + '. ' + episode.title}
+            </Text>
+            <Text
+              numberOfLines={2}
+              style={[fontStyles.label, colors.textLight]}>
+              {episode.length} min | {episode.translator} |{' '}
+              {humanFileSize(episode.size ?? 0)}
+            </Text>
+          </View>
+          <View style={styles.watchStatus}>
+            <Icon name={'play'} size={30} color={colors.textLight.color} />
+          </View>
+        </Pressable>
+        <ProgressBar
+          progress={progressMinutes / episode.length}
+          theme={{
+            colors: {
+              primary: colors.accent.color,
+            },
+          }}
+        />
+      </View>
+      <Button
+        title={'Delete episode' + episode.number}
+        onPress={() => {
+          deleteEpisodeOffline(animeId, episode.number);
         }}
       />
-    </View>
+    </>
   );
 };
 
