@@ -1,8 +1,12 @@
-import { PermissionsAndroid } from 'react-native';
+import { PermissionsAndroid, Platform } from 'react-native';
 import RNFS from 'react-native-fs';
 
 const folderNamingStrategy = (seriesId: string) => {
-  return `${RNFS.ExternalStorageDirectoryPath}/Documents/AniWatch/downloads/${seriesId}`;
+  const base =
+    Platform.OS === 'android'
+      ? RNFS.ExternalStorageDirectoryPath
+      : RNFS.DocumentDirectoryPath;
+  return `${base}/Documents/AniWatch/downloads/${seriesId}`;
 };
 
 const fileNamingStrategy = (seriesId: string, fileName: string) => {
@@ -10,23 +14,29 @@ const fileNamingStrategy = (seriesId: string, fileName: string) => {
 };
 
 const grantPermissions = async () => {
-  await PermissionsAndroid.requestMultiple([
-    PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-    PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-  ]);
+  if (Platform.OS === 'android') {
+    await PermissionsAndroid.requestMultiple([
+      PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+      PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+    ]);
+  }
 };
 
 const checkPermissions = async () => {
-  const write = await PermissionsAndroid.check(
-    PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-  );
-  const read = await PermissionsAndroid.check(
-    PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-  );
-  if (!write || !read) {
-    await grantPermissions();
+  if (Platform.OS === 'android') {
+    const write = await PermissionsAndroid.check(
+      PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+    );
+    const read = await PermissionsAndroid.check(
+      PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+    );
+    if (!write || !read) {
+      await grantPermissions();
+    }
+    return write && read;
+  } else {
+    return true;
   }
-  return write && read;
 };
 
 const startDownloadingFile = async (

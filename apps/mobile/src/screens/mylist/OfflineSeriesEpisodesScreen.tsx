@@ -1,7 +1,7 @@
 import React from 'react';
 import { OfflineEpisode, useLayout } from '../../components';
 import { OfflineWatchSeriesEpisodesScreenProps } from '../../routes/main/mylist/offline/interface';
-import { Button, Text } from 'react-native';
+import { Button, ScrollView, Text } from 'react-native';
 import { useOfflineService } from '../../services';
 
 const OfflineSeriesEpisodesScreen = ({
@@ -20,16 +20,18 @@ const OfflineSeriesEpisodesScreen = ({
         }}
       />
       <Text>{title}</Text>
-      {episodes
-        .sort((a, b) => a.number - b.number)
-        .map(episode => (
-          <OfflineEpisode
-            key={episode.number}
-            animeId={seriesId}
-            animeName={title}
-            episode={episode}
-          />
-        ))}
+      <ScrollView>
+        {episodes
+          .sort((a, b) => a.number - b.number)
+          .map(episode => (
+            <OfflineEpisode
+              key={episode.number}
+              animeId={seriesId}
+              animeName={title}
+              episode={episode}
+            />
+          ))}
+      </ScrollView>
     </PageLayout>
   );
 };

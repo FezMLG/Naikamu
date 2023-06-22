@@ -85,12 +85,12 @@ export const OfflineEpisode = ({
           }}
         />
       </View>
-      <Button
+      {/* <Button
         title={'Delete episode' + episode.number}
         onPress={() => {
           deleteEpisodeOffline(animeId, episode.number);
         }}
-      />
+      /> */}
     </>
   );
 };
