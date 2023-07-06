@@ -11,6 +11,7 @@ import { BrowseScreenProps, ScreenNames } from '../routes/main';
 import { SeasonYearSelectButtons } from '../components';
 import { useQuerySeriesList } from '../api/hooks';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import { colors } from '../styles';
 
 const BrowseScreen = ({ navigation }: BrowseScreenProps) => {
   const CONTENT_OFFSET_THRESHOLD = 300;
@@ -64,6 +65,7 @@ const BrowseScreen = ({ navigation }: BrowseScreenProps) => {
             <FAB
               icon={'arrow-up-circle'}
               style={styles.fab}
+              color="white"
               onPress={() => {
                 listRef.current?.scrollToOffset({ offset: 0, animated: true });
               }}
@@ -84,7 +86,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     margin: 16,
     right: 0,
-    bottom: 120,
+    bottom: 80,
+    backgroundColor: colors.accent.color,
   },
   flatList: {
     marginTop: 10,
