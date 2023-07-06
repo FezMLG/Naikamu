@@ -55,6 +55,7 @@ export const OfflineEpisode = ({
           borderRadius: defaultRadius,
         }}
         onPress={() => {
+          console.log('delete episode', animeId, episode.number);
           deleteEpisodeOffline(animeId, episode.number);
         }}>
         <Icon

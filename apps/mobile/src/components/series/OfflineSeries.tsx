@@ -60,7 +60,7 @@ export const OfflineSeries = ({ series }: { series: IOfflineSeries }) => {
           type="secondary"
           onPress={() => {
             console.log('delete', seriesId);
-            // deleteSeriesOffline(seriesId);
+            deleteSeriesOffline(seriesId);
             setModalVisible(false);
           }}
         />
