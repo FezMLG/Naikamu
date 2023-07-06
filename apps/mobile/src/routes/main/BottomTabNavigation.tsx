@@ -100,11 +100,7 @@ export const BottomTabNavigation = () => {
           );
         },
         tabBarStyle: {
-          borderRadius: 8,
-          marginBottom: 15,
           height: 70,
-          width: maxWidth() - 20,
-          marginHorizontal: 10,
           position: 'absolute',
           backgroundColor: '#3A3A3C',
         },
