@@ -5,7 +5,12 @@ import { Text } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { darkColor } from '../../styles/darkMode.style';
-import { colors, defaultRadius, fontStyles } from '../../styles/global.style';
+import {
+  colors,
+  defaultRadius,
+  fontStyles,
+  globalStyle,
+} from '../../styles/global.style';
 // import { useTranslate } from '../../i18n/useTranslate';
 import { useNavigation } from '@react-navigation/native';
 import { ScreenNames } from '../../routes/main';
@@ -63,7 +68,9 @@ export const OfflineEpisode = ({
   };
 
   return (
-    <Swipeable renderRightActions={rightSwipeActions}>
+    <Swipeable
+      renderRightActions={rightSwipeActions}
+      containerStyle={globalStyle.spacerSmall}>
       <View
         style={[
           styles.cardContainer,
