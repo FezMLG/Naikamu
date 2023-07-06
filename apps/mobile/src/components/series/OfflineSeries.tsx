@@ -6,45 +6,66 @@ import {
   OfflineWatchParamList,
   OfflineWatchScreenNames,
 } from '../../routes/main/mylist/offline/interface';
-import { IOfflineSeries } from '../../services';
+import { IOfflineSeries, useOfflineService } from '../../services';
 import { globalStyle, fontStyles, colors, defaultRadius } from '../../styles';
 import { ProgressiveImage } from '../ProgressiveImage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { humanFileSize } from '../../utils/humanFileSize';
+import { Button, Modal } from '../atoms';
 
 export const OfflineSeries = ({ series }: { series: IOfflineSeries }) => {
-  const { title, episodes, quality } = series;
+  const { seriesId, title, episodes, quality } = series;
   const navigation = useNavigation<NavigationProp<OfflineWatchParamList>>();
+  const { deleteSeriesOffline } = useOfflineService();
+  const [modalVisible, setModalVisible] = React.useState(false);
 
   return (
-    <Pressable
-      style={[styles.seriesContainer, globalStyle.spacer]}
-      onPress={() =>
-        navigation.navigate(OfflineWatchScreenNames.OfflineEpisodes, series)
-      }>
-      <ProgressiveImage
-        source={'https://i.imgur.com/2nCt3Sbl.jpg'}
-        style={[styles.poster]}
-      />
-      <View style={[styles.details]}>
-        <Text style={[styles.title, fontStyles.headerSmall, colors.textLight]}>
-          {title}
-        </Text>
-        <Text style={[fontStyles.label]}>
-          Episodes: {episodes.length} |{' '}
-          {humanFileSize(
-            episodes.reduce((partialSum, a) => partialSum + a.size, 0),
-          )}{' '}
-          | {quality}
-        </Text>
-      </View>
-      <Icon
-        name={'chevron-left'}
-        size={36}
-        color={'white'}
-        style={styles.chevronIcon}
-      />
-    </Pressable>
+    <>
+      <Pressable
+        style={[styles.seriesContainer, globalStyle.spacer]}
+        onPress={() =>
+          navigation.navigate(OfflineWatchScreenNames.OfflineEpisodes, series)
+        }
+        onLongPress={() => {
+          setModalVisible(true);
+        }}>
+        <ProgressiveImage
+          source={'https://i.imgur.com/2nCt3Sbl.jpg'}
+          style={[styles.poster]}
+        />
+        <View style={[styles.details]}>
+          <Text
+            style={[styles.title, fontStyles.headerSmall, colors.textLight]}>
+            {title}
+          </Text>
+          <Text style={[fontStyles.label, colors.textLight]}>
+            Episodes: {episodes.length} |{' '}
+            {humanFileSize(
+              episodes.reduce((partialSum, a) => partialSum + a.size, 0),
+            )}{' '}
+            | {quality}
+          </Text>
+        </View>
+        <Icon
+          name={'chevron-left'}
+          size={36}
+          color={'white'}
+          style={styles.chevronIcon}
+        />
+      </Pressable>
+      <Modal.Container setIsOpen={setModalVisible} isOpen={modalVisible}>
+        <Modal.Title title={title} />
+        <Button
+          label={'Delete'}
+          type="secondary"
+          onPress={() => {
+            console.log('delete', seriesId);
+            // deleteSeriesOffline(seriesId);
+            setModalVisible(false);
+          }}
+        />
+      </Modal.Container>
+    </>
   );
 };
 

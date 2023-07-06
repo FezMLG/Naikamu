@@ -1,25 +1,21 @@
 import React from 'react';
 import { OfflineEpisode, useLayout } from '../../components';
 import { OfflineWatchSeriesEpisodesScreenProps } from '../../routes/main/mylist/offline/interface';
-import { Button, ScrollView, Text } from 'react-native';
-import { useOfflineService } from '../../services';
+import { ScrollView, Text } from 'react-native';
+import { colors, fontStyles, globalStyle } from '../../styles';
 
 const OfflineSeriesEpisodesScreen = ({
   route,
 }: OfflineWatchSeriesEpisodesScreenProps) => {
   const { seriesId, title, episodes } = route.params;
   const { PageLayout } = useLayout();
-  const { deleteSeriesOffline } = useOfflineService();
 
   return (
     <PageLayout>
-      <Button
-        title={'Delete series'}
-        onPress={() => {
-          deleteSeriesOffline(seriesId);
-        }}
-      />
-      <Text>{title}</Text>
+      <Text
+        style={[fontStyles.header, colors.textLight, globalStyle.spacerSmall]}>
+        {title}
+      </Text>
       <ScrollView>
         {episodes
           .sort((a, b) => a.number - b.number)

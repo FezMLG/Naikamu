@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Pressable, StyleSheet, View } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
 import { Text } from 'react-native';
@@ -18,6 +18,7 @@ import {
   useVideoProgress,
 } from '../../services/useVideoProgress';
 import { humanFileSize } from '../../utils/humanFileSize';
+import { Swipeable } from 'react-native-gesture-handler';
 
 export const OfflineEpisode = ({
   episode,
@@ -39,8 +40,30 @@ export const OfflineEpisode = ({
 
   // const { translate } = useTranslate();
 
+  const rightSwipeActions = () => {
+    return (
+      <Pressable
+        style={{
+          backgroundColor: colors.error.color,
+          justifyContent: 'center',
+          alignItems: 'flex-end',
+          borderRadius: defaultRadius,
+        }}
+        onPress={() => {
+          deleteEpisodeOffline(animeId, episode.number);
+        }}>
+        <Icon
+          name={'trash-can-outline'}
+          size={30}
+          color={colors.textLight.color}
+          style={{ paddingHorizontal: 16 }}
+        />
+      </Pressable>
+    );
+  };
+
   return (
-    <>
+    <Swipeable renderRightActions={rightSwipeActions}>
       <View
         style={[
           styles.cardContainer,
@@ -51,16 +74,19 @@ export const OfflineEpisode = ({
               }
             : null,
         ]}>
-        <Pressable
-          style={[styles.innerCard]}
-          onPress={() =>
-            navigation.navigate(ScreenNames.WatchNative, {
-              uri: episode.pathToFile,
-              episodeTitle: episode.title,
-              episodeNumber: episode.number,
-              title: animeName,
-            })
-          }>
+        <View style={[styles.innerCard]}>
+          <Pressable
+            style={styles.watchStatus}
+            onPress={() =>
+              navigation.navigate(ScreenNames.WatchNative, {
+                uri: episode.pathToFile,
+                episodeTitle: episode.title,
+                episodeNumber: episode.number,
+                title: animeName,
+              })
+            }>
+            <Icon name={'play'} size={30} color={colors.textLight.color} />
+          </Pressable>
           <View style={styles.titleRow}>
             <Text numberOfLines={2} style={[styles.title, colors.textLight]}>
               {episode.number + '. ' + episode.title}
@@ -72,10 +98,7 @@ export const OfflineEpisode = ({
               {humanFileSize(episode.size ?? 0)}
             </Text>
           </View>
-          <View style={styles.watchStatus}>
-            <Icon name={'play'} size={30} color={colors.textLight.color} />
-          </View>
-        </Pressable>
+        </View>
         <ProgressBar
           progress={progressMinutes / episode.length}
           theme={{
@@ -85,13 +108,7 @@ export const OfflineEpisode = ({
           }}
         />
       </View>
-      {/* <Button
-        title={'Delete episode' + episode.number}
-        onPress={() => {
-          deleteEpisodeOffline(animeId, episode.number);
-        }}
-      /> */}
-    </>
+    </Swipeable>
   );
 };
 
@@ -109,6 +126,7 @@ const styles = StyleSheet.create({
   watchStatus: {
     padding: 10,
     alignItems: 'center',
+    width: 70,
   },
   title: {
     fontWeight: 'bold',
@@ -118,7 +136,6 @@ const styles = StyleSheet.create({
   innerCard: {
     width: '100%',
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
   },
   cardContainer: {
@@ -128,7 +145,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderStyle: 'solid',
     borderColor: darkColor.C800,
-    marginVertical: 16,
+    backgroundColor: darkColor.C900,
   },
   linksContainer: {
     width: '100%',

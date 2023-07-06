@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
-import { OfflineSeries, useLayout } from '../../components';
+import { Pressable, Text, View } from 'react-native';
+import { Modal, OfflineSeries, useLayout } from '../../components';
 import { OfflineWatchScreenProps } from '../../routes/main/mylist/offline/interface';
 import { IOfflineSeries } from '../../services/offline/';
 import { useOfflineService } from '../../services/offline/offline.service';
