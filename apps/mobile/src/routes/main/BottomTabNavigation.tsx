@@ -100,8 +100,6 @@ export const BottomTabNavigation = () => {
           );
         },
         tabBarStyle: {
-          height: 70,
-          position: 'absolute',
           backgroundColor: '#3A3A3C',
         },
         tabBarItemStyle: {
@@ -109,6 +107,7 @@ export const BottomTabNavigation = () => {
           marginHorizontal: 8,
           borderRadius: defaultRadius,
           paddingVertical: 5,
+          height: 50,
         },
         tabBarInactiveTintColor: 'white',
         tabBarActiveTintColor: 'white',
