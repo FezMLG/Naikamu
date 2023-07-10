@@ -1,14 +1,15 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { Pressable, Text, View } from 'react-native';
-import { Modal, OfflineSeries, useLayout } from '../../components';
+import React, { useCallback, useEffect } from 'react';
+import { Text, View } from 'react-native';
+import { OfflineSeries, useLayout } from '../../components';
 import { OfflineWatchScreenProps } from '../../routes/main/mylist/offline/interface';
-import { IOfflineSeries } from '../../services/offline/';
 import { useOfflineService } from '../../services/offline/offline.service';
+import { ProgressBar } from 'react-native-paper';
+import { colors } from '../../styles';
 
 const OfflineScreen = ({}: OfflineWatchScreenProps) => {
   const { PageLayout, setInfo, setVisible } = useLayout();
-  const [offlineSeries, setOfflineSeries] = useState<IOfflineSeries[]>([]);
-  const { activeDownloads, getAllOfflineSeries } = useOfflineService();
+  const { activeDownloads, offlineSeries, getAllOfflineSeries, offlineStore } =
+    useOfflineService();
 
   const handleLoadingOffline = useCallback(async () => {
     try {
@@ -26,26 +27,37 @@ const OfflineScreen = ({}: OfflineWatchScreenProps) => {
     (async () => {
       const offline = await handleLoadingOffline();
       if (offline) {
-        setOfflineSeries(offline);
+        offlineStore.setSeriesList(offline);
       }
     })();
-  }, [handleLoadingOffline]);
+  }, []);
 
   return (
     <PageLayout>
       {/* <Icon name={'pencil-outline'} size={36} color={'white'} /> */}
-      {offlineSeries.map(series => (
-        <OfflineSeries key={series.seriesId} series={series} />
-      ))}
-      <Text>{JSON.stringify(activeDownloads)}</Text>
-      {activeDownloads.map(download => (
-        <View>
+      {offlineSeries
+        .filter(series => series.episodes.length !== 0)
+        .map(series => (
+          <OfflineSeries key={series.seriesId} series={series} />
+        ))}
+      {activeDownloads.map((download, index) => (
+        <View key={index}>
           <Text>{download.series.seriesId}</Text>
           <Text>{download.series.title}</Text>
-          <Text>{download.episode.number}</Text>
-          <Text>{download.episode.title}</Text>
-          <Text>{download.episode.length}</Text>
-          <Text>{download.episode.translator}</Text>
+          <Text>
+            {download.episode.number}. {download.episode.title}
+          </Text>
+          <Text>
+            {download.episode.length} | {download.episode.translator}
+          </Text>
+          <ProgressBar
+            animatedValue={download.progress}
+            theme={{
+              colors: {
+                primary: colors.accent.color,
+              },
+            }}
+          />
           <Text>{download.progress}</Text>
         </View>
       ))}

@@ -48,18 +48,21 @@ const getOfflineEpisode = async (
 };
 
 //zapisuje serie offline
-const saveOrReplaceOfflineSeries = async (seriesToAdd: IOfflineSeries) => {
+const saveOrReplaceOfflineSeries = async (
+  seriesToAdd: IOfflineSeries,
+): Promise<IOfflineSeries[]> => {
   const series = await getAllOfflineSeries();
   const exist = series.filter(e => e.seriesId === seriesToAdd.seriesId);
   if (exist.length > 0) {
     const whiteout = series.filter(e => e.seriesId !== seriesToAdd.seriesId);
     whiteout.push(seriesToAdd);
     await storageStoreData(OFFLINE_SERIES_KEY, whiteout);
-  } else {
-    console.log(series);
-    series.push(seriesToAdd);
-    await storageStoreData(OFFLINE_SERIES_KEY, series);
+    return whiteout;
   }
+  console.log(series);
+  series.push(seriesToAdd);
+  await storageStoreData(OFFLINE_SERIES_KEY, series);
+  return series;
 };
 
 //zapisuje odcinek offline
@@ -74,20 +77,23 @@ const saveOfflineEpisode = async (
 };
 
 //usuwa serie offline
-const deleteOfflineSeries = async (seriesId: string) => {
+const deleteOfflineSeries = async (
+  seriesId: string,
+): Promise<IOfflineSeries[]> => {
   const allSeries = await getAllOfflineSeries();
   const filteredSeries = allSeries.filter(e => e.seriesId !== seriesId);
   if (!filteredSeries) {
     throw new Error('Series not found ' + seriesId);
   }
   await storageStoreData(OFFLINE_SERIES_KEY, filteredSeries);
+  return filteredSeries;
 };
 
 //usuwa odcinek offline
 const deleteOfflineEpisode = async (
   seriesId: string,
   episodeNumber: number,
-) => {
+): Promise<IOfflineSeries[]> => {
   const series = await getOfflineSeries(seriesId);
   if (!series) {
     throw new Error('Series not found ' + seriesId);
@@ -95,9 +101,8 @@ const deleteOfflineEpisode = async (
   series.episodes = series.episodes.filter(e => e.number !== episodeNumber);
   if (series.episodes.length === 0) {
     await deleteOfflineSeries(seriesId);
-    return;
   }
-  await saveOrReplaceOfflineSeries(series);
+  return saveOrReplaceOfflineSeries(series);
 };
 
 const clearOffline = async () => {

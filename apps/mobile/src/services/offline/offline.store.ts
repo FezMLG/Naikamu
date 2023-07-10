@@ -1,43 +1,23 @@
 import { create } from 'zustand';
-import { IOfflineSeries, IOfflineSeriesEpisodes } from './interfaces';
+import { IOfflineSeries } from './interfaces';
 
-interface EpisodeDownloadJob {
-  jobId: number;
-  series: IOfflineSeries;
-  episode: IOfflineSeriesEpisodes;
-  progress?: number;
-}
-
-interface DownloadsState {
-  activeDownloads: EpisodeDownloadJob[];
+interface OfflineSeriesState {
+  offlineSeries: IOfflineSeries[];
   actions: {
-    addDownload: (job: EpisodeDownloadJob) => void;
-    removeDownload: (jobId: number) => void;
-    changeProgress: (jobId: number, progress: number) => void;
+    setSeriesList: (seriesList: IOfflineSeries[]) => void;
   };
 }
 
-export const useDownloadsStore = create<DownloadsState>(set => ({
-  activeDownloads: [],
+export const useOfflineSeriesStore = create<OfflineSeriesState>((set, get) => ({
+  offlineSeries: [],
   actions: {
-    addDownload: job => {
-      set(state => ({
-        activeDownloads: [...state.activeDownloads, job],
-      }));
+    setSeriesList: seriesList => {
+      set({
+        offlineSeries: seriesList,
+      });
     },
-    removeDownload: jobId => {
-      set(state => ({
-        activeDownloads: state.activeDownloads.filter(
-          job => job.jobId !== jobId,
-        ),
-      }));
-    },
-    changeProgress: (jobId, progress) => {
-      set(state => ({
-        activeDownloads: state.activeDownloads.map(job =>
-          job.jobId === jobId ? { ...job, progress } : job,
-        ),
-      }));
+    getOfflineEpisodes: (seriesId: string) => {
+      return get().offlineSeries.find(series => series.seriesId === seriesId);
     },
   },
 }));
