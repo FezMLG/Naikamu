@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { IOfflineSeries, IOfflineSeriesEpisodes } from './interfaces';
 
-interface EpisodeDownloadJob {
+export interface IEpisodeDownloadJob {
   jobId: number;
   series: IOfflineSeries;
   episode: IOfflineSeriesEpisodes;
@@ -9,9 +9,9 @@ interface EpisodeDownloadJob {
 }
 
 interface DownloadsState {
-  activeDownloads: EpisodeDownloadJob[];
+  activeDownloads: IEpisodeDownloadJob[];
   actions: {
-    addDownload: (job: EpisodeDownloadJob) => void;
+    addDownload: (job: IEpisodeDownloadJob) => void;
     removeDownload: (jobId: number) => void;
     changeProgress: (jobId: number, progress: number) => void;
   };

@@ -1,10 +1,8 @@
 import React, { useCallback, useEffect } from 'react';
-import { Text, View } from 'react-native';
-import { OfflineSeries, useLayout } from '../../components';
+import { ActiveDownload, OfflineSeries, useLayout } from '../../components';
 import { OfflineWatchScreenProps } from '../../routes/main/mylist/offline/interface';
 import { useOfflineService } from '../../services/offline/offline.service';
-import { ProgressBar } from 'react-native-paper';
-import { colors } from '../../styles';
+import { ScrollView } from 'react-native';
 
 const OfflineScreen = ({}: OfflineWatchScreenProps) => {
   const { PageLayout, setInfo, setVisible } = useLayout();
@@ -35,32 +33,16 @@ const OfflineScreen = ({}: OfflineWatchScreenProps) => {
   return (
     <PageLayout>
       {/* <Icon name={'pencil-outline'} size={36} color={'white'} /> */}
-      {offlineSeries
-        .filter(series => series.episodes.length !== 0)
-        .map(series => (
-          <OfflineSeries key={series.seriesId} series={series} />
+      <ScrollView>
+        {offlineSeries
+          .filter(series => series.episodes.length !== 0)
+          .map(series => (
+            <OfflineSeries key={series.seriesId} series={series} />
+          ))}
+        {activeDownloads.map((download, index) => (
+          <ActiveDownload key={index} download={download} />
         ))}
-      {activeDownloads.map((download, index) => (
-        <View key={index}>
-          <Text>{download.series.seriesId}</Text>
-          <Text>{download.series.title}</Text>
-          <Text>
-            {download.episode.number}. {download.episode.title}
-          </Text>
-          <Text>
-            {download.episode.length} | {download.episode.translator}
-          </Text>
-          <ProgressBar
-            animatedValue={download.progress}
-            theme={{
-              colors: {
-                primary: colors.accent.color,
-              },
-            }}
-          />
-          <Text>{download.progress}</Text>
-        </View>
-      ))}
+      </ScrollView>
     </PageLayout>
   );
 };

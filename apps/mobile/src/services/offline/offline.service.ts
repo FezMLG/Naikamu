@@ -2,7 +2,7 @@ import RNFS from 'react-native-fs';
 import { IOfflineSeries, IOfflineSeriesEpisodes } from './interfaces';
 import { offlineFS } from './offline.fs';
 import { offlineStorage } from './offline.storage';
-import { useDownloadsStore } from './downloads.store';
+import { IEpisodeDownloadJob, useDownloadsStore } from './downloads.store';
 import { useOfflineSeriesStore } from './offline.store';
 
 export const useOfflineService = () => {
@@ -136,6 +136,11 @@ export const useOfflineService = () => {
         .then(saved => {
           offlineActions.setSeriesList(saved);
         });
+    },
+    stopDownload: async (download: IEpisodeDownloadJob) => {
+      const { jobId } = download;
+      await offlineFS.stopDownloadingFile(jobId);
+      downloadsActions.removeDownload(jobId);
     },
     clearOffline: async () => {
       offlineStorage.clearOffline();

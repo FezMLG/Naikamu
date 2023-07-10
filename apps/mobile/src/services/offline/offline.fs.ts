@@ -1,12 +1,13 @@
 import { PermissionsAndroid, Platform } from 'react-native';
 import RNFS from 'react-native-fs';
+import { IEpisodeDownloadJob } from './downloads.store';
 
 const folderNamingStrategy = (seriesId: string) => {
   switch (Platform.OS) {
     case 'android':
       return `${RNFS.ExternalStorageDirectoryPath}/AniWatch/downloads/${seriesId}`;
     case 'ios':
-      return `${RNFS.DocumentDirectoryPath}/AniWatch/downloads/${seriesId}`;
+      return `${RNFS.DocumentDirectoryPath}/downloads/${seriesId}`;
     default:
       return `${RNFS.DocumentDirectoryPath}/AniWatch/downloads/${seriesId}`;
   }
@@ -73,6 +74,10 @@ const startDownloadingFile = async (
   return [pathToFile, job.jobId, job.promise];
 };
 
+const stopDownloadingFile = async (jobId: number) => {
+  RNFS.stopDownload(jobId);
+};
+
 const deleteFile = async (path: string) => {
   await RNFS.unlink(path)
     .then(() => {
@@ -86,5 +91,6 @@ const deleteFile = async (path: string) => {
 
 export const offlineFS = {
   startDownloadingFile,
+  stopDownloadingFile,
   deleteFile,
 };
