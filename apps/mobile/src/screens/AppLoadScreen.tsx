@@ -83,7 +83,8 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
       <View style={[globalStyle.spacerBig]} />
       <ActivityIndicator size={'large'} visible={true} />
       {longLoading && (
-        <Text style={[fontStyles.text, globalStyle.textCenter]}>
+        <Text
+          style={[fontStyles.text, colors.textLight, globalStyle.textCenter]}>
           {translate('welcomeScreen.apiLoading')}
         </Text>
       )}
@@ -101,13 +102,22 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
               fontStyles.text,
               fontStyles.underline,
               globalStyle.textCenter,
+              colors.textLight,
             ]}>
             {translate('welcomeScreen.apiContact')}
           </Text>
         </Pressable>
       )}
-      {apiCheck.isError ?? <Text>{JSON.stringify(apiCheck.error)}</Text>}
-      {Config.ENV !== 'prod' && <Text>api_url: {Config.API_URL}</Text>}
+      {apiCheck.isError ?? (
+        <Text style={[fontStyles.text, colors.textLight]}>
+          {JSON.stringify(apiCheck.error)}
+        </Text>
+      )}
+      {Config.ENV !== 'prod' && (
+        <Text style={[fontStyles.text, colors.textLight]}>
+          api_url: {Config.API_URL}
+        </Text>
+      )}
     </SafeAreaView>
   );
 };
