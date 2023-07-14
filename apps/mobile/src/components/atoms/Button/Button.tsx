@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleProp, ViewStyle } from 'react-native';
+import { StyleProp, TextStyle, ViewStyle } from 'react-native';
 import {
   GestureResponderEvent,
   Pressable,
@@ -29,34 +29,34 @@ export const Button = ({
   style = [],
   loading = false,
 }: ButtonProps) => {
-  let textStyle = colors.textLight;
-  let buttonColor = colors.accent;
-  let buttonBorder = { ...styles.borderBase, borderColor: 'transparent' };
+  const textStyle: StyleProp<TextStyle> = {
+    ...colors.textLight,
+    fontWeight: 'bold',
+  };
+  const buttonStyle: StyleProp<ViewStyle> = {
+    backgroundColor: colors.accent.color,
+    ...styles.borderBase,
+    borderColor: 'transparent',
+  };
   switch (type) {
     case 'secondary':
-      textStyle = colors.textDark;
-      buttonColor = colors.onBackground;
+      textStyle.color = colors.textDark.color;
+      buttonStyle.backgroundColor = colors.onBackground.color;
       break;
     case 'warning':
-      textStyle = colors.textLight;
-      buttonColor = colors.transparent;
-      buttonBorder.borderColor = colors.error.color;
+      buttonStyle.backgroundColor = colors.transparent.color;
+      buttonStyle.borderColor = colors.error.color;
       break;
     case 'link':
-      textStyle = colors.textLight;
-      buttonColor = colors.transparent;
+      textStyle.fontWeight = 'normal';
+      buttonStyle.backgroundColor = colors.transparent.color;
       break;
   }
 
   return (
     <Pressable
       onPress={onPress}
-      style={[
-        styles.container,
-        { backgroundColor: buttonColor.color },
-        ...style,
-        buttonBorder,
-      ]}
+      style={[styles.container, ...style, buttonStyle]}
       disabled={disabled}>
       {loading ? (
         <ActivityIndicator visible={loading} size={'small'} />
