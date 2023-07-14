@@ -141,7 +141,7 @@ const AppSettingsScreen = ({}: PlaybackSettingsScreenProps) => {
           </>
         )}
         <Button
-          label={'Clear'}
+          label={'Clear downloads'}
           type={'primary'}
           onPress={() => {
             clearOffline();
