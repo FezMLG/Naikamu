@@ -15,6 +15,7 @@ export const plSettings = {
       accountDetails: 'Ustawienia konta',
       videoPlayback: 'Odtwarzanie wideo',
       dangerZone: 'Niebezpieczna strefa',
+      videoDownload: 'Pobieranie wideo',
     },
     titles: {
       videoQuality: 'Jakość wideo',
