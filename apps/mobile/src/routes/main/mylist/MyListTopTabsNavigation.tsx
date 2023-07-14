@@ -3,10 +3,13 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { MyListParamList, MyListScreenNames } from './interface';
 import { colors } from '../../../styles';
 import OfflineStack from './offline/OfflineStack';
+import { useTranslate } from '../../../i18n/useTranslate';
 
 const Tab = createMaterialTopTabNavigator<MyListParamList>();
 
 export const MyListStack = () => {
+  const { translate } = useTranslate();
+
   return (
     <Tab.Navigator
       initialRouteName={MyListScreenNames.OfflineStack}
@@ -17,6 +20,9 @@ export const MyListStack = () => {
       <Tab.Screen
         name={MyListScreenNames.OfflineStack}
         component={OfflineStack}
+        options={{
+          title: translate('routes.' + MyListScreenNames.OfflineStack),
+        }}
       />
     </Tab.Navigator>
   );

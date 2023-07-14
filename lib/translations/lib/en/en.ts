@@ -13,6 +13,7 @@ export const en = {
     ActionConfirm: 'Confirm Action',
     SearchResults: 'Search Results',
     MyListStack: 'My List',
+    OfflineStack: 'Offline',
   },
   forms: {
     save: 'Save',
@@ -150,6 +151,11 @@ export const en = {
         'This version of the app is no longer supported, please update to the newest version.',
       action: 'Go to download',
       actionAlt: 'Help',
+    },
+  },
+  myList: {
+    common: {
+      episodes: 'Episodes',
     },
   },
 };

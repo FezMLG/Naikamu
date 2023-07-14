@@ -12,22 +12,28 @@ import { useTranslate } from '../../i18n/useTranslate';
 import { StyleSheet, Text } from 'react-native';
 import SettingsStack from '../settings/SettingsStack';
 import { SettingsScreenNames } from '../settings/interfaces';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {
+  BottomTabNavigationOptions,
+  createBottomTabNavigator,
+} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { maxWidth } from '../../components/maxDimensions';
 import { MyListStack } from './mylist/MyListTopTabsNavigation';
-import { defaultRadius } from '../../styles';
+import { colors, defaultRadius } from '../../styles';
 
-export const defaultHeaderOptions = ({ title }: { title?: string }) => {
+export const defaultHeaderOptions = ({
+  title,
+}: {
+  title?: string;
+}): BottomTabNavigationOptions => {
   return {
     title: title,
     headerTitleStyle: {
       fontFamily: 'Catamaran-Black',
       fontSize: 36,
+      lineHeight: 48,
     },
     headerStyle: {
-      backgroundColor: 'none',
-      height: 80,
+      backgroundColor: colors.background.color,
     },
     headerLeft: () => <></>,
   };

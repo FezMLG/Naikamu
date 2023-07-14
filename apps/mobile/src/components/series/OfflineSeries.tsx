@@ -12,8 +12,10 @@ import { ProgressiveImage } from '../ProgressiveImage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { humanFileSize } from '../../utils/humanFileSize';
 import { Button, Modal } from '../atoms';
+import { useTranslate } from '../../i18n/useTranslate';
 
 export const OfflineSeries = ({ series }: { series: IOfflineSeries }) => {
+  const { translate } = useTranslate();
   const { seriesId, title, episodes, quality } = series;
   const navigation = useNavigation<NavigationProp<OfflineWatchParamList>>();
   const { deleteSeriesOffline } = useOfflineService();
@@ -39,7 +41,7 @@ export const OfflineSeries = ({ series }: { series: IOfflineSeries }) => {
             {title}
           </Text>
           <Text style={[fontStyles.label, colors.textLight]}>
-            Episodes: {episodes.length} |{' '}
+            {translate('myList.common.episodes')}: {episodes.length} |{' '}
             {humanFileSize(
               episodes.reduce((partialSum, a) => partialSum + a.size, 0),
             )}{' '}

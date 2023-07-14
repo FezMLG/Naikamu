@@ -13,6 +13,7 @@ export const pl = {
     ActionConfirm: 'Potwierdź Akcję',
     SearchResults: 'Wyniki wyszukiwania',
     MyListStack: 'Moja lista',
+    OfflineStack: 'Pobrane',
   },
   forms: {
     save: 'Zapisz',
@@ -151,6 +152,11 @@ export const pl = {
         'Ta wersja aplikacji nie jest już wspierana. Wymagana aktualizacja aplikacji, aby kontynuować korzystanie z AniWatch.',
       action: 'Zaktualizuj',
       actionAlt: 'Pomoc',
+    },
+  },
+  myList: {
+    common: {
+      episodes: 'Epizody',
     },
   },
 };

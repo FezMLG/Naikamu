@@ -8,7 +8,7 @@ import { Media } from '@aniwatch/shared';
 import BrowseElement from '../components/browse/BrowseElement';
 import { maxWidth } from '../components/maxDimensions';
 import { BrowseScreenProps, ScreenNames } from '../routes/main';
-import { SeasonYearSelectButtons } from '../components';
+import { SeasonYearSelectButtons, useLayout } from '../components';
 import { useQuerySeriesList } from '../api/hooks';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { colors } from '../styles';
@@ -19,6 +19,7 @@ const BrowseScreen = ({ navigation }: BrowseScreenProps) => {
   const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
   const { api, season, year, setSeason, setYear } = useQuerySeriesList();
   const tabHeight = useBottomTabBarHeight();
+  const { PageLayout } = useLayout();
 
   const renderItem = ({ item }: { item: Media }) => (
     <BrowseElement
@@ -81,6 +82,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    backgroundColor: colors.background.color,
+    marginHorizontal: 0,
+  },
+  flatList: {
+    marginTop: 10,
   },
   fab: {
     position: 'absolute',
@@ -88,9 +94,6 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 80,
     backgroundColor: colors.accent.color,
-  },
-  flatList: {
-    marginTop: 10,
   },
   flatListContent: {
     flexGrow: 1,
