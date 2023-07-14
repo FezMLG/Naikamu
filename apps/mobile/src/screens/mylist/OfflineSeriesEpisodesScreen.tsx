@@ -12,10 +12,6 @@ const OfflineSeriesEpisodesScreen = ({
 
   return (
     <PageLayout>
-      <Text
-        style={[fontStyles.header, colors.textLight, globalStyle.spacerSmall]}>
-        {title}
-      </Text>
       <ScrollView>
         {episodes
           .sort((a, b) => a.number - b.number)
