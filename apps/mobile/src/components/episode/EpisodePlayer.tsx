@@ -5,7 +5,7 @@ import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 import { AnimePlayer } from '@aniwatch/shared';
 
-import { darkColor } from '../../styles';
+import { colors, darkColor } from '../../styles';
 import { PlayerMenu } from './PlayerMenu';
 import { navigateToPlayer } from './navigateToPlayer';
 import { RootStackParamList } from '../../routes/main';
@@ -41,15 +41,19 @@ export const EpisodePlayer = ({
       }}>
       <View style={styles.rowCenter}>
         {player.player_name.toLocaleLowerCase() === 'cda' ? (
-          <Icon size={24} name={'play'} style={{ marginHorizontal: 10 }} />
+          <Icon
+            size={24}
+            name={'play'}
+            style={[{ marginHorizontal: 10 }, colors.textLight]}
+          />
         ) : (
           <Icon
             size={24}
             name={'open-in-new'}
-            style={{ marginHorizontal: 10 }}
+            style={[{ marginHorizontal: 10 }, colors.textLight]}
           />
         )}
-        <Text>
+        <Text style={[colors.textLight]}>
           {player.translator_name +
             ' - ' +
             player.player_name.toLocaleLowerCase()}
@@ -69,7 +73,7 @@ export const EpisodePlayer = ({
                 name={
                   isDownloaded ? 'download-circle' : 'download-circle-outline'
                 }
-                style={{ paddingHorizontal: 10 }}
+                style={[{ paddingHorizontal: 10 }, colors.textLight]}
                 onPress={() => handleDownload(player)}
               />
             )}
