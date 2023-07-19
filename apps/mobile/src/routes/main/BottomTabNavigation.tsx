@@ -107,6 +107,7 @@ export const BottomTabNavigation = () => {
         },
         tabBarStyle: {
           backgroundColor: '#3A3A3C',
+          minHeight: 66,
         },
         tabBarItemStyle: {
           marginVertical: 8,
