@@ -4,13 +4,97 @@ import { offlineFS } from './offline.fs';
 import { offlineStorage } from './offline.storage';
 import { IEpisodeDownloadJob, useDownloadsStore } from './downloads.store';
 import { useOfflineSeriesStore } from './offline.store';
+import { useDownloadsQueueStore } from './queue.store';
 
 export const useOfflineService = () => {
   const downloadJobs = useDownloadsStore(state => state.activeDownloads);
   const downloadsActions = useDownloadsStore(state => state.actions);
 
+  const queue = useDownloadsQueueStore(state => state.queue);
+  const queueActions = useDownloadsQueueStore(state => state.actions);
+
   const offlineState = useOfflineSeriesStore(state => state.offlineSeries);
   const offlineActions = useOfflineSeriesStore(state => state.actions);
+
+  const saveEpisodeOffline = async () => {
+    const { seriesId, episode, fileUrl } = queue[0];
+    const series = await offlineStorage.getOfflineSeries(seriesId);
+    if (!series) {
+      throw new Error('Series not found');
+    }
+
+    const beginDownload = async (res: RNFS.DownloadBeginCallbackResult) => {
+      console.log('begin download');
+      downloadsActions.addDownload({
+        jobId: res.jobId,
+        series,
+        episode,
+      });
+    };
+
+    const progressDownload = async (
+      res: RNFS.DownloadProgressCallbackResult,
+    ) => {
+      console.log(
+        'progress download',
+        Math.round((res.bytesWritten / res.contentLength) * 100),
+      );
+      downloadsActions.changeProgress(
+        jobId,
+        res.bytesWritten / res.contentLength,
+      );
+    };
+
+    const [pathToFile, jobId, job] = await offlineFS.startDownloadingFile(
+      seriesId,
+      episode.number,
+      fileUrl,
+      beginDownload,
+      progressDownload,
+    );
+
+    console.log('download started', jobId, pathToFile);
+
+    job.then(async result => {
+      downloadsActions.removeDownload(jobId);
+      episode.size = result.bytesWritten;
+      episode.pathToFile = pathToFile;
+      series.episodes.push(episode);
+      console.log('job done', series);
+      await offlineStorage.saveOrReplaceOfflineSeries(series).then(saved => {
+        offlineActions.setSeriesList(saved);
+      });
+      queue.shift();
+      saveEpisodeOffline();
+    });
+  };
+
+  const addToQueue = async ({
+    seriesId,
+    episode,
+    fileUrl,
+  }: {
+    seriesId: string;
+    episode: IOfflineSeriesEpisodes;
+    fileUrl: string;
+  }) => {
+    await offlineStorage.getOfflineSeries(seriesId).then(result => {
+      if (!result) {
+        throw new Error('Series not found');
+      }
+    });
+
+    const isQueueEmpty = queue.length === 0;
+    queueActions.addToQueue({
+      seriesId,
+      episode,
+      fileUrl,
+    });
+
+    if (isQueueEmpty) {
+      saveEpisodeOffline();
+    }
+  };
 
   return {
     activeDownloads: downloadJobs,
@@ -35,59 +119,8 @@ export const useOfflineService = () => {
       }
       return series.episodes;
     },
-    saveEpisodeOffline: async (
-      seriesId: string,
-      episode: IOfflineSeriesEpisodes,
-      fileUrl: string,
-    ) => {
-      const series = await offlineStorage.getOfflineSeries(seriesId);
-      if (!series) {
-        throw new Error('Series not found');
-      }
-
-      const beginDownload = async (res: RNFS.DownloadBeginCallbackResult) => {
-        console.log('begin download');
-        downloadsActions.addDownload({
-          jobId: res.jobId,
-          series,
-          episode,
-        });
-      };
-
-      const progressDownload = async (
-        res: RNFS.DownloadProgressCallbackResult,
-      ) => {
-        console.log(
-          'progress download',
-          Math.round((res.bytesWritten / res.contentLength) * 100),
-        );
-        downloadsActions.changeProgress(
-          jobId,
-          res.bytesWritten / res.contentLength,
-        );
-      };
-
-      const [pathToFile, jobId, job] = await offlineFS.startDownloadingFile(
-        seriesId,
-        episode.number,
-        fileUrl,
-        beginDownload,
-        progressDownload,
-      );
-
-      console.log('download started', jobId, pathToFile);
-
-      job.then(async result => {
-        downloadsActions.removeDownload(jobId);
-        episode.size = result.bytesWritten;
-        episode.pathToFile = pathToFile;
-        series.episodes.push(episode);
-        console.log('job done', series);
-        await offlineStorage.saveOrReplaceOfflineSeries(series).then(saved => {
-          offlineActions.setSeriesList(saved);
-        });
-      });
-    },
+    addToQueue,
+    saveEpisodeOffline,
     checkIfEpisodeIsDownloaded: async (
       seriesId: string,
       episodeNumber: number,

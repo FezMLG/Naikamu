@@ -37,7 +37,7 @@ export const Episode = ({
   const { translate } = useTranslate();
   const { data, refetch } = useQuerySeriesEpisodePlayers(id, num);
   const [isSelected, setIsSelected] = useState(false);
-  const { addOfflineSeries, saveEpisodeOffline } = useOfflineService();
+  const { addOfflineSeries, addToQueue } = useOfflineService();
   const { progress, loadProgress } = useVideoProgress(
     createEpisodeProgressKey(id, num),
   );
@@ -69,7 +69,11 @@ export const Episode = ({
       quality: preferredDownloadQuality,
       episodes: [],
     });
-    await saveEpisodeOffline(id, episodeToAdd, player.player_link);
+    await addToQueue({
+      seriesId: id,
+      episode: episodeToAdd,
+      fileUrl: player.player_link,
+    });
     setIsDownloaded(prev => !prev);
   };
 
