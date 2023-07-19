@@ -25,13 +25,13 @@ const Default = ({
   info,
   visible,
   setVisible,
-  style,
+  style = [],
 }: {
   children: React.ReactNode;
   info: string;
   visible: boolean;
   setVisible: (visible: boolean) => void;
-  style: ViewStyle[];
+  style?: ViewStyle[];
 }) => {
   return (
     <SafeAreaView style={[styles.container, ...style]}>
@@ -58,24 +58,13 @@ export const useLayout = () => {
   const { visible, setVisible } = useSnackbar();
 
   return {
-    PageLayout: ({
-      children,
-      style,
-    }: {
-      children: React.ReactNode;
-      style?: ViewStyle[];
-    }) => {
-      return (
-        <Default
-          info={info}
-          visible={visible}
-          setVisible={setVisible}
-          style={style ? style : []}>
-          {children}
-        </Default>
-      );
-    },
+    info,
+    visible,
     setInfo,
     setVisible,
   };
+};
+
+export const PageLayout = {
+  Default,
 };

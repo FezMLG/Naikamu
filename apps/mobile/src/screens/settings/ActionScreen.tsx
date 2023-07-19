@@ -9,7 +9,7 @@ import {
   SettingsActionScreenProps,
   SettingsScreenNames,
 } from '../../routes/settings/interfaces';
-import { Button, useLayout } from '../../components';
+import { Button, PageLayout, useLayout } from '../../components';
 
 interface SettingsForm {
   newValue: string;
@@ -72,7 +72,7 @@ const SettingsActionScreen = ({
   route,
   navigation,
 }: SettingsActionScreenProps) => {
-  const { PageLayout } = useLayout();
+  const layout = useLayout();
   const { type, action, requiresLogin, origin, payload } = route.params;
   const { translate } = useTranslate();
 
@@ -109,7 +109,7 @@ const SettingsActionScreen = ({
   };
 
   return (
-    <PageLayout style={[styles.container]}>
+    <PageLayout.Default style={[styles.container]} {...layout}>
       <FormTextInput
         title={translate('forms.labels.new' + type)}
         control={control}
@@ -126,7 +126,7 @@ const SettingsActionScreen = ({
         onPress={handleSubmit(handleAction)}
         style={[globalStyle.marginTopBig]}
       />
-    </PageLayout>
+    </PageLayout.Default>
   );
 };
 

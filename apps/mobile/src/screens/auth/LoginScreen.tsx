@@ -10,7 +10,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { globalStyle } from '../../styles/global.style';
 import { useTranslate } from '../../i18n/useTranslate';
 import { useErrorHandler } from '../../components/atoms/ErrorHandler/ErrorHandler';
-import { useLayout } from '../../components/atoms/Layout';
+import { PageLayout, useLayout } from '../../components/atoms/Layout';
 import { Button } from '../../components';
 
 interface LoginUser {
@@ -19,7 +19,7 @@ interface LoginUser {
 }
 
 export default function LoginScreen({ navigation }: LoginScreenProps) {
-  const { PageLayout, setInfo, setVisible } = useLayout();
+  const layout = useLayout();
   const [loading, isLoading] = useState(false);
   const dispatch = useAppDispatch();
   const { translate } = useTranslate();
@@ -49,14 +49,14 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
         }
       }
     } catch (error: any) {
-      setInfo(translate(errorResolver(error.code)));
-      setVisible(true);
+      layout.setInfo(translate(errorResolver(error.code)));
+      layout.setVisible(true);
     }
     isLoading(false);
   };
 
   return (
-    <PageLayout>
+    <PageLayout.Default {...layout}>
       <View style={[styles.formInputs, globalStyle.spacerBig]}>
         <Controller
           control={control}
@@ -129,7 +129,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
           onPress={() => navigation.navigate(AuthRoutesNames.ForgotPassword)}
         />
       </View>
-    </PageLayout>
+    </PageLayout.Default>
   );
 }
 

@@ -9,7 +9,12 @@ import { AuthRoutesNames, SignUpScreenProps } from '../../routes/auth';
 import { fireRegisterUser } from '../../services/firebase/fire-auth.service';
 import { RootState, useAppDispatch } from '../../services/redux/store';
 import { globalStyle } from '../../styles/global.style';
-import { Button, useLayout, useErrorHandler } from '../../components';
+import {
+  Button,
+  useLayout,
+  useErrorHandler,
+  PageLayout,
+} from '../../components';
 
 interface SignUpUser {
   displayName: string;
@@ -19,7 +24,7 @@ interface SignUpUser {
 }
 
 export const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
-  const { PageLayout, setInfo, setVisible } = useLayout();
+  const layout = useLayout();
   const [loading, isLoading] = useState(false);
   const dispatch = useAppDispatch();
   const { translate } = useTranslate();
@@ -52,14 +57,14 @@ export const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
         navigation.navigate(AuthRoutesNames.VerifyEmail);
       }
     } catch (error: any) {
-      setInfo(translate(errorResolver(error.code)));
-      setVisible(true);
+      layout.setInfo(translate(errorResolver(error.code)));
+      layout.setVisible(true);
     }
     isLoading(false);
   };
 
   return (
-    <PageLayout>
+    <PageLayout.Default {...layout}>
       <View style={[styles.formInputs, globalStyle.spacerBig]}>
         <Controller
           control={control}
@@ -179,7 +184,7 @@ export const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
           onPress={handleSubmit(handleSignUp)}
         />
       </View>
-    </PageLayout>
+    </PageLayout.Default>
   );
 };
 

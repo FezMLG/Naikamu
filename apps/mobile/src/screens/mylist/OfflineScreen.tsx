@@ -1,11 +1,16 @@
 import React, { useCallback, useEffect } from 'react';
-import { ActiveDownload, OfflineSeries, useLayout } from '../../components';
+import {
+  ActiveDownload,
+  OfflineSeries,
+  PageLayout,
+  useLayout,
+} from '../../components';
 import { OfflineWatchScreenProps } from '../../routes/main/mylist/offline/interface';
 import { useOfflineService } from '../../services/offline/offline.service';
 import { ScrollView } from 'react-native';
 
 const OfflineScreen = ({}: OfflineWatchScreenProps) => {
-  const { PageLayout, setInfo, setVisible } = useLayout();
+  const layout = useLayout();
   const { activeDownloads, offlineSeries, getAllOfflineSeries, offlineStore } =
     useOfflineService();
 
@@ -16,10 +21,10 @@ const OfflineScreen = ({}: OfflineWatchScreenProps) => {
       return offline;
     } catch (error) {
       console.log(error);
-      setInfo(JSON.stringify(error));
-      setVisible(true);
+      layout.setInfo(JSON.stringify(error));
+      layout.setVisible(true);
     }
-  }, [getAllOfflineSeries, setInfo, setVisible]);
+  }, [getAllOfflineSeries]);
 
   useEffect(() => {
     (async () => {
@@ -31,7 +36,7 @@ const OfflineScreen = ({}: OfflineWatchScreenProps) => {
   }, []);
 
   return (
-    <PageLayout>
+    <PageLayout.Default {...layout}>
       {/* <Icon name={'pencil-outline'} size={36} color={'white'} /> */}
       <ScrollView>
         {offlineSeries
@@ -43,7 +48,7 @@ const OfflineScreen = ({}: OfflineWatchScreenProps) => {
           <ActiveDownload key={index} download={download} />
         ))}
       </ScrollView>
-    </PageLayout>
+    </PageLayout.Default>
   );
 };
 

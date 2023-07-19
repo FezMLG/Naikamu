@@ -1,17 +1,16 @@
 import React from 'react';
-import { OfflineEpisode, useLayout } from '../../components';
+import { OfflineEpisode, PageLayout, useLayout } from '../../components';
 import { OfflineWatchSeriesEpisodesScreenProps } from '../../routes/main/mylist/offline/interface';
-import { ScrollView, Text } from 'react-native';
-import { colors, fontStyles, globalStyle } from '../../styles';
+import { ScrollView } from 'react-native';
 
 const OfflineSeriesEpisodesScreen = ({
   route,
 }: OfflineWatchSeriesEpisodesScreenProps) => {
   const { seriesId, title, episodes } = route.params;
-  const { PageLayout } = useLayout();
+  const layout = useLayout();
 
   return (
-    <PageLayout>
+    <PageLayout.Default {...layout}>
       <ScrollView>
         {episodes
           .sort((a, b) => a.number - b.number)
@@ -24,7 +23,7 @@ const OfflineSeriesEpisodesScreen = ({
             />
           ))}
       </ScrollView>
-    </PageLayout>
+    </PageLayout.Default>
   );
 };
 

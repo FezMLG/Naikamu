@@ -10,12 +10,12 @@ import { useTranslate } from '../i18n/useTranslate';
 import { RootState } from '../services/redux/store';
 import { AuthRoutesNames, HelloScreenProps } from '../routes/auth';
 import GoogleSignIn from '../components/GoogleSignIn';
-import { Button, useLayout } from '../components';
+import { Button, PageLayout, useLayout } from '../components';
 
 const HelloScreen = ({ navigation }: HelloScreenProps) => {
-  const { PageLayout } = useLayout();
   const { translate } = useTranslate();
   const { user } = useSelector((state: RootState) => state.user);
+  const layout = useLayout();
 
   useEffect(() => {
     navigation.addListener('beforeRemove', e => {
@@ -24,7 +24,7 @@ const HelloScreen = ({ navigation }: HelloScreenProps) => {
   }, [navigation]);
 
   return (
-    <PageLayout style={[styles.container]}>
+    <PageLayout.Default style={[styles.container]} {...layout}>
       <Text>{user?.displayName ? user?.displayName : user?.email}</Text>
       <Text variant="titleLarge" style={darkStyle.font}>
         {translate('welcomeScreen.welcome')}
@@ -54,7 +54,7 @@ const HelloScreen = ({ navigation }: HelloScreenProps) => {
         style={[globalStyle.marginTopSmall]}
       />
       {Config.ENV !== 'prod' && <Text>api_url: {Config.API_URL}</Text>}
-    </PageLayout>
+    </PageLayout.Default>
   );
 };
 

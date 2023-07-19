@@ -11,15 +11,15 @@ import {
   SettingsScreenNames,
   SettingsScreenProps,
 } from '../../routes/settings/interfaces';
-import { SectionButton, useLayout } from '../../components';
+import { PageLayout, SectionButton, useLayout } from '../../components';
 
 const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
-  const { PageLayout } = useLayout();
+  const layout = useLayout();
   const { user } = useSelector((state: RootState) => state.user);
   const { translate } = useTranslate();
 
   return (
-    <PageLayout style={[styles.container]}>
+    <PageLayout.Default style={[styles.container]} {...layout}>
       <View>
         {user?.picture ? (
           <ProgressiveImage source={user.picture} style={[styles.logo]} />
@@ -50,7 +50,7 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
           onPress={() => navigation.navigate(SettingsScreenNames.AppSettings)}
         />
       </View>
-    </PageLayout>
+    </PageLayout.Default>
   );
 };
 

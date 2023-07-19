@@ -13,6 +13,7 @@ import {
   SettingInputs,
   SettingsGroup,
   Button,
+  PageLayout,
 } from '../../components';
 import { ActionType } from '@aniwatch/shared';
 import {
@@ -24,13 +25,13 @@ import {
 import { globalStyle } from '../../styles';
 
 const UserSettingsScreen = ({ navigation }: UserSettingsScreenProps) => {
-  const { PageLayout } = useLayout();
+  const layout = useLayout();
   const { user } = useSelector((state: RootState) => state.user);
   const { translate } = useTranslate();
   const dispatch = useAppDispatch();
 
   return (
-    <PageLayout style={[styles.container]}>
+    <PageLayout.Default style={[styles.container]} {...layout}>
       <SettingsGroup title={translate('settings.groups.accountDetails')}>
         <SettingInputs.Edit
           label={translate('forms.labels.' + ActionType.NickChange)}
@@ -81,7 +82,7 @@ const UserSettingsScreen = ({ navigation }: UserSettingsScreenProps) => {
           }
         />
       </SettingsGroup>
-    </PageLayout>
+    </PageLayout.Default>
   );
 };
 
