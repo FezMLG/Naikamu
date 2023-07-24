@@ -69,7 +69,13 @@ export const useOfflineService = () => {
         offlineActions.setSeriesList(saved);
       });
       queueActions.removeFirstItem();
-      saveEpisodeOffline();
+      const firstItem = queueActions.getFirstItem();
+      if (!firstItem) {
+        RNFS.completeHandlerIOS(jobId);
+        console.log('no items in queue 2');
+      } else {
+        saveEpisodeOffline();
+      }
     });
   };
 

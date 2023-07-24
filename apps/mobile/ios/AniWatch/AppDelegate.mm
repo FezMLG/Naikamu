@@ -4,6 +4,8 @@
 
 #import <React/RCTBundleURLProvider.h>
 
+#import <RNFSManager.h>
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -35,6 +37,11 @@
 - (BOOL)concurrentRootEnabled
 {
   return true;
+}
+
+- (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)())completionHandler
+{
+  [RNFSManager setCompletionHandlerForIdentifier:identifier completionHandler:completionHandler];
 }
 
 @end
