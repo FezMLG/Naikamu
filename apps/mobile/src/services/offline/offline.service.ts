@@ -4,20 +4,24 @@ import { offlineFS } from './offline.fs';
 import { offlineStorage } from './offline.storage';
 import { IEpisodeDownloadJob, useDownloadsStore } from './downloads.store';
 import { useOfflineSeriesStore } from './offline.store';
-import { IDownloadsQueueItem, useDownloadsQueueStore } from './queue.store';
+import { useDownloadsQueueStore } from './queue.store';
 
 export const useOfflineService = () => {
   const downloadJobs = useDownloadsStore(state => state.activeDownloads);
   const downloadsActions = useDownloadsStore(state => state.actions);
 
-  const queue = useDownloadsQueueStore(state => state.queue);
   const queueActions = useDownloadsQueueStore(state => state.actions);
 
   const offlineState = useOfflineSeriesStore(state => state.offlineSeries);
   const offlineActions = useOfflineSeriesStore(state => state.actions);
 
   const saveEpisodeOffline = async () => {
-    const { seriesId, episode, fileUrl } = queue[0];
+    const firstItem = queueActions.getFirstItem();
+    if (!firstItem) {
+      console.log('no items in queue');
+      return;
+    }
+    const { seriesId, episode, fileUrl } = firstItem;
     const series = await offlineStorage.getOfflineSeries(seriesId);
     if (!series) {
       throw new Error('Series not found');
@@ -64,10 +68,8 @@ export const useOfflineService = () => {
       await offlineStorage.saveOrReplaceOfflineSeries(series).then(saved => {
         offlineActions.setSeriesList(saved);
       });
-      const item = queue.shift();
-      if (item) {
-        saveEpisodeOffline();
-      }
+      queueActions.removeFirstItem();
+      saveEpisodeOffline();
     });
   };
 
@@ -86,7 +88,8 @@ export const useOfflineService = () => {
       }
     });
 
-    const isQueueEmpty = queue.length === 0;
+    const isQueueEmpty = queueActions.isQueueEmpty();
+
     queueActions.addToQueue({
       seriesId,
       episode,
