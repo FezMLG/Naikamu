@@ -1,11 +1,10 @@
 import { PermissionsAndroid, Platform } from 'react-native';
 import RNFS from 'react-native-fs';
-import { IEpisodeDownloadJob } from './downloads.store';
 
 const folderNamingStrategy = (seriesId: string) => {
   switch (Platform.OS) {
     case 'android':
-      return `${RNFS.ExternalStorageDirectoryPath}/AniWatch/downloads/${seriesId}`;
+      return `${RNFS.DocumentDirectoryPath}/AniWatch/downloads/${seriesId}`;
     case 'ios':
       return `${RNFS.DocumentDirectoryPath}/downloads/${seriesId}`;
     default:
