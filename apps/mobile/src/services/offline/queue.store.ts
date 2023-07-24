@@ -12,6 +12,7 @@ interface DownloadsState {
   actions: {
     addToQueue: (item: IDownloadsQueueItem) => void;
     removeFromQueue: (seriesId: string, episodeNumber: number) => void;
+    clearQueue: () => void;
   };
 }
 
@@ -29,6 +30,11 @@ export const useDownloadsQueueStore = create<DownloadsState>(set => ({
           job =>
             job.seriesId !== seriesId && job.episode.number !== episodeNumber,
         ),
+      }));
+    },
+    clearQueue: () => {
+      set(state => ({
+        queue: [],
       }));
     },
   },

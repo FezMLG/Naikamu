@@ -10,6 +10,7 @@ import { colors, fontStyles, globalStyle } from '../../styles';
 import { Button, Modal, SettingInputs, SettingsGroup } from '../../components';
 import { useUserSettingsService } from '../../services/settings/settings.service';
 import { useOfflineService } from '../../services';
+import { useDownloadsQueueStore } from '../../services/offline/queue.store';
 
 const QualityModal = ({
   isOpen,
@@ -62,6 +63,7 @@ const AppSettingsScreen = ({}: PlaybackSettingsScreenProps) => {
   );
   const { updateUserSettings, userSettings } = useUserSettingsService();
   const { clearOffline } = useOfflineService();
+  const queueActions = useDownloadsQueueStore(state => state.actions);
 
   const { translate } = useTranslate();
   const [isOpenP, setIsOpenP] = useState(false);
@@ -145,6 +147,13 @@ const AppSettingsScreen = ({}: PlaybackSettingsScreenProps) => {
           type={'primary'}
           onPress={() => {
             clearOffline();
+          }}
+        />
+        <Button
+          label={'Clear downloads queue'}
+          type={'primary'}
+          onPress={() => {
+            queueActions.clearQueue();
           }}
         />
       </View>

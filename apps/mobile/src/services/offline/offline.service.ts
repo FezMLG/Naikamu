@@ -4,7 +4,7 @@ import { offlineFS } from './offline.fs';
 import { offlineStorage } from './offline.storage';
 import { IEpisodeDownloadJob, useDownloadsStore } from './downloads.store';
 import { useOfflineSeriesStore } from './offline.store';
-import { useDownloadsQueueStore } from './queue.store';
+import { IDownloadsQueueItem, useDownloadsQueueStore } from './queue.store';
 
 export const useOfflineService = () => {
   const downloadJobs = useDownloadsStore(state => state.activeDownloads);
@@ -64,8 +64,10 @@ export const useOfflineService = () => {
       await offlineStorage.saveOrReplaceOfflineSeries(series).then(saved => {
         offlineActions.setSeriesList(saved);
       });
-      queue.shift();
-      saveEpisodeOffline();
+      const item = queue.shift();
+      if (item) {
+        saveEpisodeOffline();
+      }
     });
   };
 

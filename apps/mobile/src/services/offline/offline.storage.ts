@@ -7,7 +7,6 @@ const OFFLINE_SERIES_KEY = 'offlineSeries';
 const getAllOfflineSeries = async (): Promise<IOfflineSeries[]> => {
   const series =
     (await storageGetData<IOfflineSeries[]>(OFFLINE_SERIES_KEY)) ?? [];
-  console.log(series);
   return series;
 };
 
@@ -17,7 +16,6 @@ const getOfflineSeries = async (
   const series = (await getAllOfflineSeries()).filter(
     e => e.seriesId === seriesId,
   );
-  console.log(series);
   if (series.length > 1) {
     throw new Error('Too many series');
   }
@@ -30,7 +28,6 @@ const getOfflineEpisodes = async (
 ): Promise<IOfflineSeriesEpisodes[]> => {
   const series = await getOfflineSeries(seriesId);
   const episodes = series?.episodes ?? [];
-  console.log(episodes);
   return episodes;
 };
 
@@ -40,7 +37,6 @@ const getOfflineEpisode = async (
 ): Promise<IOfflineSeriesEpisodes | null> => {
   const episodes = await getOfflineEpisodes(seriesId);
   const episode = episodes.filter(e => e.number === episodeNumber);
-  console.log(episode);
   if (episode.length > 1) {
     throw new Error('Too many episodes');
   }
@@ -59,7 +55,6 @@ const saveOrReplaceOfflineSeries = async (
     await storageStoreData(OFFLINE_SERIES_KEY, whiteout);
     return whiteout;
   }
-  console.log(series);
   series.push(seriesToAdd);
   await storageStoreData(OFFLINE_SERIES_KEY, series);
   return series;
