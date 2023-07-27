@@ -16,12 +16,16 @@ interface DownloadsState {
     isQueueEmpty: () => boolean;
     getFirstItem: () => IDownloadsQueueItem;
     removeFirstItem: () => void;
+    getQueue: () => IDownloadsQueueItem[];
   };
 }
 
 export const useDownloadsQueueStore = create<DownloadsState>((set, get) => ({
   queue: [],
   actions: {
+    getQueue: () => {
+      return get().queue;
+    },
     addToQueue: item => {
       set(state => ({
         queue: [...state.queue, item],
@@ -31,7 +35,7 @@ export const useDownloadsQueueStore = create<DownloadsState>((set, get) => ({
       set(state => ({
         queue: state.queue.filter(
           job =>
-            job.series.seriesId !== seriesId &&
+            job.series.seriesId !== seriesId ||
             job.episode.number !== episodeNumber,
         ),
       }));

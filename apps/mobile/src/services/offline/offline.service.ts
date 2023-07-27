@@ -106,13 +106,13 @@ export const useOfflineService = () => {
       fileUrl,
     });
 
-    if (isQueueEmpty) {
-      saveEpisodeOffline();
-    }
+    // if (isQueueEmpty) {
+    //   saveEpisodeOffline();
+    // }
   };
 
   return {
-    activeDownload: downloadJobs,
+    activeDownloads: downloadJobs,
     queueDownloads: useDownloadsQueueStore().queue,
     offlineSeries: offlineState,
     offlineStore: offlineActions,

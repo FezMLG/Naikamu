@@ -1,18 +1,23 @@
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  Pressable,
+  StyleSheet,
+  GestureResponderEvent,
+} from 'react-native';
 import Config from 'react-native-config';
 import { ProgressBar } from 'react-native-paper';
 import { IEpisodeDownloadJob } from '../services/offline/downloads.store';
 import { fontStyles, colors, globalStyle } from '../styles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useOfflineService } from '../services';
 
 export const ActiveDownload = ({
   download,
+  stopAction,
 }: {
-  download: IEpisodeDownloadJob;
+  download: Omit<IEpisodeDownloadJob, 'jobId'>;
+  stopAction: (event: GestureResponderEvent) => void;
 }) => {
-  const { stopDownload } = useOfflineService();
-
   return (
     <View>
       {Config.ENV === 'development' ? (
@@ -47,7 +52,7 @@ export const ActiveDownload = ({
             {download.episode.length} | {download.episode.translator}
           </Text>
         </View>
-        <Pressable onPress={() => stopDownload(download)}>
+        <Pressable onPress={stopAction}>
           <Icon name={'stop'} size={36} color={'white'} />
         </Pressable>
       </View>

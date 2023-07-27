@@ -7,17 +7,21 @@ import {
 } from '../../components';
 import { OfflineWatchScreenProps } from '../../routes/main/mylist/offline/interface';
 import { useOfflineService } from '../../services/offline/offline.service';
-import { ScrollView } from 'react-native';
+import { ScrollView, Text } from 'react-native';
+import { useDownloadsQueueStore } from '../../services/offline/queue.store';
 
 const OfflineScreen = ({}: OfflineWatchScreenProps) => {
   const layout = useLayout();
   const {
-    activeDownload,
+    activeDownloads,
     queueDownloads,
     offlineSeries,
     getAllOfflineSeries,
     offlineStore,
+    stopDownload,
   } = useOfflineService();
+
+  const queueActions = useDownloadsQueueStore(state => state.actions);
 
   const handleLoadingOffline = useCallback(async () => {
     try {
@@ -49,9 +53,27 @@ const OfflineScreen = ({}: OfflineWatchScreenProps) => {
           .map(series => (
             <OfflineSeries key={series.seriesId} series={series} />
           ))}
-        {activeDownload.map((download, index) => (
-          <ActiveDownload key={index} download={download} />
+        {activeDownloads.map((download, index) => (
+          <ActiveDownload
+            key={index}
+            download={download}
+            stopAction={() => stopDownload(download)}
+          />
         ))}
+        {queueActions.getQueue().map((download, index) => {
+          return (
+            <ActiveDownload
+              key={index}
+              download={download}
+              stopAction={() => {
+                queueActions.removeFromQueue(
+                  download.series.seriesId,
+                  download.episode.number,
+                );
+              }}
+            />
+          );
+        })}
       </ScrollView>
     </PageLayout.Default>
   );
