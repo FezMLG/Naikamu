@@ -1,8 +1,8 @@
 import { create } from 'zustand';
-import { IOfflineSeriesEpisodes } from './interfaces';
+import { IOfflineSeries, IOfflineSeriesEpisodes } from './interfaces';
 
 export interface IDownloadsQueueItem {
-  seriesId: string;
+  series: IOfflineSeries;
   episode: IOfflineSeriesEpisodes;
   fileUrl: string;
 }
@@ -31,7 +31,8 @@ export const useDownloadsQueueStore = create<DownloadsState>((set, get) => ({
       set(state => ({
         queue: state.queue.filter(
           job =>
-            job.seriesId !== seriesId && job.episode.number !== episodeNumber,
+            job.series.seriesId !== seriesId &&
+            job.episode.number !== episodeNumber,
         ),
       }));
     },

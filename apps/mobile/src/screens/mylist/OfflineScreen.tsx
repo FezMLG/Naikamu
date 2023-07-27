@@ -11,8 +11,13 @@ import { ScrollView } from 'react-native';
 
 const OfflineScreen = ({}: OfflineWatchScreenProps) => {
   const layout = useLayout();
-  const { activeDownloads, offlineSeries, getAllOfflineSeries, offlineStore } =
-    useOfflineService();
+  const {
+    activeDownload,
+    queueDownloads,
+    offlineSeries,
+    getAllOfflineSeries,
+    offlineStore,
+  } = useOfflineService();
 
   const handleLoadingOffline = useCallback(async () => {
     try {
@@ -44,7 +49,7 @@ const OfflineScreen = ({}: OfflineWatchScreenProps) => {
           .map(series => (
             <OfflineSeries key={series.seriesId} series={series} />
           ))}
-        {activeDownloads.map((download, index) => (
+        {activeDownload.map((download, index) => (
           <ActiveDownload key={index} download={download} />
         ))}
       </ScrollView>

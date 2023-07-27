@@ -68,6 +68,7 @@ const startDownloadingFile = async (
     begin: beginDownload,
     progress: progressDownload,
     progressInterval: 1000,
+    background: true,
   });
 
   return [pathToFile, job.jobId, job.promise];

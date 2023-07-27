@@ -24,6 +24,7 @@ import {
 } from '../../services/useVideoProgress';
 import { humanFileSize } from '../../utils/humanFileSize';
 import { Swipeable } from 'react-native-gesture-handler';
+import { Modal } from '../atoms';
 
 export const OfflineEpisode = ({
   episode,
@@ -38,6 +39,7 @@ export const OfflineEpisode = ({
   const episodeKey = createEpisodeProgressKey(animeId, episode.number);
   const { progressMinutes, loadProgress } = useVideoProgress(episodeKey);
   const { deleteEpisodeOffline } = useOfflineService();
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     loadProgress();
@@ -45,7 +47,7 @@ export const OfflineEpisode = ({
 
   // const { translate } = useTranslate();
 
-  const rightSwipeActions = () => {
+  const RightSwipeActions = () => {
     return (
       <Pressable
         style={{
@@ -69,54 +71,60 @@ export const OfflineEpisode = ({
   };
 
   return (
-    <Swipeable
-      renderRightActions={rightSwipeActions}
-      containerStyle={globalStyle.spacerSmall}>
-      <View
-        style={[
-          styles.cardContainer,
-          !progressMinutes
-            ? {
-                borderBottomLeftRadius: defaultRadius,
-                borderBottomRightRadius: defaultRadius,
-              }
-            : null,
-        ]}>
-        <View style={[styles.innerCard]}>
-          <Pressable
-            style={styles.watchStatus}
-            onPress={() =>
-              navigation.navigate(ScreenNames.WatchNative, {
-                uri: episode.pathToFile,
-                episodeTitle: episode.title,
-                episodeNumber: episode.number,
-                title: animeName,
-              })
-            }>
-            <Icon name={'play'} size={30} color={colors.textLight.color} />
-          </Pressable>
-          <View style={styles.titleRow}>
-            <Text numberOfLines={2} style={[styles.title, colors.textLight]}>
-              {episode.number + '. ' + episode.title}
-            </Text>
-            <Text
-              numberOfLines={2}
-              style={[fontStyles.label, colors.textLight]}>
-              {episode.length} min | {episode.translator} |{' '}
-              {humanFileSize(episode.size ?? 0)}
-            </Text>
+    <>
+      <Modal.Container isOpen={isOpen} setIsOpen={setIsOpen}>
+        <RightSwipeActions />
+      </Modal.Container>
+      <Swipeable
+        renderRightActions={RightSwipeActions}
+        containerStyle={globalStyle.spacerSmall}>
+        <Pressable
+          style={[
+            styles.cardContainer,
+            !progressMinutes
+              ? {
+                  borderBottomLeftRadius: defaultRadius,
+                  borderBottomRightRadius: defaultRadius,
+                }
+              : null,
+          ]}
+          onLongPress={() => setIsOpen(true)}>
+          <View style={[styles.innerCard]}>
+            <Pressable
+              style={styles.watchStatus}
+              onPress={() =>
+                navigation.navigate(ScreenNames.WatchNative, {
+                  uri: episode.pathToFile,
+                  episodeTitle: episode.title,
+                  episodeNumber: episode.number,
+                  title: animeName,
+                })
+              }>
+              <Icon name={'play'} size={30} color={colors.textLight.color} />
+            </Pressable>
+            <View style={styles.titleRow}>
+              <Text numberOfLines={2} style={[styles.title, colors.textLight]}>
+                {episode.number + '. ' + episode.title}
+              </Text>
+              <Text
+                numberOfLines={2}
+                style={[fontStyles.label, colors.textLight]}>
+                {episode.length} min | {episode.translator} |{' '}
+                {humanFileSize(episode.size ?? 0)}
+              </Text>
+            </View>
           </View>
-        </View>
-        <ProgressBar
-          progress={progressMinutes / episode.length}
-          theme={{
-            colors: {
-              primary: colors.accent.color,
-            },
-          }}
-        />
-      </View>
-    </Swipeable>
+          <ProgressBar
+            progress={progressMinutes / episode.length}
+            theme={{
+              colors: {
+                primary: colors.accent.color,
+              },
+            }}
+          />
+        </Pressable>
+      </Swipeable>
+    </>
   );
 };
 

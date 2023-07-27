@@ -21,11 +21,12 @@ export const useOfflineService = () => {
       console.log('no items in queue');
       return;
     }
-    const { seriesId, episode, fileUrl } = firstItem;
-    const series = await offlineStorage.getOfflineSeries(seriesId);
-    if (!series) {
-      throw new Error('Series not found');
-    }
+    const { series, episode, fileUrl } = firstItem;
+    await offlineStorage.getOfflineSeries(series.seriesId).then(result => {
+      if (!result) {
+        throw new Error('Series not found');
+      }
+    });
 
     const beginDownload = async (res: RNFS.DownloadBeginCallbackResult) => {
       console.log('begin download');
@@ -50,7 +51,7 @@ export const useOfflineService = () => {
     };
 
     const [pathToFile, jobId, job] = await offlineFS.startDownloadingFile(
-      seriesId,
+      series.seriesId,
       episode.number,
       fileUrl,
       beginDownload,
@@ -88,16 +89,19 @@ export const useOfflineService = () => {
     episode: IOfflineSeriesEpisodes;
     fileUrl: string;
   }) => {
-    await offlineStorage.getOfflineSeries(seriesId).then(result => {
-      if (!result) {
-        throw new Error('Series not found');
-      }
-    });
+    const series = await offlineStorage
+      .getOfflineSeries(seriesId)
+      .then(result => {
+        if (!result) {
+          throw new Error('Series not found');
+        }
+        return result;
+      });
 
     const isQueueEmpty = queueActions.isQueueEmpty();
 
     queueActions.addToQueue({
-      seriesId,
+      series,
       episode,
       fileUrl,
     });
@@ -108,7 +112,8 @@ export const useOfflineService = () => {
   };
 
   return {
-    activeDownloads: downloadJobs,
+    activeDownload: downloadJobs,
+    queueDownloads: useDownloadsQueueStore().queue,
     offlineSeries: offlineState,
     offlineStore: offlineActions,
     addOfflineSeries: async (series: IOfflineSeries) => {
