@@ -31,10 +31,10 @@ export const OfflineSeries = ({ series }: { series: IOfflineSeries }) => {
         onLongPress={() => {
           setModalVisible(true);
         }}>
-        <ProgressiveImage
+        {/* <ProgressiveImage
           source={'https://i.imgur.com/2nCt3Sbl.jpg'}
           style={[styles.poster]}
-        />
+        /> */}
         <View style={[styles.details]}>
           <Text
             style={[styles.title, fontStyles.headerSmall, colors.textLight]}>
