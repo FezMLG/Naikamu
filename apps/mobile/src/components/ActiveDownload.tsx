@@ -19,7 +19,7 @@ export const ActiveDownload = ({
   stopAction: (event: GestureResponderEvent) => void;
 }) => {
   return (
-    <View>
+    <View style={globalStyle.spacer}>
       {Config.ENV === 'development' ? (
         <Text style={[fontStyles.label, colors.textLight]}>
           {download.series.seriesId}
@@ -27,7 +27,7 @@ export const ActiveDownload = ({
       ) : null}
       <Text
         style={[
-          fontStyles.headerSmall,
+          fontStyles.label,
           colors.textLight,
           globalStyle.marginBottomSmall,
         ]}>
@@ -37,7 +37,7 @@ export const ActiveDownload = ({
         <View>
           <Text
             style={[
-              fontStyles.header,
+              fontStyles.headerSmall,
               colors.textLight,
               globalStyle.marginBottomSmall,
             ]}>
@@ -64,7 +64,6 @@ export const ActiveDownload = ({
           },
         }}
       />
-      <Text>{download.progress}</Text>
     </View>
   );
 };

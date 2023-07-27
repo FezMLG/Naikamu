@@ -60,20 +60,23 @@ const OfflineScreen = ({}: OfflineWatchScreenProps) => {
             stopAction={() => stopDownload(download)}
           />
         ))}
-        {queueActions.getQueue().map((download, index) => {
-          return (
-            <ActiveDownload
-              key={index}
-              download={download}
-              stopAction={() => {
-                queueActions.removeFromQueue(
-                  download.series.seriesId,
-                  download.episode.number,
-                );
-              }}
-            />
-          );
-        })}
+        {queueActions
+          .getQueue()
+          .slice(1)
+          .map((download, index) => {
+            return (
+              <ActiveDownload
+                key={index}
+                download={download}
+                stopAction={() => {
+                  queueActions.removeFromQueue(
+                    download.series.seriesId,
+                    download.episode.number,
+                  );
+                }}
+              />
+            );
+          })}
       </ScrollView>
     </PageLayout.Default>
   );

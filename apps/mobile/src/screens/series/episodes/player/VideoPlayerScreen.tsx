@@ -31,25 +31,27 @@ const NativeVideoPlayerScreen = ({
   };
 
   return (
-    <View style={styles.fullscreenVideo}>
-      <VideoPlayer
-        videoRef={videoPlayer}
-        style={styles.absoluteFill}
-        title={episodeTitle}
-        source={{
-          uri: uri,
-        }}
-        resizeMode={'contain'}
-        fullscreen={true}
-        onBack={navigation.goBack}
-        onProgress={handleProgress}
-        onLoad={handleVideoLoad}
-        doubleTapTime={130}
-        disableFullscreen={true}
-        disableVolume={true}
-        showDuration={true}
-      />
-    </View>
+    <VideoPlayer
+      videoRef={videoPlayer}
+      style={styles.absoluteFill}
+      title={episodeTitle}
+      source={{
+        uri: uri,
+      }}
+      resizeMode={'contain'}
+      fullscreen={true}
+      onBack={navigation.goBack}
+      onProgress={handleProgress}
+      onLoad={handleVideoLoad}
+      doubleTapTime={130}
+      disableFullscreen={true}
+      disableVolume={true}
+      showDuration={true}
+      fullscreenOrientation={'landscape'}
+      fullscreenAutorotate={true}
+      isFullscreen={true}
+      pictureInPicture={true}
+    />
   );
 };
 

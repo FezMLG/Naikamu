@@ -48,7 +48,7 @@ const BrowseScreen = ({ navigation }: BrowseScreenProps) => {
             ref={listRef}
             data={api.data.pages.map(page => page.Page.media).flat()}
             renderItem={renderItem}
-            numColumns={Math.floor(maxWidth() / 180)}
+            numColumns={2}
             contentContainerStyle={[styles.flatListContent]}
             keyExtractor={(_, index) => index.toString()}
             onEndReachedThreshold={1}

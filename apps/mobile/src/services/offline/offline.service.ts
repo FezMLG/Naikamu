@@ -106,9 +106,9 @@ export const useOfflineService = () => {
       fileUrl,
     });
 
-    // if (isQueueEmpty) {
-    //   saveEpisodeOffline();
-    // }
+    if (isQueueEmpty) {
+      saveEpisodeOffline();
+    }
   };
 
   return {
