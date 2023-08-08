@@ -62,7 +62,7 @@ const OfflineScreen = ({}: OfflineWatchScreenProps) => {
         ))}
         {queueActions
           .getQueue()
-          .slice(1)
+          .slice(activeDownloads.length > 0 ? 1 : 0)
           .map((download, index) => {
             return (
               <ActiveDownload

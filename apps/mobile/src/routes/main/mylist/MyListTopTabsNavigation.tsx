@@ -4,6 +4,7 @@ import { MyListParamList, MyListScreenNames } from './interface';
 import { colors } from '../../../styles';
 import OfflineStack from './offline/OfflineStack';
 import { useTranslate } from '../../../i18n/useTranslate';
+import { defaultHeaderOptions } from '../BottomTabNavigation';
 
 const Tab = createMaterialTopTabNavigator<MyListParamList>();
 

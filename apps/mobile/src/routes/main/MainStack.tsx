@@ -98,6 +98,7 @@ const MainStack = () => {
         options={{
           ...defaultSubHeaderOptions({}),
           headerShown: false,
+          autoHideHomeIndicator: true,
         }}
       />
     </StackAuthorized.Navigator>

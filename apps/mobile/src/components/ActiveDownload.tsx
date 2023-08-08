@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   View,
   Text,
@@ -5,11 +6,12 @@ import {
   StyleSheet,
   GestureResponderEvent,
 } from 'react-native';
-import Config from 'react-native-config';
 import { ProgressBar } from 'react-native-paper';
 import { IEpisodeDownloadJob } from '../services/offline/downloads.store';
 import { fontStyles, colors, globalStyle } from '../styles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Animated, { SlideOutLeft } from 'react-native-reanimated';
+import Config from 'react-native-config';
 
 export const ActiveDownload = ({
   download,
@@ -19,7 +21,7 @@ export const ActiveDownload = ({
   stopAction: (event: GestureResponderEvent) => void;
 }) => {
   return (
-    <View style={globalStyle.spacer}>
+    <Animated.View exiting={SlideOutLeft} style={globalStyle.spacer}>
       {Config.ENV === 'development' ? (
         <Text style={[fontStyles.label, colors.textLight]}>
           {download.series.seriesId}
@@ -28,7 +30,7 @@ export const ActiveDownload = ({
       <Text
         style={[
           fontStyles.label,
-          colors.textLight,
+          colors.textLighter,
           globalStyle.marginBottomSmall,
         ]}>
         {download.series.title}
@@ -49,7 +51,7 @@ export const ActiveDownload = ({
               colors.textLight,
               globalStyle.marginBottomSmall,
             ]}>
-            {download.episode.length} | {download.episode.translator}
+            {download.episode.translator}
           </Text>
         </View>
         <Pressable onPress={stopAction}>
@@ -64,7 +66,7 @@ export const ActiveDownload = ({
           },
         }}
       />
-    </View>
+    </Animated.View>
   );
 };
 

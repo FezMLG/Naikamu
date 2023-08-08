@@ -18,7 +18,6 @@ import { useVideoProgress, createEpisodeProgressKey } from '../../services';
 import { useUserSettingsService } from '../../services/settings/settings.service';
 
 export const Episode = ({
-  num,
   episode,
   posterUrl,
   id,
@@ -26,7 +25,6 @@ export const Episode = ({
   isWatched,
   episodeLength,
 }: {
-  num: number;
   episode: AnimeEpisode;
   posterUrl: string;
   id: string;
@@ -35,11 +33,11 @@ export const Episode = ({
   episodeLength: number;
 }) => {
   const { translate } = useTranslate();
-  const { data, refetch } = useQuerySeriesEpisodePlayers(id, num);
+  const { data, refetch } = useQuerySeriesEpisodePlayers(id, episode.number);
   const [isSelected, setIsSelected] = useState(false);
   const { addOfflineSeries, addToQueue } = useOfflineService();
   const { progress, loadProgress } = useVideoProgress(
-    createEpisodeProgressKey(id, num),
+    createEpisodeProgressKey(id, episode.number),
   );
   const {
     userSettings: { preferredDownloadQuality },
@@ -50,7 +48,9 @@ export const Episode = ({
 
   const openDetails = () => {
     setIsSelected(prev => !prev);
-    checkIfEpisodeIsDownloaded(id, num).then(res => setIsDownloaded(res));
+    checkIfEpisodeIsDownloaded(id, episode.number).then(res =>
+      setIsDownloaded(res),
+    );
   };
   loadProgress();
 
@@ -104,7 +104,7 @@ export const Episode = ({
           />
           <View style={styles.titleRow}>
             <Text numberOfLines={2} style={[styles.title, colors.textLight]}>
-              {num + '. ' + episode.title}
+              {episode.number + '. ' + episode.title}
             </Text>
             <Text
               numberOfLines={2}

@@ -13,6 +13,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { humanFileSize } from '../../utils/humanFileSize';
 import { Button, Modal } from '../atoms';
 import { useTranslate } from '../../i18n/useTranslate';
+import Animated, { SlideInLeft } from 'react-native-reanimated';
 
 export const OfflineSeries = ({ series }: { series: IOfflineSeries }) => {
   const { translate } = useTranslate();
@@ -23,38 +24,40 @@ export const OfflineSeries = ({ series }: { series: IOfflineSeries }) => {
 
   return (
     <>
-      <Pressable
-        style={[styles.seriesContainer, globalStyle.spacer]}
-        onPress={() =>
-          navigation.navigate(OfflineWatchScreenNames.OfflineEpisodes, series)
-        }
-        onLongPress={() => {
-          setModalVisible(true);
-        }}>
-        {/* <ProgressiveImage
+      <Animated.View entering={SlideInLeft}>
+        <Pressable
+          style={[styles.seriesContainer, globalStyle.spacer]}
+          onPress={() =>
+            navigation.navigate(OfflineWatchScreenNames.OfflineEpisodes, series)
+          }
+          onLongPress={() => {
+            setModalVisible(true);
+          }}>
+          {/* <ProgressiveImage
           source={'https://i.imgur.com/2nCt3Sbl.jpg'}
           style={[styles.poster]}
         /> */}
-        <View style={[styles.details]}>
-          <Text
-            style={[styles.title, fontStyles.headerSmall, colors.textLight]}>
-            {title}
-          </Text>
-          <Text style={[fontStyles.label, colors.textLight]}>
-            {translate('myList.common.episodes')}: {episodes.length} |{' '}
-            {humanFileSize(
-              episodes.reduce((partialSum, a) => partialSum + a.size, 0),
-            )}{' '}
-            | {quality}
-          </Text>
-        </View>
-        <Icon
-          name={'chevron-left'}
-          size={36}
-          color={'white'}
-          style={styles.chevronIcon}
-        />
-      </Pressable>
+          <View style={[styles.details]}>
+            <Text
+              style={[styles.title, fontStyles.headerSmall, colors.textLight]}>
+              {title}
+            </Text>
+            <Text style={[fontStyles.label, colors.textLight]}>
+              {translate('myList.common.episodes')}: {episodes.length} |{' '}
+              {humanFileSize(
+                episodes.reduce((partialSum, a) => partialSum + a.size, 0),
+              )}{' '}
+              | {quality}
+            </Text>
+          </View>
+          <Icon
+            name={'chevron-left'}
+            size={36}
+            color={'white'}
+            style={styles.chevronIcon}
+          />
+        </Pressable>
+      </Animated.View>
       <Modal.Container setIsOpen={setModalVisible} isOpen={modalVisible}>
         <Modal.Title title={title} />
         <Button

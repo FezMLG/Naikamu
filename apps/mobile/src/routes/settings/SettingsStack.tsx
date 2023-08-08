@@ -4,11 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useTranslate } from '../../i18n/useTranslate';
 import SettingsScreen from '../../screens/settings/SettingsScreen';
 import SettingsActionConfirmScreen from '../../screens/settings/ActionConfirmScreen';
-import {
-  SettingsScreenNames,
-  SettingsScreenProps,
-  SettingsStackParamList,
-} from './interfaces';
+import { SettingsScreenNames, SettingsStackParamList } from './interfaces';
 import UserSettingsScreen from '../../screens/settings/UserSettingsScreen';
 import { defaultHeaderOptions } from '../main/BottomTabNavigation';
 import AppSettingsScreen from '../../screens/settings/AppSettings';
@@ -25,7 +21,7 @@ const SettingsStack = () => {
       <Stack.Screen
         name={SettingsScreenNames.Settings}
         component={SettingsScreen}
-        options={({}: SettingsScreenProps) => ({
+        options={() => ({
           ...defaultHeaderOptions({
             title: translate('settings.' + SettingsScreenNames.Settings),
           }),

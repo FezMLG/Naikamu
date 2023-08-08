@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, StatusBar, StyleSheet, ViewStyle } from 'react-native';
+import { SafeAreaView, StyleSheet, ViewStyle } from 'react-native';
 import { Snackbar } from '../Snackbar';
 
 const useInfoHandler = () => {
@@ -34,18 +34,15 @@ const Default = ({
   style?: ViewStyle[];
 }) => {
   return (
-    <>
-      <StatusBar barStyle={'light-content'} hidden={false} />
-      <SafeAreaView style={[styles.container, ...style]}>
-        {children}
-        <Snackbar
-          text={info}
-          visible={visible}
-          actionLabel={'Ok'}
-          setVisible={setVisible}
-        />
-      </SafeAreaView>
-    </>
+    <SafeAreaView style={[styles.container, ...style]}>
+      {children}
+      <Snackbar
+        text={info}
+        visible={visible}
+        actionLabel={'Ok'}
+        setVisible={setVisible}
+      />
+    </SafeAreaView>
   );
 };
 
