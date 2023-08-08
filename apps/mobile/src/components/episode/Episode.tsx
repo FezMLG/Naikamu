@@ -51,6 +51,7 @@ export const Episode = ({
     checkIfEpisodeIsDownloaded(id, episode.number).then(res =>
       setIsDownloaded(res),
     );
+    refetch();
   };
   loadProgress();
 
@@ -149,35 +150,21 @@ export const Episode = ({
       </View>
       {isSelected ? (
         <View style={styles.playersListContainer}>
-          <List.Accordion
-            title={translate('anime_episodes.available_players')}
-            left={props => <List.Icon {...props} icon="folder" />}
-            onPress={() => refetch()}
-            theme={{
-              colors: {
-                primary: colors.accent.color,
-                secondary: colors.textDark.color,
-              },
-            }}
-            style={styles.playersList}>
-            {data ? (
-              data.players.map((player: AnimePlayer, index: number) => {
-                return (
-                  <EpisodePlayer
-                    key={index}
-                    seriesId={id}
-                    player={player}
-                    episodeTitle={'E' + episode.number + ' ' + episode.title}
-                    episodeNumber={episode.number}
-                    isDownloaded={isDownloaded}
-                    handleDownload={handleDownload}
-                  />
-                );
-              })
-            ) : (
-              <ActivityIndicator size="large" style={styles.playersLoading} />
-            )}
-          </List.Accordion>
+          {data ? (
+            data.players.map((player: AnimePlayer, index: number) => (
+              <EpisodePlayer
+                key={index}
+                seriesId={id}
+                player={player}
+                episodeTitle={'E' + episode.number + ' ' + episode.title}
+                episodeNumber={episode.number}
+                isDownloaded={isDownloaded}
+                handleDownload={handleDownload}
+              />
+            ))
+          ) : (
+            <ActivityIndicator size="large" style={styles.playersLoading} />
+          )}
         </View>
       ) : null}
     </SafeAreaView>
@@ -221,37 +208,17 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderColor: darkColor.C800,
   },
-  linksContainer: {
-    width: '100%',
-    height: '100%',
-    maxWidth: 150,
-    backgroundColor: darkColor.C800,
-  },
   description: {
     paddingTop: 5,
     paddingBottom: 10,
     paddingHorizontal: 10,
   },
-  playersList: {
-    marginTop: 10,
+  playersListContainer: {
     backgroundColor: darkColor.C900,
     borderRadius: defaultRadius,
-  },
-  playersListItem: {
-    height: 70,
-    width: '100%',
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: darkColor.C700,
-    borderRadius: 8,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  playersListContainer: {
-    backgroundColor: darkColor.C800,
-    borderRadius: defaultRadius,
     maxWidth: '100%',
+    marginTop: 20,
+    gap: 10,
   },
   playersLoading: {
     height: 70,

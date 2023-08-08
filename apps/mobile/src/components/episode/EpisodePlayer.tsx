@@ -29,7 +29,12 @@ export const EpisodePlayer = ({
 
   return (
     <Pressable
-      style={styles.playersListItem}
+      style={[
+        styles.playersListItem,
+        player.player_name.toLocaleLowerCase() !== 'cda'
+          ? { height: 50 }
+          : { borderColor: colors.accent.color },
+      ]}
       onPress={() => {
         navigateToPlayer({
           navigation: navigation,
@@ -91,7 +96,7 @@ const styles = StyleSheet.create({
     width: '100%',
     borderWidth: 1,
     borderStyle: 'solid',
-    borderColor: darkColor.C700,
+    borderColor: darkColor.C800,
     borderRadius: 8,
     flexDirection: 'row',
     alignItems: 'center',
