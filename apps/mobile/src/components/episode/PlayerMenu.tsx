@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { AnimePlayer } from '@aniwatch/shared';
 import { Linking, Pressable, StyleSheet, Text } from 'react-native';
-import { colors } from '../../styles';
+import { colors, fontStyles } from '../../styles';
 
 export const PlayerMenu = ({ player }: { player: AnimePlayer }) => {
   const [visible, setVisible] = React.useState(false);
@@ -35,7 +35,7 @@ export const PlayerMenu = ({ player }: { player: AnimePlayer }) => {
         onPress={() => Linking.openURL(player.source_url)}
         android_ripple={{ color: '#fffff', radius: 20 }}
         style={styles.menuItem}>
-        <Text>Source Page</Text>
+        <Text style={[colors.textLight, fontStyles.text]}>Source Page</Text>
       </Pressable>
     </Menu>
   );

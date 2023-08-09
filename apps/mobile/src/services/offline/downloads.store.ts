@@ -14,10 +14,11 @@ interface DownloadsState {
     addDownload: (job: IEpisodeDownloadJob) => void;
     removeDownload: (jobId: number) => void;
     changeProgress: (jobId: number, progress: number) => void;
+    getActiveDownloads: () => IEpisodeDownloadJob[];
   };
 }
 
-export const useDownloadsStore = create<DownloadsState>(set => ({
+export const useDownloadsStore = create<DownloadsState>((set, get) => ({
   activeDownloads: [],
   actions: {
     addDownload: job => {
@@ -38,6 +39,9 @@ export const useDownloadsStore = create<DownloadsState>(set => ({
           job.jobId === jobId ? { ...job, progress } : job,
         ),
       }));
+    },
+    getActiveDownloads: () => {
+      return get().activeDownloads;
     },
   },
 }));

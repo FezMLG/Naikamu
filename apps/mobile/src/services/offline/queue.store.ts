@@ -14,7 +14,7 @@ interface DownloadsState {
     removeFromQueue: (seriesId: string, episodeNumber: number) => void;
     clearQueue: () => void;
     isQueueEmpty: () => boolean;
-    getFirstItem: () => IDownloadsQueueItem;
+    getFirstItem: () => IDownloadsQueueItem | undefined;
     removeFirstItem: () => void;
     getQueue: () => IDownloadsQueueItem[];
   };

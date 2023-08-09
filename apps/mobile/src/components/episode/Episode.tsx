@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Image, Pressable, SafeAreaView, StyleSheet, View } from 'react-native';
-import { ActivityIndicator, List, ProgressBar } from 'react-native-paper';
+import { ProgressBar } from 'react-native-paper';
 import { Text } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -16,6 +16,7 @@ import { EpisodePlayer } from './EpisodePlayer';
 import { useOfflineService } from '../../services/offline/offline.service';
 import { useVideoProgress, createEpisodeProgressKey } from '../../services';
 import { useUserSettingsService } from '../../services/settings/settings.service';
+import { ActivityIndicator } from '../atoms';
 
 export const Episode = ({
   episode,
@@ -163,7 +164,11 @@ export const Episode = ({
               />
             ))
           ) : (
-            <ActivityIndicator size="large" style={styles.playersLoading} />
+            <ActivityIndicator
+              size="large"
+              style={styles.playersLoading}
+              visible
+            />
           )}
         </View>
       ) : null}
@@ -222,7 +227,6 @@ const styles = StyleSheet.create({
   },
   playersLoading: {
     height: 70,
-    width: '85%',
   },
   logo: {
     height: 20,

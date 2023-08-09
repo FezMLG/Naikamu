@@ -22,7 +22,7 @@ export const darkStyle = StyleSheet.create({
     marginHorizontal: 20,
   },
   card: {
-    backgroundColor: darkColor.C700,
+    backgroundColor: darkColor.C900,
     borderRadius: defaultRadius,
   },
   font: {

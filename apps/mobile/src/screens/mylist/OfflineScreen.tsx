@@ -48,11 +48,15 @@ const OfflineScreen = ({}: OfflineWatchScreenProps) => {
     <PageLayout.Default {...layout}>
       {/* <Icon name={'pencil-outline'} size={36} color={'white'} /> */}
       <ScrollView>
-        {offlineSeries
-          .filter(series => series.episodes.length !== 0)
-          .map(series => (
-            <OfflineSeries key={series.seriesId} series={series} />
-          ))}
+        {offlineSeries.filter(series => series.episodes.length !== 0) ? (
+          offlineSeries
+            .filter(series => series.episodes.length !== 0)
+            .map(series => (
+              <OfflineSeries key={series.seriesId} series={series} />
+            ))
+        ) : (
+          <Text>No downloaded series</Text>
+        )}
         {activeDownloads.map((download, index) => (
           <ActiveDownload
             key={index}
