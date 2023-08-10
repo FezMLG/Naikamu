@@ -16,6 +16,13 @@ export const useOfflineService = () => {
   const offlineState = useOfflineSeriesStore(state => state.offlineSeries);
   const offlineActions = useOfflineSeriesStore(state => state.actions);
 
+  const checkIfSeriesExist = (seriesId: string) => {
+    const result = offlineActions.getOfflineSeries(seriesId);
+    if (!result) {
+      throw new Error('Series not found');
+    }
+  };
+
   const saveEpisodeOffline = async () => {
     const firstItem = queueActions.getFirstItem();
     if (!firstItem) {
@@ -23,11 +30,8 @@ export const useOfflineService = () => {
       return;
     }
     const { series, episode, fileUrl } = firstItem;
-    await offlineStorage.getOfflineSeries(series.seriesId).then(result => {
-      if (!result) {
-        throw new Error('Series not found');
-      }
-    });
+
+    checkIfSeriesExist(series.seriesId);
 
     const beginDownload = async (res: RNFS.DownloadBeginCallbackResult) => {
       logger('begin download').info();
@@ -69,9 +73,9 @@ export const useOfflineService = () => {
       series.episodes.push(episode);
       logger('job done', series).info();
 
-      await offlineStorage.saveOrReplaceOfflineSeries(series).then(saved => {
-        offlineActions.setSeriesList(saved);
-      });
+      const saved = offlineActions.saveOrReplaceOfflineSeries(series);
+      await offlineStorage.saveOfflineSeries(saved);
+
       queueActions.removeFirstItem();
       const firstItem = queueActions.getFirstItem();
       if (!firstItem) {
@@ -92,14 +96,10 @@ export const useOfflineService = () => {
     episode: IOfflineSeriesEpisodes;
     fileUrl: string;
   }) => {
-    const series = await offlineStorage
-      .getOfflineSeries(seriesId)
-      .then(result => {
-        if (!result) {
-          throw new Error('Series not found');
-        }
-        return result;
-      });
+    const series = offlineActions.getOfflineSeries(seriesId);
+    if (!series) {
+      throw new Error('series ' + seriesId + ' not found');
+    }
 
     const isQueueEmpty = queueActions.isQueueEmpty();
 
@@ -120,19 +120,17 @@ export const useOfflineService = () => {
     offlineSeries: offlineState,
     offlineStore: offlineActions,
     addOfflineSeries: async (series: IOfflineSeries) => {
-      const exist = await offlineStorage.getOfflineSeries(series.seriesId);
+      const exist = offlineActions.getOfflineSeries(series.seriesId);
       if (!exist) {
-        await offlineStorage.saveOrReplaceOfflineSeries(series).then(saved => {
-          offlineActions.setSeriesList(saved);
-        });
+        const saved = offlineActions.saveOrReplaceOfflineSeries(series);
+        await offlineStorage.saveOfflineSeries(saved);
       }
     },
     getAllOfflineSeries: async (): Promise<IOfflineSeries[]> => {
-      const series = await offlineStorage.getAllOfflineSeries();
-      return series;
+      return offlineActions.getOfflineSeriesList();
     },
     getOfflineEpisodes: async (seriesId: string) => {
-      const series = await offlineStorage.getOfflineSeries(seriesId);
+      const series = offlineActions.getOfflineSeries(seriesId);
       if (!series) {
         throw new Error('Series not found');
       }
@@ -144,7 +142,7 @@ export const useOfflineService = () => {
       seriesId: string,
       episodeNumber: number,
     ): Promise<boolean> => {
-      const series = await offlineStorage.getOfflineSeries(seriesId);
+      const series = offlineActions.getOfflineSeries(seriesId);
       if (!series) {
         return false;
       }
@@ -152,7 +150,7 @@ export const useOfflineService = () => {
       return !!episode;
     },
     deleteSeriesOffline: async (seriesId: string) => {
-      const series = await offlineStorage.getOfflineSeries(seriesId);
+      const series = offlineActions.getOfflineSeries(seriesId);
       if (!series) {
         throw new Error('Series not found');
       }
@@ -167,15 +165,11 @@ export const useOfflineService = () => {
           await offlineFS.deleteFile(episode.pathToFile);
         }),
       );
-      await offlineStorage.deleteOfflineSeries(seriesId).then(saved => {
-        offlineActions.setSeriesList(saved);
-      });
+      const saved = offlineActions.deleteOfflineSeries(seriesId);
+      offlineStorage.saveOfflineSeries(saved);
     },
     deleteEpisodeOffline: async (seriesId: string, episodeNumber: number) => {
-      const episode = await offlineStorage.getOfflineEpisode(
-        seriesId,
-        episodeNumber,
-      );
+      const episode = offlineActions.getOfflineEpisode(seriesId, episodeNumber);
       if (!episode) {
         throw new Error('Episode not found');
       }
@@ -183,11 +177,11 @@ export const useOfflineService = () => {
         throw new Error('Episode not downloaded');
       }
       offlineFS.deleteFile(episode.pathToFile);
-      await offlineStorage
-        .deleteOfflineEpisode(seriesId, episodeNumber)
-        .then(saved => {
-          offlineActions.setSeriesList(saved);
-        });
+      const saved = offlineActions.deleteOfflineEpisode(
+        seriesId,
+        episodeNumber,
+      );
+      await offlineStorage.saveOfflineSeries(saved);
     },
     stopDownload: async (download: IEpisodeDownloadJob) => {
       const { jobId } = download;
