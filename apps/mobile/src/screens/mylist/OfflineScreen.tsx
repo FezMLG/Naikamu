@@ -61,7 +61,9 @@ const OfflineScreen = ({}: OfflineWatchScreenProps) => {
           <ActiveDownload
             key={index}
             download={download}
-            stopAction={() => stopDownload(download)}
+            stopAction={async () => {
+              await stopDownload(download);
+            }}
           />
         ))}
         {queueActions
