@@ -5,6 +5,7 @@ import { offlineStorage } from './offline.storage';
 import { IEpisodeDownloadJob, useDownloadsStore } from './downloads.store';
 import { useOfflineSeriesStore } from './offline.store';
 import { useDownloadsQueueStore } from './queue.store';
+import { logger } from '../../utils/logger';
 
 export const useOfflineService = () => {
   const downloadJobs = useDownloadsStore(state => state.activeDownloads);
@@ -18,7 +19,7 @@ export const useOfflineService = () => {
   const saveEpisodeOffline = async () => {
     const firstItem = queueActions.getFirstItem();
     if (!firstItem) {
-      console.log('no items in queue');
+      logger('no items in queue').warn();
       return;
     }
     const { series, episode, fileUrl } = firstItem;
@@ -29,7 +30,7 @@ export const useOfflineService = () => {
     });
 
     const beginDownload = async (res: RNFS.DownloadBeginCallbackResult) => {
-      console.log('begin download');
+      logger('begin download').info();
       downloadsActions.addDownload({
         jobId: res.jobId,
         series,
@@ -40,10 +41,11 @@ export const useOfflineService = () => {
     const progressDownload = async (
       res: RNFS.DownloadProgressCallbackResult,
     ) => {
-      console.log(
+      logger(
         'progress download',
         Math.round((res.bytesWritten / res.contentLength) * 100),
-      );
+      ).info();
+
       downloadsActions.changeProgress(
         jobId,
         res.bytesWritten / res.contentLength,
@@ -58,14 +60,15 @@ export const useOfflineService = () => {
       progressDownload,
     );
 
-    console.log('download started', jobId, pathToFile);
+    logger('download started', jobId, pathToFile).info();
 
     job.then(async result => {
       downloadsActions.removeDownload(jobId);
       episode.size = result.bytesWritten;
       episode.pathToFile = pathToFile;
       series.episodes.push(episode);
-      console.log('job done', series);
+      logger('job done', series).info();
+
       await offlineStorage.saveOrReplaceOfflineSeries(series).then(saved => {
         offlineActions.setSeriesList(saved);
       });
@@ -73,7 +76,7 @@ export const useOfflineService = () => {
       const firstItem = queueActions.getFirstItem();
       if (!firstItem) {
         RNFS.completeHandlerIOS(jobId);
-        console.log('no items in queue 2');
+        logger('no items in queue 2', series).warn();
       } else {
         saveEpisodeOffline();
       }
