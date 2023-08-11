@@ -3,7 +3,6 @@ import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper';
 
 import { ForgotPasswordScreenProps } from '../routes/auth';
-import { useAppDispatch } from '../services/redux/store';
 import { fireForgotPassword } from '../services/firebase/fire-auth.service';
 import { useTranslate } from '../i18n/useTranslate';
 import { Controller, useForm } from 'react-hook-form';
@@ -17,7 +16,6 @@ interface ForgetPassword {
 const ForgotPasswordScreen = ({}: ForgotPasswordScreenProps) => {
   const [loading, isLoading] = useState(false);
   const [emailSent, isEmailSent] = useState(false);
-  const dispatch = useAppDispatch();
   const { translate } = useTranslate();
   const {
     control,
@@ -33,7 +31,7 @@ const ForgotPasswordScreen = ({}: ForgotPasswordScreenProps) => {
   const handleForgot = async (data: ForgetPassword) => {
     isLoading(true);
     try {
-      await dispatch(fireForgotPassword(data.email));
+      await fireForgotPassword(data.email);
     } catch {}
     isLoading(false);
     isEmailSent(true);

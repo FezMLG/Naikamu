@@ -2,19 +2,18 @@ import React, { useEffect } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import Config from 'react-native-config';
-import { useSelector } from 'react-redux';
 
 import { globalStyle } from '../styles/global.style';
 import { darkStyle } from '../styles/darkMode.style';
 import { useTranslate } from '../i18n/useTranslate';
-import { RootState } from '../services/redux/store';
 import { AuthRoutesNames, HelloScreenProps } from '../routes/auth';
 import GoogleSignIn from '../components/GoogleSignIn';
 import { Button, PageLayout, useLayout } from '../components';
+import { useUserStore } from '../services/auth/user.store';
 
 const HelloScreen = ({ navigation }: HelloScreenProps) => {
   const { translate } = useTranslate();
-  const { user } = useSelector((state: RootState) => state.user);
+  const user = useUserStore(state => state.user);
   const layout = useLayout();
 
   useEffect(() => {

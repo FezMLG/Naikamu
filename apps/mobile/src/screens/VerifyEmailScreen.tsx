@@ -1,15 +1,14 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { Button, Text } from 'react-native-paper';
-import { useSelector } from 'react-redux';
 
 import { AuthRoutesNames, VerifyEmailScreenProps } from '../routes/auth';
-import { RootState } from '../services/redux/store';
 import { useTranslate } from '../i18n/useTranslate';
 import { globalStyle } from '../styles/global.style';
+import { useUserStore } from '../services/auth/user.store';
 
 const VerifyEmailScreen = ({ navigation }: VerifyEmailScreenProps) => {
-  const { user } = useSelector((state: RootState) => state.user);
+  const user = useUserStore(state => state.user);
   const { translate } = useTranslate();
 
   return (

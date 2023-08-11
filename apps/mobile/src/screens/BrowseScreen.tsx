@@ -6,7 +6,6 @@ import { FAB } from 'react-native-paper';
 import { Media } from '@aniwatch/shared';
 
 import BrowseElement from '../components/browse/BrowseElement';
-import { maxWidth } from '../components/maxDimensions';
 import { BrowseScreenProps, ScreenNames } from '../routes/main';
 import { SeasonYearSelectButtons } from '../components';
 import { useQuerySeriesList } from '../api/hooks';

@@ -6,7 +6,6 @@ import { useTranslate } from '../../i18n/useTranslate';
 import { globalStyle } from '../../styles/global.style';
 import { SettingsActionConfirmScreenProps } from '../../routes/settings/interfaces';
 import { Control, FieldErrorsImpl, Controller, useForm } from 'react-hook-form';
-import { useAppDispatch } from '../../services/redux/store';
 import { fireReauthenticate } from '../../services/firebase/fire-auth.service';
 import { Button, PageLayout, useLayout } from '../../components';
 
@@ -74,7 +73,6 @@ const SettingsActionConfirmScreen = ({
   const layout = useLayout();
   const { action, payload, origin } = route.params;
   const { translate } = useTranslate();
-  const dispatch = useAppDispatch();
 
   const {
     control,
@@ -89,8 +87,8 @@ const SettingsActionConfirmScreen = ({
   const handleAction = async (data: SettingsForm) => {
     try {
       console.log(data);
-      await dispatch(fireReauthenticate(data.password));
-      await dispatch(action(payload));
+      await fireReauthenticate(data.password);
+      await action(payload);
       navigation.navigate(origin);
     } catch (error) {
       console.log(error);

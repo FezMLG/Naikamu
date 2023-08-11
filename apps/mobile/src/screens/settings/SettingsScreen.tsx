@@ -1,9 +1,7 @@
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
-import { useSelector } from 'react-redux';
 
-import { RootState } from '../../services/redux/store';
 import { useTranslate } from '../../i18n/useTranslate';
 import { globalStyle } from '../../styles/global.style';
 import { ProgressiveImage } from '../../components/ProgressiveImage';
@@ -12,10 +10,11 @@ import {
   SettingsScreenProps,
 } from '../../routes/settings/interfaces';
 import { PageLayout, SectionButton, useLayout } from '../../components';
+import { useUserStore } from '../../services/auth/user.store';
 
 const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
   const layout = useLayout();
-  const { user } = useSelector((state: RootState) => state.user);
+  const user = useUserStore(state => state.user);
   const { translate } = useTranslate();
 
   return (

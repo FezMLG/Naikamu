@@ -9,31 +9,30 @@ import {
   View,
 } from 'react-native';
 import Config from 'react-native-config';
-import { useSelector } from 'react-redux';
 
 import { colors, fontStyles, globalStyle } from '../styles/global.style';
 import { useTranslate } from '../i18n/useTranslate';
-import { RootState, useAppDispatch } from '../services/redux/store';
 import {
   fireGetIdToken,
   fireGetNewIdToken,
-  fireGetUser,
 } from '../services/firebase/fire-auth.service';
 import { AppLoadingScreenProps, AuthRoutesNames } from '../routes/auth';
 import { useQueryApiHealth } from '../api/hooks';
 import { useUserSettingsService } from '../services/settings/settings.service';
 import semver from 'semver';
 import { ActivityIndicator } from '../components';
+import { useUserService } from '../services/auth/user.service';
+import { logger } from '../utils/logger';
 
 const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
   const supportedApiVersion = require('../../package.json').apiVersion;
 
   const { translate } = useTranslate();
-  const dispatch = useAppDispatch();
-  const { user } = useSelector((state: RootState) => state.user);
   const [longLoading, setLongLoading] = useState(false);
   const [apiError, setApiError] = useState(false);
   const { initializeUserSettings } = useUserSettingsService();
+  const userService = useUserService();
+  const user = userService.getUser();
 
   const apiCheck = useQueryApiHealth(data => {
     if (semver.satisfies(data.version, supportedApiVersion)) {
@@ -48,15 +47,17 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
     await initializeUserSettings();
     const token = await fireGetIdToken();
     if (token) {
-      await dispatch(await fireGetNewIdToken());
-      await dispatch(fireGetUser());
+      await fireGetNewIdToken();
+      userService.setLoggedUser();
+      const user = userService.getUser();
+      logger(user).info();
       if (!user?.emailVerified && user?.emailVerified !== undefined) {
         navigation.navigate(AuthRoutesNames.VerifyEmail);
       }
     } else {
       navigation.navigate(AuthRoutesNames.Hello);
     }
-  }, [dispatch, initializeUserSettings, navigation, user?.emailVerified]);
+  }, [initializeUserSettings, navigation]);
 
   useEffect(() => {
     setTimeout(() => {

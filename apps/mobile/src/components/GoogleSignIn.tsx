@@ -4,7 +4,6 @@ import { Image, Pressable, StyleSheet } from 'react-native';
 import auth from '@react-native-firebase/auth';
 
 import { fireGetUser } from '../services/firebase/fire-auth.service';
-import { useAppDispatch } from '../services/redux/store';
 import { ActivityIndicator, Text } from 'react-native-paper';
 import { defaultRadius } from '../styles/global.style';
 
@@ -25,14 +24,15 @@ const onGoogleButtonPress = async () => {
 };
 
 const GoogleSignIn = () => {
-  const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState(false);
 
   return (
     <Pressable
       style={styles.googleLogin}
       onPressIn={() => setIsLoading(true)}
-      onPress={() => onGoogleButtonPress().then(() => dispatch(fireGetUser()))}>
+      onPress={() =>
+        onGoogleButtonPress().then(async () => await fireGetUser())
+      }>
       <Image
         style={styles.gLogo}
         source={require('../../assets/google_g_logo.png')}

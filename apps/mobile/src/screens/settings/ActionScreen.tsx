@@ -93,7 +93,7 @@ const SettingsActionScreen = ({
         throw { code: 'auth/requires-recent-login' };
       }
       console.log('not requires recent login');
-      // await dispatch(action(data.newValue));
+      await action(data.newValue);
       navigation.navigate(origin);
     } catch (error: any) {
       if (error.code === 'auth/requires-recent-login') {

@@ -1,5 +1,8 @@
-export const logger = (...message: unknown[]) => {
-  const stringified = JSON.stringify(message.join(' '));
+export const logger = (...messages: unknown[]) => {
+  const stringified = messages
+    .map(message => JSON.stringify(message))
+    .join(' ');
+
   return {
     info: () => {
       console.log('[INFO]', `[${new Date().toISOString()}]`, stringified);
