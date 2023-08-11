@@ -95,7 +95,7 @@ const AppSettingsScreen = ({}: PlaybackSettingsScreenProps) => {
         setQuality={setDownloadQuality}
         handleChange={handleDownloadQualityChange}
       />
-      <SettingsGroup title={translate('settings.groups.videoPlayback')}>
+      <SettingsGroup title={translate('settings.groups.videoPlaybackDownload')}>
         <SettingInputs.Select
           title={translate('settings.titles.videoQuality')}
           text={playbackQuality ?? '1080p'}
@@ -104,7 +104,7 @@ const AppSettingsScreen = ({}: PlaybackSettingsScreenProps) => {
           isLast={true}
         />
       </SettingsGroup>
-      <SettingsGroup title={translate('settings.groups.videoDownload')}>
+      {/* <SettingsGroup title={translate('settings.groups.videoDownload')}>
         <SettingInputs.Select
           title={translate('settings.titles.videoQuality')}
           text={downloadQuality ?? '1080p'}
@@ -112,7 +112,7 @@ const AppSettingsScreen = ({}: PlaybackSettingsScreenProps) => {
           isFirst={true}
           isLast={true}
         />
-      </SettingsGroup>
+      </SettingsGroup> */}
       <View style={globalStyle.marginTop}>
         <Text style={[fontStyles.label, colors.textLight]}>Environment</Text>
         <Text style={[fontStyles.text, colors.textLighter]}>{Config.ENV}</Text>
