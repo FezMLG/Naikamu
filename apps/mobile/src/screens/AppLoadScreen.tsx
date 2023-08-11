@@ -20,21 +20,49 @@ import { AppLoadingScreenProps, AuthRoutesNames } from '../routes/auth';
 import { useQueryApiHealth } from '../api/hooks';
 import { useUserSettingsService } from '../services/settings/settings.service';
 import semver from 'semver';
-import { ActivityIndicator } from '../components';
+import { ActivityIndicator, PageLayout, useLayout } from '../components';
 import { useUserService } from '../services/auth/user.service';
 import { logger } from '../utils/logger';
 import { useUserStore } from '../services/auth/user.store';
-import { userStorage } from '../services/auth/user.storage';
+import NetInfo from '@react-native-community/netinfo';
 
 const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
   const supportedApiVersion = require('../../package.json').apiVersion;
-
+  const layout = useLayout();
   const { translate } = useTranslate();
   const [longLoading, setLongLoading] = useState(false);
   const [apiError, setApiError] = useState(false);
   const { initializeUserSettings } = useUserSettingsService();
   const userService = useUserService();
   const user = useUserStore(state => state.user);
+  const [netInfo, setNetInfo] = useState<any>();
+
+  useEffect(() => {
+    checkConnection();
+    setTimeout(() => {
+      layout.setInfo(translate('welcomeScreen.apiLoading'));
+      layout.setVisible(true);
+      setLongLoading(true);
+    }, 3000);
+    setTimeout(() => {
+      setLongLoading(false);
+      setApiError(true);
+    }, 15000);
+  }, []);
+
+  const checkConnection = useCallback(async () => {
+    logger('useQueryApiHealth').warn();
+    await NetInfo.fetch().then(async state => {
+      logger('NetInfo').info('Connection type', state.type);
+      logger('NetInfo').info('Is connected?', state.isConnected);
+      if (!state.isConnected) {
+        layout.setInfo('useQueryApiHealth#onError');
+        await initializeUserSettings();
+        await userService.readUserFromStorage();
+        userService.setLoggedUser();
+      }
+    });
+  }, []);
 
   const apiCheck = useQueryApiHealth(data => {
     if (semver.satisfies(data.version, supportedApiVersion)) {
@@ -51,28 +79,17 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
     if (token) {
       await fireGetNewIdToken();
       userService.setLoggedUser();
-      logger(user).info();
+      logger('handleLoginCheck').info(user);
       if (!user?.emailVerified && user?.emailVerified !== undefined) {
         navigation.navigate(AuthRoutesNames.VerifyEmail);
       }
     } else {
       navigation.navigate(AuthRoutesNames.Hello);
     }
-    await userService.readUserFromStorage();
   }, [initializeUserSettings, navigation]);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setLongLoading(true);
-    }, 3000);
-    setTimeout(() => {
-      setLongLoading(false);
-      setApiError(true);
-    }, 15000);
-  }, []);
-
   return (
-    <SafeAreaView style={[styles.container]}>
+    <PageLayout.Default style={[styles.container]} {...layout}>
       <Text>{user?.displayName ? user?.displayName : user?.email}</Text>
       <Text style={[colors.textLight, fontStyles.text]}>
         {translate('welcomeScreen.welcome')}
@@ -85,12 +102,6 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
       />
       <View style={[globalStyle.spacerBig]} />
       <ActivityIndicator size={'large'} visible={true} />
-      {longLoading && (
-        <Text
-          style={[fontStyles.text, colors.textLight, globalStyle.textCenter]}>
-          {translate('welcomeScreen.apiLoading')}
-        </Text>
-      )}
       {apiError && (
         <Pressable
           onPress={() =>
@@ -111,17 +122,19 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
           </Text>
         </Pressable>
       )}
-      {apiCheck.isError ?? (
+      {apiCheck.isError ? (
         <Text style={[fontStyles.text, colors.textLight]}>
+          There was an error
           {JSON.stringify(apiCheck.error)}
         </Text>
-      )}
+      ) : null}
       {Config.ENV !== 'prod' && (
         <Text style={[fontStyles.text, colors.textLight]}>
           api_url: {Config.API_URL}
+          {JSON.stringify(netInfo)}
         </Text>
       )}
-    </SafeAreaView>
+    </PageLayout.Default>
   );
 };
 

@@ -48,7 +48,8 @@ const OfflineScreen = ({}: OfflineWatchScreenProps) => {
     <PageLayout.Default {...layout}>
       {/* <Icon name={'pencil-outline'} size={36} color={'white'} /> */}
       <ScrollView>
-        {offlineSeries.filter(series => series.episodes.length !== 0) ? (
+        {offlineSeries.length > 0 ? (
+          // <Text>{JSON.stringify(offlineSeries)}</Text>
           offlineSeries
             .filter(series => series.episodes.length !== 0)
             .map(series => (

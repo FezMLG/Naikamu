@@ -1,14 +1,24 @@
-export const logger = (...messages: unknown[]) => {
-  const stringified = messages
-    .map(message => JSON.stringify(message))
-    .join(' ');
+export const logger = (source: string) => {
+  const prepareMessage = (...messages: unknown[]) => {
+    return messages.map(message => JSON.stringify(message)).join(' ');
+  };
 
   return {
-    info: () => {
-      console.log('[INFO]', `[${new Date().toISOString()}]`, stringified);
+    info: (...messages: unknown[]) => {
+      console.log(
+        '[INFO]',
+        `[${source}]`,
+        `[${new Date().toISOString()}]`,
+        prepareMessage(messages),
+      );
     },
-    warn: () => {
-      console.log('[WARN]', `[${new Date().toISOString()}]`, stringified);
+    warn: (...messages: unknown[]) => {
+      console.log(
+        '[WARN]',
+        `[${source}]`,
+        `[${new Date().toISOString()}]`,
+        prepareMessage(messages),
+      );
     },
   };
 };

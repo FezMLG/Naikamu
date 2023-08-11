@@ -1,3 +1,4 @@
+import { logger } from '../../utils/logger';
 import { Resolution, UserSettings } from './interfaces';
 import { useUserSettingsStorage } from './settings.storage';
 import { useUserSettingsStore } from './settings.store';
@@ -28,21 +29,23 @@ export const useUserSettingsService = () => {
 
         await saveUserSettingsToStorage(userSettings);
         actions.saveSettings(userSettings);
-        console.log('userSettings', userSettings);
+        logger('updateUserSettings').warn('userSettings', userSettings);
       } catch (e: unknown) {
-        console.log(e);
+        logger('updateUserSettings').warn(e);
       }
     },
     initializeUserSettings: async () => {
       try {
         const existingSettings = await getUserSettingsFromStorage();
         if (!existingSettings) {
-          console.log('no existing settings, saving default settings');
+          logger('initializeUserSettings').warn(
+            'no existing settings, saving default settings',
+          );
           await saveUserSettingsToStorage(defaultSettings);
         }
         actions.saveSettings({ ...defaultSettings, ...existingSettings });
       } catch (e: unknown) {
-        console.log(e);
+        logger('initializeUserSettings').warn(e);
       }
     },
   };

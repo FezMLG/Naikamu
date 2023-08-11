@@ -35,7 +35,7 @@ export const useOfflineService = () => {
   const saveEpisodeOffline = async () => {
     const firstItem = queueActions.getFirstItem();
     if (!firstItem) {
-      logger('no items in queue').warn();
+      logger('saveEpisodeOffline').warn('no items in queue');
       return;
     }
     const { series, episode, fileUrl } = firstItem;
@@ -54,10 +54,9 @@ export const useOfflineService = () => {
     const progressDownload = async (
       res: RNFS.DownloadProgressCallbackResult,
     ) => {
-      logger(
-        'progress download',
-        Math.round((res.bytesWritten / res.contentLength) * 100),
-      ).info();
+      logger('progressDownload').info(
+        ((res.bytesWritten / res.contentLength) * 100).toFixed(2),
+      );
 
       downloadsActions.changeProgress(
         jobId,
@@ -73,14 +72,14 @@ export const useOfflineService = () => {
       progressDownload,
     );
 
-    logger('download started', jobId, pathToFile).info();
+    logger('progressDownload').info('download started', jobId, pathToFile);
 
     job.then(async result => {
       downloadsActions.removeDownload(jobId);
       episode.size = result.bytesWritten;
       episode.pathToFile = pathToFile;
       series.episodes.push(episode);
-      logger('job done', series).info();
+      logger('progressDownload').info('job done', series);
 
       const saved = offlineActions.saveOrReplaceOfflineSeries(series);
       await offlineStorage.saveOfflineSeries(saved);
@@ -89,7 +88,7 @@ export const useOfflineService = () => {
       const firstItem = queueActions.getFirstItem();
       if (!firstItem) {
         RNFS.completeHandlerIOS(jobId);
-        logger('no items in queue 2', series).warn();
+        logger('progressDownload').warn('no items in queue 2', series);
       } else {
         saveEpisodeOffline();
       }
@@ -150,6 +149,13 @@ export const useOfflineService = () => {
       }
     },
     getAllOfflineSeries: async (): Promise<IOfflineSeries[]> => {
+      const state = offlineActions.getOfflineSeriesList();
+      if (state.length === 0) {
+        const local = await offlineStorage.getOfflineSeriesList();
+        if (local instanceof Array) {
+          offlineActions.setSeriesList(local);
+        }
+      }
       return offlineActions.getOfflineSeriesList();
     },
     getOfflineEpisodes: async (seriesId: string) => {

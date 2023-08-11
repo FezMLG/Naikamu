@@ -8,10 +8,15 @@ const clearOffline = async () => {
 };
 
 const saveOfflineSeries = async (series: IOfflineSeries[]) => {
-  await storageStoreData(OFFLINE_SERIES_KEY, [series]);
+  await storageStoreData(OFFLINE_SERIES_KEY, series);
+};
+
+const getOfflineSeriesList = async () => {
+  return storageGetData<IOfflineSeries[]>(OFFLINE_SERIES_KEY);
 };
 
 export const offlineStorage = {
   clearOffline,
   saveOfflineSeries,
+  getOfflineSeriesList,
 };
