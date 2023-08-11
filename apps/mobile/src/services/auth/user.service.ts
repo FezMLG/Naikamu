@@ -1,5 +1,6 @@
 import { LoginForm } from '../../screens/auth/LoginScreen';
 import { SignUpForm } from '../../screens/auth/SignUpScreen';
+import { logger } from '../../utils/logger';
 import {
   fireDeleteAccount,
   fireGetUser,
@@ -9,25 +10,27 @@ import {
   fireUpdatePassword,
   fireUpdateUserDisplayName,
 } from '../firebase/fire-auth.service';
+import { userStorage } from './user.storage';
 import { useUserStore } from './user.store';
 
 export const useUserService = () => {
   const userActions = useUserStore(state => state.actions);
 
-  const setLoggedUser = () => {
+  const setLoggedUser = async () => {
     const user = fireGetUser();
     userActions.setUser(user);
+    await userStorage.saveUser(user);
   };
 
   const loginUser = async (data: LoginForm) => {
     await fireLoginUser(data.email, data.password);
-    setLoggedUser();
+    await setLoggedUser();
     return userActions.getUser();
   };
 
   const registerUser = async (data: SignUpForm) => {
     await fireRegisterUser(data.displayName, data.email, data.password);
-    setLoggedUser();
+    await setLoggedUser();
     return userActions.getUser();
   };
 
@@ -54,6 +57,15 @@ export const useUserService = () => {
     userActions.setUser(null);
   };
 
+  const readUserFromStorage = async () => {
+    await userStorage.getUser().then(user => {
+      logger('saved user', user).info();
+      if (user) {
+        userActions.setUser(user);
+      }
+    });
+  };
+
   return {
     getUser: userActions.getUser,
     setLoggedUser,
@@ -63,5 +75,6 @@ export const useUserService = () => {
     updateUserDisplayName,
     updateUserPassword,
     deleteUserAccount,
+    readUserFromStorage,
   };
 };

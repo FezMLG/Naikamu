@@ -23,6 +23,8 @@ import semver from 'semver';
 import { ActivityIndicator } from '../components';
 import { useUserService } from '../services/auth/user.service';
 import { logger } from '../utils/logger';
+import { useUserStore } from '../services/auth/user.store';
+import { userStorage } from '../services/auth/user.storage';
 
 const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
   const supportedApiVersion = require('../../package.json').apiVersion;
@@ -32,7 +34,7 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
   const [apiError, setApiError] = useState(false);
   const { initializeUserSettings } = useUserSettingsService();
   const userService = useUserService();
-  const user = userService.getUser();
+  const user = useUserStore(state => state.user);
 
   const apiCheck = useQueryApiHealth(data => {
     if (semver.satisfies(data.version, supportedApiVersion)) {
@@ -49,7 +51,6 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
     if (token) {
       await fireGetNewIdToken();
       userService.setLoggedUser();
-      const user = userService.getUser();
       logger(user).info();
       if (!user?.emailVerified && user?.emailVerified !== undefined) {
         navigation.navigate(AuthRoutesNames.VerifyEmail);
@@ -57,6 +58,7 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
     } else {
       navigation.navigate(AuthRoutesNames.Hello);
     }
+    await userService.readUserFromStorage();
   }, [initializeUserSettings, navigation]);
 
   useEffect(() => {

@@ -3,9 +3,9 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { Image, Pressable, StyleSheet } from 'react-native';
 import auth from '@react-native-firebase/auth';
 
-import { fireGetUser } from '../services/firebase/fire-auth.service';
 import { ActivityIndicator, Text } from 'react-native-paper';
 import { defaultRadius } from '../styles/global.style';
+import { useUserService } from '../services/auth/user.service';
 
 GoogleSignin.configure({
   webClientId:
@@ -25,13 +25,16 @@ const onGoogleButtonPress = async () => {
 
 const GoogleSignIn = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const userService = useUserService();
 
   return (
     <Pressable
       style={styles.googleLogin}
       onPressIn={() => setIsLoading(true)}
       onPress={() =>
-        onGoogleButtonPress().then(async () => await fireGetUser())
+        onGoogleButtonPress().then(
+          async () => await userService.setLoggedUser(),
+        )
       }>
       <Image
         style={styles.gLogo}
