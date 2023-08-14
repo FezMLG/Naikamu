@@ -1,4 +1,5 @@
 import { storageGetData, storageStoreData } from '../../utils';
+import { logger } from '../../utils/logger';
 import { IOfflineSeries, IOfflineSeriesEpisodes } from './interfaces';
 
 const OFFLINE_SERIES_KEY = 'offlineSeries';
@@ -8,6 +9,7 @@ const clearOffline = async () => {
 };
 
 const saveOfflineSeries = async (series: IOfflineSeries[]) => {
+  logger(saveOfflineSeries.name).info(series);
   await storageStoreData(OFFLINE_SERIES_KEY, series);
 };
 

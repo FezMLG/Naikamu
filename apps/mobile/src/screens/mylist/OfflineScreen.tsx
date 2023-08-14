@@ -9,6 +9,7 @@ import { OfflineWatchScreenProps } from '../../routes/main/mylist/offline/interf
 import { useOfflineService } from '../../services/offline/offline.service';
 import { ScrollView, Text } from 'react-native';
 import { useDownloadsQueueStore } from '../../services/offline/queue.store';
+import { logger } from '../../utils/logger';
 
 const OfflineScreen = ({}: OfflineWatchScreenProps) => {
   const layout = useLayout();
@@ -26,7 +27,7 @@ const OfflineScreen = ({}: OfflineWatchScreenProps) => {
   const handleLoadingOffline = useCallback(async () => {
     try {
       const offline = await getAllOfflineSeries();
-      console.log('offline', offline);
+      logger('handleLoadingOffline').info(offline);
       return offline;
     } catch (error) {
       console.log(error);
