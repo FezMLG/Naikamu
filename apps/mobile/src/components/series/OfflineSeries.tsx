@@ -62,7 +62,7 @@ export const OfflineSeries = ({ series }: { series: IOfflineSeries }) => {
         <Modal.Title title={title} />
         <Button
           label={'Delete'}
-          type="secondary"
+          type="warning"
           onPress={() => {
             console.log('delete', seriesId);
             deleteSeriesOffline(seriesId);
