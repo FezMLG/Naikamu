@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
 import { Text } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -24,7 +24,7 @@ import {
 } from '../../services/useVideoProgress';
 import { humanFileSize } from '../../utils/humanFileSize';
 import { Swipeable } from 'react-native-gesture-handler';
-import { Modal } from '../atoms';
+import { Button, Modal } from '../atoms';
 
 export const OfflineEpisode = ({
   episode,
@@ -55,6 +55,7 @@ export const OfflineEpisode = ({
           justifyContent: 'center',
           alignItems: 'flex-end',
           borderRadius: defaultRadius,
+          width: '100%',
         }}
         onPress={() => {
           console.log('delete episode', animeId, episode.number);
@@ -72,8 +73,17 @@ export const OfflineEpisode = ({
 
   return (
     <>
-      <Modal.Container isOpen={isOpen} setIsOpen={setIsOpen}>
-        <RightSwipeActions />
+      <Modal.Container setIsOpen={setIsOpen} isOpen={isOpen}>
+        <Modal.Title title={episode.title} />
+        <Button
+          label={'Delete'}
+          type="warning"
+          onPress={() => {
+            console.log('delete episode', animeId, episode.number);
+            deleteEpisodeOffline(animeId, episode.number);
+            setIsOpen(false);
+          }}
+        />
       </Modal.Container>
       <Swipeable
         renderRightActions={RightSwipeActions}
