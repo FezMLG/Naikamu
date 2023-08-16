@@ -6,6 +6,7 @@ import { IEpisodeDownloadJob, useDownloadsStore } from './downloads.store';
 import { useOfflineSeriesStore } from './offline.store';
 import { useDownloadsQueueStore } from './queue.store';
 import { logger } from '../../utils/logger';
+import { Platform } from 'react-native';
 
 export const useOfflineService = () => {
   const downloadJobs = useDownloadsStore(state => state.activeDownloads);
@@ -87,7 +88,9 @@ export const useOfflineService = () => {
       queueActions.removeFirstItem();
       const firstItem = queueActions.getFirstItem();
       if (!firstItem) {
-        RNFS.completeHandlerIOS(jobId);
+        if (Platform.OS === 'ios') {
+          RNFS.completeHandlerIOS(jobId);
+        }
         logger('progressDownload').warn('no items in queue 2', series);
       } else {
         saveEpisodeOffline();
