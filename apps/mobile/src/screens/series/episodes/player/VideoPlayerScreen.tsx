@@ -1,11 +1,12 @@
 import { Platform, StyleSheet, View } from 'react-native';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Video, { OnProgressData } from 'react-native-video';
 
 import { storageGetData, storageStoreData } from '../../../../utils';
 import { WatchNativeScreenProps } from '../../../../routes/main';
 import VideoPlayer from 'react-native-media-console';
 import { createEpisodeProgressKey } from '../../../../services';
+import SystemNavigationBar from 'react-native-system-navigation-bar';
 
 const NativeVideoPlayerScreen = ({
   route,
@@ -14,6 +15,10 @@ const NativeVideoPlayerScreen = ({
   const { uri, episodeTitle, episodeNumber, seriesId } = route.params;
   const videoPlayer = useRef<Video>(null);
   const storageKey = createEpisodeProgressKey(seriesId, episodeNumber);
+
+  useEffect(() => {
+    SystemNavigationBar.immersive();
+  }, []);
 
   const handleProgress = async (progress: OnProgressData) => {
     if (Math.round(progress.currentTime) % 5 === 0) {
