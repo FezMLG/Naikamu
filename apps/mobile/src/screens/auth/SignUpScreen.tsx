@@ -2,16 +2,19 @@ import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { View, StyleSheet } from 'react-native';
 import { Text, TextInput } from 'react-native-paper';
-import { useSelector } from 'react-redux';
 
 import { useTranslate } from '../../i18n/useTranslate';
 import { AuthRoutesNames, SignUpScreenProps } from '../../routes/auth';
-import { fireRegisterUser } from '../../services/firebase/fire-auth.service';
-import { RootState, useAppDispatch } from '../../services/store/store';
 import { globalStyle } from '../../styles/global.style';
-import { Button, useLayout, useErrorHandler } from '../../components';
+import {
+  Button,
+  useLayout,
+  useErrorHandler,
+  PageLayout,
+} from '../../components';
+import { useUserService } from '../../services/auth/user.service';
 
-interface SignUpUser {
+export interface SignUpForm {
   displayName: string;
   email: string;
   password: string;
@@ -19,11 +22,10 @@ interface SignUpUser {
 }
 
 export const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
-  const { PageLayout, setInfo, setVisible } = useLayout();
+  const layout = useLayout();
   const [loading, isLoading] = useState(false);
-  const dispatch = useAppDispatch();
   const { translate } = useTranslate();
-  const { user } = useSelector((state: RootState) => state.user);
+  const userService = useUserService();
   const { errorResolver } = useErrorHandler();
 
   const {
@@ -39,27 +41,25 @@ export const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
     },
   });
 
-  const handleSignUp = async (data: SignUpUser) => {
+  const handleSignUp = async (data: SignUpForm) => {
     isLoading(true);
     try {
       if (data.password !== data.passwordAgain) {
         throw { code: 'auth/passwords-do-not-match' };
       }
-      await dispatch(
-        fireRegisterUser(data.displayName, data.email, data.password),
-      );
+      const user = await userService.registerUser(data);
       if (user) {
         navigation.navigate(AuthRoutesNames.VerifyEmail);
       }
     } catch (error: any) {
-      setInfo(translate(errorResolver(error.code)));
-      setVisible(true);
+      layout.setInfo(translate(errorResolver(error.code)));
+      layout.setVisible(true);
     }
     isLoading(false);
   };
 
   return (
-    <PageLayout>
+    <PageLayout.Default {...layout}>
       <View style={[styles.formInputs, globalStyle.spacerBig]}>
         <Controller
           control={control}
@@ -179,7 +179,7 @@ export const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
           onPress={handleSubmit(handleSignUp)}
         />
       </View>
-    </PageLayout>
+    </PageLayout.Default>
   );
 };
 

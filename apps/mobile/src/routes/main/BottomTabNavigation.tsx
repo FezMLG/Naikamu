@@ -12,20 +12,29 @@ import { useTranslate } from '../../i18n/useTranslate';
 import { StyleSheet, Text } from 'react-native';
 import SettingsStack from '../settings/SettingsStack';
 import { SettingsScreenNames } from '../settings/interfaces';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {
+  BottomTabNavigationOptions,
+  createBottomTabNavigator,
+} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { maxWidth } from '../../components/maxDimensions';
+import { MyListStack } from './mylist/MyListTopTabsNavigation';
+import { colors, defaultRadius } from '../../styles';
 
-export const defaultHeaderOptions = ({ title }: { title?: string }) => {
+export const defaultHeaderOptions = ({
+  title,
+}: {
+  title?: string;
+}): BottomTabNavigationOptions => {
   return {
     title: title,
     headerTitleStyle: {
       fontFamily: 'Catamaran-Black',
       fontSize: 36,
+      lineHeight: 48,
+      paddingTop: 8,
     },
     headerStyle: {
-      backgroundColor: 'none',
-      height: 80,
+      backgroundColor: colors.background.color,
     },
     headerLeft: () => <></>,
   };
@@ -50,6 +59,11 @@ const BottomTabContent = (props: {
       break;
     case ScreenNames.SettingsStack:
       iconName = props.focused ? 'cog' : 'cog-outline';
+      break;
+    case ScreenNames.MyListStack:
+      iconName = props.focused
+        ? 'bookmark-box-multiple'
+        : 'bookmark-box-multiple-outline';
       break;
   }
 
@@ -93,19 +107,15 @@ export const BottomTabNavigation = () => {
           );
         },
         tabBarStyle: {
-          borderRadius: 8,
-          marginBottom: 15,
-          height: 70,
-          width: maxWidth() - 20,
-          marginHorizontal: 10,
-          position: 'absolute',
           backgroundColor: '#3A3A3C',
+          minHeight: 66,
         },
         tabBarItemStyle: {
           marginVertical: 8,
-          marginHorizontal: 20,
-          borderRadius: 8,
+          marginHorizontal: 8,
+          borderRadius: defaultRadius,
           paddingVertical: 5,
+          height: 50,
         },
         tabBarInactiveTintColor: 'white',
         tabBarActiveTintColor: 'white',
@@ -131,6 +141,15 @@ export const BottomTabNavigation = () => {
         })}
       />
       <BottomTab.Screen
+        name={ScreenNames.MyListStack}
+        component={MyListStack}
+        options={{
+          ...defaultHeaderOptions({
+            title: translate('routes.' + ScreenNames.MyListStack),
+          }),
+        }}
+      />
+      <BottomTab.Screen
         name={ScreenNames.SettingsStack}
         component={SettingsStack}
         options={{
@@ -147,7 +166,7 @@ export const BottomTabNavigation = () => {
 const styles = StyleSheet.create({
   center: { alignSelf: 'center' },
   itemMargin: {
-    marginLeft: 15,
+    marginLeft: 10,
   },
   labelText: {
     fontSize: 12,

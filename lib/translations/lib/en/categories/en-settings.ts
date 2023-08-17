@@ -15,6 +15,8 @@ export const enSettings = {
       accountDetails: 'Account details',
       videoPlayback: 'Video playback',
       dangerZone: 'Danger zone',
+      videoDownload: 'Video download',
+      videoPlaybackDownload: 'Video playback & download',
     },
     titles: {
       videoQuality: 'Video quality',

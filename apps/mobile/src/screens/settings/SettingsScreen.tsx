@@ -1,9 +1,7 @@
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
-import { useSelector } from 'react-redux';
 
-import { RootState } from '../../services/store/store';
 import { useTranslate } from '../../i18n/useTranslate';
 import { globalStyle } from '../../styles/global.style';
 import { ProgressiveImage } from '../../components/ProgressiveImage';
@@ -11,15 +9,16 @@ import {
   SettingsScreenNames,
   SettingsScreenProps,
 } from '../../routes/settings/interfaces';
-import { SectionButton, useLayout } from '../../components';
+import { PageLayout, SectionButton, useLayout } from '../../components';
+import { useUserStore } from '../../services/auth/user.store';
 
 const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
-  const { PageLayout } = useLayout();
-  const { user } = useSelector((state: RootState) => state.user);
+  const layout = useLayout();
+  const user = useUserStore(state => state.user);
   const { translate } = useTranslate();
 
   return (
-    <PageLayout style={[styles.container]}>
+    <PageLayout.Default style={[styles.container]} {...layout}>
       <View>
         {user?.picture ? (
           <ProgressiveImage source={user.picture} style={[styles.logo]} />
@@ -50,7 +49,7 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
           onPress={() => navigation.navigate(SettingsScreenNames.AppSettings)}
         />
       </View>
-    </PageLayout>
+    </PageLayout.Default>
   );
 };
 

@@ -2,20 +2,19 @@ import React, { useEffect } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import Config from 'react-native-config';
-import { useSelector } from 'react-redux';
 
 import { globalStyle } from '../styles/global.style';
 import { darkStyle } from '../styles/darkMode.style';
 import { useTranslate } from '../i18n/useTranslate';
-import { RootState } from '../services/store/store';
 import { AuthRoutesNames, HelloScreenProps } from '../routes/auth';
 import GoogleSignIn from '../components/GoogleSignIn';
-import { Button, useLayout } from '../components';
+import { Button, PageLayout, useLayout } from '../components';
+import { useUserStore } from '../services/auth/user.store';
 
 const HelloScreen = ({ navigation }: HelloScreenProps) => {
-  const { PageLayout } = useLayout();
   const { translate } = useTranslate();
-  const { user } = useSelector((state: RootState) => state.user);
+  const user = useUserStore(state => state.user);
+  const layout = useLayout();
 
   useEffect(() => {
     navigation.addListener('beforeRemove', e => {
@@ -24,7 +23,7 @@ const HelloScreen = ({ navigation }: HelloScreenProps) => {
   }, [navigation]);
 
   return (
-    <PageLayout style={[styles.container]}>
+    <PageLayout.Default style={[styles.container]} {...layout}>
       <Text>{user?.displayName ? user?.displayName : user?.email}</Text>
       <Text variant="titleLarge" style={darkStyle.font}>
         {translate('welcomeScreen.welcome')}
@@ -54,7 +53,7 @@ const HelloScreen = ({ navigation }: HelloScreenProps) => {
         style={[globalStyle.marginTopSmall]}
       />
       {Config.ENV !== 'prod' && <Text>api_url: {Config.API_URL}</Text>}
-    </PageLayout>
+    </PageLayout.Default>
   );
 };
 

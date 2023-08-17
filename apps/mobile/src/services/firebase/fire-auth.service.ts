@@ -1,31 +1,18 @@
 import auth from '@react-native-firebase/auth';
 
 import { User } from '@aniwatch/shared';
-import {
-  clearAuthenticatedUser,
-  getUserFulfilled,
-  getUserPending,
-  getUserRejected,
-} from '../store/reducers/user.reducer';
-import { AppDispatch } from '../store/store';
 
-export const fireLoginUser =
-  (email: string, password: string) => async (dispatch: AppDispatch) => {
-    const newAuthState = await auth().signInWithEmailAndPassword(
-      email,
-      password,
-    );
+export const fireLoginUser = async (email: string, password: string) => {
+  const newAuthState = await auth().signInWithEmailAndPassword(email, password);
 
-    if (!newAuthState.user.emailVerified) {
-      await sendEmailVerification();
-    }
-    await dispatch(fireGetUser());
-  };
+  if (!newAuthState.user.emailVerified) {
+    await sendEmailVerification();
+  }
+};
 
-export const fireGetNewIdToken = async () => async (dispatch: AppDispatch) => {
+export const fireGetNewIdToken = async () => {
   const user = auth().currentUser;
-  if (user) {
-    await dispatch(fireGetUser());
+  if (!user) {
   }
 };
 
@@ -33,30 +20,27 @@ export const fireGetIdToken = () => {
   return auth().currentUser?.getIdToken();
 };
 
-export const fireLogoutUser = () => async (dispatch: AppDispatch) => {
+export const fireLogoutUser = async () => {
   try {
     await auth().signOut();
-
-    dispatch(clearAuthenticatedUser());
   } catch (e) {
     console.log(e);
   }
 };
 
-export const fireRegisterUser =
-  (displayName: string, email: string, password: string) =>
-  async (dispatch: AppDispatch) => {
-    dispatch(clearAuthenticatedUser());
+export const fireRegisterUser = async (
+  displayName: string,
+  email: string,
+  password: string,
+) => {
+  await auth().createUserWithEmailAndPassword(email, password);
 
-    await auth().createUserWithEmailAndPassword(email, password);
+  await auth().currentUser?.updateProfile({
+    displayName,
+  });
 
-    await auth().currentUser?.updateProfile({
-      displayName: displayName,
-    });
-
-    await sendEmailVerification();
-    await dispatch(fireGetUser());
-  };
+  await sendEmailVerification();
+};
 
 export const fireForgotPassword = (email: string) => async () => {
   try {
@@ -73,81 +57,65 @@ const sendEmailVerification = async () => {
   });
 };
 
-export const fireUpdateUserDisplayName =
-  (newDisplayName: string) => async (dispatch: AppDispatch) => {
-    try {
-      const currentUser = auth().currentUser;
-      if (currentUser) {
-        await currentUser.updateProfile({
-          displayName: newDisplayName,
-        });
-
-        console.log('updated!');
-
-        // if (form.email !== currentUser.email) {
-        //   await currentUser.verifyBeforeUpdateEmail(form.email, {
-        //     handleCodeInApp: true,
-        //     url: 'https://aniwatch.page.link/V9Hh',
-        //   });
-        // }
-      }
-      await dispatch(fireGetUser());
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-export const fireUpdatePassword =
-  (newPassword: string) => async (dispatch: AppDispatch) => {
-    const currentUser = auth().currentUser;
-    console.log('heh!');
-    if (currentUser) {
-      await currentUser.updatePassword(newPassword);
-      console.log('Password updated!');
-    }
-    await dispatch(fireGetUser());
-  };
-
-export const fireReauthenticate =
-  (password: string) => async (dispatch: AppDispatch) => {
+export const fireUpdateUserDisplayName = async (newDisplayName: string) => {
+  try {
     const currentUser = auth().currentUser;
     if (currentUser) {
-      if (!currentUser.email) {
-        throw new Error('No email found');
-      }
-      await dispatch(fireLoginUser(currentUser.email, password));
-      console.log('Reauthenticated!');
-    }
-    await dispatch(fireGetUser());
-  };
+      await currentUser.updateProfile({
+        displayName: newDisplayName,
+      });
 
-export const fireDeleteAccount = () => async (dispatch: AppDispatch) => {
-  await auth().currentUser?.delete();
-  dispatch(clearAuthenticatedUser());
+      console.log('updated!');
+
+      // if (form.email !== currentUser.email) {
+      //   await currentUser.verifyBeforeUpdateEmail(form.email, {
+      //     handleCodeInApp: true,
+      //     url: 'https://aniwatch.page.link/V9Hh',
+      //   });
+      // }
+    }
+  } catch (error) {
+    console.error(error);
+  }
 };
 
-export const fireGetUser = () => async (dispatch: AppDispatch) => {
-  try {
-    dispatch(getUserPending());
-    const fUser = auth().currentUser;
-    try {
-      if (fUser) {
-        const user: User = {
-          displayName: fUser.displayName,
-          email: fUser.email,
-          emailVerified: fUser.emailVerified,
-          isAnonymous: fUser.isAnonymous,
-          uid: fUser.uid,
-          picture: fUser.photoURL,
-        };
-        dispatch(getUserFulfilled(user));
-      } else {
-        dispatch(getUserRejected());
-      }
-    } catch (error) {
-      dispatch(getUserRejected());
+export const fireUpdatePassword = async (newPassword: string) => {
+  const currentUser = auth().currentUser;
+  console.log('heh!');
+  if (currentUser) {
+    await currentUser.updatePassword(newPassword);
+    console.log('Password updated!');
+  }
+};
+
+export const fireReauthenticate = async (password: string) => {
+  const currentUser = auth().currentUser;
+  if (currentUser) {
+    if (!currentUser.email) {
+      throw new Error('No email found');
     }
-  } catch (e: unknown) {
-    dispatch(getUserRejected());
+    await fireLoginUser(currentUser.email, password);
+    console.log('Reauthenticated!');
+  }
+};
+
+export const fireDeleteAccount = async () => {
+  await auth().currentUser?.delete();
+};
+
+export const fireGetUser = () => {
+  const fUser = auth().currentUser;
+  if (fUser) {
+    const user: User = {
+      displayName: fUser.displayName,
+      email: fUser.email,
+      emailVerified: fUser.emailVerified,
+      isAnonymous: fUser.isAnonymous,
+      uid: fUser.uid,
+      picture: fUser.photoURL,
+    };
+    return user;
+  } else {
+    return null;
   }
 };

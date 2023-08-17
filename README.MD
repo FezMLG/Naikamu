@@ -11,6 +11,18 @@ Currently the application is only available for android, in the future there may
 
 To install this app go to [Releases](https://github.com/FezMLG/AniWatch/releases), download it, install and enjoy 🚀
 
+## Build Naming
+
+```
+aniwatch-{env}-{version}
+```
+
+Ex.
+
+```
+aniwatch-stg-1.0.0-beta.4.1.0
+```
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

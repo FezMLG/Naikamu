@@ -1,8 +1,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { useSelector } from 'react-redux';
 
-import { RootState, useAppDispatch } from '../../services/store/store';
 import { useTranslate } from '../../i18n/useTranslate';
 import {
   SettingsScreenNames,
@@ -13,31 +11,28 @@ import {
   SettingInputs,
   SettingsGroup,
   Button,
+  PageLayout,
 } from '../../components';
 import { ActionType } from '@aniwatch/shared';
-import {
-  fireDeleteAccount,
-  fireLogoutUser,
-  fireUpdatePassword,
-  fireUpdateUserDisplayName,
-} from '../../services/firebase/fire-auth.service';
 import { globalStyle } from '../../styles';
+import { useUserStore } from '../../services/auth/user.store';
+import { useUserService } from '../../services/auth/user.service';
 
 const UserSettingsScreen = ({ navigation }: UserSettingsScreenProps) => {
-  const { PageLayout } = useLayout();
-  const { user } = useSelector((state: RootState) => state.user);
+  const layout = useLayout();
+  const user = useUserStore(state => state.user);
   const { translate } = useTranslate();
-  const dispatch = useAppDispatch();
+  const userService = useUserService();
 
   return (
-    <PageLayout style={[styles.container]}>
+    <PageLayout.Default style={[styles.container]} {...layout}>
       <SettingsGroup title={translate('settings.groups.accountDetails')}>
         <SettingInputs.Edit
           label={translate('forms.labels.' + ActionType.NickChange)}
           text={user?.displayName ?? ''}
           onPress={() =>
             navigation.navigate(SettingsScreenNames.SettingsAction, {
-              action: fireUpdateUserDisplayName,
+              action: userService.updateUserDisplayName,
               requiresLogin: false,
               type: ActionType.NickChange,
               origin: SettingsScreenNames.UserSettings,
@@ -51,7 +46,7 @@ const UserSettingsScreen = ({ navigation }: UserSettingsScreenProps) => {
           text={'*'.repeat(10)}
           onPress={() =>
             navigation.navigate(SettingsScreenNames.SettingsAction, {
-              action: fireUpdatePassword,
+              action: userService.updateUserPassword,
               requiresLogin: true,
               type: ActionType.PasswordChange,
               origin: SettingsScreenNames.UserSettings,
@@ -65,7 +60,7 @@ const UserSettingsScreen = ({ navigation }: UserSettingsScreenProps) => {
         label={translate('auth.logout')}
         type={'secondary'}
         style={[globalStyle.marginTopBig, globalStyle.marginBottomBig]}
-        onPress={() => dispatch(fireLogoutUser())}
+        onPress={() => userService.logoutUser()}
       />
       <SettingsGroup title={translate('settings.groups.dangerZone')}>
         <Button
@@ -73,7 +68,7 @@ const UserSettingsScreen = ({ navigation }: UserSettingsScreenProps) => {
           type={'warning'}
           onPress={() =>
             navigation.navigate(SettingsScreenNames.SettingsActionConfirm, {
-              action: fireDeleteAccount,
+              action: userService.deleteUserAccount,
               type: ActionType.AccountDelete,
               origin: SettingsScreenNames.UserSettings,
               payload: '',
@@ -81,7 +76,7 @@ const UserSettingsScreen = ({ navigation }: UserSettingsScreenProps) => {
           }
         />
       </SettingsGroup>
-    </PageLayout>
+    </PageLayout.Default>
   );
 };
 

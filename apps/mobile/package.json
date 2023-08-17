@@ -1,6 +1,6 @@
 {
   "name": "@aniwatch/mobile",
-  "version": "1.0.0-beta.4.0.0",
+  "version": "1.0.0-beta.4.3.0",
   "apiVersion": "0.x.x",
   "private": true,
   "engines": {
@@ -22,10 +22,12 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "app:release": "cd android && ./gradlew bundleRelease",
     "apk:beta:release": "cd android && bundle exec fastlane beta && open app/build/outputs/apk/production/release",
-    "apk:release": "cd android && ./gradlew assembleRelease && open app/build/outputs/apk/production/release"
+    "apk:release": "cd android && ./gradlew assembleRelease && open app/build/outputs/apk/production/release",
+    "apk:stg:release": "cd android && ./gradlew assembleStaging && open app/build/outputs/apk/staging/release"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.17.10",
+    "@react-native-community/netinfo": "^9.4.1",
     "@react-native-firebase/analytics": "^18.0.0",
     "@react-native-firebase/app": "^18.0.0",
     "@react-native-firebase/auth": "^18.0.0",
@@ -33,9 +35,9 @@
     "@react-native-google-signin/google-signin": "^10.0.1",
     "@react-navigation/bottom-tabs": "^6.4.0",
     "@react-navigation/drawer": "^6.5.0",
+    "@react-navigation/material-top-tabs": "^6.6.2",
     "@react-navigation/native": "^6.0.13",
     "@react-navigation/native-stack": "^6.9.0",
-    "@reduxjs/toolkit": "^1.8.6",
     "@tanstack/react-query": "^4.3.9",
     "axios": "^0.27.2",
     "classnames": "^2.3.2",
@@ -47,11 +49,13 @@
     "react-native": "0.71.10",
     "react-native-config": "^1.4.11",
     "react-native-fast-image": "^8.6.1",
+    "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "^2.8.0",
     "react-native-keychain": "^8.1.1",
     "react-native-linear-gradient": "^2.6.2",
     "react-native-localize": "^2.2.4",
     "react-native-media-console": "^2.0.6",
+    "react-native-pager-view": "^6.2.0",
     "react-native-paper": "^5.3.1",
     "react-native-qrcode-svg": "^6.1.2",
     "react-native-reanimated": "^2.14.4",
@@ -59,11 +63,13 @@
     "react-native-screens": "^3.18.2",
     "react-native-shadow-2": "^7.0.5",
     "react-native-svg": "^13.2.0",
+    "react-native-system-navigation-bar": "^2.6.1",
+    "react-native-tab-view": "^3.5.1",
     "react-native-vector-icons": "^9.2.0",
     "react-native-video": "^5.2.1",
     "react-native-webview": "^11.23.1",
-    "react-redux": "^8.0.4",
-    "semver": "^7.5.1"
+    "semver": "^7.5.1",
+    "zustand": "^4.3.8"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

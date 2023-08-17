@@ -10,6 +10,7 @@ export enum ScreenNames {
   Series = 'Series',
   WatchNative = 'WatchNative',
   Episodes = 'Episodes',
+  MyListStack = 'MyListStack',
 }
 
 export type RootStackParamList = {
@@ -29,11 +30,12 @@ export type RootStackParamList = {
   };
   [ScreenNames.WatchNative]: {
     uri: string;
-    title: string;
+    seriesId: string;
     episodeTitle: string;
     player: string;
     episodeNumber: number;
   };
+  [ScreenNames.MyListStack]: undefined;
 };
 
 export type SettingsStackScreenProps = NativeStackScreenProps<
@@ -71,4 +73,8 @@ export type EpisodesScreenProps = NativeStackScreenProps<
 export type WatchNativeScreenProps = NativeStackScreenProps<
   RootStackParamList,
   ScreenNames.WatchNative
+>;
+export type MyListStackProps = NativeStackScreenProps<
+  RootStackParamList,
+  ScreenNames.MyListStack
 >;

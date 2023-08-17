@@ -6,11 +6,11 @@ import { FAB } from 'react-native-paper';
 import { Media } from '@aniwatch/shared';
 
 import BrowseElement from '../components/browse/BrowseElement';
-import { maxWidth } from '../components/maxDimensions';
 import { BrowseScreenProps, ScreenNames } from '../routes/main';
 import { SeasonYearSelectButtons } from '../components';
 import { useQuerySeriesList } from '../api/hooks';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import { colors } from '../styles';
 
 const BrowseScreen = ({ navigation }: BrowseScreenProps) => {
   const CONTENT_OFFSET_THRESHOLD = 300;
@@ -47,7 +47,7 @@ const BrowseScreen = ({ navigation }: BrowseScreenProps) => {
             ref={listRef}
             data={api.data.pages.map(page => page.Page.media).flat()}
             renderItem={renderItem}
-            numColumns={Math.floor(maxWidth() / 180)}
+            numColumns={2}
             contentContainerStyle={[styles.flatListContent]}
             keyExtractor={(_, index) => index.toString()}
             onEndReachedThreshold={1}
@@ -64,6 +64,7 @@ const BrowseScreen = ({ navigation }: BrowseScreenProps) => {
             <FAB
               icon={'arrow-up-circle'}
               style={styles.fab}
+              color="white"
               onPress={() => {
                 listRef.current?.scrollToOffset({ offset: 0, animated: true });
               }}
@@ -79,15 +80,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    backgroundColor: colors.background.color,
+    marginHorizontal: 0,
+  },
+  flatList: {
+    marginTop: 10,
   },
   fab: {
     position: 'absolute',
     margin: 16,
     right: 0,
-    bottom: 120,
-  },
-  flatList: {
-    marginTop: 10,
+    bottom: 80,
+    backgroundColor: colors.accent.color,
   },
   flatListContent: {
     flexGrow: 1,

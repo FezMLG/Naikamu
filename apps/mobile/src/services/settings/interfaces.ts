@@ -6,4 +6,5 @@ export enum Resolution {
 
 export interface UserSettings {
   preferredResolution: Resolution;
+  preferredDownloadQuality: Resolution;
 }

@@ -1,29 +1,28 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, TextInput } from 'react-native-paper';
-import { useSelector } from 'react-redux';
 
 import { LoginScreenProps, AuthRoutesNames } from '../../routes/auth';
-import { fireLoginUser } from '../../services/firebase/fire-auth.service';
-import { RootState, useAppDispatch } from '../../services/store/store';
 import { useForm, Controller } from 'react-hook-form';
 import { globalStyle } from '../../styles/global.style';
 import { useTranslate } from '../../i18n/useTranslate';
 import { useErrorHandler } from '../../components/atoms/ErrorHandler/ErrorHandler';
-import { useLayout } from '../../components/atoms/Layout';
+import { PageLayout, useLayout } from '../../components/atoms/Layout';
 import { Button } from '../../components';
+import { useUserStore } from '../../services/auth/user.store';
+import { useUserService } from '../../services/auth/user.service';
 
-interface LoginUser {
+export interface LoginForm {
   email: string;
   password: string;
 }
 
 export default function LoginScreen({ navigation }: LoginScreenProps) {
-  const { PageLayout, setInfo, setVisible } = useLayout();
+  const userService = useUserService();
+  const layout = useLayout();
   const [loading, isLoading] = useState(false);
-  const dispatch = useAppDispatch();
   const { translate } = useTranslate();
-  const { user } = useSelector((state: RootState) => state.user);
+  const user = useUserStore(state => state.user);
   const { errorResolver } = useErrorHandler();
   const {
     control,
@@ -36,10 +35,10 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
     },
   });
 
-  const handleLogin = async (data: LoginUser) => {
+  const handleLogin = async (data: LoginForm) => {
     isLoading(true);
     try {
-      await dispatch(fireLoginUser(data.email, data.password));
+      userService.loginUser(data);
       isLoading(false);
       if (user && !user.emailVerified) {
         try {
@@ -49,14 +48,14 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
         }
       }
     } catch (error: any) {
-      setInfo(translate(errorResolver(error.code)));
-      setVisible(true);
+      layout.setInfo(translate(errorResolver(error.code)));
+      layout.setVisible(true);
     }
     isLoading(false);
   };
 
   return (
-    <PageLayout>
+    <PageLayout.Default {...layout}>
       <View style={[styles.formInputs, globalStyle.spacerBig]}>
         <Controller
           control={control}
@@ -129,7 +128,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
           onPress={() => navigation.navigate(AuthRoutesNames.ForgotPassword)}
         />
       </View>
-    </PageLayout>
+    </PageLayout.Default>
   );
 }
 

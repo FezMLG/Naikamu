@@ -59,7 +59,7 @@ const SeriesScreen = ({ route }: SeriesScreenProps) => {
             <View style={globalStyle.marginTop} />
             <SeriesDetailsRelations relations={data.relations} />
             <View style={globalStyle.marginTop} />
-            <SeriesDetails.DataSource />
+            <SeriesDetails.DataSource sourceId={data.sourceId} />
           </View>
         </ScrollView>
       ) : (

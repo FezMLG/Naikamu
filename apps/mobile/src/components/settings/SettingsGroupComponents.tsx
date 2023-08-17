@@ -19,20 +19,27 @@ export const SettingsGroup = ({
 }) => {
   return (
     <View style={groupStyles.container}>
-      <Text style={[globalStyle.marginBottomSmall]}>{title}</Text>
+      <Text style={[colors.textLight, globalStyle.marginBottomSmall]}>
+        {title}
+      </Text>
       {children}
     </View>
   );
 };
 
 const isFirstOrLast = (isFirst: boolean, isLast: boolean) => {
-  if (isFirst) {
-    return groupStyles.radiusTop;
+  if (isFirst && isLast) {
+    return {
+      ...groupStyles.radiusTop,
+      ...groupStyles.radiusBottom,
+    };
   } else if (isLast) {
     return groupStyles.radiusBottom;
-  } else {
-    return {};
+  } else if (isFirst) {
+    return groupStyles.radiusTop;
   }
+
+  return {};
 };
 
 const Select = ({

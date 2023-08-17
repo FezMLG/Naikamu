@@ -6,9 +6,8 @@ import { useTranslate } from '../../i18n/useTranslate';
 import { globalStyle } from '../../styles/global.style';
 import { SettingsActionConfirmScreenProps } from '../../routes/settings/interfaces';
 import { Control, FieldErrorsImpl, Controller, useForm } from 'react-hook-form';
-import { useAppDispatch } from '../../services/store/store';
 import { fireReauthenticate } from '../../services/firebase/fire-auth.service';
-import { Button, useLayout } from '../../components';
+import { Button, PageLayout, useLayout } from '../../components';
 
 interface SettingsForm {
   password: string;
@@ -71,10 +70,9 @@ const SettingsActionConfirmScreen = ({
   route,
   navigation,
 }: SettingsActionConfirmScreenProps) => {
-  const { PageLayout } = useLayout();
+  const layout = useLayout();
   const { action, payload, origin } = route.params;
   const { translate } = useTranslate();
-  const dispatch = useAppDispatch();
 
   const {
     control,
@@ -89,8 +87,8 @@ const SettingsActionConfirmScreen = ({
   const handleAction = async (data: SettingsForm) => {
     try {
       console.log(data);
-      await dispatch(fireReauthenticate(data.password));
-      await dispatch(action(payload));
+      await fireReauthenticate(data.password);
+      await action(payload);
       navigation.navigate(origin);
     } catch (error) {
       console.log(error);
@@ -98,7 +96,7 @@ const SettingsActionConfirmScreen = ({
   };
 
   return (
-    <PageLayout style={[styles.container]}>
+    <PageLayout.Default style={[styles.container]} {...layout}>
       <FormTextInput
         title={translate('forms.labels.password')}
         control={control}
@@ -113,7 +111,7 @@ const SettingsActionConfirmScreen = ({
         onPress={handleSubmit(handleAction)}
         style={[globalStyle.marginTopBig]}
       />
-    </PageLayout>
+    </PageLayout.Default>
   );
 };
 

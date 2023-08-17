@@ -134,13 +134,17 @@ const Trailer = (props: { trailer: AnimeDetails['trailer'] }) => {
   );
 };
 
-const DataSource = () => {
+const DataSource = ({ sourceId }: { sourceId: AnimeDetails['sourceId'] }) => {
   const { translate } = useTranslate();
 
   return (
-    <Text style={[globalStyle.disclaimer, darkStyle.font]}>
-      {translate('anime_details.source')}: AniList
-    </Text>
+    <Pressable
+      onPress={() => Linking.openURL('https://anilist.co/anime/' + sourceId)}>
+      <Text style={[globalStyle.disclaimer, darkStyle.font]}>
+        {translate('anime_details.source')}: AniList{' '}
+        <Icon name={'open-in-new'} size={16} color={'white'} />
+      </Text>
+    </Pressable>
   );
 };
 

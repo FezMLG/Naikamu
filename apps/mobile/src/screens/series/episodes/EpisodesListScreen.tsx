@@ -36,7 +36,6 @@ const EpisodesListScreen = ({ route }: EpisodesScreenProps) => {
                 return (
                   <Episode
                     key={index}
-                    num={index + 1}
                     episode={episode}
                     posterUrl={route.params.posterUrl}
                     id={route.params.id}

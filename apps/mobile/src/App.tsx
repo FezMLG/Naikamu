@@ -1,5 +1,4 @@
 import React from 'react';
-import { Provider as ReduxProvider } from 'react-redux';
 import { DarkTheme as NavigationDarkTheme } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
@@ -9,7 +8,6 @@ import {
 
 import QueryClientWrap from './api/QueryClientWrap';
 import Routes from './routes/Routes';
-import { store } from './services/store/store';
 import LanguagesProvider from './i18n/LanguagesProvider';
 
 const CombinedDarkTheme = {
@@ -26,11 +24,9 @@ const App = () => {
           icon: props => <Icon {...props} />,
         }}
         theme={CombinedDarkTheme}>
-        <ReduxProvider store={store}>
-          <LanguagesProvider>
-            <Routes theme={CombinedDarkTheme} />
-          </LanguagesProvider>
-        </ReduxProvider>
+        <LanguagesProvider>
+          <Routes theme={CombinedDarkTheme} />
+        </LanguagesProvider>
       </PaperProvider>
     </QueryClientWrap>
   );
