@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import React, { useRef } from 'react';
 import Video, { OnProgressData } from 'react-native-video';
 
@@ -31,27 +31,47 @@ const NativeVideoPlayerScreen = ({
   };
 
   return (
-    <VideoPlayer
-      videoRef={videoPlayer}
-      style={styles.absoluteFill}
-      title={episodeTitle}
-      source={{
-        uri: uri,
-      }}
-      resizeMode={'contain'}
-      fullscreen={true}
-      onBack={navigation.goBack}
-      onProgress={handleProgress}
-      onLoad={handleVideoLoad}
-      doubleTapTime={130}
-      disableFullscreen={true}
-      disableVolume={true}
-      showDuration={true}
-      fullscreenOrientation={'landscape'}
-      fullscreenAutorotate={true}
-      isFullscreen={true}
-      pictureInPicture={true}
-    />
+    <>
+      {Platform.OS === 'ios' ? (
+        <Video
+          source={{
+            uri,
+          }}
+          ref={videoPlayer}
+          style={styles.absoluteFill}
+          onProgress={handleProgress}
+          onLoad={handleVideoLoad}
+          resizeMode="contain"
+          fullscreen
+          fullscreenAutorotate
+          fullscreenOrientation="landscape"
+          pictureInPicture
+          controls
+        />
+      ) : (
+        <VideoPlayer
+          videoRef={videoPlayer}
+          style={styles.absoluteFill}
+          title={episodeTitle}
+          source={{
+            uri: uri,
+          }}
+          resizeMode={'contain'}
+          fullscreen
+          onBack={navigation.goBack}
+          onProgress={handleProgress}
+          onLoad={handleVideoLoad}
+          doubleTapTime={130}
+          disableFullscreen
+          disableVolume
+          showDuration
+          fullscreenOrientation={'landscape'}
+          fullscreenAutorotate
+          isFullscreen
+          pictureInPicture
+        />
+      )}
+    </>
   );
 };
 
