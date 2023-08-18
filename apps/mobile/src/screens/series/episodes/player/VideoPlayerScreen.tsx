@@ -52,6 +52,9 @@ const NativeVideoPlayerScreen = ({
           fullscreenOrientation="landscape"
           pictureInPicture
           controls
+          playInBackground
+          allowsExternalPlayback
+          ignoreSilentSwitch="ignore"
         />
       ) : (
         <VideoPlayer
@@ -74,6 +77,9 @@ const NativeVideoPlayerScreen = ({
           fullscreenAutorotate
           isFullscreen
           pictureInPicture
+          playInBackground
+          allowsExternalPlayback
+          ignoreSilentSwitch="ignore"
         />
       )}
     </>
