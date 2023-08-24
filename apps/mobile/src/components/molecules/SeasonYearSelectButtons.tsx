@@ -12,6 +12,7 @@ import {
 
 import { useTranslate } from '../../i18n/useTranslate';
 import { AnimeSeasons, IAnimeSeasons } from '../../utils';
+import {colors} from "../../styles";
 
 export const SeasonYearSelectButtons = ({
   season,
@@ -25,13 +26,13 @@ export const SeasonYearSelectButtons = ({
   setYear: (year: number) => void;
 }): JSX.Element => {
   const { translate } = useTranslate();
-  const [visible, setVisible] = useState(false);
-  const showDialog = () => setVisible(true);
-  const hideDialog = () => setVisible(false);
+  const [yearDialogVisible, setYearDialogVisible] = useState(false);
+  const showDialog = () => setYearDialogVisible(true);
+  const hideDialog = () => setYearDialogVisible(false);
   const [newYear, setNewYear] = React.useState(year.toString());
-  const [visibleM, setVisibleM] = React.useState(false);
-  const openMenu = () => setVisibleM(true);
-  const closeMenu = () => setVisibleM(false);
+  const [seasonMenuVisible, setSeasonMenuVisible] = React.useState(false);
+  const openMenu = () => setSeasonMenuVisible(true);
+  const closeMenu = () => setSeasonMenuVisible(false);
   const handleSeasonChange = (s: IAnimeSeasons) => {
     setSeason(s);
     closeMenu();
@@ -48,7 +49,7 @@ export const SeasonYearSelectButtons = ({
         <Text style={{ fontSize: 16 }}>{year}</Text>
       </Pressable>
       <Portal>
-        <Dialog visible={visible} onDismiss={hideDialog}>
+        <Dialog visible={yearDialogVisible} onDismiss={hideDialog}>
           <Dialog.Title>Type year</Dialog.Title>
           <TextInput
             label="Year"
@@ -69,7 +70,7 @@ export const SeasonYearSelectButtons = ({
         </Dialog>
       </Portal>
       <Menu
-        visible={visibleM}
+        visible={seasonMenuVisible}
         onDismiss={closeMenu}
         anchorPosition={'bottom'}
         anchor={
@@ -82,7 +83,7 @@ export const SeasonYearSelectButtons = ({
             />
             <Text style={{ fontSize: 16 }}>{translate(season.titleKey)}</Text>
             <Icon
-              name={visibleM ? 'chevron-up' : 'chevron-down'}
+              name={seasonMenuVisible ? 'chevron-up' : 'chevron-down'}
               size={24}
               color="#ffffff"
               style={{ marginLeft: 20 }}
@@ -96,6 +97,7 @@ export const SeasonYearSelectButtons = ({
               title={translate(value.titleKey)}
               leadingIcon={value.icon}
               key={index}
+              titleStyle={season.value === value.value ? colors.accent : colors.textLight}
             />
           );
         })}
