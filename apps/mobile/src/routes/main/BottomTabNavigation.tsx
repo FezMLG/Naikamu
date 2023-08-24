@@ -52,7 +52,7 @@ const BottomTabContent = (props: {
 
   switch (props.route.name) {
     case ScreenNames.Browse:
-      iconName = props.focused ? 'compass' : 'compass';
+      iconName = props.focused ? 'compass' : 'compass-outline';
       break;
     case ScreenNames.Search:
       iconName = props.focused ? 'movie-search' : 'movie-search-outline';
