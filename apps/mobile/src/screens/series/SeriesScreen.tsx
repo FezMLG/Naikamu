@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, SafeAreaView, ScrollView, View } from 'react-native';
 
-import { globalStyle } from '../../styles/global.style';
+import { globalStyle } from '../../styles';
 import { SeriesScreenProps } from '../../routes/main';
 import { useQuerySeriesDetails } from '../../api/hooks';
 import {
@@ -9,8 +9,8 @@ import {
   SeriesDetails,
   SeriesDetailsRelations,
   WatchList,
-} from '../../components/SeriesDetails';
-import { ActivityIndicator } from '../../components';
+  ActivityIndicator
+} from '../../components';
 
 const SeriesScreen = ({ route }: SeriesScreenProps) => {
   const { id } = route.params;
