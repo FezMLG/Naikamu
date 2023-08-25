@@ -6,13 +6,17 @@ import { FAB } from 'react-native-paper';
 import { Media } from '@aniwatch/shared';
 
 import BrowseElement from '../components/browse/BrowseElement';
-import { BrowseScreenProps, ScreenNames } from '../routes/main';
 import { SeasonYearSelectButtons } from '../components';
 import { useQuerySeriesList } from '../api/hooks';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { colors } from '../styles';
+import {
+  BrowseStackBrowseScreenProps,
+  BrowseStackScreenNames,
+  SeriesStackScreenNames,
+} from '../routes';
 
-const BrowseScreen = ({ navigation }: BrowseScreenProps) => {
+export const BrowseScreen = ({ navigation }: BrowseStackBrowseScreenProps) => {
   const CONTENT_OFFSET_THRESHOLD = 300;
   const listRef = useRef<FlatList>(null);
   const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
@@ -23,8 +27,8 @@ const BrowseScreen = ({ navigation }: BrowseScreenProps) => {
     <BrowseElement
       anime={item}
       handlePageChange={() => {
-        navigation.navigate(ScreenNames.SeriesStack, {
-          screen: ScreenNames.Series,
+        navigation.navigate(BrowseStackScreenNames.SeriesStack, {
+          screen: SeriesStackScreenNames.Series,
           params: {
             title: item.title.romaji,
             id: item.id,
@@ -100,5 +104,3 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
 });
-
-export default BrowseScreen;

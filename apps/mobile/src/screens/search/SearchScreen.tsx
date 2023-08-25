@@ -3,10 +3,9 @@ import { StyleSheet, SafeAreaView, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { Button } from '../../components';
 
-import { SearchScreenProps, ScreenNames } from '../../routes/main';
 import { globalStyle } from '../../styles';
 
-const SearchScreen = ({ navigation }: SearchScreenProps) => {
+export const SearchScreen = ({ navigation }: any) => {
   const [search, setSearch] = useState('');
 
   return (
@@ -23,7 +22,7 @@ const SearchScreen = ({ navigation }: SearchScreenProps) => {
         type="secondary"
         icon="magnify"
         onPress={() =>
-          navigation.navigate(ScreenNames.SearchResults, {
+          navigation.navigate('ScreenNames.SearchResults', {
             phrase: search,
           })
         }
@@ -38,5 +37,3 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
 });
-
-export default SearchScreen;

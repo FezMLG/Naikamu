@@ -8,15 +8,15 @@ import React from 'react';
 import { Text } from 'react-native-paper';
 
 import { AnimeEpisode } from '@aniwatch/shared';
+import { SeriesStackEpisodeScreenProps } from '../../routes';
+import { useTranslate } from '../../i18n/useTranslate';
+import { useQuerySeriesEpisodes } from '../../api/hooks';
+import { Episode } from '../../components';
+import { darkStyle, globalStyle } from '../../styles';
 
-import { darkStyle } from '../../../styles/darkMode.style';
-import { Episode } from '../../../components/episode/Episode';
-import { globalStyle } from '../../../styles/global.style';
-import { useTranslate } from '../../../i18n/useTranslate';
-import { EpisodesScreenProps } from '../../../routes/main';
-import { useQuerySeriesEpisodes } from '../../../api/hooks';
-
-const EpisodesListScreen = ({ route }: EpisodesScreenProps) => {
+export const EpisodesListScreen = ({
+  route,
+}: SeriesStackEpisodeScreenProps) => {
   const { translate } = useTranslate();
   const { episodes } = useQuerySeriesEpisodes(
     route.params.id,
@@ -66,5 +66,3 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
 });
-
-export default EpisodesListScreen;

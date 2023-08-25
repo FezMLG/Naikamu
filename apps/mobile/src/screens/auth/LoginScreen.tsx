@@ -2,15 +2,12 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, TextInput } from 'react-native-paper';
 
-import {
-  AuthStackLoginScreenProps,
-  AuthStackRoutesNames,
-} from '../../routes/auth';
+import { AuthStackLoginScreenProps, AuthStackRoutesNames } from '../../routes';
 import { useForm, Controller } from 'react-hook-form';
-import { globalStyle } from '../../styles/global.style';
+import { globalStyle } from '../../styles';
 import { useTranslate } from '../../i18n/useTranslate';
-import { useErrorHandler } from '../../components/atoms/ErrorHandler/ErrorHandler';
-import { PageLayout, useLayout } from '../../components/atoms/Layout';
+import { useErrorHandler } from '../../components';
+import { PageLayout, useLayout } from '../../components';
 import { Button } from '../../components';
 import { useUserStore } from '../../services/auth/user.store';
 import { useUserService } from '../../services/auth/user.service';
@@ -20,7 +17,7 @@ export interface LoginForm {
   password: string;
 }
 
-export default function LoginScreen({ navigation }: AuthStackLoginScreenProps) {
+export const LoginScreen = ({ navigation }: AuthStackLoginScreenProps) => {
   const userService = useUserService();
   const layout = useLayout();
   const [loading, isLoading] = useState(false);
@@ -135,7 +132,7 @@ export default function LoginScreen({ navigation }: AuthStackLoginScreenProps) {
       </View>
     </PageLayout.Default>
   );
-}
+};
 
 const styles = StyleSheet.create({
   text: {

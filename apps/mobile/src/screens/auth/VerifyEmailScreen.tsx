@@ -1,16 +1,17 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { Button, Text } from 'react-native-paper';
-
 import {
   AuthStackRoutesNames,
   AuthStackVerifyEmailScreenProps,
-} from '../routes/auth';
-import { useTranslate } from '../i18n/useTranslate';
-import { globalStyle } from '../styles/global.style';
-import { useUserStore } from '../services/auth/user.store';
+} from '../../routes';
+import { useUserStore } from '../../services/auth/user.store';
+import { useTranslate } from '../../i18n/useTranslate';
+import { globalStyle } from '../../styles';
 
-const VerifyEmailScreen = ({ navigation }: AuthStackVerifyEmailScreenProps) => {
+export const VerifyEmailScreen = ({
+  navigation,
+}: AuthStackVerifyEmailScreenProps) => {
   const user = useUserStore(state => state.user);
   const { translate } = useTranslate();
 
@@ -46,5 +47,3 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-
-export default VerifyEmailScreen;

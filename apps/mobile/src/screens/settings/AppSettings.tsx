@@ -4,13 +4,13 @@ import { RadioButton } from 'react-native-paper';
 import Config from 'react-native-config';
 
 import { useTranslate } from '../../i18n/useTranslate';
-import { PlaybackSettingsScreenProps } from '../../routes/settings/interfaces';
 import { Resolution } from '../../services/settings/interfaces';
 import { colors, fontStyles, globalStyle } from '../../styles';
 import { Button, Modal, SettingInputs, SettingsGroup } from '../../components';
 import { useUserSettingsService } from '../../services/settings/settings.service';
 import { useOfflineService } from '../../services';
 import { useDownloadsQueueStore } from '../../services/offline/queue.store';
+import { SettingsStackPlaybackSettingsScreenProps } from '../../routes';
 
 const QualityModal = ({
   isOpen,
@@ -52,59 +52,61 @@ const QualityModal = ({
   );
 };
 
-const AppSettingsScreen = ({}: PlaybackSettingsScreenProps) => {
-  const {
-    userSettings: { preferredResolution, preferredDownloadQuality },
-  } = useUserSettingsService();
-  const [playbackQuality, setPlaybackQuality] =
-    useState<string>(preferredResolution);
-  const [downloadQuality, setDownloadQuality] = useState<string>(
-    preferredDownloadQuality,
-  );
-  const { updateUserSettings, userSettings } = useUserSettingsService();
-  const { clearOffline } = useOfflineService();
-  const queueActions = useDownloadsQueueStore(state => state.actions);
+export const AppSettingsScreen =
+  ({}: SettingsStackPlaybackSettingsScreenProps) => {
+    const {
+      userSettings: { preferredResolution, preferredDownloadQuality },
+    } = useUserSettingsService();
+    const [playbackQuality, setPlaybackQuality] =
+      useState<string>(preferredResolution);
+    const [downloadQuality, setDownloadQuality] = useState<string>(
+      preferredDownloadQuality,
+    );
+    const { updateUserSettings, userSettings } = useUserSettingsService();
+    const { clearOffline } = useOfflineService();
+    const queueActions = useDownloadsQueueStore(state => state.actions);
 
-  const { translate } = useTranslate();
-  const [isOpenP, setIsOpenP] = useState(false);
-  const [isOpenQ, setIsOpenQ] = useState(false);
+    const { translate } = useTranslate();
+    const [isOpenP, setIsOpenP] = useState(false);
+    const [isOpenQ, setIsOpenQ] = useState(false);
 
-  const handlePlaybackQualityChange = async (newResolution: Resolution) => {
-    await updateUserSettings({ preferredResolution: newResolution });
-    setIsOpenP(false);
-  };
+    const handlePlaybackQualityChange = async (newResolution: Resolution) => {
+      await updateUserSettings({ preferredResolution: newResolution });
+      setIsOpenP(false);
+    };
 
-  const handleDownloadQualityChange = async (newResolution: Resolution) => {
-    await updateUserSettings({ preferredDownloadQuality: newResolution });
-    setIsOpenQ(false);
-  };
+    const handleDownloadQualityChange = async (newResolution: Resolution) => {
+      await updateUserSettings({ preferredDownloadQuality: newResolution });
+      setIsOpenQ(false);
+    };
 
-  return (
-    <SafeAreaView style={[styles.container]}>
-      <QualityModal
-        isOpen={isOpenP}
-        setIsOpen={setIsOpenP}
-        quality={playbackQuality}
-        setQuality={setPlaybackQuality}
-        handleChange={handlePlaybackQualityChange}
-      />
-      <QualityModal
-        isOpen={isOpenQ}
-        setIsOpen={setIsOpenQ}
-        quality={downloadQuality}
-        setQuality={setDownloadQuality}
-        handleChange={handleDownloadQualityChange}
-      />
-      <SettingsGroup title={translate('settings.groups.videoPlaybackDownload')}>
-        <SettingInputs.Select
-          title={translate('settings.titles.videoQuality')}
-          text={playbackQuality ?? '1080p'}
-          setIsModalOpen={setIsOpenP}
-          isFirst={true}
-          isLast={true}
+    return (
+      <SafeAreaView style={[styles.container]}>
+        <QualityModal
+          isOpen={isOpenP}
+          setIsOpen={setIsOpenP}
+          quality={playbackQuality}
+          setQuality={setPlaybackQuality}
+          handleChange={handlePlaybackQualityChange}
         />
-      </SettingsGroup>
-      {/* <SettingsGroup title={translate('settings.groups.videoDownload')}>
+        <QualityModal
+          isOpen={isOpenQ}
+          setIsOpen={setIsOpenQ}
+          quality={downloadQuality}
+          setQuality={setDownloadQuality}
+          handleChange={handleDownloadQualityChange}
+        />
+        <SettingsGroup
+          title={translate('settings.groups.videoPlaybackDownload')}>
+          <SettingInputs.Select
+            title={translate('settings.titles.videoQuality')}
+            text={playbackQuality ?? '1080p'}
+            setIsModalOpen={setIsOpenP}
+            isFirst={true}
+            isLast={true}
+          />
+        </SettingsGroup>
+        {/* <SettingsGroup title={translate('settings.groups.videoDownload')}>
         <SettingInputs.Select
           title={translate('settings.titles.videoQuality')}
           text={downloadQuality ?? '1080p'}
@@ -113,53 +115,55 @@ const AppSettingsScreen = ({}: PlaybackSettingsScreenProps) => {
           isLast={true}
         />
       </SettingsGroup> */}
-      <View style={globalStyle.marginTop}>
-        <Text style={[fontStyles.label, colors.textLight]}>Environment</Text>
-        <Text style={[fontStyles.text, colors.textLighter]}>{Config.ENV}</Text>
-        <Text
-          style={[
-            fontStyles.label,
-            colors.textLight,
-            globalStyle.marginTopSmall,
-          ]}>
-          API Endpoint
-        </Text>
-        <Text style={[fontStyles.text, colors.textLighter]}>
-          {Config.API_URL}
-        </Text>
-        {Config.ENV === 'dev' && (
-          <>
-            <Text
-              style={[
-                fontStyles.label,
-                colors.textLight,
-                globalStyle.marginTopSmall,
-              ]}>
-              User Settings
-            </Text>
-            <Text style={[fontStyles.text, colors.textLighter]}>
-              {JSON.stringify(userSettings)}
-            </Text>
-          </>
-        )}
-        <Button
-          label={'Clear downloads'}
-          type={'primary'}
-          onPress={() => {
-            clearOffline();
-          }}
-        />
-        <Button
-          label={'Clear downloads queue'}
-          type={'primary'}
-          onPress={() => {
-            queueActions.clearQueue();
-          }}
-        />
-      </View>
-    </SafeAreaView>
-  );
-};
+        <View style={globalStyle.marginTop}>
+          <Text style={[fontStyles.label, colors.textLight]}>Environment</Text>
+          <Text style={[fontStyles.text, colors.textLighter]}>
+            {Config.ENV}
+          </Text>
+          <Text
+            style={[
+              fontStyles.label,
+              colors.textLight,
+              globalStyle.marginTopSmall,
+            ]}>
+            API Endpoint
+          </Text>
+          <Text style={[fontStyles.text, colors.textLighter]}>
+            {Config.API_URL}
+          </Text>
+          {Config.ENV === 'dev' && (
+            <>
+              <Text
+                style={[
+                  fontStyles.label,
+                  colors.textLight,
+                  globalStyle.marginTopSmall,
+                ]}>
+                User Settings
+              </Text>
+              <Text style={[fontStyles.text, colors.textLighter]}>
+                {JSON.stringify(userSettings)}
+              </Text>
+            </>
+          )}
+          <Button
+            label={'Clear downloads'}
+            type={'primary'}
+            onPress={() => {
+              clearOffline();
+            }}
+          />
+          <Button
+            label={'Clear downloads queue'}
+            type={'primary'}
+            onPress={() => {
+              queueActions.clearQueue();
+            }}
+          />
+        </View>
+      </SafeAreaView>
+    );
+  };
 
 const styles = StyleSheet.create({
   inline: {
@@ -212,5 +216,3 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-
-export default AppSettingsScreen;

@@ -6,11 +6,10 @@ import {
   BrowseStackScreenNames,
 } from './browse.interfaces';
 import { useTranslate } from '../../../i18n/useTranslate';
-import BrowseScreen from '../../../screens/BrowseScreen';
 import { defaultHeaderOptions } from '../defaultHeaderOptions';
 import { defaultSubHeaderOptions } from '../defaultSubHeaderOptions';
-import NativeVideoPlayerScreen from '../../../screens/series/episodes/player/VideoPlayerScreen';
 import { SeriesStack } from '../series';
+import { BrowseScreen, NativeVideoPlayerScreen } from '../../../screens';
 
 const StackAuthorized = createNativeStackNavigator<BrowseStackParamList>();
 

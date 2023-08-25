@@ -1,12 +1,12 @@
 import React from 'react';
 import { OfflineEpisode, PageLayout, useLayout } from '../../components';
-import { OfflineWatchSeriesEpisodesScreenProps } from '../../routes/main/mylist/offline/interface';
 import { ScrollView } from 'react-native';
 import { useOfflineService } from '../../services';
+import { DownloadStackSeriesEpisodesScreenProps } from '../../routes';
 
-const OfflineSeriesEpisodesScreen = ({
+export const DownloadSeriesEpisodesScreen = ({
   route,
-}: OfflineWatchSeriesEpisodesScreenProps) => {
+}: DownloadStackSeriesEpisodesScreenProps) => {
   const { seriesId, title, episodes } = route.params;
   const layout = useLayout();
   const { offlineSeries } = useOfflineService();
@@ -29,5 +29,3 @@ const OfflineSeriesEpisodesScreen = ({
     </PageLayout.Default>
   );
 };
-
-export default OfflineSeriesEpisodesScreen;

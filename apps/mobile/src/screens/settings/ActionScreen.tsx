@@ -4,12 +4,12 @@ import { Text, TextInput } from 'react-native-paper';
 import { Control, Controller, FieldErrorsImpl, useForm } from 'react-hook-form';
 
 import { useTranslate } from '../../i18n/useTranslate';
-import { globalStyle } from '../../styles/global.style';
-import {
-  SettingsActionScreenProps,
-  SettingsScreenNames,
-} from '../../routes/settings/interfaces';
+import { globalStyle } from '../../styles';
 import { Button, PageLayout, useLayout } from '../../components';
+import {
+  SettingsStackScreenNames,
+  SettingsStackSettingsActionScreenProps,
+} from '../../routes';
 
 interface SettingsForm {
   newValue: string;
@@ -68,10 +68,10 @@ const FormTextInput = ({
   );
 };
 
-const SettingsActionScreen = ({
+export const SettingsActionScreen = ({
   route,
   navigation,
-}: SettingsActionScreenProps) => {
+}: SettingsStackSettingsActionScreenProps) => {
   const layout = useLayout();
   const { type, action, requiresLogin, origin, payload } = route.params;
   const { translate } = useTranslate();
@@ -98,7 +98,7 @@ const SettingsActionScreen = ({
     } catch (error: any) {
       if (error.code === 'auth/requires-recent-login') {
         console.log('requires recent login catch');
-        navigation.navigate(SettingsScreenNames.SettingsActionConfirm, {
+        navigation.navigate(SettingsStackScreenNames.SettingsActionConfirm, {
           action,
           payload: data.newValue,
           type,
@@ -155,5 +155,3 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-
-export default SettingsActionScreen;

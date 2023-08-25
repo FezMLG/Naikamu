@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import Config from 'react-native-config';
 
-import { colors, fontStyles, globalStyle } from '../styles/global.style';
+import { colors, fontStyles, globalStyle } from '../styles';
 import { useTranslate } from '../i18n/useTranslate';
 import {
   fireGetIdToken,
@@ -19,7 +19,7 @@ import {
 import {
   AuthStackAppLoadingScreenProps,
   AuthStackRoutesNames,
-} from '../routes/auth';
+} from '../routes';
 import { useQueryApiHealth } from '../api/hooks';
 import { useUserSettingsService } from '../services/settings/settings.service';
 import semver from 'semver';
@@ -29,7 +29,9 @@ import { logger } from '../utils/logger';
 import { useUserStore } from '../services/auth/user.store';
 import NetInfo from '@react-native-community/netinfo';
 
-const AppLoadScreen = ({ navigation }: AuthStackAppLoadingScreenProps) => {
+export const AppLoadScreen = ({
+  navigation,
+}: AuthStackAppLoadingScreenProps) => {
   const supportedApiVersion = require('../../package.json').apiVersion;
   const layout = useLayout();
   const { translate } = useTranslate();
@@ -158,5 +160,3 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-
-export default AppLoadScreen;

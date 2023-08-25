@@ -7,9 +7,8 @@ import {
   SeriesStackScreenNames,
 } from './series.interfaces';
 import { useTranslate } from '../../../i18n/useTranslate';
-import SeriesScreen from '../../../screens/series/SeriesScreen';
+import { EpisodesListScreen, SeriesScreen } from '../../../screens';
 import { defaultSubHeaderOptions } from '../defaultSubHeaderOptions';
-import EpisodesListScreen from '../../../screens/series/episodes/EpisodesListScreen';
 
 const StackAuthorized = createNativeStackNavigator<SeriesStackParamList>();
 

@@ -12,15 +12,12 @@ import { FAB } from 'react-native-paper';
 import { Media } from '@aniwatch/shared';
 
 import BrowseElement from '../../components/browse/BrowseElement';
-import { SearchResultsScreenProps, ScreenNames } from '../../routes/main';
-import { maxWidth } from '../../components/maxDimensions';
+import { maxWidth } from '../../components';
 import { useQuerySearchSeriesList } from '../../api/hooks';
 import { colors, fontStyles } from '../../styles';
+import { SeriesStackScreenNames } from '../../routes';
 
-const SearchResultsScreen = ({
-  navigation,
-  route,
-}: SearchResultsScreenProps) => {
+export const SearchResultsScreen = ({ navigation, route }: any) => {
   const CONTENT_OFFSET_THRESHOLD = 300;
   const { phrase } = route.params;
   const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
@@ -33,7 +30,7 @@ const SearchResultsScreen = ({
     <BrowseElement
       anime={item}
       handlePageChange={() => {
-        navigation.navigate(ScreenNames.Series, {
+        navigation.navigate(SeriesStackScreenNames.Series, {
           title: item.title.romaji,
           id: item.id,
         });
@@ -103,5 +100,3 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
 });
-
-export default SearchResultsScreen;

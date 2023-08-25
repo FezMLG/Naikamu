@@ -3,7 +3,7 @@ import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ActivityIndicator } from '../components';
 
-const SplashScreen = () => {
+export const SplashScreen = () => {
   return (
     <SafeAreaView style={[styles.container]}>
       <ActivityIndicator size={'large'} visible={true} />
@@ -22,5 +22,3 @@ const styles = StyleSheet.create({
     maxHeight: 200,
   },
 });
-
-export default SplashScreen;

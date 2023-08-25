@@ -2,12 +2,12 @@ import React from 'react';
 import { Linking, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import Config from 'react-native-config';
 
-import { colors, fontStyles, globalStyle } from '../styles/global.style';
+import { colors, fontStyles, globalStyle } from '../styles';
 import { useTranslate } from '../i18n/useTranslate';
-import { AuthStackActionRequiredScreenProps } from '../routes/auth';
+import { AuthStackActionRequiredScreenProps } from '../routes';
 import { Button } from '../components';
 
-const ActionRequiredScreen = ({
+export const ActionRequiredScreen = ({
   navigation,
 }: AuthStackActionRequiredScreenProps) => {
   const appVersion = require('../../package.json').version;
@@ -74,5 +74,3 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-
-export default ActionRequiredScreen;

@@ -2,17 +2,17 @@ import React from 'react';
 import { StyleSheet, SafeAreaView, ScrollView, View } from 'react-native';
 
 import { globalStyle } from '../../styles';
-import { SeriesScreenProps } from '../../routes/main';
 import { useQuerySeriesDetails } from '../../api/hooks';
 import {
   EpisodesButton,
   SeriesDetails,
   SeriesDetailsRelations,
   WatchList,
-  ActivityIndicator
+  ActivityIndicator,
 } from '../../components';
+import { SeriesStackSeriesScreenProps } from '../../routes';
 
-const SeriesScreen = ({ route }: SeriesScreenProps) => {
+export const SeriesScreen = ({ route }: SeriesStackSeriesScreenProps) => {
   const { id } = route.params;
   const { data } = useQuerySeriesDetails(id);
 
@@ -85,5 +85,3 @@ const styles = StyleSheet.create({
     gap: 50,
   },
 });
-
-export default SeriesScreen;

@@ -3,18 +3,14 @@ import { Image, StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import Config from 'react-native-config';
 
-import { globalStyle } from '../styles/global.style';
-import { darkStyle } from '../styles/darkMode.style';
+import { darkStyle, globalStyle } from '../styles';
 import { useTranslate } from '../i18n/useTranslate';
-import {
-  AuthStackRoutesNames,
-  AuthStackHelloScreenProps,
-} from '../routes/auth';
+import { AuthStackRoutesNames, AuthStackHelloScreenProps } from '../routes';
 import GoogleSignIn from '../components/GoogleSignIn';
 import { Button, PageLayout, useLayout } from '../components';
 import { useUserStore } from '../services/auth/user.store';
 
-const HelloScreen = ({ navigation }: AuthStackHelloScreenProps) => {
+export const HelloScreen = ({ navigation }: AuthStackHelloScreenProps) => {
   const { translate } = useTranslate();
   const user = useUserStore(state => state.user);
   const layout = useLayout();
@@ -74,5 +70,3 @@ const styles = StyleSheet.create({
     maxHeight: 200,
   },
 });
-
-export default HelloScreen;

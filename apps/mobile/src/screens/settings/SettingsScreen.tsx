@@ -3,16 +3,22 @@ import { Image, StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
 
 import { useTranslate } from '../../i18n/useTranslate';
-import { globalStyle } from '../../styles/global.style';
-import { ProgressiveImage } from '../../components/ProgressiveImage';
+import { globalStyle } from '../../styles';
 import {
-  SettingsScreenNames,
-  SettingsScreenProps,
-} from '../../routes/settings/interfaces';
-import { PageLayout, SectionButton, useLayout } from '../../components';
+  PageLayout,
+  SectionButton,
+  useLayout,
+  ProgressiveImage,
+} from '../../components';
 import { useUserStore } from '../../services/auth/user.store';
+import {
+  SettingsStackScreenNames,
+  SettingsStackSettingsScreenProps,
+} from '../../routes';
 
-const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
+export const SettingsScreen = ({
+  navigation,
+}: SettingsStackSettingsScreenProps) => {
   const layout = useLayout();
   const user = useUserStore(state => state.user);
   const { translate } = useTranslate();
@@ -41,12 +47,16 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
         <SectionButton
           title={translate('settings.categories.UserSettings')}
           icon={'account-cog'}
-          onPress={() => navigation.navigate(SettingsScreenNames.UserSettings)}
+          onPress={() =>
+            navigation.navigate(SettingsStackScreenNames.UserSettings)
+          }
         />
         <SectionButton
           title={translate('settings.categories.AppSettings')}
           icon={'cog'}
-          onPress={() => navigation.navigate(SettingsScreenNames.AppSettings)}
+          onPress={() =>
+            navigation.navigate(SettingsStackScreenNames.AppSettings)
+          }
         />
       </View>
     </PageLayout.Default>
@@ -81,5 +91,3 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-
-export default SettingsScreen;

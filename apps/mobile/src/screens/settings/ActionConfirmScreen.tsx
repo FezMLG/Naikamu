@@ -4,10 +4,10 @@ import { Text, TextInput } from 'react-native-paper';
 
 import { useTranslate } from '../../i18n/useTranslate';
 import { globalStyle } from '../../styles/global.style';
-import { SettingsActionConfirmScreenProps } from '../../routes/settings/interfaces';
 import { Control, FieldErrorsImpl, Controller, useForm } from 'react-hook-form';
 import { fireReauthenticate } from '../../services/firebase/fire-auth.service';
 import { Button, PageLayout, useLayout } from '../../components';
+import { SettingsStackSettingsActionConfirmScreenProps } from '../../routes';
 
 interface SettingsForm {
   password: string;
@@ -66,10 +66,10 @@ const FormTextInput = ({
   );
 };
 
-const SettingsActionConfirmScreen = ({
+export const SettingsActionConfirmScreen = ({
   route,
   navigation,
-}: SettingsActionConfirmScreenProps) => {
+}: SettingsStackSettingsActionConfirmScreenProps) => {
   const layout = useLayout();
   const { action, payload, origin } = route.params;
   const { translate } = useTranslate();
@@ -140,5 +140,3 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-
-export default SettingsActionConfirmScreen;

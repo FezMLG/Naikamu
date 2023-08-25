@@ -4,11 +4,8 @@ import { View, StyleSheet } from 'react-native';
 import { Text, TextInput } from 'react-native-paper';
 
 import { useTranslate } from '../../i18n/useTranslate';
-import {
-  AuthStackRoutesNames,
-  AuthStackSignUpScreenProps,
-} from '../../routes/auth';
-import { globalStyle } from '../../styles/global.style';
+import { AuthStackRoutesNames, AuthStackSignUpScreenProps } from '../../routes';
+import { globalStyle } from '../../styles';
 import {
   Button,
   useLayout,

@@ -6,13 +6,15 @@ import {
   SettingsStackParamList,
 } from './settings.interfaces';
 import { useTranslate } from '../../../i18n/useTranslate';
-import SettingsScreen from '../../../screens/settings/SettingsScreen';
+import {
+  AppSettingsScreen,
+  SettingsActionConfirmScreen,
+  SettingsActionScreen,
+  SettingsScreen,
+  UserSettingsScreen,
+} from '../../../screens';
 import { defaultHeaderOptions } from '../defaultHeaderOptions';
-import UserSettingsScreen from '../../../screens/settings/UserSettingsScreen';
 import { defaultSubHeaderOptions } from '../defaultSubHeaderOptions';
-import AppSettingsScreen from '../../../screens/settings/AppSettings';
-import SettingsActionConfirmScreen from '../../../screens/settings/ActionConfirmScreen';
-import SettingsActionScreen from '../../../screens/settings/ActionScreen';
 
 const Stack = createNativeStackNavigator<SettingsStackParamList>();
 

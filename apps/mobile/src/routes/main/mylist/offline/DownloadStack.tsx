@@ -1,9 +1,12 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import OfflineSeriesEpisodesScreen from '../../../../screens/mylist/OfflineSeriesEpisodesScreen';
-import { DownloadStackParamList, DownloadStackScreenNames } from './interface';
-import OfflineScreen from '../../../../screens/mylist/OfflineScreen';
+
 import { defaultSubHeaderOptions } from '../../defaultSubHeaderOptions';
+import { DownloadStackParamList, DownloadStackScreenNames } from './interface';
+import {
+  DownloadListScreen,
+  DownloadSeriesEpisodesScreen,
+} from '../../../../screens';
 
 const Stack = createNativeStackNavigator<DownloadStackParamList>();
 
@@ -12,7 +15,7 @@ export const DownloadStack = () => {
     <Stack.Navigator initialRouteName={DownloadStackScreenNames.List}>
       <Stack.Screen
         name={DownloadStackScreenNames.List}
-        component={OfflineScreen}
+        component={DownloadListScreen}
         options={{
           ...defaultSubHeaderOptions({}),
           headerShown: false,
@@ -20,7 +23,7 @@ export const DownloadStack = () => {
       />
       <Stack.Screen
         name={DownloadStackScreenNames.SeriesEpisodes}
-        component={OfflineSeriesEpisodesScreen}
+        component={DownloadSeriesEpisodesScreen}
         options={({ route }) => ({
           ...defaultSubHeaderOptions({
             title: route.params.title,

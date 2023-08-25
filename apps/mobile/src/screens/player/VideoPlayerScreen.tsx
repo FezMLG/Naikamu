@@ -1,17 +1,17 @@
-import { Platform, StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import React, { useEffect, useRef } from 'react';
 import Video, { OnProgressData } from 'react-native-video';
 
-import { storageGetData, storageStoreData } from '../../../../utils';
-import { WatchNativeScreenProps } from '../../../../routes/main';
 import VideoPlayer from 'react-native-media-console';
-import { createEpisodeProgressKey } from '../../../../services';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
+import { BrowseStackNativePlayerScreenProps } from '../../routes';
+import { createEpisodeProgressKey } from '../../services';
+import { storageGetData, storageStoreData } from '../../utils';
 
-const NativeVideoPlayerScreen = ({
+export const NativeVideoPlayerScreen = ({
   route,
   navigation,
-}: WatchNativeScreenProps) => {
+}: BrowseStackNativePlayerScreenProps) => {
   const { uri, episodeTitle, episodeNumber, seriesId } = route.params;
   const videoPlayer = useRef<Video>(null);
   const storageKey = createEpisodeProgressKey(seriesId, episodeNumber);
@@ -107,5 +107,3 @@ const styles = StyleSheet.create({
     elevation: 1,
   },
 });
-
-export default NativeVideoPlayerScreen;

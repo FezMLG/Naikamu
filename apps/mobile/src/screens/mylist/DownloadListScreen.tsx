@@ -11,7 +11,7 @@ import { useDownloadsQueueStore } from '../../services/offline/queue.store';
 import { logger } from '../../utils/logger';
 import { useOfflineService } from '../../services';
 
-const OfflineScreen = () => {
+export const DownloadListScreen = () => {
   const layout = useLayout();
   const {
     activeDownloads,
@@ -89,5 +89,3 @@ const OfflineScreen = () => {
     </PageLayout.Default>
   );
 };
-
-export default OfflineScreen;
