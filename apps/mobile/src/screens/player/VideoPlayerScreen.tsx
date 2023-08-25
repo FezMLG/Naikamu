@@ -4,14 +4,14 @@ import Video, { OnProgressData } from 'react-native-video';
 
 import VideoPlayer from 'react-native-media-console';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
-import { BrowseStackNativePlayerScreenProps } from '../../routes';
 import { createEpisodeProgressKey } from '../../services';
 import { storageGetData, storageStoreData } from '../../utils';
+import { RootStackNativePlayerScreenProps } from '../../routes';
 
 export const NativeVideoPlayerScreen = ({
   route,
   navigation,
-}: BrowseStackNativePlayerScreenProps) => {
+}: RootStackNativePlayerScreenProps) => {
   const { uri, episodeTitle, episodeNumber, seriesId } = route.params;
   const videoPlayer = useRef<Video>(null);
   const storageKey = createEpisodeProgressKey(seriesId, episodeNumber);

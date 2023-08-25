@@ -8,7 +8,7 @@ import { AnimePlayer } from '@aniwatch/shared';
 import { colors, darkColor } from '../../styles';
 import { PlayerMenu } from './PlayerMenu';
 import { navigateToPlayer } from './navigateToPlayer';
-import { RootStackParamList } from '../../routes/main';
+import { BrowseStackParamList } from '../../routes';
 
 export const EpisodePlayer = ({
   seriesId,
@@ -25,7 +25,7 @@ export const EpisodePlayer = ({
   isDownloaded: boolean;
   handleDownload: (player: AnimePlayer) => void;
 }) => {
-  const navigation = useNavigation<NavigationProp<any>>();
+  const navigation = useNavigation<NavigationProp<BrowseStackParamList>>();
 
   return (
     <Pressable

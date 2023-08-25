@@ -6,7 +6,9 @@ import { DownloadStackParamList, DownloadStackScreenNames } from './interface';
 import {
   DownloadListScreen,
   DownloadSeriesEpisodesScreen,
+  NativeVideoPlayerScreen,
 } from '../../../../screens';
+import { BrowseStackScreenNames } from '../../browse';
 
 const Stack = createNativeStackNavigator<DownloadStackParamList>();
 

@@ -4,27 +4,25 @@ import { ProgressBar } from 'react-native-paper';
 import { Text } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { darkColor } from '../../styles/darkMode.style';
 import {
   colors,
   defaultRadius,
   fontStyles,
   globalStyle,
-} from '../../styles/global.style';
+  darkColor,
+} from '../../styles';
 // import { useTranslate } from '../../i18n/useTranslate';
 import { useNavigation } from '@react-navigation/native';
-import { ScreenNames } from '../../routes/main';
 import {
   IOfflineSeriesEpisodes,
   useOfflineService,
-} from '../../services/offline';
-import {
   createEpisodeProgressKey,
   useVideoProgress,
-} from '../../services/useVideoProgress';
+} from '../../services';
 import { humanFileSize } from '../../utils/humanFileSize';
 import { Swipeable } from 'react-native-gesture-handler';
 import { Button, Modal } from '../atoms';
+import { RootStackScreenNames } from '../../routes';
 
 export const OfflineEpisode = ({
   episode,
@@ -103,7 +101,7 @@ export const OfflineEpisode = ({
             <Pressable
               style={styles.watchStatus}
               onPress={() =>
-                navigation.navigate(ScreenNames.WatchNative, {
+                navigation.navigate(RootStackScreenNames.NativePlayer, {
                   uri: episode.pathToFile,
                   episodeTitle: episode.title,
                   episodeNumber: episode.number,

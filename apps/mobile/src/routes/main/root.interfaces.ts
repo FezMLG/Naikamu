@@ -1,33 +1,30 @@
 import { NavigatorScreenParams } from '@react-navigation/native';
-import { SettingsStackParamList } from './settings';
-import { MyListStackParamList } from './mylist';
-import { BrowseStackParamList } from './browse';
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import { SearchStackParamList } from './search';
+import { SeriesStackParamList } from './series';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 export enum RootStackScreenNames {
-  SettingsStack = 'SettingsStack',
-  BrowseStack = 'BrowseStack',
-  SearchStack = 'SearchStack',
-  MyListStack = 'MyListStack',
+  Main = 'Main',
+  SeriesStack = 'SeriesStack',
+  NativePlayer = 'NativePlayer',
 }
 
 export type RootStackParamList = {
-  [RootStackScreenNames.SettingsStack]: NavigatorScreenParams<SettingsStackParamList>;
-  [RootStackScreenNames.BrowseStack]: NavigatorScreenParams<BrowseStackParamList>;
-  [RootStackScreenNames.SearchStack]: NavigatorScreenParams<SearchStackParamList>;
-  [RootStackScreenNames.MyListStack]: NavigatorScreenParams<MyListStackParamList>;
+  [RootStackScreenNames.Main]: undefined;
+  [RootStackScreenNames.SeriesStack]: NavigatorScreenParams<SeriesStackParamList>;
+  [RootStackScreenNames.NativePlayer]: {
+    uri: string;
+    seriesId: string;
+    episodeTitle: string;
+    player: string;
+    episodeNumber: number;
+  };
 };
 
-export type RootStackBrowseStackScreenProps = BottomTabScreenProps<
+export type RootStackSeriesStackScreenProps = NativeStackScreenProps<
   RootStackParamList,
-  RootStackScreenNames.BrowseStack
+  RootStackScreenNames.SeriesStack
 >;
-export type RootStackSettingsStackScreenProps = BottomTabScreenProps<
+export type RootStackNativePlayerScreenProps = NativeStackScreenProps<
   RootStackParamList,
-  RootStackScreenNames.SettingsStack
->;
-export type RootStackMyListStackScreenProps = BottomTabScreenProps<
-  RootStackParamList,
-  RootStackScreenNames.MyListStack
+  RootStackScreenNames.NativePlayer
 >;

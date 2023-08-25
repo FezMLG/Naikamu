@@ -2,7 +2,7 @@ import React from 'react';
 import { AnimeDetails } from '@aniwatch/shared';
 import { useTranslate } from '../../i18n/useTranslate';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { RootStackParamList, ScreenNames } from '../../routes/main';
+import { SeriesStackParamList, SeriesStackScreenNames } from '../../routes';
 import { Button } from '../atoms';
 
 interface EpisodesButtonProps {
@@ -10,7 +10,7 @@ interface EpisodesButtonProps {
 }
 
 export const EpisodesButton = ({ series }: EpisodesButtonProps) => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const navigation = useNavigation<NavigationProp<SeriesStackParamList>>();
   const { translate } = useTranslate();
 
   return (
@@ -18,7 +18,7 @@ export const EpisodesButton = ({ series }: EpisodesButtonProps) => {
       type="secondary"
       icon="play-box-multiple"
       onPress={() => {
-        navigation.navigate(ScreenNames.Episodes, {
+        navigation.navigate(SeriesStackScreenNames.Episodes, {
           id: series.id,
           title: series.title.romaji,
           numOfAiredEpisodes: series.nextAiringEpisode?.episode

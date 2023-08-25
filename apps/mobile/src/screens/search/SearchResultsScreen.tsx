@@ -16,15 +16,21 @@ import { maxWidth } from '../../components';
 import { useQuerySearchSeriesList } from '../../api/hooks';
 import { colors, fontStyles } from '../../styles';
 import {
+  BrowseStackScreenNames,
+  BottomTabStackParamList,
+  BottomTabStackScreenNames,
+  SearchStackParamList,
   SearchStackScreenNames,
   SearchStackSearchResultsScreenProps,
   SeriesStackScreenNames,
+  RootStackScreenNames,
 } from '../../routes';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 
 export const SearchResultsScreen = ({
-  navigation,
   route,
 }: SearchStackSearchResultsScreenProps) => {
+  const navigation = useNavigation<any>();
   const CONTENT_OFFSET_THRESHOLD = 300;
   const { phrase } = route.params;
   const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
@@ -37,12 +43,13 @@ export const SearchResultsScreen = ({
     <BrowseElement
       anime={item}
       handlePageChange={() => {
-        navigation.navigate(SearchStackScreenNames.SearchResultsSeries, {
+        navigation.navigate(RootStackScreenNames.SeriesStack, {
           screen: SeriesStackScreenNames.Series,
           params: {
             title: item.title.romaji,
             id: item.id,
           },
+          initial: false,
         });
       }}
     />

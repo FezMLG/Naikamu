@@ -1,6 +1,6 @@
 import { Linking } from 'react-native';
 
-import { ScreenNames } from '../../routes/main';
+import { RootStackScreenNames } from '../../routes';
 import { AnimePlayer } from '@aniwatch/shared';
 
 export const navigateToPlayer = ({
@@ -23,7 +23,7 @@ export const navigateToPlayer = ({
 
   switch (name) {
     case 'cda':
-      return navigation.navigate(ScreenNames.WatchNative, {
+      return navigation.navigate(RootStackScreenNames.NativePlayer, {
         uri: player.player_link,
         seriesId,
         episodeTitle,

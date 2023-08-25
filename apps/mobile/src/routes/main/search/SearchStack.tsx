@@ -38,15 +38,6 @@ export const SearchStack = () => {
           headerShown: false,
         })}
       />
-      <StackAuthorized.Screen
-        name={SearchStackScreenNames.SearchResultsSeries}
-        component={SeriesStack}
-        options={() => ({
-          ...defaultSubHeaderOptions({}),
-          headerShown: false,
-          presentation: 'modal',
-        })}
-      />
     </StackAuthorized.Navigator>
   );
 };

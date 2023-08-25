@@ -5,13 +5,11 @@ import { SeriesStackParamList } from '../series';
 export enum SearchStackScreenNames {
   Search = 'Search',
   SearchResults = 'SearchResults',
-  SearchResultsSeries = 'SearchResultsSeries',
 }
 
 export type SearchStackParamList = {
   [SearchStackScreenNames.Search]: undefined;
   [SearchStackScreenNames.SearchResults]: { phrase: string };
-  [SearchStackScreenNames.SearchResultsSeries]: NavigatorScreenParams<SeriesStackParamList>;
 };
 
 export type SearchStackSearchScreenProps = NativeStackScreenProps<

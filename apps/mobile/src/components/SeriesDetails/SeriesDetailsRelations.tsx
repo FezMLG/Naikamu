@@ -3,11 +3,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { Linking, ScrollView, StyleSheet, Text } from 'react-native';
 import { AnimeDetails } from '@aniwatch/shared';
 import { useTranslate } from '../../i18n/useTranslate';
-import {
-  RootStackParamList,
-  SeriesStackParamList,
-  SeriesStackScreenNames,
-} from '../../routes';
+import { SeriesStackParamList, SeriesStackScreenNames } from '../../routes';
 import { darkStyle } from '../../styles';
 import { SeriesRelations } from './SeriesRelations';
 

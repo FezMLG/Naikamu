@@ -2,23 +2,19 @@ import React from 'react';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { Pressable, View, Text, StyleSheet } from 'react-native';
 
-import {
-  OfflineWatchParamList,
-  OfflineWatchScreenNames,
-} from '../../routes/main/mylist/offline/interface';
 import { IOfflineSeries, useOfflineService } from '../../services';
 import { globalStyle, fontStyles, colors, defaultRadius } from '../../styles';
-import { ProgressiveImage } from '../ProgressiveImage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { humanFileSize } from '../../utils/humanFileSize';
 import { Button, Modal } from '../atoms';
 import { useTranslate } from '../../i18n/useTranslate';
 import Animated, { SlideInLeft } from 'react-native-reanimated';
+import { DownloadStackParamList, DownloadStackScreenNames } from '../../routes';
 
 export const OfflineSeries = ({ series }: { series: IOfflineSeries }) => {
   const { translate } = useTranslate();
   const { seriesId, title, episodes, quality } = series;
-  const navigation = useNavigation<NavigationProp<OfflineWatchParamList>>();
+  const navigation = useNavigation<NavigationProp<DownloadStackParamList>>();
   const { deleteSeriesOffline } = useOfflineService();
   const [modalVisible, setModalVisible] = React.useState(false);
 
@@ -28,7 +24,7 @@ export const OfflineSeries = ({ series }: { series: IOfflineSeries }) => {
         <Pressable
           style={[styles.seriesContainer, globalStyle.spacer]}
           onPress={() =>
-            navigation.navigate(OfflineWatchScreenNames.OfflineEpisodes, series)
+            navigation.navigate(DownloadStackScreenNames.SeriesEpisodes, series)
           }
           onLongPress={() => {
             setModalVisible(true);

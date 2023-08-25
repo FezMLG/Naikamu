@@ -13,11 +13,14 @@ import { colors } from '../styles';
 import {
   BrowseStackBrowseScreenProps,
   BrowseStackScreenNames,
+  RootStackScreenNames,
   SeriesStackScreenNames,
 } from '../routes';
+import { useNavigation } from '@react-navigation/native';
 
-export const BrowseScreen = ({ navigation }: BrowseStackBrowseScreenProps) => {
+export const BrowseScreen = ({}: BrowseStackBrowseScreenProps) => {
   const CONTENT_OFFSET_THRESHOLD = 300;
+  const navigation = useNavigation<any>();
   const listRef = useRef<FlatList>(null);
   const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
   const { api, season, year, setSeason, setYear } = useQuerySeriesList();
@@ -27,7 +30,7 @@ export const BrowseScreen = ({ navigation }: BrowseStackBrowseScreenProps) => {
     <BrowseElement
       anime={item}
       handlePageChange={() => {
-        navigation.navigate(BrowseStackScreenNames.SeriesStack, {
+        navigation.navigate(RootStackScreenNames.SeriesStack, {
           screen: SeriesStackScreenNames.Series,
           params: {
             title: item.title.romaji,

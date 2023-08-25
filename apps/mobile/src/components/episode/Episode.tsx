@@ -6,14 +6,14 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { AnimeEpisode, AnimePlayer } from '@aniwatch/shared';
 
-import { darkColor, darkStyle } from '../../styles/darkMode.style';
-import { colors, defaultRadius, fontStyles } from '../../styles/global.style';
+import { darkColor, darkStyle } from '../../styles';
+import { colors, defaultRadius, fontStyles } from '../../styles';
 import { useTranslate } from '../../i18n/useTranslate';
 import { UpdateEpisodeWatchStatus } from '../molecules';
 import { useQuerySeriesEpisodePlayers } from '../../api/hooks';
 import { maxWidth } from '../maxDimensions';
 import { EpisodePlayer } from './EpisodePlayer';
-import { useOfflineService } from '../../services/offline/offline.service';
+import { useOfflineService } from '../../services';
 import { useVideoProgress, createEpisodeProgressKey } from '../../services';
 import { useUserSettingsService } from '../../services/settings/settings.service';
 import { ActivityIndicator } from '../atoms';

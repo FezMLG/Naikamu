@@ -2,13 +2,10 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 
 import { useUserStore } from '../services/auth/user.store';
-import {
-  BrowseStackScreenNames,
-  SeriesStackScreenNames,
-  RootStack,
-} from './main';
+import { BrowseStackScreenNames, SeriesStackScreenNames } from './main';
 import { AuthStack } from './auth';
 import { SplashScreen } from '../screens';
+import { RootStack } from './main/RootStack';
 
 const linking = {
   prefixes: ['aniwatch://'],
