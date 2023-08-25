@@ -31,7 +31,7 @@ export const BrowseStack = () => {
       <StackAuthorized.Screen
         name={BrowseStackScreenNames.SeriesStack}
         component={SeriesStack}
-        options={({ navigation }) => ({
+        options={() => ({
           ...defaultSubHeaderOptions({}),
           headerShown: false,
           presentation: 'modal',

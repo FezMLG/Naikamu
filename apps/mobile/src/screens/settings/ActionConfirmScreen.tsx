@@ -3,7 +3,7 @@ import { KeyboardTypeOptions, StyleSheet, View } from 'react-native';
 import { Text, TextInput } from 'react-native-paper';
 
 import { useTranslate } from '../../i18n/useTranslate';
-import { globalStyle } from '../../styles/global.style';
+import { globalStyle } from '../../styles';
 import { Control, FieldErrorsImpl, Controller, useForm } from 'react-hook-form';
 import { fireReauthenticate } from '../../services/firebase/fire-auth.service';
 import { Button, PageLayout, useLayout } from '../../components';
