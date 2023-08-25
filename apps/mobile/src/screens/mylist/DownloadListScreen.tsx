@@ -10,8 +10,11 @@ import { ScrollView, Text } from 'react-native';
 import { useDownloadsQueueStore } from '../../services/offline/queue.store';
 import { logger } from '../../utils/logger';
 import { useOfflineService } from '../../services';
+import { colors, fontStyles, globalStyle } from '../../styles';
+import { useTranslate } from '../../i18n/useTranslate';
 
 export const DownloadListScreen = () => {
+  const { translate } = useTranslate();
   const layout = useLayout();
   const {
     activeDownloads,
@@ -57,7 +60,9 @@ export const DownloadListScreen = () => {
               <OfflineSeries key={series.seriesId} series={series} />
             ))
         ) : (
-          <Text>No downloaded series</Text>
+          <Text style={[colors.textLight, fontStyles.text]}>
+            {translate('myList.download.notFound')}
+          </Text>
         )}
         {activeDownloads.map((download, index) => (
           <ActiveDownload

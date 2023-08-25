@@ -160,5 +160,8 @@ export const en = {
     common: {
       episodes: 'Episodes',
     },
+    download: {
+      notFound: 'No downloaded series found'
+    }
   },
 };

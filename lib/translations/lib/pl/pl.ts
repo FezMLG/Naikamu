@@ -161,5 +161,8 @@ export const pl = {
     common: {
       episodes: 'Epizody',
     },
+    download: {
+      notFound: 'Nie znaleziono pobranych serii'
+    }
   },
 };
