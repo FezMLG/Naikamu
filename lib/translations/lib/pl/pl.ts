@@ -10,6 +10,7 @@ export const pl = {
     SignUp: 'Zarejestruj się',
     ForgotPassword: 'Nie pamiętam hasła',
     Search: 'Wyszukaj',
+    SearchStack: 'Wyszukaj',
     Settings: 'Ustawienia',
     SettingsStack: 'Ustawienia',
     ActionConfirm: 'Potwierdź Akcję',

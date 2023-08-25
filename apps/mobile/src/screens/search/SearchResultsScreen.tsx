@@ -15,9 +15,16 @@ import BrowseElement from '../../components/browse/BrowseElement';
 import { maxWidth } from '../../components';
 import { useQuerySearchSeriesList } from '../../api/hooks';
 import { colors, fontStyles } from '../../styles';
-import { SeriesStackScreenNames } from '../../routes';
+import {
+  SearchStackScreenNames,
+  SearchStackSearchResultsScreenProps,
+  SeriesStackScreenNames,
+} from '../../routes';
 
-export const SearchResultsScreen = ({ navigation, route }: any) => {
+export const SearchResultsScreen = ({
+  navigation,
+  route,
+}: SearchStackSearchResultsScreenProps) => {
   const CONTENT_OFFSET_THRESHOLD = 300;
   const { phrase } = route.params;
   const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
@@ -30,9 +37,12 @@ export const SearchResultsScreen = ({ navigation, route }: any) => {
     <BrowseElement
       anime={item}
       handlePageChange={() => {
-        navigation.navigate(SeriesStackScreenNames.Series, {
-          title: item.title.romaji,
-          id: item.id,
+        navigation.navigate(SearchStackScreenNames.SearchResultsSeries, {
+          screen: SeriesStackScreenNames.Series,
+          params: {
+            title: item.title.romaji,
+            id: item.id,
+          },
         });
       }}
     />

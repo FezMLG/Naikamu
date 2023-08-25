@@ -3,16 +3,19 @@ import { SettingsStackParamList } from './settings';
 import { MyListStackParamList } from './mylist';
 import { BrowseStackParamList } from './browse';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { SearchStackParamList } from './search';
 
 export enum RootStackScreenNames {
   SettingsStack = 'SettingsStack',
   BrowseStack = 'BrowseStack',
+  SearchStack = 'SearchStack',
   MyListStack = 'MyListStack',
 }
 
 export type RootStackParamList = {
   [RootStackScreenNames.SettingsStack]: NavigatorScreenParams<SettingsStackParamList>;
   [RootStackScreenNames.BrowseStack]: NavigatorScreenParams<BrowseStackParamList>;
+  [RootStackScreenNames.SearchStack]: NavigatorScreenParams<SearchStackParamList>;
   [RootStackScreenNames.MyListStack]: NavigatorScreenParams<MyListStackParamList>;
 };
 

@@ -10,6 +10,7 @@ export const en = {
     SignUp: 'Sign Up',
     ForgotPassword: 'Forgot Password',
     Search: 'Search',
+    SearchStack: 'Search',
     Settings: 'Settings',
     SettingsStack: 'Settings',
     ActionConfirm: 'Confirm Action',

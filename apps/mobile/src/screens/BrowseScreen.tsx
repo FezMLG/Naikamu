@@ -50,6 +50,7 @@ export const BrowseScreen = ({ navigation }: BrowseStackBrowseScreenProps) => {
       {api.data ? (
         <View>
           <FlatList
+            contentInsetAdjustmentBehavior="automatic"
             style={[styles.flatList]}
             ref={listRef}
             data={api.data.pages.map(page => page.Page.media).flat()}

@@ -4,8 +4,12 @@ import { TextInput } from 'react-native-paper';
 import { Button } from '../../components';
 
 import { globalStyle } from '../../styles';
+import {
+  SearchStackScreenNames,
+  SearchStackSearchScreenProps,
+} from '../../routes/';
 
-export const SearchScreen = ({ navigation }: any) => {
+export const SearchScreen = ({ navigation }: SearchStackSearchScreenProps) => {
   const [search, setSearch] = useState('');
 
   return (
@@ -22,7 +26,7 @@ export const SearchScreen = ({ navigation }: any) => {
         type="secondary"
         icon="magnify"
         onPress={() =>
-          navigation.navigate('ScreenNames.SearchResults', {
+          navigation.navigate(SearchStackScreenNames.SearchResults, {
             phrase: search,
           })
         }

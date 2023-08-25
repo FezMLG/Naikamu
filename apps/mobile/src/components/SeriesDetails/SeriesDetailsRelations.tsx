@@ -1,9 +1,13 @@
 import React from 'react';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { Linking, ScrollView, StyleSheet, Text } from 'react-native';
-import { AnimeDetails } from '../../../../../lib/shared/dist';
+import { AnimeDetails } from '@aniwatch/shared';
 import { useTranslate } from '../../i18n/useTranslate';
-import { RootStackParamList, ScreenNames } from '../../routes/main';
+import {
+  RootStackParamList,
+  SeriesStackParamList,
+  SeriesStackScreenNames,
+} from '../../routes';
 import { darkStyle } from '../../styles';
 import { SeriesRelations } from './SeriesRelations';
 
@@ -11,7 +15,7 @@ export const SeriesDetailsRelations = (props: {
   relations: AnimeDetails['relations'];
 }) => {
   const { translate } = useTranslate();
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const navigation = useNavigation<NavigationProp<SeriesStackParamList>>();
 
   return (
     <>
@@ -27,7 +31,7 @@ export const SeriesDetailsRelations = (props: {
               handleNavigation={() => {
                 switch (relation.type.toLocaleLowerCase()) {
                   case 'anime':
-                    navigation.navigate(ScreenNames.Series, {
+                    navigation.navigate(SeriesStackScreenNames.Series, {
                       id: relation.id,
                       title: relation.title.romaji,
                     });

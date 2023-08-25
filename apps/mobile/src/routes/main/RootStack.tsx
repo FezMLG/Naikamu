@@ -10,6 +10,7 @@ import { RootStackParamList, RootStackScreenNames } from './root.interfaces';
 import { SettingsStack } from './settings';
 import { BrowseStack } from './browse';
 import { MyListStack } from './mylist';
+import { SearchStack } from './search';
 
 const BottomTab = createBottomTabNavigator<RootStackParamList>();
 
@@ -27,6 +28,9 @@ const BottomTabContent = (props: {
       break;
     case RootStackScreenNames.SettingsStack:
       iconName = props.focused ? 'cog' : 'cog-outline';
+      break;
+    case RootStackScreenNames.SearchStack:
+      iconName = props.focused ? 'movie-search' : 'movie-search-outline';
       break;
     case RootStackScreenNames.MyListStack:
       iconName = props.focused
@@ -99,6 +103,15 @@ export const RootStack = () => {
             }),
             animation: 'slide_from_right',
           })}
+        />
+        <BottomTab.Screen
+          name={RootStackScreenNames.SearchStack}
+          component={SearchStack}
+          options={{
+            ...defaultHeaderOptions({
+              title: translate('routes.' + RootStackScreenNames.SearchStack),
+            }),
+          }}
         />
         <BottomTab.Screen
           name={RootStackScreenNames.MyListStack}
