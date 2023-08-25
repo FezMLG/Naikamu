@@ -1,28 +1,27 @@
 import React from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { MyListParamList, MyListScreenNames } from './interface';
+import { MyListStackParamList, MyListStackScreenNames } from './interface';
 import { colors } from '../../../styles';
-import OfflineStack from './offline/OfflineStack';
 import { useTranslate } from '../../../i18n/useTranslate';
-import { defaultHeaderOptions } from '../BottomTabNavigation';
+import { DownloadStack } from './offline';
 
-const Tab = createMaterialTopTabNavigator<MyListParamList>();
+const Tab = createMaterialTopTabNavigator<MyListStackParamList>();
 
 export const MyListStack = () => {
   const { translate } = useTranslate();
 
   return (
     <Tab.Navigator
-      initialRouteName={MyListScreenNames.OfflineStack}
+      initialRouteName={MyListStackScreenNames.OfflineStack}
       screenOptions={{
         tabBarStyle: { backgroundColor: 'transparent' },
         tabBarIndicatorStyle: { backgroundColor: colors.accent.color },
       }}>
       <Tab.Screen
-        name={MyListScreenNames.OfflineStack}
-        component={OfflineStack}
+        name={MyListStackScreenNames.OfflineStack}
+        component={DownloadStack}
         options={{
-          title: translate('routes.' + MyListScreenNames.OfflineStack),
+          title: translate('routes.' + MyListStackScreenNames.OfflineStack),
         }}
       />
     </Tab.Navigator>

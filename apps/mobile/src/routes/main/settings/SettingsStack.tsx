@@ -1,75 +1,76 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { useTranslate } from '../../i18n/useTranslate';
-import SettingsScreen from '../../screens/settings/SettingsScreen';
-import SettingsActionConfirmScreen from '../../screens/settings/ActionConfirmScreen';
-import UserSettingsScreen from '../../screens/settings/UserSettingsScreen';
-import AppSettingsScreen from '../../screens/settings/AppSettings';
-import SettingsActionScreen from '../../screens/settings/ActionScreen';
-import { defaultSubHeaderOptions, defaultHeaderOptions } from '../main';
 import {
-  SettingsScreenNames,
+  SettingsStackScreenNames,
   SettingsStackParamList,
-} from '../settings/interfaces';
+} from './settings.interfaces';
+import { useTranslate } from '../../../i18n/useTranslate';
+import SettingsScreen from '../../../screens/settings/SettingsScreen';
+import { defaultHeaderOptions } from '../defaultHeaderOptions';
+import UserSettingsScreen from '../../../screens/settings/UserSettingsScreen';
+import { defaultSubHeaderOptions } from '../defaultSubHeaderOptions';
+import AppSettingsScreen from '../../../screens/settings/AppSettings';
+import SettingsActionConfirmScreen from '../../../screens/settings/ActionConfirmScreen';
+import SettingsActionScreen from '../../../screens/settings/ActionScreen';
 
 const Stack = createNativeStackNavigator<SettingsStackParamList>();
 
-export const SettingsNavStack = () => {
+export const SettingsStack = () => {
   const { translate } = useTranslate();
 
   return (
-    <Stack.Navigator initialRouteName={SettingsScreenNames.Settings}>
+    <Stack.Navigator initialRouteName={SettingsStackScreenNames.Settings}>
       <Stack.Screen
-        name={SettingsScreenNames.Settings}
+        name={SettingsStackScreenNames.Settings}
         component={SettingsScreen}
         options={() => ({
           ...defaultHeaderOptions({
-            title: translate('settings.' + SettingsScreenNames.Settings),
+            title: translate('settings.' + SettingsStackScreenNames.Settings),
           }),
           animation: 'slide_from_right',
         })}
       />
       <Stack.Screen
-        name={SettingsScreenNames.UserSettings}
+        name={SettingsStackScreenNames.UserSettings}
         component={UserSettingsScreen}
         options={() => ({
           ...defaultSubHeaderOptions({
-            title: translate('settings.' + SettingsScreenNames.Settings),
+            title: translate('settings.' + SettingsStackScreenNames.Settings),
           }),
           animation: 'slide_from_right',
         })}
       />
       <Stack.Screen
-        name={SettingsScreenNames.AppSettings}
+        name={SettingsStackScreenNames.AppSettings}
         component={AppSettingsScreen}
         options={() => ({
           ...defaultSubHeaderOptions({
-            title: translate('settings.' + SettingsScreenNames.Settings),
+            title: translate('settings.' + SettingsStackScreenNames.Settings),
           }),
           animation: 'slide_from_right',
         })}
       />
       <Stack.Screen
-        name={SettingsScreenNames.SettingsActionConfirm}
+        name={SettingsStackScreenNames.SettingsActionConfirm}
         component={SettingsActionConfirmScreen}
         options={{
           ...defaultSubHeaderOptions({
             title: translate(
               'settings.categories.' +
-                SettingsScreenNames.SettingsActionConfirm,
+                SettingsStackScreenNames.SettingsActionConfirm,
             ),
           }),
           animation: 'slide_from_right',
         }}
       />
       <Stack.Screen
-        name={SettingsScreenNames.SettingsAction}
+        name={SettingsStackScreenNames.SettingsAction}
         component={SettingsActionScreen}
         options={{
           ...defaultSubHeaderOptions({
             title: translate(
-              'settings.categories.' + SettingsScreenNames.SettingsAction,
+              'settings.categories.' + SettingsStackScreenNames.SettingsAction,
             ),
           }),
           animation: 'slide_from_right',

@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, TextInput } from 'react-native-paper';
 
-import { LoginScreenProps, AuthRoutesNames } from '../../routes/auth';
+import {
+  AuthStackLoginScreenProps,
+  AuthStackRoutesNames,
+} from '../../routes/auth';
 import { useForm, Controller } from 'react-hook-form';
 import { globalStyle } from '../../styles/global.style';
 import { useTranslate } from '../../i18n/useTranslate';
@@ -17,7 +20,7 @@ export interface LoginForm {
   password: string;
 }
 
-export default function LoginScreen({ navigation }: LoginScreenProps) {
+export default function LoginScreen({ navigation }: AuthStackLoginScreenProps) {
   const userService = useUserService();
   const layout = useLayout();
   const [loading, isLoading] = useState(false);
@@ -42,7 +45,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
       isLoading(false);
       if (user && !user.emailVerified) {
         try {
-          navigation.navigate(AuthRoutesNames.VerifyEmail);
+          navigation.navigate(AuthStackRoutesNames.VerifyEmail);
         } catch (error) {
           console.error(error);
         }
@@ -125,7 +128,9 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
           type={'link'}
           disabled={loading}
           style={[globalStyle.marginTopSmall]}
-          onPress={() => navigation.navigate(AuthRoutesNames.ForgotPassword)}
+          onPress={() =>
+            navigation.navigate(AuthStackRoutesNames.ForgotPassword)
+          }
         />
       </View>
     </PageLayout.Default>

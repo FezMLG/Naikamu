@@ -2,12 +2,15 @@ import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 
-import { AuthRoutesNames, VerifyEmailScreenProps } from '../routes/auth';
+import {
+  AuthStackRoutesNames,
+  AuthStackVerifyEmailScreenProps,
+} from '../routes/auth';
 import { useTranslate } from '../i18n/useTranslate';
 import { globalStyle } from '../styles/global.style';
 import { useUserStore } from '../services/auth/user.store';
 
-const VerifyEmailScreen = ({ navigation }: VerifyEmailScreenProps) => {
+const VerifyEmailScreen = ({ navigation }: AuthStackVerifyEmailScreenProps) => {
   const user = useUserStore(state => state.user);
   const { translate } = useTranslate();
 
@@ -22,7 +25,7 @@ const VerifyEmailScreen = ({ navigation }: VerifyEmailScreenProps) => {
       <Text variant="bodyMedium"> {translate('auth.email_verify.bottom')}</Text>
       <Button
         style={globalStyle.marginTopBig}
-        onPress={() => navigation.navigate(AuthRoutesNames.Login)}>
+        onPress={() => navigation.navigate(AuthStackRoutesNames.Login)}>
         {translate('buttons.go_back')}
       </Button>
     </SafeAreaView>

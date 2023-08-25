@@ -1,19 +1,21 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 
-import MainStack from './main/MainStack';
-import AuthStack from './auth/AuthStack';
-import { ScreenNames } from './main';
 import SplashScreen from '../screens/SplashScreen';
 import { useUserStore } from '../services/auth/user.store';
-import { TabNavStack } from './new-main/TabNavStack';
+import {
+  BrowseStackScreenNames,
+  SeriesStackScreenNames,
+  RootStack,
+} from './main';
+import { AuthStack } from './auth';
 
 const linking = {
   prefixes: ['aniwatch://'],
   config: {
     screens: {
-      [ScreenNames.Browse]: 'browse',
-      [ScreenNames.Series]: 'browse/:id',
+      [BrowseStackScreenNames.Browse]: 'browse',
+      [SeriesStackScreenNames.Series]: 'browse/:id',
     },
   },
 };
@@ -26,7 +28,7 @@ const Routes = ({ theme }: any) => {
       linking={linking}
       fallback={<SplashScreen />}
       theme={theme}>
-      {user && user?.emailVerified ? <TabNavStack /> : <AuthStack />}
+      {user && user?.emailVerified ? <RootStack /> : <AuthStack />}
     </NavigationContainer>
   );
 };

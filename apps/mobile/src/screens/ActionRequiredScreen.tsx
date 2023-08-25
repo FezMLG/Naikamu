@@ -4,10 +4,12 @@ import Config from 'react-native-config';
 
 import { colors, fontStyles, globalStyle } from '../styles/global.style';
 import { useTranslate } from '../i18n/useTranslate';
-import { ActionRequiredScreenProps } from '../routes/auth';
+import { AuthStackActionRequiredScreenProps } from '../routes/auth';
 import { Button } from '../components';
 
-const ActionRequiredScreen = ({ navigation }: ActionRequiredScreenProps) => {
+const ActionRequiredScreen = ({
+  navigation,
+}: AuthStackActionRequiredScreenProps) => {
   const appVersion = require('../../package.json').version;
   const { translate } = useTranslate();
 

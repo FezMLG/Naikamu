@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper';
 
-import { ForgotPasswordScreenProps } from '../routes/auth';
+import { AuthStackForgotPasswordScreenProps } from '../routes/auth';
 import { fireForgotPassword } from '../services/firebase/fire-auth.service';
 import { useTranslate } from '../i18n/useTranslate';
 import { Controller, useForm } from 'react-hook-form';
@@ -13,7 +13,7 @@ interface ForgetPassword {
   email: string;
 }
 
-const ForgotPasswordScreen = ({}: ForgotPasswordScreenProps) => {
+const ForgotPasswordScreen = ({}: AuthStackForgotPasswordScreenProps) => {
   const [loading, isLoading] = useState(false);
   const [emailSent, isEmailSent] = useState(false);
   const { translate } = useTranslate();

@@ -4,7 +4,10 @@ import { View, StyleSheet } from 'react-native';
 import { Text, TextInput } from 'react-native-paper';
 
 import { useTranslate } from '../../i18n/useTranslate';
-import { AuthRoutesNames, SignUpScreenProps } from '../../routes/auth';
+import {
+  AuthStackRoutesNames,
+  AuthStackSignUpScreenProps,
+} from '../../routes/auth';
 import { globalStyle } from '../../styles/global.style';
 import {
   Button,
@@ -21,7 +24,7 @@ export interface SignUpForm {
   passwordAgain: string;
 }
 
-export const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
+export const SignUpScreen = ({ navigation }: AuthStackSignUpScreenProps) => {
   const layout = useLayout();
   const [loading, isLoading] = useState(false);
   const { translate } = useTranslate();
@@ -49,7 +52,7 @@ export const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
       }
       const user = await userService.registerUser(data);
       if (user) {
-        navigation.navigate(AuthRoutesNames.VerifyEmail);
+        navigation.navigate(AuthStackRoutesNames.VerifyEmail);
       }
     } catch (error: any) {
       layout.setInfo(translate(errorResolver(error.code)));

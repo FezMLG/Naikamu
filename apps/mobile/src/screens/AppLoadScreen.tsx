@@ -16,7 +16,10 @@ import {
   fireGetIdToken,
   fireGetNewIdToken,
 } from '../services/firebase/fire-auth.service';
-import { AppLoadingScreenProps, AuthRoutesNames } from '../routes/auth';
+import {
+  AuthStackAppLoadingScreenProps,
+  AuthStackRoutesNames,
+} from '../routes/auth';
 import { useQueryApiHealth } from '../api/hooks';
 import { useUserSettingsService } from '../services/settings/settings.service';
 import semver from 'semver';
@@ -26,7 +29,7 @@ import { logger } from '../utils/logger';
 import { useUserStore } from '../services/auth/user.store';
 import NetInfo from '@react-native-community/netinfo';
 
-const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
+const AppLoadScreen = ({ navigation }: AuthStackAppLoadingScreenProps) => {
   const supportedApiVersion = require('../../package.json').apiVersion;
   const layout = useLayout();
   const { translate } = useTranslate();
@@ -69,7 +72,7 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
       handleLoginCheck();
     } else {
       console.log('wrong api');
-      navigation.navigate(AuthRoutesNames.ActionRequired);
+      navigation.navigate(AuthStackRoutesNames.ActionRequired);
     }
   });
 
@@ -81,10 +84,10 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
       userService.setLoggedUser();
       logger('handleLoginCheck').info(user);
       if (!user?.emailVerified && user?.emailVerified !== undefined) {
-        navigation.navigate(AuthRoutesNames.VerifyEmail);
+        navigation.navigate(AuthStackRoutesNames.VerifyEmail);
       }
     } else {
-      navigation.navigate(AuthRoutesNames.Hello);
+      navigation.navigate(AuthStackRoutesNames.Hello);
     }
   }, [initializeUserSettings, navigation]);
 

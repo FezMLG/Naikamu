@@ -6,12 +6,15 @@ import Config from 'react-native-config';
 import { globalStyle } from '../styles/global.style';
 import { darkStyle } from '../styles/darkMode.style';
 import { useTranslate } from '../i18n/useTranslate';
-import { AuthRoutesNames, HelloScreenProps } from '../routes/auth';
+import {
+  AuthStackRoutesNames,
+  AuthStackHelloScreenProps,
+} from '../routes/auth';
 import GoogleSignIn from '../components/GoogleSignIn';
 import { Button, PageLayout, useLayout } from '../components';
 import { useUserStore } from '../services/auth/user.store';
 
-const HelloScreen = ({ navigation }: HelloScreenProps) => {
+const HelloScreen = ({ navigation }: AuthStackHelloScreenProps) => {
   const { translate } = useTranslate();
   const user = useUserStore(state => state.user);
   const layout = useLayout();
@@ -44,12 +47,12 @@ const HelloScreen = ({ navigation }: HelloScreenProps) => {
       <Button
         label={translate('auth.login')}
         type={'primary'}
-        onPress={() => navigation.navigate(AuthRoutesNames.Login)}
+        onPress={() => navigation.navigate(AuthStackRoutesNames.Login)}
       />
       <Button
         label={translate('auth.register')}
         type={'secondary'}
-        onPress={() => navigation.navigate(AuthRoutesNames.SignUp)}
+        onPress={() => navigation.navigate(AuthStackRoutesNames.SignUp)}
         style={[globalStyle.marginTopSmall]}
       />
       {Config.ENV !== 'prod' && <Text>api_url: {Config.API_URL}</Text>}

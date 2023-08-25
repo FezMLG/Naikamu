@@ -5,13 +5,13 @@ import {
   PageLayout,
   useLayout,
 } from '../../components';
-import { OfflineWatchScreenProps } from '../../routes/main/mylist/offline/interface';
-import { useOfflineService } from '../../services/offline/offline.service';
+
 import { ScrollView, Text } from 'react-native';
 import { useDownloadsQueueStore } from '../../services/offline/queue.store';
 import { logger } from '../../utils/logger';
+import { useOfflineService } from '../../services';
 
-const OfflineScreen = ({}: OfflineWatchScreenProps) => {
+const OfflineScreen = () => {
   const layout = useLayout();
   const {
     activeDownloads,
