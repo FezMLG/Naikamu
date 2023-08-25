@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+
+import { Media } from '@aniwatch/shared';
 import {
   StyleSheet,
   View,
@@ -6,24 +8,24 @@ import {
   GestureResponderEvent,
   Text,
 } from 'react-native';
-import { Media } from '@aniwatch/shared';
+
 import { darkStyle, defaultRadius } from '../../styles';
 import { ProgressiveImage } from '../ProgressiveImage';
 
-const BrowseElement = ({
+function BrowseElement({
   anime,
   handlePageChange,
 }: {
   anime: Media;
   handlePageChange: ((event: GestureResponderEvent) => void) | null | undefined;
-}) => {
+}) {
   const [textHeight, setTextHeight] = useState(140);
 
   return (
     <Pressable
       key={anime.id}
-      style={[styles.card, darkStyle.card]}
-      onPress={handlePageChange}>
+      onPress={handlePageChange}
+      style={[styles.card, darkStyle.card]}>
       <View
         style={[styles.poster, { backgroundColor: anime.coverImage.color }]}>
         <ProgressiveImage
@@ -34,18 +36,18 @@ const BrowseElement = ({
       <View
         onLayout={e => setTextHeight(e.nativeEvent.layout.height)}
         style={[styles.titleContainer, { bottom: textHeight }]}>
-        <Text style={[darkStyle.font, styles.title]} numberOfLines={4}>
+        <Text numberOfLines={4} style={[darkStyle.font, styles.title]}>
           {anime.title.romaji}
         </Text>
         <Text
-          style={[{ color: anime.coverImage.color }, styles.subTitle]}
-          numberOfLines={1}>
+          numberOfLines={1}
+          style={[{ color: anime.coverImage.color }, styles.subTitle]}>
           {anime.studios.nodes[0]?.name ?? ''}
         </Text>
       </View>
     </Pressable>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

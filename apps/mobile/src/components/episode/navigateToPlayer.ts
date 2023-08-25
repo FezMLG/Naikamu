@@ -1,7 +1,7 @@
+import { AnimePlayer } from '@aniwatch/shared';
 import { Linking } from 'react-native';
 
 import { RootStackScreenNames } from '../../routes';
-import { AnimePlayer } from '@aniwatch/shared';
 
 export const navigateToPlayer = ({
   navigation,
@@ -17,12 +17,12 @@ export const navigateToPlayer = ({
   seriesId: string;
 }) => {
   const name = player.player_name
-    .replace(/[\u0250-\ue007]/g, '')
-    .replace(/\s/g, '')
+    .replaceAll(/[\u0250-\uE007]/g, '')
+    .replaceAll(/\s/g, '')
     .toLowerCase();
 
   switch (name) {
-    case 'cda':
+    case 'cda': {
       return navigation.navigate(RootStackScreenNames.NativePlayer, {
         uri: player.player_link,
         seriesId,
@@ -30,8 +30,10 @@ export const navigateToPlayer = ({
         player: name,
         episodeNumber,
       });
+    }
 
-    default:
+    default: {
       return Linking.openURL(player.player_link);
+    }
   }
 };

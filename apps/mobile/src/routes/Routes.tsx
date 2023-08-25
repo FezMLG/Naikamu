@@ -1,10 +1,12 @@
 import React from 'react';
+
 import { NavigationContainer } from '@react-navigation/native';
 
-import { useUserStore } from '../services/auth/user.store';
-import { BrowseStackScreenNames, SeriesStackScreenNames } from './main';
-import { AuthStack } from './auth';
 import { SplashScreen } from '../screens';
+import { useUserStore } from '../services/auth/user.store';
+
+import { AuthStack } from './auth';
+import { BrowseStackScreenNames, SeriesStackScreenNames } from './main';
 import { RootStack } from './main/RootStack';
 
 const linking = {
@@ -17,17 +19,17 @@ const linking = {
   },
 };
 
-const Routes = ({ theme }: any) => {
+function Routes({ theme }: any) {
   const user = useUserStore(state => state.user);
 
   return (
     <NavigationContainer
-      linking={linking}
       fallback={<SplashScreen />}
+      linking={linking}
       theme={theme}>
       {user && user?.emailVerified ? <RootStack /> : <AuthStack />}
     </NavigationContainer>
   );
-};
+}
 
 export default Routes;

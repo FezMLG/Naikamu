@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+
+import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { Image, Pressable, StyleSheet } from 'react-native';
-import auth from '@react-native-firebase/auth';
-
 import { ActivityIndicator, Text } from 'react-native-paper';
-import { defaultRadius } from '../styles/global.style';
+
 import { useUserService } from '../services/auth/user.service';
+import { defaultRadius } from '../styles';
 
 GoogleSignin.configure({
   webClientId:
@@ -17,36 +18,37 @@ const onGoogleButtonPress = async () => {
     await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
     const { idToken } = await GoogleSignin.signIn();
     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
     return auth().signInWithCredential(googleCredential);
   } catch (error) {
     console.error(error);
   }
 };
 
-const GoogleSignIn = () => {
+function GoogleSignIn() {
   const [isLoading, setIsLoading] = useState(false);
   const userService = useUserService();
 
   return (
     <Pressable
-      style={styles.googleLogin}
-      onPressIn={() => setIsLoading(true)}
       onPress={() =>
         onGoogleButtonPress().then(
           async () => await userService.setLoggedUser(),
         )
-      }>
+      }
+      onPressIn={() => setIsLoading(true)}
+      style={styles.googleLogin}>
       <Image
-        style={styles.gLogo}
         source={require('../../assets/google_g_logo.png')}
+        style={styles.gLogo}
       />
       <Text variant="titleSmall">Google</Text>
       {isLoading && (
-        <ActivityIndicator style={styles.marginLeft} size={'small'} />
+        <ActivityIndicator size="small" style={styles.marginLeft} />
       )}
     </Pressable>
   );
-};
+}
 
 const styles = StyleSheet.create({
   gLogo: {

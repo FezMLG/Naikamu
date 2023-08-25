@@ -1,3 +1,7 @@
+import React, { useRef, useState } from 'react';
+
+import { Media } from '@aniwatch/shared';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 import {
   StyleSheet,
   ActivityIndicator,
@@ -6,30 +10,26 @@ import {
   View,
   Text,
 } from 'react-native';
-import React, { useRef, useState } from 'react';
 import { FAB } from 'react-native-paper';
 
-import { Media } from '@aniwatch/shared';
-
-import BrowseElement from '../../components/browse/BrowseElement';
-import { maxWidth } from '../../components';
 import { useQuerySearchSeriesList } from '../../api/hooks';
-import { colors, fontStyles } from '../../styles';
+import { maxWidth } from '../../components';
+import BrowseElement from '../../components/browse/BrowseElement';
 import {
   BrowseStackScreenNames,
-  BottomTabStackParamList,
+  BottomTabStackParamList as BottomTabStackParameterList,
   BottomTabStackScreenNames,
-  SearchStackParamList,
+  SearchStackParamList as SearchStackParameterList,
   SearchStackScreenNames,
   SearchStackSearchResultsScreenProps,
   SeriesStackScreenNames,
   RootStackScreenNames,
 } from '../../routes';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { colors, fontStyles } from '../../styles';
 
-export const SearchResultsScreen = ({
+export function SearchResultsScreen({
   route,
-}: SearchStackSearchResultsScreenProps) => {
+}: SearchStackSearchResultsScreenProps) {
   const navigation = useNavigation<any>();
   const CONTENT_OFFSET_THRESHOLD = 300;
   const { phrase } = route.params;
@@ -61,43 +61,43 @@ export const SearchResultsScreen = ({
       {data && (
         <View>
           <FlatList
-            style={[styles.flatList]}
-            ref={listRef}
-            data={data.pages.map(page => page.Page.media).flat()}
-            renderItem={renderItem}
-            numColumns={Math.floor(maxWidth() / 180)}
-            contentContainerStyle={[styles.flatListContent]}
-            keyExtractor={(_, index) => index.toString()}
-            onEndReachedThreshold={1}
-            refreshing={isRefetching}
-            onRefresh={refetch}
-            onEndReached={() => fetchNextPage()}
-            onScroll={event => {
-              setContentVerticalOffset(event.nativeEvent.contentOffset.y);
-            }}
+            ListFooterComponent={<View />}
+            ListFooterComponentStyle={{ width: '100%' }}
             ListHeaderComponent={
               <Text style={[fontStyles.subScreenHeader, colors.textLight]}>
                 {phrase}
               </Text>
             }
             ListHeaderComponentStyle={{ marginHorizontal: 10 }}
-            ListFooterComponent={<View />}
-            ListFooterComponentStyle={{ width: '100%' }}
+            contentContainerStyle={[styles.flatListContent]}
+            data={data.pages.flatMap(page => page.Page.media)}
+            keyExtractor={(_, index) => index.toString()}
+            numColumns={Math.floor(maxWidth() / 180)}
+            onEndReached={() => fetchNextPage()}
+            onEndReachedThreshold={1}
+            onRefresh={refetch}
+            onScroll={event => {
+              setContentVerticalOffset(event.nativeEvent.contentOffset.y);
+            }}
+            ref={listRef}
+            refreshing={isRefetching}
+            renderItem={renderItem}
+            style={[styles.flatList]}
           />
           {contentVerticalOffset > CONTENT_OFFSET_THRESHOLD && (
             <FAB
-              icon={'arrow-up-circle'}
-              style={styles.fab}
+              icon="arrow-up-circle"
               onPress={() => {
                 listRef.current?.scrollToOffset({ offset: 0, animated: true });
               }}
+              style={styles.fab}
             />
           )}
         </View>
       )}
     </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

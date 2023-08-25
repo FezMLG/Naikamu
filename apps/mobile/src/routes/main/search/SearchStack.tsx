@@ -1,28 +1,30 @@
 import React from 'react';
+
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { useTranslate } from '../../../i18n/useTranslate';
+import { BrowseScreen, NativeVideoPlayerScreen } from '../../../screens';
+import { SearchResultsScreen, SearchScreen } from '../../../screens/search';
+import { BrowseStackScreenNames } from '../browse';
 import { defaultHeaderOptions } from '../defaultHeaderOptions';
 import { defaultSubHeaderOptions } from '../defaultSubHeaderOptions';
 import { SeriesStack } from '../series';
-import { BrowseScreen, NativeVideoPlayerScreen } from '../../../screens';
+
 import {
-  SearchStackParamList,
+  SearchStackParamList as SearchStackParameterList,
   SearchStackScreenNames,
 } from './search.interfaces';
-import { BrowseStackScreenNames } from '../browse';
-import { SearchResultsScreen, SearchScreen } from '../../../screens/search';
 
-const StackAuthorized = createNativeStackNavigator<SearchStackParamList>();
+const StackAuthorized = createNativeStackNavigator<SearchStackParameterList>();
 
-export const SearchStack = () => {
+export function SearchStack() {
   const { translate } = useTranslate();
 
   return (
     <StackAuthorized.Navigator initialRouteName={SearchStackScreenNames.Search}>
       <StackAuthorized.Screen
-        name={SearchStackScreenNames.Search}
         component={SearchScreen}
+        name={SearchStackScreenNames.Search}
         options={() => ({
           ...defaultHeaderOptions({
             title: translate('routes.' + SearchStackScreenNames.Search),
@@ -31,8 +33,8 @@ export const SearchStack = () => {
         })}
       />
       <StackAuthorized.Screen
-        name={SearchStackScreenNames.SearchResults}
         component={SearchResultsScreen}
+        name={SearchStackScreenNames.SearchResults}
         options={() => ({
           ...defaultSubHeaderOptions({}),
           headerShown: false,
@@ -40,4 +42,4 @@ export const SearchStack = () => {
       />
     </StackAuthorized.Navigator>
   );
-};
+}

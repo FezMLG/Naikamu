@@ -1,7 +1,6 @@
 export const logger = (source: string) => {
-  const prepareMessage = (messages: unknown[]) => {
-    return messages.map(message => JSON.stringify(message)).join(' ');
-  };
+  const prepareMessage = (messages: unknown[]) =>
+    messages.map(message => JSON.stringify(message)).join(' ');
 
   return {
     info: (...messages: unknown[]) => {

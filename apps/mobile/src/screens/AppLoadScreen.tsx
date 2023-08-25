@@ -1,4 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
+
+import NetInfo from '@react-native-community/netinfo';
 import {
   Image,
   Linking,
@@ -8,29 +10,26 @@ import {
   View,
 } from 'react-native';
 import Config from 'react-native-config';
+import semver from 'semver';
 
-import { colors, fontStyles, globalStyle } from '../styles';
+import { useQueryApiHealth } from '../api/hooks';
+import { ActivityIndicator, PageLayout, useLayout } from '../components';
 import { useTranslate } from '../i18n/useTranslate';
-import {
-  fireGetIdToken,
-  fireGetNewIdToken,
-} from '../services/firebase/fire-auth.service';
 import {
   AuthStackAppLoadingScreenProps,
   AuthStackRoutesNames,
 } from '../routes';
-import { useQueryApiHealth } from '../api/hooks';
-import { useUserSettingsService } from '../services/settings/settings.service';
-import semver from 'semver';
-import { ActivityIndicator, PageLayout, useLayout } from '../components';
 import { useUserService } from '../services/auth/user.service';
-import { logger } from '../utils/logger';
 import { useUserStore } from '../services/auth/user.store';
-import NetInfo from '@react-native-community/netinfo';
+import {
+  fireGetIdToken,
+  fireGetNewIdToken,
+} from '../services/firebase/fire-auth.service';
+import { useUserSettingsService } from '../services/settings/settings.service';
+import { colors, fontStyles, globalStyle } from '../styles';
+import { logger } from '../utils/logger';
 
-export const AppLoadScreen = ({
-  navigation,
-}: AuthStackAppLoadingScreenProps) => {
+export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
   const supportedApiVersion = require('../../package.json').apiVersion;
   const layout = useLayout();
   const { translate } = useTranslate();
@@ -51,7 +50,7 @@ export const AppLoadScreen = ({
     setTimeout(() => {
       setLongLoading(false);
       setApiError(true);
-    }, 15000);
+    }, 15_000);
   }, []);
 
   const checkConnection = useCallback(async () => {
@@ -80,6 +79,7 @@ export const AppLoadScreen = ({
   const handleLoginCheck = useCallback(async () => {
     await initializeUserSettings();
     const token = await fireGetIdToken();
+
     if (token) {
       await fireGetNewIdToken();
       userService.setLoggedUser();
@@ -101,11 +101,11 @@ export const AppLoadScreen = ({
       <Text style={[colors.textLight, fontStyles.screenHeader]}>AniWatch</Text>
       <View style={[globalStyle.spacerBig]} />
       <Image
-        style={styles.logo}
         source={require('../../assets/aniwatch_logo_t.png')}
+        style={styles.logo}
       />
       <View style={[globalStyle.spacerBig]} />
-      <ActivityIndicator size={'large'} visible={true} />
+      <ActivityIndicator size="large" visible={true} />
       {apiError && (
         <Pressable
           onPress={() =>
@@ -140,7 +140,7 @@ export const AppLoadScreen = ({
       )}
     </PageLayout.Default>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

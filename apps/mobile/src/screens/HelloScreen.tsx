@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react';
-import { Image, StyleSheet, View } from 'react-native';
-import { Text } from 'react-native-paper';
-import Config from 'react-native-config';
 
-import { darkStyle, globalStyle } from '../styles';
+import { Image, StyleSheet, View } from 'react-native';
+import Config from 'react-native-config';
+import { Text } from 'react-native-paper';
+
+import { Button, PageLayout, useLayout } from '../components';
+import GoogleSignIn from '../components/GoogleSignIn';
 import { useTranslate } from '../i18n/useTranslate';
 import { AuthStackRoutesNames, AuthStackHelloScreenProps } from '../routes';
-import GoogleSignIn from '../components/GoogleSignIn';
-import { Button, PageLayout, useLayout } from '../components';
 import { useUserStore } from '../services/auth/user.store';
+import { darkStyle, globalStyle } from '../styles';
 
-export const HelloScreen = ({ navigation }: AuthStackHelloScreenProps) => {
+export function HelloScreen({ navigation }: AuthStackHelloScreenProps) {
   const { translate } = useTranslate();
   const user = useUserStore(state => state.user);
   const layout = useLayout();
@@ -24,37 +25,37 @@ export const HelloScreen = ({ navigation }: AuthStackHelloScreenProps) => {
   return (
     <PageLayout.Default style={[styles.container]} {...layout}>
       <Text>{user?.displayName ? user?.displayName : user?.email}</Text>
-      <Text variant="titleLarge" style={darkStyle.font}>
+      <Text style={darkStyle.font} variant="titleLarge">
         {translate('welcomeScreen.welcome')}
       </Text>
       <Text
-        variant="displayMedium"
-        style={[darkStyle.font, { fontWeight: 'bold' }]}>
+        style={[darkStyle.font, { fontWeight: 'bold' }]}
+        variant="displayMedium">
         AniWatch
       </Text>
       <View style={[globalStyle.spacerBig]} />
       <Image
-        style={styles.logo}
         source={require('../../assets/aniwatch_logo_t.png')}
+        style={styles.logo}
       />
       <View style={[globalStyle.spacerBig]} />
       <GoogleSignIn />
       <Text style={globalStyle.spacer}>{translate('auth.continue_with')}</Text>
       <Button
         label={translate('auth.login')}
-        type={'primary'}
         onPress={() => navigation.navigate(AuthStackRoutesNames.Login)}
+        type="primary"
       />
       <Button
         label={translate('auth.register')}
-        type={'secondary'}
         onPress={() => navigation.navigate(AuthStackRoutesNames.SignUp)}
         style={[globalStyle.marginTopSmall]}
+        type="secondary"
       />
       {Config.ENV !== 'prod' && <Text>api_url: {Config.API_URL}</Text>}
     </PageLayout.Default>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

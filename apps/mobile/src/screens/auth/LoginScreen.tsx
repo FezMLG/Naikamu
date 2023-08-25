@@ -1,23 +1,27 @@
 import React, { useState } from 'react';
+
+import { useForm, Controller } from 'react-hook-form';
 import { View, StyleSheet } from 'react-native';
 import { Text, TextInput } from 'react-native-paper';
 
-import { AuthStackLoginScreenProps, AuthStackRoutesNames } from '../../routes';
-import { useForm, Controller } from 'react-hook-form';
-import { globalStyle } from '../../styles';
+import {
+  useErrorHandler,
+  PageLayout,
+  useLayout,
+  Button,
+} from '../../components';
 import { useTranslate } from '../../i18n/useTranslate';
-import { useErrorHandler } from '../../components';
-import { PageLayout, useLayout } from '../../components';
-import { Button } from '../../components';
-import { useUserStore } from '../../services/auth/user.store';
+import { AuthStackLoginScreenProps, AuthStackRoutesNames } from '../../routes';
 import { useUserService } from '../../services/auth/user.service';
+import { useUserStore } from '../../services/auth/user.store';
+import { globalStyle } from '../../styles';
 
 export interface LoginForm {
   email: string;
   password: string;
 }
 
-export const LoginScreen = ({ navigation }: AuthStackLoginScreenProps) => {
+export function LoginScreen({ navigation }: AuthStackLoginScreenProps) {
   const userService = useUserService();
   const layout = useLayout();
   const [loading, isLoading] = useState(false);
@@ -59,24 +63,24 @@ export const LoginScreen = ({ navigation }: AuthStackLoginScreenProps) => {
       <View style={[styles.formInputs, globalStyle.spacerBig]}>
         <Controller
           control={control}
+          name="email"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              autoCapitalize="none"
+              autoCorrect={false}
+              keyboardType="email-address"
+              mode="outlined"
+              onBlur={onBlur}
+              onChangeText={onChange}
+              placeholder="Email"
+              style={[styles.textInput, styles.width90, globalStyle.marginTop]}
+              value={value}
+            />
+          )}
           rules={{
             required: true,
             maxLength: 100,
           }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              value={value}
-              placeholder="Email"
-              autoCapitalize="none"
-              keyboardType="email-address"
-              autoCorrect={false}
-              style={[styles.textInput, styles.width90, globalStyle.marginTop]}
-              mode={'outlined'}
-              onBlur={onBlur}
-              onChangeText={onChange}
-            />
-          )}
-          name="email"
         />
         {errors.email && (
           <Text style={globalStyle.errors}>
@@ -86,13 +90,12 @@ export const LoginScreen = ({ navigation }: AuthStackLoginScreenProps) => {
 
         <Controller
           control={control}
-          rules={{
-            required: true,
-            maxLength: 100,
-          }}
+          name="password"
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
-              value={value}
+              mode="outlined"
+              onBlur={onBlur}
+              onChangeText={onChange}
               placeholder={translate('auth.password')}
               secureTextEntry={true}
               style={[
@@ -100,12 +103,13 @@ export const LoginScreen = ({ navigation }: AuthStackLoginScreenProps) => {
                 styles.width90,
                 globalStyle.marginTopSmall,
               ]}
-              mode={'outlined'}
-              onBlur={onBlur}
-              onChangeText={onChange}
+              value={value}
             />
           )}
-          name="password"
+          rules={{
+            required: true,
+            maxLength: 100,
+          }}
         />
         {errors.password && (
           <Text style={globalStyle.errors}>
@@ -113,26 +117,26 @@ export const LoginScreen = ({ navigation }: AuthStackLoginScreenProps) => {
           </Text>
         )}
         <Button
-          label={translate('auth.login')}
-          type={'primary'}
           disabled={loading}
+          label={translate('auth.login')}
           loading={loading}
-          style={[globalStyle.marginTopBig]}
           onPress={handleSubmit(handleLogin)}
+          style={[globalStyle.marginTopBig]}
+          type="primary"
         />
         <Button
-          label={translate('auth.forgot_password')}
-          type={'link'}
           disabled={loading}
-          style={[globalStyle.marginTopSmall]}
+          label={translate('auth.forgot_password')}
           onPress={() =>
             navigation.navigate(AuthStackRoutesNames.ForgotPassword)
           }
+          style={[globalStyle.marginTopSmall]}
+          type="link"
         />
       </View>
     </PageLayout.Default>
   );
-};
+}
 
 const styles = StyleSheet.create({
   text: {

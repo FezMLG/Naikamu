@@ -1,22 +1,27 @@
 import React from 'react';
+
 import { AnimeDetails } from '@aniwatch/shared';
-import { useTranslate } from '../../i18n/useTranslate';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { SeriesStackParamList, SeriesStackScreenNames } from '../../routes';
+
+import { useTranslate } from '../../i18n/useTranslate';
+import {
+  SeriesStackParamList as SeriesStackParameterList,
+  SeriesStackScreenNames,
+} from '../../routes';
 import { Button } from '../atoms';
 
 interface EpisodesButtonProps {
   series: AnimeDetails;
 }
 
-export const EpisodesButton = ({ series }: EpisodesButtonProps) => {
-  const navigation = useNavigation<NavigationProp<SeriesStackParamList>>();
+export function EpisodesButton({ series }: EpisodesButtonProps) {
+  const navigation = useNavigation<NavigationProp<SeriesStackParameterList>>();
   const { translate } = useTranslate();
 
   return (
     <Button
-      type="secondary"
       icon="play-box-multiple"
+      label={translate('anime_details.see_episodes')}
       onPress={() => {
         navigation.navigate(SeriesStackScreenNames.Episodes, {
           id: series.id,
@@ -30,7 +35,7 @@ export const EpisodesButton = ({ series }: EpisodesButtonProps) => {
           episodeLength: series.duration,
         });
       }}
-      label={translate('anime_details.see_episodes')}
+      type="secondary"
     />
   );
-};
+}

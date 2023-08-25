@@ -1,15 +1,17 @@
 import React from 'react';
+
 import { id } from 'date-fns/locale';
 import { Text, View, Linking, StyleSheet } from 'react-native';
+import { Button } from 'react-native-paper';
+
+import { AnimeDetails } from '../../../../../lib/shared/dist';
 import { useTranslate } from '../../i18n/useTranslate';
 import { darkStyle, darkColor, defaultRadius } from '../../styles';
 import { ProgressiveImage } from '../ProgressiveImage';
-import { Button } from 'react-native-paper';
-import { AnimeDetails } from '../../../../../lib/shared/dist';
 
-export const SeriesDetailsLinks = (props: {
+export function SeriesDetailsLinks(props: {
   externalLinks: AnimeDetails['externalLinks'];
-}) => {
+}) {
   const { translate } = useTranslate();
 
   return (
@@ -20,33 +22,31 @@ export const SeriesDetailsLinks = (props: {
       <View style={styles.linksContainer}>
         <View style={styles.linkContainer}>
           <ProgressiveImage
-            source={'https://anilist.co/img/icons/favicon-32x32.png'}
+            source="https://anilist.co/img/icons/favicon-32x32.png"
             style={[styles.icon]}
           />
           <Button
-            mode={'text'}
+            mode="text"
             onPress={() => Linking.openURL('https://anilist.co/anime/' + id)}>
             AniList
           </Button>
         </View>
-        {props.externalLinks.map((link, index) => {
-          return (
-            <View style={styles.linkContainer} key={index}>
-              {link.icon ? (
-                <ProgressiveImage source={link.icon} style={[styles.icon]} />
-              ) : (
-                <View style={styles.icon} />
-              )}
-              <Button mode={'text'} onPress={() => Linking.openURL(link.url)}>
-                {link.site} {link.language ? link.language : ''}
-              </Button>
-            </View>
-          );
-        })}
+        {props.externalLinks.map((link, index) => (
+          <View key={index} style={styles.linkContainer}>
+            {link.icon ? (
+              <ProgressiveImage source={link.icon} style={[styles.icon]} />
+            ) : (
+              <View style={styles.icon} />
+            )}
+            <Button mode="text" onPress={() => Linking.openURL(link.url)}>
+              {link.site} {link.language ? link.language : ''}
+            </Button>
+          </View>
+        ))}
       </View>
     </>
   );
-};
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,

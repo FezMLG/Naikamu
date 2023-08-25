@@ -1,15 +1,16 @@
 import React from 'react';
+
 import { Linking, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import Config from 'react-native-config';
 
-import { colors, fontStyles, globalStyle } from '../styles';
+import { Button } from '../components';
 import { useTranslate } from '../i18n/useTranslate';
 import { AuthStackActionRequiredScreenProps } from '../routes';
-import { Button } from '../components';
+import { colors, fontStyles, globalStyle } from '../styles';
 
-export const ActionRequiredScreen = ({
+export function ActionRequiredScreen({
   navigation,
-}: AuthStackActionRequiredScreenProps) => {
+}: AuthStackActionRequiredScreenProps) {
   const appVersion = require('../../package.json').version;
   const { translate } = useTranslate();
 
@@ -34,19 +35,19 @@ export const ActionRequiredScreen = ({
       </View>
       <View>
         <Button
-          label={translate('important.requireAppUpdate.action')}
           icon="open-in-new"
-          type={'primary'}
+          label={translate('important.requireAppUpdate.action')}
           onPress={() =>
             Linking.openURL('https://github.com/FezMLG/AniWatch/releases')
           }
+          type="primary"
         />
         <Button
           label={translate('important.requireAppUpdate.actionAlt')}
-          type={'link'}
           onPress={() =>
             Linking.openURL('https://github.com/FezMLG/AniWatch/issues')
           }
+          type="link"
         />
         <View style={globalStyle.spacerSmall} />
         <Text style={[globalStyle.textCenter]}>
@@ -55,7 +56,7 @@ export const ActionRequiredScreen = ({
       </View>
     </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

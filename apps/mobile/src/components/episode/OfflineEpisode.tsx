@@ -1,9 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+
+import { useNavigation } from '@react-navigation/native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Swipeable } from 'react-native-gesture-handler';
 import { ProgressBar } from 'react-native-paper';
-import { Text } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import { RootStackScreenNames } from '../../routes';
+import {
+  IOfflineSeriesEpisodes,
+  useOfflineService,
+  createEpisodeProgressKey,
+  useVideoProgress,
+} from '../../services';
 import {
   colors,
   defaultRadius,
@@ -12,19 +21,10 @@ import {
   darkColor,
 } from '../../styles';
 // import { useTranslate } from '../../i18n/useTranslate';
-import { useNavigation } from '@react-navigation/native';
-import {
-  IOfflineSeriesEpisodes,
-  useOfflineService,
-  createEpisodeProgressKey,
-  useVideoProgress,
-} from '../../services';
 import { humanFileSize } from '../../utils/humanFileSize';
-import { Swipeable } from 'react-native-gesture-handler';
 import { Button, Modal } from '../atoms';
-import { RootStackScreenNames } from '../../routes';
 
-export const OfflineEpisode = ({
+export function OfflineEpisode({
   episode,
   animeId,
   animeName,
@@ -32,7 +32,7 @@ export const OfflineEpisode = ({
   episode: IOfflineSeriesEpisodes;
   animeId: string;
   animeName: string;
-}) => {
+}): React.ReactElement {
   const navigation = useNavigation<any>();
   const episodeKey = createEpisodeProgressKey(animeId, episode.number);
   const { progressMinutes, loadProgress } = useVideoProgress(episodeKey);
@@ -45,61 +45,60 @@ export const OfflineEpisode = ({
 
   // const { translate } = useTranslate();
 
-  const RightSwipeActions = () => {
+  function RightSwipeActions() {
     return (
       <Pressable
+        onPress={() => {
+          console.log('delete episode', animeId, episode.number);
+          deleteEpisodeOffline(animeId, episode.number);
+        }}
         style={{
           backgroundColor: colors.error.color,
           justifyContent: 'center',
           alignItems: 'flex-end',
           borderRadius: defaultRadius,
           width: '100%',
-        }}
-        onPress={() => {
-          console.log('delete episode', animeId, episode.number);
-          deleteEpisodeOffline(animeId, episode.number);
         }}>
         <Icon
-          name={'trash-can-outline'}
-          size={30}
           color={colors.textLight.color}
+          name="trash-can-outline"
+          size={30}
           style={{ paddingHorizontal: 16 }}
         />
       </Pressable>
     );
-  };
+  }
 
   return (
     <>
-      <Modal.Container setIsOpen={setIsOpen} isOpen={isOpen}>
+      <Modal.Container isOpen={isOpen} setIsOpen={setIsOpen}>
         <Modal.Title title={episode.title} />
         <Button
-          label={'Delete'}
-          type="warning"
+          label="Delete"
           onPress={() => {
             console.log('delete episode', animeId, episode.number);
             deleteEpisodeOffline(animeId, episode.number);
             setIsOpen(false);
           }}
+          type="warning"
         />
       </Modal.Container>
       <Swipeable
-        renderRightActions={RightSwipeActions}
-        containerStyle={globalStyle.spacerSmall}>
+        containerStyle={globalStyle.spacerSmall}
+        renderRightActions={RightSwipeActions}>
         <Pressable
+          onLongPress={() => setIsOpen(true)}
           style={[
             styles.cardContainer,
-            !progressMinutes
-              ? {
+            progressMinutes
+              ? null
+              : {
                   borderBottomLeftRadius: defaultRadius,
                   borderBottomRightRadius: defaultRadius,
-                }
-              : null,
-          ]}
-          onLongPress={() => setIsOpen(true)}>
+                },
+          ]}>
           <View style={[styles.innerCard]}>
             <Pressable
-              style={styles.watchStatus}
               onPress={() =>
                 navigation.navigate(RootStackScreenNames.NativePlayer, {
                   uri: episode.pathToFile,
@@ -107,8 +106,9 @@ export const OfflineEpisode = ({
                   episodeNumber: episode.number,
                   title: animeName,
                 })
-              }>
-              <Icon name={'play'} size={30} color={colors.textLight.color} />
+              }
+              style={styles.watchStatus}>
+              <Icon color={colors.textLight.color} name="play" size={30} />
             </Pressable>
             <View style={styles.titleRow}>
               <Text numberOfLines={2} style={[styles.title, colors.textLight]}>
@@ -134,7 +134,7 @@ export const OfflineEpisode = ({
       </Swipeable>
     </>
   );
-};
+}
 
 const styles = StyleSheet.create({
   poster: {

@@ -1,22 +1,21 @@
+import React from 'react';
+
+import { AnimeEpisode } from '@aniwatch/shared';
 import {
   StyleSheet,
   SafeAreaView,
   ScrollView,
   ActivityIndicator,
 } from 'react-native';
-import React from 'react';
 import { Text } from 'react-native-paper';
 
-import { AnimeEpisode } from '@aniwatch/shared';
-import { SeriesStackEpisodeScreenProps } from '../../routes';
-import { useTranslate } from '../../i18n/useTranslate';
 import { useQuerySeriesEpisodes } from '../../api/hooks';
 import { Episode } from '../../components';
+import { useTranslate } from '../../i18n/useTranslate';
+import { SeriesStackEpisodeScreenProps } from '../../routes';
 import { darkStyle, globalStyle } from '../../styles';
 
-export const EpisodesListScreen = ({
-  route,
-}: SeriesStackEpisodeScreenProps) => {
+export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
   const { translate } = useTranslate();
   const { episodes } = useQuerySeriesEpisodes(
     route.params.id,
@@ -32,30 +31,28 @@ export const EpisodesListScreen = ({
         )}
         {episodes.data
           ? episodes.data.episodes.map(
-              (episode: AnimeEpisode, index: number) => {
-                return (
-                  <Episode
-                    key={index}
-                    episode={episode}
-                    posterUrl={route.params.posterUrl}
-                    id={route.params.id}
-                    animeName={route.params.title}
-                    isWatched={episode.isWatched}
-                    episodeLength={route.params.episodeLength}
-                  />
-                );
-              },
+              (episode: AnimeEpisode, index: number) => (
+                <Episode
+                  animeName={route.params.title}
+                  episode={episode}
+                  episodeLength={route.params.episodeLength}
+                  id={route.params.id}
+                  isWatched={episode.isWatched}
+                  key={index}
+                  posterUrl={route.params.posterUrl}
+                />
+              ),
             )
           : null}
         <Text
-          variant="bodySmall"
-          style={[globalStyle.disclaimer, darkStyle.font]}>
+          style={[globalStyle.disclaimer, darkStyle.font]}
+          variant="bodySmall">
           {translate('anime_episodes.disclaimer')}
         </Text>
       </ScrollView>
     </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

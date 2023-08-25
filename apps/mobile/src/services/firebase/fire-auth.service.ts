@@ -1,6 +1,5 @@
-import auth from '@react-native-firebase/auth';
-
 import { User } from '@aniwatch/shared';
+import auth from '@react-native-firebase/auth';
 
 export const fireLoginUser = async (email: string, password: string) => {
   const newAuthState = await auth().signInWithEmailAndPassword(email, password);
@@ -12,19 +11,18 @@ export const fireLoginUser = async (email: string, password: string) => {
 
 export const fireGetNewIdToken = async () => {
   const user = auth().currentUser;
+
   if (!user) {
   }
 };
 
-export const fireGetIdToken = () => {
-  return auth().currentUser?.getIdToken();
-};
+export const fireGetIdToken = () => auth().currentUser?.getIdToken();
 
 export const fireLogoutUser = async () => {
   try {
     await auth().signOut();
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -45,8 +43,8 @@ export const fireRegisterUser = async (
 export const fireForgotPassword = (email: string) => async () => {
   try {
     await auth().sendPasswordResetEmail(email);
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -60,6 +58,7 @@ const sendEmailVerification = async () => {
 export const fireUpdateUserDisplayName = async (newDisplayName: string) => {
   try {
     const currentUser = auth().currentUser;
+
     if (currentUser) {
       await currentUser.updateProfile({
         displayName: newDisplayName,
@@ -81,6 +80,7 @@ export const fireUpdateUserDisplayName = async (newDisplayName: string) => {
 
 export const fireUpdatePassword = async (newPassword: string) => {
   const currentUser = auth().currentUser;
+
   console.log('heh!');
   if (currentUser) {
     await currentUser.updatePassword(newPassword);
@@ -90,6 +90,7 @@ export const fireUpdatePassword = async (newPassword: string) => {
 
 export const fireReauthenticate = async (password: string) => {
   const currentUser = auth().currentUser;
+
   if (currentUser) {
     if (!currentUser.email) {
       throw new Error('No email found');
@@ -105,6 +106,7 @@ export const fireDeleteAccount = async () => {
 
 export const fireGetUser = () => {
   const fUser = auth().currentUser;
+
   if (fUser) {
     const user: User = {
       displayName: fUser.displayName,
@@ -114,6 +116,7 @@ export const fireGetUser = () => {
       uid: fUser.uid,
       picture: fUser.photoURL,
     };
+
     return user;
   } else {
     return null;

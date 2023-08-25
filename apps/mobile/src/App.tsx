@@ -1,14 +1,15 @@
 import React from 'react';
+
 import { DarkTheme as NavigationDarkTheme } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   MD3DarkTheme as PaperDarkTheme,
   Provider as PaperProvider,
 } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import QueryClientWrap from './api/QueryClientWrap';
-import Routes from './routes/Routes';
 import LanguagesProvider from './i18n/LanguagesProvider';
+import Routes from './routes/Routes';
 
 const CombinedDarkTheme = {
   ...NavigationDarkTheme,
@@ -16,7 +17,7 @@ const CombinedDarkTheme = {
   colors: { ...NavigationDarkTheme.colors, ...PaperDarkTheme.colors },
 };
 
-const App = () => {
+function App() {
   return (
     <QueryClientWrap>
       <PaperProvider
@@ -30,6 +31,6 @@ const App = () => {
       </PaperProvider>
     </QueryClientWrap>
   );
-};
+}
 
 export default App;

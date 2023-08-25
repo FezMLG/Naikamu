@@ -1,24 +1,25 @@
 import React from 'react';
+
 import { Image, StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
 
-import { useTranslate } from '../../i18n/useTranslate';
-import { globalStyle } from '../../styles';
 import {
   PageLayout,
   SectionButton,
   useLayout,
   ProgressiveImage,
 } from '../../components';
-import { useUserStore } from '../../services/auth/user.store';
+import { useTranslate } from '../../i18n/useTranslate';
 import {
   SettingsStackScreenNames,
   SettingsStackSettingsScreenProps,
 } from '../../routes';
+import { useUserStore } from '../../services/auth/user.store';
+import { globalStyle } from '../../styles';
 
-export const SettingsScreen = ({
+export function SettingsScreen({
   navigation,
-}: SettingsStackSettingsScreenProps) => {
+}: SettingsStackSettingsScreenProps) {
   const layout = useLayout();
   const user = useUserStore(state => state.user);
   const { translate } = useTranslate();
@@ -30,8 +31,8 @@ export const SettingsScreen = ({
           <ProgressiveImage source={user.picture} style={[styles.logo]} />
         ) : (
           <Image
-            style={styles.logo}
             source={require('../../../assets/anya.jpeg')}
+            style={styles.logo}
           />
         )}
         <Text
@@ -45,23 +46,23 @@ export const SettingsScreen = ({
       </View>
       <View>
         <SectionButton
-          title={translate('settings.categories.UserSettings')}
-          icon={'account-cog'}
+          icon="account-cog"
           onPress={() =>
             navigation.navigate(SettingsStackScreenNames.UserSettings)
           }
+          title={translate('settings.categories.UserSettings')}
         />
         <SectionButton
-          title={translate('settings.categories.AppSettings')}
-          icon={'cog'}
+          icon="cog"
           onPress={() =>
             navigation.navigate(SettingsStackScreenNames.AppSettings)
           }
+          title={translate('settings.categories.AppSettings')}
         />
       </View>
     </PageLayout.Default>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

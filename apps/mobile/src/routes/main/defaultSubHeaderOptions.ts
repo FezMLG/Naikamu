@@ -4,9 +4,7 @@ export const defaultSubHeaderOptions = ({
   title,
 }: {
   title?: string;
-}): NativeStackNavigationOptions => {
-  return {
-    title: title,
-    animation: 'slide_from_right',
-  };
-};
+}): NativeStackNavigationOptions => ({
+  title: title,
+  animation: 'slide_from_right',
+});

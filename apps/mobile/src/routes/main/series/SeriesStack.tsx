@@ -1,33 +1,35 @@
 import React from 'react';
+
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {
-  SeriesStackParamList,
-  SeriesStackScreenNames,
-} from './series.interfaces';
 import { useTranslate } from '../../../i18n/useTranslate';
 import { EpisodesListScreen, SeriesScreen } from '../../../screens';
 import { defaultSubHeaderOptions } from '../defaultSubHeaderOptions';
 
-const StackAuthorized = createNativeStackNavigator<SeriesStackParamList>();
+import {
+  SeriesStackParamList as SeriesStackParameterList,
+  SeriesStackScreenNames,
+} from './series.interfaces';
 
-export const SeriesStack = () => {
+const StackAuthorized = createNativeStackNavigator<SeriesStackParameterList>();
+
+export function SeriesStack() {
   const { translate } = useTranslate();
 
   return (
     <StackAuthorized.Navigator initialRouteName={SeriesStackScreenNames.Series}>
       <StackAuthorized.Screen
-        name={SeriesStackScreenNames.Series}
         component={SeriesScreen}
+        name={SeriesStackScreenNames.Series}
         options={() => ({
           ...defaultSubHeaderOptions({}),
           headerShown: false,
         })}
       />
       <StackAuthorized.Screen
-        name={SeriesStackScreenNames.Episodes}
         component={EpisodesListScreen}
+        name={SeriesStackScreenNames.Episodes}
         options={({ navigation, route }) => ({
           ...defaultSubHeaderOptions({
             title: `${translate(
@@ -36,16 +38,16 @@ export const SeriesStack = () => {
           }),
           headerLeft: () => (
             <Icon
+              color="white"
               name="chevron-left"
-              size={30}
-              color={'white'}
               onPress={() => {
                 navigation.goBack();
               }}
+              size={30}
             />
           ),
         })}
       />
     </StackAuthorized.Navigator>
   );
-};
+}

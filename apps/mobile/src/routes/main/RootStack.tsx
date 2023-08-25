@@ -1,17 +1,23 @@
 import React from 'react';
+
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { BrowseStackScreenNames } from './browse';
+
 import { useTranslate } from '../../i18n/useTranslate';
 import { NativeVideoPlayerScreen } from '../../screens';
-import { defaultHeaderOptions } from './defaultHeaderOptions';
-import { SeriesStack } from './series';
-import { defaultSubHeaderOptions } from './defaultSubHeaderOptions';
-import { RootStackParamList, RootStackScreenNames } from './root.interfaces';
+
 import { BottomTabStack } from './BottomTabStack';
+import { BrowseStackScreenNames } from './browse';
+import { defaultHeaderOptions } from './defaultHeaderOptions';
+import { defaultSubHeaderOptions } from './defaultSubHeaderOptions';
+import {
+  RootStackParamList as RootStackParameterList,
+  RootStackScreenNames,
+} from './root.interfaces';
+import { SeriesStack } from './series';
 
-const StackAuthorized = createNativeStackNavigator<RootStackParamList>();
+const StackAuthorized = createNativeStackNavigator<RootStackParameterList>();
 
-export const RootStack = () => {
+export function RootStack() {
   const { translate } = useTranslate();
 
   return (
@@ -21,8 +27,8 @@ export const RootStack = () => {
         headerShown: false,
       }}>
       <StackAuthorized.Screen
-        name={RootStackScreenNames.Main}
         component={BottomTabStack}
+        name={RootStackScreenNames.Main}
         options={() => ({
           ...defaultHeaderOptions({
             title: translate('routes.' + BrowseStackScreenNames.Browse),
@@ -31,16 +37,16 @@ export const RootStack = () => {
         })}
       />
       <StackAuthorized.Screen
-        name={RootStackScreenNames.SeriesStack}
         component={SeriesStack}
+        name={RootStackScreenNames.SeriesStack}
         options={() => ({
           ...defaultSubHeaderOptions({}),
           presentation: 'modal',
         })}
       />
       <StackAuthorized.Screen
-        name={RootStackScreenNames.NativePlayer}
         component={NativeVideoPlayerScreen}
+        name={RootStackScreenNames.NativePlayer}
         options={{
           ...defaultSubHeaderOptions({}),
           autoHideHomeIndicator: true,
@@ -49,4 +55,4 @@ export const RootStack = () => {
       />
     </StackAuthorized.Navigator>
   );
-};
+}

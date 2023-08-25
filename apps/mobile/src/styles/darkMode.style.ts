@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+
 import { defaultRadius } from './global.style';
 
 export enum darkColor {

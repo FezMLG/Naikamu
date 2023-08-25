@@ -1,5 +1,5 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { ActionType } from '@aniwatch/shared';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 export enum SettingsStackScreenNames {
   Settings = 'Settings',

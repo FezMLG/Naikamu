@@ -1,24 +1,39 @@
 import React, { useState } from 'react';
-import { Image, Pressable, SafeAreaView, StyleSheet, View } from 'react-native';
-import { ProgressBar } from 'react-native-paper';
-import { Text } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { AnimeEpisode, AnimePlayer } from '@aniwatch/shared';
+import {
+  Image,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  View,
+  Text,
+} from 'react-native';
+import { ProgressBar } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { darkColor, darkStyle } from '../../styles';
-import { colors, defaultRadius, fontStyles } from '../../styles';
-import { useTranslate } from '../../i18n/useTranslate';
-import { UpdateEpisodeWatchStatus } from '../molecules';
 import { useQuerySeriesEpisodePlayers } from '../../api/hooks';
-import { maxWidth } from '../maxDimensions';
-import { EpisodePlayer } from './EpisodePlayer';
-import { useOfflineService } from '../../services';
-import { useVideoProgress, createEpisodeProgressKey } from '../../services';
+import { useTranslate } from '../../i18n/useTranslate';
+import {
+  useOfflineService,
+  useVideoProgress,
+  createEpisodeProgressKey,
+} from '../../services';
 import { useUserSettingsService } from '../../services/settings/settings.service';
+import {
+  darkColor,
+  darkStyle,
+  colors,
+  defaultRadius,
+  fontStyles,
+} from '../../styles';
 import { ActivityIndicator } from '../atoms';
+import { maxWidth } from '../maxDimensions';
+import { UpdateEpisodeWatchStatus } from '../molecules';
 
-export const Episode = ({
+import { EpisodePlayer } from './EpisodePlayer';
+
+export function Episode({
   episode,
   posterUrl,
   id,
@@ -32,7 +47,7 @@ export const Episode = ({
   animeName: string;
   isWatched: boolean;
   episodeLength: number;
-}) => {
+}) {
   const { translate } = useTranslate();
   const { data, refetch } = useQuerySeriesEpisodePlayers(id, episode.number);
   const [isSelected, setIsSelected] = useState(false);
@@ -48,12 +63,13 @@ export const Episode = ({
   const [isDownloaded, setIsDownloaded] = useState(false);
 
   const openDetails = () => {
-    setIsSelected(prev => !prev);
+    setIsSelected(previous => !previous);
     checkIfEpisodeIsDownloaded(id, episode.number).then(res =>
       setIsDownloaded(res),
     );
     refetch();
   };
+
   loadProgress();
 
   const handleDownload = async (player: AnimePlayer) => {
@@ -65,6 +81,7 @@ export const Episode = ({
       pathToFile: null,
       size: 0,
     };
+
     await addOfflineSeries({
       seriesId: id,
       title: animeName,
@@ -76,7 +93,7 @@ export const Episode = ({
       episode: episodeToAdd,
       fileUrl: player.player_link,
     });
-    setIsDownloaded(prev => !prev);
+    setIsDownloaded(previous => !previous);
   };
 
   return (
@@ -85,15 +102,16 @@ export const Episode = ({
         style={[
           styles.cardContainer,
           isSelected && darkStyle.card,
-          !progress
-            ? {
+          progress
+            ? null
+            : {
                 borderBottomLeftRadius: defaultRadius,
                 borderBottomRightRadius: defaultRadius,
-              }
-            : null,
+              },
         ]}>
-        <Pressable style={[styles.innerCard]} onPress={openDetails}>
+        <Pressable onPress={openDetails} style={[styles.innerCard]}>
           <Image
+            source={{ uri: episode.poster_url ?? posterUrl }}
             style={[
               styles.poster,
               (!isSelected && episode.description) || progress
@@ -102,7 +120,6 @@ export const Episode = ({
                     borderBottomLeftRadius: defaultRadius,
                   },
             ]}
-            source={{ uri: episode.poster_url ?? posterUrl }}
           />
           <View style={styles.titleRow}>
             <Text numberOfLines={2} style={[styles.title, colors.textLight]}>
@@ -117,13 +134,13 @@ export const Episode = ({
           <View style={styles.watchStatus}>
             <UpdateEpisodeWatchStatus
               animeId={id}
-              isWatched={isWatched}
               episode={episode.number}
+              isWatched={isWatched}
             />
             <Icon
+              color={colors.textLight.color}
               name={isSelected ? 'chevron-up' : 'chevron-down'}
               size={30}
-              color={colors.textLight.color}
             />
           </View>
         </Pressable>
@@ -154,13 +171,13 @@ export const Episode = ({
           {data ? (
             data.players.map((player: AnimePlayer, index: number) => (
               <EpisodePlayer
-                key={index}
-                seriesId={id}
-                player={player}
-                episodeTitle={'E' + episode.number + ' ' + episode.title}
                 episodeNumber={episode.number}
-                isDownloaded={isDownloaded}
+                episodeTitle={'E' + episode.number + ' ' + episode.title}
                 handleDownload={handleDownload}
+                isDownloaded={isDownloaded}
+                key={index}
+                player={player}
+                seriesId={id}
               />
             ))
           ) : (
@@ -174,7 +191,7 @@ export const Episode = ({
       ) : null}
     </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   episodeContainer: {

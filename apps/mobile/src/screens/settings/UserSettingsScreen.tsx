@@ -1,7 +1,8 @@
 import React from 'react';
+
+import { ActionType } from '@aniwatch/shared';
 import { StyleSheet } from 'react-native';
 
-import { useTranslate } from '../../i18n/useTranslate';
 import {
   useLayout,
   SettingInputs,
@@ -9,18 +10,18 @@ import {
   Button,
   PageLayout,
 } from '../../components';
-import { ActionType } from '@aniwatch/shared';
-import { globalStyle } from '../../styles';
-import { useUserStore } from '../../services/auth/user.store';
-import { useUserService } from '../../services/auth/user.service';
+import { useTranslate } from '../../i18n/useTranslate';
 import {
   SettingsStackScreenNames,
   SettingsStackUserSettingsScreenProps,
 } from '../../routes';
+import { useUserService } from '../../services/auth/user.service';
+import { useUserStore } from '../../services/auth/user.store';
+import { globalStyle } from '../../styles';
 
-export const UserSettingsScreen = ({
+export function UserSettingsScreen({
   navigation,
-}: SettingsStackUserSettingsScreenProps) => {
+}: SettingsStackUserSettingsScreenProps) {
   const layout = useLayout();
   const user = useUserStore(state => state.user);
   const { translate } = useTranslate();
@@ -30,8 +31,8 @@ export const UserSettingsScreen = ({
     <PageLayout.Default style={[styles.container]} {...layout}>
       <SettingsGroup title={translate('settings.groups.accountDetails')}>
         <SettingInputs.Edit
+          isFirst={true}
           label={translate('forms.labels.' + ActionType.NickChange)}
-          text={user?.displayName ?? ''}
           onPress={() =>
             navigation.navigate(SettingsStackScreenNames.SettingsAction, {
               action: userService.updateUserDisplayName,
@@ -41,11 +42,11 @@ export const UserSettingsScreen = ({
               payload: user?.displayName!,
             })
           }
-          isFirst={true}
+          text={user?.displayName ?? ''}
         />
         <SettingInputs.Edit
+          isLast={true}
           label={translate('forms.labels.' + ActionType.PasswordChange)}
-          text={'*'.repeat(10)}
           onPress={() =>
             navigation.navigate(SettingsStackScreenNames.SettingsAction, {
               action: userService.updateUserPassword,
@@ -55,19 +56,18 @@ export const UserSettingsScreen = ({
               payload: '*'.repeat(10),
             })
           }
-          isLast={true}
+          text={'*'.repeat(10)}
         />
       </SettingsGroup>
       <Button
         label={translate('auth.logout')}
-        type={'secondary'}
-        style={[globalStyle.marginTopBig, globalStyle.marginBottomBig]}
         onPress={() => userService.logoutUser()}
+        style={[globalStyle.marginTopBig, globalStyle.marginBottomBig]}
+        type="secondary"
       />
       <SettingsGroup title={translate('settings.groups.dangerZone')}>
         <Button
           label={translate('auth.delete_account')}
-          type={'warning'}
           onPress={() =>
             navigation.navigate(
               SettingsStackScreenNames.SettingsActionConfirm,
@@ -79,11 +79,12 @@ export const UserSettingsScreen = ({
               },
             )
           }
+          type="warning"
         />
       </SettingsGroup>
     </PageLayout.Default>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

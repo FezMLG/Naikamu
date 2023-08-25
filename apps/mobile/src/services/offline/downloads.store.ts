@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+
 import { IOfflineSeries, IOfflineSeriesEpisodes } from './interfaces';
 
 export interface IEpisodeDownloadJob {
@@ -40,8 +41,6 @@ export const useDownloadsStore = create<DownloadsState>((set, get) => ({
         ),
       }));
     },
-    getActiveDownloads: () => {
-      return get().activeDownloads;
-    },
+    getActiveDownloads: () => get().activeDownloads,
   },
 }));

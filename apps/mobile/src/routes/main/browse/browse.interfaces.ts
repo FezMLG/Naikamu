@@ -1,6 +1,7 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { NavigatorScreenParams } from '@react-navigation/native';
-import { SeriesStackParamList } from '../series';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+
+import { SeriesStackParamList as SeriesStackParameterList } from '../series';
 
 export enum BrowseStackScreenNames {
   Browse = 'Browse',

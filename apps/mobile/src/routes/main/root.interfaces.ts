@@ -1,6 +1,7 @@
 import { NavigatorScreenParams } from '@react-navigation/native';
-import { SeriesStackParamList } from './series';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+
+import { SeriesStackParamList as SeriesStackParameterList } from './series';
 
 export enum RootStackScreenNames {
   Main = 'Main',
@@ -10,7 +11,7 @@ export enum RootStackScreenNames {
 
 export type RootStackParamList = {
   [RootStackScreenNames.Main]: undefined;
-  [RootStackScreenNames.SeriesStack]: NavigatorScreenParams<SeriesStackParamList>;
+  [RootStackScreenNames.SeriesStack]: NavigatorScreenParams<SeriesStackParameterList>;
   [RootStackScreenNames.NativePlayer]: {
     uri: string;
     seriesId: string;

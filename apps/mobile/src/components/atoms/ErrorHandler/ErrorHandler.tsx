@@ -9,10 +9,12 @@ const errorResolver = (message: string): string => {
     case 'auth/invalid-email':
     case 'auth/email-already-in_-use':
     case 'auth/passwords-do-not-match':
-    case 'auth/weak-password':
+    case 'auth/weak-password': {
       return `auth.errors.firebase.[${message}]`;
-    default:
+    }
+    default: {
       return 'auth.errors.unknown';
+    }
   }
 };
 

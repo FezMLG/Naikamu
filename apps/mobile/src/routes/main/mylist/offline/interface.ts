@@ -1,4 +1,5 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+
 import { IOfflineSeries } from '../../../../services';
 
 export enum DownloadStackScreenNames {

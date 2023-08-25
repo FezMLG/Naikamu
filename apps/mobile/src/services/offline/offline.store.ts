@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+
 import { IOfflineSeries, IOfflineSeriesEpisodes } from './interfaces';
 
 interface OfflineSeriesState {
@@ -36,45 +37,48 @@ export const useOfflineSeriesStore = create<OfflineSeriesState>((set, get) => ({
         offlineSeries: seriesList,
       });
     },
-    getOfflineEpisodes: (seriesId: string) => {
-      return get().offlineSeries.find(series => series.seriesId === seriesId);
-    },
-    getOfflineSeriesList: () => {
-      return get().offlineSeries;
-    },
-    getOfflineSeries: (seriesId: string) => {
-      return get().offlineSeries.find(series => series.seriesId === seriesId);
-    },
+    getOfflineEpisodes: (seriesId: string) =>
+      get().offlineSeries.find(series => series.seriesId === seriesId),
+    getOfflineSeriesList: () => get().offlineSeries,
+    getOfflineSeries: (seriesId: string) =>
+      get().offlineSeries.find(series => series.seriesId === seriesId),
     getOfflineEpisode: (seriesId: string, episodeNumber: number) => {
       const series = get().offlineSeries.find(
         series => series.seriesId === seriesId,
       );
+
       if (!series) {
         return null;
       }
       const episode = series.episodes.find(
         episode => episode.number === episodeNumber,
       );
+
       return episode ? episode : null;
     },
     saveOrReplaceOfflineSeries: (seriesToAdd: IOfflineSeries) => {
       const series = get().offlineSeries;
+
       if (series.find(e => e.seriesId === seriesToAdd.seriesId)) {
         const without = series.filter(e => e.seriesId !== seriesToAdd.seriesId);
+
         without.push(seriesToAdd);
         set({
           offlineSeries: without,
         });
+
         return without;
       }
       series.push(seriesToAdd);
       set({
         offlineSeries: series,
       });
+
       return series;
     },
     saveOfflineEpisode: (seriesId: string, episode: IOfflineSeriesEpisodes) => {
       const series = get().actions.getOfflineSeries(seriesId)!;
+
       series.episodes.push(episode);
       set(state => ({
         offlineSeries: [...state.offlineSeries, series],
@@ -86,10 +90,12 @@ export const useOfflineSeriesStore = create<OfflineSeriesState>((set, get) => ({
           series => series.seriesId !== seriesId,
         ),
       }));
+
       return get().offlineSeries;
     },
     deleteOfflineEpisode: (seriesId: string, episodeNumber: number) => {
       const series = get().actions.getOfflineSeries(seriesId);
+
       if (!series) {
         throw new Error('Series not found ' + seriesId);
       }
@@ -99,6 +105,7 @@ export const useOfflineSeriesStore = create<OfflineSeriesState>((set, get) => ({
       if (series.episodes.length === 0) {
         get().actions.deleteOfflineSeries(seriesId);
       }
+
       return get().actions.saveOrReplaceOfflineSeries(series);
     },
     clearOffline: () => {

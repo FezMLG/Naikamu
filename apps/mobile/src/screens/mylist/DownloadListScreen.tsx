@@ -1,19 +1,20 @@
 import React, { useCallback, useEffect } from 'react';
+
+import { ScrollView, Text } from 'react-native';
+
 import {
   ActiveDownload,
   OfflineSeries,
   PageLayout,
   useLayout,
 } from '../../components';
-
-import { ScrollView, Text } from 'react-native';
-import { useDownloadsQueueStore } from '../../services/offline/queue.store';
-import { logger } from '../../utils/logger';
-import { useOfflineService } from '../../services';
-import { colors, fontStyles, globalStyle } from '../../styles';
 import { useTranslate } from '../../i18n/useTranslate';
+import { useOfflineService } from '../../services';
+import { useDownloadsQueueStore } from '../../services/offline/queue.store';
+import { colors, fontStyles, globalStyle } from '../../styles';
+import { logger } from '../../utils/logger';
 
-export const DownloadListScreen = () => {
+export function DownloadListScreen() {
   const { translate } = useTranslate();
   const layout = useLayout();
   const {
@@ -30,7 +31,9 @@ export const DownloadListScreen = () => {
   const handleLoadingOffline = useCallback(async () => {
     try {
       const offline = await getAllOfflineSeries();
+
       logger('handleLoadingOffline').info(offline);
+
       return offline;
     } catch (error) {
       console.log(error);
@@ -42,6 +45,7 @@ export const DownloadListScreen = () => {
   useEffect(() => {
     (async () => {
       const offline = await handleLoadingOffline();
+
       if (offline) {
         offlineStore.setSeriesList(offline);
       }
@@ -55,7 +59,7 @@ export const DownloadListScreen = () => {
         {offlineSeries.length > 0 ? (
           // <Text>{JSON.stringify(offlineSeries)}</Text>
           offlineSeries
-            .filter(series => series.episodes.length !== 0)
+            .filter(series => series.episodes.length > 0)
             .map(series => (
               <OfflineSeries key={series.seriesId} series={series} />
             ))
@@ -66,8 +70,8 @@ export const DownloadListScreen = () => {
         )}
         {activeDownloads.map((download, index) => (
           <ActiveDownload
-            key={index}
             download={download}
+            key={index}
             stopAction={async () => {
               await stopDownload(download);
             }}
@@ -76,21 +80,19 @@ export const DownloadListScreen = () => {
         {queueActions
           .getQueue()
           .slice(activeDownloads.length > 0 ? 1 : 0)
-          .map((download, index) => {
-            return (
-              <ActiveDownload
-                key={index}
-                download={download}
-                stopAction={() => {
-                  queueActions.removeFromQueue(
-                    download.series.seriesId,
-                    download.episode.number,
-                  );
-                }}
-              />
-            );
-          })}
+          .map((download, index) => (
+            <ActiveDownload
+              download={download}
+              key={index}
+              stopAction={() => {
+                queueActions.removeFromQueue(
+                  download.series.seriesId,
+                  download.episode.number,
+                );
+              }}
+            />
+          ))}
       </ScrollView>
     </PageLayout.Default>
   );
-};
+}

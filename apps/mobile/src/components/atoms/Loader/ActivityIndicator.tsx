@@ -1,10 +1,11 @@
 import React from 'react';
+
+import { StyleProp, ViewStyle } from 'react-native';
 import { ActivityIndicator as PIA } from 'react-native-paper';
 
 import { colors } from '../../../styles';
-import { StyleProp, ViewStyle } from 'react-native';
 
-export const ActivityIndicator = ({
+export function ActivityIndicator({
   visible,
   size = 'small',
   style = [],
@@ -12,13 +13,13 @@ export const ActivityIndicator = ({
   visible: boolean;
   size?: 'small' | 'large';
   style?: StyleProp<ViewStyle>;
-}) => {
+}) {
   return (
     <PIA
-      size={size}
       animating={visible}
       color={colors.accent.color}
+      size={size}
       style={style}
     />
   );
-};
+}

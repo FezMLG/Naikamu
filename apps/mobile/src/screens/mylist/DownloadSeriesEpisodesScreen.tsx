@@ -1,12 +1,14 @@
 import React from 'react';
-import { OfflineEpisode, PageLayout, useLayout } from '../../components';
-import { ScrollView } from 'react-native';
-import { useOfflineService } from '../../services';
-import { DownloadStackSeriesEpisodesScreenProps } from '../../routes';
 
-export const DownloadSeriesEpisodesScreen = ({
+import { ScrollView } from 'react-native';
+
+import { OfflineEpisode, PageLayout, useLayout } from '../../components';
+import { DownloadStackSeriesEpisodesScreenProps } from '../../routes';
+import { useOfflineService } from '../../services';
+
+export function DownloadSeriesEpisodesScreen({
   route,
-}: DownloadStackSeriesEpisodesScreenProps) => {
+}: DownloadStackSeriesEpisodesScreenProps) {
   const { seriesId, title, episodes } = route.params;
   const layout = useLayout();
   const { offlineSeries } = useOfflineService();
@@ -19,13 +21,13 @@ export const DownloadSeriesEpisodesScreen = ({
           ?.episodes.sort((a, b) => a.number - b.number)
           .map(episode => (
             <OfflineEpisode
-              key={episode.number}
               animeId={seriesId}
               animeName={title}
               episode={episode}
+              key={episode.number}
             />
           ))}
       </ScrollView>
     </PageLayout.Default>
   );
-};
+}

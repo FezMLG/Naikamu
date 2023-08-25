@@ -1,15 +1,16 @@
 import React from 'react';
+
+import { Control, Controller, FieldErrorsImpl, useForm } from 'react-hook-form';
 import { KeyboardTypeOptions, StyleSheet, View } from 'react-native';
 import { Text, TextInput } from 'react-native-paper';
-import { Control, Controller, FieldErrorsImpl, useForm } from 'react-hook-form';
 
-import { useTranslate } from '../../i18n/useTranslate';
-import { globalStyle } from '../../styles';
 import { Button, PageLayout, useLayout } from '../../components';
+import { useTranslate } from '../../i18n/useTranslate';
 import {
   SettingsStackScreenNames,
   SettingsStackSettingsActionScreenProps,
 } from '../../routes';
+import { globalStyle } from '../../styles';
 
 interface SettingsForm {
   newValue: string;
@@ -17,7 +18,7 @@ interface SettingsForm {
 
 type SettingsFormType = keyof SettingsForm;
 
-const FormTextInput = ({
+function FormTextInput({
   control,
   errors,
   name,
@@ -33,31 +34,32 @@ const FormTextInput = ({
   errors: Partial<FieldErrorsImpl<SettingsForm>>;
   placeholder: string;
   title: string;
-}) => {
+}) {
   const { translate } = useTranslate();
+
   return (
     <View>
       <Text style={[globalStyle.marginTop]}>{title}</Text>
       <Controller
         control={control}
+        name={name}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <TextInput
+            autoCapitalize="none"
+            autoCorrect={autoCorrect}
+            keyboardType={keyboardType}
+            mode="outlined"
+            onBlur={onBlur}
+            onChangeText={onChange}
+            placeholder={placeholder}
+            style={[styles.textInput, styles.width90]}
+            value={value}
+          />
+        )}
         rules={{
           required: true,
           maxLength: 100,
         }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            value={value}
-            placeholder={placeholder}
-            autoCapitalize="none"
-            keyboardType={keyboardType}
-            autoCorrect={autoCorrect}
-            style={[styles.textInput, styles.width90]}
-            mode={'outlined'}
-            onBlur={onBlur}
-            onChangeText={onChange}
-          />
-        )}
-        name={name}
       />
       {errors[name] && (
         <Text style={[globalStyle.marginTop]}>
@@ -66,12 +68,12 @@ const FormTextInput = ({
       )}
     </View>
   );
-};
+}
 
-export const SettingsActionScreen = ({
+export function SettingsActionScreen({
   route,
   navigation,
-}: SettingsStackSettingsActionScreenProps) => {
+}: SettingsStackSettingsActionScreenProps) {
   const layout = useLayout();
   const { type, action, requiresLogin, origin, payload } = route.params;
   const { translate } = useTranslate();
@@ -111,24 +113,24 @@ export const SettingsActionScreen = ({
   return (
     <PageLayout.Default style={[styles.container]} {...layout}>
       <FormTextInput
-        title={translate('forms.labels.new' + type)}
         control={control}
-        name={'newValue'}
-        keyboardType={'ascii-capable'}
         errors={errors}
+        keyboardType="ascii-capable"
+        name="newValue"
         placeholder={payload ?? translate('forms.fields.' + type)}
+        title={translate('forms.labels.new' + type)}
       />
       <Button
         label={
           requiresLogin ? translate('forms.continue') : translate('forms.save')
         }
-        type={requiresLogin ? 'primary' : 'secondary'}
         onPress={handleSubmit(handleAction)}
         style={[globalStyle.marginTopBig]}
+        type={requiresLogin ? 'primary' : 'secondary'}
       />
     </PageLayout.Default>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {},

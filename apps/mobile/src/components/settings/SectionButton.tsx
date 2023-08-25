@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Pressable,
   StyleProp,
@@ -8,9 +9,10 @@ import {
   ViewStyle,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import { colors, defaultRadius } from '../../styles';
 
-export const SectionButton = ({
+export function SectionButton({
   title,
   onPress,
   icon,
@@ -20,17 +22,17 @@ export const SectionButton = ({
   onPress: () => void;
   icon: string;
   style?: StyleProp<ViewStyle>;
-}) => {
+}) {
   return (
     <Pressable onPress={onPress} style={[styles.container, style]}>
       <View style={styles.titleContainer}>
-        <Icon name={icon} size={24} color={colors.textDark.color} />
+        <Icon color={colors.textDark.color} name={icon} size={24} />
         <Text style={[colors.textDark, styles.title]}>{title}</Text>
       </View>
-      <Icon name={'chevron-right'} size={24} color={colors.textDark.color} />
+      <Icon color={colors.textDark.color} name="chevron-right" size={24} />
     </Pressable>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

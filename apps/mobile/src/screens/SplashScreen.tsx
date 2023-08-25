@@ -1,15 +1,17 @@
-import { StyleSheet } from 'react-native';
 import React from 'react';
+
+import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
 import { ActivityIndicator } from '../components';
 
-export const SplashScreen = () => {
+export function SplashScreen() {
   return (
     <SafeAreaView style={[styles.container]}>
-      <ActivityIndicator size={'large'} visible={true} />
+      <ActivityIndicator size="large" visible={true} />
     </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

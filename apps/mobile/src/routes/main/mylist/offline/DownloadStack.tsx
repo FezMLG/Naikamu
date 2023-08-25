@@ -1,31 +1,36 @@
 import React from 'react';
+
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { defaultSubHeaderOptions } from '../../defaultSubHeaderOptions';
-import { DownloadStackParamList, DownloadStackScreenNames } from './interface';
 import {
   DownloadListScreen,
   DownloadSeriesEpisodesScreen,
   NativeVideoPlayerScreen,
 } from '../../../../screens';
 import { BrowseStackScreenNames } from '../../browse';
+import { defaultSubHeaderOptions } from '../../defaultSubHeaderOptions';
 
-const Stack = createNativeStackNavigator<DownloadStackParamList>();
+import {
+  DownloadStackParamList as DownloadStackParameterList,
+  DownloadStackScreenNames,
+} from './interface';
 
-export const DownloadStack = () => {
+const Stack = createNativeStackNavigator<DownloadStackParameterList>();
+
+export function DownloadStack() {
   return (
     <Stack.Navigator initialRouteName={DownloadStackScreenNames.List}>
       <Stack.Screen
-        name={DownloadStackScreenNames.List}
         component={DownloadListScreen}
+        name={DownloadStackScreenNames.List}
         options={{
           ...defaultSubHeaderOptions({}),
           headerShown: false,
         }}
       />
       <Stack.Screen
-        name={DownloadStackScreenNames.SeriesEpisodes}
         component={DownloadSeriesEpisodesScreen}
+        name={DownloadStackScreenNames.SeriesEpisodes}
         options={({ route }) => ({
           ...defaultSubHeaderOptions({
             title: route.params.title,
@@ -34,4 +39,4 @@ export const DownloadStack = () => {
       />
     </Stack.Navigator>
   );
-};
+}

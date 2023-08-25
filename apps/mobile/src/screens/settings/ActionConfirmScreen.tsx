@@ -1,13 +1,14 @@
 import React from 'react';
+
+import { Control, FieldErrorsImpl, Controller, useForm } from 'react-hook-form';
 import { KeyboardTypeOptions, StyleSheet, View } from 'react-native';
 import { Text, TextInput } from 'react-native-paper';
 
-import { useTranslate } from '../../i18n/useTranslate';
-import { globalStyle } from '../../styles';
-import { Control, FieldErrorsImpl, Controller, useForm } from 'react-hook-form';
-import { fireReauthenticate } from '../../services/firebase/fire-auth.service';
 import { Button, PageLayout, useLayout } from '../../components';
+import { useTranslate } from '../../i18n/useTranslate';
 import { SettingsStackSettingsActionConfirmScreenProps } from '../../routes';
+import { fireReauthenticate } from '../../services/firebase/fire-auth.service';
+import { globalStyle } from '../../styles';
 
 interface SettingsForm {
   password: string;
@@ -15,7 +16,7 @@ interface SettingsForm {
 
 type SettingsFormType = keyof SettingsForm;
 
-const FormTextInput = ({
+function FormTextInput({
   control,
   errors,
   name,
@@ -31,31 +32,32 @@ const FormTextInput = ({
   errors: Partial<FieldErrorsImpl<SettingsForm>>;
   placeholder: string;
   title: string;
-}) => {
+}) {
   const { translate } = useTranslate();
+
   return (
     <View>
       <Text style={[globalStyle.marginTop]}>{title}</Text>
       <Controller
         control={control}
+        name={name}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <TextInput
+            autoCapitalize="none"
+            autoCorrect={autoCorrect}
+            keyboardType={keyboardType}
+            mode="outlined"
+            onBlur={onBlur}
+            onChangeText={onChange}
+            placeholder={placeholder}
+            style={[styles.textInput, styles.width90]}
+            value={value}
+          />
+        )}
         rules={{
           required: true,
           maxLength: 100,
         }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            value={value}
-            placeholder={placeholder}
-            autoCapitalize="none"
-            keyboardType={keyboardType}
-            autoCorrect={autoCorrect}
-            style={[styles.textInput, styles.width90]}
-            mode={'outlined'}
-            onBlur={onBlur}
-            onChangeText={onChange}
-          />
-        )}
-        name={name}
       />
       {errors[name] && (
         <Text style={[globalStyle.marginTop]}>
@@ -64,12 +66,12 @@ const FormTextInput = ({
       )}
     </View>
   );
-};
+}
 
-export const SettingsActionConfirmScreen = ({
+export function SettingsActionConfirmScreen({
   route,
   navigation,
-}: SettingsStackSettingsActionConfirmScreenProps) => {
+}: SettingsStackSettingsActionConfirmScreenProps) {
   const layout = useLayout();
   const { action, payload, origin } = route.params;
   const { translate } = useTranslate();
@@ -98,22 +100,22 @@ export const SettingsActionConfirmScreen = ({
   return (
     <PageLayout.Default style={[styles.container]} {...layout}>
       <FormTextInput
-        title={translate('forms.labels.password')}
         control={control}
-        name={'password'}
-        keyboardType={'ascii-capable'}
         errors={errors}
+        keyboardType="ascii-capable"
+        name="password"
         placeholder={payload ?? translate('forms.fields.save')}
+        title={translate('forms.labels.password')}
       />
       <Button
         label={translate('forms.save')}
-        type={'primary'}
         onPress={handleSubmit(handleAction)}
         style={[globalStyle.marginTopBig]}
+        type="primary"
       />
     </PageLayout.Default>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {},

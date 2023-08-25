@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+
 import { Pressable, StyleSheet, View } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   Button,
   Dialog,
@@ -9,12 +9,13 @@ import {
   Text,
   TextInput,
 } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useTranslate } from '../../i18n/useTranslate';
+import { colors } from '../../styles';
 import { AnimeSeasons, IAnimeSeasons } from '../../utils';
-import {colors} from "../../styles";
 
-export const SeasonYearSelectButtons = ({
+export function SeasonYearSelectButtons({
   season,
   setSeason,
   year,
@@ -24,7 +25,7 @@ export const SeasonYearSelectButtons = ({
   setSeason: (season: IAnimeSeasons) => void;
   year: number;
   setYear: (year: number) => void;
-}): JSX.Element => {
+}): JSX.Element {
   const { translate } = useTranslate();
   const [yearDialogVisible, setYearDialogVisible] = useState(false);
   const showDialog = () => setYearDialogVisible(true);
@@ -37,25 +38,26 @@ export const SeasonYearSelectButtons = ({
     setSeason(s);
     closeMenu();
   };
+
   return (
     <View style={styles.container}>
       <Pressable onPress={showDialog} style={styles.buttonContainer}>
         <Icon
-          name={'calendar-month'}
-          size={24}
           color="#ffffff"
+          name="calendar-month"
+          size={24}
           style={{ marginRight: 20 }}
         />
         <Text style={{ fontSize: 16 }}>{year}</Text>
       </Pressable>
       <Portal>
-        <Dialog visible={yearDialogVisible} onDismiss={hideDialog}>
+        <Dialog onDismiss={hideDialog} visible={yearDialogVisible}>
           <Dialog.Title>Type year</Dialog.Title>
           <TextInput
+            keyboardType="number-pad"
             label="Year"
-            value={newYear}
-            keyboardType={'number-pad'}
             onChangeText={text => setNewYear(text)}
+            value={newYear}
           />
           <Dialog.Actions>
             <Button onPress={hideDialog}>Cancel</Button>
@@ -70,41 +72,40 @@ export const SeasonYearSelectButtons = ({
         </Dialog>
       </Portal>
       <Menu
-        visible={seasonMenuVisible}
-        onDismiss={closeMenu}
-        anchorPosition={'bottom'}
         anchor={
           <Pressable onPress={openMenu} style={styles.buttonContainer}>
             <Icon
+              color="#ffffff"
               name={season.icon}
               size={24}
-              color="#ffffff"
               style={{ marginRight: 10 }}
             />
             <Text style={{ fontSize: 16 }}>{translate(season.titleKey)}</Text>
             <Icon
+              color="#ffffff"
               name={seasonMenuVisible ? 'chevron-up' : 'chevron-down'}
               size={24}
-              color="#ffffff"
               style={{ marginLeft: 20 }}
             />
           </Pressable>
-        }>
-        {Object.entries(AnimeSeasons).map(([_, value], index) => {
-          return (
-            <Menu.Item
+        }
+        anchorPosition="bottom"
+        onDismiss={closeMenu}
+        visible={seasonMenuVisible}>
+        {Object.entries(AnimeSeasons).map(([_, value], index) => (
+          <Menu.Item
+            key={index}
+              leadingIcon={value.icon}
               onPress={() => handleSeasonChange(value)}
               title={translate(value.titleKey)}
-              leadingIcon={value.icon}
-              key={index}
               titleStyle={season.value === value.value ? colors.accent : colors.textLight}
-            />
-          );
-        })}
+            }
+          />
+        ))}
       </Menu>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

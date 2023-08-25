@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import { RadioButton } from 'react-native-paper';
-import Config from 'react-native-config';
 
-import { useTranslate } from '../../i18n/useTranslate';
-import { Resolution } from '../../services/settings/interfaces';
-import { colors, fontStyles, globalStyle } from '../../styles';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import Config from 'react-native-config';
+import { RadioButton } from 'react-native-paper';
+
 import { Button, Modal, SettingInputs, SettingsGroup } from '../../components';
-import { useUserSettingsService } from '../../services/settings/settings.service';
+import { useTranslate } from '../../i18n/useTranslate';
+import { SettingsStackPlaybackSettingsScreenProps } from '../../routes';
 import { useOfflineService } from '../../services';
 import { useDownloadsQueueStore } from '../../services/offline/queue.store';
-import { SettingsStackPlaybackSettingsScreenProps } from '../../routes';
+import { Resolution } from '../../services/settings/interfaces';
+import { useUserSettingsService } from '../../services/settings/settings.service';
+import { colors, fontStyles, globalStyle } from '../../styles';
 
-const QualityModal = ({
+function QualityModal({
   isOpen,
   setIsOpen,
   quality,
@@ -24,89 +25,85 @@ const QualityModal = ({
   quality: string;
   setQuality: (quality: string) => void;
   handleChange: (quality: Resolution) => void;
-}) => {
+}) {
   const { translate } = useTranslate();
 
   return (
     <Modal.Container isOpen={isOpen} setIsOpen={setIsOpen}>
       <Modal.Title title={translate('settings.modals.videoQuality')} />
       <RadioButton.Group onValueChange={setQuality} value={quality}>
-        {Object.keys(Resolution).map(key => {
-          return (
-            <View key={key} style={[styles.inline, styles.radioContainer]}>
-              <RadioButton value={key} />
-              <Text
-                style={[fontStyles.text, colors.textLight, styles.radioLabel]}>
-                {Resolution[key as keyof typeof Resolution]}
-              </Text>
-            </View>
-          );
-        })}
+        {Object.keys(Resolution).map(key => (
+          <View key={key} style={[styles.inline, styles.radioContainer]}>
+            <RadioButton value={key} />
+            <Text
+              style={[fontStyles.text, colors.textLight, styles.radioLabel]}>
+              {Resolution[key as keyof typeof Resolution]}
+            </Text>
+          </View>
+        ))}
       </RadioButton.Group>
       <Button
         label={translate('forms.save')}
-        type={'primary'}
         onPress={() => handleChange(quality as Resolution)}
+        type="primary"
       />
     </Modal.Container>
   );
-};
+}
 
-export const AppSettingsScreen =
-  ({}: SettingsStackPlaybackSettingsScreenProps) => {
-    const {
-      userSettings: { preferredResolution, preferredDownloadQuality },
-    } = useUserSettingsService();
-    const [playbackQuality, setPlaybackQuality] =
-      useState<string>(preferredResolution);
-    const [downloadQuality, setDownloadQuality] = useState<string>(
-      preferredDownloadQuality,
-    );
-    const { updateUserSettings, userSettings } = useUserSettingsService();
-    const { clearOffline } = useOfflineService();
-    const queueActions = useDownloadsQueueStore(state => state.actions);
+export function AppSettingsScreen({}: SettingsStackPlaybackSettingsScreenProps) {
+  const {
+    userSettings: { preferredResolution, preferredDownloadQuality },
+  } = useUserSettingsService();
+  const [playbackQuality, setPlaybackQuality] =
+    useState<string>(preferredResolution);
+  const [downloadQuality, setDownloadQuality] = useState<string>(
+    preferredDownloadQuality,
+  );
+  const { updateUserSettings, userSettings } = useUserSettingsService();
+  const { clearOffline } = useOfflineService();
+  const queueActions = useDownloadsQueueStore(state => state.actions);
 
-    const { translate } = useTranslate();
-    const [isOpenP, setIsOpenP] = useState(false);
-    const [isOpenQ, setIsOpenQ] = useState(false);
+  const { translate } = useTranslate();
+  const [isOpenP, setIsOpenP] = useState(false);
+  const [isOpenQ, setIsOpenQ] = useState(false);
 
-    const handlePlaybackQualityChange = async (newResolution: Resolution) => {
-      await updateUserSettings({ preferredResolution: newResolution });
-      setIsOpenP(false);
-    };
+  const handlePlaybackQualityChange = async (newResolution: Resolution) => {
+    await updateUserSettings({ preferredResolution: newResolution });
+    setIsOpenP(false);
+  };
 
-    const handleDownloadQualityChange = async (newResolution: Resolution) => {
-      await updateUserSettings({ preferredDownloadQuality: newResolution });
-      setIsOpenQ(false);
-    };
+  const handleDownloadQualityChange = async (newResolution: Resolution) => {
+    await updateUserSettings({ preferredDownloadQuality: newResolution });
+    setIsOpenQ(false);
+  };
 
-    return (
-      <SafeAreaView style={[styles.container]}>
-        <QualityModal
-          isOpen={isOpenP}
-          setIsOpen={setIsOpenP}
-          quality={playbackQuality}
-          setQuality={setPlaybackQuality}
-          handleChange={handlePlaybackQualityChange}
+  return (
+    <SafeAreaView style={[styles.container]}>
+      <QualityModal
+        handleChange={handlePlaybackQualityChange}
+        isOpen={isOpenP}
+        quality={playbackQuality}
+        setIsOpen={setIsOpenP}
+        setQuality={setPlaybackQuality}
+      />
+      <QualityModal
+        handleChange={handleDownloadQualityChange}
+        isOpen={isOpenQ}
+        quality={downloadQuality}
+        setIsOpen={setIsOpenQ}
+        setQuality={setDownloadQuality}
+      />
+      <SettingsGroup title={translate('settings.groups.videoPlaybackDownload')}>
+        <SettingInputs.Select
+          isFirst={true}
+          isLast={true}
+          setIsModalOpen={setIsOpenP}
+          text={playbackQuality ?? '1080p'}
+          title={translate('settings.titles.videoQuality')}
         />
-        <QualityModal
-          isOpen={isOpenQ}
-          setIsOpen={setIsOpenQ}
-          quality={downloadQuality}
-          setQuality={setDownloadQuality}
-          handleChange={handleDownloadQualityChange}
-        />
-        <SettingsGroup
-          title={translate('settings.groups.videoPlaybackDownload')}>
-          <SettingInputs.Select
-            title={translate('settings.titles.videoQuality')}
-            text={playbackQuality ?? '1080p'}
-            setIsModalOpen={setIsOpenP}
-            isFirst={true}
-            isLast={true}
-          />
-        </SettingsGroup>
-        {/* <SettingsGroup title={translate('settings.groups.videoDownload')}>
+      </SettingsGroup>
+      {/* <SettingsGroup title={translate('settings.groups.videoDownload')}>
         <SettingInputs.Select
           title={translate('settings.titles.videoQuality')}
           text={downloadQuality ?? '1080p'}
@@ -115,55 +112,53 @@ export const AppSettingsScreen =
           isLast={true}
         />
       </SettingsGroup> */}
-        <View style={globalStyle.marginTop}>
-          <Text style={[fontStyles.label, colors.textLight]}>Environment</Text>
-          <Text style={[fontStyles.text, colors.textLighter]}>
-            {Config.ENV}
-          </Text>
-          <Text
-            style={[
-              fontStyles.label,
-              colors.textLight,
-              globalStyle.marginTopSmall,
-            ]}>
-            API Endpoint
-          </Text>
-          <Text style={[fontStyles.text, colors.textLighter]}>
-            {Config.API_URL}
-          </Text>
-          {Config.ENV === 'dev' && (
-            <>
-              <Text
-                style={[
-                  fontStyles.label,
-                  colors.textLight,
-                  globalStyle.marginTopSmall,
-                ]}>
-                User Settings
-              </Text>
-              <Text style={[fontStyles.text, colors.textLighter]}>
-                {JSON.stringify(userSettings)}
-              </Text>
-            </>
-          )}
-          <Button
-            label={'Clear downloads'}
-            type={'primary'}
-            onPress={() => {
-              clearOffline();
-            }}
-          />
-          <Button
-            label={'Clear downloads queue'}
-            type={'primary'}
-            onPress={() => {
-              queueActions.clearQueue();
-            }}
-          />
-        </View>
-      </SafeAreaView>
-    );
-  };
+      <View style={globalStyle.marginTop}>
+        <Text style={[fontStyles.label, colors.textLight]}>Environment</Text>
+        <Text style={[fontStyles.text, colors.textLighter]}>{Config.ENV}</Text>
+        <Text
+          style={[
+            fontStyles.label,
+            colors.textLight,
+            globalStyle.marginTopSmall,
+          ]}>
+          API Endpoint
+        </Text>
+        <Text style={[fontStyles.text, colors.textLighter]}>
+          {Config.API_URL}
+        </Text>
+        {Config.ENV === 'dev' && (
+          <>
+            <Text
+              style={[
+                fontStyles.label,
+                colors.textLight,
+                globalStyle.marginTopSmall,
+              ]}>
+              User Settings
+            </Text>
+            <Text style={[fontStyles.text, colors.textLighter]}>
+              {JSON.stringify(userSettings)}
+            </Text>
+          </>
+        )}
+        <Button
+          label="Clear downloads"
+          onPress={() => {
+            clearOffline();
+          }}
+          type="primary"
+        />
+        <Button
+          label="Clear downloads queue"
+          onPress={() => {
+            queueActions.clearQueue();
+          }}
+          type="primary"
+        />
+      </View>
+    </SafeAreaView>
+  );
+}
 
 const styles = StyleSheet.create({
   inline: {

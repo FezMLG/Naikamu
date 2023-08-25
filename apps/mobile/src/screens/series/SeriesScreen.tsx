@@ -1,7 +1,7 @@
 import React from 'react';
+
 import { StyleSheet, SafeAreaView, ScrollView, View } from 'react-native';
 
-import { globalStyle } from '../../styles';
 import { useQuerySeriesDetails } from '../../api/hooks';
 import {
   EpisodesButton,
@@ -11,8 +11,9 @@ import {
   ActivityIndicator,
 } from '../../components';
 import { SeriesStackSeriesScreenProps } from '../../routes';
+import { globalStyle } from '../../styles';
 
-export const SeriesScreen = ({ route }: SeriesStackSeriesScreenProps) => {
+export function SeriesScreen({ route }: SeriesStackSeriesScreenProps) {
   const { id } = route.params;
   const { data } = useQuerySeriesDetails(id);
 
@@ -21,8 +22,8 @@ export const SeriesScreen = ({ route }: SeriesStackSeriesScreenProps) => {
       {data ? (
         <ScrollView style={styles.scrollView}>
           <SeriesDetails.Poster
-            bannerImage={data.bannerImage}
             altImage={data.coverImage.extraLarge}
+            bannerImage={data.bannerImage}
           />
           <View style={styles.body}>
             <SeriesDetails.Title
@@ -51,8 +52,8 @@ export const SeriesScreen = ({ route }: SeriesStackSeriesScreenProps) => {
             </View>
             <View style={globalStyle.marginTop} />
             <SeriesDetails.Genres
-              genres={data.genres}
               color={data.coverImage.color}
+              genres={data.genres}
             />
             <View style={globalStyle.marginTop} />
             <SeriesDetails.Description description={data.description} />
@@ -69,7 +70,7 @@ export const SeriesScreen = ({ route }: SeriesStackSeriesScreenProps) => {
       )}
     </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

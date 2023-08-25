@@ -1,17 +1,18 @@
-import { Platform, StyleSheet } from 'react-native';
 import React, { useEffect, useRef } from 'react';
-import Video, { OnProgressData } from 'react-native-video';
 
+import { Platform, StyleSheet } from 'react-native';
 import VideoPlayer from 'react-native-media-console';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
+import Video, { OnProgressData } from 'react-native-video';
+
+import { RootStackNativePlayerScreenProps } from '../../routes';
 import { createEpisodeProgressKey } from '../../services';
 import { storageGetData, storageStoreData } from '../../utils';
-import { RootStackNativePlayerScreenProps } from '../../routes';
 
-export const NativeVideoPlayerScreen = ({
+export function NativeVideoPlayerScreen({
   route,
   navigation,
-}: RootStackNativePlayerScreenProps) => {
+}: RootStackNativePlayerScreenProps) {
   const { uri, episodeTitle, episodeNumber, seriesId } = route.params;
   const videoPlayer = useRef<Video>(null);
   const storageKey = createEpisodeProgressKey(seriesId, episodeNumber);
@@ -28,6 +29,7 @@ export const NativeVideoPlayerScreen = ({
 
   const handleVideoLoad = async () => {
     const progress = await storageGetData<OnProgressData>(storageKey);
+
     if (videoPlayer) {
       videoPlayer.current?.seek(
         progress?.currentTime ? progress.currentTime - 15 : 0,
@@ -39,52 +41,52 @@ export const NativeVideoPlayerScreen = ({
     <>
       {Platform.OS === 'ios' ? (
         <Video
-          source={{
-            uri,
-          }}
-          ref={videoPlayer}
-          style={styles.absoluteFill}
-          onProgress={handleProgress}
-          onLoad={handleVideoLoad}
-          resizeMode="contain"
+          allowsExternalPlayback
+          controls
           fullscreen
           fullscreenAutorotate
           fullscreenOrientation="landscape"
-          pictureInPicture
-          controls
-          playInBackground
-          allowsExternalPlayback
           ignoreSilentSwitch="ignore"
+          onLoad={handleVideoLoad}
+          onProgress={handleProgress}
+          pictureInPicture
+          playInBackground
+          ref={videoPlayer}
+          resizeMode="contain"
+          source={{
+            uri,
+          }}
+          style={styles.absoluteFill}
         />
       ) : (
         <VideoPlayer
-          videoRef={videoPlayer}
-          style={styles.absoluteFill}
-          title={episodeTitle}
+          allowsExternalPlayback
+          disableFullscreen
+          disableVolume
+          doubleTapTime={130}
+          fullscreen
+          fullscreenAutorotate
+          fullscreenOrientation="landscape"
+          ignoreSilentSwitch="ignore"
+          isFullscreen
+          onBack={navigation.goBack}
+          onLoad={handleVideoLoad}
+          onProgress={handleProgress}
+          pictureInPicture
+          playInBackground
+          resizeMode="contain"
+          showDuration
           source={{
             uri: uri,
           }}
-          resizeMode={'contain'}
-          fullscreen
-          onBack={navigation.goBack}
-          onProgress={handleProgress}
-          onLoad={handleVideoLoad}
-          doubleTapTime={130}
-          disableFullscreen
-          disableVolume
-          showDuration
-          fullscreenOrientation={'landscape'}
-          fullscreenAutorotate
-          isFullscreen
-          pictureInPicture
-          playInBackground
-          allowsExternalPlayback
-          ignoreSilentSwitch="ignore"
+          style={styles.absoluteFill}
+          title={episodeTitle}
+          videoRef={videoPlayer}
         />
       )}
     </>
   );
-};
+}
 
 const styles = StyleSheet.create({
   buttons: {

@@ -1,10 +1,7 @@
 import React from 'react';
+
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import {
-  SettingsStackScreenNames,
-  SettingsStackParamList,
-} from './settings.interfaces';
 import { useTranslate } from '../../../i18n/useTranslate';
 import {
   AppSettingsScreen,
@@ -16,16 +13,21 @@ import {
 import { defaultHeaderOptions } from '../defaultHeaderOptions';
 import { defaultSubHeaderOptions } from '../defaultSubHeaderOptions';
 
-const Stack = createNativeStackNavigator<SettingsStackParamList>();
+import {
+  SettingsStackScreenNames,
+  SettingsStackParamList as SettingsStackParameterList,
+} from './settings.interfaces';
 
-export const SettingsStack = () => {
+const Stack = createNativeStackNavigator<SettingsStackParameterList>();
+
+export function SettingsStack() {
   const { translate } = useTranslate();
 
   return (
     <Stack.Navigator initialRouteName={SettingsStackScreenNames.Settings}>
       <Stack.Screen
-        name={SettingsStackScreenNames.Settings}
         component={SettingsScreen}
+        name={SettingsStackScreenNames.Settings}
         options={() => ({
           ...defaultHeaderOptions({
             title: translate('settings.' + SettingsStackScreenNames.Settings),
@@ -34,8 +36,8 @@ export const SettingsStack = () => {
         })}
       />
       <Stack.Screen
-        name={SettingsStackScreenNames.UserSettings}
         component={UserSettingsScreen}
+        name={SettingsStackScreenNames.UserSettings}
         options={() => ({
           ...defaultSubHeaderOptions({
             title: translate('settings.' + SettingsStackScreenNames.Settings),
@@ -44,8 +46,8 @@ export const SettingsStack = () => {
         })}
       />
       <Stack.Screen
-        name={SettingsStackScreenNames.AppSettings}
         component={AppSettingsScreen}
+        name={SettingsStackScreenNames.AppSettings}
         options={() => ({
           ...defaultSubHeaderOptions({
             title: translate('settings.' + SettingsStackScreenNames.Settings),
@@ -54,8 +56,8 @@ export const SettingsStack = () => {
         })}
       />
       <Stack.Screen
-        name={SettingsStackScreenNames.SettingsActionConfirm}
         component={SettingsActionConfirmScreen}
+        name={SettingsStackScreenNames.SettingsActionConfirm}
         options={{
           ...defaultSubHeaderOptions({
             title: translate(
@@ -67,8 +69,8 @@ export const SettingsStack = () => {
         }}
       />
       <Stack.Screen
-        name={SettingsStackScreenNames.SettingsAction}
         component={SettingsActionScreen}
+        name={SettingsStackScreenNames.SettingsAction}
         options={{
           ...defaultSubHeaderOptions({
             title: translate(
@@ -80,4 +82,4 @@ export const SettingsStack = () => {
       />
     </Stack.Navigator>
   );
-};
+}

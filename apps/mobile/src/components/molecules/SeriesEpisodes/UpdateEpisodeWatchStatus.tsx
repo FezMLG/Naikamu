@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { StyleSheet, View } from 'react-native';
 import { ActivityIndicator, IconButton } from 'react-native-paper';
 
@@ -10,11 +11,11 @@ interface UpdateEpisodeWatchStatusProps {
   isWatched: boolean;
 }
 
-export const UpdateEpisodeWatchStatus = ({
+export function UpdateEpisodeWatchStatus({
   animeId,
   episode,
   isWatched,
-}: UpdateEpisodeWatchStatusProps) => {
+}: UpdateEpisodeWatchStatusProps) {
   const { watched, mutation } = useMutationUpdateUserSeriesWatchProgress(
     isWatched,
     animeId,
@@ -24,33 +25,33 @@ export const UpdateEpisodeWatchStatus = ({
   return (
     <View style={styles.container}>
       {mutation.isLoading ? (
-        <ActivityIndicator size={'small'} />
+        <ActivityIndicator size="small" />
       ) : (
         <>
           {watched ? (
             <IconButton
-              icon={'check-circle'}
-              iconColor={'#ffffff'}
-              size={36}
+              icon="check-circle"
+              iconColor="#ffffff"
               onPress={() => {
                 mutation.mutate();
               }}
+              size={36}
             />
           ) : (
             <IconButton
-              icon={'check-circle-outline'}
-              iconColor={'#ffffff'}
-              size={36}
+              icon="check-circle-outline"
+              iconColor="#ffffff"
               onPress={() => {
                 mutation.mutate();
               }}
+              size={36}
             />
           )}
         </>
       )}
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { StyleSheet, Text } from 'react-native';
 import { Modal as PaperModal, Portal } from 'react-native-paper';
+
 import {
   colors,
   darkColor,
@@ -9,7 +11,7 @@ import {
   fontStyles,
 } from '../../../styles';
 
-const Container = ({
+function Container({
   children,
   setIsOpen,
   isOpen,
@@ -17,26 +19,26 @@ const Container = ({
   children?: React.ReactNode;
   setIsOpen: (isOpen: boolean) => void;
   isOpen: boolean;
-}) => {
+}) {
   return (
     <Portal>
       <PaperModal
-        visible={isOpen}
+        contentContainerStyle={styles.centeredView}
         onDismiss={() => setIsOpen(false)}
-        contentContainerStyle={styles.centeredView}>
+        visible={isOpen}>
         {children}
       </PaperModal>
     </Portal>
   );
-};
+}
 
-const Title = ({ title }: { title: string }) => {
+function Title({ title }: { title: string }) {
   return (
     <Text style={[fontStyles.header, colors.textLight, styles.title]}>
       {title}
     </Text>
   );
-};
+}
 
 export const Modal = {
   Container,

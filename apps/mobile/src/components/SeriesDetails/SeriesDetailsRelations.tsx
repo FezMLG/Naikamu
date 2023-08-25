@@ -1,17 +1,23 @@
 import React from 'react';
+
+import { AnimeDetails } from '@aniwatch/shared';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { Linking, ScrollView, StyleSheet, Text } from 'react-native';
-import { AnimeDetails } from '@aniwatch/shared';
+
 import { useTranslate } from '../../i18n/useTranslate';
-import { SeriesStackParamList, SeriesStackScreenNames } from '../../routes';
+import {
+  SeriesStackParamList as SeriesStackParameterList,
+  SeriesStackScreenNames,
+} from '../../routes';
 import { darkStyle } from '../../styles';
+
 import { SeriesRelations } from './SeriesRelations';
 
-export const SeriesDetailsRelations = (props: {
+export function SeriesDetailsRelations(props: {
   relations: AnimeDetails['relations'];
-}) => {
+}) {
   const { translate } = useTranslate();
-  const navigation = useNavigation<NavigationProp<SeriesStackParamList>>();
+  const navigation = useNavigation<NavigationProp<SeriesStackParameterList>>();
 
   return (
     <>
@@ -19,35 +25,35 @@ export const SeriesDetailsRelations = (props: {
         {translate('anime_details.relations')}
       </Text>
       <ScrollView horizontal={true}>
-        {props.relations.map((relation, index) => {
-          return (
-            <SeriesRelations
-              key={index}
-              relation={relation}
-              handleNavigation={() => {
-                switch (relation.type.toLocaleLowerCase()) {
-                  case 'anime':
-                    navigation.navigate(SeriesStackScreenNames.Series, {
-                      id: relation.id,
-                      title: relation.title.romaji,
-                    });
-                    break;
-                  default:
-                    Linking.openURL(
-                      'https://anilist.co/' +
-                        relation.type.toLowerCase() +
-                        '/' +
-                        relation.id,
-                    );
+        {props.relations.map((relation, index) => (
+          <SeriesRelations
+            handleNavigation={() => {
+              switch (relation.type.toLocaleLowerCase()) {
+                case 'anime': {
+                  navigation.navigate(SeriesStackScreenNames.Series, {
+                    id: relation.id,
+                    title: relation.title.romaji,
+                  });
+                  break;
                 }
-              }}
-            />
-          );
-        })}
+                default: {
+                  Linking.openURL(
+                    'https://anilist.co/' +
+                      relation.type.toLowerCase() +
+                      '/' +
+                      relation.id,
+                  );
+                }
+              }
+            }}
+            key={index}
+            relation={relation}
+          />
+        ))}
       </ScrollView>
     </>
   );
-};
+}
 
 const styles = StyleSheet.create({
   titleType: {

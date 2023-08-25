@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
+
 import { Controller, useForm } from 'react-hook-form';
 import { View, StyleSheet } from 'react-native';
 import { Text, TextInput } from 'react-native-paper';
 
-import { useTranslate } from '../../i18n/useTranslate';
-import { AuthStackRoutesNames, AuthStackSignUpScreenProps } from '../../routes';
-import { globalStyle } from '../../styles';
 import {
   Button,
   useLayout,
   useErrorHandler,
   PageLayout,
 } from '../../components';
+import { useTranslate } from '../../i18n/useTranslate';
+import { AuthStackRoutesNames, AuthStackSignUpScreenProps } from '../../routes';
 import { useUserService } from '../../services/auth/user.service';
+import { globalStyle } from '../../styles';
 
 export interface SignUpForm {
   displayName: string;
@@ -21,7 +22,7 @@ export interface SignUpForm {
   passwordAgain: string;
 }
 
-export const SignUpScreen = ({ navigation }: AuthStackSignUpScreenProps) => {
+export function SignUpScreen({ navigation }: AuthStackSignUpScreenProps) {
   const layout = useLayout();
   const [loading, isLoading] = useState(false);
   const { translate } = useTranslate();
@@ -48,6 +49,7 @@ export const SignUpScreen = ({ navigation }: AuthStackSignUpScreenProps) => {
         throw { code: 'auth/passwords-do-not-match' };
       }
       const user = await userService.registerUser(data);
+
       if (user) {
         navigation.navigate(AuthStackRoutesNames.VerifyEmail);
       }
@@ -63,125 +65,125 @@ export const SignUpScreen = ({ navigation }: AuthStackSignUpScreenProps) => {
       <View style={[styles.formInputs, globalStyle.spacerBig]}>
         <Controller
           control={control}
-          rules={{
-            required: true,
-            maxLength: 100,
-          }}
+          name="displayName"
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
-              value={value}
-              placeholder={translate('auth.username')}
-              onChangeText={onChange}
-              onBlur={onBlur}
               autoCapitalize="none"
               autoCorrect={false}
+              mode="outlined"
+              onBlur={onBlur}
+              onChangeText={onChange}
+              placeholder={translate('auth.username')}
               style={[
                 styles.textInput,
                 styles.width90,
                 globalStyle.marginTopSmall,
               ]}
-              mode={'outlined'}
+              value={value}
             />
           )}
-          name="displayName"
+          rules={{
+            required: true,
+            maxLength: 100,
+          }}
         />
         {errors.displayName && (
           <Text style={styles.errors}>{translate('auth.required_field')}</Text>
         )}
         <Controller
           control={control}
-          rules={{
-            required: true,
-            maxLength: 100,
-          }}
+          name="email"
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
-              value={value}
-              placeholder={'Email'}
-              onChangeText={onChange}
-              onBlur={onBlur}
               autoCapitalize="none"
               autoCorrect={false}
               keyboardType="email-address"
+              mode="outlined"
+              onBlur={onBlur}
+              onChangeText={onChange}
+              placeholder="Email"
               style={[
                 styles.textInput,
                 styles.width90,
                 globalStyle.marginTopSmall,
               ]}
-              mode={'outlined'}
+              value={value}
             />
           )}
-          name="email"
+          rules={{
+            required: true,
+            maxLength: 100,
+          }}
         />
         {errors.email && (
           <Text style={styles.errors}>{translate('auth.required_field')}</Text>
         )}
         <Controller
           control={control}
-          rules={{
-            required: true,
-            maxLength: 100,
-          }}
+          name="password"
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
-              value={value}
-              onBlur={onBlur}
-              placeholder={translate('auth.password')}
-              onChangeText={onChange}
               autoCapitalize="none"
+              mode="outlined"
+              onBlur={onBlur}
+              onChangeText={onChange}
+              placeholder={translate('auth.password')}
               secureTextEntry={true}
               style={[
                 styles.textInput,
                 styles.width90,
                 globalStyle.marginTopSmall,
               ]}
-              mode={'outlined'}
+              value={value}
             />
           )}
-          name="password"
+          rules={{
+            required: true,
+            maxLength: 100,
+          }}
         />
         {errors.password && (
           <Text style={styles.errors}>{translate('auth.required_field')}</Text>
         )}
         <Controller
           control={control}
-          rules={{
-            required: true,
-            maxLength: 100,
-          }}
+          name="passwordAgain"
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
-              value={value}
-              onBlur={onBlur}
-              placeholder={translate('auth.password_again')}
-              onChangeText={onChange}
               autoCapitalize="none"
+              mode="outlined"
+              onBlur={onBlur}
+              onChangeText={onChange}
+              placeholder={translate('auth.password_again')}
               secureTextEntry={true}
               style={[
                 styles.textInput,
                 styles.width90,
                 globalStyle.marginTopSmall,
               ]}
-              mode={'outlined'}
+              value={value}
             />
           )}
-          name="passwordAgain"
+          rules={{
+            required: true,
+            maxLength: 100,
+          }}
         />
         {errors.passwordAgain && (
           <Text style={styles.errors}>{translate('auth.required_field')}</Text>
         )}
         <Button
-          label={translate('auth.register')}
-          type={'primary'}
           disabled={loading}
+          label={translate('auth.register')}
           loading={loading}
-          style={[globalStyle.marginTopBig]}
           onPress={handleSubmit(handleSignUp)}
+          style={[globalStyle.marginTopBig]}
+          type="primary"
         />
       </View>
     </PageLayout.Default>
   );
-};
+}
 
 const styles = StyleSheet.create({
   text: {

@@ -1,9 +1,11 @@
 import React from 'react';
+
 import { StyleProp, ViewStyle, TextStyle, View } from 'react-native';
 import { Text } from 'react-native-paper';
+
 import { darkStyle } from '../../styles/darkMode.style';
 
-export const QuickInfo = ({
+export function QuickInfo({
   value,
   prefix,
   suffix,
@@ -15,7 +17,7 @@ export const QuickInfo = ({
   suffix?: string;
   styleView?: StyleProp<ViewStyle>[];
   styleText?: StyleProp<TextStyle>[];
-}) => {
+}) {
   return (
     <>
       {value ? (
@@ -29,4 +31,4 @@ export const QuickInfo = ({
       ) : null}
     </>
   );
-};
+}

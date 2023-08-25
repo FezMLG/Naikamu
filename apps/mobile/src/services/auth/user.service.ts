@@ -10,6 +10,7 @@ import {
   fireUpdatePassword,
   fireUpdateUserDisplayName,
 } from '../firebase/fire-auth.service';
+
 import { userStorage } from './user.storage';
 import { useUserStore } from './user.store';
 
@@ -18,6 +19,7 @@ export const useUserService = () => {
 
   const setLoggedUser = async () => {
     const user = fireGetUser();
+
     userActions.setUser(user);
     await userStorage.saveUser(user);
   };
@@ -25,12 +27,14 @@ export const useUserService = () => {
   const loginUser = async (data: LoginForm) => {
     await fireLoginUser(data.email, data.password);
     await setLoggedUser();
+
     return userActions.getUser();
   };
 
   const registerUser = async (data: SignUpForm) => {
     await fireRegisterUser(data.displayName, data.email, data.password);
     await setLoggedUser();
+
     return userActions.getUser();
   };
 

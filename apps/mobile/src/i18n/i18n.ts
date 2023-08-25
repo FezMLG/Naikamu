@@ -1,6 +1,7 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import * as RNLocalize from 'react-native-localize';
+
 import { pl, en } from '../../../../lib/translations';
 
 const resources = {
@@ -31,4 +32,4 @@ i18n.use(initReactI18next).init({
   compatibilityJSON: 'v3',
 });
 
-export default i18n;
+export { default } from 'i18next';

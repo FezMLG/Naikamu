@@ -1,10 +1,10 @@
 import React from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { ActivityIndicator } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Config from 'react-native-config';
 
 import { WatchStatus } from '@aniwatch/shared';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import Config from 'react-native-config';
+import { ActivityIndicator } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useMutationUpdateUserWatchList } from '../../api/hooks';
 import { useTranslate } from '../../i18n/useTranslate';
@@ -15,7 +15,7 @@ interface WatchListProps {
   watchStatus: WatchStatus;
 }
 
-export const WatchList = ({ seriesId, watchStatus }: WatchListProps) => {
+export function WatchList({ seriesId, watchStatus }: WatchListProps) {
   const { translate } = useTranslate();
   const { watching, mutation } = useMutationUpdateUserWatchList(
     watchStatus,
@@ -24,13 +24,13 @@ export const WatchList = ({ seriesId, watchStatus }: WatchListProps) => {
 
   const watchIconRender = (status: WatchStatus) => {
     switch (status) {
-      case WatchStatus.Following:
+      case WatchStatus.Following: {
         return (
           <>
             <Icon
-              name={'movie-open-star'}
-              size={30}
               color={colors.textLight.color}
+              name="movie-open-star"
+              size={30}
             />
             <Text
               style={[
@@ -42,58 +42,61 @@ export const WatchList = ({ seriesId, watchStatus }: WatchListProps) => {
             </Text>
           </>
         );
+      }
 
-      case WatchStatus.Finished:
+      case WatchStatus.Finished: {
         return (
           <>
             <Icon
-              name={'movie-open-check'}
-              size={30}
               color={colors.textLight.color}
+              name="movie-open-check"
+              size={30}
             />
             <Text style={[fontStyles.text, colors.textLight]}>
               {translate('watch_list.finished')}
             </Text>
           </>
         );
+      }
 
-      default:
+      default: {
         return (
           <>
             <Icon
-              name={'movie-open-plus'}
-              size={30}
               color={colors.textLight.color}
+              name="movie-open-plus"
+              size={30}
             />
             <Text style={[fontStyles.text, colors.textLight]}>
               {translate('watch_list.add')}
             </Text>
           </>
         );
+      }
     }
   };
 
   return (
     <View style={styles.container}>
       {mutation.isLoading ? (
-        <ActivityIndicator size={'small'} style={styles.pad} />
+        <ActivityIndicator size="small" style={styles.pad} />
       ) : (
         <>
           {Config.ENV !== 'prod' && mutation.isError ? (
             <Text>{'An error occurred ' + mutation.error}</Text>
           ) : null}
           <Pressable
-            style={styles.statusInfo}
             onPress={() => {
               mutation.mutate();
-            }}>
+            }}
+            style={styles.statusInfo}>
             {watchIconRender(watching)}
           </Pressable>
         </>
       )}
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

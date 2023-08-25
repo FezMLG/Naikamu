@@ -1,12 +1,16 @@
 import React from 'react';
-import { StyleProp, TextStyle, ViewStyle } from 'react-native';
+
 import {
+  StyleProp,
+  TextStyle,
+  ViewStyle,
   GestureResponderEvent,
   Pressable,
   StyleSheet,
   Text,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import { colors, defaultRadius } from '../../../styles';
 import { ActivityIndicator } from '../Loader';
 
@@ -20,7 +24,7 @@ interface ButtonProps {
   loading?: boolean;
 }
 
-export const Button = ({
+export function Button({
   type,
   label,
   icon,
@@ -28,7 +32,7 @@ export const Button = ({
   disabled,
   style = [],
   loading = false,
-}: ButtonProps) => {
+}: ButtonProps) {
   const textStyle: StyleProp<TextStyle> = {
     ...colors.textLight,
     fontWeight: 'bold',
@@ -38,35 +42,39 @@ export const Button = ({
     ...styles.borderBase,
     borderColor: 'transparent',
   };
+
   switch (type) {
-    case 'secondary':
+    case 'secondary': {
       textStyle.color = colors.textDark.color;
       buttonStyle.backgroundColor = colors.onBackground.color;
       break;
-    case 'warning':
+    }
+    case 'warning': {
       buttonStyle.backgroundColor = colors.transparent.color;
       buttonStyle.borderColor = colors.error.color;
       break;
-    case 'link':
+    }
+    case 'link': {
       textStyle.fontWeight = 'normal';
       buttonStyle.backgroundColor = colors.transparent.color;
       break;
+    }
   }
 
   return (
     <Pressable
+      disabled={disabled}
       onPress={onPress}
-      style={[styles.container, ...style, buttonStyle]}
-      disabled={disabled}>
+      style={[styles.container, ...style, buttonStyle]}>
       {loading ? (
-        <ActivityIndicator visible={loading} size={'small'} />
+        <ActivityIndicator size="small" visible={loading} />
       ) : (
         <>
           {icon ? (
             <Icon
+              color={textStyle.color}
               name={icon}
               size={24}
-              color={textStyle.color}
               style={styles.icon}
             />
           ) : null}
@@ -75,7 +83,7 @@ export const Button = ({
       )}
     </Pressable>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

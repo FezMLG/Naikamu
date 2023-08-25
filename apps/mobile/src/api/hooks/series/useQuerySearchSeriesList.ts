@@ -1,5 +1,6 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
 import { AnimeList } from '@aniwatch/shared';
+import { useInfiniteQuery } from '@tanstack/react-query';
+
 import { APIClient } from '../../APIClient';
 
 export const useQuerySearchSeriesList = (phrase?: string) => {

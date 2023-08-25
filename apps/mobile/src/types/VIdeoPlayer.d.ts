@@ -1,5 +1,6 @@
 declare module 'react-native-video-controls' {
   import { Component } from 'react';
+
   import { StyleProp, ViewStyle } from 'react-native';
   import Video, { LoadError, VideoProperties } from 'react-native-video';
 
