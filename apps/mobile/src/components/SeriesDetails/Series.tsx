@@ -34,7 +34,7 @@ function SubTitle(props: { romaji?: string; english?: string }) {
 function Poster(props: { bannerImage?: string; altImage: string }) {
   return (
     <ProgressiveImage
-      source={props.bannerImage ? props.bannerImage : props.altImage}
+      source={props.bannerImage ?? props.altImage}
       style={styles.banner}
     />
   );

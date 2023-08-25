@@ -3,13 +3,7 @@ import React from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { Modal as PaperModal, Portal } from 'react-native-paper';
 
-import {
-  colors,
-  darkColor,
-  darkStyle,
-  defaultRadius,
-  fontStyles,
-} from '../../../styles';
+import { colors, DarkColor, defaultRadius, fontStyles } from '../../../styles';
 
 function Container({
   children,
@@ -47,7 +41,7 @@ export const Modal = {
 
 const styles = StyleSheet.create({
   centeredView: {
-    backgroundColor: darkColor.C800,
+    backgroundColor: DarkColor.C800,
     padding: 10,
     margin: 20,
     borderRadius: defaultRadius,

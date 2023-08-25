@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import { defaultRadius } from './global.style';
 
-export enum darkColor {
+export enum DarkColor {
   Font = '#F7F7F7',
   C100 = '#E1E1E1',
   C200 = '#CFCFCF',
@@ -17,19 +17,19 @@ export enum darkColor {
 
 export const darkStyle = StyleSheet.create({
   background: {
-    backgroundColor: darkColor.C900,
+    backgroundColor: DarkColor.C900,
   },
   header: {
     marginHorizontal: 20,
   },
   card: {
-    backgroundColor: darkColor.C900,
+    backgroundColor: DarkColor.C900,
     borderRadius: defaultRadius,
   },
   font: {
-    color: darkColor.Font,
+    color: DarkColor.Font,
   },
   fontReverse: {
-    color: darkColor.C900,
+    color: DarkColor.C900,
   },
 });

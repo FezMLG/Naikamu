@@ -5,7 +5,7 @@ export enum SeriesStackScreenNames {
   Episodes = 'Episodes',
 }
 
-export type SeriesStackParamList = {
+export type SeriesStackParameterList = {
   [SeriesStackScreenNames.Series]: { title: string; id: number };
   [SeriesStackScreenNames.Episodes]: {
     id: string;
@@ -17,10 +17,10 @@ export type SeriesStackParamList = {
 };
 
 export type SeriesStackSeriesScreenProps = NativeStackScreenProps<
-  SeriesStackParamList,
+  SeriesStackParameterList,
   SeriesStackScreenNames.Series
 >;
 export type SeriesStackEpisodeScreenProps = NativeStackScreenProps<
-  SeriesStackParamList,
+  SeriesStackParameterList,
   SeriesStackScreenNames.Episodes
 >;

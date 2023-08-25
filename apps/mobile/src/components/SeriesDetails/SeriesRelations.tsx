@@ -11,7 +11,7 @@ import {
 
 import { useTranslate } from '../../i18n/useTranslate';
 import { colors, fontStyles } from '../../styles';
-import { darkColor } from '../../styles/darkMode.style';
+import { DarkColor } from '../../styles/darkMode.style';
 import { ProgressiveImage } from '../ProgressiveImage';
 
 export function SeriesRelations({
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     flex: 1,
     maxWidth: 300,
     height: 150,
-    backgroundColor: darkColor.C800,
+    backgroundColor: DarkColor.C800,
     borderTopRightRadius: 8,
     borderBottomRightRadius: 8,
     marginTop: 10,

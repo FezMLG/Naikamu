@@ -44,23 +44,25 @@ export const useOfflineSeriesStore = create<OfflineSeriesState>((set, get) => ({
       get().offlineSeries.find(series => series.seriesId === seriesId),
     getOfflineEpisode: (seriesId: string, episodeNumber: number) => {
       const series = get().offlineSeries.find(
-        series => series.seriesId === seriesId,
+        element => element.seriesId === seriesId,
       );
 
       if (!series) {
         return null;
       }
       const episode = series.episodes.find(
-        episode => episode.number === episodeNumber,
+        element => element.number === episodeNumber,
       );
 
-      return episode ? episode : null;
+      return episode ?? null;
     },
     saveOrReplaceOfflineSeries: (seriesToAdd: IOfflineSeries) => {
       const series = get().offlineSeries;
 
-      if (series.find(e => e.seriesId === seriesToAdd.seriesId)) {
-        const without = series.filter(e => e.seriesId !== seriesToAdd.seriesId);
+      if (series.some(element => element.seriesId === seriesToAdd.seriesId)) {
+        const without = series.filter(
+          element => element.seriesId !== seriesToAdd.seriesId,
+        );
 
         without.push(seriesToAdd);
         set({
@@ -77,7 +79,11 @@ export const useOfflineSeriesStore = create<OfflineSeriesState>((set, get) => ({
       return series;
     },
     saveOfflineEpisode: (seriesId: string, episode: IOfflineSeriesEpisodes) => {
-      const series = get().actions.getOfflineSeries(seriesId)!;
+      const series = get().actions.getOfflineSeries(seriesId);
+
+      if (!series) {
+        throw new Error('Failed to find series saveOfflineEpisode');
+      }
 
       series.episodes.push(episode);
       set(state => ({

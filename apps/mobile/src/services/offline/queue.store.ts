@@ -40,7 +40,7 @@ export const useDownloadsQueueStore = create<DownloadsState>((set, get) => ({
       }));
     },
     clearQueue: () => {
-      set(state => ({
+      set(() => ({
         queue: [],
       }));
     },

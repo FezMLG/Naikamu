@@ -8,11 +8,9 @@ import { FAB } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { useQuerySeriesList } from '../api/hooks';
-import { SeasonYearSelectButtons } from '../components';
-import BrowseElement from '../components/browse/BrowseElement';
+import { SeasonYearSelectButtons, BrowseElement } from '../components';
 import {
   BrowseStackBrowseScreenProps,
-  BrowseStackScreenNames,
   RootStackScreenNames,
   SeriesStackScreenNames,
 } from '../routes';

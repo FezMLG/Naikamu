@@ -4,7 +4,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper';
 
-import Timer from '../../components/Timer';
+import { Timer } from '../../components';
 import { useTranslate } from '../../i18n/useTranslate';
 import { AuthStackForgotPasswordScreenProps } from '../../routes';
 import { fireForgotPassword } from '../../services/firebase/fire-auth.service';

@@ -7,17 +7,17 @@ export enum DownloadStackScreenNames {
   SeriesEpisodes = 'SeriesEpisodes',
 }
 
-export type DownloadStackParamList = {
+export type DownloadStackParameterList = {
   [DownloadStackScreenNames.List]: undefined;
   [DownloadStackScreenNames.SeriesEpisodes]: IOfflineSeries;
 };
 
 export type DownloadStackListScreenProps = NativeStackScreenProps<
-  DownloadStackParamList,
+  DownloadStackParameterList,
   DownloadStackScreenNames.List
 >;
 
 export type DownloadStackSeriesEpisodesScreenProps = NativeStackScreenProps<
-  DownloadStackParamList,
+  DownloadStackParameterList,
   DownloadStackScreenNames.SeriesEpisodes
 >;

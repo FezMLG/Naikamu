@@ -15,7 +15,7 @@ import { defaultSubHeaderOptions } from '../defaultSubHeaderOptions';
 
 import {
   SettingsStackScreenNames,
-  SettingsStackParamList as SettingsStackParameterList,
+  SettingsStackParameterList as SettingsStackParameterList,
 } from './settings.interfaces';
 
 const Stack = createNativeStackNavigator<SettingsStackParameterList>();

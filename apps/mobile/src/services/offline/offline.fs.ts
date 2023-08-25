@@ -50,8 +50,8 @@ const startDownloadingFile = async (
   seriesId: string,
   episodeNumber: number,
   fileUrl: string,
-  beginDownload: (res: RNFS.DownloadBeginCallbackResult) => void,
-  progressDownload: (res: RNFS.DownloadProgressCallbackResult) => void,
+  beginDownload: (result: RNFS.DownloadBeginCallbackResult) => void,
+  progressDownload: (result: RNFS.DownloadProgressCallbackResult) => void,
 ): Promise<[string, number, Promise<RNFS.DownloadResult>]> => {
   const hasPermissions = await checkPermissions();
 

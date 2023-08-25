@@ -9,7 +9,7 @@ import { useOfflineService } from '../../services';
 export function DownloadSeriesEpisodesScreen({
   route,
 }: DownloadStackSeriesEpisodesScreenProps) {
-  const { seriesId, title, episodes } = route.params;
+  const { seriesId, title } = route.params;
   const layout = useLayout();
   const { offlineSeries } = useOfflineService();
 
@@ -17,7 +17,7 @@ export function DownloadSeriesEpisodesScreen({
     <PageLayout.Default {...layout}>
       <ScrollView>
         {offlineSeries
-          .find(e => e.seriesId === seriesId)
+          .find(element => element.seriesId === seriesId)
           ?.episodes.sort((a, b) => a.number - b.number)
           .map(episode => (
             <OfflineEpisode

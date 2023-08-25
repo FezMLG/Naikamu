@@ -31,6 +31,7 @@ export function SettingsScreen({
           <ProgressiveImage source={user.picture} style={[styles.logo]} />
         ) : (
           <Image
+            /* eslint-disable-next-line unicorn/prefer-module */
             source={require('../../../assets/anya.jpeg')}
             style={styles.logo}
           />

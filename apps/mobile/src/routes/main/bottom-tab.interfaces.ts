@@ -1,10 +1,10 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { NavigatorScreenParams } from '@react-navigation/native';
 
-import { BrowseStackParamList as BrowseStackParameterList } from './browse';
-import { MyListStackParamList as MyListStackParameterList } from './mylist';
-import { SearchStackParamList as SearchStackParameterList } from './search';
-import { SettingsStackParamList as SettingsStackParameterList } from './settings';
+import { BrowseStackParameterList as BrowseStackParameterList } from './browse';
+import { MyListStackParameterList as MyListStackParameterList } from './mylist';
+import { SearchStackParameterList as SearchStackParameterList } from './search';
+import { SettingsStackParameterList as SettingsStackParameterList } from './settings';
 
 export enum BottomTabStackScreenNames {
   SettingsStack = 'SettingsStack',
@@ -13,7 +13,7 @@ export enum BottomTabStackScreenNames {
   MyListStack = 'MyListStack',
 }
 
-export type BottomTabStackParamList = {
+export type BottomTabStackParameterList = {
   [BottomTabStackScreenNames.SettingsStack]: NavigatorScreenParams<SettingsStackParameterList>;
   [BottomTabStackScreenNames.BrowseStack]: NavigatorScreenParams<BrowseStackParameterList>;
   [BottomTabStackScreenNames.SearchStack]: NavigatorScreenParams<SearchStackParameterList>;
@@ -21,14 +21,14 @@ export type BottomTabStackParamList = {
 };
 
 export type BottomTabStackBrowseStackScreenProps = BottomTabScreenProps<
-  BottomTabStackParamList,
+  BottomTabStackParameterList,
   BottomTabStackScreenNames.BrowseStack
 >;
 export type BottomTabStackSettingsStackScreenProps = BottomTabScreenProps<
-  BottomTabStackParamList,
+  BottomTabStackParameterList,
   BottomTabStackScreenNames.SettingsStack
 >;
 export type BottomTabStackMyListStackScreenProps = BottomTabScreenProps<
-  BottomTabStackParamList,
+  BottomTabStackParameterList,
   BottomTabStackScreenNames.MyListStack
 >;

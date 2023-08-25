@@ -1,7 +1,7 @@
 import { storageGetData, storageStoreData } from '../../utils';
 import { logger } from '../../utils/logger';
 
-import { IOfflineSeries, IOfflineSeriesEpisodes } from './interfaces';
+import { IOfflineSeries } from './interfaces';
 
 const OFFLINE_SERIES_KEY = 'offlineSeries';
 

@@ -13,7 +13,6 @@ import { ProgressBar } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useQuerySeriesEpisodePlayers } from '../../api/hooks';
-import { useTranslate } from '../../i18n/useTranslate';
 import {
   useOfflineService,
   useVideoProgress,
@@ -21,7 +20,7 @@ import {
 } from '../../services';
 import { useUserSettingsService } from '../../services/settings/settings.service';
 import {
-  darkColor,
+  DarkColor,
   darkStyle,
   colors,
   defaultRadius,
@@ -48,7 +47,6 @@ export function Episode({
   isWatched: boolean;
   episodeLength: number;
 }) {
-  const { translate } = useTranslate();
   const { data, refetch } = useQuerySeriesEpisodePlayers(id, episode.number);
   const [isSelected, setIsSelected] = useState(false);
   const { addOfflineSeries, addToQueue } = useOfflineService();
@@ -64,9 +62,7 @@ export function Episode({
 
   const openDetails = () => {
     setIsSelected(previous => !previous);
-    checkIfEpisodeIsDownloaded(id, episode.number).then(res =>
-      setIsDownloaded(res),
-    );
+    checkIfEpisodeIsDownloaded(id, episode.number).then(setIsDownloaded);
     refetch();
   };
 
@@ -228,7 +224,7 @@ const styles = StyleSheet.create({
     width: '100%',
     borderWidth: 1,
     borderStyle: 'solid',
-    borderColor: darkColor.C800,
+    borderColor: DarkColor.C800,
   },
   description: {
     paddingTop: 5,
@@ -236,7 +232,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   playersListContainer: {
-    backgroundColor: darkColor.C900,
+    backgroundColor: DarkColor.C900,
     borderRadius: defaultRadius,
     maxWidth: '100%',
     marginTop: 20,

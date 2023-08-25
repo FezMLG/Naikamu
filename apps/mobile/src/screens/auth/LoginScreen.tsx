@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { useForm, Controller } from 'react-hook-form';
 import { View, StyleSheet } from 'react-native';
 import { Text, TextInput } from 'react-native-paper';
@@ -15,6 +16,8 @@ import { AuthStackLoginScreenProps, AuthStackRoutesNames } from '../../routes';
 import { useUserService } from '../../services/auth/user.service';
 import { useUserStore } from '../../services/auth/user.store';
 import { globalStyle } from '../../styles';
+
+import NativeFirebaseAuthError = FirebaseAuthTypes.NativeFirebaseAuthError;
 
 export interface LoginForm {
   email: string;
@@ -51,8 +54,10 @@ export function LoginScreen({ navigation }: AuthStackLoginScreenProps) {
           console.error(error);
         }
       }
-    } catch (error: any) {
-      layout.setInfo(translate(errorResolver(error.code)));
+    } catch (error: unknown) {
+      const authError = error as NativeFirebaseAuthError;
+
+      layout.setInfo(translate(errorResolver(authError.code)));
       layout.setVisible(true);
     }
     isLoading(false);

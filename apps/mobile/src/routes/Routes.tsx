@@ -1,13 +1,16 @@
 import React from 'react';
 
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, Theme } from '@react-navigation/native';
 
 import { SplashScreen } from '../screens';
 import { useUserStore } from '../services/auth/user.store';
 
 import { AuthStack } from './auth';
-import { BrowseStackScreenNames, SeriesStackScreenNames } from './main';
-import { RootStack } from './main/RootStack';
+import {
+  BrowseStackScreenNames,
+  SeriesStackScreenNames,
+  RootStack,
+} from './main';
 
 const linking = {
   prefixes: ['aniwatch://'],
@@ -19,7 +22,7 @@ const linking = {
   },
 };
 
-function Routes({ theme }: any) {
+function Routes({ theme }: { theme: Theme }) {
   const user = useUserStore(state => state.user);
 
   return (

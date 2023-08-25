@@ -6,7 +6,7 @@ import { Linking, ScrollView, StyleSheet, Text } from 'react-native';
 
 import { useTranslate } from '../../i18n/useTranslate';
 import {
-  SeriesStackParamList as SeriesStackParameterList,
+  SeriesStackParameterList as SeriesStackParameterList,
   SeriesStackScreenNames,
 } from '../../routes';
 import { darkStyle } from '../../styles';
@@ -28,22 +28,20 @@ export function SeriesDetailsRelations(props: {
         {props.relations.map((relation, index) => (
           <SeriesRelations
             handleNavigation={() => {
-              switch (relation.type.toLocaleLowerCase()) {
-                case 'anime': {
-                  navigation.navigate(SeriesStackScreenNames.Series, {
-                    id: relation.id,
-                    title: relation.title.romaji,
-                  });
-                  break;
-                }
-                default: {
-                  Linking.openURL(
-                    'https://anilist.co/' +
-                      relation.type.toLowerCase() +
-                      '/' +
-                      relation.id,
-                  );
-                }
+              const s = relation.type.toLocaleLowerCase();
+
+              if (s === 'anime') {
+                navigation.navigate(SeriesStackScreenNames.Series, {
+                  id: relation.id,
+                  title: relation.title.romaji,
+                });
+              } else {
+                Linking.openURL(
+                  'https://anilist.co/' +
+                    relation.type.toLowerCase() +
+                    '/' +
+                    relation.id,
+                );
               }
             }}
             key={index}

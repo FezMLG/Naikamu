@@ -95,10 +95,11 @@ export function SeasonYearSelectButtons({
         {Object.entries(AnimeSeasons).map(([_, value], index) => (
           <Menu.Item
             key={index}
-              leadingIcon={value.icon}
-              onPress={() => handleSeasonChange(value)}
-              title={translate(value.titleKey)}
-              titleStyle={season.value === value.value ? colors.accent : colors.textLight}
+            leadingIcon={value.icon}
+            onPress={() => handleSeasonChange(value)}
+            title={translate(value.titleKey)}
+            titleStyle={
+              season.value === value.value ? colors.accent : colors.textLight
             }
           />
         ))}

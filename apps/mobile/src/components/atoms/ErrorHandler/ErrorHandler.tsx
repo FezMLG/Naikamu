@@ -6,7 +6,6 @@ const errorResolver = (message: string): string => {
     case 'auth/user-not-found':
     case 'auth/wrong-password':
     case 'auth/requires-recent-login':
-    case 'auth/invalid-email':
     case 'auth/email-already-in_-use':
     case 'auth/passwords-do-not-match':
     case 'auth/weak-password': {

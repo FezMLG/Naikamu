@@ -10,7 +10,7 @@ export enum AuthStackRoutesNames {
   ActionRequired = 'ActionRequired',
 }
 
-export type AuthStackParamList = {
+export type AuthStackParameterList = {
   [AuthStackRoutesNames.AppLoading]: undefined;
   [AuthStackRoutesNames.Hello]: undefined;
   [AuthStackRoutesNames.Login]: undefined;
@@ -21,36 +21,36 @@ export type AuthStackParamList = {
 };
 
 export type AuthStackAppLoadingScreenProps = NativeStackScreenProps<
-  AuthStackParamList,
+  AuthStackParameterList,
   AuthStackRoutesNames.AppLoading
 >;
 
 export type AuthStackHelloScreenProps = NativeStackScreenProps<
-  AuthStackParamList,
+  AuthStackParameterList,
   AuthStackRoutesNames.Hello
 >;
 
 export type AuthStackLoginScreenProps = NativeStackScreenProps<
-  AuthStackParamList,
+  AuthStackParameterList,
   AuthStackRoutesNames.Login
 >;
 
 export type AuthStackSignUpScreenProps = NativeStackScreenProps<
-  AuthStackParamList,
+  AuthStackParameterList,
   AuthStackRoutesNames.SignUp
 >;
 
 export type AuthStackVerifyEmailScreenProps = NativeStackScreenProps<
-  AuthStackParamList,
+  AuthStackParameterList,
   AuthStackRoutesNames.VerifyEmail
 >;
 
 export type AuthStackForgotPasswordScreenProps = NativeStackScreenProps<
-  AuthStackParamList,
+  AuthStackParameterList,
   AuthStackRoutesNames.ForgotPassword
 >;
 
 export type AuthStackActionRequiredScreenProps = NativeStackScreenProps<
-  AuthStackParamList,
+  AuthStackParameterList,
   AuthStackRoutesNames.ActionRequired
 >;

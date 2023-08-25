@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 
 import { Media } from '@aniwatch/shared';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import {
   StyleSheet,
   ActivityIndicator,
@@ -13,14 +13,8 @@ import {
 import { FAB } from 'react-native-paper';
 
 import { useQuerySearchSeriesList } from '../../api/hooks';
-import { maxWidth } from '../../components';
-import BrowseElement from '../../components/browse/BrowseElement';
+import { maxWidth, BrowseElement } from '../../components';
 import {
-  BrowseStackScreenNames,
-  BottomTabStackParamList as BottomTabStackParameterList,
-  BottomTabStackScreenNames,
-  SearchStackParamList as SearchStackParameterList,
-  SearchStackScreenNames,
   SearchStackSearchResultsScreenProps,
   SeriesStackScreenNames,
   RootStackScreenNames,
@@ -62,12 +56,14 @@ export function SearchResultsScreen({
         <View>
           <FlatList
             ListFooterComponent={<View />}
+            /* eslint-disable-next-line react-native/no-inline-styles */
             ListFooterComponentStyle={{ width: '100%' }}
             ListHeaderComponent={
               <Text style={[fontStyles.subScreenHeader, colors.textLight]}>
                 {phrase}
               </Text>
             }
+            /* eslint-disable-next-line react-native/no-inline-styles */
             ListHeaderComponentStyle={{ marginHorizontal: 10 }}
             contentContainerStyle={[styles.flatListContent]}
             data={data.pages.flatMap(page => page.Page.media)}

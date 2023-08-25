@@ -5,7 +5,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native';
 
 import { useTranslate } from '../../i18n/useTranslate';
 import {
-  SeriesStackParamList as SeriesStackParameterList,
+  SeriesStackParameterList as SeriesStackParameterList,
   SeriesStackScreenNames,
 } from '../../routes';
 import { Button } from '../atoms';
@@ -28,9 +28,7 @@ export function EpisodesButton({ series }: EpisodesButtonProps) {
           title: series.title.romaji,
           numOfAiredEpisodes: series.nextAiringEpisode?.episode
             ? series.nextAiringEpisode?.episode - 1
-            : series.episodes
-            ? series.episodes
-            : 12,
+            : series.episodes ?? 12,
           posterUrl: series.coverImage.extraLarge,
           episodeLength: series.duration,
         });

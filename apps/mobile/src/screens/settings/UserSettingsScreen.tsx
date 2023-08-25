@@ -39,7 +39,7 @@ export function UserSettingsScreen({
               requiresLogin: false,
               type: ActionType.NickChange,
               origin: SettingsStackScreenNames.UserSettings,
-              payload: user?.displayName!,
+              payload: user?.displayName ?? '',
             })
           }
           text={user?.displayName ?? ''}

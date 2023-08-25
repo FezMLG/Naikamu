@@ -7,7 +7,7 @@ interface Timer {
   initialSeconds: number;
 }
 
-function Timer(props: Timer) {
+export function Timer(props: Timer) {
   const { initialMinute = 0, initialSeconds = 0 } = props;
   const [minutes, setMinutes] = useState(initialMinute);
   const [seconds, setSeconds] = useState(initialSeconds);
@@ -42,5 +42,3 @@ function Timer(props: Timer) {
     </>
   );
 }
-
-export default Timer;

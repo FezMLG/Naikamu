@@ -3,7 +3,7 @@ import React from 'react';
 import { Text } from 'react-native';
 import { Snackbar as PaperSnackbar } from 'react-native-paper';
 
-import { colors, darkColor, fontStyles } from '../../../styles';
+import { colors, DarkColor, fontStyles } from '../../../styles';
 
 export function Snackbar({
   text,
@@ -26,7 +26,7 @@ export function Snackbar({
         textColor: colors.accent.color,
       }}
       onDismiss={() => setVisible(false)}
-      style={{ backgroundColor: darkColor.C800 }}
+      style={{ backgroundColor: DarkColor.C800 }}
       visible={visible}>
       <Text style={[colors.textLight, fontStyles.text]}>{text}</Text>
     </PaperSnackbar>

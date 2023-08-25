@@ -29,16 +29,6 @@ export const useOfflineService = () => {
     return result;
   };
 
-  const isSeriesWithEpisodes = (seriesId: string) => {
-    const series = offlineActions.getOfflineSeries(seriesId);
-
-    if (!series) {
-      throw new Error(`Series ${seriesId} not found`);
-    }
-
-    return series.episodes.length > 0;
-  };
-
   const saveEpisodeOffline = async () => {
     const firstItem = queueActions.getFirstItem();
 
@@ -51,25 +41,25 @@ export const useOfflineService = () => {
 
     checkIfSeriesExist(series.seriesId);
 
-    const beginDownload = async (res: RNFS.DownloadBeginCallbackResult) => {
+    const beginDownload = async (result: RNFS.DownloadBeginCallbackResult) => {
       logger('begin download').info();
       downloadsActions.addDownload({
-        jobId: res.jobId,
+        jobId: result.jobId,
         series,
         episode,
       });
     };
 
     const progressDownload = async (
-      res: RNFS.DownloadProgressCallbackResult,
+      result: RNFS.DownloadProgressCallbackResult,
     ) => {
       logger('progressDownload').info(
-        ((res.bytesWritten / res.contentLength) * 100).toFixed(2),
+        ((result.bytesWritten / result.contentLength) * 100).toFixed(2),
       );
 
       downloadsActions.changeProgress(
         jobId,
-        res.bytesWritten / res.contentLength,
+        result.bytesWritten / result.contentLength,
       );
     };
 
@@ -95,9 +85,9 @@ export const useOfflineService = () => {
       await offlineStorage.saveOfflineSeries(saved);
 
       queueActions.removeFirstItem();
-      const firstItem = queueActions.getFirstItem();
+      const firstItemInQueue = queueActions.getFirstItem();
 
-      if (firstItem) {
+      if (firstItemInQueue) {
         saveEpisodeOffline();
       } else {
         if (Platform.OS === 'ios') {
@@ -194,7 +184,9 @@ export const useOfflineService = () => {
       if (!series) {
         return false;
       }
-      const episode = series.episodes.find(e => e.number === episodeNumber);
+      const episode = series.episodes.find(
+        element => element.number === episodeNumber,
+      );
 
       return !!episode;
     },
@@ -217,14 +209,11 @@ export const useOfflineService = () => {
       await offlineStorage.saveOfflineSeries(saved);
     },
     stopDownload: async (download: IEpisodeDownloadJob) => {
-      const { jobId } = download;
+      const { jobId, series, episode } = download;
 
       await offlineFS.stopDownloadingFile(jobId);
       downloadsActions.removeDownload(jobId);
-      queueActions.removeFromQueue(
-        download.series.seriesId,
-        download.episode.number,
-      );
+      queueActions.removeFromQueue(series.seriesId, episode.number);
       if (!queueActions.isQueueEmpty()) {
         saveEpisodeOffline();
       }

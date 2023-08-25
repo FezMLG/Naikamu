@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { Controller, useForm } from 'react-hook-form';
 import { View, StyleSheet } from 'react-native';
 import { Text, TextInput } from 'react-native-paper';
@@ -14,6 +15,8 @@ import { useTranslate } from '../../i18n/useTranslate';
 import { AuthStackRoutesNames, AuthStackSignUpScreenProps } from '../../routes';
 import { useUserService } from '../../services/auth/user.service';
 import { globalStyle } from '../../styles';
+
+import NativeFirebaseAuthError = FirebaseAuthTypes.NativeFirebaseAuthError;
 
 export interface SignUpForm {
   displayName: string;
@@ -53,8 +56,10 @@ export function SignUpScreen({ navigation }: AuthStackSignUpScreenProps) {
       if (user) {
         navigation.navigate(AuthStackRoutesNames.VerifyEmail);
       }
-    } catch (error: any) {
-      layout.setInfo(translate(errorResolver(error.code)));
+    } catch (error: unknown) {
+      const authError = error as NativeFirebaseAuthError;
+
+      layout.setInfo(translate(errorResolver(authError.code)));
       layout.setVisible(true);
     }
     isLoading(false);

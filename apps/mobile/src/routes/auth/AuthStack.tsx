@@ -14,7 +14,7 @@ import {
 } from '../../screens';
 
 import {
-  AuthStackParamList as AuthStackParameterList,
+  AuthStackParameterList as AuthStackParameterList,
   AuthStackRoutesNames,
 } from './auth.interfaces';
 

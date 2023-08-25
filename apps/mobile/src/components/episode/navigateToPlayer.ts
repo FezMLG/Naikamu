@@ -21,19 +21,15 @@ export const navigateToPlayer = ({
     .replaceAll(/\s/g, '')
     .toLowerCase();
 
-  switch (name) {
-    case 'cda': {
-      return navigation.navigate(RootStackScreenNames.NativePlayer, {
-        uri: player.player_link,
-        seriesId,
-        episodeTitle,
-        player: name,
-        episodeNumber,
-      });
-    }
-
-    default: {
-      return Linking.openURL(player.player_link);
-    }
+  if (name === 'cda') {
+    return navigation.navigate(RootStackScreenNames.NativePlayer, {
+      uri: player.player_link,
+      seriesId,
+      episodeTitle,
+      player: name,
+      episodeNumber,
+    });
   }
+
+  return Linking.openURL(player.player_link);
 };

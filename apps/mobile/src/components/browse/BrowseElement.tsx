@@ -12,7 +12,7 @@ import {
 import { darkStyle, defaultRadius } from '../../styles';
 import { ProgressiveImage } from '../ProgressiveImage';
 
-function BrowseElement({
+export function BrowseElement({
   anime,
   handlePageChange,
 }: {
@@ -34,7 +34,7 @@ function BrowseElement({
         />
       </View>
       <View
-        onLayout={e => setTextHeight(e.nativeEvent.layout.height)}
+        onLayout={event => setTextHeight(event.nativeEvent.layout.height)}
         style={[styles.titleContainer, { bottom: textHeight }]}>
         <Text numberOfLines={4} style={[darkStyle.font, styles.title]}>
           {anime.title.romaji}
@@ -86,5 +86,3 @@ const styles = StyleSheet.create({
     borderBottomEndRadius: defaultRadius,
   },
 });
-
-export default BrowseElement;

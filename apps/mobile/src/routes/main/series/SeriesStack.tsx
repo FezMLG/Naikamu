@@ -8,7 +8,7 @@ import { EpisodesListScreen, SeriesScreen } from '../../../screens';
 import { defaultSubHeaderOptions } from '../defaultSubHeaderOptions';
 
 import {
-  SeriesStackParamList as SeriesStackParameterList,
+  SeriesStackParameterList as SeriesStackParameterList,
   SeriesStackScreenNames,
 } from './series.interfaces';
 

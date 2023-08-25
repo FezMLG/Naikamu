@@ -5,13 +5,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
   DownloadListScreen,
   DownloadSeriesEpisodesScreen,
-  NativeVideoPlayerScreen,
 } from '../../../../screens';
-import { BrowseStackScreenNames } from '../../browse';
 import { defaultSubHeaderOptions } from '../../defaultSubHeaderOptions';
 
 import {
-  DownloadStackParamList as DownloadStackParameterList,
+  DownloadStackParameterList,
   DownloadStackScreenNames,
 } from './interface';
 

@@ -7,7 +7,7 @@ import {
   StyleSheet,
   GestureResponderEvent,
 } from 'react-native';
-import Config from 'react-native-config';
+import { default as Config } from 'react-native-config';
 import { ProgressBar } from 'react-native-paper';
 import Animated, { SlideOutLeft } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';

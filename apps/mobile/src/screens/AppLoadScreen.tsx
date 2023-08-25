@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
-import NetInfo from '@react-native-community/netinfo';
+import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import {
   Image,
   Linking,
@@ -9,7 +9,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import Config from 'react-native-config';
+import { default as Config } from 'react-native-config';
 import semver from 'semver';
 
 import { useQueryApiHealth } from '../api/hooks';
@@ -33,12 +33,12 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
   const supportedApiVersion = require('../../package.json').apiVersion;
   const layout = useLayout();
   const { translate } = useTranslate();
-  const [longLoading, setLongLoading] = useState(false);
+  const [, setLongLoading] = useState(false);
   const [apiError, setApiError] = useState(false);
   const { initializeUserSettings } = useUserSettingsService();
   const userService = useUserService();
   const user = useUserStore(state => state.user);
-  const [netInfo, setNetInfo] = useState<any>();
+  const [netInfo] = useState<NetInfoState>();
 
   useEffect(() => {
     checkConnection();
@@ -94,7 +94,7 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
 
   return (
     <PageLayout.Default style={[styles.container]} {...layout}>
-      <Text>{user?.displayName ? user?.displayName : user?.email}</Text>
+      <Text>{user?.displayName ?? user?.email}</Text>
       <Text style={[colors.textLight, fontStyles.text]}>
         {translate('welcomeScreen.welcome')}
       </Text>

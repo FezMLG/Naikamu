@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useTranslate } from '../../i18n/useTranslate';
 import {
-  DownloadStackParamList as DownloadStackParameterList,
+  DownloadStackParameterList as DownloadStackParameterList,
   DownloadStackScreenNames,
 } from '../../routes';
 import { IOfflineSeries, useOfflineService } from '../../services';

@@ -12,11 +12,8 @@ function QueryClientWrap(props: { children: React.ReactNode }) {
               if (error?.response.status === 502 && failureCount > 3) {
                 return false;
               }
-              if (error?.response.status >= 400) {
-                return false;
-              }
 
-              return true;
+              return error?.response.status < 400;
             },
           },
         },

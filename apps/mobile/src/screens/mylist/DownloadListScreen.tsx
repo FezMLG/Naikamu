@@ -11,7 +11,7 @@ import {
 import { useTranslate } from '../../i18n/useTranslate';
 import { useOfflineService } from '../../services';
 import { useDownloadsQueueStore } from '../../services/offline/queue.store';
-import { colors, fontStyles, globalStyle } from '../../styles';
+import { colors, fontStyles } from '../../styles';
 import { logger } from '../../utils/logger';
 
 export function DownloadListScreen() {
@@ -19,7 +19,6 @@ export function DownloadListScreen() {
   const layout = useLayout();
   const {
     activeDownloads,
-    queueDownloads,
     offlineSeries,
     getAllOfflineSeries,
     offlineStore,

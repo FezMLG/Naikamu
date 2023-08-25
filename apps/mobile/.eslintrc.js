@@ -9,6 +9,11 @@ module.exports = {
     'plugin:import/recommended',
     'plugin:import/typescript',
   ],
+  settings: {
+    'import/resolver': {
+      'babel-module': {},
+    },
+  },
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint'],
   overrides: [
@@ -16,7 +21,7 @@ module.exports = {
       files: ['*.ts', '*.tsx'],
       rules: {
         '@typescript-eslint/no-shadow': ['error'],
-        'no-shadow': 'error',
+        'no-shadow': 'off',
         'no-undef': 'off',
       },
     },

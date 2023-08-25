@@ -5,8 +5,8 @@ import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { Pressable, View, Text, Image, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { BrowseStackParamList as BrowseStackParameterList } from '../../routes';
-import { colors, darkColor } from '../../styles';
+import { BrowseStackParameterList as BrowseStackParameterList } from '../../routes';
+import { colors, DarkColor } from '../../styles';
 
 import { navigateToPlayer } from './navigateToPlayer';
 import { PlayerMenu } from './PlayerMenu';
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     width: '100%',
     borderWidth: 1,
     borderStyle: 'solid',
-    borderColor: darkColor.C800,
+    borderColor: DarkColor.C800,
     borderRadius: 8,
     flexDirection: 'row',
     alignItems: 'center',

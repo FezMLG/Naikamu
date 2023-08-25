@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import Config from 'react-native-config';
+import { default as Config } from 'react-native-config';
 import { RadioButton } from 'react-native-paper';
 
 import { Button, Modal, SettingInputs, SettingsGroup } from '../../components';

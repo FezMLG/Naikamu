@@ -7,7 +7,7 @@ import { BrowseScreen } from '../../../screens';
 import { defaultHeaderOptions } from '../defaultHeaderOptions';
 
 import {
-  BrowseStackParamList as BrowseStackParameterList,
+  BrowseStackParameterList as BrowseStackParameterList,
   BrowseStackScreenNames,
 } from './browse.interfaces';
 

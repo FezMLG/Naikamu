@@ -3,15 +3,12 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { useTranslate } from '../../../i18n/useTranslate';
-import { BrowseScreen, NativeVideoPlayerScreen } from '../../../screens';
 import { SearchResultsScreen, SearchScreen } from '../../../screens/search';
-import { BrowseStackScreenNames } from '../browse';
 import { defaultHeaderOptions } from '../defaultHeaderOptions';
 import { defaultSubHeaderOptions } from '../defaultSubHeaderOptions';
-import { SeriesStack } from '../series';
 
 import {
-  SearchStackParamList as SearchStackParameterList,
+  SearchStackParameterList,
   SearchStackScreenNames,
 } from './search.interfaces';
 

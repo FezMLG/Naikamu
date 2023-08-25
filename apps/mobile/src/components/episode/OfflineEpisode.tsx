@@ -18,7 +18,7 @@ import {
   defaultRadius,
   fontStyles,
   globalStyle,
-  darkColor,
+  DarkColor,
 } from '../../styles';
 // import { useTranslate } from '../../i18n/useTranslate';
 import { humanFileSize } from '../../utils/humanFileSize';
@@ -168,14 +168,14 @@ const styles = StyleSheet.create({
     width: '100%',
     borderWidth: 1,
     borderStyle: 'solid',
-    borderColor: darkColor.C800,
-    backgroundColor: darkColor.C900,
+    borderColor: DarkColor.C800,
+    backgroundColor: DarkColor.C900,
   },
   linksContainer: {
     width: '100%',
     height: '100%',
     maxWidth: 150,
-    backgroundColor: darkColor.C800,
+    backgroundColor: DarkColor.C800,
   },
   description: {
     paddingTop: 5,
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
   },
   playersList: {
     marginTop: 10,
-    backgroundColor: darkColor.C900,
+    backgroundColor: DarkColor.C900,
     borderRadius: defaultRadius,
   },
   playersListItem: {
@@ -192,14 +192,14 @@ const styles = StyleSheet.create({
     width: '100%',
     borderWidth: 1,
     borderStyle: 'solid',
-    borderColor: darkColor.C700,
+    borderColor: DarkColor.C700,
     borderRadius: 8,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
   playersListContainer: {
-    backgroundColor: darkColor.C800,
+    backgroundColor: DarkColor.C800,
     borderRadius: defaultRadius,
     maxWidth: '100%',
   },

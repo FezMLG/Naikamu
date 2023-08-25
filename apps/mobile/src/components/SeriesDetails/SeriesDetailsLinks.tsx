@@ -6,7 +6,7 @@ import { Button } from 'react-native-paper';
 
 import { AnimeDetails } from '../../../../../lib/shared/dist';
 import { useTranslate } from '../../i18n/useTranslate';
-import { darkStyle, darkColor, defaultRadius } from '../../styles';
+import { darkStyle, DarkColor, defaultRadius } from '../../styles';
 import { ProgressiveImage } from '../ProgressiveImage';
 
 export function SeriesDetailsLinks(props: {
@@ -39,7 +39,7 @@ export function SeriesDetailsLinks(props: {
               <View style={styles.icon} />
             )}
             <Button mode="text" onPress={() => Linking.openURL(link.url)}>
-              {link.site} {link.language ? link.language : ''}
+              {link.site} {link.language ?? ''}
             </Button>
           </View>
         ))}
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   },
   quickInfoScroll: {
     paddingVertical: 10,
-    backgroundColor: darkColor.C800,
+    backgroundColor: DarkColor.C800,
     borderRadius: defaultRadius,
   },
   marginV: {

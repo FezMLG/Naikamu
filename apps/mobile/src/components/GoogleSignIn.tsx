@@ -25,7 +25,7 @@ const onGoogleButtonPress = async () => {
   }
 };
 
-function GoogleSignIn() {
+export function GoogleSignIn() {
   const [isLoading, setIsLoading] = useState(false);
   const userService = useUserService();
 
@@ -70,5 +70,3 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
 });
-
-export default GoogleSignIn;

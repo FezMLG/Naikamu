@@ -9,7 +9,7 @@ import {
   WatchListSeries,
 } from '@aniwatch/shared';
 import axios, { AxiosInstance, AxiosRequestHeaders } from 'axios';
-import Config from 'react-native-config';
+import { default as Config } from 'react-native-config';
 
 import { fireGetIdToken } from '../services/firebase/fire-auth.service';
 import { Resolution } from '../services/settings/interfaces';

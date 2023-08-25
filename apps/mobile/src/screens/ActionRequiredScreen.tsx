@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Linking, SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import Config from 'react-native-config';
+import { default as Config } from 'react-native-config';
 
 import { Button } from '../components';
 import { useTranslate } from '../i18n/useTranslate';
@@ -16,8 +16,8 @@ export function ActionRequiredScreen({
 
   React.useEffect(
     () =>
-      navigation.addListener('beforeRemove', e => {
-        e.preventDefault();
+      navigation.addListener('beforeRemove', event => {
+        event.preventDefault();
       }),
     [navigation],
   );

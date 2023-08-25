@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { Control, Controller, FieldErrorsImpl, useForm } from 'react-hook-form';
 import { KeyboardTypeOptions, StyleSheet, View } from 'react-native';
 import { Text, TextInput } from 'react-native-paper';
@@ -11,6 +12,8 @@ import {
   SettingsStackSettingsActionScreenProps,
 } from '../../routes';
 import { globalStyle } from '../../styles';
+
+import NativeFirebaseAuthError = FirebaseAuthTypes.NativeFirebaseAuthError;
 
 interface SettingsForm {
   newValue: string;
@@ -27,7 +30,7 @@ function FormTextInput({
   placeholder,
   title,
 }: {
-  control: Control<SettingsForm, any>;
+  control: Control<SettingsForm, unknown>;
   name: SettingsFormType;
   keyboardType?: KeyboardTypeOptions;
   autoCorrect?: boolean;
@@ -97,8 +100,10 @@ export function SettingsActionScreen({
       console.log('not requires recent login');
       await action(data.newValue);
       navigation.navigate(origin);
-    } catch (error: any) {
-      if (error.code === 'auth/requires-recent-login') {
+    } catch (error: unknown) {
+      const authError = error as NativeFirebaseAuthError;
+
+      if (authError.code === 'auth/requires-recent-login') {
         console.log('requires recent login catch');
         navigation.navigate(SettingsStackScreenNames.SettingsActionConfirm, {
           action,

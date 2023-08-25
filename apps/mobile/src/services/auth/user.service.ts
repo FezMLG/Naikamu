@@ -1,5 +1,4 @@
-import { LoginForm } from '../../screens/auth/LoginScreen';
-import { SignUpForm } from '../../screens/auth/SignUpScreen';
+import { LoginForm, SignUpForm } from '../../screens';
 import { logger } from '../../utils/logger';
 import {
   fireDeleteAccount,
@@ -13,6 +12,10 @@ import {
 
 import { userStorage } from './user.storage';
 import { useUserStore } from './user.store';
+
+const updateUserPassword = async (newPassword: string) => {
+  await fireUpdatePassword(newPassword);
+};
 
 export const useUserService = () => {
   const userActions = useUserStore(state => state.actions);
@@ -50,10 +53,6 @@ export const useUserService = () => {
     userActions.updateUser({
       displayName,
     });
-  };
-
-  const updateUserPassword = async (newPassword: string) => {
-    await fireUpdatePassword(newPassword);
   };
 
   const deleteUserAccount = async () => {

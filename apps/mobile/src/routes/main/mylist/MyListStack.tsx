@@ -6,7 +6,7 @@ import { useTranslate } from '../../../i18n/useTranslate';
 import { colors } from '../../../styles';
 
 import {
-  MyListStackParamList as MyListStackParameterList,
+  MyListStackParameterList as MyListStackParameterList,
   MyListStackScreenNames,
 } from './interface';
 import { DownloadStack } from './offline';

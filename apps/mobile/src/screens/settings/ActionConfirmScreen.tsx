@@ -25,7 +25,7 @@ function FormTextInput({
   placeholder,
   title,
 }: {
-  control: Control<SettingsForm, any>;
+  control: Control<SettingsForm>;
   name: SettingsFormType;
   keyboardType?: KeyboardTypeOptions;
   autoCorrect?: boolean;

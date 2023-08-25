@@ -9,47 +9,47 @@ export enum SettingsStackScreenNames {
   AppSettings = 'AppSettings',
 }
 
-export type SettingsStackParamList = {
+export type SettingsStackParameterList = {
   [SettingsStackScreenNames.Settings]: undefined;
   [SettingsStackScreenNames.UserSettings]: undefined;
   [SettingsStackScreenNames.AppSettings]: undefined;
   [SettingsStackScreenNames.SettingsActionConfirm]: {
-    action: Function;
+    action: (payload: string) => void;
     payload: string;
     type: ActionType;
-    origin: any;
+    origin: unknown;
   };
   [SettingsStackScreenNames.SettingsAction]: {
-    action: Function;
+    action: (payload: string) => void;
     payload?: string;
     requiresLogin: boolean;
     type: ActionType;
-    origin: any;
+    origin: unknown;
   };
 };
 
 export type SettingsStackSettingsScreenProps = NativeStackScreenProps<
-  SettingsStackParamList,
+  SettingsStackParameterList,
   SettingsStackScreenNames.Settings
 >;
 
 export type SettingsStackUserSettingsScreenProps = NativeStackScreenProps<
-  SettingsStackParamList,
+  SettingsStackParameterList,
   SettingsStackScreenNames.UserSettings
 >;
 
 export type SettingsStackSettingsActionConfirmScreenProps =
   NativeStackScreenProps<
-    SettingsStackParamList,
+    SettingsStackParameterList,
     SettingsStackScreenNames.SettingsActionConfirm
   >;
 
 export type SettingsStackSettingsActionScreenProps = NativeStackScreenProps<
-  SettingsStackParamList,
+  SettingsStackParameterList,
   SettingsStackScreenNames.SettingsAction
 >;
 
 export type SettingsStackPlaybackSettingsScreenProps = NativeStackScreenProps<
-  SettingsStackParamList,
+  SettingsStackParameterList,
   SettingsStackScreenNames.AppSettings
 >;

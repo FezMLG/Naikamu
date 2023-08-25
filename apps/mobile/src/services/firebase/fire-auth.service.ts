@@ -9,12 +9,8 @@ export const fireLoginUser = async (email: string, password: string) => {
   }
 };
 
-export const fireGetNewIdToken = async () => {
-  const user = auth().currentUser;
-
-  if (!user) {
-  }
-};
+export const fireGetNewIdToken = async () =>
+  auth().currentUser?.getIdToken(true);
 
 export const fireGetIdToken = () => auth().currentUser?.getIdToken();
 

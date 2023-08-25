@@ -10,7 +10,7 @@ import { BrowseStackScreenNames } from './browse';
 import { defaultHeaderOptions } from './defaultHeaderOptions';
 import { defaultSubHeaderOptions } from './defaultSubHeaderOptions';
 import {
-  RootStackParamList as RootStackParameterList,
+  RootStackParameterList as RootStackParameterList,
   RootStackScreenNames,
 } from './root.interfaces';
 import { SeriesStack } from './series';

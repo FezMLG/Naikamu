@@ -11,5 +11,5 @@ export const defaultHeaderOptions = ({ title }: { title?: string }) => ({
   headerStyle: {
     backgroundColor: colors.background.color,
   },
-  headerLeft: () => <></>,
+  headerLeft: () => null,
 });

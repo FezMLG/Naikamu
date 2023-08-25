@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {
   colors,
-  darkColor,
+  DarkColor,
   defaultRadius,
   fontStyles,
   globalStyle,
@@ -141,7 +141,7 @@ const groupStyles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     minHeight: 80,
-    backgroundColor: darkColor.C800,
+    backgroundColor: DarkColor.C800,
     paddingHorizontal: 10,
   },
   radiusTop: {

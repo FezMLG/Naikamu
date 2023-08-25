@@ -2,7 +2,7 @@ import React from 'react';
 
 import { WatchStatus } from '@aniwatch/shared';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import Config from 'react-native-config';
+import { default as Config } from 'react-native-config';
 import { ActivityIndicator } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
