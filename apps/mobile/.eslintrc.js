@@ -23,7 +23,7 @@ module.exports = {
   ],
   rules: {
     'import/namespace': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'error',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'error',
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     'arrow-body-style': ['error'],
@@ -93,10 +93,6 @@ module.exports = {
         next: ['const', 'let', 'var'],
         prev: ['const', 'let', 'var'],
       },
-    ],
-    'react/function-component-definition': [
-      2,
-      { namedComponents: 'function-declaration' },
     ],
     'react/jsx-curly-brace-presence': [
       'error',
