@@ -1,26 +1,31 @@
-import * as React from 'react';
+import {
+  BottomTabNavigationOptions,
+  createBottomTabNavigator,
+} from '@react-navigation/bottom-tabs';
+import { colors, defaultRadius } from '../../styles';
 import {
   BrowseScreenProps,
   RootStackParamList,
   ScreenNames,
   SearchScreenProps,
-} from './interfaces';
-import BrowseScreen from '../../screens/BrowseScreen';
-import SearchScreen from '../../screens/search/SearchScreen';
+} from '../main';
 import { RouteProp } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useTranslate } from '../../i18n/useTranslate';
 import { StyleSheet, Text } from 'react-native';
+import BrowseScreen from '../../screens/BrowseScreen';
+import SearchScreen from '../../screens/search/SearchScreen';
+import { MyListStack } from '../main/mylist/MyListTopTabsNavigation';
 import SettingsStack from '../settings/SettingsStack';
 import { SettingsScreenNames } from '../settings/interfaces';
-import {
-  BottomTabNavigationOptions,
-  createBottomTabNavigator,
-} from '@react-navigation/bottom-tabs';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { MyListStack } from './mylist/MyListTopTabsNavigation';
-import { colors, defaultRadius } from '../../styles';
+import { BrowseNavStack } from './BrowseNavStack';
+import { SettingsNavStack } from './SettingsNavStack';
 
-export const defaultHeaderOptions = ({ title }: { title?: string }) => {
+export const defaultHeaderOptions = ({
+  title,
+}: {
+  title?: string;
+}): BottomTabNavigationOptions => {
   return {
     title: title,
     headerTitleStyle: {
@@ -47,7 +52,7 @@ const BottomTabContent = (props: {
   let iconName = '';
 
   switch (props.route.name) {
-    case ScreenNames.Browse:
+    case ScreenNames.BrowseStack:
       iconName = props.focused ? 'compass' : 'compass-outline';
       break;
     case ScreenNames.Search:
@@ -66,13 +71,14 @@ const BottomTabContent = (props: {
   return <Icon name={iconName} size={props.size} color={props.color} />;
 };
 
-export const BottomTabNavigation = () => {
+export const TabNavStack = () => {
   const { translate } = useTranslate();
 
   return (
     <BottomTab.Navigator
-      initialRouteName={ScreenNames.Browse}
+      initialRouteName={ScreenNames.BrowseStack}
       screenOptions={({ route }) => ({
+        headerShown: false,
         // eslint-disable-next-line react/no-unstable-nested-components
         tabBarIcon: ({ focused, color }) => {
           return (
@@ -116,45 +122,46 @@ export const BottomTabNavigation = () => {
         tabBarInactiveTintColor: 'white',
         tabBarActiveTintColor: 'white',
       })}>
-      <BottomTab.Screen
-        name={ScreenNames.Browse}
-        component={BrowseScreen}
-        options={({}: BrowseScreenProps) => ({
-          ...defaultHeaderOptions({
-            title: translate('routes.' + ScreenNames.Browse),
-          }),
-          animation: 'slide_from_right',
-        })}
-      />
-      <BottomTab.Screen
-        name={ScreenNames.Search}
-        component={SearchScreen}
-        options={({}: SearchScreenProps) => ({
-          ...defaultHeaderOptions({
-            title: translate('routes.' + ScreenNames.Search),
-          }),
-          animation: 'slide_from_right',
-        })}
-      />
-      <BottomTab.Screen
-        name={ScreenNames.MyListStack}
-        component={MyListStack}
-        options={{
-          ...defaultHeaderOptions({
-            title: translate('routes.' + ScreenNames.MyListStack),
-          }),
-        }}
-      />
-      <BottomTab.Screen
-        name={ScreenNames.SettingsStack}
-        component={SettingsStack}
-        options={{
-          ...defaultHeaderOptions({
-            title: translate('routes.' + SettingsScreenNames.Settings),
-          }),
-          headerShown: false,
-        }}
-      />
+      <BottomTab.Group>
+        <BottomTab.Screen
+          name={ScreenNames.BrowseStack}
+          component={BrowseNavStack}
+          options={() => ({
+            ...defaultHeaderOptions({
+              title: translate('routes.' + ScreenNames.Browse),
+            }),
+            animation: 'slide_from_right',
+          })}
+        />
+        <BottomTab.Screen
+          name={ScreenNames.Search}
+          component={SearchScreen}
+          options={({}: SearchScreenProps) => ({
+            ...defaultHeaderOptions({
+              title: translate('routes.' + ScreenNames.Search),
+            }),
+            animation: 'slide_from_right',
+          })}
+        />
+        <BottomTab.Screen
+          name={ScreenNames.MyListStack}
+          component={MyListStack}
+          options={{
+            ...defaultHeaderOptions({
+              title: translate('routes.' + ScreenNames.MyListStack),
+            }),
+          }}
+        />
+        <BottomTab.Screen
+          name={ScreenNames.SettingsStack}
+          component={SettingsNavStack}
+          options={{
+            ...defaultHeaderOptions({
+              title: translate('routes.' + SettingsScreenNames.Settings),
+            }),
+          }}
+        />
+      </BottomTab.Group>
     </BottomTab.Navigator>
   );
 };

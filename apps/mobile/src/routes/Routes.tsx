@@ -6,6 +6,7 @@ import AuthStack from './auth/AuthStack';
 import { ScreenNames } from './main';
 import SplashScreen from '../screens/SplashScreen';
 import { useUserStore } from '../services/auth/user.store';
+import { TabNavStack } from './new-main/TabNavStack';
 
 const linking = {
   prefixes: ['aniwatch://'],
@@ -25,7 +26,7 @@ const Routes = ({ theme }: any) => {
       linking={linking}
       fallback={<SplashScreen />}
       theme={theme}>
-      {user && user?.emailVerified ? <MainStack /> : <AuthStack />}
+      {user && user?.emailVerified ? <TabNavStack /> : <AuthStack />}
     </NavigationContainer>
   );
 };

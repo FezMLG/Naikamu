@@ -25,7 +25,7 @@ export const EpisodePlayer = ({
   isDownloaded: boolean;
   handleDownload: (player: AnimePlayer) => void;
 }) => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const navigation = useNavigation<NavigationProp<any>>();
 
   return (
     <Pressable

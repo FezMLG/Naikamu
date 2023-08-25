@@ -23,9 +23,12 @@ const BrowseScreen = ({ navigation }: BrowseScreenProps) => {
     <BrowseElement
       anime={item}
       handlePageChange={() => {
-        navigation.navigate(ScreenNames.Series, {
-          title: item.title.romaji,
-          id: item.id,
+        navigation.navigate(ScreenNames.SeriesStack, {
+          screen: ScreenNames.Series,
+          params: {
+            title: item.title.romaji,
+            id: item.id,
+          },
         });
       }}
     />
