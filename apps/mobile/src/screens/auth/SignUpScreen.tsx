@@ -16,8 +16,6 @@ import { AuthStackRoutesNames, AuthStackSignUpScreenProps } from '../../routes';
 import { useUserService } from '../../services/auth/user.service';
 import { globalStyle } from '../../styles';
 
-import NativeFirebaseAuthError = FirebaseAuthTypes.NativeFirebaseAuthError;
-
 export interface SignUpForm {
   displayName: string;
   email: string;
@@ -57,7 +55,7 @@ export function SignUpScreen({ navigation }: AuthStackSignUpScreenProps) {
         navigation.navigate(AuthStackRoutesNames.VerifyEmail);
       }
     } catch (error: unknown) {
-      const authError = error as NativeFirebaseAuthError;
+      const authError = error as FirebaseAuthTypes.NativeFirebaseAuthError;
 
       layout.setInfo(translate(errorResolver(authError.code)));
       layout.setVisible(true);

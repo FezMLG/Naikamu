@@ -17,14 +17,14 @@ export type SettingsStackParameterList = {
     action: (payload: string) => void;
     payload: string;
     type: ActionType;
-    origin: unknown;
+    origin: any;
   };
   [SettingsStackScreenNames.SettingsAction]: {
     action: (payload: string) => void;
     payload?: string;
     requiresLogin: boolean;
     type: ActionType;
-    origin: unknown;
+    origin: any;
   };
 };
 

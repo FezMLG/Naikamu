@@ -13,8 +13,6 @@ import {
 } from '../../routes';
 import { globalStyle } from '../../styles';
 
-import NativeFirebaseAuthError = FirebaseAuthTypes.NativeFirebaseAuthError;
-
 interface SettingsForm {
   newValue: string;
 }
@@ -101,7 +99,7 @@ export function SettingsActionScreen({
       await action(data.newValue);
       navigation.navigate(origin);
     } catch (error: unknown) {
-      const authError = error as NativeFirebaseAuthError;
+      const authError = error as FirebaseAuthTypes.NativeFirebaseAuthError;
 
       if (authError.code === 'auth/requires-recent-login') {
         console.log('requires recent login catch');

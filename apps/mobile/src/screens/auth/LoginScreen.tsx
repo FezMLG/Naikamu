@@ -17,8 +17,6 @@ import { useUserService } from '../../services/auth/user.service';
 import { useUserStore } from '../../services/auth/user.store';
 import { globalStyle } from '../../styles';
 
-import NativeFirebaseAuthError = FirebaseAuthTypes.NativeFirebaseAuthError;
-
 export interface LoginForm {
   email: string;
   password: string;
@@ -55,7 +53,7 @@ export function LoginScreen({ navigation }: AuthStackLoginScreenProps) {
         }
       }
     } catch (error: unknown) {
-      const authError = error as NativeFirebaseAuthError;
+      const authError = error as FirebaseAuthTypes.NativeFirebaseAuthError;
 
       layout.setInfo(translate(errorResolver(authError.code)));
       layout.setVisible(true);
