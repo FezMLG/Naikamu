@@ -1,16 +1,17 @@
 import React from 'react';
-import { Pressable, View, Text, Image, StyleSheet } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 import { AnimePlayer } from '@aniwatch/shared';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { Pressable, View, Text, Image, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { colors, darkColor } from '../../styles';
-import { PlayerMenu } from './PlayerMenu';
+import { BrowseStackParameterList as BrowseStackParameterList } from '../../routes';
+import { colors, DarkColor } from '../../styles';
+
 import { navigateToPlayer } from './navigateToPlayer';
-import { RootStackParamList } from '../../routes/main';
+import { PlayerMenu } from './PlayerMenu';
 
-export const EpisodePlayer = ({
+export function EpisodePlayer({
   seriesId,
   episodeTitle,
   player,
@@ -24,17 +25,11 @@ export const EpisodePlayer = ({
   episodeNumber: number;
   isDownloaded: boolean;
   handleDownload: (player: AnimePlayer) => void;
-}) => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+}) {
+  const navigation = useNavigation<NavigationProp<BrowseStackParameterList>>();
 
   return (
     <Pressable
-      style={[
-        styles.playersListItem,
-        player.player_name.toLocaleLowerCase() !== 'cda'
-          ? { height: 50 }
-          : { borderColor: colors.accent.color },
-      ]}
       onPress={() => {
         navigateToPlayer({
           navigation: navigation,
@@ -43,18 +38,24 @@ export const EpisodePlayer = ({
           episodeNumber,
           seriesId,
         });
-      }}>
+      }}
+      style={[
+        styles.playersListItem,
+        player.player_name.toLocaleLowerCase() === 'cda'
+          ? { borderColor: colors.accent.color }
+          : { height: 50 },
+      ]}>
       <View style={styles.rowCenter}>
         {player.player_name.toLocaleLowerCase() === 'cda' ? (
           <Icon
+            name="play"
             size={24}
-            name={'play'}
             style={[{ marginHorizontal: 10 }, colors.textLight]}
           />
         ) : (
           <Icon
+            name="open-in-new"
             size={24}
-            name={'open-in-new'}
             style={[{ marginHorizontal: 10 }, colors.textLight]}
           />
         )}
@@ -67,28 +68,28 @@ export const EpisodePlayer = ({
       <View style={styles.rowCenter}>
         <Image
           resizeMode="contain"
-          style={[styles.logo, { maxWidth: 100 }]}
           source={require('../../../assets/logo_docchi.png')}
+          style={[styles.logo, { maxWidth: 100 }]}
         />
-        {player.player_name.toLocaleLowerCase() !== 'cda' ? null : (
+        {player.player_name.toLocaleLowerCase() === 'cda' ? (
           <>
             {isDownloaded ? null : (
               <Icon
-                size={24}
                 name={
                   isDownloaded ? 'download-circle' : 'download-circle-outline'
                 }
-                style={[{ paddingHorizontal: 10 }, colors.textLight]}
                 onPress={() => handleDownload(player)}
+                size={24}
+                style={[{ paddingHorizontal: 10 }, colors.textLight]}
               />
             )}
           </>
-        )}
+        ) : null}
         <PlayerMenu player={player} />
       </View>
     </Pressable>
   );
-};
+}
 
 const styles = StyleSheet.create({
   playersListItem: {
@@ -96,7 +97,7 @@ const styles = StyleSheet.create({
     width: '100%',
     borderWidth: 1,
     borderStyle: 'solid',
-    borderColor: darkColor.C800,
+    borderColor: DarkColor.C800,
     borderRadius: 8,
     flexDirection: 'row',
     alignItems: 'center',

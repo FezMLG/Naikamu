@@ -1,2 +1,2 @@
 export * from './AuthStack';
-export * from './interfaces';
+export * from './auth.interfaces';

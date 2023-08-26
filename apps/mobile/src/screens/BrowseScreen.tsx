@@ -1,19 +1,24 @@
 import React, { useRef, useState } from 'react';
-import { StyleSheet, ActivityIndicator, FlatList, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { FAB } from 'react-native-paper';
 
 import { Media } from '@aniwatch/shared';
-
-import BrowseElement from '../components/browse/BrowseElement';
-import { BrowseScreenProps, ScreenNames } from '../routes/main';
-import { SeasonYearSelectButtons } from '../components';
-import { useQuerySeriesList } from '../api/hooks';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import { useNavigation } from '@react-navigation/native';
+import { StyleSheet, ActivityIndicator, FlatList, View } from 'react-native';
+import { FAB } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+import { useQuerySeriesList } from '../api/hooks';
+import { SeasonYearSelectButtons, BrowseElement } from '../components';
+import {
+  BrowseStackBrowseScreenProps,
+  RootStackScreenNames,
+  SeriesStackScreenNames,
+} from '../routes';
 import { colors } from '../styles';
 
-const BrowseScreen = ({ navigation }: BrowseScreenProps) => {
+export function BrowseScreen({}: BrowseStackBrowseScreenProps) {
   const CONTENT_OFFSET_THRESHOLD = 300;
+  const navigation = useNavigation<any>();
   const listRef = useRef<FlatList>(null);
   const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
   const { api, season, year, setSeason, setYear } = useQuerySeriesList();
@@ -23,9 +28,12 @@ const BrowseScreen = ({ navigation }: BrowseScreenProps) => {
     <BrowseElement
       anime={item}
       handlePageChange={() => {
-        navigation.navigate(ScreenNames.Series, {
-          title: item.title.romaji,
-          id: item.id,
+        navigation.navigate(RootStackScreenNames.SeriesStack, {
+          screen: SeriesStackScreenNames.Series,
+          params: {
+            title: item.title.romaji,
+            id: item.id,
+          },
         });
       }}
     />
@@ -36,45 +44,46 @@ const BrowseScreen = ({ navigation }: BrowseScreenProps) => {
       <SeasonYearSelectButtons
         season={season}
         setSeason={setSeason}
-        year={year}
         setYear={setYear}
+        year={year}
       />
       {api.isLoading ? <ActivityIndicator size="large" /> : null}
       {api.data ? (
         <View>
           <FlatList
-            style={[styles.flatList]}
-            ref={listRef}
-            data={api.data.pages.map(page => page.Page.media).flat()}
-            renderItem={renderItem}
-            numColumns={2}
+            ListFooterComponent={<View />}
+            ListFooterComponentStyle={{ height: tabHeight * 2, width: '100%' }}
             contentContainerStyle={[styles.flatListContent]}
+            contentInsetAdjustmentBehavior="automatic"
+            data={api.data.pages.flatMap(page => page.Page.media)}
             keyExtractor={(_, index) => index.toString()}
-            onEndReachedThreshold={1}
-            refreshing={api.isRefetching}
-            onRefresh={api.refetch}
+            numColumns={2}
             onEndReached={() => api.fetchNextPage()}
+            onEndReachedThreshold={1}
+            onRefresh={api.refetch}
             onScroll={event => {
               setContentVerticalOffset(event.nativeEvent.contentOffset.y);
             }}
-            ListFooterComponent={<View />}
-            ListFooterComponentStyle={{ height: tabHeight * 2, width: '100%' }}
+            ref={listRef}
+            refreshing={api.isRefetching}
+            renderItem={renderItem}
+            style={[styles.flatList]}
           />
           {contentVerticalOffset > CONTENT_OFFSET_THRESHOLD && (
             <FAB
-              icon={'arrow-up-circle'}
-              style={styles.fab}
               color="white"
+              icon="arrow-up-circle"
               onPress={() => {
                 listRef.current?.scrollToOffset({ offset: 0, animated: true });
               }}
+              style={styles.fab}
             />
           )}
         </View>
       ) : null}
     </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -97,5 +106,3 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
 });
-
-export default BrowseScreen;

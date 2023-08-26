@@ -1,4 +1,3 @@
-import axios, { AxiosInstance, AxiosRequestHeaders } from 'axios';
 import {
   AnimeList,
   AnimeDetails,
@@ -9,7 +8,9 @@ import {
   WatchListSeriesEpisode,
   WatchListSeries,
 } from '@aniwatch/shared';
-import Config from 'react-native-config';
+import axios, { AxiosInstance, AxiosRequestHeaders } from 'axios';
+import { default as Config } from 'react-native-config';
+
 import { fireGetIdToken } from '../services/firebase/fire-auth.service';
 import { Resolution } from '../services/settings/interfaces';
 
@@ -39,17 +40,19 @@ export class APIClient {
     const { data } = await this.instance.get<T>(url, {
       headers: headers,
     });
+
     return data;
   }
 
   private async post<T>(
     url: string,
-    dataToSend: Object,
+    dataToSend: unknown,
     headers?: AxiosRequestHeaders,
   ): Promise<T> {
     const { data } = await this.instance.post<T>(url, dataToSend, {
       headers: headers,
     });
+
     return data;
   }
 
@@ -81,6 +84,7 @@ export class APIClient {
     search = null,
   }: GetAnimeListDTO): Promise<AnimeList> {
     const token = await this.withToken();
+
     return this.post<AnimeList>(
       '/anime',
       {
@@ -97,6 +101,7 @@ export class APIClient {
 
   async getAnimeDetails(id: number): Promise<AnimeDetails> {
     const token = await this.withToken();
+
     return this.post<AnimeDetails>(
       '/anime/details',
       {
@@ -112,6 +117,7 @@ export class APIClient {
     expectedEpisodes: number,
   ): Promise<AnimeEpisodes> {
     const token = await this.withToken();
+
     return this.post<AnimeEpisodes>(
       '/anime/details/episodes',
       {
@@ -128,6 +134,7 @@ export class APIClient {
     resolution: Resolution,
   ): Promise<AnimePlayers> {
     const token = await this.withToken();
+
     return this.post<AnimePlayers>(
       `/anime/details/episode/${episode}`,
       {
@@ -173,6 +180,7 @@ export class APIClient {
 
   async withToken() {
     const token = await fireGetIdToken();
+
     return {
       Authorization: 'Bearer ' + token,
     };

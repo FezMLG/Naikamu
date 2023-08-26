@@ -1,6 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
-
 import { AnimeDetails } from '@aniwatch/shared';
+import { useQuery } from '@tanstack/react-query';
 
 import { APIClient } from '../../APIClient';
 

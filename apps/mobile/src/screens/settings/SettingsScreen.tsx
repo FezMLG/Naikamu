@@ -1,18 +1,25 @@
 import React from 'react';
+
 import { Image, StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
 
-import { useTranslate } from '../../i18n/useTranslate';
-import { globalStyle } from '../../styles/global.style';
-import { ProgressiveImage } from '../../components/ProgressiveImage';
 import {
-  SettingsScreenNames,
-  SettingsScreenProps,
-} from '../../routes/settings/interfaces';
-import { PageLayout, SectionButton, useLayout } from '../../components';
+  PageLayout,
+  SectionButton,
+  useLayout,
+  ProgressiveImage,
+} from '../../components';
+import { useTranslate } from '../../i18n/useTranslate';
+import {
+  SettingsStackScreenNames,
+  SettingsStackSettingsScreenProps,
+} from '../../routes';
 import { useUserStore } from '../../services/auth/user.store';
+import { globalStyle } from '../../styles';
 
-const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
+export function SettingsScreen({
+  navigation,
+}: SettingsStackSettingsScreenProps) {
   const layout = useLayout();
   const user = useUserStore(state => state.user);
   const { translate } = useTranslate();
@@ -24,8 +31,9 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
           <ProgressiveImage source={user.picture} style={[styles.logo]} />
         ) : (
           <Image
-            style={styles.logo}
+            /* eslint-disable-next-line unicorn/prefer-module */
             source={require('../../../assets/anya.jpeg')}
+            style={styles.logo}
           />
         )}
         <Text
@@ -39,19 +47,23 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
       </View>
       <View>
         <SectionButton
+          icon="account-cog"
+          onPress={() =>
+            navigation.navigate(SettingsStackScreenNames.UserSettings)
+          }
           title={translate('settings.categories.UserSettings')}
-          icon={'account-cog'}
-          onPress={() => navigation.navigate(SettingsScreenNames.UserSettings)}
         />
         <SectionButton
+          icon="cog"
+          onPress={() =>
+            navigation.navigate(SettingsStackScreenNames.AppSettings)
+          }
           title={translate('settings.categories.AppSettings')}
-          icon={'cog'}
-          onPress={() => navigation.navigate(SettingsScreenNames.AppSettings)}
         />
       </View>
     </PageLayout.Default>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -81,5 +93,3 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-
-export default SettingsScreen;

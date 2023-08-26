@@ -1,5 +1,4 @@
-import { LoginForm } from '../../screens/auth/LoginScreen';
-import { SignUpForm } from '../../screens/auth/SignUpScreen';
+import { LoginForm, SignUpForm } from '../../screens';
 import { logger } from '../../utils/logger';
 import {
   fireDeleteAccount,
@@ -10,14 +9,20 @@ import {
   fireUpdatePassword,
   fireUpdateUserDisplayName,
 } from '../firebase/fire-auth.service';
+
 import { userStorage } from './user.storage';
 import { useUserStore } from './user.store';
+
+const updateUserPassword = async (newPassword: string) => {
+  await fireUpdatePassword(newPassword);
+};
 
 export const useUserService = () => {
   const userActions = useUserStore(state => state.actions);
 
   const setLoggedUser = async () => {
     const user = fireGetUser();
+
     userActions.setUser(user);
     await userStorage.saveUser(user);
   };
@@ -25,12 +30,14 @@ export const useUserService = () => {
   const loginUser = async (data: LoginForm) => {
     await fireLoginUser(data.email, data.password);
     await setLoggedUser();
+
     return userActions.getUser();
   };
 
   const registerUser = async (data: SignUpForm) => {
     await fireRegisterUser(data.displayName, data.email, data.password);
     await setLoggedUser();
+
     return userActions.getUser();
   };
 
@@ -46,10 +53,6 @@ export const useUserService = () => {
     userActions.updateUser({
       displayName,
     });
-  };
-
-  const updateUserPassword = async (newPassword: string) => {
-    await fireUpdatePassword(newPassword);
   };
 
   const deleteUserAccount = async () => {

@@ -1,5 +1,5 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+
 import { Text } from 'react-native-paper';
 
 interface Timer {
@@ -7,12 +7,13 @@ interface Timer {
   initialSeconds: number;
 }
 
-const Timer = (props: Timer) => {
+export function Timer(props: Timer) {
   const { initialMinute = 0, initialSeconds = 0 } = props;
   const [minutes, setMinutes] = useState(initialMinute);
   const [seconds, setSeconds] = useState(initialSeconds);
+
   useEffect(() => {
-    let myInterval = setInterval(() => {
+    const myInterval = setInterval(() => {
       if (seconds > 0) {
         setSeconds(seconds - 1);
       }
@@ -25,6 +26,7 @@ const Timer = (props: Timer) => {
         }
       }
     }, 1000);
+
     return () => {
       clearInterval(myInterval);
     };
@@ -39,6 +41,4 @@ const Timer = (props: Timer) => {
       )}
     </>
   );
-};
-
-export default Timer;
+}

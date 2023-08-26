@@ -1,29 +1,23 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+
 import { IOfflineSeries } from '../../../../services';
 
-export enum OfflineWatchScreenNames {
-  Offline = 'Offline',
-  OfflineEpisodes = 'OfflineEpisodes',
-  WatchNative = 'WatchNative',
+export enum DownloadStackScreenNames {
+  List = 'List',
+  SeriesEpisodes = 'SeriesEpisodes',
 }
 
-export type OfflineWatchParamList = {
-  [OfflineWatchScreenNames.Offline]: undefined;
-  [OfflineWatchScreenNames.OfflineEpisodes]: IOfflineSeries;
-  [OfflineWatchScreenNames.WatchNative]: undefined;
+export type DownloadStackParameterList = {
+  [DownloadStackScreenNames.List]: undefined;
+  [DownloadStackScreenNames.SeriesEpisodes]: IOfflineSeries;
 };
 
-export type OfflineWatchScreenProps = NativeStackScreenProps<
-  OfflineWatchParamList,
-  OfflineWatchScreenNames.Offline
+export type DownloadStackListScreenProps = NativeStackScreenProps<
+  DownloadStackParameterList,
+  DownloadStackScreenNames.List
 >;
 
-export type OfflineWatchSeriesEpisodesScreenProps = NativeStackScreenProps<
-  OfflineWatchParamList,
-  OfflineWatchScreenNames.OfflineEpisodes
->;
-
-export type OfflineWatchNativeScreenProps = NativeStackScreenProps<
-  OfflineWatchParamList,
-  OfflineWatchScreenNames.WatchNative
+export type DownloadStackSeriesEpisodesScreenProps = NativeStackScreenProps<
+  DownloadStackParameterList,
+  DownloadStackScreenNames.SeriesEpisodes
 >;

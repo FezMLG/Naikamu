@@ -3,18 +3,20 @@ import RNFS from 'react-native-fs';
 
 const folderNamingStrategy = (seriesId: string) => {
   switch (Platform.OS) {
-    case 'android':
+    case 'android': {
       return `${RNFS.DocumentDirectoryPath}/AniWatch/downloads/${seriesId}`;
-    case 'ios':
+    }
+    case 'ios': {
       return `${RNFS.DocumentDirectoryPath}/downloads/${seriesId}`;
-    default:
+    }
+    default: {
       return `${RNFS.DocumentDirectoryPath}/AniWatch/downloads/${seriesId}`;
+    }
   }
 };
 
-const fileNamingStrategy = (seriesId: string, fileName: string) => {
-  return `${folderNamingStrategy(seriesId)}/${fileName}`;
-};
+const fileNamingStrategy = (seriesId: string, fileName: string) =>
+  `${folderNamingStrategy(seriesId)}/${fileName}`;
 
 const grantPermissions = async () => {
   if (Platform.OS === 'android') {
@@ -33,9 +35,11 @@ const checkPermissions = async () => {
     const read = await PermissionsAndroid.check(
       PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
     );
+
     if (!write || !read) {
       await grantPermissions();
     }
+
     return write && read;
   } else {
     return true;
@@ -46,10 +50,11 @@ const startDownloadingFile = async (
   seriesId: string,
   episodeNumber: number,
   fileUrl: string,
-  beginDownload: (res: RNFS.DownloadBeginCallbackResult) => void,
-  progressDownload: (res: RNFS.DownloadProgressCallbackResult) => void,
+  beginDownload: (result: RNFS.DownloadBeginCallbackResult) => void,
+  progressDownload: (result: RNFS.DownloadProgressCallbackResult) => void,
 ): Promise<[string, number, Promise<RNFS.DownloadResult>]> => {
   const hasPermissions = await checkPermissions();
+
   if (!hasPermissions) {
     throw new Error('No permissions to download file');
   }
@@ -84,8 +89,8 @@ const deleteFile = async (path: string) => {
       console.log('FILE DELETED');
     })
     // `unlink` will throw an error, if the item to unlink does not exist
-    .catch(err => {
-      console.log(err.message);
+    .catch(error => {
+      console.log(error.message);
     });
 };
 

@@ -1,24 +1,25 @@
 import React from 'react';
+
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { Pressable, View, Text, StyleSheet } from 'react-native';
+import Animated, { SlideInLeft } from 'react-native-reanimated';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import { useTranslate } from '../../i18n/useTranslate';
 import {
-  OfflineWatchParamList,
-  OfflineWatchScreenNames,
-} from '../../routes/main/mylist/offline/interface';
+  DownloadStackParameterList as DownloadStackParameterList,
+  DownloadStackScreenNames,
+} from '../../routes';
 import { IOfflineSeries, useOfflineService } from '../../services';
 import { globalStyle, fontStyles, colors, defaultRadius } from '../../styles';
-import { ProgressiveImage } from '../ProgressiveImage';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { humanFileSize } from '../../utils/humanFileSize';
 import { Button, Modal } from '../atoms';
-import { useTranslate } from '../../i18n/useTranslate';
-import Animated, { SlideInLeft } from 'react-native-reanimated';
 
-export const OfflineSeries = ({ series }: { series: IOfflineSeries }) => {
+export function OfflineSeries({ series }: { series: IOfflineSeries }) {
   const { translate } = useTranslate();
   const { seriesId, title, episodes, quality } = series;
-  const navigation = useNavigation<NavigationProp<OfflineWatchParamList>>();
+  const navigation =
+    useNavigation<NavigationProp<DownloadStackParameterList>>();
   const { deleteSeriesOffline } = useOfflineService();
   const [modalVisible, setModalVisible] = React.useState(false);
 
@@ -26,13 +27,13 @@ export const OfflineSeries = ({ series }: { series: IOfflineSeries }) => {
     <>
       <Animated.View entering={SlideInLeft}>
         <Pressable
-          style={[styles.seriesContainer, globalStyle.spacer]}
-          onPress={() =>
-            navigation.navigate(OfflineWatchScreenNames.OfflineEpisodes, series)
-          }
           onLongPress={() => {
             setModalVisible(true);
-          }}>
+          }}
+          onPress={() =>
+            navigation.navigate(DownloadStackScreenNames.SeriesEpisodes, series)
+          }
+          style={[styles.seriesContainer, globalStyle.spacer]}>
           {/* <ProgressiveImage
           source={'https://i.imgur.com/2nCt3Sbl.jpg'}
           style={[styles.poster]}
@@ -51,28 +52,28 @@ export const OfflineSeries = ({ series }: { series: IOfflineSeries }) => {
             </Text>
           </View>
           <Icon
-            name={'chevron-left'}
+            color="white"
+            name="chevron-left"
             size={36}
-            color={'white'}
             style={styles.chevronIcon}
           />
         </Pressable>
       </Animated.View>
-      <Modal.Container setIsOpen={setModalVisible} isOpen={modalVisible}>
+      <Modal.Container isOpen={modalVisible} setIsOpen={setModalVisible}>
         <Modal.Title title={title} />
         <Button
-          label={'Delete'}
-          type="warning"
+          label="Delete"
           onPress={() => {
             console.log('delete', seriesId);
             deleteSeriesOffline(seriesId);
             setModalVisible(false);
           }}
+          type="warning"
         />
       </Modal.Container>
     </>
   );
-};
+}
 
 const styles = StyleSheet.create({
   title: {

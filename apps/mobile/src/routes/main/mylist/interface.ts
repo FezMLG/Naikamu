@@ -1,7 +1,7 @@
-export enum MyListScreenNames {
+export enum MyListStackScreenNames {
   OfflineStack = 'OfflineStack',
 }
 
-export type MyListParamList = {
-  [MyListScreenNames.OfflineStack]: undefined;
+export type MyListStackParameterList = {
+  [MyListStackScreenNames.OfflineStack]: undefined;
 };

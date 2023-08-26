@@ -1,4 +1,5 @@
 import { storageGetData, storageStoreData } from '../../utils';
+
 import { UserSettings } from './interfaces';
 
 export const useUserSettingsStorage = () => {
@@ -8,10 +9,8 @@ export const useUserSettingsStorage = () => {
     await storageStoreData<UserSettings>(STORE_KEY, settings);
   };
 
-  const getUserSettingsFromStorage = async () => {
-    const userSettings = await storageGetData<UserSettings>(STORE_KEY);
-    return userSettings;
-  };
+  const getUserSettingsFromStorage = async () =>
+    await storageGetData<UserSettings>(STORE_KEY);
 
   return {
     saveUserSettingsToStorage,

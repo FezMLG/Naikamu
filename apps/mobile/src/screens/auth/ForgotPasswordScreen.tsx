@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
+
+import { Controller, useForm } from 'react-hook-form';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper';
 
-import { ForgotPasswordScreenProps } from '../routes/auth';
-import { fireForgotPassword } from '../services/firebase/fire-auth.service';
-import { useTranslate } from '../i18n/useTranslate';
-import { Controller, useForm } from 'react-hook-form';
-import { globalStyle } from '../styles/global.style';
-import Timer from '../components/Timer';
+import { Timer } from '../../components';
+import { useTranslate } from '../../i18n/useTranslate';
+import { AuthStackForgotPasswordScreenProps } from '../../routes';
+import { fireForgotPassword } from '../../services/firebase/fire-auth.service';
+import { globalStyle } from '../../styles';
 
 interface ForgetPassword {
   email: string;
 }
 
-const ForgotPasswordScreen = ({}: ForgotPasswordScreenProps) => {
+export function ForgotPasswordScreen({}: AuthStackForgotPasswordScreenProps) {
   const [loading, isLoading] = useState(false);
   const [emailSent, isEmailSent] = useState(false);
   const { translate } = useTranslate();
@@ -41,7 +42,7 @@ const ForgotPasswordScreen = ({}: ForgotPasswordScreenProps) => {
     if (emailSent) {
       setTimeout(() => {
         isEmailSent(false);
-      }, 10000);
+      }, 10_000);
     }
   }, [emailSent]);
 
@@ -50,24 +51,24 @@ const ForgotPasswordScreen = ({}: ForgotPasswordScreenProps) => {
       <View style={styles.formInputs}>
         <Controller
           control={control}
+          name="email"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              autoCapitalize="none"
+              autoCorrect={false}
+              keyboardType="email-address"
+              mode="outlined"
+              onBlur={onBlur}
+              onChangeText={onChange}
+              placeholder="Email"
+              style={[styles.textInput, styles.width90]}
+              value={value}
+            />
+          )}
           rules={{
             required: true,
             maxLength: 100,
           }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              value={value}
-              placeholder="Email"
-              autoCapitalize="none"
-              keyboardType="email-address"
-              autoCorrect={false}
-              style={[styles.textInput, styles.width90]}
-              mode={'outlined'}
-              onBlur={onBlur}
-              onChangeText={onChange}
-            />
-          )}
-          name="email"
         />
         {errors.email && (
           <Text style={[globalStyle.errors, globalStyle.spacerSmall]}>
@@ -76,10 +77,10 @@ const ForgotPasswordScreen = ({}: ForgotPasswordScreenProps) => {
         )}
         {/* TODO FIXME can reset timer after going back and in again */}
         <Button
-          loading={loading}
           disabled={emailSent}
+          loading={loading}
+          mode="contained"
           onPress={handleSubmit(handleForgot)}
-          mode={'contained'}
           style={globalStyle.marginTop}>
           {translate('auth.email_sent')}{' '}
           {emailSent && <Timer initialMinute={0} initialSeconds={10} />}
@@ -92,7 +93,7 @@ const ForgotPasswordScreen = ({}: ForgotPasswordScreenProps) => {
       </View>
     </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -113,5 +114,3 @@ const styles = StyleSheet.create({
     minWidth: 10,
   },
 });
-
-export default ForgotPasswordScreen;

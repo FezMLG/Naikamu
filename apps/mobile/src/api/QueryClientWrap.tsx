@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-const QueryClientWrap = (props: { children: React.ReactNode }) => {
+function QueryClientWrap(props: { children: React.ReactNode }) {
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -11,10 +12,8 @@ const QueryClientWrap = (props: { children: React.ReactNode }) => {
               if (error?.response.status === 502 && failureCount > 3) {
                 return false;
               }
-              if (error?.response.status >= 400) {
-                return false;
-              }
-              return true;
+
+              return error?.response.status < 400;
             },
           },
         },
@@ -26,6 +25,6 @@ const QueryClientWrap = (props: { children: React.ReactNode }) => {
       {props.children}
     </QueryClientProvider>
   );
-};
+}
 
 export default QueryClientWrap;

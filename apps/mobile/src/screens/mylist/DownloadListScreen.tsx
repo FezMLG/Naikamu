@@ -1,21 +1,24 @@
 import React, { useCallback, useEffect } from 'react';
+
+import { ScrollView, Text } from 'react-native';
+
 import {
   ActiveDownload,
   OfflineSeries,
   PageLayout,
   useLayout,
 } from '../../components';
-import { OfflineWatchScreenProps } from '../../routes/main/mylist/offline/interface';
-import { useOfflineService } from '../../services/offline/offline.service';
-import { ScrollView, Text } from 'react-native';
+import { useTranslate } from '../../i18n/useTranslate';
+import { useOfflineService } from '../../services';
 import { useDownloadsQueueStore } from '../../services/offline/queue.store';
+import { colors, fontStyles } from '../../styles';
 import { logger } from '../../utils/logger';
 
-const OfflineScreen = ({}: OfflineWatchScreenProps) => {
+export function DownloadListScreen() {
+  const { translate } = useTranslate();
   const layout = useLayout();
   const {
     activeDownloads,
-    queueDownloads,
     offlineSeries,
     getAllOfflineSeries,
     offlineStore,
@@ -27,7 +30,9 @@ const OfflineScreen = ({}: OfflineWatchScreenProps) => {
   const handleLoadingOffline = useCallback(async () => {
     try {
       const offline = await getAllOfflineSeries();
+
       logger('handleLoadingOffline').info(offline);
+
       return offline;
     } catch (error) {
       console.log(error);
@@ -39,6 +44,7 @@ const OfflineScreen = ({}: OfflineWatchScreenProps) => {
   useEffect(() => {
     (async () => {
       const offline = await handleLoadingOffline();
+
       if (offline) {
         offlineStore.setSeriesList(offline);
       }
@@ -52,17 +58,19 @@ const OfflineScreen = ({}: OfflineWatchScreenProps) => {
         {offlineSeries.length > 0 ? (
           // <Text>{JSON.stringify(offlineSeries)}</Text>
           offlineSeries
-            .filter(series => series.episodes.length !== 0)
+            .filter(series => series.episodes.length > 0)
             .map(series => (
               <OfflineSeries key={series.seriesId} series={series} />
             ))
         ) : (
-          <Text>No downloaded series</Text>
+          <Text style={[colors.textLight, fontStyles.text]}>
+            {translate('myList.download.notFound')}
+          </Text>
         )}
         {activeDownloads.map((download, index) => (
           <ActiveDownload
-            key={index}
             download={download}
+            key={index}
             stopAction={async () => {
               await stopDownload(download);
             }}
@@ -71,23 +79,19 @@ const OfflineScreen = ({}: OfflineWatchScreenProps) => {
         {queueActions
           .getQueue()
           .slice(activeDownloads.length > 0 ? 1 : 0)
-          .map((download, index) => {
-            return (
-              <ActiveDownload
-                key={index}
-                download={download}
-                stopAction={() => {
-                  queueActions.removeFromQueue(
-                    download.series.seriesId,
-                    download.episode.number,
-                  );
-                }}
-              />
-            );
-          })}
+          .map((download, index) => (
+            <ActiveDownload
+              download={download}
+              key={index}
+              stopAction={() => {
+                queueActions.removeFromQueue(
+                  download.series.seriesId,
+                  download.episode.number,
+                );
+              }}
+            />
+          ))}
       </ScrollView>
     </PageLayout.Default>
   );
-};
-
-export default OfflineScreen;
+}

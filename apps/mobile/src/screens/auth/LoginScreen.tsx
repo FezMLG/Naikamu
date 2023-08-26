@@ -1,23 +1,28 @@
 import React, { useState } from 'react';
+
+import { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import { useForm, Controller } from 'react-hook-form';
 import { View, StyleSheet } from 'react-native';
 import { Text, TextInput } from 'react-native-paper';
 
-import { LoginScreenProps, AuthRoutesNames } from '../../routes/auth';
-import { useForm, Controller } from 'react-hook-form';
-import { globalStyle } from '../../styles/global.style';
+import {
+  useErrorHandler,
+  PageLayout,
+  useLayout,
+  Button,
+} from '../../components';
 import { useTranslate } from '../../i18n/useTranslate';
-import { useErrorHandler } from '../../components/atoms/ErrorHandler/ErrorHandler';
-import { PageLayout, useLayout } from '../../components/atoms/Layout';
-import { Button } from '../../components';
-import { useUserStore } from '../../services/auth/user.store';
+import { AuthStackLoginScreenProps, AuthStackRoutesNames } from '../../routes';
 import { useUserService } from '../../services/auth/user.service';
+import { useUserStore } from '../../services/auth/user.store';
+import { globalStyle } from '../../styles';
 
 export interface LoginForm {
   email: string;
   password: string;
 }
 
-export default function LoginScreen({ navigation }: LoginScreenProps) {
+export function LoginScreen({ navigation }: AuthStackLoginScreenProps) {
   const userService = useUserService();
   const layout = useLayout();
   const [loading, isLoading] = useState(false);
@@ -42,13 +47,15 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
       isLoading(false);
       if (user && !user.emailVerified) {
         try {
-          navigation.navigate(AuthRoutesNames.VerifyEmail);
+          navigation.navigate(AuthStackRoutesNames.VerifyEmail);
         } catch (error) {
           console.error(error);
         }
       }
-    } catch (error: any) {
-      layout.setInfo(translate(errorResolver(error.code)));
+    } catch (error: unknown) {
+      const authError = error as FirebaseAuthTypes.NativeFirebaseAuthError;
+
+      layout.setInfo(translate(errorResolver(authError.code)));
       layout.setVisible(true);
     }
     isLoading(false);
@@ -59,24 +66,24 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
       <View style={[styles.formInputs, globalStyle.spacerBig]}>
         <Controller
           control={control}
+          name="email"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              autoCapitalize="none"
+              autoCorrect={false}
+              keyboardType="email-address"
+              mode="outlined"
+              onBlur={onBlur}
+              onChangeText={onChange}
+              placeholder="Email"
+              style={[styles.textInput, styles.width90, globalStyle.marginTop]}
+              value={value}
+            />
+          )}
           rules={{
             required: true,
             maxLength: 100,
           }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              value={value}
-              placeholder="Email"
-              autoCapitalize="none"
-              keyboardType="email-address"
-              autoCorrect={false}
-              style={[styles.textInput, styles.width90, globalStyle.marginTop]}
-              mode={'outlined'}
-              onBlur={onBlur}
-              onChangeText={onChange}
-            />
-          )}
-          name="email"
         />
         {errors.email && (
           <Text style={globalStyle.errors}>
@@ -86,13 +93,12 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
 
         <Controller
           control={control}
-          rules={{
-            required: true,
-            maxLength: 100,
-          }}
+          name="password"
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
-              value={value}
+              mode="outlined"
+              onBlur={onBlur}
+              onChangeText={onChange}
               placeholder={translate('auth.password')}
               secureTextEntry={true}
               style={[
@@ -100,12 +106,13 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                 styles.width90,
                 globalStyle.marginTopSmall,
               ]}
-              mode={'outlined'}
-              onBlur={onBlur}
-              onChangeText={onChange}
+              value={value}
             />
           )}
-          name="password"
+          rules={{
+            required: true,
+            maxLength: 100,
+          }}
         />
         {errors.password && (
           <Text style={globalStyle.errors}>
@@ -113,19 +120,21 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
           </Text>
         )}
         <Button
-          label={translate('auth.login')}
-          type={'primary'}
           disabled={loading}
+          label={translate('auth.login')}
           loading={loading}
-          style={[globalStyle.marginTopBig]}
           onPress={handleSubmit(handleLogin)}
+          style={[globalStyle.marginTopBig]}
+          type="primary"
         />
         <Button
-          label={translate('auth.forgot_password')}
-          type={'link'}
           disabled={loading}
+          label={translate('auth.forgot_password')}
+          onPress={() =>
+            navigation.navigate(AuthStackRoutesNames.ForgotPassword)
+          }
           style={[globalStyle.marginTopSmall]}
-          onPress={() => navigation.navigate(AuthRoutesNames.ForgotPassword)}
+          type="link"
         />
       </View>
     </PageLayout.Default>

@@ -1,22 +1,24 @@
 import React from 'react';
+
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Switch as PaperSwitch } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import {
   colors,
-  darkColor,
+  DarkColor,
   defaultRadius,
   fontStyles,
   globalStyle,
 } from '../../styles';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Switch as PaperSwitch } from 'react-native-paper';
 
-export const SettingsGroup = ({
+export function SettingsGroup({
   title,
   children,
 }: {
   title: string;
   children: React.ReactNode;
-}) => {
+}) {
   return (
     <View style={groupStyles.container}>
       <Text style={[colors.textLight, globalStyle.marginBottomSmall]}>
@@ -25,7 +27,7 @@ export const SettingsGroup = ({
       {children}
     </View>
   );
-};
+}
 
 const isFirstOrLast = (isFirst: boolean, isLast: boolean) => {
   if (isFirst && isLast) {
@@ -42,7 +44,7 @@ const isFirstOrLast = (isFirst: boolean, isLast: boolean) => {
   return {};
 };
 
-const Select = ({
+function Select({
   title,
   text,
   setIsModalOpen,
@@ -54,7 +56,7 @@ const Select = ({
   setIsModalOpen: (value: boolean) => void;
   isFirst?: boolean;
   isLast?: boolean;
-}) => {
+}) {
   return (
     <Pressable
       onPress={() => setIsModalOpen(true)}
@@ -62,17 +64,13 @@ const Select = ({
       <Text style={[colors.textLight, fontStyles.headerSmall]}>{title}</Text>
       <View style={[styles.inline]}>
         <Text style={[colors.textLighter, fontStyles.text]}>{text}</Text>
-        <Icon
-          name={'chevron-right'}
-          size={28}
-          color={colors.textLighter.color}
-        />
+        <Icon color={colors.textLighter.color} name="chevron-right" size={28} />
       </View>
     </Pressable>
   );
-};
+}
 
-const Switch = ({
+function Switch({
   text,
   isSwitchOn,
   setIsSwitchOn,
@@ -84,20 +82,20 @@ const Switch = ({
   setIsSwitchOn: (value: boolean) => void;
   isFirst?: boolean;
   isLast?: boolean;
-}) => {
+}) {
   return (
     <View style={[groupStyles.setting, isFirstOrLast(isFirst, isLast)]}>
       <Text style={[colors.textLight, fontStyles.headerSmall]}>{text}</Text>
       <PaperSwitch
-        value={isSwitchOn}
-        onValueChange={() => setIsSwitchOn(!isSwitchOn)}
         color={colors.accent.color}
+        onValueChange={() => setIsSwitchOn(!isSwitchOn)}
+        value={isSwitchOn}
       />
     </View>
   );
-};
+}
 
-const Edit = ({
+function Edit({
   label,
   text,
   onPress,
@@ -109,11 +107,11 @@ const Edit = ({
   onPress: () => void;
   isFirst?: boolean;
   isLast?: boolean;
-}) => {
+}) {
   return (
     <Pressable
-      style={[groupStyles.setting, isFirstOrLast(isFirst, isLast)]}
-      onPress={onPress}>
+      onPress={onPress}
+      style={[groupStyles.setting, isFirstOrLast(isFirst, isLast)]}>
       <View>
         <Text
           style={[
@@ -125,10 +123,10 @@ const Edit = ({
         </Text>
         <Text style={[colors.textLight, fontStyles.headerSmall]}>{text}</Text>
       </View>
-      <Icon name={'pencil'} size={28} color={colors.textLighter.color} />
+      <Icon color={colors.textLighter.color} name="pencil" size={28} />
     </Pressable>
   );
-};
+}
 
 const groupStyles = StyleSheet.create({
   container: {
@@ -143,7 +141,7 @@ const groupStyles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     minHeight: 80,
-    backgroundColor: darkColor.C800,
+    backgroundColor: DarkColor.C800,
     paddingHorizontal: 10,
   },
   radiusTop: {

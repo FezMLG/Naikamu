@@ -1,4 +1,6 @@
 import React from 'react';
+
+import { Relation } from '@aniwatch/shared';
 import {
   GestureResponderEvent,
   Pressable,
@@ -6,23 +8,23 @@ import {
   Text,
   View,
 } from 'react-native';
-import { useTranslate } from '../../i18n/useTranslate';
-import { Relation } from '@aniwatch/shared';
-import { darkColor } from '../../styles/darkMode.style';
-import { ProgressiveImage } from '../ProgressiveImage';
-import { colors, fontStyles } from '../../styles';
 
-export const SeriesRelations = ({
+import { useTranslate } from '../../i18n/useTranslate';
+import { colors, fontStyles } from '../../styles';
+import { DarkColor } from '../../styles/darkMode.style';
+import { ProgressiveImage } from '../ProgressiveImage';
+
+export function SeriesRelations({
   relation,
   handleNavigation,
 }: {
   relation: Relation;
   handleNavigation: ((event: GestureResponderEvent) => void) | null | undefined;
-}) => {
+}) {
   const { translate } = useTranslate();
 
   return (
-    <Pressable style={[styles.container]} onPress={handleNavigation}>
+    <Pressable onPress={handleNavigation} style={[styles.container]}>
       <ProgressiveImage
         source={relation.coverImage.medium}
         style={[styles.poster]}
@@ -33,7 +35,7 @@ export const SeriesRelations = ({
             style={[styles.textCapitalize, fontStyles.label, colors.textLight]}>
             {translate('anime_details.relations_list.' + relation.relationType)}
           </Text>
-          <Text style={[styles.title, colors.textLight]} numberOfLines={4}>
+          <Text numberOfLines={4} style={[styles.title, colors.textLight]}>
             {relation.title.romaji}
           </Text>
         </View>
@@ -51,7 +53,7 @@ export const SeriesRelations = ({
       </View>
     </Pressable>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -59,7 +61,7 @@ const styles = StyleSheet.create({
     flex: 1,
     maxWidth: 300,
     height: 150,
-    backgroundColor: darkColor.C800,
+    backgroundColor: DarkColor.C800,
     borderTopRightRadius: 8,
     borderBottomRightRadius: 8,
     marginTop: 10,

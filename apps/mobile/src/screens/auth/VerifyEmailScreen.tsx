@@ -1,13 +1,19 @@
 import React from 'react';
+
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 
-import { AuthRoutesNames, VerifyEmailScreenProps } from '../routes/auth';
-import { useTranslate } from '../i18n/useTranslate';
-import { globalStyle } from '../styles/global.style';
-import { useUserStore } from '../services/auth/user.store';
+import { useTranslate } from '../../i18n/useTranslate';
+import {
+  AuthStackRoutesNames,
+  AuthStackVerifyEmailScreenProps,
+} from '../../routes';
+import { useUserStore } from '../../services/auth/user.store';
+import { globalStyle } from '../../styles';
 
-const VerifyEmailScreen = ({ navigation }: VerifyEmailScreenProps) => {
+export function VerifyEmailScreen({
+  navigation,
+}: AuthStackVerifyEmailScreenProps) {
   const user = useUserStore(state => state.user);
   const { translate } = useTranslate();
 
@@ -15,19 +21,19 @@ const VerifyEmailScreen = ({ navigation }: VerifyEmailScreenProps) => {
     <SafeAreaView style={[styles.container]}>
       <Text variant="bodyMedium"> {translate('auth.email_verify.top')}</Text>
       <Text
-        variant="bodyLarge"
-        style={[globalStyle.spacerSmall, styles.highlight]}>
+        style={[globalStyle.spacerSmall, styles.highlight]}
+        variant="bodyLarge">
         {user?.email}
       </Text>
       <Text variant="bodyMedium"> {translate('auth.email_verify.bottom')}</Text>
       <Button
-        style={globalStyle.marginTopBig}
-        onPress={() => navigation.navigate(AuthRoutesNames.Login)}>
+        onPress={() => navigation.navigate(AuthStackRoutesNames.Login)}
+        style={globalStyle.marginTopBig}>
         {translate('buttons.go_back')}
       </Button>
     </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -43,5 +49,3 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-
-export default VerifyEmailScreen;

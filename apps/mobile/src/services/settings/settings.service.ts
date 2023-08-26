@@ -1,4 +1,5 @@
 import { logger } from '../../utils/logger';
+
 import { Resolution, UserSettings } from './interfaces';
 import { useUserSettingsStorage } from './settings.storage';
 import { useUserSettingsStore } from './settings.store';
@@ -18,6 +19,7 @@ export const useUserSettingsService = () => {
     updateUserSettings: async (updatedSettings: Partial<UserSettings>) => {
       try {
         const existingSettings = await getUserSettingsFromStorage();
+
         if (!existingSettings) {
           return;
         }
@@ -30,13 +32,14 @@ export const useUserSettingsService = () => {
         await saveUserSettingsToStorage(userSettings);
         actions.saveSettings(userSettings);
         logger('updateUserSettings').warn('userSettings', userSettings);
-      } catch (e: unknown) {
-        logger('updateUserSettings').warn(e);
+      } catch (error: unknown) {
+        logger('updateUserSettings').warn(error);
       }
     },
     initializeUserSettings: async () => {
       try {
         const existingSettings = await getUserSettingsFromStorage();
+
         if (!existingSettings) {
           logger('initializeUserSettings').warn(
             'no existing settings, saving default settings',
@@ -44,8 +47,8 @@ export const useUserSettingsService = () => {
           await saveUserSettingsToStorage(defaultSettings);
         }
         actions.saveSettings({ ...defaultSettings, ...existingSettings });
-      } catch (e: unknown) {
-        logger('initializeUserSettings').warn(e);
+      } catch (error: unknown) {
+        logger('initializeUserSettings').warn(error);
       }
     },
   };

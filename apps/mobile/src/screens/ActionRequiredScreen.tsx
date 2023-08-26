@@ -1,20 +1,23 @@
 import React from 'react';
+
 import { Linking, SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import Config from 'react-native-config';
+import { default as Config } from 'react-native-config';
 
-import { colors, fontStyles, globalStyle } from '../styles/global.style';
-import { useTranslate } from '../i18n/useTranslate';
-import { ActionRequiredScreenProps } from '../routes/auth';
 import { Button } from '../components';
+import { useTranslate } from '../i18n/useTranslate';
+import { AuthStackActionRequiredScreenProps } from '../routes';
+import { colors, fontStyles, globalStyle } from '../styles';
 
-const ActionRequiredScreen = ({ navigation }: ActionRequiredScreenProps) => {
+export function ActionRequiredScreen({
+  navigation,
+}: AuthStackActionRequiredScreenProps) {
   const appVersion = require('../../package.json').version;
   const { translate } = useTranslate();
 
   React.useEffect(
     () =>
-      navigation.addListener('beforeRemove', e => {
-        e.preventDefault();
+      navigation.addListener('beforeRemove', event => {
+        event.preventDefault();
       }),
     [navigation],
   );
@@ -32,19 +35,19 @@ const ActionRequiredScreen = ({ navigation }: ActionRequiredScreenProps) => {
       </View>
       <View>
         <Button
-          label={translate('important.requireAppUpdate.action')}
           icon="open-in-new"
-          type={'primary'}
+          label={translate('important.requireAppUpdate.action')}
           onPress={() =>
             Linking.openURL('https://github.com/FezMLG/AniWatch/releases')
           }
+          type="primary"
         />
         <Button
           label={translate('important.requireAppUpdate.actionAlt')}
-          type={'link'}
           onPress={() =>
             Linking.openURL('https://github.com/FezMLG/AniWatch/issues')
           }
+          type="link"
         />
         <View style={globalStyle.spacerSmall} />
         <Text style={[globalStyle.textCenter]}>
@@ -53,7 +56,7 @@ const ActionRequiredScreen = ({ navigation }: ActionRequiredScreenProps) => {
       </View>
     </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -72,5 +75,3 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-
-export default ActionRequiredScreen;

@@ -4,12 +4,15 @@ export const pl = {
   ...plSettings,
   routes: {
     Browse: 'Przeglądaj',
+    BrowseStack: 'Przeglądaj',
     Episodes: 'Epizody',
     Login: 'Zaloguj się',
     SignUp: 'Zarejestruj się',
     ForgotPassword: 'Nie pamiętam hasła',
     Search: 'Wyszukaj',
+    SearchStack: 'Wyszukaj',
     Settings: 'Ustawienia',
+    SettingsStack: 'Ustawienia',
     ActionConfirm: 'Potwierdź Akcję',
     SearchResults: 'Wyniki wyszukiwania',
     MyListStack: 'Moja lista',
@@ -158,5 +161,8 @@ export const pl = {
     common: {
       episodes: 'Epizody',
     },
+    download: {
+      notFound: 'Nie znaleziono pobranych serii'
+    }
   },
 };

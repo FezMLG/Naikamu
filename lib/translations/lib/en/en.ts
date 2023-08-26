@@ -4,12 +4,15 @@ export const en = {
   ...enSettings,
   routes: {
     Browse: 'Browse',
+    BrowseStack: 'Browse',
     Episodes: 'Episodes',
     Login: 'Login',
     SignUp: 'Sign Up',
     ForgotPassword: 'Forgot Password',
     Search: 'Search',
+    SearchStack: 'Search',
     Settings: 'Settings',
+    SettingsStack: 'Settings',
     ActionConfirm: 'Confirm Action',
     SearchResults: 'Search Results',
     MyListStack: 'My List',
@@ -157,5 +160,8 @@ export const en = {
     common: {
       episodes: 'Episodes',
     },
+    download: {
+      notFound: 'No downloaded series found'
+    }
   },
 };

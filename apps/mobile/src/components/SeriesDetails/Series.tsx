@@ -1,45 +1,46 @@
 import React from 'react';
-import { Linking, Pressable, StyleSheet, Text, View } from 'react-native';
-import { format } from 'date-fns';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { AnimeDetails } from '@aniwatch/shared';
+import { format } from 'date-fns';
+import { Linking, Pressable, StyleSheet, Text, View } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import { useTranslate } from '../../i18n/useTranslate';
 import { colors, darkStyle, fontStyles, globalStyle } from '../../styles';
 import { ProgressiveImage } from '../ProgressiveImage';
-import { QuickInfo } from './QuickInfo';
-import { useTranslate } from '../../i18n/useTranslate';
 
-const Title = (props: { romaji?: string; english?: string }) => {
+import { QuickInfo } from './QuickInfo';
+
+function Title(props: { romaji?: string; english?: string }) {
   return (
-    <Text style={[darkStyle.font, styles.title]} selectable={true}>
+    <Text selectable={true} style={[darkStyle.font, styles.title]}>
       {props.romaji ?? props.english}
     </Text>
   );
-};
+}
 
-const SubTitle = (props: { romaji?: string; english?: string }) => {
+function SubTitle(props: { romaji?: string; english?: string }) {
   return (
     <>
       {props.romaji !== props.english && (
-        <Text style={[colors.textLighter, styles.subTitle]} selectable={true}>
+        <Text selectable={true} style={[colors.textLighter, styles.subTitle]}>
           {props.english}
         </Text>
       )}
     </>
   );
-};
+}
 
-const Poster = (props: { bannerImage?: string; altImage: string }) => {
+function Poster(props: { bannerImage?: string; altImage: string }) {
   return (
     <ProgressiveImage
-      source={props.bannerImage ? props.bannerImage : props.altImage}
+      source={props.bannerImage ?? props.altImage}
       style={styles.banner}
     />
   );
-};
+}
 
-const QuickInfoContainer = ({ data }: { data: AnimeDetails }) => {
+function QuickInfoContainer({ data }: { data: AnimeDetails }) {
   const { translate } = useTranslate();
 
   return (
@@ -59,9 +60,9 @@ const QuickInfoContainer = ({ data }: { data: AnimeDetails }) => {
       <QuickInfo value={`${data.duration} mins`} />
     </View>
   );
-};
+}
 
-const NextEpisode = (props: { episode?: number; airingAt?: number }) => {
+function NextEpisode(props: { episode?: number; airingAt?: number }) {
   const { translate } = useTranslate();
 
   return (
@@ -79,38 +80,37 @@ const NextEpisode = (props: { episode?: number; airingAt?: number }) => {
       ) : null}
     </>
   );
-};
+}
 
-const Genres = (props: { genres: AnimeDetails['genres']; color: string }) => {
+function Genres(props: { genres: AnimeDetails['genres']; color: string }) {
   const textColor = pickTextColorBasedOnBgColorAdvanced(
     props.color,
     colors.textLight.color,
     colors.textDark.color,
   );
+
   return (
     <View style={[styles.chipContainer]}>
-      {props.genres.map((genre, index) => {
-        return (
-          <View
-            key={index}
-            style={[styles.chipGenre, { backgroundColor: props.color }]}>
-            <Text style={{ color: textColor }}>{genre}</Text>
-          </View>
-        );
-      })}
+      {props.genres.map((genre, index) => (
+        <View
+          key={index}
+          style={[styles.chipGenre, { backgroundColor: props.color }]}>
+          <Text style={{ color: textColor }}>{genre}</Text>
+        </View>
+      ))}
     </View>
   );
-};
+}
 
-const Description = (props: { description: string }) => {
+function Description(props: { description: string }) {
   return (
     <Text style={[darkStyle.font, fontStyles.text]}>
-      {props.description.replace(/<[^>]*>?/gm, '')}
+      {props.description.replaceAll(/<[^>]*>?/gm, '')}
     </Text>
   );
-};
+}
 
-const Trailer = (props: { trailer: AnimeDetails['trailer'] }) => {
+function Trailer(props: { trailer: AnimeDetails['trailer'] }) {
   const { translate } = useTranslate();
   const { trailer } = props;
 
@@ -119,11 +119,11 @@ const Trailer = (props: { trailer: AnimeDetails['trailer'] }) => {
       {trailer ? (
         <View style={styles.trailerContainer}>
           <Pressable
-            style={styles.trailerButton}
             onPress={() =>
               Linking.openURL('https://www.youtube.com/watch?v=' + trailer.id)
-            }>
-            <Icon name={'movie-play-outline'} size={30} color={'white'} />
+            }
+            style={styles.trailerButton}>
+            <Icon color="white" name="movie-play-outline" size={30} />
             <Text style={[fontStyles.text, colors.textLight]}>
               {translate('anime_details.trailer')}
             </Text>
@@ -132,9 +132,9 @@ const Trailer = (props: { trailer: AnimeDetails['trailer'] }) => {
       ) : null}
     </>
   );
-};
+}
 
-const DataSource = ({ sourceId }: { sourceId: AnimeDetails['sourceId'] }) => {
+function DataSource({ sourceId }: { sourceId: AnimeDetails['sourceId'] }) {
   const { translate } = useTranslate();
 
   return (
@@ -142,11 +142,11 @@ const DataSource = ({ sourceId }: { sourceId: AnimeDetails['sourceId'] }) => {
       onPress={() => Linking.openURL('https://anilist.co/anime/' + sourceId)}>
       <Text style={[globalStyle.disclaimer, darkStyle.font]}>
         {translate('anime_details.source')}: AniList{' '}
-        <Icon name={'open-in-new'} size={16} color={'white'} />
+        <Icon color="white" name="open-in-new" size={16} />
       </Text>
     </Pressable>
   );
-};
+}
 
 export const SeriesDetails = {
   Poster,
@@ -244,17 +244,19 @@ function pickTextColorBasedOnBgColorAdvanced(
   lightColor: string,
   darkColor: string,
 ) {
-  var color = bgColor.charAt(0) === '#' ? bgColor.substring(1, 7) : bgColor;
-  var r = parseInt(color.substring(0, 2), 16); // hexToR
-  var g = parseInt(color.substring(2, 4), 16); // hexToG
-  var b = parseInt(color.substring(4, 6), 16); // hexToB
-  var uiColors = [r / 255, g / 255, b / 255];
-  var c = uiColors.map(col => {
-    if (col <= 0.03928) {
+  const color = bgColor.charAt(0) === '#' ? bgColor.slice(1, 7) : bgColor;
+  const r = Number.parseInt(color.slice(0, 2), 16); // hexToR
+  const g = Number.parseInt(color.slice(2, 4), 16); // hexToG
+  const b = Number.parseInt(color.slice(4, 6), 16); // hexToB
+  const uiColors = [r / 255, g / 255, b / 255];
+  const c = uiColors.map(col => {
+    if (col <= 0.039_28) {
       return col / 12.92;
     }
+
     return Math.pow((col + 0.055) / 1.055, 2.4);
   });
-  var L = 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+  const L = 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+
   return L > 0.179 ? darkColor : lightColor;
 }

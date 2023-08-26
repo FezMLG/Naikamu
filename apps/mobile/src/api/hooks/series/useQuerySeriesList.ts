@@ -1,6 +1,8 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
 import { useState } from 'react';
+
 import { AnimeList } from '@aniwatch/shared';
+import { useInfiniteQuery } from '@tanstack/react-query';
+
 import { getAnimeSeason } from '../../../utils';
 import { APIClient } from '../../APIClient';
 

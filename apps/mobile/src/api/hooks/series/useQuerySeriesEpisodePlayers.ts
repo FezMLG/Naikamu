@@ -1,17 +1,21 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { APIClient } from '../../APIClient';
 import { useUserSettingsService } from '../../../services/settings/settings.service';
+import { APIClient } from '../../APIClient';
 
-export const useQuerySeriesEpisodePlayers = (id: string, num: number) => {
+export const useQuerySeriesEpisodePlayers = (id: string, number_: number) => {
   const apiClient = new APIClient();
 
   const { userSettings } = useUserSettingsService();
 
   const { data, refetch } = useQuery(
-    ['anime', id, 'episodes', num],
+    ['anime', id, 'episodes', number_],
     () =>
-      apiClient.getEpisodePlayers(id, num, userSettings.preferredResolution),
+      apiClient.getEpisodePlayers(
+        id,
+        number_,
+        userSettings.preferredResolution,
+      ),
     {
       enabled: false,
     },

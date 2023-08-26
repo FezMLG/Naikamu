@@ -1,65 +1,72 @@
 import React from 'react';
+
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { SignUpScreen } from '../../screens/auth/SignUpScreen';
-import AppLoadScreen from '../../screens/AppLoadScreen';
-import { AuthStackParamList, AuthRoutesNames } from './interfaces';
-import LoginScreen from '../../screens/auth/LoginScreen';
-import HelloScreen from '../../screens/HelloScreen';
 import { useTranslate } from '../../i18n/useTranslate';
-import ForgotPasswordScreen from '../../screens/ForgotPasswordScreen';
-import VerifyEmailScreen from '../../screens/VerifyEmailScreen';
-import ActionRequiredScreen from '../../screens/ActionRequiredScreen';
+import {
+  ActionRequiredScreen,
+  AppLoadScreen,
+  ForgotPasswordScreen,
+  HelloScreen,
+  LoginScreen,
+  SignUpScreen,
+  VerifyEmailScreen,
+} from '../../screens';
 
-const Stack = createNativeStackNavigator<AuthStackParamList>();
+import {
+  AuthStackParameterList as AuthStackParameterList,
+  AuthStackRoutesNames,
+} from './auth.interfaces';
 
-export default function AuthStack() {
+const Stack = createNativeStackNavigator<AuthStackParameterList>();
+
+export function AuthStack() {
   const { translate } = useTranslate();
 
   return (
-    <Stack.Navigator initialRouteName={AuthRoutesNames.AppLoading}>
+    <Stack.Navigator initialRouteName={AuthStackRoutesNames.AppLoading}>
       <Stack.Screen
-        name={AuthRoutesNames.AppLoading}
         component={AppLoadScreen}
+        name={AuthStackRoutesNames.AppLoading}
         options={{ header: () => null }}
       />
       <Stack.Screen
-        name={AuthRoutesNames.Hello}
         component={HelloScreen}
+        name={AuthStackRoutesNames.Hello}
         options={{ header: () => null }}
       />
       <Stack.Screen
-        name={AuthRoutesNames.Login}
         component={LoginScreen}
+        name={AuthStackRoutesNames.Login}
         options={{
-          title: translate('routes.' + AuthRoutesNames.Login),
+          title: translate('routes.' + AuthStackRoutesNames.Login),
           animation: 'slide_from_right',
         }}
       />
       <Stack.Screen
-        name={AuthRoutesNames.SignUp}
         component={SignUpScreen}
+        name={AuthStackRoutesNames.SignUp}
         options={{
-          title: translate('routes.' + AuthRoutesNames.SignUp),
+          title: translate('routes.' + AuthStackRoutesNames.SignUp),
           animation: 'slide_from_right',
         }}
       />
       <Stack.Screen
-        name={AuthRoutesNames.VerifyEmail}
         component={VerifyEmailScreen}
+        name={AuthStackRoutesNames.VerifyEmail}
         options={{ header: () => null }}
       />
       <Stack.Screen
-        name={AuthRoutesNames.ForgotPassword}
         component={ForgotPasswordScreen}
+        name={AuthStackRoutesNames.ForgotPassword}
         options={{
-          title: translate('routes.' + AuthRoutesNames.ForgotPassword),
+          title: translate('routes.' + AuthStackRoutesNames.ForgotPassword),
           animation: 'slide_from_right',
         }}
       />
       <Stack.Screen
-        name={AuthRoutesNames.ActionRequired}
         component={ActionRequiredScreen}
+        name={AuthStackRoutesNames.ActionRequired}
         options={{
           headerShown: false,
         }}

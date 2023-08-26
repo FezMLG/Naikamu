@@ -16,6 +16,7 @@ export const retrieveTokensFromStorage = async (
     const credentials = await Keychain.getGenericPassword({
       service: tokenKey,
     });
+
     if (credentials) {
       const token: string = JSON.parse(credentials.password);
 
@@ -25,6 +26,7 @@ export const retrieveTokensFromStorage = async (
     return null;
   } catch (error) {
     console.log("Keychain couldn't be accessed!", error);
+
     return null;
   }
 };

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+
 import { SafeAreaView, StyleSheet, ViewStyle } from 'react-native';
+
 import { Snackbar } from '../Snackbar';
 
 const useInfoHandler = () => {
@@ -20,7 +22,7 @@ const useSnackbar = () => {
   };
 };
 
-const Default = ({
+function Default({
   children,
   info,
   visible,
@@ -32,19 +34,19 @@ const Default = ({
   visible: boolean;
   setVisible: (visible: boolean) => void;
   style?: ViewStyle[];
-}) => {
+}) {
   return (
     <SafeAreaView style={[styles.container, ...style]}>
       {children}
       <Snackbar
+        actionLabel="Ok"
+        setVisible={setVisible}
         text={info}
         visible={visible}
-        actionLabel={'Ok'}
-        setVisible={setVisible}
       />
     </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

@@ -36,17 +36,21 @@ export const getAnimeSeason = (month: number = new Date().getMonth() + 1) => {
   switch (month) {
     case 1:
     case 2:
-    case 3:
+    case 3: {
       return AnimeSeasons.winter;
+    }
     case 4:
     case 5:
-    case 6:
+    case 6: {
       return AnimeSeasons.spring;
+    }
     case 7:
     case 8:
-    case 9:
+    case 9: {
       return AnimeSeasons.summer;
-    default:
+    }
+    default: {
       return AnimeSeasons.fall;
+    }
   }
 };

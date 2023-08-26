@@ -1,12 +1,14 @@
+import { Platform } from 'react-native';
 import RNFS from 'react-native-fs';
+
+import { logger } from '../../utils/logger';
+
+import { IEpisodeDownloadJob, useDownloadsStore } from './downloads.store';
 import { IOfflineSeries, IOfflineSeriesEpisodes } from './interfaces';
 import { offlineFS } from './offline.fs';
 import { offlineStorage } from './offline.storage';
-import { IEpisodeDownloadJob, useDownloadsStore } from './downloads.store';
 import { useOfflineSeriesStore } from './offline.store';
 import { useDownloadsQueueStore } from './queue.store';
-import { logger } from '../../utils/logger';
-import { Platform } from 'react-native';
 
 export const useOfflineService = () => {
   const downloadJobs = useDownloadsStore(state => state.activeDownloads);
@@ -19,49 +21,45 @@ export const useOfflineService = () => {
 
   const checkIfSeriesExist = (seriesId: string) => {
     const result = offlineActions.getOfflineSeries(seriesId);
+
     if (!result) {
       throw new Error(`Series ${seriesId} not found`);
     }
-    return result;
-  };
 
-  const isSeriesWithEpisodes = (seriesId: string) => {
-    const series = offlineActions.getOfflineSeries(seriesId);
-    if (!series) {
-      throw new Error(`Series ${seriesId} not found`);
-    }
-    return series.episodes.length > 0;
+    return result;
   };
 
   const saveEpisodeOffline = async () => {
     const firstItem = queueActions.getFirstItem();
+
     if (!firstItem) {
       logger('saveEpisodeOffline').warn('no items in queue');
+
       return;
     }
     const { series, episode, fileUrl } = firstItem;
 
     checkIfSeriesExist(series.seriesId);
 
-    const beginDownload = async (res: RNFS.DownloadBeginCallbackResult) => {
+    const beginDownload = async (result: RNFS.DownloadBeginCallbackResult) => {
       logger('begin download').info();
       downloadsActions.addDownload({
-        jobId: res.jobId,
+        jobId: result.jobId,
         series,
         episode,
       });
     };
 
     const progressDownload = async (
-      res: RNFS.DownloadProgressCallbackResult,
+      result: RNFS.DownloadProgressCallbackResult,
     ) => {
       logger('progressDownload').info(
-        ((res.bytesWritten / res.contentLength) * 100).toFixed(2),
+        ((result.bytesWritten / result.contentLength) * 100).toFixed(2),
       );
 
       downloadsActions.changeProgress(
         jobId,
-        res.bytesWritten / res.contentLength,
+        result.bytesWritten / result.contentLength,
       );
     };
 
@@ -83,17 +81,19 @@ export const useOfflineService = () => {
       logger('progressDownload').info('job done', series);
 
       const saved = offlineActions.saveOrReplaceOfflineSeries(series);
+
       await offlineStorage.saveOfflineSeries(saved);
 
       queueActions.removeFirstItem();
-      const firstItem = queueActions.getFirstItem();
-      if (!firstItem) {
+      const firstItemInQueue = queueActions.getFirstItem();
+
+      if (firstItemInQueue) {
+        saveEpisodeOffline();
+      } else {
         if (Platform.OS === 'ios') {
           RNFS.completeHandlerIOS(jobId);
         }
         logger('progressDownload').warn('no items in queue 2', series);
-      } else {
-        saveEpisodeOffline();
       }
     });
   };
@@ -124,6 +124,7 @@ export const useOfflineService = () => {
 
   const deleteSeriesOffline = async (seriesId: string) => {
     const series = checkIfSeriesExist(seriesId);
+
     if (!series.episodes) {
       throw new Error('Series not downloaded');
     }
@@ -136,6 +137,7 @@ export const useOfflineService = () => {
       }),
     );
     const saved = offlineActions.deleteOfflineSeries(seriesId);
+
     offlineStorage.saveOfflineSeries(saved);
   };
 
@@ -146,23 +148,29 @@ export const useOfflineService = () => {
     offlineStore: offlineActions,
     addOfflineSeries: async (series: IOfflineSeries) => {
       const exist = offlineActions.getOfflineSeries(series.seriesId);
+
       if (!exist) {
         const saved = offlineActions.saveOrReplaceOfflineSeries(series);
+
         await offlineStorage.saveOfflineSeries(saved);
       }
     },
     getAllOfflineSeries: async (): Promise<IOfflineSeries[]> => {
       const state = offlineActions.getOfflineSeriesList();
+
       if (state.length === 0) {
         const local = await offlineStorage.getOfflineSeriesList();
-        if (local instanceof Array) {
+
+        if (Array.isArray(local)) {
           offlineActions.setSeriesList(local);
         }
       }
+
       return offlineActions.getOfflineSeriesList();
     },
     getOfflineEpisodes: async (seriesId: string) => {
       const series = checkIfSeriesExist(seriesId);
+
       return series.episodes;
     },
     addToQueue,
@@ -172,15 +180,20 @@ export const useOfflineService = () => {
       episodeNumber: number,
     ): Promise<boolean> => {
       const series = offlineActions.getOfflineSeries(seriesId);
+
       if (!series) {
         return false;
       }
-      const episode = series.episodes.find(e => e.number === episodeNumber);
+      const episode = series.episodes.find(
+        element => element.number === episodeNumber,
+      );
+
       return !!episode;
     },
     deleteSeriesOffline,
     deleteEpisodeOffline: async (seriesId: string, episodeNumber: number) => {
       const episode = offlineActions.getOfflineEpisode(seriesId, episodeNumber);
+
       if (!episode) {
         throw new Error('Episode not found');
       }
@@ -192,16 +205,15 @@ export const useOfflineService = () => {
         seriesId,
         episodeNumber,
       );
+
       await offlineStorage.saveOfflineSeries(saved);
     },
     stopDownload: async (download: IEpisodeDownloadJob) => {
-      const { jobId } = download;
+      const { jobId, series, episode } = download;
+
       await offlineFS.stopDownloadingFile(jobId);
       downloadsActions.removeDownload(jobId);
-      queueActions.removeFromQueue(
-        download.series.seriesId,
-        download.episode.number,
-      );
+      queueActions.removeFromQueue(series.seriesId, episode.number);
       if (!queueActions.isQueueEmpty()) {
         saveEpisodeOffline();
       }

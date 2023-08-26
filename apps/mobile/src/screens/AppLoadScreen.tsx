@@ -1,41 +1,44 @@
 import React, { useCallback, useEffect, useState } from 'react';
+
+import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import {
   Image,
   Linking,
   Pressable,
-  SafeAreaView,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
-import Config from 'react-native-config';
+import { default as Config } from 'react-native-config';
+import semver from 'semver';
 
-import { colors, fontStyles, globalStyle } from '../styles/global.style';
+import { useQueryApiHealth } from '../api/hooks';
+import { ActivityIndicator, PageLayout, useLayout } from '../components';
 import { useTranslate } from '../i18n/useTranslate';
+import {
+  AuthStackAppLoadingScreenProps,
+  AuthStackRoutesNames,
+} from '../routes';
+import { useUserService } from '../services/auth/user.service';
+import { useUserStore } from '../services/auth/user.store';
 import {
   fireGetIdToken,
   fireGetNewIdToken,
 } from '../services/firebase/fire-auth.service';
-import { AppLoadingScreenProps, AuthRoutesNames } from '../routes/auth';
-import { useQueryApiHealth } from '../api/hooks';
 import { useUserSettingsService } from '../services/settings/settings.service';
-import semver from 'semver';
-import { ActivityIndicator, PageLayout, useLayout } from '../components';
-import { useUserService } from '../services/auth/user.service';
+import { colors, fontStyles, globalStyle } from '../styles';
 import { logger } from '../utils/logger';
-import { useUserStore } from '../services/auth/user.store';
-import NetInfo from '@react-native-community/netinfo';
 
-const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
+export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
   const supportedApiVersion = require('../../package.json').apiVersion;
   const layout = useLayout();
   const { translate } = useTranslate();
-  const [longLoading, setLongLoading] = useState(false);
+  const [, setLongLoading] = useState(false);
   const [apiError, setApiError] = useState(false);
   const { initializeUserSettings } = useUserSettingsService();
   const userService = useUserService();
   const user = useUserStore(state => state.user);
-  const [netInfo, setNetInfo] = useState<any>();
+  const [netInfo] = useState<NetInfoState>();
 
   useEffect(() => {
     checkConnection();
@@ -47,7 +50,7 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
     setTimeout(() => {
       setLongLoading(false);
       setApiError(true);
-    }, 15000);
+    }, 15_000);
   }, []);
 
   const checkConnection = useCallback(async () => {
@@ -69,39 +72,40 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
       handleLoginCheck();
     } else {
       console.log('wrong api');
-      navigation.navigate(AuthRoutesNames.ActionRequired);
+      navigation.navigate(AuthStackRoutesNames.ActionRequired);
     }
   });
 
   const handleLoginCheck = useCallback(async () => {
     await initializeUserSettings();
     const token = await fireGetIdToken();
+
     if (token) {
       await fireGetNewIdToken();
       userService.setLoggedUser();
       logger('handleLoginCheck').info(user);
       if (!user?.emailVerified && user?.emailVerified !== undefined) {
-        navigation.navigate(AuthRoutesNames.VerifyEmail);
+        navigation.navigate(AuthStackRoutesNames.VerifyEmail);
       }
     } else {
-      navigation.navigate(AuthRoutesNames.Hello);
+      navigation.navigate(AuthStackRoutesNames.Hello);
     }
   }, [initializeUserSettings, navigation]);
 
   return (
     <PageLayout.Default style={[styles.container]} {...layout}>
-      <Text>{user?.displayName ? user?.displayName : user?.email}</Text>
+      <Text>{user?.displayName ?? user?.email}</Text>
       <Text style={[colors.textLight, fontStyles.text]}>
         {translate('welcomeScreen.welcome')}
       </Text>
       <Text style={[colors.textLight, fontStyles.screenHeader]}>AniWatch</Text>
       <View style={[globalStyle.spacerBig]} />
       <Image
-        style={styles.logo}
         source={require('../../assets/aniwatch_logo_t.png')}
+        style={styles.logo}
       />
       <View style={[globalStyle.spacerBig]} />
-      <ActivityIndicator size={'large'} visible={true} />
+      <ActivityIndicator size="large" visible={true} />
       {apiError && (
         <Pressable
           onPress={() =>
@@ -136,7 +140,7 @@ const AppLoadScreen = ({ navigation }: AppLoadingScreenProps) => {
       )}
     </PageLayout.Default>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -155,5 +159,3 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-
-export default AppLoadScreen;

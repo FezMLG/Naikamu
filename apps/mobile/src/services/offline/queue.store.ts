@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+
 import { IOfflineSeries, IOfflineSeriesEpisodes } from './interfaces';
 
 export interface IDownloadsQueueItem {
@@ -23,9 +24,7 @@ interface DownloadsState {
 export const useDownloadsQueueStore = create<DownloadsState>((set, get) => ({
   queue: [],
   actions: {
-    getQueue: () => {
-      return get().queue;
-    },
+    getQueue: () => get().queue,
     addToQueue: item => {
       set(state => ({
         queue: [...state.queue, item],
@@ -41,16 +40,12 @@ export const useDownloadsQueueStore = create<DownloadsState>((set, get) => ({
       }));
     },
     clearQueue: () => {
-      set(state => ({
+      set(() => ({
         queue: [],
       }));
     },
-    isQueueEmpty: () => {
-      return get().queue.length === 0;
-    },
-    getFirstItem: () => {
-      return get().queue[0];
-    },
+    isQueueEmpty: () => get().queue.length === 0,
+    getFirstItem: () => get().queue[0],
     removeFirstItem: () => {
       set(state => ({
         queue: state.queue.slice(1),

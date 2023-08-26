@@ -1,5 +1,5 @@
-import { create } from 'zustand';
 import { User } from '@aniwatch/shared';
+import { create } from 'zustand';
 
 interface UserState {
   user: User | null;
@@ -13,9 +13,7 @@ interface UserState {
 export const useUserStore = create<UserState>((set, get) => ({
   user: null,
   actions: {
-    getUser: () => {
-      return get().user;
-    },
+    getUser: () => get().user,
     setUser: (userToSet: User | null) => {
       set({
         user: userToSet,

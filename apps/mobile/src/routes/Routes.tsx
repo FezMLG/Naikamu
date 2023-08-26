@@ -1,33 +1,38 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 
-import MainStack from './main/MainStack';
-import AuthStack from './auth/AuthStack';
-import { ScreenNames } from './main';
-import SplashScreen from '../screens/SplashScreen';
+import { NavigationContainer, Theme } from '@react-navigation/native';
+
+import { SplashScreen } from '../screens';
 import { useUserStore } from '../services/auth/user.store';
+
+import { AuthStack } from './auth';
+import {
+  BrowseStackScreenNames,
+  SeriesStackScreenNames,
+  RootStack,
+} from './main';
 
 const linking = {
   prefixes: ['aniwatch://'],
   config: {
     screens: {
-      [ScreenNames.Browse]: 'browse',
-      [ScreenNames.Series]: 'browse/:id',
+      [BrowseStackScreenNames.Browse]: 'browse',
+      [SeriesStackScreenNames.Series]: 'browse/:id',
     },
   },
 };
 
-const Routes = ({ theme }: any) => {
+function Routes({ theme }: { theme: Theme }) {
   const user = useUserStore(state => state.user);
 
   return (
     <NavigationContainer
-      linking={linking}
       fallback={<SplashScreen />}
+      linking={linking}
       theme={theme}>
-      {user && user?.emailVerified ? <MainStack /> : <AuthStack />}
+      {user && user?.emailVerified ? <RootStack /> : <AuthStack />}
     </NavigationContainer>
   );
-};
+}
 
 export default Routes;

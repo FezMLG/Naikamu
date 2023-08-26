@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import { RadioButton } from 'react-native-paper';
-import Config from 'react-native-config';
 
-import { useTranslate } from '../../i18n/useTranslate';
-import { PlaybackSettingsScreenProps } from '../../routes/settings/interfaces';
-import { Resolution } from '../../services/settings/interfaces';
-import { colors, fontStyles, globalStyle } from '../../styles';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { default as Config } from 'react-native-config';
+import { RadioButton } from 'react-native-paper';
+
 import { Button, Modal, SettingInputs, SettingsGroup } from '../../components';
-import { useUserSettingsService } from '../../services/settings/settings.service';
+import { useTranslate } from '../../i18n/useTranslate';
+import { SettingsStackPlaybackSettingsScreenProps } from '../../routes';
 import { useOfflineService } from '../../services';
 import { useDownloadsQueueStore } from '../../services/offline/queue.store';
+import { Resolution } from '../../services/settings/interfaces';
+import { useUserSettingsService } from '../../services/settings/settings.service';
+import { colors, fontStyles, globalStyle } from '../../styles';
 
-const QualityModal = ({
+function QualityModal({
   isOpen,
   setIsOpen,
   quality,
@@ -24,35 +25,33 @@ const QualityModal = ({
   quality: string;
   setQuality: (quality: string) => void;
   handleChange: (quality: Resolution) => void;
-}) => {
+}) {
   const { translate } = useTranslate();
 
   return (
     <Modal.Container isOpen={isOpen} setIsOpen={setIsOpen}>
       <Modal.Title title={translate('settings.modals.videoQuality')} />
       <RadioButton.Group onValueChange={setQuality} value={quality}>
-        {Object.keys(Resolution).map(key => {
-          return (
-            <View key={key} style={[styles.inline, styles.radioContainer]}>
-              <RadioButton value={key} />
-              <Text
-                style={[fontStyles.text, colors.textLight, styles.radioLabel]}>
-                {Resolution[key as keyof typeof Resolution]}
-              </Text>
-            </View>
-          );
-        })}
+        {Object.keys(Resolution).map(key => (
+          <View key={key} style={[styles.inline, styles.radioContainer]}>
+            <RadioButton value={key} />
+            <Text
+              style={[fontStyles.text, colors.textLight, styles.radioLabel]}>
+              {Resolution[key as keyof typeof Resolution]}
+            </Text>
+          </View>
+        ))}
       </RadioButton.Group>
       <Button
         label={translate('forms.save')}
-        type={'primary'}
         onPress={() => handleChange(quality as Resolution)}
+        type="primary"
       />
     </Modal.Container>
   );
-};
+}
 
-const AppSettingsScreen = ({}: PlaybackSettingsScreenProps) => {
+export function AppSettingsScreen({}: SettingsStackPlaybackSettingsScreenProps) {
   const {
     userSettings: { preferredResolution, preferredDownloadQuality },
   } = useUserSettingsService();
@@ -82,26 +81,26 @@ const AppSettingsScreen = ({}: PlaybackSettingsScreenProps) => {
   return (
     <SafeAreaView style={[styles.container]}>
       <QualityModal
-        isOpen={isOpenP}
-        setIsOpen={setIsOpenP}
-        quality={playbackQuality}
-        setQuality={setPlaybackQuality}
         handleChange={handlePlaybackQualityChange}
+        isOpen={isOpenP}
+        quality={playbackQuality}
+        setIsOpen={setIsOpenP}
+        setQuality={setPlaybackQuality}
       />
       <QualityModal
-        isOpen={isOpenQ}
-        setIsOpen={setIsOpenQ}
-        quality={downloadQuality}
-        setQuality={setDownloadQuality}
         handleChange={handleDownloadQualityChange}
+        isOpen={isOpenQ}
+        quality={downloadQuality}
+        setIsOpen={setIsOpenQ}
+        setQuality={setDownloadQuality}
       />
       <SettingsGroup title={translate('settings.groups.videoPlaybackDownload')}>
         <SettingInputs.Select
-          title={translate('settings.titles.videoQuality')}
-          text={playbackQuality ?? '1080p'}
-          setIsModalOpen={setIsOpenP}
           isFirst={true}
           isLast={true}
+          setIsModalOpen={setIsOpenP}
+          text={playbackQuality ?? '1080p'}
+          title={translate('settings.titles.videoQuality')}
         />
       </SettingsGroup>
       {/* <SettingsGroup title={translate('settings.groups.videoDownload')}>
@@ -143,23 +142,23 @@ const AppSettingsScreen = ({}: PlaybackSettingsScreenProps) => {
           </>
         )}
         <Button
-          label={'Clear downloads'}
-          type={'primary'}
+          label="Clear downloads"
           onPress={() => {
             clearOffline();
           }}
+          type="primary"
         />
         <Button
-          label={'Clear downloads queue'}
-          type={'primary'}
+          label="Clear downloads queue"
           onPress={() => {
             queueActions.clearQueue();
           }}
+          type="primary"
         />
       </View>
     </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   inline: {
@@ -212,5 +211,3 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-
-export default AppSettingsScreen;

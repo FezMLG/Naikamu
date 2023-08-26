@@ -1,32 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+
+import { useNavigation } from '@react-navigation/native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Swipeable } from 'react-native-gesture-handler';
 import { ProgressBar } from 'react-native-paper';
-import { Text } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { darkColor } from '../../styles/darkMode.style';
+import { RootStackScreenNames } from '../../routes';
+import {
+  IOfflineSeriesEpisodes,
+  useOfflineService,
+  createEpisodeProgressKey,
+  useVideoProgress,
+} from '../../services';
 import {
   colors,
   defaultRadius,
   fontStyles,
   globalStyle,
-} from '../../styles/global.style';
+  DarkColor,
+} from '../../styles';
 // import { useTranslate } from '../../i18n/useTranslate';
-import { useNavigation } from '@react-navigation/native';
-import { ScreenNames } from '../../routes/main';
-import {
-  IOfflineSeriesEpisodes,
-  useOfflineService,
-} from '../../services/offline';
-import {
-  createEpisodeProgressKey,
-  useVideoProgress,
-} from '../../services/useVideoProgress';
 import { humanFileSize } from '../../utils/humanFileSize';
-import { Swipeable } from 'react-native-gesture-handler';
 import { Button, Modal } from '../atoms';
 
-export const OfflineEpisode = ({
+export function OfflineEpisode({
   episode,
   animeId,
   animeName,
@@ -34,7 +32,7 @@ export const OfflineEpisode = ({
   episode: IOfflineSeriesEpisodes;
   animeId: string;
   animeName: string;
-}) => {
+}): React.ReactElement {
   const navigation = useNavigation<any>();
   const episodeKey = createEpisodeProgressKey(animeId, episode.number);
   const { progressMinutes, loadProgress } = useVideoProgress(episodeKey);
@@ -47,70 +45,70 @@ export const OfflineEpisode = ({
 
   // const { translate } = useTranslate();
 
-  const RightSwipeActions = () => {
+  function RightSwipeActions() {
     return (
       <Pressable
+        onPress={() => {
+          console.log('delete episode', animeId, episode.number);
+          deleteEpisodeOffline(animeId, episode.number);
+        }}
         style={{
           backgroundColor: colors.error.color,
           justifyContent: 'center',
           alignItems: 'flex-end',
           borderRadius: defaultRadius,
           width: '100%',
-        }}
-        onPress={() => {
-          console.log('delete episode', animeId, episode.number);
-          deleteEpisodeOffline(animeId, episode.number);
         }}>
         <Icon
-          name={'trash-can-outline'}
-          size={30}
           color={colors.textLight.color}
+          name="trash-can-outline"
+          size={30}
           style={{ paddingHorizontal: 16 }}
         />
       </Pressable>
     );
-  };
+  }
 
   return (
     <>
-      <Modal.Container setIsOpen={setIsOpen} isOpen={isOpen}>
+      <Modal.Container isOpen={isOpen} setIsOpen={setIsOpen}>
         <Modal.Title title={episode.title} />
         <Button
-          label={'Delete'}
-          type="warning"
+          label="Delete"
           onPress={() => {
             console.log('delete episode', animeId, episode.number);
             deleteEpisodeOffline(animeId, episode.number);
             setIsOpen(false);
           }}
+          type="warning"
         />
       </Modal.Container>
       <Swipeable
-        renderRightActions={RightSwipeActions}
-        containerStyle={globalStyle.spacerSmall}>
+        containerStyle={globalStyle.spacerSmall}
+        renderRightActions={RightSwipeActions}>
         <Pressable
+          onLongPress={() => setIsOpen(true)}
           style={[
             styles.cardContainer,
-            !progressMinutes
-              ? {
+            progressMinutes
+              ? null
+              : {
                   borderBottomLeftRadius: defaultRadius,
                   borderBottomRightRadius: defaultRadius,
-                }
-              : null,
-          ]}
-          onLongPress={() => setIsOpen(true)}>
+                },
+          ]}>
           <View style={[styles.innerCard]}>
             <Pressable
-              style={styles.watchStatus}
               onPress={() =>
-                navigation.navigate(ScreenNames.WatchNative, {
+                navigation.navigate(RootStackScreenNames.NativePlayer, {
                   uri: episode.pathToFile,
                   episodeTitle: episode.title,
                   episodeNumber: episode.number,
                   title: animeName,
                 })
-              }>
-              <Icon name={'play'} size={30} color={colors.textLight.color} />
+              }
+              style={styles.watchStatus}>
+              <Icon color={colors.textLight.color} name="play" size={30} />
             </Pressable>
             <View style={styles.titleRow}>
               <Text numberOfLines={2} style={[styles.title, colors.textLight]}>
@@ -136,7 +134,7 @@ export const OfflineEpisode = ({
       </Swipeable>
     </>
   );
-};
+}
 
 const styles = StyleSheet.create({
   poster: {
@@ -170,14 +168,14 @@ const styles = StyleSheet.create({
     width: '100%',
     borderWidth: 1,
     borderStyle: 'solid',
-    borderColor: darkColor.C800,
-    backgroundColor: darkColor.C900,
+    borderColor: DarkColor.C800,
+    backgroundColor: DarkColor.C900,
   },
   linksContainer: {
     width: '100%',
     height: '100%',
     maxWidth: 150,
-    backgroundColor: darkColor.C800,
+    backgroundColor: DarkColor.C800,
   },
   description: {
     paddingTop: 5,
@@ -186,7 +184,7 @@ const styles = StyleSheet.create({
   },
   playersList: {
     marginTop: 10,
-    backgroundColor: darkColor.C900,
+    backgroundColor: DarkColor.C900,
     borderRadius: defaultRadius,
   },
   playersListItem: {
@@ -194,14 +192,14 @@ const styles = StyleSheet.create({
     width: '100%',
     borderWidth: 1,
     borderStyle: 'solid',
-    borderColor: darkColor.C700,
+    borderColor: DarkColor.C700,
     borderRadius: 8,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
   playersListContainer: {
-    backgroundColor: darkColor.C800,
+    backgroundColor: DarkColor.C800,
     borderRadius: defaultRadius,
     maxWidth: '100%',
   },
