@@ -146,10 +146,23 @@ export class APIClient {
     );
   }
 
-  async getUserWatchList() {
-    return this.get<WatchList>('user/watch-list', {
-      ...(await this.withToken()),
-    });
+  async getUserWatchList({
+    page,
+    perPage = 25,
+    search = null,
+  }: GetAnimeListDTO): Promise<WatchList> {
+    const token = await this.withToken();
+
+    return this.post<WatchList>(
+      'user/watch-list',
+      {
+        page,
+        perPage,
+        search,
+        dataSource: 'AniList',
+      },
+      { ...token },
+    );
   }
 
   async getUserWatchListSeries(animeId: string) {

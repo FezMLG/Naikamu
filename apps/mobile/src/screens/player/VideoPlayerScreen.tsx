@@ -30,6 +30,7 @@ export function NativeVideoPlayerScreen({
   const handleVideoLoad = async () => {
     const progress = await storageGetData<OnProgressData>(storageKey);
 
+    console.log(uri);
     if (videoPlayer) {
       videoPlayer.current?.seek(
         progress?.currentTime ? progress.currentTime - 15 : 0,
