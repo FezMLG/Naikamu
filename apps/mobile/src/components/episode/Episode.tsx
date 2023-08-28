@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { AnimeEpisode, AnimePlayer } from '@aniwatch/shared';
+import { BlurView } from '@react-native-community/blur';
 import {
   Image,
   Pressable,
@@ -30,8 +31,7 @@ import { ActivityIndicator } from '../atoms';
 import { maxWidth } from '../maxDimensions';
 import { UpdateEpisodeWatchStatus } from '../molecules';
 
-import { EpisodePlayer } from './EpisodePlayer';
-import { BlurView } from '@react-native-community/blur';
+import { EpisodePlayer, EpisodePlayerEmpty } from './EpisodePlayer';
 
 export function Episode({
   episode,
@@ -177,17 +177,21 @@ export function Episode({
       {isSelected ? (
         <View style={styles.playersListContainer}>
           {data ? (
-            data.players.map((player: AnimePlayer, index: number) => (
-              <EpisodePlayer
-                episodeNumber={episode.number}
-                episodeTitle={'E' + episode.number + ' ' + episode.title}
-                handleDownload={handleDownload}
-                isDownloaded={isDownloaded}
-                key={index}
-                player={player}
-                seriesId={id}
-              />
-            ))
+            data.players.length > 0 ? (
+              data.players.map((player: AnimePlayer, index: number) => (
+                <EpisodePlayer
+                  episodeNumber={episode.number}
+                  episodeTitle={'E' + episode.number + ' ' + episode.title}
+                  handleDownload={handleDownload}
+                  isDownloaded={isDownloaded}
+                  key={index}
+                  player={player}
+                  seriesId={id}
+                />
+              ))
+            ) : (
+              <EpisodePlayerEmpty />
+            )
           ) : (
             <ActivityIndicator
               size="large"
