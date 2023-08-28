@@ -107,6 +107,7 @@ export function Episode({
               },
         ]}>
         <Image
+          borderRadius={defaultRadius - 1}
           key="blurryImage"
           source={{ uri: episode.poster_url ?? posterUrl }}
           style={StyleSheet.absoluteFill}
@@ -115,7 +116,12 @@ export function Episode({
           blurAmount={25}
           blurType="dark"
           reducedTransparencyFallbackColor={DarkColor.C900}
-          style={[StyleSheet.absoluteFill]}
+          style={[
+            StyleSheet.absoluteFill,
+            {
+              borderRadius: defaultRadius - 1,
+            },
+          ]}
         />
         <Pressable onPress={openDetails} style={[styles.innerCard]}>
           <Image
@@ -238,9 +244,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: defaultRadius,
     borderTopRightRadius: defaultRadius,
     width: '100%',
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: DarkColor.C800,
   },
   description: {
     paddingTop: 5,
@@ -248,14 +251,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   playersListContainer: {
-    backgroundColor: DarkColor.C900,
-    borderRadius: defaultRadius,
     maxWidth: '100%',
     marginTop: 20,
     gap: 10,
   },
   playersLoading: {
     height: 70,
+    backgroundColor: DarkColor.C900,
+    borderRadius: defaultRadius,
   },
   logo: {
     height: 20,
