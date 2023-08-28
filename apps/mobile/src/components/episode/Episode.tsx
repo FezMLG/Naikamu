@@ -31,6 +31,7 @@ import { maxWidth } from '../maxDimensions';
 import { UpdateEpisodeWatchStatus } from '../molecules';
 
 import { EpisodePlayer } from './EpisodePlayer';
+import { BlurView } from '@react-native-community/blur';
 
 export function Episode({
   episode,
@@ -105,6 +106,17 @@ export function Episode({
                 borderBottomRightRadius: defaultRadius,
               },
         ]}>
+        <Image
+          key="blurryImage"
+          source={{ uri: episode.poster_url ?? posterUrl }}
+          style={StyleSheet.absoluteFill}
+        />
+        <BlurView
+          blurAmount={25}
+          blurType="dark"
+          reducedTransparencyFallbackColor={DarkColor.C900}
+          style={[StyleSheet.absoluteFill]}
+        />
         <Pressable onPress={openDetails} style={[styles.innerCard]}>
           <Image
             source={{ uri: episode.poster_url ?? posterUrl }}
