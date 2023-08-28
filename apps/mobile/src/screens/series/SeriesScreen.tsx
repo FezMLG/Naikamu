@@ -1,6 +1,13 @@
 import React from 'react';
 
-import { StyleSheet, SafeAreaView, ScrollView, View } from 'react-native';
+import { BlurView } from '@react-native-community/blur';
+import {
+  StyleSheet,
+  SafeAreaView,
+  ScrollView,
+  View,
+  Image,
+} from 'react-native';
 
 import { useQuerySeriesDetails } from '../../api/hooks';
 import {
@@ -11,7 +18,7 @@ import {
   ActivityIndicator,
 } from '../../components';
 import { SeriesStackSeriesScreenProps } from '../../routes';
-import { globalStyle } from '../../styles';
+import { globalStyle, DarkColor } from '../../styles';
 
 export function SeriesScreen({ route }: SeriesStackSeriesScreenProps) {
   const { id } = route.params;
@@ -20,49 +27,62 @@ export function SeriesScreen({ route }: SeriesStackSeriesScreenProps) {
   return (
     <SafeAreaView style={[styles.container]}>
       {data ? (
-        <ScrollView style={styles.scrollView}>
-          <SeriesDetails.Poster
-            altImage={data.coverImage.extraLarge}
-            bannerImage={data.bannerImage}
+        <>
+          <Image
+            key="blurryImage"
+            source={{ uri: data.coverImage.medium }}
+            style={StyleSheet.absoluteFill}
           />
-          <View style={styles.body}>
-            <SeriesDetails.Title
-              english={data.title.english}
-              romaji={data.title.romaji}
+          <BlurView
+            blurAmount={75}
+            blurType="dark"
+            reducedTransparencyFallbackColor={DarkColor.C900}
+            style={[StyleSheet.absoluteFill]}
+          />
+          <ScrollView style={styles.scrollView}>
+            <SeriesDetails.Poster
+              altImage={data.coverImage.extraLarge}
+              bannerImage={data.coverImage.extraLarge}
             />
-            <SeriesDetails.SubTitle
-              english={data.title.english}
-              romaji={data.title.romaji}
-            />
-            <View style={globalStyle.marginTop} />
-            <SeriesDetails.QuickInfoContainer data={data} />
-            {data.nextAiringEpisode ? (
+            <View style={styles.body}>
+              <SeriesDetails.Title
+                english={data.title.english}
+                romaji={data.title.romaji}
+              />
+              <SeriesDetails.SubTitle
+                english={data.title.english}
+                romaji={data.title.romaji}
+              />
               <View style={globalStyle.marginTop} />
-            ) : null}
-            <SeriesDetails.NextEpisode
-              airingAt={data.nextAiringEpisode?.airingAt}
-              episode={data.nextAiringEpisode?.episode}
-            />
-            <View style={globalStyle.marginTop} />
-            <EpisodesButton series={data} />
-            <View style={globalStyle.marginTop} />
-            <View style={styles.watchlistTrailerContainer}>
-              <WatchList seriesId={data.id} watchStatus={data.watchStatus} />
-              <SeriesDetails.Trailer trailer={data.trailer} />
+              <SeriesDetails.QuickInfoContainer data={data} />
+              {data.nextAiringEpisode ? (
+                <View style={globalStyle.marginTop} />
+              ) : null}
+              <SeriesDetails.NextEpisode
+                airingAt={data.nextAiringEpisode?.airingAt}
+                episode={data.nextAiringEpisode?.episode}
+              />
+              <View style={globalStyle.marginTop} />
+              <EpisodesButton series={data} />
+              <View style={globalStyle.marginTop} />
+              <View style={styles.watchlistTrailerContainer}>
+                <WatchList seriesId={data.id} watchStatus={data.watchStatus} />
+                <SeriesDetails.Trailer trailer={data.trailer} />
+              </View>
+              <View style={globalStyle.marginTop} />
+              <SeriesDetails.Genres
+                color={data.coverImage.color}
+                genres={data.genres}
+              />
+              <View style={globalStyle.marginTop} />
+              <SeriesDetails.Description description={data.description} />
+              <View style={globalStyle.marginTop} />
+              <SeriesDetailsRelations relations={data.relations} />
+              <View style={globalStyle.marginTop} />
+              <SeriesDetails.DataSource sourceId={data.sourceId} />
             </View>
-            <View style={globalStyle.marginTop} />
-            <SeriesDetails.Genres
-              color={data.coverImage.color}
-              genres={data.genres}
-            />
-            <View style={globalStyle.marginTop} />
-            <SeriesDetails.Description description={data.description} />
-            <View style={globalStyle.marginTop} />
-            <SeriesDetailsRelations relations={data.relations} />
-            <View style={globalStyle.marginTop} />
-            <SeriesDetails.DataSource sourceId={data.sourceId} />
-          </View>
-        </ScrollView>
+          </ScrollView>
+        </>
       ) : (
         <View style={globalStyle.centered}>
           <ActivityIndicator size="large" visible={true} />
