@@ -1,6 +1,6 @@
 {
   "name": "@aniwatch/mobile",
-  "version": "1.0.0-beta.5.1.1",
+  "version": "0.6.1",
   "apiVersion": "0.x.x",
   "private": true,
   "engines": {
@@ -21,12 +21,13 @@
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "app:release": "cd android && ./gradlew bundleRelease",
-    "apk:beta:release": "cd android && bundle exec fastlane beta && open app/build/outputs/apk/production/release",
+    "apk:beta:release": "cd android && fastlane beta && open app/build/outputs/apk/production/release",
     "apk:release": "cd android && ./gradlew assembleRelease && open app/build/outputs/apk/production/release",
     "apk:stg:release": "cd android && ./gradlew assembleStaging && open app/build/outputs/apk/staging/release"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.17.10",
+    "@react-native-community/blur": "^4.3.2",
     "@react-native-community/netinfo": "^9.4.1",
     "@react-native-firebase/analytics": "^18.0.0",
     "@react-native-firebase/app": "^18.0.0",

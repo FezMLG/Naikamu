@@ -29,7 +29,7 @@ export function EpisodesButton({ series }: EpisodesButtonProps) {
           numOfAiredEpisodes: series.nextAiringEpisode?.episode
             ? series.nextAiringEpisode?.episode - 1
             : series.episodes ?? 12,
-          posterUrl: series.coverImage.extraLarge,
+          posterUrl: series.coverImage.large,
           episodeLength: series.duration,
         });
       }}

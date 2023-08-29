@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { AnimeEpisode, AnimePlayer } from '@aniwatch/shared';
+import { BlurView } from '@react-native-community/blur';
 import {
   Image,
   Pressable,
@@ -30,7 +31,7 @@ import { ActivityIndicator } from '../atoms';
 import { maxWidth } from '../maxDimensions';
 import { UpdateEpisodeWatchStatus } from '../molecules';
 
-import { EpisodePlayer } from './EpisodePlayer';
+import { EpisodePlayer, EpisodePlayerEmpty } from './EpisodePlayer';
 
 export function Episode({
   episode,
@@ -105,6 +106,23 @@ export function Episode({
                 borderBottomRightRadius: defaultRadius,
               },
         ]}>
+        <Image
+          borderRadius={defaultRadius - 1}
+          key="blurryImage"
+          source={{ uri: episode.poster_url ?? posterUrl }}
+          style={StyleSheet.absoluteFill}
+        />
+        <BlurView
+          blurAmount={25}
+          blurType="dark"
+          reducedTransparencyFallbackColor={DarkColor.C900}
+          style={[
+            StyleSheet.absoluteFill,
+            {
+              borderRadius: defaultRadius - 1,
+            },
+          ]}
+        />
         <Pressable onPress={openDetails} style={[styles.innerCard]}>
           <Image
             source={{ uri: episode.poster_url ?? posterUrl }}
@@ -165,17 +183,21 @@ export function Episode({
       {isSelected ? (
         <View style={styles.playersListContainer}>
           {data ? (
-            data.players.map((player: AnimePlayer, index: number) => (
-              <EpisodePlayer
-                episodeNumber={episode.number}
-                episodeTitle={'E' + episode.number + ' ' + episode.title}
-                handleDownload={handleDownload}
-                isDownloaded={isDownloaded}
-                key={index}
-                player={player}
-                seriesId={id}
-              />
-            ))
+            data.players.length > 0 ? (
+              data.players.map((player: AnimePlayer, index: number) => (
+                <EpisodePlayer
+                  episodeNumber={episode.number}
+                  episodeTitle={'E' + episode.number + ' ' + episode.title}
+                  handleDownload={handleDownload}
+                  isDownloaded={isDownloaded}
+                  key={index}
+                  player={player}
+                  seriesId={id}
+                />
+              ))
+            ) : (
+              <EpisodePlayerEmpty />
+            )
           ) : (
             <ActivityIndicator
               size="large"
@@ -222,9 +244,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: defaultRadius,
     borderTopRightRadius: defaultRadius,
     width: '100%',
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: DarkColor.C800,
   },
   description: {
     paddingTop: 5,
@@ -232,14 +251,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   playersListContainer: {
-    backgroundColor: DarkColor.C900,
-    borderRadius: defaultRadius,
     maxWidth: '100%',
     marginTop: 20,
     gap: 10,
   },
   playersLoading: {
     height: 70,
+    backgroundColor: DarkColor.C900,
+    borderRadius: defaultRadius,
   },
   logo: {
     height: 20,
