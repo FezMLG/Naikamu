@@ -4,13 +4,13 @@ import RNFS from 'react-native-fs';
 const folderNamingStrategy = (seriesId: string) => {
   switch (Platform.OS) {
     case 'android': {
-      return `${RNFS.DocumentDirectoryPath}/AniWatch/downloads/${seriesId}`;
+      return `AniWatch/downloads/${seriesId}`;
     }
     case 'ios': {
-      return `${RNFS.DocumentDirectoryPath}/downloads/${seriesId}`;
+      return `downloads/${seriesId}`;
     }
     default: {
-      return `${RNFS.DocumentDirectoryPath}/AniWatch/downloads/${seriesId}`;
+      return `AniWatch/downloads/${seriesId}`;
     }
   }
 };

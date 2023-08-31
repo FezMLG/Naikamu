@@ -200,7 +200,9 @@ export const useOfflineService = () => {
       if (!episode.pathToFile) {
         throw new Error('Episode not downloaded');
       }
-      offlineFS.deleteFile(episode.pathToFile);
+      await offlineFS.deleteFile(
+        `${RNFS.DocumentDirectoryPath}/${episode.pathToFile}`,
+      );
       const saved = offlineActions.deleteOfflineEpisode(
         seriesId,
         episodeNumber,

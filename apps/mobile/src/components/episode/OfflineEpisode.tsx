@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { useNavigation } from '@react-navigation/native';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import RNFS from 'react-native-fs';
 import { Swipeable } from 'react-native-gesture-handler';
 import { ProgressBar } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -20,7 +21,6 @@ import {
   globalStyle,
   DarkColor,
 } from '../../styles';
-// import { useTranslate } from '../../i18n/useTranslate';
 import { humanFileSize } from '../../utils/humanFileSize';
 import { Button, Modal } from '../atoms';
 
@@ -101,7 +101,7 @@ export function OfflineEpisode({
             <Pressable
               onPress={() =>
                 navigation.navigate(RootStackScreenNames.NativePlayer, {
-                  uri: episode.pathToFile,
+                  uri: `${RNFS.DocumentDirectoryPath}/${episode.pathToFile}`,
                   episodeTitle: episode.title,
                   episodeNumber: episode.number,
                   title: animeName,
