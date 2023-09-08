@@ -33,6 +33,7 @@ export function OfflineEpisode({
   animeId: string;
   animeName: string;
 }): React.ReactElement {
+  const { pathToFile, title: episodeTitle, length, translator, size } = episode;
   const navigation = useNavigation<any>();
   const episodeKey = createEpisodeProgressKey(animeId, episode.number);
   const { progressMinutes, loadProgress } = useVideoProgress(episodeKey);
@@ -45,34 +46,10 @@ export function OfflineEpisode({
 
   // const { translate } = useTranslate();
 
-  function RightSwipeActions() {
-    return (
-      <Pressable
-        onPress={() => {
-          console.log('delete episode', animeId, episode.number);
-          deleteEpisodeOffline(animeId, episode.number);
-        }}
-        style={{
-          backgroundColor: colors.error.color,
-          justifyContent: 'center',
-          alignItems: 'flex-end',
-          borderRadius: defaultRadius,
-          width: '100%',
-        }}>
-        <Icon
-          color={colors.textLight.color}
-          name="trash-can-outline"
-          size={30}
-          style={{ paddingHorizontal: 16 }}
-        />
-      </Pressable>
-    );
-  }
-
   return (
     <>
       <Modal.Container isOpen={isOpen} setIsOpen={setIsOpen}>
-        <Modal.Title title={episode.title} />
+        <Modal.Title title={episodeTitle} />
         <Button
           label="Delete"
           onPress={() => {
@@ -85,7 +62,13 @@ export function OfflineEpisode({
       </Modal.Container>
       <Swipeable
         containerStyle={globalStyle.spacerSmall}
-        renderRightActions={RightSwipeActions}>
+        renderRightActions={() => (
+          <RightSwipeActions
+            animeId={animeId}
+            deleteEpisodeOffline={deleteEpisodeOffline}
+            episodeNumber={episode.number}
+          />
+        )}>
         <Pressable
           onLongPress={() => setIsOpen(true)}
           style={[
@@ -98,12 +81,12 @@ export function OfflineEpisode({
                 },
           ]}>
           <View style={[styles.innerCard]}>
-            {episode.pathToFile ? (
+            {pathToFile ? (
               <Pressable
                 onPress={() =>
                   navigation.navigate(RootStackScreenNames.NativePlayer, {
-                    uri: offlineFS.getAbsolutePath(episode.pathToFile),
-                    episodeTitle: episode.title,
+                    uri: offlineFS.getAbsolutePath(pathToFile),
+                    episodeTitle: episodeTitle,
                     episodeNumber: episode.number,
                     title: animeName,
                   })
@@ -120,18 +103,17 @@ export function OfflineEpisode({
             )}
             <View style={styles.titleRow}>
               <Text numberOfLines={2} style={[styles.title, colors.textLight]}>
-                {episode.number + '. ' + episode.title}
+                {episode.number + '. ' + episodeTitle}
               </Text>
               <Text
                 numberOfLines={2}
                 style={[fontStyles.label, colors.textLight]}>
-                {episode.length} min | {episode.translator} |{' '}
-                {humanFileSize(episode.size ?? 0)}
+                {length} min | {translator} | {humanFileSize(size ?? 0)}
               </Text>
             </View>
           </View>
           <ProgressBar
-            progress={progressMinutes / episode.length}
+            progress={progressMinutes / length}
             theme={{
               colors: {
                 primary: colors.accent.color,
@@ -143,6 +125,36 @@ export function OfflineEpisode({
     </>
   );
 }
+
+const RightSwipeActions = ({
+  animeId,
+  episodeNumber,
+  deleteEpisodeOffline,
+}: {
+  animeId: string;
+  episodeNumber: number;
+  deleteEpisodeOffline: (animeId: string, episodeNumber: number) => void;
+}) => (
+  <Pressable
+    onPress={() => {
+      console.log('delete episode', animeId, episodeNumber);
+      deleteEpisodeOffline(animeId, episodeNumber);
+    }}
+    style={{
+      backgroundColor: colors.error.color,
+      justifyContent: 'center',
+      alignItems: 'flex-end',
+      borderRadius: defaultRadius,
+      width: '100%',
+    }}>
+    <Icon
+      color={colors.textLight.color}
+      name="trash-can-outline"
+      size={30}
+      style={{ paddingHorizontal: 16 }}
+    />
+  </Pressable>
+);
 
 const styles = StyleSheet.create({
   poster: {
