@@ -132,17 +132,18 @@ export function Episode({
           />
         </PlatformExplicit>
         <Pressable onPress={openDetails} style={[styles.innerCard]}>
-          <Image
-            source={{ uri: episode.poster_url ?? posterUrl }}
-            style={[
-              styles.poster,
-              (!isSelected && episode.description) || progress
-                ? null
-                : {
-                    borderBottomLeftRadius: defaultRadius,
-                  },
-            ]}
-          />
+          <PlatformExplicit availablePlatforms={['ios']}>
+            <ProgressiveImage
+              source={episode.poster_url ?? posterUrl}
+              style={[styles.poster]}
+            />
+          </PlatformExplicit>
+          <PlatformExplicit availablePlatforms={['android']}>
+            <ProgressiveImage
+              source={episode.poster_url ?? posterUrl}
+              style={[styles.poster, { borderRadius: defaultRadius }]}
+            />
+          </PlatformExplicit>
           <View style={styles.titleRow}>
             <Text numberOfLines={2} style={[styles.title, colors.textLight]}>
               {episode.number + '. ' + episode.title}
