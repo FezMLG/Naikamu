@@ -63,20 +63,25 @@ export const useOfflineService = () => {
       );
     };
 
-    const [pathToFile, jobId, job] = await offlineFS.startDownloadingFile(
-      series.seriesId,
-      episode.number,
-      fileUrl,
-      beginDownload,
-      progressDownload,
-    );
+    const [relativePathToFile, jobId, job] =
+      await offlineFS.startDownloadingFile(
+        series.seriesId,
+        episode.number,
+        fileUrl,
+        beginDownload,
+        progressDownload,
+      );
 
-    logger('progressDownload').info('download started', jobId, pathToFile);
+    logger('progressDownload').info(
+      'download started',
+      jobId,
+      relativePathToFile,
+    );
 
     job.then(async result => {
       downloadsActions.removeDownload(jobId);
       episode.size = result.bytesWritten;
-      episode.pathToFile = pathToFile;
+      episode.pathToFile = relativePathToFile;
       series.episodes.push(episode);
       logger('progressDownload').info('job done', series);
 
@@ -200,7 +205,8 @@ export const useOfflineService = () => {
       if (!episode.pathToFile) {
         throw new Error('Episode not downloaded');
       }
-      offlineFS.deleteFile(episode.pathToFile);
+
+      await offlineFS.deleteFile(episode.pathToFile);
       const saved = offlineActions.deleteOfflineEpisode(
         seriesId,
         episodeNumber,
@@ -211,7 +217,7 @@ export const useOfflineService = () => {
     stopDownload: async (download: IEpisodeDownloadJob) => {
       const { jobId, series, episode } = download;
 
-      await offlineFS.stopDownloadingFile(jobId);
+      offlineFS.stopDownloadingFile(jobId);
       downloadsActions.removeDownload(jobId);
       queueActions.removeFromQueue(series.seriesId, episode.number);
       if (!queueActions.isQueueEmpty()) {
@@ -219,7 +225,7 @@ export const useOfflineService = () => {
       }
     },
     clearOffline: async () => {
-      offlineStorage.clearOffline();
+      await offlineStorage.clearOffline();
     },
   };
 };

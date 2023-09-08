@@ -1,6 +1,6 @@
 {
   "name": "@aniwatch/mobile",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "apiVersion": "0.x.x",
   "private": true,
   "engines": {
