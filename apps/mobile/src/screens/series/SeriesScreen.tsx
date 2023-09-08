@@ -1,13 +1,7 @@
 import React from 'react';
 
 import { BlurView } from '@react-native-community/blur';
-import {
-  StyleSheet,
-  SafeAreaView,
-  ScrollView,
-  View,
-  Image,
-} from 'react-native';
+import { StyleSheet, SafeAreaView, ScrollView, View } from 'react-native';
 
 import { useQuerySeriesDetails } from '../../api/hooks';
 import {
@@ -16,6 +10,8 @@ import {
   SeriesDetailsRelations,
   WatchList,
   ActivityIndicator,
+  ProgressiveImage,
+  PlatformExplicit,
 } from '../../components';
 import { SeriesStackSeriesScreenProps } from '../../routes';
 import { globalStyle, DarkColor } from '../../styles';
@@ -28,17 +24,19 @@ export function SeriesScreen({ route }: SeriesStackSeriesScreenProps) {
     <SafeAreaView style={[styles.container]}>
       {data ? (
         <>
-          <Image
-            key="blurryImage"
-            source={{ uri: data.coverImage.medium }}
-            style={StyleSheet.absoluteFill}
-          />
-          <BlurView
-            blurAmount={75}
-            blurType="dark"
-            reducedTransparencyFallbackColor={DarkColor.C900}
-            style={[StyleSheet.absoluteFill]}
-          />
+          <PlatformExplicit availablePlatforms={['ios']}>
+            <ProgressiveImage
+              key="blurryImage"
+              source={data.coverImage.medium}
+              style={StyleSheet.absoluteFill}
+            />
+            <BlurView
+              blurAmount={75}
+              blurType="dark"
+              reducedTransparencyFallbackColor={DarkColor.C900}
+              style={[StyleSheet.absoluteFill]}
+            />
+          </PlatformExplicit>
           <ScrollView style={styles.scrollView}>
             <SeriesDetails.Poster
               altImage={data.coverImage.extraLarge}

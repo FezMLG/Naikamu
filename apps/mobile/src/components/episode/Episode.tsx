@@ -7,29 +7,31 @@ import {
   Pressable,
   SafeAreaView,
   StyleSheet,
-  View,
   Text,
+  View,
 } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useQuerySeriesEpisodePlayers } from '../../api/hooks';
 import {
+  createEpisodeProgressKey,
   useOfflineService,
   useVideoProgress,
-  createEpisodeProgressKey,
 } from '../../services';
 import { useUserSettingsService } from '../../services/settings/settings.service';
 import {
+  colors,
   DarkColor,
   darkStyle,
-  colors,
   defaultRadius,
   fontStyles,
 } from '../../styles';
 import { ActivityIndicator } from '../atoms';
 import { maxWidth } from '../maxDimensions';
 import { UpdateEpisodeWatchStatus } from '../molecules';
+import { PlatformExplicit } from '../PlatformExplicit';
+import { ProgressiveImage } from '../ProgressiveImage';
 
 import { EpisodePlayer, EpisodePlayerEmpty } from './EpisodePlayer';
 
@@ -106,35 +108,42 @@ export function Episode({
                 borderBottomRightRadius: defaultRadius,
               },
         ]}>
-        <Image
-          borderRadius={defaultRadius - 1}
-          key="blurryImage"
-          source={{ uri: episode.poster_url ?? posterUrl }}
-          style={StyleSheet.absoluteFill}
-        />
-        <BlurView
-          blurAmount={25}
-          blurType="dark"
-          reducedTransparencyFallbackColor={DarkColor.C900}
-          style={[
-            StyleSheet.absoluteFill,
-            {
-              borderRadius: defaultRadius - 1,
-            },
-          ]}
-        />
-        <Pressable onPress={openDetails} style={[styles.innerCard]}>
-          <Image
-            source={{ uri: episode.poster_url ?? posterUrl }}
+        <PlatformExplicit availablePlatforms={['ios']}>
+          <ProgressiveImage
+            key="blurryImage"
+            source={episode.poster_url ?? posterUrl}
             style={[
-              styles.poster,
-              (!isSelected && episode.description) || progress
-                ? null
-                : {
-                    borderBottomLeftRadius: defaultRadius,
-                  },
+              StyleSheet.absoluteFill,
+              {
+                borderRadius: defaultRadius - 1,
+              },
             ]}
           />
+          <BlurView
+            blurAmount={25}
+            blurType="dark"
+            reducedTransparencyFallbackColor={DarkColor.C900}
+            style={[
+              StyleSheet.absoluteFill,
+              {
+                borderRadius: defaultRadius - 1,
+              },
+            ]}
+          />
+        </PlatformExplicit>
+        <Pressable onPress={openDetails} style={[styles.innerCard]}>
+          <PlatformExplicit availablePlatforms={['ios']}>
+            <ProgressiveImage
+              source={episode.poster_url ?? posterUrl}
+              style={[styles.poster]}
+            />
+          </PlatformExplicit>
+          <PlatformExplicit availablePlatforms={['android']}>
+            <ProgressiveImage
+              source={episode.poster_url ?? posterUrl}
+              style={[styles.poster, { borderRadius: defaultRadius }]}
+            />
+          </PlatformExplicit>
           <View style={styles.titleRow}>
             <Text numberOfLines={2} style={[styles.title, colors.textLight]}>
               {episode.number + '. ' + episode.title}
