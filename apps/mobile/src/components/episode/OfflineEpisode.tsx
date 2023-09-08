@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 import { useNavigation } from '@react-navigation/native';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import RNFS from 'react-native-fs';
 import { Swipeable } from 'react-native-gesture-handler';
 import { ProgressBar } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -13,6 +12,7 @@ import {
   useOfflineService,
   createEpisodeProgressKey,
   useVideoProgress,
+  offlineFS,
 } from '../../services';
 import {
   colors,
@@ -98,18 +98,26 @@ export function OfflineEpisode({
                 },
           ]}>
           <View style={[styles.innerCard]}>
-            <Pressable
-              onPress={() =>
-                navigation.navigate(RootStackScreenNames.NativePlayer, {
-                  uri: `${RNFS.DocumentDirectoryPath}/${episode.pathToFile}`,
-                  episodeTitle: episode.title,
-                  episodeNumber: episode.number,
-                  title: animeName,
-                })
-              }
-              style={styles.watchStatus}>
-              <Icon color={colors.textLight.color} name="play" size={30} />
-            </Pressable>
+            {episode.pathToFile ? (
+              <Pressable
+                onPress={() =>
+                  navigation.navigate(RootStackScreenNames.NativePlayer, {
+                    uri: offlineFS.getAbsolutePath(episode.pathToFile),
+                    episodeTitle: episode.title,
+                    episodeNumber: episode.number,
+                    title: animeName,
+                  })
+                }
+                style={styles.watchStatus}>
+                <Icon color={colors.textLight.color} name="play" size={30} />
+              </Pressable>
+            ) : (
+              <Icon
+                color={colors.textLight.color}
+                name="file-alert-outline"
+                size={30}
+              />
+            )}
             <View style={styles.titleRow}>
               <Text numberOfLines={2} style={[styles.title, colors.textLight]}>
                 {episode.number + '. ' + episode.title}
