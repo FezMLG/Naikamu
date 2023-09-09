@@ -2,14 +2,7 @@ import React, { useState } from 'react';
 
 import { AnimeEpisode, AnimePlayer } from '@aniwatch/shared';
 import { BlurView } from '@react-native-community/blur';
-import {
-  Image,
-  Pressable,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
