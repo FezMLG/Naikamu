@@ -1,22 +1,25 @@
 import { PermissionsAndroid, Platform } from 'react-native';
 import RNFS from 'react-native-fs';
 
-const folderNamingStrategy = (seriesId: string) => {
+const relativeFolderPath = (folderName: string) => {
   switch (Platform.OS) {
     case 'android': {
-      return `${RNFS.DocumentDirectoryPath}/AniWatch/downloads/${seriesId}`;
+      return `AniWatch/downloads/${folderName}`;
     }
     case 'ios': {
-      return `${RNFS.DocumentDirectoryPath}/downloads/${seriesId}`;
+      return `downloads/${folderName}`;
     }
     default: {
-      return `${RNFS.DocumentDirectoryPath}/AniWatch/downloads/${seriesId}`;
+      return `AniWatch/downloads/${folderName}`;
     }
   }
 };
 
-const fileNamingStrategy = (seriesId: string, fileName: string) =>
-  `${folderNamingStrategy(seriesId)}/${fileName}`;
+const relativeFilePath = (folderName: string, fileName: string) =>
+  `${relativeFolderPath(folderName)}/${fileName}`;
+
+const getAbsolutePath = (relativePath: string) =>
+  `${RNFS.DocumentDirectoryPath}/${relativePath}`;
 
 const grantPermissions = async () => {
   if (Platform.OS === 'android') {
@@ -46,6 +49,10 @@ const checkPermissions = async () => {
   }
 };
 
+const createSeriesFolder = async (seriesId: string) => {
+  await RNFS.mkdir(getAbsolutePath(relativeFolderPath(seriesId)));
+};
+
 const startDownloadingFile = async (
   seriesId: string,
   episodeNumber: number,
@@ -59,31 +66,31 @@ const startDownloadingFile = async (
     throw new Error('No permissions to download file');
   }
 
-  await RNFS.mkdir(folderNamingStrategy(seriesId));
+  await createSeriesFolder(seriesId);
 
   const fileExtension = fileUrl.split('.').pop();
-  const pathToFile = fileNamingStrategy(
+  const relativePathToFile = relativeFilePath(
     seriesId,
     `${episodeNumber}.${fileExtension}`,
   );
 
   const job = RNFS.downloadFile({
     fromUrl: fileUrl,
-    toFile: pathToFile,
+    toFile: getAbsolutePath(relativePathToFile),
     begin: beginDownload,
     progress: progressDownload,
     progressInterval: 1000,
     background: true,
   });
 
-  return [pathToFile, job.jobId, job.promise];
+  return [relativePathToFile, job.jobId, job.promise];
 };
 
-const stopDownloadingFile = async (jobId: number) => {
-  RNFS.stopDownload(jobId);
-};
+const stopDownloadingFile = (jobId: number) => RNFS.stopDownload(jobId);
 
-const deleteFile = async (path: string) => {
+const deleteFile = async (relativePath: string) => {
+  const path = getAbsolutePath(relativePath);
+
   await RNFS.unlink(path)
     .then(() => {
       console.log('FILE DELETED');
@@ -98,4 +105,5 @@ export const offlineFS = {
   startDownloadingFile,
   stopDownloadingFile,
   deleteFile,
+  getAbsolutePath,
 };
