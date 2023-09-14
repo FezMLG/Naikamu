@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 
-import { Media } from '@aniwatch/shared';
+import { AnimeDetails, Media } from '@aniwatch/shared';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, ActivityIndicator, FlatList, View } from 'react-native';
@@ -15,6 +15,7 @@ import {
   SeriesStackScreenNames,
 } from '../../routes';
 import { colors } from '../../styles';
+import { WatchListElement } from '../../components/watch-list';
 
 export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
   const CONTENT_OFFSET_THRESHOLD = 300;
@@ -24,8 +25,8 @@ export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
   const { api, season, year, setSeason, setYear } = useQuerySeriesList();
   const tabHeight = useBottomTabBarHeight();
 
-  const renderItem = ({ item }: { item: Media }) => (
-    <BrowseElement
+  const renderItem = ({ item }: { item: AnimeDetails }) => (
+    <WatchListElement
       anime={item}
       handlePageChange={() => {
         navigation.navigate(RootStackScreenNames.SeriesStack, {
@@ -40,60 +41,39 @@ export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
   );
 
   return (
-    <SafeAreaView style={[styles.container]}>
-      <SeasonYearSelectButtons
-        season={season}
-        setSeason={setSeason}
-        setYear={setYear}
-        year={year}
-      />
+    <>
       {api.isLoading ? <ActivityIndicator size="large" /> : null}
       {api.data ? (
-        <View>
-          <FlatList
-            ListFooterComponent={<View />}
-            ListFooterComponentStyle={{ height: tabHeight * 2, width: '100%' }}
-            contentContainerStyle={[styles.flatListContent]}
-            contentInsetAdjustmentBehavior="automatic"
-            data={api.data.pages.flatMap(page => page.Page.media)}
-            keyExtractor={(_, index) => index.toString()}
-            numColumns={2}
-            onEndReached={() => api.fetchNextPage()}
-            onEndReachedThreshold={1}
-            onRefresh={api.refetch}
-            onScroll={event => {
-              setContentVerticalOffset(event.nativeEvent.contentOffset.y);
-            }}
-            ref={listRef}
-            refreshing={api.isRefetching}
-            renderItem={renderItem}
-            style={[styles.flatList]}
-          />
-          {contentVerticalOffset > CONTENT_OFFSET_THRESHOLD && (
-            <FAB
-              color="white"
-              icon="arrow-up-circle"
-              onPress={() => {
-                listRef.current?.scrollToOffset({ offset: 0, animated: true });
-              }}
-              style={styles.fab}
-            />
-          )}
-        </View>
+        <FlatList
+          contentContainerStyle={[styles.flatListContent]}
+          contentInsetAdjustmentBehavior="automatic"
+          data={api.data.pages.flatMap(page => page.Page.media)}
+          keyExtractor={(_, index) => index.toString()}
+          numColumns={1}
+          onEndReached={() => api.fetchNextPage()}
+          onEndReachedThreshold={1}
+          onRefresh={api.refetch}
+          onScroll={event => {
+            setContentVerticalOffset(event.nativeEvent.contentOffset.y);
+          }}
+          ref={listRef}
+          refreshing={api.isRefetching}
+          renderItem={renderItem}
+          style={[styles.flatList]}
+        />
       ) : null}
-    </SafeAreaView>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
     backgroundColor: colors.background.color,
     marginHorizontal: 0,
   },
   flatList: {
-    marginTop: 10,
+    marginHorizontal: 16,
   },
   fab: {
     position: 'absolute',

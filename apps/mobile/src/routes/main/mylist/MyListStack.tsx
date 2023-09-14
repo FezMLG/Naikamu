@@ -25,7 +25,7 @@ export function MyListStack() {
         component={WatchListScreen}
         name={MyListStackScreenNames.WatchList}
         options={{
-          title: translate('routes.' + MyListStackScreenNames.OfflineStack),
+          title: translate('routes.' + MyListStackScreenNames.WatchList),
         }}
       />
       <Tab.Screen
