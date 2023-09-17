@@ -130,6 +130,7 @@ export function BottomTabStack() {
           component={MyListStack}
           name={BottomTabStackScreenNames.MyListStack}
           options={{
+            headerShown: true,
             ...defaultHeaderOptions({
               title: translate(
                 'routes.' + BottomTabStackScreenNames.MyListStack,
