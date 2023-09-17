@@ -1,4 +1,4 @@
-import { IWatchList, Paginate } from '@aniwatch/shared';
+import { IWatchListSeries, Paginate } from '@aniwatch/shared';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { APIClient } from '../../APIClient';
@@ -7,7 +7,7 @@ export const useInfiniteQueryUserWatchList = () => {
   const apiClient = new APIClient();
 
   const { isLoading, data, refetch, fetchNextPage, isRefetching } =
-    useInfiniteQuery<Paginate<IWatchList>>(
+    useInfiniteQuery<Paginate<IWatchListSeries[]>>(
       ['watch list'],
       ({ pageParam }) =>
         apiClient.getUserWatchList({
