@@ -4,4 +4,5 @@ export enum AnimeSource {
   Docchi = 'Docchi',
   Frixy = 'Frixy',
   Ogladaj = 'Ogladaj',
+  Local = 'Local'
 }

@@ -3,6 +3,7 @@ import {
   AnimeEpisodes,
   AnimePlayers,
   AnimeSeason,
+  AnimeSource,
   IAnimeListItem,
   IWatchListSeries,
   Paginate,
@@ -99,13 +100,16 @@ export class APIClient {
     );
   }
 
-  async getAnimeDetails(id: number): Promise<AnimeDetails> {
+  async getAnimeDetails(
+    id: number | string,
+    dataSource: AnimeSource,
+  ): Promise<AnimeDetails> {
     const token = await this.withToken();
 
     return this.post<AnimeDetails>(
       '/anime/details',
       {
-        dataSource: 'AniList',
+        dataSource: dataSource,
         sourceId: String(id),
       },
       { ...token },
