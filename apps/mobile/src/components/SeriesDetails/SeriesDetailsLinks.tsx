@@ -1,10 +1,10 @@
 import React from 'react';
 
+import { AnimeDetails } from '@aniwatch/shared';
 import { id } from 'date-fns/locale';
 import { Text, View, Linking, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 
-import { AnimeDetails } from '../../../../../lib/shared/dist';
 import { useTranslate } from '../../i18n/useTranslate';
 import { darkStyle, DarkColor, defaultRadius } from '../../styles';
 import { ProgressiveImage } from '../ProgressiveImage';

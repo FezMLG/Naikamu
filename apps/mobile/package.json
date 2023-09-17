@@ -17,7 +17,7 @@
     "ios": "react-native run-ios",
     "ios:release": "npm run ios -- --mode=\"Release\"",
     "pod": "npx pod-install ios",
-    "start": "react-native start",
+    "start": "react-native start --reset-cache",
     "start:clear": "cd android && ./gradlew clean && cd .. && react-native start --reset-cache",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Media } from '@aniwatch/shared';
+import { IAnimeListItem } from '@aniwatch/shared';
 import {
   StyleSheet,
   View,
@@ -16,7 +16,7 @@ export function BrowseElement({
   anime,
   handlePageChange,
 }: {
-  anime: Media;
+  anime: IAnimeListItem;
   handlePageChange: ((event: GestureResponderEvent) => void) | null | undefined;
 }) {
   const [textHeight, setTextHeight] = useState(140);
@@ -42,7 +42,7 @@ export function BrowseElement({
         <Text
           numberOfLines={1}
           style={[{ color: anime.coverImage.color }, styles.subTitle]}>
-          {anime.studios.nodes[0]?.name ?? ''}
+          {anime.studios[0]?.name ?? ''}
         </Text>
       </View>
     </Pressable>

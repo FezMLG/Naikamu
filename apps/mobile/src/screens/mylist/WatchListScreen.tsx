@@ -1,39 +1,32 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 
-import { AnimeDetails, Media } from '@aniwatch/shared';
-import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import { IWatchListSeries } from '@aniwatch/shared';
 import { useNavigation } from '@react-navigation/native';
-import { StyleSheet, ActivityIndicator, FlatList, View } from 'react-native';
-import { FAB } from 'react-native-paper';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { StyleSheet, ActivityIndicator, FlatList } from 'react-native';
 
-import { useQuerySeriesList } from '../../api/hooks';
-import { BrowseElement, SeasonYearSelectButtons } from '../../components';
+import { useInfiniteQueryUserWatchList } from '../../api/hooks';
+import { WatchListElement } from '../../components/watch-list';
 import {
   MyListStackWatchListScreenProps,
   RootStackScreenNames,
   SeriesStackScreenNames,
 } from '../../routes';
 import { colors } from '../../styles';
-import { WatchListElement } from '../../components/watch-list';
 
 export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
-  const CONTENT_OFFSET_THRESHOLD = 300;
   const navigation = useNavigation<any>();
   const listRef = useRef<FlatList>(null);
-  const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
-  const { api, season, year, setSeason, setYear } = useQuerySeriesList();
-  const tabHeight = useBottomTabBarHeight();
+  const { api } = useInfiniteQueryUserWatchList();
 
-  const renderItem = ({ item }: { item: AnimeDetails }) => (
+  const renderItem = ({ item }: { item: IWatchListSeries }) => (
     <WatchListElement
       anime={item}
       handlePageChange={() => {
         navigation.navigate(RootStackScreenNames.SeriesStack, {
           screen: SeriesStackScreenNames.Series,
           params: {
-            title: item.title.romaji,
-            id: item.id,
+            title: item.title,
+            id: item.animeId,
           },
         });
       }}
@@ -47,15 +40,12 @@ export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
         <FlatList
           contentContainerStyle={[styles.flatListContent]}
           contentInsetAdjustmentBehavior="automatic"
-          data={api.data.pages.flatMap(page => page.Page.media)}
+          data={api.data.pages.flatMap(page => page.data)}
           keyExtractor={(_, index) => index.toString()}
           numColumns={1}
           onEndReached={() => api.fetchNextPage()}
           onEndReachedThreshold={1}
           onRefresh={api.refetch}
-          onScroll={event => {
-            setContentVerticalOffset(event.nativeEvent.contentOffset.y);
-          }}
           ref={listRef}
           refreshing={api.isRefetching}
           renderItem={renderItem}

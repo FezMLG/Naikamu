@@ -1,15 +1,14 @@
 import {
-  AnimeList,
   AnimeDetails,
   AnimeEpisodes,
   AnimePlayers,
   AnimeSeason,
-  WatchList,
+  IAnimeListItem,
+  IWatchListSeries,
+  Paginate,
   WatchListSeriesEpisode,
-  WatchListSeries,
 } from '@aniwatch/shared';
 import axios, { AxiosInstance, AxiosRequestHeaders } from 'axios';
-import { default as Config } from 'react-native-config';
 
 import { fireGetIdToken } from '../services/firebase/fire-auth.service';
 import { Resolution } from '../services/settings/interfaces';
@@ -27,7 +26,8 @@ export class APIClient {
 
   constructor() {
     this.instance = axios.create({
-      baseURL: Config.API_URL,
+      // baseURL: Config.API_URL,
+      baseURL: 'http://192.168.50.29:3333/api',
       timeout: 2000,
       headers: {
         Accept: 'application/json',
@@ -82,10 +82,10 @@ export class APIClient {
     seasonYear,
     perPage = 25,
     search = null,
-  }: GetAnimeListDTO): Promise<AnimeList> {
+  }: GetAnimeListDTO): Promise<Paginate<IAnimeListItem[]>> {
     const token = await this.withToken();
 
-    return this.post<AnimeList>(
+    return this.post<Paginate<IAnimeListItem[]>>(
       '/anime',
       {
         page,
@@ -150,10 +150,10 @@ export class APIClient {
     page,
     perPage = 25,
     search = null,
-  }: GetAnimeListDTO): Promise<WatchList> {
+  }: GetAnimeListDTO): Promise<Paginate<IWatchListSeries[]>> {
     const token = await this.withToken();
 
-    return this.post<WatchList>(
+    return this.post<Paginate<IWatchListSeries[]>>(
       'user/watch-list',
       {
         page,
@@ -166,13 +166,13 @@ export class APIClient {
   }
 
   async getUserWatchListSeries(animeId: string) {
-    return this.get<WatchListSeries>(`user/watch-list/${animeId}`, {
+    return this.get<IWatchListSeries>(`user/watch-list/${animeId}`, {
       ...(await this.withToken()),
     });
   }
 
   async updateUserSeriesWatchList(animeId: string) {
-    return this.post<WatchListSeries>(
+    return this.post<IWatchListSeries>(
       `user/watch-list/${animeId}`,
       {},
       {

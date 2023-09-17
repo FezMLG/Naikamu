@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import { AnimeDetails } from '@aniwatch/shared';
+import { AnimeDetails, IWatchListSeries } from '@aniwatch/shared';
 import {
   StyleSheet,
   View,
@@ -10,21 +10,19 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { useTranslate } from '../../i18n/useTranslate';
+// import { useTranslate } from '../../i18n/useTranslate';
 import { colors, darkStyle, defaultRadius, fontStyles } from '../../styles';
 import { ProgressiveImage } from '../ProgressiveImage';
 import { QuickInfo } from '../SeriesDetails';
-
-const Dot = () => <Text style={[fontStyles.text, colors.textLight]}>•</Text>;
 
 export function WatchListElement({
   anime,
   handlePageChange,
 }: {
-  anime: AnimeDetails;
+  anime: IWatchListSeries;
   handlePageChange: ((event: GestureResponderEvent) => void) | null | undefined;
 }) {
-  const { translate } = useTranslate();
+  // const { translate } = useTranslate();
 
   return (
     <Pressable
@@ -33,8 +31,8 @@ export function WatchListElement({
       style={[styles.container]}>
       <View style={[styles.posterContainer]}>
         <ProgressiveImage
-          resizeMode={'contain'}
-          source={anime.coverImage.extraLarge}
+          resizeMode="contain"
+          source={anime.poster}
           style={styles.poster}
         />
       </View>
@@ -44,9 +42,11 @@ export function WatchListElement({
             gap: 5,
           }}>
           <Text numberOfLines={4} style={[darkStyle.font, styles.title]}>
-            {anime.title.romaji}
+            {anime.title}
           </Text>
-          <Text style={[darkStyle.font, fontStyles.label]}>Watched: 1/12</Text>
+          <Text style={[darkStyle.font, fontStyles.label]}>
+            Watched: {anime.watched.length}
+          </Text>
         </View>
         <View
           style={{
@@ -58,7 +58,7 @@ export function WatchListElement({
             <QuickInfo value="TV" />
           </View>
           <Pressable>
-            <Icon name="dots-vertical" style={colors.textLight} size={24} />
+            <Icon name="dots-vertical" size={24} style={colors.textLight} />
           </Pressable>
         </View>
       </View>
