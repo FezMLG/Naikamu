@@ -3,13 +3,14 @@ import React, { useState } from 'react';
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { useForm, Controller } from 'react-hook-form';
 import { View, StyleSheet } from 'react-native';
-import { Text, TextInput } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 
 import {
   useErrorHandler,
   PageLayout,
   useLayout,
   Button,
+  TextInput,
 } from '../../components';
 import { useTranslate } from '../../i18n/useTranslate';
 import { AuthStackLoginScreenProps, AuthStackRoutesNames } from '../../routes';
@@ -43,7 +44,7 @@ export function LoginScreen({ navigation }: AuthStackLoginScreenProps) {
   const handleLogin = async (data: LoginForm) => {
     isLoading(true);
     try {
-      userService.loginUser(data);
+      await userService.loginUser(data);
       isLoading(false);
       if (user && !user.emailVerified) {
         try {
@@ -72,11 +73,10 @@ export function LoginScreen({ navigation }: AuthStackLoginScreenProps) {
               autoCapitalize="none"
               autoCorrect={false}
               keyboardType="email-address"
-              mode="outlined"
               onBlur={onBlur}
               onChangeText={onChange}
               placeholder="Email"
-              style={[styles.textInput, styles.width90, globalStyle.marginTop]}
+              style={[globalStyle.marginTop]}
               value={value}
             />
           )}
@@ -96,16 +96,11 @@ export function LoginScreen({ navigation }: AuthStackLoginScreenProps) {
           name="password"
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
-              mode="outlined"
               onBlur={onBlur}
               onChangeText={onChange}
               placeholder={translate('auth.password')}
               secureTextEntry={true}
-              style={[
-                styles.textInput,
-                styles.width90,
-                globalStyle.marginTopSmall,
-              ]}
+              style={[globalStyle.marginTopSmall]}
               value={value}
             />
           )}
@@ -146,13 +141,12 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginBottom: 10,
   },
-  textInput: {},
   formInputs: {
     alignItems: 'center',
   },
   width90: {
     maxWidth: 500,
-    width: '90%',
+    width: '100%',
     minWidth: 10,
   },
 });

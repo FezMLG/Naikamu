@@ -6,10 +6,14 @@ const errorResolver = (message: string): string => {
     case 'auth/user-not-found':
     case 'auth/wrong-password':
     case 'auth/requires-recent-login':
-    case 'auth/email-already-in_-use':
+    case 'auth/email-already-in-use':
     case 'auth/passwords-do-not-match':
     case 'auth/weak-password': {
-      return `auth.errors.firebase.[${message}]`;
+      message = message.replaceAll('-', '_');
+      message = message.replace('auth/', '');
+      console.log(message);
+
+      return `auth.errors.${message}`;
     }
     default: {
       return 'auth.errors.unknown';
