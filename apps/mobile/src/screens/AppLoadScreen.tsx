@@ -54,7 +54,6 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
   }, []);
 
   const checkConnection = useCallback(async () => {
-    logger('useQueryApiHealth').warn();
     await NetInfo.fetch().then(async state => {
       logger('NetInfo').info('Connection type', state.type);
       logger('NetInfo').info('Is connected?', state.isConnected);
@@ -68,10 +67,17 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
   }, []);
 
   const apiCheck = useQueryApiHealth(data => {
+    logger('useQueryApiHealth').warn(data);
     if (semver.satisfies(data.version, supportedApiVersion)) {
       handleLoginCheck();
     } else {
-      console.log('wrong api');
+      logger('API Version Check').warn(
+        'Wrong version',
+        'API',
+        data.version,
+        'Supported',
+        supportedApiVersion,
+      );
       navigation.navigate(AuthStackRoutesNames.ActionRequired);
     }
   });

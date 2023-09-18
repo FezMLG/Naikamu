@@ -152,7 +152,7 @@ export const pl = {
     requireAppUpdate: {
       title: 'Wymagana aktualizacja',
       message:
-        'Ta wersja aplikacji nie jest już wspierana. Wymagana aktualizacja aplikacji, aby kontynuować korzystanie z AniWatch.',
+        'Ta wersja aplikacji nie jest już wspierana. Wymagana aktualizacja, aby kontynuować korzystanie z AniWatch.',
       action: 'Zaktualizuj',
       actionAlt: 'Pomoc',
     },

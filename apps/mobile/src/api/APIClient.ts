@@ -1,15 +1,16 @@
 import {
-  AnimeList,
   AnimeDetails,
   AnimeEpisodes,
   AnimePlayers,
   AnimeSeason,
-  WatchList,
+  AnimeSource,
+  IAnimeListItem,
+  IWatchListSeries,
+  Paginate,
   WatchListSeriesEpisode,
-  WatchListSeries,
 } from '@aniwatch/shared';
 import axios, { AxiosInstance, AxiosRequestHeaders } from 'axios';
-import { default as Config } from 'react-native-config';
+import Config from 'react-native-config';
 
 import { fireGetIdToken } from '../services/firebase/fire-auth.service';
 import { Resolution } from '../services/settings/interfaces';
@@ -82,10 +83,10 @@ export class APIClient {
     seasonYear,
     perPage = 25,
     search = null,
-  }: GetAnimeListDTO): Promise<AnimeList> {
+  }: GetAnimeListDTO): Promise<Paginate<IAnimeListItem[]>> {
     const token = await this.withToken();
 
-    return this.post<AnimeList>(
+    return this.post<Paginate<IAnimeListItem[]>>(
       '/anime',
       {
         page,
@@ -99,13 +100,16 @@ export class APIClient {
     );
   }
 
-  async getAnimeDetails(id: number): Promise<AnimeDetails> {
+  async getAnimeDetails(
+    id: number | string,
+    dataSource: AnimeSource,
+  ): Promise<AnimeDetails> {
     const token = await this.withToken();
 
     return this.post<AnimeDetails>(
       '/anime/details',
       {
-        dataSource: 'AniList',
+        dataSource: dataSource,
         sourceId: String(id),
       },
       { ...token },
@@ -146,20 +150,33 @@ export class APIClient {
     );
   }
 
-  async getUserWatchList() {
-    return this.get<WatchList>('user/watch-list', {
-      ...(await this.withToken()),
-    });
+  async getUserWatchList({
+    page,
+    perPage = 25,
+    search = null,
+  }: GetAnimeListDTO): Promise<Paginate<IWatchListSeries[]>> {
+    const token = await this.withToken();
+
+    return this.post<Paginate<IWatchListSeries[]>>(
+      'user/watch-list',
+      {
+        page,
+        perPage,
+        search,
+        dataSource: 'AniList',
+      },
+      { ...token },
+    );
   }
 
   async getUserWatchListSeries(animeId: string) {
-    return this.get<WatchListSeries>(`user/watch-list/${animeId}`, {
+    return this.get<IWatchListSeries>(`user/watch-list/${animeId}`, {
       ...(await this.withToken()),
     });
   }
 
   async updateUserSeriesWatchList(animeId: string) {
-    return this.post<WatchListSeries>(
+    return this.post<IWatchListSeries>(
       `user/watch-list/${animeId}`,
       {},
       {

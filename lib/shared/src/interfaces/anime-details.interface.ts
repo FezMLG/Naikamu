@@ -1,5 +1,5 @@
-import { WatchStatus } from '../enums';
-import { AnimeSeason } from '../enums/anime-season.enum';
+import { WatchStatus, AnimeSeason } from '../enums';
+import { IAirDate, ICoverImage, IExternalLink, IStudios, ITitle, Relation } from "./anime";
 
 export interface AnimeDetails {
   id: string;
@@ -7,11 +7,11 @@ export interface AnimeDetails {
   sourceId: number;
   dataSource: string;
   bannerImage: string;
-  coverImage: CoverImage;
-  title: Title;
-  startDate: AirDate;
-  endDate: AirDate;
-  externalLinks: ExternalLink[];
+  coverImage: ICoverImage;
+  title: ITitle;
+  startDate: IAirDate;
+  endDate: IAirDate;
+  externalLinks: IExternalLink[];
   relations: Relation[];
   popularity: number;
   description: string;
@@ -32,47 +32,5 @@ export interface AnimeDetails {
     site: string;
     thumbnail: string;
   };
-  studios: IStudios;
-}
-
-interface IStudios {
-  nodes: {
-    name: string;
-  }[];
-}
-
-export interface Relation {
-  relationType: string;
-  id: number;
-  title: Title;
-  status: string;
-  format: string;
-  type: string;
-  coverImage: CoverImage;
-}
-
-interface Title {
-  english?: string;
-  romaji: string;
-}
-
-interface ExternalLink {
-  url: string;
-  site: string;
-  type: string;
-  icon: null | string;
-  language: null | string;
-}
-
-interface CoverImage {
-  extraLarge: string;
-  large: string;
-  medium: string;
-  color: string;
-}
-
-interface AirDate {
-  year: number;
-  month: number;
-  day: number;
+  studios: IStudios[];
 }

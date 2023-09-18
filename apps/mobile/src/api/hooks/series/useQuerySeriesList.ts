@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { AnimeList } from '@aniwatch/shared';
+import { IAnimeListItem, Paginate } from '@aniwatch/shared';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { getAnimeSeason } from '../../../utils';
@@ -13,7 +13,7 @@ export const useQuerySeriesList = () => {
   const [year, setYear] = useState(new Date().getFullYear());
 
   const { isLoading, data, refetch, fetchNextPage, isRefetching } =
-    useInfiniteQuery<AnimeList>(
+    useInfiniteQuery<Paginate<IAnimeListItem[]>>(
       ['browse', season, year],
       ({ pageParam }) =>
         apiClient.getAnimeList({
@@ -22,7 +22,7 @@ export const useQuerySeriesList = () => {
           seasonYear: year,
         }),
       {
-        getNextPageParam: lastPage => lastPage.Page.pageInfo.currentPage + 1,
+        getNextPageParam: lastPage => lastPage.pageInfo.currentPage + 1,
       },
     );
 

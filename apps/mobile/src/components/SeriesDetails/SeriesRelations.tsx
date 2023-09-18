@@ -11,7 +11,7 @@ import {
 
 import { useTranslate } from '../../i18n/useTranslate';
 import { colors, fontStyles } from '../../styles';
-import { DarkColor } from '../../styles/darkMode.style';
+import { DarkColor } from '../../styles';
 import { ProgressiveImage } from '../ProgressiveImage';
 
 export function SeriesRelations({

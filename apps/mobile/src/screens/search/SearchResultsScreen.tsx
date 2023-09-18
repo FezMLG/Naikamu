@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 
-import { Media } from '@aniwatch/shared';
+import { IAnimeListItem } from '@aniwatch/shared';
 import { useNavigation } from '@react-navigation/native';
 import {
   StyleSheet,
@@ -33,7 +33,7 @@ export function SearchResultsScreen({
   const { isLoading, data, refetch, fetchNextPage, isRefetching } =
     useQuerySearchSeriesList(phrase);
 
-  const renderItem = ({ item }: { item: Media }) => (
+  const renderItem = ({ item }: { item: IAnimeListItem }) => (
     <BrowseElement
       anime={item}
       handlePageChange={() => {
@@ -66,7 +66,7 @@ export function SearchResultsScreen({
             /* eslint-disable-next-line react-native/no-inline-styles */
             ListHeaderComponentStyle={{ marginHorizontal: 10 }}
             contentContainerStyle={[styles.flatListContent]}
-            data={data.pages.flatMap(page => page.Page.media)}
+            data={data.pages.flatMap(page => page.data)}
             keyExtractor={(_, index) => index.toString()}
             numColumns={Math.floor(maxWidth() / 180)}
             onEndReached={() => fetchNextPage()}

@@ -4,3 +4,5 @@ export * from './anime-list.interface';
 export * from './anime-players.interface';
 export * from './user.interface';
 export * from './watch-list';
+export * from './paginate';
+export * from './anime'

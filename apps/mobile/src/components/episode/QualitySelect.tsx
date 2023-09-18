@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Checkbox, RadioButton, Text } from 'react-native-paper';
 
-import { Button, Modal } from '../../components';
 import { useTranslate } from '../../i18n/useTranslate';
 import { Resolution } from '../../services/settings/interfaces';
 import { useUserSettingsService } from '../../services/settings/settings.service';
 import { colors, fontStyles } from '../../styles';
+import { Button, Modal } from '../atoms';
 
 export function QualitySelect({
   isOpen,

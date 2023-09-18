@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 
-import { Media } from '@aniwatch/shared';
+import { IAnimeListItem } from '@aniwatch/shared';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, ActivityIndicator, FlatList, View } from 'react-native';
@@ -24,7 +24,7 @@ export function BrowseScreen({}: BrowseStackBrowseScreenProps) {
   const { api, season, year, setSeason, setYear } = useQuerySeriesList();
   const tabHeight = useBottomTabBarHeight();
 
-  const renderItem = ({ item }: { item: Media }) => (
+  const renderItem = ({ item }: { item: IAnimeListItem }) => (
     <BrowseElement
       anime={item}
       handlePageChange={() => {
@@ -55,7 +55,7 @@ export function BrowseScreen({}: BrowseStackBrowseScreenProps) {
             ListFooterComponentStyle={{ height: tabHeight * 2, width: '100%' }}
             contentContainerStyle={[styles.flatListContent]}
             contentInsetAdjustmentBehavior="automatic"
-            data={api.data.pages.flatMap(page => page.Page.media)}
+            data={api.data.pages.flatMap(page => page.data)}
             keyExtractor={(_, index) => index.toString()}
             numColumns={2}
             onEndReached={() => api.fetchNextPage()}
