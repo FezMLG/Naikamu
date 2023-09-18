@@ -1,7 +1,7 @@
 {
   "name": "@aniwatch/mobile",
   "version": "0.6.3",
-  "apiVersion": "0.x.x",
+  "apiVersion": "1.0.x",
   "private": true,
   "engines": {
     "node": "18"

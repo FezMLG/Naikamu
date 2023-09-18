@@ -50,7 +50,8 @@ export function ActionRequiredScreen({
           type="link"
         />
         <View style={globalStyle.spacerSmall} />
-        <Text style={[globalStyle.textCenter]}>
+        <Text
+          style={[globalStyle.textCenter, fontStyles.label, colors.textLight]}>
           app ver.: {appVersion} / {Config.ENV}
         </Text>
       </View>
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-evenly',
-    paddingHorizontal: 16,
+    marginHorizontal: 16,
   },
   buttons: {
     margin: 16,
