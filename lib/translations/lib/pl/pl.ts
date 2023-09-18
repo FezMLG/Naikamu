@@ -17,6 +17,7 @@ export const pl = {
     SearchResults: 'Wyniki wyszukiwania',
     MyListStack: 'Moja lista',
     OfflineStack: 'Pobrane',
+    WatchList: 'Do Obejrzenia'
   },
   forms: {
     save: 'Zapisz',

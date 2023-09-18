@@ -17,6 +17,7 @@ export const en = {
     SearchResults: 'Search Results',
     MyListStack: 'My List',
     OfflineStack: 'Offline',
+    WatchList: 'Watch List'
   },
   forms: {
     save: 'Save',
