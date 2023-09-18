@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 
 import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { Image, Pressable, StyleSheet } from 'react-native';
-import { ActivityIndicator, Text } from 'react-native-paper';
+import { Image, Pressable, StyleSheet, Text } from 'react-native';
 
 import { useUserService } from '../services/auth/user.service';
-import { defaultRadius } from '../styles';
+import { colors, defaultRadius, fontStyles } from '../styles';
+
+import { ActivityIndicator } from './atoms';
+import { useTranslate } from '../i18n/useTranslate';
 
 GoogleSignin.configure({
   webClientId:
@@ -14,27 +16,26 @@ GoogleSignin.configure({
 });
 
 const onGoogleButtonPress = async () => {
-  try {
-    await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-    const { idToken } = await GoogleSignin.signIn();
-    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+  await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+  const { idToken } = await GoogleSignin.signIn();
+  const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
-    return auth().signInWithCredential(googleCredential);
-  } catch (error) {
-    console.error(error);
-  }
+  return auth().signInWithCredential(googleCredential);
 };
 
 export function GoogleSignIn() {
   const [isLoading, setIsLoading] = useState(false);
   const userService = useUserService();
+  const { translate } = useTranslate();
 
   return (
     <Pressable
       onPress={() =>
-        onGoogleButtonPress().then(
-          async () => await userService.setLoggedUser(),
-        )
+        onGoogleButtonPress()
+          .then(async () => await userService.setLoggedUser())
+          .catch(() => {
+            setIsLoading(false);
+          })
       }
       onPressIn={() => setIsLoading(true)}
       style={styles.googleLogin}>
@@ -42,29 +43,34 @@ export function GoogleSignIn() {
         source={require('../../assets/google_g_logo.png')}
         style={styles.gLogo}
       />
-      <Text variant="titleSmall">Google</Text>
-      {isLoading && (
-        <ActivityIndicator size="small" style={styles.marginLeft} />
-      )}
+      <Text style={[colors.textLight, fontStyles.headerSmall]}>
+        {translate('auth.continue_with')} Google
+      </Text>
+      <ActivityIndicator
+        size="small"
+        style={styles.marginLeft}
+        visible={isLoading}
+      />
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
   gLogo: {
-    width: 25,
-    height: 25,
+    width: 30,
+    height: 30,
     marginRight: 10,
   },
   googleLogin: {
-    height: 50,
+    height: 60,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    borderColor: 'pink',
+    justifyContent: 'space-evenly',
+    borderColor: colors.textLight.color,
     borderWidth: 1,
     borderRadius: defaultRadius,
-    width: 200,
+    maxWidth: 500,
+    width: '100%',
   },
   marginLeft: {
     marginLeft: 10,

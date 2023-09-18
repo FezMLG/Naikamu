@@ -79,7 +79,7 @@ export const en = {
       passwords_do_not_match: 'Passwords do not match',
       weak_password: 'Password should be at least 6 characters',
     },
-    continue_with: 'or',
+    continue_with: 'Continue with',
     delete_account: 'Delete account',
   },
   welcomeScreen: {

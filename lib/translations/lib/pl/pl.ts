@@ -80,7 +80,7 @@ export const pl = {
       passwords_do_not_match: 'Hasła nie są takie same',
       weak_password: 'Hasło powinno mieć co najmniej 6 znaków',
     },
-    continue_with: 'lub',
+    continue_with: 'Kontynuuj z',
     delete_account: 'Usuń konto',
   },
   welcomeScreen: {
