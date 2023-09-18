@@ -10,6 +10,7 @@ import {
   WatchListSeriesEpisode,
 } from '@aniwatch/shared';
 import axios, { AxiosInstance, AxiosRequestHeaders } from 'axios';
+import Config from 'react-native-config';
 
 import { fireGetIdToken } from '../services/firebase/fire-auth.service';
 import { Resolution } from '../services/settings/interfaces';
@@ -27,8 +28,7 @@ export class APIClient {
 
   constructor() {
     this.instance = axios.create({
-      // baseURL: Config.API_URL,
-      baseURL: 'http://192.168.50.29:3333/api',
+      baseURL: Config.API_URL,
       timeout: 2000,
       headers: {
         Accept: 'application/json',
