@@ -14,7 +14,7 @@
     "android:dev-release": "react-native run-android --variant=developmentrelease",
     "android:prod": "react-native run-android --variant=productiondebug --appId=com.aniwatch",
     "android:prod-release": "react-native run-android --variant=productionrelease",
-    "ios": "react-native run-ios",
+    "ios": "react-native run-ios --simulator=\"iPhone 14\" ",
     "ios:release": "npm run ios -- --mode=\"Release\"",
     "pod": "npx pod-install ios",
     "start": "react-native start --reset-cache",
