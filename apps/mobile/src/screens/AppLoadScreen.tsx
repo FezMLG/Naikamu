@@ -57,11 +57,13 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
     await NetInfo.fetch().then(async state => {
       logger('NetInfo').info('Connection type', state.type);
       logger('NetInfo').info('Is connected?', state.isConnected);
-      if (!state.isConnected) {
+      if (state.isConnected) {
+        await apiCheck.refetch();
+      } else {
         layout.setInfo('useQueryApiHealth#onError');
         await initializeUserSettings();
         await userService.readUserFromStorage();
-        userService.setLoggedUser();
+        await userService.setLoggedUser();
       }
     });
   }, []);
