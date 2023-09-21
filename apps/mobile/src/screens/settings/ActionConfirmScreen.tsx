@@ -50,7 +50,7 @@ function FormTextInput({
             onBlur={onBlur}
             onChangeText={onChange}
             placeholder={placeholder}
-            style={[styles.textInput, styles.width90]}
+            style={styles.center}
             value={value}
           />
         )}
@@ -98,7 +98,7 @@ export function SettingsActionConfirmScreen({
   };
 
   return (
-    <PageLayout.Default style={[styles.container]} {...layout}>
+    <PageLayout.Default {...layout}>
       <FormTextInput
         control={control}
         errors={errors}
@@ -118,7 +118,6 @@ export function SettingsActionConfirmScreen({
 }
 
 const styles = StyleSheet.create({
-  container: {},
   logo: {
     maxWidth: 200,
     maxHeight: 200,
@@ -129,14 +128,8 @@ const styles = StyleSheet.create({
   center: {
     alignSelf: 'center',
   },
-  textInput: {},
   formInputs: {
     alignItems: 'center',
-  },
-  width90: {
-    maxWidth: 500,
-    width: '90%',
-    minWidth: 10,
   },
   textCenter: {
     textAlign: 'center',
