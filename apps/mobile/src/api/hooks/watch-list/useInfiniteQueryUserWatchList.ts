@@ -9,9 +9,9 @@ export const useInfiniteQueryUserWatchList = () => {
   const { isLoading, data, refetch, fetchNextPage, isRefetching } =
     useInfiniteQuery<Paginate<IWatchListSeries[]>>(
       ['watch list'],
-      ({ pageParam }) =>
+      ({ pageParam: pageParameter = 1 }) =>
         apiClient.getUserWatchList({
-          page: pageParam,
+          page: pageParameter,
         }),
       {
         getNextPageParam: lastPage => lastPage.pageInfo.currentPage + 1,

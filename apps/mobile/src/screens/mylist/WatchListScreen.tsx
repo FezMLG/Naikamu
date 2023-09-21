@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 
 import { IWatchListSeries } from '@aniwatch/shared';
 import { useNavigation } from '@react-navigation/native';
-import { StyleSheet, ActivityIndicator, FlatList } from 'react-native';
+import { StyleSheet, ActivityIndicator, FlatList, Text } from 'react-native';
 
 import { useInfiniteQueryUserWatchList } from '../../api/hooks';
 import { WatchListElement } from '../../components/watch-list';
@@ -51,7 +51,9 @@ export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
           renderItem={renderItem}
           style={[styles.flatList]}
         />
-      ) : null}
+      ) : (
+        <Text style={colors.textLight}>No data</Text>
+      )}
     </>
   );
 };
