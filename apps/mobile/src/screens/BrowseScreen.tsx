@@ -40,7 +40,7 @@ export function BrowseScreen({}: BrowseStackBrowseScreenProps) {
   );
 
   return (
-    <SafeAreaView style={[styles.container]}>
+    <View style={[styles.container]}>
       <SeasonYearSelectButtons
         season={season}
         setSeason={setSeason}
@@ -81,7 +81,7 @@ export function BrowseScreen({}: BrowseStackBrowseScreenProps) {
           )}
         </View>
       ) : null}
-    </SafeAreaView>
+    </View>
   );
 }
 
