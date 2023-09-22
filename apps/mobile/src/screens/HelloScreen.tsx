@@ -40,7 +40,7 @@ export function HelloScreen({ navigation }: AuthStackHelloScreenProps) {
       />
       <View style={[globalStyle.spacerBig]} />
       <GoogleSignIn />
-      <Text style={globalStyle.spacer}>{translate('auth.continue_with')}</Text>
+      <View style={globalStyle.spacer} />
       <Button
         label={translate('auth.login')}
         onPress={() => navigation.navigate(AuthStackRoutesNames.Login)}

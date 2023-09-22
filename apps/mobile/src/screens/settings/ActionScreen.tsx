@@ -3,9 +3,9 @@ import React from 'react';
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { Control, Controller, FieldErrorsImpl, useForm } from 'react-hook-form';
 import { KeyboardTypeOptions, StyleSheet, View } from 'react-native';
-import { Text, TextInput } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 
-import { Button, PageLayout, useLayout } from '../../components';
+import { Button, PageLayout, TextInput, useLayout } from '../../components';
 import { useTranslate } from '../../i18n/useTranslate';
 import {
   SettingsStackScreenNames,
@@ -49,11 +49,10 @@ function FormTextInput({
             autoCapitalize="none"
             autoCorrect={autoCorrect}
             keyboardType={keyboardType}
-            mode="outlined"
             onBlur={onBlur}
             onChangeText={onChange}
             placeholder={placeholder}
-            style={[styles.textInput, styles.width90]}
+            style={styles.center}
             value={value}
           />
         )}
@@ -114,14 +113,14 @@ export function SettingsActionScreen({
   };
 
   return (
-    <PageLayout.Default style={[styles.container]} {...layout}>
+    <PageLayout.Default {...layout}>
       <FormTextInput
         control={control}
         errors={errors}
         keyboardType="ascii-capable"
         name="newValue"
         placeholder={payload ?? translate('forms.fields.' + type)}
-        title={translate('forms.labels.new' + type)}
+        title={translate('forms.labels.new.' + type)}
       />
       <Button
         label={
@@ -129,14 +128,13 @@ export function SettingsActionScreen({
         }
         onPress={handleSubmit(handleAction)}
         style={[globalStyle.marginTopBig]}
-        type={requiresLogin ? 'primary' : 'secondary'}
+        type={requiresLogin ? 'secondary' : 'primary'}
       />
     </PageLayout.Default>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {},
   logo: {
     maxWidth: 200,
     maxHeight: 200,
@@ -147,14 +145,8 @@ const styles = StyleSheet.create({
   center: {
     alignSelf: 'center',
   },
-  textInput: {},
   formInputs: {
     alignItems: 'center',
-  },
-  width90: {
-    maxWidth: 500,
-    width: '90%',
-    minWidth: 10,
   },
   textCenter: {
     textAlign: 'center',

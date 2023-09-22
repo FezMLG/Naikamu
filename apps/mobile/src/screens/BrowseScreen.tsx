@@ -8,7 +8,12 @@ import { FAB } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { useQuerySeriesList } from '../api/hooks';
-import { SeasonYearSelectButtons, BrowseElement } from '../components';
+import {
+  SeasonYearSelectButtons,
+  BrowseElement,
+  PageLayout,
+  useLayout,
+} from '../components';
 import {
   BrowseStackBrowseScreenProps,
   RootStackScreenNames,
@@ -17,6 +22,7 @@ import {
 import { colors } from '../styles';
 
 export function BrowseScreen({}: BrowseStackBrowseScreenProps) {
+  const layout = useLayout();
   const CONTENT_OFFSET_THRESHOLD = 300;
   const navigation = useNavigation<any>();
   const listRef = useRef<FlatList>(null);
@@ -40,7 +46,7 @@ export function BrowseScreen({}: BrowseStackBrowseScreenProps) {
   );
 
   return (
-    <SafeAreaView style={[styles.container]}>
+    <PageLayout.Default style={[styles.container]} {...layout}>
       <SeasonYearSelectButtons
         season={season}
         setSeason={setSeason}
@@ -81,7 +87,7 @@ export function BrowseScreen({}: BrowseStackBrowseScreenProps) {
           )}
         </View>
       ) : null}
-    </SafeAreaView>
+    </PageLayout.Default>
   );
 }
 

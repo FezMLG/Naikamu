@@ -78,8 +78,9 @@ export const en = {
       email_already_in_use: 'This user already exist',
       passwords_do_not_match: 'Passwords do not match',
       weak_password: 'Password should be at least 6 characters',
+      wrong_password: 'Incorrect email or password'
     },
-    continue_with: 'or continue with',
+    continue_with: 'Continue with',
     delete_account: 'Delete account',
   },
   welcomeScreen: {

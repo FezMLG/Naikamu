@@ -2,7 +2,7 @@ module.exports = {
   root: true,
   ignorePatterns: ['*.js'],
   extends: [
-    '@react-native-community',
+    '@react-native',
     'plugin:@typescript-eslint/recommended',
     'plugin:unicorn/recommended',
     'plugin:sonarjs/recommended',

@@ -16,7 +16,7 @@ const resources = {
 const findBestLanguage = () => {
   const fallback = { languageTag: 'pl' };
   const { languageTag } =
-    RNLocalize.findBestAvailableLanguage(Object.keys(resources)) || fallback;
+    RNLocalize.findBestLanguageTag(Object.keys(resources)) || fallback;
 
   return languageTag;
 };

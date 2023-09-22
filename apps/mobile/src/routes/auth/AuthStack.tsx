@@ -40,7 +40,6 @@ export function AuthStack() {
         name={AuthStackRoutesNames.Login}
         options={{
           title: translate('routes.' + AuthStackRoutesNames.Login),
-          animation: 'slide_from_right',
         }}
       />
       <Stack.Screen

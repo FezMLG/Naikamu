@@ -11,15 +11,17 @@ export const useQueryApiHealth = (
 ) => {
   const apiClient = new APIClient();
 
-  const { data, isError, error } = useQuery({
+  const { data, isError, error, refetch } = useQuery({
     queryKey: ['api', 'health', new Date().toTimeString()],
     queryFn: () => apiClient.getApiHealth(),
     onSuccess,
+    enabled: false,
   });
 
   return {
     data,
     isError,
     error,
+    refetch,
   };
 };

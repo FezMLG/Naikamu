@@ -2,19 +2,19 @@ import React, { useState } from 'react';
 
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { Controller, useForm } from 'react-hook-form';
-import { View, StyleSheet } from 'react-native';
-import { Text, TextInput } from 'react-native-paper';
+import { View, StyleSheet, Text } from 'react-native';
 
 import {
   Button,
   useLayout,
   useErrorHandler,
   PageLayout,
+  TextInput,
 } from '../../components';
 import { useTranslate } from '../../i18n/useTranslate';
 import { AuthStackRoutesNames, AuthStackSignUpScreenProps } from '../../routes';
 import { useUserService } from '../../services/auth/user.service';
-import { globalStyle } from '../../styles';
+import { fontStyles, globalStyle } from '../../styles';
 
 export interface SignUpForm {
   displayName: string;
@@ -22,6 +22,16 @@ export interface SignUpForm {
   password: string;
   passwordAgain: string;
 }
+
+const ErrorText = () => {
+  const { translate } = useTranslate();
+
+  return (
+    <Text style={[styles.errors, fontStyles.label]}>
+      {translate('auth.required_field')}
+    </Text>
+  );
+};
 
 export function SignUpScreen({ navigation }: AuthStackSignUpScreenProps) {
   const layout = useLayout();
@@ -73,15 +83,10 @@ export function SignUpScreen({ navigation }: AuthStackSignUpScreenProps) {
             <TextInput
               autoCapitalize="none"
               autoCorrect={false}
-              mode="outlined"
               onBlur={onBlur}
               onChangeText={onChange}
               placeholder={translate('auth.username')}
-              style={[
-                styles.textInput,
-                styles.width90,
-                globalStyle.marginTopSmall,
-              ]}
+              style={[styles.textInput, globalStyle.marginTopSmall]}
               value={value}
             />
           )}
@@ -90,9 +95,7 @@ export function SignUpScreen({ navigation }: AuthStackSignUpScreenProps) {
             maxLength: 100,
           }}
         />
-        {errors.displayName && (
-          <Text style={styles.errors}>{translate('auth.required_field')}</Text>
-        )}
+        {errors.displayName && <ErrorText />}
         <Controller
           control={control}
           name="email"
@@ -101,15 +104,10 @@ export function SignUpScreen({ navigation }: AuthStackSignUpScreenProps) {
               autoCapitalize="none"
               autoCorrect={false}
               keyboardType="email-address"
-              mode="outlined"
               onBlur={onBlur}
               onChangeText={onChange}
               placeholder="Email"
-              style={[
-                styles.textInput,
-                styles.width90,
-                globalStyle.marginTopSmall,
-              ]}
+              style={[styles.textInput, globalStyle.marginTopSmall]}
               value={value}
             />
           )}
@@ -118,25 +116,18 @@ export function SignUpScreen({ navigation }: AuthStackSignUpScreenProps) {
             maxLength: 100,
           }}
         />
-        {errors.email && (
-          <Text style={styles.errors}>{translate('auth.required_field')}</Text>
-        )}
+        {errors.email && <ErrorText />}
         <Controller
           control={control}
           name="password"
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
               autoCapitalize="none"
-              mode="outlined"
               onBlur={onBlur}
               onChangeText={onChange}
               placeholder={translate('auth.password')}
               secureTextEntry={true}
-              style={[
-                styles.textInput,
-                styles.width90,
-                globalStyle.marginTopSmall,
-              ]}
+              style={[styles.textInput, globalStyle.marginTopSmall]}
               value={value}
             />
           )}
@@ -145,25 +136,18 @@ export function SignUpScreen({ navigation }: AuthStackSignUpScreenProps) {
             maxLength: 100,
           }}
         />
-        {errors.password && (
-          <Text style={styles.errors}>{translate('auth.required_field')}</Text>
-        )}
+        {errors.password && <ErrorText />}
         <Controller
           control={control}
           name="passwordAgain"
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
               autoCapitalize="none"
-              mode="outlined"
               onBlur={onBlur}
               onChangeText={onChange}
               placeholder={translate('auth.password_again')}
               secureTextEntry={true}
-              style={[
-                styles.textInput,
-                styles.width90,
-                globalStyle.marginTopSmall,
-              ]}
+              style={[styles.textInput, globalStyle.marginTopSmall]}
               value={value}
             />
           )}
@@ -172,9 +156,7 @@ export function SignUpScreen({ navigation }: AuthStackSignUpScreenProps) {
             maxLength: 100,
           }}
         />
-        {errors.passwordAgain && (
-          <Text style={styles.errors}>{translate('auth.required_field')}</Text>
-        )}
+        {errors.passwordAgain && <ErrorText />}
         <Button
           disabled={loading}
           label={translate('auth.register')}
@@ -199,10 +181,5 @@ const styles = StyleSheet.create({
   },
   errors: {
     color: '#CF6679',
-  },
-  width90: {
-    maxWidth: 500,
-    width: '90%',
-    minWidth: 10,
   },
 });

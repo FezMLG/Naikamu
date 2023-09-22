@@ -1,9 +1,10 @@
 import React from 'react';
 
 import { StyleSheet, View } from 'react-native';
-import { ActivityIndicator, IconButton } from 'react-native-paper';
+import { IconButton } from 'react-native-paper';
 
 import { useMutationUpdateUserSeriesWatchProgress } from '../../../api/hooks';
+import { ActivityIndicator } from '../../atoms';
 
 interface UpdateEpisodeWatchStatusProps {
   animeId: string;
@@ -25,7 +26,7 @@ export function UpdateEpisodeWatchStatus({
   return (
     <View style={styles.container}>
       {mutation.isLoading ? (
-        <ActivityIndicator size="small" />
+        <ActivityIndicator size="small" visible={mutation.isLoading} />
       ) : (
         <>
           {watched ? (
