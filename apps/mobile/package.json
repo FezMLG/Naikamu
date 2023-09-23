@@ -23,9 +23,11 @@
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "app:release": "cd android && ./gradlew bundleRelease",
-    "apk:beta:release": "cd android && fastlane beta && open app/build/outputs/apk/production/release",
+    "apk:beta:release": "cd android && fastlane beta && open app/build/outputs/apk/production/release && mv app/build/outputs/apk/production/release/app-production-release.apk app/build/outputs/apk/production/release/app-production-release.apk",
     "apk:release": "cd android && ./gradlew assembleRelease && open app/build/outputs/apk/production/release",
-    "apk:stg:release": "cd android && ./gradlew assembleStaging && open app/build/outputs/apk/staging/release"
+    "apk:stg:release": "cd android && ./gradlew assembleStaging && open app/build/outputs/apk/staging/release",
+    "apk:rename": "mv $DIR/app-production-release.apk $DIR/aniwatch-$(jq -r '.version' package.json).apk",
+    "apk:beta:rename": "DIR='android/app/build/outputs/apk/production/release' npm run apk:rename"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "1.19.3",
