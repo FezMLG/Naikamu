@@ -4,11 +4,11 @@ import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { Image, Pressable, StyleSheet, Text } from 'react-native';
 
+import { useTranslate } from '../i18n/useTranslate';
 import { useUserService } from '../services/auth/user.service';
 import { colors, defaultRadius, fontStyles } from '../styles';
 
 import { ActivityIndicator } from './atoms';
-import { useTranslate } from '../i18n/useTranslate';
 
 GoogleSignin.configure({
   webClientId:

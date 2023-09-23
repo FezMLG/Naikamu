@@ -8,13 +8,13 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-
-import { Snackbar } from '../Snackbar';
-import { colors, fontStyles, globalStyle } from '../../../styles';
-import { ActivityIndicator } from '../Loader';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Button } from '../Button';
+
 import { useTranslate } from '../../../i18n/useTranslate';
+import { colors, fontStyles, globalStyle } from '../../../styles';
+import { Button } from '../Button';
+import { ActivityIndicator } from '../Loader';
+import { Snackbar } from '../Snackbar';
 
 const useInfoHandler = () => {
   const [info, setInfo] = useState<string>('');

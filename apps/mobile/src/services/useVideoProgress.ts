@@ -13,9 +13,8 @@ export const useVideoProgress = (episodeProgressKey: string) => {
   const [progress, setProgress] = useState<number>(0);
 
   const handleVideoProgress = async () => {
-    const storageProgress = await storageGetData<OnProgressData>(
-      episodeProgressKey,
-    );
+    const storageProgress =
+      await storageGetData<OnProgressData>(episodeProgressKey);
 
     setProgress(storageProgress?.currentTime ?? 0);
   };

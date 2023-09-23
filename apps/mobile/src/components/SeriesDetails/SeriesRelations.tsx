@@ -11,8 +11,8 @@ import {
 
 import { useTranslate } from '../../i18n/useTranslate';
 import { colors, fontStyles, DarkColor } from '../../styles';
-import { ProgressiveImage } from '../ProgressiveImage';
 import { Dot } from '../atoms';
+import { ProgressiveImage } from '../ProgressiveImage';
 
 export function SeriesRelations({
   relation,

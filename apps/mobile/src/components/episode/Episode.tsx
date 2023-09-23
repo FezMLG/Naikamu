@@ -21,7 +21,6 @@ import {
   fontStyles,
 } from '../../styles';
 import { ActivityIndicator } from '../atoms';
-import { maxWidth } from '../maxDimensions';
 import { UpdateEpisodeWatchStatus } from '../molecules';
 import { PlatformExplicit } from '../PlatformExplicit';
 import { ProgressiveImage } from '../ProgressiveImage';

@@ -7,10 +7,10 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useTranslate } from '../../i18n/useTranslate';
 import { colors, darkStyle, fontStyles, globalStyle } from '../../styles';
+import { Dot } from '../atoms';
 import { ProgressiveImage } from '../ProgressiveImage';
 
 import { QuickInfo } from './QuickInfo';
-import { Dot } from '../atoms';
 
 function Title(props: { romaji?: string; english?: string }) {
   return (

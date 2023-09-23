@@ -5,12 +5,12 @@ import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { Pressable, View, Text, Image, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import { useTranslate } from '../../i18n/useTranslate';
 import { BrowseStackParameterList as BrowseStackParameterList } from '../../routes';
 import { colors, DarkColor } from '../../styles';
 
 import { navigateToPlayer } from './navigateToPlayer';
 import { PlayerMenu } from './PlayerMenu';
-import { useTranslate } from '../../i18n/useTranslate';
 
 export function EpisodePlayer({
   seriesId,
