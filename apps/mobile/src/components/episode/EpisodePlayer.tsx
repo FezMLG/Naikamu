@@ -106,6 +106,21 @@ export function EpisodePlayerEmpty() {
   );
 }
 
+export function EpisodePlayerError() {
+  return (
+    <View style={[styles.playersListItem, { borderColor: colors.error.color }]}>
+      <View style={styles.rowCenter}>
+        <Icon
+          name="alert-circle-outline"
+          size={24}
+          style={[{ marginHorizontal: 10 }, colors.textLight]}
+        />
+        <Text style={[colors.textLight]}>Episodes are not available</Text>
+      </View>
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
   playersListItem: {
     height: 70,

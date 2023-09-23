@@ -26,7 +26,11 @@ import { UpdateEpisodeWatchStatus } from '../molecules';
 import { PlatformExplicit } from '../PlatformExplicit';
 import { ProgressiveImage } from '../ProgressiveImage';
 
-import { EpisodePlayer, EpisodePlayerEmpty } from './EpisodePlayer';
+import {
+  EpisodePlayer,
+  EpisodePlayerEmpty,
+  EpisodePlayerError,
+} from './EpisodePlayer';
 
 export function Episode({
   episode,
@@ -201,11 +205,7 @@ export function Episode({
               <EpisodePlayerEmpty />
             )
           ) : (
-            <ActivityIndicator
-              size="large"
-              style={styles.playersLoading}
-              visible
-            />
+            <EpisodePlayerError />
           )}
         </View>
       ) : null}
@@ -217,20 +217,21 @@ const styles = StyleSheet.create({
   episodeContainer: {
     marginVertical: 16,
     width: '100%',
+    maxWidth: 500,
   },
   poster: {
-    width: 110,
+    width: '30%',
     height: 80,
     borderTopLeftRadius: defaultRadius,
   },
   titleRow: {
-    width: maxWidth() - 110 - 45 - 22,
+    width: '55%',
     paddingVertical: 5,
     paddingHorizontal: 10,
     flexDirection: 'column',
   },
   watchStatus: {
-    width: 45,
+    width: '15%',
     alignItems: 'center',
   },
   title: {
