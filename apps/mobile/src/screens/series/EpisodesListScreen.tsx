@@ -1,48 +1,42 @@
 import React from 'react';
 
 import { AnimeEpisode } from '@aniwatch/shared';
-import {
-  StyleSheet,
-  SafeAreaView,
-  ScrollView,
-  ActivityIndicator,
-} from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 import { Text } from 'react-native-paper';
 
 import { useQuerySeriesEpisodes } from '../../api/hooks';
-import { Episode } from '../../components';
+import { Episode, PageLayout, useLayout } from '../../components';
 import { useTranslate } from '../../i18n/useTranslate';
 import { SeriesStackEpisodeScreenProps } from '../../routes';
 import { darkStyle, globalStyle } from '../../styles';
 
 export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
   const { translate } = useTranslate();
-  const { episodes } = useQuerySeriesEpisodes(
-    route.params.id,
-    route.params.numOfAiredEpisodes,
-  );
+  const layout = useLayout();
+  const {
+    data: episodes,
+    isError,
+    isLoading,
+    refetch,
+  } = useQuerySeriesEpisodes(route.params.id, route.params.numOfAiredEpisodes);
 
   return (
-    <SafeAreaView style={[styles.container]}>
+    <PageLayout.Default margin={false} {...layout}>
+      <PageLayout.Loading isLoading={isLoading} />
+      <PageLayout.Error isError={isError} refetch={refetch} />
       <ScrollView style={styles.scrollView}>
-        {episodes.isLoading && <ActivityIndicator size="large" />}
-        {episodes.isError && (
-          <Text>{translate('anime_episodes.players_not_found')}</Text>
-        )}
-        {episodes.data
-          ? episodes.data.episodes.map(
-              (episode: AnimeEpisode, index: number) => (
-                <Episode
-                  animeName={route.params.title}
-                  episode={episode}
-                  episodeLength={route.params.episodeLength}
-                  id={route.params.id}
-                  isWatched={episode.isWatched}
-                  key={index}
-                  posterUrl={route.params.posterUrl}
-                />
-              ),
-            )
+        {episodes
+          ? episodes.episodes.map((episode: AnimeEpisode, index: number) => (
+              <Episode
+                animeName={route.params.title}
+                episode={episode}
+                episodeLength={route.params.episodeLength}
+                id={route.params.id}
+                isWatched={episode.isWatched}
+                key={index}
+                posterUrl={route.params.posterUrl}
+              />
+            ))
           : null}
         <Text
           style={[globalStyle.disclaimer, darkStyle.font]}
@@ -50,15 +44,11 @@ export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
           {translate('anime_episodes.disclaimer')}
         </Text>
       </ScrollView>
-    </SafeAreaView>
+    </PageLayout.Default>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-  },
   scrollView: {
     marginHorizontal: 10,
   },

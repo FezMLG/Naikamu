@@ -102,15 +102,22 @@ function Default({
   visible,
   setVisible,
   style = [],
+  margin = true,
 }: {
   children: React.ReactNode;
   info: string;
   visible: boolean;
   setVisible: (visible: boolean) => void;
   style?: ViewStyle[];
+  margin?: boolean;
 }) {
   return (
-    <SafeAreaView style={[styles.container, ...style]}>
+    <SafeAreaView
+      style={[
+        styles.container,
+        margin ? { marginHorizontal: 16 } : { margin: 0 },
+        ...style,
+      ]}>
       {children}
       <Snackbar
         actionLabel="Ok"
@@ -125,7 +132,6 @@ function Default({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: 16,
   },
 });
 

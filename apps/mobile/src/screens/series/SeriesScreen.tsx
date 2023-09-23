@@ -1,15 +1,7 @@
 import React from 'react';
 
 import { BlurView } from '@react-native-community/blur';
-import {
-  StyleSheet,
-  SafeAreaView,
-  ScrollView,
-  View,
-  Text,
-  Linking,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { StyleSheet, ScrollView, View } from 'react-native';
 
 import { useQuerySeriesDetails } from '../../api/hooks';
 import {
@@ -17,21 +9,21 @@ import {
   SeriesDetails,
   SeriesDetailsRelations,
   WatchList,
-  ActivityIndicator,
   ProgressiveImage,
   PlatformExplicit,
-  Button,
   PageLayout,
+  useLayout,
 } from '../../components';
 import { SeriesStackSeriesScreenProps } from '../../routes';
-import { globalStyle, DarkColor, colors, fontStyles } from '../../styles';
+import { globalStyle, DarkColor } from '../../styles';
 
 export function SeriesScreen({ route }: SeriesStackSeriesScreenProps) {
   const { id } = route.params;
+  const layout = useLayout();
   const { data, isError, isLoading, refetch } = useQuerySeriesDetails(id);
 
   return (
-    <SafeAreaView style={[styles.container]}>
+    <PageLayout.Default margin={false} {...layout}>
       <PageLayout.Loading isLoading={isLoading} />
       <PageLayout.Error isError={isError} refetch={refetch} />
       {data ? (
@@ -94,14 +86,11 @@ export function SeriesScreen({ route }: SeriesStackSeriesScreenProps) {
           </ScrollView>
         </>
       ) : null}
-    </SafeAreaView>
+    </PageLayout.Default>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   scrollView: {},
   body: {
     paddingHorizontal: 16,
