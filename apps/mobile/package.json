@@ -26,8 +26,9 @@
     "apk:beta:release": "cd android && fastlane beta && open app/build/outputs/apk/production/release && mv app/build/outputs/apk/production/release/app-production-release.apk app/build/outputs/apk/production/release/app-production-release.apk",
     "apk:release": "cd android && ./gradlew assembleRelease && open app/build/outputs/apk/production/release",
     "apk:stg:release": "cd android && ./gradlew assembleStaging && open app/build/outputs/apk/staging/release",
-    "apk:rename": "mv $DIR/app-production-release.apk $DIR/aniwatch-$(jq -r '.version' package.json).apk",
-    "apk:beta:rename": "DIR='android/app/build/outputs/apk/production/release' npm run apk:rename"
+    "apk:rename": "mv $DIR/$APP $DIR/aniwatch-$RENV$(jq -r '.version' package.json).apk",
+    "apk:beta:rename": "DIR='android/app/build/outputs/apk/production/release' APP='app-production-release.apk' RENV= npm run apk:rename",
+    "apk:stg:rename": "DIR='android/app/build/outputs/apk/staging/release' APP='app-staging-release.apk' RENV=stg- npm run apk:rename"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "1.19.3",
