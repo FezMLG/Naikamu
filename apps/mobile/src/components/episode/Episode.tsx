@@ -47,7 +47,10 @@ export function Episode({
   isWatched: boolean;
   episodeLength: number;
 }) {
-  const { data, refetch } = useQuerySeriesEpisodePlayers(id, episode.number);
+  const { data, refetch, isLoading, isError } = useQuerySeriesEpisodePlayers(
+    id,
+    episode.number,
+  );
   const [isSelected, setIsSelected] = useState(false);
   const { addOfflineSeries, addToQueue } = useOfflineService();
   const { progress, loadProgress } = useVideoProgress(
@@ -188,6 +191,8 @@ export function Episode({
       </View>
       {isSelected ? (
         <View style={styles.playersListContainer}>
+          {isError ? <EpisodePlayerError /> : null}
+          {isLoading ? <ActivityIndicator size="large" visible={true} /> : null}
           {data ? (
             data.players.length > 0 ? (
               data.players.map((player: AnimePlayer, index: number) => (
@@ -204,9 +209,7 @@ export function Episode({
             ) : (
               <EpisodePlayerEmpty />
             )
-          ) : (
-            <EpisodePlayerError />
-          )}
+          ) : null}
         </View>
       ) : null}
     </SafeAreaView>

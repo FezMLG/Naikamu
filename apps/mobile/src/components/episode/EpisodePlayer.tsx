@@ -10,6 +10,7 @@ import { colors, DarkColor } from '../../styles';
 
 import { navigateToPlayer } from './navigateToPlayer';
 import { PlayerMenu } from './PlayerMenu';
+import { useTranslate } from '../../i18n/useTranslate';
 
 export function EpisodePlayer({
   seriesId,
@@ -92,6 +93,8 @@ export function EpisodePlayer({
 }
 
 export function EpisodePlayerEmpty() {
+  const { translate } = useTranslate();
+
   return (
     <View style={[styles.playersListItem, { borderColor: colors.error.color }]}>
       <View style={styles.rowCenter}>
@@ -100,13 +103,17 @@ export function EpisodePlayerEmpty() {
           size={24}
           style={[{ marginHorizontal: 10 }, colors.textLight]}
         />
-        <Text style={[colors.textLight]}>Episodes are not yet available</Text>
+        <Text style={[colors.textLight]}>
+          {translate('anime_episodes.load_players_empty')}
+        </Text>
       </View>
     </View>
   );
 }
 
 export function EpisodePlayerError() {
+  const { translate } = useTranslate();
+
   return (
     <View style={[styles.playersListItem, { borderColor: colors.error.color }]}>
       <View style={styles.rowCenter}>
@@ -115,7 +122,9 @@ export function EpisodePlayerError() {
           size={24}
           style={[{ marginHorizontal: 10 }, colors.textLight]}
         />
-        <Text style={[colors.textLight]}>Episodes are not available</Text>
+        <Text style={[colors.textLight]}>
+          {translate('anime_episodes.load_players_error')}
+        </Text>
       </View>
     </View>
   );
