@@ -9,11 +9,15 @@ export const useQuerySeriesDetails = (id: number | string) => {
   const source =
     typeof id === 'string' ? AnimeSource.Local : AnimeSource.AniList;
 
-  const { data } = useQuery<AnimeDetails>(['anime', id, 'details'], () =>
-    apiClient.getAnimeDetails(id, source),
+  const { data, isError, isLoading, refetch } = useQuery<AnimeDetails>(
+    ['anime', id, 'details'],
+    () => apiClient.getAnimeDetails(id, source),
   );
 
   return {
     data,
+    isError,
+    isLoading,
+    refetch,
   };
 };
