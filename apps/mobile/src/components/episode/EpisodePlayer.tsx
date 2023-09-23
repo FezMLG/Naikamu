@@ -5,6 +5,7 @@ import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { Pressable, View, Text, Image, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import { useTranslate } from '../../i18n/useTranslate';
 import { BrowseStackParameterList as BrowseStackParameterList } from '../../routes';
 import { colors, DarkColor } from '../../styles';
 
@@ -92,6 +93,8 @@ export function EpisodePlayer({
 }
 
 export function EpisodePlayerEmpty() {
+  const { translate } = useTranslate();
+
   return (
     <View style={[styles.playersListItem, { borderColor: colors.error.color }]}>
       <View style={styles.rowCenter}>
@@ -100,7 +103,28 @@ export function EpisodePlayerEmpty() {
           size={24}
           style={[{ marginHorizontal: 10 }, colors.textLight]}
         />
-        <Text style={[colors.textLight]}>Episodes are not yet available</Text>
+        <Text style={[colors.textLight]}>
+          {translate('anime_episodes.load_players_empty')}
+        </Text>
+      </View>
+    </View>
+  );
+}
+
+export function EpisodePlayerError() {
+  const { translate } = useTranslate();
+
+  return (
+    <View style={[styles.playersListItem, { borderColor: colors.error.color }]}>
+      <View style={styles.rowCenter}>
+        <Icon
+          name="alert-circle-outline"
+          size={24}
+          style={[{ marginHorizontal: 10 }, colors.textLight]}
+        />
+        <Text style={[colors.textLight]}>
+          {translate('anime_episodes.load_players_error')}
+        </Text>
       </View>
     </View>
   );

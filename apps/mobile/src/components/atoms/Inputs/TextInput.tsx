@@ -1,4 +1,4 @@
-import React, { ComponentProps, ReactElement, useRef, useState } from 'react';
+import React, { ComponentProps, ReactElement, useState } from 'react';
 
 import {
   NativeSyntheticEvent,

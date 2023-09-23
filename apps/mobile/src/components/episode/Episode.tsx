@@ -21,12 +21,15 @@ import {
   fontStyles,
 } from '../../styles';
 import { ActivityIndicator } from '../atoms';
-import { maxWidth } from '../maxDimensions';
 import { UpdateEpisodeWatchStatus } from '../molecules';
 import { PlatformExplicit } from '../PlatformExplicit';
 import { ProgressiveImage } from '../ProgressiveImage';
 
-import { EpisodePlayer, EpisodePlayerEmpty } from './EpisodePlayer';
+import {
+  EpisodePlayer,
+  EpisodePlayerEmpty,
+  EpisodePlayerError,
+} from './EpisodePlayer';
 
 export function Episode({
   episode,
@@ -43,7 +46,10 @@ export function Episode({
   isWatched: boolean;
   episodeLength: number;
 }) {
-  const { data, refetch } = useQuerySeriesEpisodePlayers(id, episode.number);
+  const { data, refetch, isLoading, isError } = useQuerySeriesEpisodePlayers(
+    id,
+    episode.number,
+  );
   const [isSelected, setIsSelected] = useState(false);
   const { addOfflineSeries, addToQueue } = useOfflineService();
   const { progress, loadProgress } = useVideoProgress(
@@ -184,6 +190,8 @@ export function Episode({
       </View>
       {isSelected ? (
         <View style={styles.playersListContainer}>
+          {isError ? <EpisodePlayerError /> : null}
+          {isLoading ? <ActivityIndicator size="large" visible={true} /> : null}
           {data ? (
             data.players.length > 0 ? (
               data.players.map((player: AnimePlayer, index: number) => (
@@ -200,13 +208,7 @@ export function Episode({
             ) : (
               <EpisodePlayerEmpty />
             )
-          ) : (
-            <ActivityIndicator
-              size="large"
-              style={styles.playersLoading}
-              visible
-            />
-          )}
+          ) : null}
         </View>
       ) : null}
     </SafeAreaView>
@@ -217,20 +219,21 @@ const styles = StyleSheet.create({
   episodeContainer: {
     marginVertical: 16,
     width: '100%',
+    maxWidth: 500,
   },
   poster: {
-    width: 110,
+    width: '30%',
     height: 80,
     borderTopLeftRadius: defaultRadius,
   },
   titleRow: {
-    width: maxWidth() - 110 - 45 - 22,
+    width: '55%',
     paddingVertical: 5,
     paddingHorizontal: 10,
     flexDirection: 'column',
   },
   watchStatus: {
-    width: 45,
+    width: '15%',
     alignItems: 'center',
   },
   title: {

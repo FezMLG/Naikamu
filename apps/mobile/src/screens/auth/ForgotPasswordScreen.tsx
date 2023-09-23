@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { Controller, useForm } from 'react-hook-form';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 import {
   Button,

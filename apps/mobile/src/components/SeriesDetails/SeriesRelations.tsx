@@ -10,8 +10,8 @@ import {
 } from 'react-native';
 
 import { useTranslate } from '../../i18n/useTranslate';
-import { colors, fontStyles } from '../../styles';
-import { DarkColor } from '../../styles';
+import { colors, fontStyles, DarkColor } from '../../styles';
+import { Dot } from '../atoms';
 import { ProgressiveImage } from '../ProgressiveImage';
 
 export function SeriesRelations({
@@ -40,13 +40,11 @@ export function SeriesRelations({
           </Text>
         </View>
         <View style={[styles.type, styles.marginBottom]}>
-          <Text
-            style={[styles.textCapitalize, fontStyles.label, colors.textLight]}>
+          <Text style={[styles.uppercase, fontStyles.label, colors.textLight]}>
             {relation.format}
           </Text>
-          <Text>•</Text>
-          <Text
-            style={[styles.textCapitalize, fontStyles.label, colors.textLight]}>
+          <Dot />
+          <Text style={[styles.uppercase, fontStyles.label, colors.textLight]}>
             {relation.status}
           </Text>
         </View>
@@ -104,5 +102,8 @@ const styles = StyleSheet.create({
   },
   textCapitalize: {
     textTransform: 'capitalize',
+  },
+  uppercase: {
+    textTransform: 'uppercase',
   },
 });

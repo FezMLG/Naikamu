@@ -54,6 +54,8 @@ export const pl = {
   },
   buttons: {
     go_back: 'Powrót',
+    reload: 'Odśwież',
+    support: 'Wsparcie',
   },
   auth: {
     login: 'Zaloguj się',
@@ -132,6 +134,7 @@ export const pl = {
       SOURCE: 'Źródło',
       COMPILATION: 'Kompilacja',
       CONTAINS: 'Zawiera',
+      NOT_YET_RELEASED: 'Zapowiedź',
     },
     trailer: 'Zwiastun',
     links: 'Linki',
@@ -149,6 +152,8 @@ export const pl = {
     load_players: 'Załaduj odtwarzacze',
     disclaimer:
       'AniWatch nie hostuje żadnych plików na własnych serwerach, udostępniamy jedynie linki do treści hostowanych na serwerach stron trzecich.',
+    load_players_error: 'Nie udało się załadować odwarzaczy',
+    load_players_empty: 'Nie znaleziono odtwarzaczy',
   },
   important: {
     requireAppUpdate: {
@@ -167,4 +172,7 @@ export const pl = {
       notFound: 'Nie znaleziono pobranych serii'
     }
   },
+  errors: {
+    error_occurred: 'Wystąpił błąd.\n Spróbuj ponownie później lub skontaktuj się z pomocą techniczną.',
+  }
 };

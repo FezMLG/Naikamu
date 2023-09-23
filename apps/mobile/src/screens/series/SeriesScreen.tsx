@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { BlurView } from '@react-native-community/blur';
-import { StyleSheet, SafeAreaView, ScrollView, View } from 'react-native';
+import { StyleSheet, ScrollView, View } from 'react-native';
 
 import { useQuerySeriesDetails } from '../../api/hooks';
 import {
@@ -9,19 +9,23 @@ import {
   SeriesDetails,
   SeriesDetailsRelations,
   WatchList,
-  ActivityIndicator,
   ProgressiveImage,
   PlatformExplicit,
+  PageLayout,
+  useLayout,
 } from '../../components';
 import { SeriesStackSeriesScreenProps } from '../../routes';
 import { globalStyle, DarkColor } from '../../styles';
 
 export function SeriesScreen({ route }: SeriesStackSeriesScreenProps) {
   const { id } = route.params;
-  const { data } = useQuerySeriesDetails(id);
+  const layout = useLayout();
+  const { data, isError, isLoading, refetch } = useQuerySeriesDetails(id);
 
   return (
-    <SafeAreaView style={[styles.container]}>
+    <PageLayout.Default margin={false} {...layout}>
+      <PageLayout.Loading isLoading={isLoading} />
+      <PageLayout.Error isError={isError} refetch={refetch} />
       {data ? (
         <>
           <PlatformExplicit availablePlatforms={['ios']}>
@@ -81,19 +85,12 @@ export function SeriesScreen({ route }: SeriesStackSeriesScreenProps) {
             </View>
           </ScrollView>
         </>
-      ) : (
-        <View style={globalStyle.centered}>
-          <ActivityIndicator size="large" visible={true} />
-        </View>
-      )}
-    </SafeAreaView>
+      ) : null}
+    </PageLayout.Default>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   scrollView: {},
   body: {
     paddingHorizontal: 16,

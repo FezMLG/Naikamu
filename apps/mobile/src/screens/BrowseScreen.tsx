@@ -5,7 +5,6 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, ActivityIndicator, FlatList, View } from 'react-native';
 import { FAB } from 'react-native-paper';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { useQuerySeriesList } from '../api/hooks';
 import {

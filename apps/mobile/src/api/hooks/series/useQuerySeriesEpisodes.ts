@@ -7,11 +7,15 @@ export const useQuerySeriesEpisodes = (
   numberOfAiredEpisodes: number,
 ) => {
   const apiClient = new APIClient();
-  const episodes = useQuery(['anime', id, 'episodes'], () =>
-    apiClient.getEpisodes(id, numberOfAiredEpisodes),
+  const { data, isLoading, isError, refetch } = useQuery(
+    ['anime', id, 'episodes'],
+    () => apiClient.getEpisodes(id, numberOfAiredEpisodes),
   );
 
   return {
-    episodes,
+    data,
+    isLoading,
+    isError,
+    refetch,
   };
 };

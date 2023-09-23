@@ -54,6 +54,8 @@ export const en = {
   },
   buttons: {
     go_back: 'Go Back',
+    reload: 'Reload',
+    support: 'Support',
   },
   auth: {
     login: 'Login',
@@ -131,6 +133,7 @@ export const en = {
       SOURCE: 'Source',
       COMPILATION: 'Compilation',
       CONTAINS: 'Contains',
+      NOT_YET_RELEASED: 'Not yet released',
     },
     trailer: 'Trailer',
     links: 'Links',
@@ -148,6 +151,8 @@ export const en = {
     load_players: 'Load players',
     disclaimer:
       'AniWatch does not host any files on its own servers, we only provide links to content hosted on third-party servers.',
+    load_players_error: 'Error loading players',
+    load_players_empty: 'No players found',
   },
   important: {
     requireAppUpdate: {
@@ -166,4 +171,7 @@ export const en = {
       notFound: 'No downloaded series found'
     }
   },
+  errors: {
+    error_occurred: 'Something went wrong.\n Please try again later or contact support.',
+  }
 };

@@ -8,7 +8,7 @@ export const useQuerySeriesEpisodePlayers = (id: string, number_: number) => {
 
   const { userSettings } = useUserSettingsService();
 
-  const { data, refetch } = useQuery(
+  const { data, refetch, isError, isLoading } = useQuery(
     ['anime', id, 'episodes', number_],
     () =>
       apiClient.getEpisodePlayers(
@@ -24,5 +24,7 @@ export const useQuerySeriesEpisodePlayers = (id: string, number_: number) => {
   return {
     data,
     refetch,
+    isError,
+    isLoading,
   };
 };
