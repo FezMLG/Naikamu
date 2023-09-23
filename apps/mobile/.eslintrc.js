@@ -15,7 +15,7 @@ module.exports = {
     },
   },
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'jest'],
   overrides: [
     {
       files: ['*.ts', '*.tsx'],

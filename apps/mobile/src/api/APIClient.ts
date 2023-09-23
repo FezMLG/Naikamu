@@ -9,7 +9,11 @@ import {
   Paginate,
   WatchListSeriesEpisode,
 } from '@aniwatch/shared';
-import axios, { AxiosInstance, AxiosRequestHeaders } from 'axios';
+import axios, {
+  AxiosHeaders,
+  AxiosInstance,
+  RawAxiosRequestHeaders,
+} from 'axios';
 import Config from 'react-native-config';
 
 import { fireGetIdToken } from '../services/firebase/fire-auth.service';
@@ -37,7 +41,10 @@ export class APIClient {
     });
   }
 
-  private async get<T>(url: string, headers?: AxiosRequestHeaders): Promise<T> {
+  private async get<T>(
+    url: string,
+    headers?: RawAxiosRequestHeaders | AxiosHeaders,
+  ): Promise<T> {
     const { data } = await this.instance.get<T>(url, {
       headers: headers,
     });
@@ -48,7 +55,7 @@ export class APIClient {
   private async post<T>(
     url: string,
     dataToSend: unknown,
-    headers?: AxiosRequestHeaders,
+    headers?: RawAxiosRequestHeaders | AxiosHeaders,
   ): Promise<T> {
     const { data } = await this.instance.post<T>(url, dataToSend, {
       headers: headers,
