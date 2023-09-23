@@ -10,6 +10,7 @@ import { colors, darkStyle, fontStyles, globalStyle } from '../../styles';
 import { ProgressiveImage } from '../ProgressiveImage';
 
 import { QuickInfo } from './QuickInfo';
+import { Dot } from '../atoms';
 
 function Title(props: { romaji?: string; english?: string }) {
   return (
@@ -48,15 +49,15 @@ function QuickInfoContainer({ data }: { data: AnimeDetails }) {
       <QuickInfo
         value={translate('anime_details.status_list.' + data.status)}
       />
-      <Text>•</Text>
+      <Dot />
       <QuickInfo
         value={`${translate('animeSeason.' + data.season)} ${data.seasonYear}`}
       />
-      <Text>•</Text>
+      <Dot />
       <QuickInfo value={data.format} />
-      <Text>•</Text>
+      <Dot />
       <QuickInfo value={data.episodes} />
-      <Text>•</Text>
+      <Dot />
       <QuickInfo value={`${data.duration} mins`} />
     </View>
   );

@@ -132,6 +132,7 @@ export const pl = {
       SOURCE: 'Źródło',
       COMPILATION: 'Kompilacja',
       CONTAINS: 'Zawiera',
+      NOT_YET_RELEASED: 'Zapowiedź',
     },
     trailer: 'Zwiastun',
     links: 'Linki',

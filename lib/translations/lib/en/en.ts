@@ -131,6 +131,7 @@ export const en = {
       SOURCE: 'Source',
       COMPILATION: 'Compilation',
       CONTAINS: 'Contains',
+      NOT_YET_RELEASED: 'Not yet released',
     },
     trailer: 'Trailer',
     links: 'Links',
