@@ -6,3 +6,5 @@ export * from './user.interface';
 export * from './watch-list';
 export * from './paginate';
 export * from './anime'
+export * from './resolve-player.dto'
+export * from './player-response'

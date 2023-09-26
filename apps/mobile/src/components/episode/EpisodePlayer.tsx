@@ -1,45 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { AnimePlayer } from '@aniwatch/shared';
-import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { Pressable, View, Text, Image, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import { useQueryResolvePlayerLink } from '../../api/hooks';
 import { useTranslate } from '../../i18n/useTranslate';
-import { BrowseStackParameterList as BrowseStackParameterList } from '../../routes';
+import { useUserSettingsService } from '../../services/settings/settings.service';
 import { colors, DarkColor } from '../../styles';
+import { ActivityIndicator } from '../atoms';
 
-import { navigateToPlayer } from './navigateToPlayer';
 import { PlayerMenu } from './PlayerMenu';
 
 export function EpisodePlayer({
   seriesId,
-  episodeTitle,
   player,
   episodeNumber,
   isDownloaded,
   handleDownload,
 }: {
   seriesId: string;
-  episodeTitle: string;
   player: AnimePlayer;
   episodeNumber: number;
   isDownloaded: boolean;
   handleDownload: (player: AnimePlayer) => void;
 }) {
-  const navigation = useNavigation<NavigationProp<BrowseStackParameterList>>();
+  const [loading, setLoading] = useState(false);
+
+  const { userSettings } = useUserSettingsService();
+  const { refetch, isLoading } = useQueryResolvePlayerLink({
+    animeId: seriesId,
+    player: player.player_name,
+    url: player.player_link,
+    resolution: userSettings.preferredResolution,
+    translator: player.translator_name,
+    episode: episodeNumber,
+  });
 
   return (
-    <Pressable
-      onPress={() => {
-        navigateToPlayer({
-          navigation: navigation,
-          player: player,
-          episodeTitle: episodeTitle,
-          episodeNumber,
-          seriesId,
-        });
-      }}
+    <View
       style={[
         styles.playersListItem,
         player.player_name.toLocaleLowerCase() === 'cda'
@@ -47,18 +46,28 @@ export function EpisodePlayer({
           : { height: 50 },
       ]}>
       <View style={styles.rowCenter}>
-        {player.player_name.toLocaleLowerCase() === 'cda' ? (
-          <Icon
-            name="play"
-            size={24}
-            style={[{ marginHorizontal: 10 }, colors.textLight]}
+        {loading ? (
+          <ActivityIndicator
+            size="small"
+            style={{ marginHorizontal: 10 }}
+            visible={isLoading}
           />
         ) : (
-          <Icon
-            name="open-in-new"
-            size={24}
-            style={[{ marginHorizontal: 10 }, colors.textLight]}
-          />
+          <Pressable
+            onPress={() => {
+              setLoading(true);
+              refetch().then(() => setLoading(false));
+            }}>
+            <Icon
+              name={
+                player.player_name.toLocaleLowerCase() === 'cda'
+                  ? 'play'
+                  : 'open-in-new'
+              }
+              size={24}
+              style={[{ marginHorizontal: 10 }, colors.textLight]}
+            />
+          </Pressable>
         )}
         <Text style={[colors.textLight]}>
           {player.translator_name +
@@ -88,7 +97,7 @@ export function EpisodePlayer({
         ) : null}
         <PlayerMenu player={player} />
       </View>
-    </Pressable>
+    </View>
   );
 }
 

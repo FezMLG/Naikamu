@@ -5,6 +5,8 @@ import {
   AnimeSeason,
   AnimeSource,
   IAnimeListItem,
+  IPlayerResponse,
+  IResolvePlayerDto,
   IWatchListSeries,
   Paginate,
   WatchListSeriesEpisode,
@@ -150,7 +152,6 @@ export class APIClient {
       `/anime/details/episode/${episode}`,
       {
         id: id,
-        resolve: true,
         resolution: resolution,
       },
       { ...token },
@@ -196,6 +197,16 @@ export class APIClient {
     return this.post<WatchListSeriesEpisode>(
       `user/watch-list/${animeId}/${episode}`,
       {},
+      {
+        ...(await this.withToken()),
+      },
+    );
+  }
+
+  async resolvePlayer(dto: IResolvePlayerDto) {
+    return this.post<IPlayerResponse>(
+      `anime/details/episode/${dto.episode}/player`,
+      dto,
       {
         ...(await this.withToken()),
       },
