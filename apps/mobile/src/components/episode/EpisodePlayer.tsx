@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { AnimePlayer } from '@aniwatch/shared';
+import { useNavigation } from '@react-navigation/native';
 import { Pressable, View, Text, Image, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -10,25 +11,28 @@ import { useUserSettingsService } from '../../services/settings/settings.service
 import { colors, DarkColor } from '../../styles';
 import { ActivityIndicator } from '../atoms';
 
+import { navigateToPlayer } from './navigateToPlayer';
 import { PlayerMenu } from './PlayerMenu';
 
 export function EpisodePlayer({
   seriesId,
   player,
   episodeNumber,
+  episodeTitle,
   isDownloaded,
   handleDownload,
 }: {
   seriesId: string;
   player: AnimePlayer;
   episodeNumber: number;
+  episodeTitle: string;
   isDownloaded: boolean;
   handleDownload: (player: AnimePlayer) => void;
 }) {
-  const [loading, setLoading] = useState(false);
+  const navigation = useNavigation<any>();
 
   const { userSettings } = useUserSettingsService();
-  const { refetch, isLoading } = useQueryResolvePlayerLink({
+  const { data, refetch, isLoading } = useQueryResolvePlayerLink({
     animeId: seriesId,
     player: player.player_name,
     url: player.player_link,
@@ -46,24 +50,37 @@ export function EpisodePlayer({
           : { height: 50 },
       ]}>
       <View style={styles.rowCenter}>
-        {loading ? (
+        {isLoading ? (
           <ActivityIndicator
             size="small"
             style={{ marginHorizontal: 10 }}
             visible={isLoading}
           />
+        ) : null}
+        {data ? (
+          <Pressable
+            onPress={() => {
+              navigateToPlayer({
+                navigation,
+                episodeTitle,
+                seriesId,
+                response: data,
+                episodeNumber,
+              });
+            }}>
+            <Icon
+              name={data.type === 'local' ? 'play' : 'open-in-new'}
+              size={24}
+              style={[{ marginHorizontal: 10 }, colors.textLight]}
+            />
+          </Pressable>
         ) : (
           <Pressable
             onPress={() => {
-              setLoading(true);
-              refetch().then(() => setLoading(false));
+              refetch();
             }}>
             <Icon
-              name={
-                player.player_name.toLocaleLowerCase() === 'cda'
-                  ? 'play'
-                  : 'open-in-new'
-              }
+              name="play"
               size={24}
               style={[{ marginHorizontal: 10 }, colors.textLight]}
             />

@@ -1,4 +1,4 @@
-import { IPlayerResponse, IResolvePlayerDto } from '@aniwatch/shared';
+import { IPlayerResponse } from '@aniwatch/shared';
 import { Linking } from 'react-native';
 
 import { RootStackScreenNames } from '../../routes';
@@ -6,20 +6,22 @@ import { RootStackScreenNames } from '../../routes';
 export const navigateToPlayer = ({
   navigation,
   episodeTitle,
-  dto,
+  seriesId,
   response,
+  episodeNumber,
 }: {
   navigation: any;
+  seriesId: string;
   episodeTitle: string;
-  dto: IResolvePlayerDto;
   response: IPlayerResponse;
+  episodeNumber: number;
 }): Promise<() => unknown> => {
   if (response.type === 'local') {
     return navigation.navigate(RootStackScreenNames.NativePlayer, {
       uri: response.uri,
-      seriesId: dto.animeId,
+      seriesId,
       episodeTitle,
-      episodeNumber: dto.episode,
+      episodeNumber,
     });
   }
 
