@@ -8,9 +8,16 @@ import { useQuerySeriesEpisodes } from '../../api/hooks';
 import { Episode, PageLayout, useLayout } from '../../components';
 import { useTranslate } from '../../i18n/useTranslate';
 import { SeriesStackEpisodeScreenProps } from '../../routes';
+import { useActiveSeriesStore } from '../../services';
 import { darkStyle, globalStyle } from '../../styles';
 
 export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
+  const series = useActiveSeriesStore(store => store.series);
+
+  if (!series) {
+    throw new Error('Series should not be empty');
+  }
+
   const { translate } = useTranslate();
   const layout = useLayout();
   const {
@@ -18,7 +25,7 @@ export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
     isError,
     isLoading,
     refetch,
-  } = useQuerySeriesEpisodes(route.params.id, route.params.numOfAiredEpisodes);
+  } = useQuerySeriesEpisodes(route.params.seriesId, series.numOfAiredEpisodes);
 
   return (
     <PageLayout.Default margin={false} {...layout}>
@@ -28,13 +35,9 @@ export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
         {episodes
           ? episodes.episodes.map((episode: AnimeEpisode, index: number) => (
               <Episode
-                animeName={route.params.title}
                 episode={episode}
-                episodeLength={route.params.episodeLength}
-                id={route.params.id}
                 isWatched={episode.isWatched}
                 key={index}
-                posterUrl={route.params.posterUrl}
               />
             ))
           : null}
