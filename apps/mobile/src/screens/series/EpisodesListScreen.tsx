@@ -14,10 +14,6 @@ import { darkStyle, globalStyle } from '../../styles';
 export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
   const series = useActiveSeriesStore(store => store.series);
 
-  if (!series) {
-    throw new Error('Series should not be empty');
-  }
-
   const { translate } = useTranslate();
   const layout = useLayout();
   const {

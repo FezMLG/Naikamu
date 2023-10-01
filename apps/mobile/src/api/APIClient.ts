@@ -34,7 +34,8 @@ export class APIClient {
 
   constructor() {
     this.instance = axios.create({
-      baseURL: Config.API_URL,
+      // baseURL: Config.API_URL,
+      baseURL: 'http://192.168.50.29:3333/api',
       timeout: 2000,
       headers: {
         Accept: 'application/json',
@@ -134,8 +135,8 @@ export class APIClient {
     return this.post<AnimeEpisodes>(
       '/anime/details/episodes',
       {
-        id: id,
-        expectedEpisodes: expectedEpisodes,
+        id,
+        expectedEpisodes,
       },
       { ...token },
     );

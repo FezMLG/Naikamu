@@ -16,7 +16,7 @@ export const useQuerySeriesDetails = (id: number | string) => {
     async () => {
       const result = await apiClient.getAnimeDetails(id, source);
 
-      store.setActivePlayer({
+      store.setActiveSeries({
         id: result.id,
         title: result.title.romaji,
         episodeLength: result.duration,

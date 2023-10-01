@@ -9,20 +9,26 @@ export interface ActiveSeries {
 }
 
 interface ActiveSeriesState {
-  series: ActiveSeries | null;
+  series: ActiveSeries;
   actions: {
-    setActivePlayer: (player: ActiveSeries) => void;
-    clearActivePlayer: () => void;
-    updateActivePlayer: (playee: Partial<ActiveSeries>) => void;
+    setActiveSeries: (player: ActiveSeries) => void;
+    updateActiveSeries: (playee: Partial<ActiveSeries>) => void;
   };
 }
 
+const initialState: ActiveSeries = {
+  id: '',
+  title: '',
+  episodeLength: 0,
+  numOfAiredEpisodes: 0,
+  posterUrl: '',
+};
+
 export const useActiveSeriesStore = create<ActiveSeriesState>(set => ({
-  series: null,
+  series: initialState,
   actions: {
-    setActivePlayer: series => set({ series }),
-    clearActivePlayer: () => set({ series: null }),
-    updateActivePlayer: series =>
+    setActiveSeries: series => set({ series }),
+    updateActiveSeries: series =>
       set(old => ({
         ...old,
         ...series,
