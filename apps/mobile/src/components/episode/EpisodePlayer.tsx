@@ -27,7 +27,7 @@ export function EpisodePlayer({
   episodeNumber: number;
   episodeTitle: string;
   isDownloaded: boolean;
-  handleDownload: (player: AnimePlayer) => void;
+  handleDownload: (player: AnimePlayer, fileUrl: string) => void;
 }) {
   const navigation = useNavigation<any>();
 
@@ -56,35 +56,38 @@ export function EpisodePlayer({
             style={{ marginHorizontal: 10 }}
             visible={isLoading}
           />
-        ) : null}
-        {data ? (
-          <Pressable
-            onPress={() => {
-              navigateToPlayer({
-                navigation,
-                episodeTitle,
-                seriesId,
-                response: data,
-                episodeNumber,
-              });
-            }}>
-            <Icon
-              name={data.type === 'local' ? 'play' : 'open-in-new'}
-              size={24}
-              style={[{ marginHorizontal: 10 }, colors.textLight]}
-            />
-          </Pressable>
         ) : (
-          <Pressable
-            onPress={() => {
-              refetch();
-            }}>
-            <Icon
-              name="play"
-              size={24}
-              style={[{ marginHorizontal: 10 }, colors.textLight]}
-            />
-          </Pressable>
+          <>
+            {data ? (
+              <Pressable
+                onPress={() => {
+                  navigateToPlayer({
+                    navigation,
+                    episodeTitle,
+                    seriesId,
+                    response: data,
+                    episodeNumber,
+                  });
+                }}>
+                <Icon
+                  name={data.type === 'local' ? 'play' : 'open-in-new'}
+                  size={24}
+                  style={[{ marginHorizontal: 10 }, colors.textLight]}
+                />
+              </Pressable>
+            ) : (
+              <Pressable
+                onPress={() => {
+                  refetch();
+                }}>
+                <Icon
+                  name="play"
+                  size={24}
+                  style={[{ marginHorizontal: 10 }, colors.textLight]}
+                />
+              </Pressable>
+            )}
+          </>
         )}
         <Text style={[colors.textLight]}>
           {player.translator_name +
@@ -105,7 +108,13 @@ export function EpisodePlayer({
                 name={
                   isDownloaded ? 'download-circle' : 'download-circle-outline'
                 }
-                onPress={() => handleDownload(player)}
+                onPress={() => {
+                  refetch().then(({ data: resolvedLink }) => {
+                    if (resolvedLink) {
+                      handleDownload(player, resolvedLink.uri);
+                    }
+                  });
+                }}
                 size={24}
                 style={[{ paddingHorizontal: 10 }, colors.textLight]}
               />

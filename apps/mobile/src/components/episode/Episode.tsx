@@ -65,7 +65,7 @@ export function Episode({
 
   loadProgress();
 
-  const handleDownload = async (player: AnimePlayer) => {
+  const handleDownload = async (player: AnimePlayer, fileUrl: string) => {
     const episodeToAdd = {
       number: episode.number,
       title: episode.title,
@@ -84,7 +84,7 @@ export function Episode({
     await addToQueue({
       seriesId: series.id,
       episode: episodeToAdd,
-      fileUrl: player.player_link,
+      fileUrl,
     });
     setIsDownloaded(previous => !previous);
   };
