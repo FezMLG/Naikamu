@@ -94,7 +94,7 @@ export function AppSettingsScreen({}: SettingsStackPlaybackSettingsScreenProps) 
         setIsOpen={setIsOpenQ}
         setQuality={setDownloadQuality}
       />
-      <SettingsGroup title={translate('settings.groups.videoPlaybackDownload')}>
+      <SettingsGroup title={translate('settings.groups.videoPlayback')}>
         <SettingInputs.Select
           isFirst={true}
           isLast={true}
@@ -103,15 +103,15 @@ export function AppSettingsScreen({}: SettingsStackPlaybackSettingsScreenProps) 
           title={translate('settings.titles.videoQuality')}
         />
       </SettingsGroup>
-      {/* <SettingsGroup title={translate('settings.groups.videoDownload')}>
+      <SettingsGroup title={translate('settings.groups.videoDownload')}>
         <SettingInputs.Select
-          title={translate('settings.titles.videoQuality')}
-          text={downloadQuality ?? '1080p'}
-          setIsModalOpen={setIsOpenQ}
           isFirst={true}
           isLast={true}
+          setIsModalOpen={setIsOpenQ}
+          text={downloadQuality ?? '1080p'}
+          title={translate('settings.titles.videoQuality')}
         />
-      </SettingsGroup> */}
+      </SettingsGroup>
       <View style={globalStyle.marginTop}>
         <Text style={[fontStyles.label, colors.textLight]}>Environment</Text>
         <Text style={[fontStyles.text, colors.textLighter]}>{Config.ENV}</Text>
@@ -126,7 +126,7 @@ export function AppSettingsScreen({}: SettingsStackPlaybackSettingsScreenProps) 
         <Text style={[fontStyles.text, colors.textLighter]}>
           {Config.API_URL}
         </Text>
-        {Config.ENV === 'dev' && (
+        {(Config.ENV === 'development' || Config.ENV === 'dev') && (
           <>
             <Text
               style={[
@@ -139,22 +139,22 @@ export function AppSettingsScreen({}: SettingsStackPlaybackSettingsScreenProps) 
             <Text style={[fontStyles.text, colors.textLighter]}>
               {JSON.stringify(userSettings)}
             </Text>
+            <Button
+              label="Clear downloads"
+              onPress={() => {
+                clearOffline();
+              }}
+              type="primary"
+            />
+            <Button
+              label="Clear downloads queue"
+              onPress={() => {
+                queueActions.clearQueue();
+              }}
+              type="primary"
+            />
           </>
         )}
-        <Button
-          label="Clear downloads"
-          onPress={() => {
-            clearOffline();
-          }}
-          type="primary"
-        />
-        <Button
-          label="Clear downloads queue"
-          onPress={() => {
-            queueActions.clearQueue();
-          }}
-          type="primary"
-        />
       </View>
     </SafeAreaView>
   );

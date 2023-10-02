@@ -24,13 +24,7 @@ export function EpisodesButton({ series }: EpisodesButtonProps) {
       label={translate('anime_details.see_episodes')}
       onPress={() => {
         navigation.navigate(SeriesStackScreenNames.Episodes, {
-          id: series.id,
-          title: series.title.romaji,
-          numOfAiredEpisodes: series.nextAiringEpisode?.episode
-            ? series.nextAiringEpisode?.episode - 1
-            : series.episodes ?? 12,
-          posterUrl: series.coverImage.large,
-          episodeLength: series.duration,
+          seriesId: series.id,
         });
       }}
       type="secondary"

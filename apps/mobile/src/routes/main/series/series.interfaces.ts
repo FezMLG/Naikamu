@@ -8,11 +8,7 @@ export enum SeriesStackScreenNames {
 export type SeriesStackParameterList = {
   [SeriesStackScreenNames.Series]: { title: string; id: number };
   [SeriesStackScreenNames.Episodes]: {
-    id: string;
-    title: string;
-    numOfAiredEpisodes: number;
-    posterUrl: string;
-    episodeLength: number;
+    seriesId: string;
   };
 };
 

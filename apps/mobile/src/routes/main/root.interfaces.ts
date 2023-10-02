@@ -16,7 +16,6 @@ export type RootStackParameterList = {
     uri: string;
     seriesId: string;
     episodeTitle: string;
-    player: string;
     episodeNumber: number;
   };
 };

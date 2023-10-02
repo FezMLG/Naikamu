@@ -90,7 +90,7 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
 
     if (token) {
       await fireGetNewIdToken();
-      userService.setLoggedUser();
+      await userService.setLoggedUser();
       logger('handleLoginCheck').info(user);
       if (!user?.emailVerified && user?.emailVerified !== undefined) {
         navigation.navigate(AuthStackRoutesNames.VerifyEmail);

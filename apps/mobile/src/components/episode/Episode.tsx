@@ -11,8 +11,9 @@ import {
   createEpisodeProgressKey,
   useOfflineService,
   useVideoProgress,
+  useUserSettingsService,
+  useActiveSeriesStore,
 } from '../../services';
-import { useUserSettingsService } from '../../services/settings/settings.service';
 import {
   colors,
   DarkColor,
@@ -30,30 +31,25 @@ import {
   EpisodePlayerEmpty,
   EpisodePlayerError,
 } from './EpisodePlayer';
+import { logger } from '../../utils/logger';
 
 export function Episode({
   episode,
-  posterUrl,
-  id,
-  animeName,
   isWatched,
-  episodeLength,
 }: {
   episode: AnimeEpisode;
-  posterUrl: string;
-  id: string;
-  animeName: string;
   isWatched: boolean;
-  episodeLength: number;
 }) {
+  const series = useActiveSeriesStore(store => store.series)!;
+
   const { data, refetch, isLoading, isError } = useQuerySeriesEpisodePlayers(
-    id,
+    series.id,
     episode.number,
   );
   const [isSelected, setIsSelected] = useState(false);
   const { addOfflineSeries, addToQueue } = useOfflineService();
   const { progress, loadProgress } = useVideoProgress(
-    createEpisodeProgressKey(id, episode.number),
+    createEpisodeProgressKey(series.id, episode.number),
   );
   const {
     userSettings: { preferredDownloadQuality },
@@ -64,32 +60,39 @@ export function Episode({
 
   const openDetails = () => {
     setIsSelected(previous => !previous);
-    checkIfEpisodeIsDownloaded(id, episode.number).then(setIsDownloaded);
+    checkIfEpisodeIsDownloaded(series.id, episode.number).then(response => {
+      logger('openDetails#checkIfEpisodeIsDownloaded').info(
+        series.id,
+        episode.number,
+        response,
+      );
+      setIsDownloaded(() => response);
+    });
     refetch();
   };
 
   loadProgress();
 
-  const handleDownload = async (player: AnimePlayer) => {
+  const handleDownload = async (player: AnimePlayer, fileUrl: string) => {
     const episodeToAdd = {
       number: episode.number,
       title: episode.title,
-      length: episodeLength,
+      length: series.episodeLength,
       translator: player.translator_name,
       pathToFile: null,
       size: 0,
     };
 
     await addOfflineSeries({
-      seriesId: id,
-      title: animeName,
+      seriesId: series.id,
+      title: series.title,
       quality: preferredDownloadQuality,
       episodes: [],
     });
     await addToQueue({
-      seriesId: id,
+      seriesId: series.id,
       episode: episodeToAdd,
-      fileUrl: player.player_link,
+      fileUrl,
     });
     setIsDownloaded(previous => !previous);
   };
@@ -110,7 +113,7 @@ export function Episode({
         <PlatformExplicit availablePlatforms={['ios']}>
           <ProgressiveImage
             key="blurryImage"
-            source={episode.poster_url ?? posterUrl}
+            source={episode.poster_url ?? series.posterUrl}
             style={[
               StyleSheet.absoluteFill,
               {
@@ -133,13 +136,13 @@ export function Episode({
         <Pressable onPress={openDetails} style={[styles.innerCard]}>
           <PlatformExplicit availablePlatforms={['ios']}>
             <ProgressiveImage
-              source={episode.poster_url ?? posterUrl}
+              source={episode.poster_url ?? series.posterUrl}
               style={[styles.poster]}
             />
           </PlatformExplicit>
           <PlatformExplicit availablePlatforms={['android']}>
             <ProgressiveImage
-              source={episode.poster_url ?? posterUrl}
+              source={episode.poster_url ?? series.posterUrl}
               style={[styles.poster, { borderRadius: defaultRadius }]}
             />
           </PlatformExplicit>
@@ -150,12 +153,12 @@ export function Episode({
             <Text
               numberOfLines={2}
               style={[fontStyles.label, colors.textLight]}>
-              {episodeLength} min
+              {series.episodeLength} min
             </Text>
           </View>
           <View style={styles.watchStatus}>
             <UpdateEpisodeWatchStatus
-              animeId={id}
+              animeId={series.id}
               episode={episode.number}
               isWatched={isWatched}
             />
@@ -202,7 +205,7 @@ export function Episode({
                   isDownloaded={isDownloaded}
                   key={index}
                   player={player}
-                  seriesId={id}
+                  seriesId={series.id}
                 />
               ))
             ) : (

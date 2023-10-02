@@ -12,7 +12,10 @@ export const logger = (source: string) => ({
   },
   warn: (...messages: unknown[]) => {
     console.log(
+      '\u001B[43m',
+      '\u001B[30m',
       '[WARN]',
+      '\u001B[0m',
       `[${source}]`,
       `[${new Date().toISOString()}]`,
       prepareMessage(messages),

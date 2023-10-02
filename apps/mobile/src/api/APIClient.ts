@@ -5,6 +5,8 @@ import {
   AnimeSeason,
   AnimeSource,
   IAnimeListItem,
+  IPlayerResponse,
+  IResolvePlayerDto,
   IWatchListSeries,
   Paginate,
   WatchListSeriesEpisode,
@@ -16,8 +18,8 @@ import axios, {
 } from 'axios';
 import Config from 'react-native-config';
 
+import { Resolution } from '../services';
 import { fireGetIdToken } from '../services/firebase/fire-auth.service';
-import { Resolution } from '../services/settings/interfaces';
 
 interface GetAnimeListDTO {
   page?: number;
@@ -32,7 +34,8 @@ export class APIClient {
 
   constructor() {
     this.instance = axios.create({
-      baseURL: Config.API_URL,
+      // baseURL: Config.API_URL,
+      baseURL: 'http://192.168.50.29:3333/api',
       timeout: 2000,
       headers: {
         Accept: 'application/json',
@@ -132,8 +135,8 @@ export class APIClient {
     return this.post<AnimeEpisodes>(
       '/anime/details/episodes',
       {
-        id: id,
-        expectedEpisodes: expectedEpisodes,
+        id,
+        expectedEpisodes,
       },
       { ...token },
     );
@@ -150,7 +153,6 @@ export class APIClient {
       `/anime/details/episode/${episode}`,
       {
         id: id,
-        resolve: true,
         resolution: resolution,
       },
       { ...token },
@@ -196,6 +198,16 @@ export class APIClient {
     return this.post<WatchListSeriesEpisode>(
       `user/watch-list/${animeId}/${episode}`,
       {},
+      {
+        ...(await this.withToken()),
+      },
+    );
+  }
+
+  async resolvePlayer(dto: IResolvePlayerDto) {
+    return this.post<IPlayerResponse>(
+      `anime/details/episode/${dto.episode}/player`,
+      dto,
       {
         ...(await this.withToken()),
       },

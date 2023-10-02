@@ -30,11 +30,9 @@ export function SeriesStack() {
       <StackAuthorized.Screen
         component={EpisodesListScreen}
         name={SeriesStackScreenNames.Episodes}
-        options={({ navigation, route }) => ({
+        options={({ navigation }) => ({
           ...defaultSubHeaderOptions({
-            title: `${translate(
-              'routes.' + SeriesStackScreenNames.Episodes,
-            )}: ${route.params.title}`,
+            title: `${translate('routes.' + SeriesStackScreenNames.Episodes)}`,
           }),
           headerLeft: () => (
             <Icon
