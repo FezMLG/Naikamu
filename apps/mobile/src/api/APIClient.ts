@@ -18,8 +18,8 @@ import axios, {
 } from 'axios';
 import Config from 'react-native-config';
 
+import { Resolution } from '../services';
 import { fireGetIdToken } from '../services/firebase/fire-auth.service';
-import { Resolution } from '../services/settings/interfaces';
 
 interface GetAnimeListDTO {
   page?: number;

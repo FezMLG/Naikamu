@@ -2,16 +2,16 @@ import React from 'react';
 
 import { AnimePlayer } from '@aniwatch/shared';
 import { useNavigation } from '@react-navigation/native';
-import { Pressable, View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, Linking } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useQueryResolvePlayerLink } from '../../api/hooks';
 import { useTranslate } from '../../i18n/useTranslate';
-import { useUserSettingsService } from '../../services/settings/settings.service';
+import { RootStackScreenNames } from '../../routes';
+import { useUserSettingsService } from '../../services';
 import { colors, DarkColor } from '../../styles';
-import { ActivityIndicator } from '../atoms';
+import { ActivityIndicator, IconButton } from '../atoms';
 
-import { navigateToPlayer } from './navigateToPlayer';
 import { PlayerMenu } from './PlayerMenu';
 
 export function EpisodePlayer({
@@ -50,44 +50,39 @@ export function EpisodePlayer({
           : { height: 50 },
       ]}>
       <View style={styles.rowCenter}>
-        {isLoading ? (
-          <ActivityIndicator
-            size="small"
-            style={{ marginHorizontal: 10 }}
-            visible={isLoading}
-          />
-        ) : (
+        {player.player_name.toLocaleLowerCase() === 'cda' ? (
           <>
-            {data ? (
-              <Pressable
-                onPress={() => {
-                  navigateToPlayer({
-                    navigation,
-                    episodeTitle,
-                    seriesId,
-                    response: data,
-                    episodeNumber,
-                  });
-                }}>
-                <Icon
-                  name={data.type === 'local' ? 'play' : 'open-in-new'}
-                  size={24}
-                  style={[{ marginHorizontal: 10 }, colors.textLight]}
-                />
-              </Pressable>
+            {isLoading ? (
+              <ActivityIndicator
+                size="small"
+                style={{ marginHorizontal: 10 }}
+                visible={isLoading}
+              />
             ) : (
-              <Pressable
-                onPress={() => {
-                  refetch();
-                }}>
-                <Icon
-                  name="play"
-                  size={24}
-                  style={[{ marginHorizontal: 10 }, colors.textLight]}
-                />
-              </Pressable>
+              <>
+                {data ? (
+                  <IconButton
+                    icon="play"
+                    onPress={() =>
+                      navigation.navigate(RootStackScreenNames.NativePlayer, {
+                        uri: data.uri,
+                        seriesId,
+                        episodeTitle,
+                        episodeNumber,
+                      })
+                    }
+                  />
+                ) : (
+                  <IconButton icon="reload" onPress={() => refetch()} />
+                )}
+              </>
             )}
           </>
+        ) : (
+          <IconButton
+            icon="open-in-new"
+            onPress={() => Linking.openURL(player.player_link)}
+          />
         )}
         <Text style={[colors.textLight]}>
           {player.translator_name +
@@ -104,8 +99,8 @@ export function EpisodePlayer({
         {player.player_name.toLocaleLowerCase() === 'cda' ? (
           <>
             {isDownloaded ? null : (
-              <Icon
-                name={
+              <IconButton
+                icon={
                   isDownloaded ? 'download-circle' : 'download-circle-outline'
                 }
                 onPress={() => {
@@ -115,8 +110,6 @@ export function EpisodePlayer({
                     }
                   });
                 }}
-                size={24}
-                style={[{ paddingHorizontal: 10 }, colors.textLight]}
               />
             )}
           </>

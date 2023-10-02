@@ -31,6 +31,7 @@ import {
   EpisodePlayerEmpty,
   EpisodePlayerError,
 } from './EpisodePlayer';
+import { logger } from '../../utils/logger';
 
 export function Episode({
   episode,
@@ -59,7 +60,14 @@ export function Episode({
 
   const openDetails = () => {
     setIsSelected(previous => !previous);
-    checkIfEpisodeIsDownloaded(series.id, episode.number).then(setIsDownloaded);
+    checkIfEpisodeIsDownloaded(series.id, episode.number).then(response => {
+      logger('openDetails#checkIfEpisodeIsDownloaded').info(
+        series.id,
+        episode.number,
+        response,
+      );
+      setIsDownloaded(() => response);
+    });
     refetch();
   };
 
