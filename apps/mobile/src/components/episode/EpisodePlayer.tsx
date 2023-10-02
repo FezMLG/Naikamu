@@ -98,11 +98,15 @@ export function EpisodePlayer({
         />
         {player.player_name.toLocaleLowerCase() === 'cda' ? (
           <>
-            {isDownloaded ? null : (
+            {isDownloaded ? (
+              <Icon
+                name="download-circle"
+                size={24}
+                style={[{ marginHorizontal: 10 }, colors.textLight]}
+              />
+            ) : (
               <IconButton
-                icon={
-                  isDownloaded ? 'download-circle' : 'download-circle-outline'
-                }
+                icon="download-circle-outline"
                 onPress={() => {
                   refetch().then(({ data: resolvedLink }) => {
                     if (resolvedLink) {
