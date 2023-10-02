@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 
 import { StyleSheet, SafeAreaView, View } from 'react-native';
-import { TextInput } from 'react-native-paper';
 
-import { Button } from '../../components';
+import { Button, TextInput } from '../../components';
 import {
   SearchStackScreenNames,
   SearchStackSearchScreenProps,
@@ -16,9 +15,8 @@ export function SearchScreen({ navigation }: SearchStackSearchScreenProps) {
   return (
     <SafeAreaView style={[styles.container]}>
       <TextInput
-        label="Search"
-        mode="outlined"
         onChangeText={text => setSearch(text)}
+        placeholder="Search phrase"
         value={search}
       />
       <View style={globalStyle.spacerSmall} />
@@ -40,5 +38,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginHorizontal: 16,
+    alignItems: 'center',
   },
 });
