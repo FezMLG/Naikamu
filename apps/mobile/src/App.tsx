@@ -1,6 +1,10 @@
 import React from 'react';
 
-import { DarkTheme as NavigationDarkTheme } from '@react-navigation/native';
+import {
+  DarkTheme as NavigationDarkTheme,
+  Theme,
+} from '@react-navigation/native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
   MD3DarkTheme as PaperDarkTheme,
   Provider as PaperProvider,
@@ -10,12 +14,16 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import QueryClientWrap from './api/QueryClientWrap';
 import LanguagesProvider from './i18n/LanguagesProvider';
 import Routes from './routes/Routes';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { colors } from './styles';
 
-const CombinedDarkTheme = {
+const CombinedDarkTheme: Theme = {
   ...NavigationDarkTheme,
   ...PaperDarkTheme,
-  colors: { ...NavigationDarkTheme.colors, ...PaperDarkTheme.colors },
+  colors: {
+    ...NavigationDarkTheme.colors,
+    ...PaperDarkTheme.colors,
+    primary: colors.accent.color,
+  },
 };
 
 function App() {
