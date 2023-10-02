@@ -10,6 +10,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import QueryClientWrap from './api/QueryClientWrap';
 import LanguagesProvider from './i18n/LanguagesProvider';
 import Routes from './routes/Routes';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const CombinedDarkTheme = {
   ...NavigationDarkTheme,
@@ -26,7 +27,9 @@ function App() {
         }}
         theme={CombinedDarkTheme}>
         <LanguagesProvider>
-          <Routes theme={CombinedDarkTheme} />
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            <Routes theme={CombinedDarkTheme} />
+          </GestureHandlerRootView>
         </LanguagesProvider>
       </PaperProvider>
     </QueryClientWrap>
