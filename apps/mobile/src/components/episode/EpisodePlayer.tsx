@@ -32,11 +32,24 @@ export function EpisodePlayer({
   const navigation = useNavigation<any>();
 
   const { userSettings } = useUserSettingsService();
-  const { data, refetch, isLoading } = useQueryResolvePlayerLink({
+  const {
+    isLoading,
+    refetch: watchRefetch,
+    isError,
+  } = useQueryResolvePlayerLink({
     animeId: seriesId,
     player: player.player_name,
     url: player.player_link,
     resolution: userSettings.preferredResolution,
+    translator: player.translator_name,
+    episode: episodeNumber,
+  });
+
+  const download = useQueryResolvePlayerLink({
+    animeId: seriesId,
+    player: player.player_name,
+    url: player.player_link,
+    resolution: userSettings.preferredDownloadQuality,
     translator: player.translator_name,
     episode: episodeNumber,
   });
@@ -59,23 +72,21 @@ export function EpisodePlayer({
                 visible={isLoading}
               />
             ) : (
-              <>
-                {data ? (
-                  <IconButton
-                    icon="play"
-                    onPress={() =>
+              <IconButton
+                icon={isError ? 'alert-circle-outline' : 'play'}
+                onPress={() =>
+                  watchRefetch().then(({ data: result }) => {
+                    if (result) {
                       navigation.navigate(RootStackScreenNames.NativePlayer, {
-                        uri: data.uri,
+                        uri: result.uri,
                         seriesId,
                         episodeTitle,
                         episodeNumber,
-                      })
+                      });
                     }
-                  />
-                ) : (
-                  <IconButton icon="reload" onPress={() => refetch()} />
-                )}
-              </>
+                  })
+                }
+              />
             )}
           </>
         ) : (
@@ -108,7 +119,7 @@ export function EpisodePlayer({
               <IconButton
                 icon="download-circle-outline"
                 onPress={() => {
-                  refetch().then(({ data: resolvedLink }) => {
+                  download.refetch().then(({ data: resolvedLink }) => {
                     if (resolvedLink) {
                       handleDownload(player, resolvedLink.uri);
                     }
