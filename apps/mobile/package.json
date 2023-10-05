@@ -1,5 +1,5 @@
 {
-  "name": "@aniwatch/mobile",
+  "name": "naikamu",
   "version": "0.7.2",
   "apiVersion": "1.0.x",
   "private": true,
@@ -8,11 +8,11 @@
   },
   "engineStrict": true,
   "scripts": {
-    "android:staging": "react-native run-android --variant=stagingdebug --appId=com.aniwatch.stg",
+    "android:staging": "react-native run-android --variant=stagingdebug --appId=com.naikamu.stg",
     "android:staging-release": "react-native run-android --variant=stagingrelease",
-    "android:dev": "react-native run-android --variant=developmentdebug --appId=com.aniwatch.dev",
+    "android:dev": "react-native run-android --variant=developmentdebug --appId=com.naikamu.dev",
     "android:dev-release": "react-native run-android --variant=developmentrelease",
-    "android:prod": "react-native run-android --variant=productiondebug --appId=com.aniwatch",
+    "android:prod": "react-native run-android --variant=productiondebug --appId=com.naikamu",
     "android:prod-release": "react-native run-android --variant=productionrelease",
     "ios": "ENVFILE=.env.dev react-native run-ios --simulator=\"iPhone 15\" ",
     "ios:release": "ENVFILE=.env.dev react-native run-ios --mode=\"Release\"",
@@ -27,7 +27,7 @@
     "apk:beta:release": "cd android && fastlane beta && open app/build/outputs/apk/production/release && mv app/build/outputs/apk/production/release/app-production-release.apk app/build/outputs/apk/production/release/app-production-release.apk",
     "apk:release": "cd android && ./gradlew assembleRelease && open app/build/outputs/apk/production/release",
     "apk:stg:release": "./android/gradlew assembleStaging && npm run apk:stg:rename && open android/app/build/outputs/apk/staging/release",
-    "apk:rename": "mv $DIR/$APP $DIR/aniwatch-$RENV$(jq -r '.version' package.json).apk",
+    "apk:rename": "mv $DIR/$APP $DIR/naikamu-$RENV$(jq -r '.version' package.json).apk",
     "apk:beta:rename": "DIR='android/app/build/outputs/apk/production/release' APP='app-production-release.apk' RENV= npm run apk:rename",
     "apk:stg:rename": "DIR='android/app/build/outputs/apk/staging/release' APP='app-staging-release.apk' RENV=stg- npm run apk:rename"
   },

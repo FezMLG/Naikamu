@@ -1,4 +1,4 @@
-package com.aniwatch;
+package com.tltcode.naikamu;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

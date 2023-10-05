@@ -98,27 +98,27 @@ android {
     productFlavors {
         production {
             minSdkVersion rootProject.ext.minSdkVersion
-            applicationId "com.aniwatch"
+            applicationId "com.tltcode.naikamu"
             targetSdkVersion rootProject.ext.targetSdkVersion
-            resValue "string", "build_config_package", "com.aniwatch"
+            resValue "string", "build_config_package", "com.tltcode.naikamu"
         }
         staging {
             minSdkVersion rootProject.ext.minSdkVersion
-            applicationId "com.aniwatch.stg"
+            applicationId "com.tltcode.naikamu.stg"
             targetSdkVersion rootProject.ext.targetSdkVersion
-            resValue "string", "build_config_package", "com.aniwatch"
+            resValue "string", "build_config_package", "com.tltcode.naikamu"
         }
         development {
             minSdkVersion rootProject.ext.minSdkVersion
-            applicationId "com.aniwatch.dev"
+            applicationId "com.tltcode.naikamu.dev"
             targetSdkVersion rootProject.ext.targetSdkVersion
-            resValue "string", "build_config_package", "com.aniwatch"
+            resValue "string", "build_config_package", "com.tltcode.naikamu"
         }
     }
 
-    namespace "com.aniwatch"
+    namespace "com.tltcode.naikamu"
     defaultConfig {
-        applicationId "com.aniwatch"
+        applicationId "com.tltcode.naikamu"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
