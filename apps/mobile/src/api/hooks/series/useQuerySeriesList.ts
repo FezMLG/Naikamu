@@ -9,6 +9,7 @@ import { APIClient } from '../../APIClient';
 export const useQuerySeriesList = () => {
   const apiClient = new APIClient();
 
+  const [currentSeason] = useState(getAnimeSeason());
   const [season, setSeason] = useState(getAnimeSeason());
   const [year, setYear] = useState(new Date().getFullYear());
 
@@ -34,6 +35,7 @@ export const useQuerySeriesList = () => {
       fetchNextPage,
       isRefetching,
     },
+    currentSeason,
     season,
     year,
     setSeason,

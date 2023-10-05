@@ -26,7 +26,8 @@ export function BrowseScreen({}: BrowseStackBrowseScreenProps) {
   const navigation = useNavigation<any>();
   const listRef = useRef<FlatList>(null);
   const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
-  const { api, season, year, setSeason, setYear } = useQuerySeriesList();
+  const { api, currentSeason, season, year, setSeason, setYear } =
+    useQuerySeriesList();
   const tabHeight = useBottomTabBarHeight();
 
   const renderItem = ({ item }: { item: IAnimeListItem }) => (
@@ -47,6 +48,7 @@ export function BrowseScreen({}: BrowseStackBrowseScreenProps) {
   return (
     <PageLayout.Default style={[styles.container]} {...layout}>
       <SeasonYearSelectButtons
+        currentSeason={currentSeason}
         season={season}
         setSeason={setSeason}
         setYear={setYear}

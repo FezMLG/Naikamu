@@ -16,11 +16,13 @@ import { colors } from '../../styles';
 import { AnimeSeasons, IAnimeSeasons } from '../../utils';
 
 export function SeasonYearSelectButtons({
+  currentSeason,
   season,
   setSeason,
   year,
   setYear,
 }: {
+  currentSeason: IAnimeSeasons;
   season: IAnimeSeasons;
   setSeason: (season: IAnimeSeasons) => void;
   year: number;
@@ -98,9 +100,16 @@ export function SeasonYearSelectButtons({
             leadingIcon={value.icon}
             onPress={() => handleSeasonChange(value)}
             title={translate(value.titleKey)}
-            titleStyle={
-              season.value === value.value ? colors.accent : colors.textLight
-            }
+            titleStyle={{
+              color:
+                season.value === value.value
+                  ? colors.accent.color
+                  : colors.textLight.color,
+              textDecorationStyle: 'solid',
+              textDecorationColor: colors.accent.color,
+              textDecorationLine:
+                currentSeason.value === value.value ? 'underline' : 'none',
+            }}
           />
         ))}
       </Menu>
