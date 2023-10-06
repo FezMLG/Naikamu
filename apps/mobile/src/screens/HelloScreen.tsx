@@ -30,7 +30,7 @@ export function HelloScreen({ navigation }: AuthStackHelloScreenProps) {
       <Text
         style={[darkStyle.font, { fontWeight: 'bold' }]}
         variant="displayMedium">
-        AniWatch
+        naikamu
       </Text>
       <View style={[globalStyle.spacerBig]} />
       <Image

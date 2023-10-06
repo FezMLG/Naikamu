@@ -106,7 +106,7 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
       <Text style={[colors.textLight, fontStyles.text]}>
         {translate('welcomeScreen.welcome')}
       </Text>
-      <Text style={[colors.textLight, fontStyles.screenHeader]}>AniWatch</Text>
+      <Text style={[colors.textLight, fontStyles.screenHeader]}>naikamu</Text>
       <View style={[globalStyle.spacerBig]} />
       <Image
         source={require('../../assets/aniwatch_logo_t.png')}
