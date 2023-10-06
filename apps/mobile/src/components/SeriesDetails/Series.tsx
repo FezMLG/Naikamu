@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AnimeDetails } from '@aniwatch/shared';
+import { AnimeDetails } from '@naikamu/shared';
 import { format } from 'date-fns';
 import { Linking, Pressable, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';

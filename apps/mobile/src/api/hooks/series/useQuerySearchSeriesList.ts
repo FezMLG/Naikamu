@@ -1,4 +1,4 @@
-import { IAnimeListItem, Paginate } from '@aniwatch/shared';
+import { IAnimeListItem, Paginate } from '@naikamu/shared';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { APIClient } from '../../APIClient';

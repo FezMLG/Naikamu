@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Relation } from '@aniwatch/shared';
+import { Relation } from '@naikamu/shared';
 import {
   GestureResponderEvent,
   Pressable,

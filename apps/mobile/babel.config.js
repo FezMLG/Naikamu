@@ -5,7 +5,7 @@ module.exports = {
       'module-resolver',
       {
         alias: {
-          '@aniwatch/shared': '../../lib/shared',
+          '@naikamu/shared': '../../lib/shared',
         },
       },
     ],
