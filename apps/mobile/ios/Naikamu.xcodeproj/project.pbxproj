@@ -16,10 +16,11 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		179EAAE8DA884DB093C686DD /* Roboto-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2754ACDABB0E42EFB53D6194 /* Roboto-ThinItalic.ttf */; };
 		1DD27001EC9E41BDAA6B29A4 /* Catamaran-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D71085D7457427898DF11B4 /* Catamaran-Regular.ttf */; };
-		2AD129048292BB388D3F2F95 /* Pods_Naikamu_NaikamuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C17EB3031B02CF54B6DF2EF /* Pods_Naikamu_NaikamuTests.framework */; };
 		2C428F9E5A804BD18C21935C /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9AF49667AA8B4F3085380A85 /* Roboto-Thin.ttf */; };
 		31A9F4719B6B4B54AA1477D0 /* Catamaran-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9CABD8BBE42B4EAAB0908A77 /* Catamaran-ExtraBold.ttf */; };
+		4756DAD2C51C36A54255102E /* Pods_NaikamuCommonPods_NaikamuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3766FF4D52101B8CA094C6E7 /* Pods_NaikamuCommonPods_NaikamuTests.framework */; };
 		5BEBB4A448C54542BE856AB3 /* Roboto-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DA37467180CA417CAFD9CE53 /* Roboto-MediumItalic.ttf */; };
+		5F4B2422327CB9B3EA844A7F /* Pods_NaikamuCommonPods_NaikamuStg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FE82E0CD7667A78B50CD304 /* Pods_NaikamuCommonPods_NaikamuStg.framework */; };
 		6B6D0C0D54624C61954B2C00 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FD902C146ADA4233B9315BC0 /* Lato-Black.ttf */; };
 		71A6697C291D754200F886BB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 71A6697B291D754200F886BB /* GoogleService-Info.plist */; };
 		72330FFA197C43E7BE7CA8F6 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 80163236B5044A17A27D24D9 /* Lato-Light.ttf */; };
@@ -30,6 +31,78 @@
 		8AC332D88D1E45F7B17A7872 /* Catamaran-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7FD1A202039C47F7B6472188 /* Catamaran-SemiBold.ttf */; };
 		9053529D6E704CEB89501E55 /* Catamaran-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7E85770909F4FE59E7BED83 /* Catamaran-Bold.ttf */; };
 		95923EB29FD04319B4B158D3 /* Catamaran-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 670EFE93C70145668E9C2065 /* Catamaran-Medium.ttf */; };
+		A15CF2DB2AD030C0004A53F3 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
+		A15CF2DC2AD030C0004A53F3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		A15CF2E02AD030C0004A53F3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		A15CF2E12AD030C0004A53F3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 71A6697B291D754200F886BB /* GoogleService-Info.plist */; };
+		A15CF2E22AD030C0004A53F3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		A15CF2E32AD030C0004A53F3 /* Catamaran-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F4B826367DAD42A0A2513C4F /* Catamaran-Black.ttf */; };
+		A15CF2E42AD030C0004A53F3 /* Catamaran-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7E85770909F4FE59E7BED83 /* Catamaran-Bold.ttf */; };
+		A15CF2E52AD030C0004A53F3 /* Catamaran-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9CABD8BBE42B4EAAB0908A77 /* Catamaran-ExtraBold.ttf */; };
+		A15CF2E62AD030C0004A53F3 /* Catamaran-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ED74041D21C943FD95118230 /* Catamaran-ExtraLight.ttf */; };
+		A15CF2E72AD030C0004A53F3 /* Catamaran-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 254CC1DA3BCB4572AB6A7438 /* Catamaran-Light.ttf */; };
+		A15CF2E82AD030C0004A53F3 /* Catamaran-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 670EFE93C70145668E9C2065 /* Catamaran-Medium.ttf */; };
+		A15CF2E92AD030C0004A53F3 /* Catamaran-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D71085D7457427898DF11B4 /* Catamaran-Regular.ttf */; };
+		A15CF2EA2AD030C0004A53F3 /* Catamaran-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7FD1A202039C47F7B6472188 /* Catamaran-SemiBold.ttf */; };
+		A15CF2EB2AD030C0004A53F3 /* Catamaran-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 406C6BD55A144E08AE4A3822 /* Catamaran-Thin.ttf */; };
+		A15CF2EC2AD030C0004A53F3 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FD902C146ADA4233B9315BC0 /* Lato-Black.ttf */; };
+		A15CF2ED2AD030C0004A53F3 /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E7D1975A2C084394AE17E3F6 /* Lato-BlackItalic.ttf */; };
+		A15CF2EE2AD030C0004A53F3 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4F95CC7444254F9185C3D6DB /* Lato-Bold.ttf */; };
+		A15CF2EF2AD030C0004A53F3 /* Lato-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BD10419163E143AD9C8A5D34 /* Lato-BoldItalic.ttf */; };
+		A15CF2F02AD030C0004A53F3 /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DA9068E93D7E4594A3AAF98C /* Lato-Italic.ttf */; };
+		A15CF2F12AD030C0004A53F3 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 80163236B5044A17A27D24D9 /* Lato-Light.ttf */; };
+		A15CF2F22AD030C0004A53F3 /* Lato-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 75882A15E78B4E93BDC6F558 /* Lato-LightItalic.ttf */; };
+		A15CF2F32AD030C0004A53F3 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FD77B6A286A41C6AC1AA67C /* Lato-Regular.ttf */; };
+		A15CF2F42AD030C0004A53F3 /* Lato-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 55F07AB0844D42FC88762E10 /* Lato-Thin.ttf */; };
+		A15CF2F52AD030C0004A53F3 /* Lato-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8B032D39B19C47D4AD67044E /* Lato-ThinItalic.ttf */; };
+		A15CF2F62AD030C0004A53F3 /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0D722AAC2E2A4461AA251045 /* Roboto-Black.ttf */; };
+		A15CF2F72AD030C0004A53F3 /* Roboto-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11A7198A343E4670BF726623 /* Roboto-BlackItalic.ttf */; };
+		A15CF2F82AD030C0004A53F3 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 08BA40FEC53844C7897FC2CC /* Roboto-Bold.ttf */; };
+		A15CF2F92AD030C0004A53F3 /* Roboto-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E6E6FDFD75A4FA0A0837D2D /* Roboto-BoldItalic.ttf */; };
+		A15CF2FA2AD030C0004A53F3 /* Roboto-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 453E3B50956848518BF62D31 /* Roboto-Italic.ttf */; };
+		A15CF2FB2AD030C0004A53F3 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E849A2188CC41DBAA5F52A5 /* Roboto-Light.ttf */; };
+		A15CF2FC2AD030C0004A53F3 /* Roboto-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D1B11D4CAF0D40EC98F2060F /* Roboto-LightItalic.ttf */; };
+		A15CF2FD2AD030C0004A53F3 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85ED07357DE04B329A35C091 /* Roboto-Medium.ttf */; };
+		A15CF2FE2AD030C0004A53F3 /* Roboto-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DA37467180CA417CAFD9CE53 /* Roboto-MediumItalic.ttf */; };
+		A15CF2FF2AD030C0004A53F3 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCDB922956DD4A088BB38541 /* Roboto-Regular.ttf */; };
+		A15CF3002AD030C0004A53F3 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9AF49667AA8B4F3085380A85 /* Roboto-Thin.ttf */; };
+		A15CF3012AD030C0004A53F3 /* Roboto-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2754ACDABB0E42EFB53D6194 /* Roboto-ThinItalic.ttf */; };
+		A15CF3102AD030C3004A53F3 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
+		A15CF3112AD030C3004A53F3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		A15CF3152AD030C3004A53F3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		A15CF3162AD030C3004A53F3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 71A6697B291D754200F886BB /* GoogleService-Info.plist */; };
+		A15CF3172AD030C3004A53F3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		A15CF3182AD030C3004A53F3 /* Catamaran-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F4B826367DAD42A0A2513C4F /* Catamaran-Black.ttf */; };
+		A15CF3192AD030C3004A53F3 /* Catamaran-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7E85770909F4FE59E7BED83 /* Catamaran-Bold.ttf */; };
+		A15CF31A2AD030C3004A53F3 /* Catamaran-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9CABD8BBE42B4EAAB0908A77 /* Catamaran-ExtraBold.ttf */; };
+		A15CF31B2AD030C3004A53F3 /* Catamaran-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ED74041D21C943FD95118230 /* Catamaran-ExtraLight.ttf */; };
+		A15CF31C2AD030C3004A53F3 /* Catamaran-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 254CC1DA3BCB4572AB6A7438 /* Catamaran-Light.ttf */; };
+		A15CF31D2AD030C3004A53F3 /* Catamaran-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 670EFE93C70145668E9C2065 /* Catamaran-Medium.ttf */; };
+		A15CF31E2AD030C3004A53F3 /* Catamaran-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D71085D7457427898DF11B4 /* Catamaran-Regular.ttf */; };
+		A15CF31F2AD030C3004A53F3 /* Catamaran-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7FD1A202039C47F7B6472188 /* Catamaran-SemiBold.ttf */; };
+		A15CF3202AD030C3004A53F3 /* Catamaran-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 406C6BD55A144E08AE4A3822 /* Catamaran-Thin.ttf */; };
+		A15CF3212AD030C3004A53F3 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FD902C146ADA4233B9315BC0 /* Lato-Black.ttf */; };
+		A15CF3222AD030C3004A53F3 /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E7D1975A2C084394AE17E3F6 /* Lato-BlackItalic.ttf */; };
+		A15CF3232AD030C3004A53F3 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4F95CC7444254F9185C3D6DB /* Lato-Bold.ttf */; };
+		A15CF3242AD030C3004A53F3 /* Lato-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BD10419163E143AD9C8A5D34 /* Lato-BoldItalic.ttf */; };
+		A15CF3252AD030C3004A53F3 /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DA9068E93D7E4594A3AAF98C /* Lato-Italic.ttf */; };
+		A15CF3262AD030C3004A53F3 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 80163236B5044A17A27D24D9 /* Lato-Light.ttf */; };
+		A15CF3272AD030C3004A53F3 /* Lato-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 75882A15E78B4E93BDC6F558 /* Lato-LightItalic.ttf */; };
+		A15CF3282AD030C3004A53F3 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FD77B6A286A41C6AC1AA67C /* Lato-Regular.ttf */; };
+		A15CF3292AD030C3004A53F3 /* Lato-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 55F07AB0844D42FC88762E10 /* Lato-Thin.ttf */; };
+		A15CF32A2AD030C3004A53F3 /* Lato-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8B032D39B19C47D4AD67044E /* Lato-ThinItalic.ttf */; };
+		A15CF32B2AD030C3004A53F3 /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0D722AAC2E2A4461AA251045 /* Roboto-Black.ttf */; };
+		A15CF32C2AD030C3004A53F3 /* Roboto-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11A7198A343E4670BF726623 /* Roboto-BlackItalic.ttf */; };
+		A15CF32D2AD030C3004A53F3 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 08BA40FEC53844C7897FC2CC /* Roboto-Bold.ttf */; };
+		A15CF32E2AD030C3004A53F3 /* Roboto-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E6E6FDFD75A4FA0A0837D2D /* Roboto-BoldItalic.ttf */; };
+		A15CF32F2AD030C3004A53F3 /* Roboto-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 453E3B50956848518BF62D31 /* Roboto-Italic.ttf */; };
+		A15CF3302AD030C3004A53F3 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E849A2188CC41DBAA5F52A5 /* Roboto-Light.ttf */; };
+		A15CF3312AD030C3004A53F3 /* Roboto-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D1B11D4CAF0D40EC98F2060F /* Roboto-LightItalic.ttf */; };
+		A15CF3322AD030C3004A53F3 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85ED07357DE04B329A35C091 /* Roboto-Medium.ttf */; };
+		A15CF3332AD030C3004A53F3 /* Roboto-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DA37467180CA417CAFD9CE53 /* Roboto-MediumItalic.ttf */; };
+		A15CF3342AD030C3004A53F3 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCDB922956DD4A088BB38541 /* Roboto-Regular.ttf */; };
+		A15CF3352AD030C3004A53F3 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9AF49667AA8B4F3085380A85 /* Roboto-Thin.ttf */; };
+		A15CF3362AD030C3004A53F3 /* Roboto-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2754ACDABB0E42EFB53D6194 /* Roboto-ThinItalic.ttf */; };
 		BB52E950580D4DC084B58B83 /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E7D1975A2C084394AE17E3F6 /* Lato-BlackItalic.ttf */; };
 		C2867B7E972E4BB092B35A8B /* Lato-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BD10419163E143AD9C8A5D34 /* Lato-BoldItalic.ttf */; };
 		C55D25A767764655B7AB7B6C /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85ED07357DE04B329A35C091 /* Roboto-Medium.ttf */; };
@@ -37,12 +110,13 @@
 		CE332313A1414F0FBD907164 /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DA9068E93D7E4594A3AAF98C /* Lato-Italic.ttf */; };
 		CFFE76A268C648B58EBB3320 /* Roboto-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D1B11D4CAF0D40EC98F2060F /* Roboto-LightItalic.ttf */; };
 		D33F4CEACB654D33BE219F5B /* Catamaran-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 254CC1DA3BCB4572AB6A7438 /* Catamaran-Light.ttf */; };
+		D96C3ABFCEAAD7A7F26554E9 /* Pods_NaikamuCommonPods_NaikamuDev.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 143A0B6072196EC648E080BB /* Pods_NaikamuCommonPods_NaikamuDev.framework */; };
 		DB2F5B1E8DF94FE49FF6548E /* Roboto-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11A7198A343E4670BF726623 /* Roboto-BlackItalic.ttf */; };
 		DB6B33ACD4644DEAB3F408C0 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E849A2188CC41DBAA5F52A5 /* Roboto-Light.ttf */; };
 		E0C20091273041DEA398D515 /* Catamaran-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F4B826367DAD42A0A2513C4F /* Catamaran-Black.ttf */; };
 		E301B42766134028865FA7F3 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4F95CC7444254F9185C3D6DB /* Lato-Bold.ttf */; };
-		F3440ADDB82DFF7C12076480 /* Pods_Naikamu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A6CB87822F9460F71FE911F /* Pods_Naikamu.framework */; };
 		F368B2AB8E974A76A43BDDEF /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 08BA40FEC53844C7897FC2CC /* Roboto-Bold.ttf */; };
+		F703965D4445964421D4B5AB /* Pods_NaikamuCommonPods_Naikamu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EC2B1E1A78190ADB77F227A /* Pods_NaikamuCommonPods_Naikamu.framework */; };
 		FA60D2E3FE0746DC9233AE23 /* Lato-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 75882A15E78B4E93BDC6F558 /* Lato-LightItalic.ttf */; };
 		FB7CE767B2C4411FBDF605E0 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1FD77B6A286A41C6AC1AA67C /* Lato-Regular.ttf */; };
 		FD6E4AA790FE404BB44544E7 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCDB922956DD4A088BB38541 /* Roboto-Regular.ttf */; };
@@ -63,7 +137,6 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* NaikamuTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NaikamuTests.m; sourceTree = "<group>"; };
 		08BA40FEC53844C7897FC2CC /* Roboto-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Bold.ttf"; path = "../assets/fonts/Roboto-Bold.ttf"; sourceTree = "<group>"; };
-		0C17EB3031B02CF54B6DF2EF /* Pods_Naikamu_NaikamuTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Naikamu_NaikamuTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D722AAC2E2A4461AA251045 /* Roboto-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Black.ttf"; path = "../assets/fonts/Roboto-Black.ttf"; sourceTree = "<group>"; };
 		11A7198A343E4670BF726623 /* Roboto-BlackItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-BlackItalic.ttf"; path = "../assets/fonts/Roboto-BlackItalic.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Naikamu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Naikamu.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,20 +145,25 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Naikamu/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Naikamu/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Naikamu/main.m; sourceTree = "<group>"; };
-		1A6CB87822F9460F71FE911F /* Pods_Naikamu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Naikamu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		143A0B6072196EC648E080BB /* Pods_NaikamuCommonPods_NaikamuDev.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NaikamuCommonPods_NaikamuDev.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FD77B6A286A41C6AC1AA67C /* Lato-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Regular.ttf"; path = "../assets/fonts/Lato-Regular.ttf"; sourceTree = "<group>"; };
 		254CC1DA3BCB4572AB6A7438 /* Catamaran-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Catamaran-Light.ttf"; path = "../assets/fonts/Catamaran-Light.ttf"; sourceTree = "<group>"; };
 		2754ACDABB0E42EFB53D6194 /* Roboto-ThinItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-ThinItalic.ttf"; path = "../assets/fonts/Roboto-ThinItalic.ttf"; sourceTree = "<group>"; };
+		3766FF4D52101B8CA094C6E7 /* Pods_NaikamuCommonPods_NaikamuTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NaikamuCommonPods_NaikamuTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-Naikamu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Naikamu.debug.xcconfig"; path = "Target Support Files/Pods-Naikamu/Pods-Naikamu.debug.xcconfig"; sourceTree = "<group>"; };
+		3CACAB495B78CA0322E3F49A /* Pods-NaikamuCommonPods-Naikamu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NaikamuCommonPods-Naikamu.debug.xcconfig"; path = "Target Support Files/Pods-NaikamuCommonPods-Naikamu/Pods-NaikamuCommonPods-Naikamu.debug.xcconfig"; sourceTree = "<group>"; };
 		3E849A2188CC41DBAA5F52A5 /* Roboto-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Light.ttf"; path = "../assets/fonts/Roboto-Light.ttf"; sourceTree = "<group>"; };
 		406C6BD55A144E08AE4A3822 /* Catamaran-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Catamaran-Thin.ttf"; path = "../assets/fonts/Catamaran-Thin.ttf"; sourceTree = "<group>"; };
 		453E3B50956848518BF62D31 /* Roboto-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Italic.ttf"; path = "../assets/fonts/Roboto-Italic.ttf"; sourceTree = "<group>"; };
 		4F95CC7444254F9185C3D6DB /* Lato-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Bold.ttf"; path = "../assets/fonts/Lato-Bold.ttf"; sourceTree = "<group>"; };
+		5141AFEABEEA5F2252EB7546 /* Pods-NaikamuCommonPods-NaikamuDev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NaikamuCommonPods-NaikamuDev.release.xcconfig"; path = "Target Support Files/Pods-NaikamuCommonPods-NaikamuDev/Pods-NaikamuCommonPods-NaikamuDev.release.xcconfig"; sourceTree = "<group>"; };
 		55F07AB0844D42FC88762E10 /* Lato-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Thin.ttf"; path = "../assets/fonts/Lato-Thin.ttf"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-Naikamu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Naikamu.release.xcconfig"; path = "Target Support Files/Pods-Naikamu/Pods-Naikamu.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-Naikamu-NaikamuTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Naikamu-NaikamuTests.debug.xcconfig"; path = "Target Support Files/Pods-Naikamu-NaikamuTests/Pods-Naikamu-NaikamuTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5E6E6FDFD75A4FA0A0837D2D /* Roboto-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-BoldItalic.ttf"; path = "../assets/fonts/Roboto-BoldItalic.ttf"; sourceTree = "<group>"; };
+		5EC2B1E1A78190ADB77F227A /* Pods_NaikamuCommonPods_Naikamu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NaikamuCommonPods_Naikamu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		670EFE93C70145668E9C2065 /* Catamaran-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Catamaran-Medium.ttf"; path = "../assets/fonts/Catamaran-Medium.ttf"; sourceTree = "<group>"; };
+		6A130072470CB5F9251EE342 /* Pods-NaikamuCommonPods-NaikamuTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NaikamuCommonPods-NaikamuTests.debug.xcconfig"; path = "Target Support Files/Pods-NaikamuCommonPods-NaikamuTests/Pods-NaikamuCommonPods-NaikamuTests.debug.xcconfig"; sourceTree = "<group>"; };
 		71A6695B291D69F800F886BB /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		71A6695C291D69F800F886BB /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		71A6695D291D69F800F886BB /* Foundation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
@@ -111,9 +189,17 @@
 		85ED07357DE04B329A35C091 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Medium.ttf"; path = "../assets/fonts/Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-Naikamu-NaikamuTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Naikamu-NaikamuTests.release.xcconfig"; path = "Target Support Files/Pods-Naikamu-NaikamuTests/Pods-Naikamu-NaikamuTests.release.xcconfig"; sourceTree = "<group>"; };
 		8B032D39B19C47D4AD67044E /* Lato-ThinItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-ThinItalic.ttf"; path = "../assets/fonts/Lato-ThinItalic.ttf"; sourceTree = "<group>"; };
+		8CAD5F0ECF8EEC93E33F9011 /* Pods-NaikamuCommonPods-NaikamuStg.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NaikamuCommonPods-NaikamuStg.debug.xcconfig"; path = "Target Support Files/Pods-NaikamuCommonPods-NaikamuStg/Pods-NaikamuCommonPods-NaikamuStg.debug.xcconfig"; sourceTree = "<group>"; };
 		8D71085D7457427898DF11B4 /* Catamaran-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Catamaran-Regular.ttf"; path = "../assets/fonts/Catamaran-Regular.ttf"; sourceTree = "<group>"; };
+		8E244B65C608B81A719C7980 /* Pods-NaikamuCommonPods-NaikamuStg.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NaikamuCommonPods-NaikamuStg.release.xcconfig"; path = "Target Support Files/Pods-NaikamuCommonPods-NaikamuStg/Pods-NaikamuCommonPods-NaikamuStg.release.xcconfig"; sourceTree = "<group>"; };
+		8FE82E0CD7667A78B50CD304 /* Pods_NaikamuCommonPods_NaikamuStg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NaikamuCommonPods_NaikamuStg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9678A98687FD49407F5CA3DC /* Pods-NaikamuCommonPods-NaikamuDev.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NaikamuCommonPods-NaikamuDev.debug.xcconfig"; path = "Target Support Files/Pods-NaikamuCommonPods-NaikamuDev/Pods-NaikamuCommonPods-NaikamuDev.debug.xcconfig"; sourceTree = "<group>"; };
 		9AF49667AA8B4F3085380A85 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Thin.ttf"; path = "../assets/fonts/Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		9CABD8BBE42B4EAAB0908A77 /* Catamaran-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Catamaran-ExtraBold.ttf"; path = "../assets/fonts/Catamaran-ExtraBold.ttf"; sourceTree = "<group>"; };
+		A15CF30A2AD030C0004A53F3 /* NaikamuStg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NaikamuStg.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A15CF30B2AD030C0004A53F3 /* Naikamu stg-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Naikamu stg-Info.plist"; path = "/Users/konrad.ch/Documents/GitHub/AniWatch/apps/mobile/ios/Naikamu stg-Info.plist"; sourceTree = "<absolute>"; };
+		A15CF33F2AD030C3004A53F3 /* NaikamuDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NaikamuDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A15CF3402AD030C3004A53F3 /* Naikamu dev-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Naikamu dev-Info.plist"; path = "/Users/konrad.ch/Documents/GitHub/AniWatch/apps/mobile/ios/Naikamu dev-Info.plist"; sourceTree = "<absolute>"; };
 		BCDB922956DD4A088BB38541 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Regular.ttf"; path = "../assets/fonts/Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		BD10419163E143AD9C8A5D34 /* Lato-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-BoldItalic.ttf"; path = "../assets/fonts/Lato-BoldItalic.ttf"; sourceTree = "<group>"; };
 		C7E85770909F4FE59E7BED83 /* Catamaran-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Catamaran-Bold.ttf"; path = "../assets/fonts/Catamaran-Bold.ttf"; sourceTree = "<group>"; };
@@ -123,6 +209,8 @@
 		E7D1975A2C084394AE17E3F6 /* Lato-BlackItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-BlackItalic.ttf"; path = "../assets/fonts/Lato-BlackItalic.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED74041D21C943FD95118230 /* Catamaran-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Catamaran-ExtraLight.ttf"; path = "../assets/fonts/Catamaran-ExtraLight.ttf"; sourceTree = "<group>"; };
+		ED7A44F363AEE01F9684DBCA /* Pods-NaikamuCommonPods-Naikamu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NaikamuCommonPods-Naikamu.release.xcconfig"; path = "Target Support Files/Pods-NaikamuCommonPods-Naikamu/Pods-NaikamuCommonPods-Naikamu.release.xcconfig"; sourceTree = "<group>"; };
+		F21D0DDDB5F3F8E59B342B36 /* Pods-NaikamuCommonPods-NaikamuTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NaikamuCommonPods-NaikamuTests.release.xcconfig"; path = "Target Support Files/Pods-NaikamuCommonPods-NaikamuTests/Pods-NaikamuCommonPods-NaikamuTests.release.xcconfig"; sourceTree = "<group>"; };
 		F4B826367DAD42A0A2513C4F /* Catamaran-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Catamaran-Black.ttf"; path = "../assets/fonts/Catamaran-Black.ttf"; sourceTree = "<group>"; };
 		FD902C146ADA4233B9315BC0 /* Lato-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Black.ttf"; path = "../assets/fonts/Lato-Black.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -132,7 +220,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2AD129048292BB388D3F2F95 /* Pods_Naikamu_NaikamuTests.framework in Frameworks */,
+				4756DAD2C51C36A54255102E /* Pods_NaikamuCommonPods_NaikamuTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,7 +228,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F3440ADDB82DFF7C12076480 /* Pods_Naikamu.framework in Frameworks */,
+				F703965D4445964421D4B5AB /* Pods_NaikamuCommonPods_Naikamu.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A15CF2DD2AD030C0004A53F3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5F4B2422327CB9B3EA844A7F /* Pods_NaikamuCommonPods_NaikamuStg.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A15CF3122AD030C3004A53F3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D96C3ABFCEAAD7A7F26554E9 /* Pods_NaikamuCommonPods_NaikamuDev.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,8 +325,10 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				1A6CB87822F9460F71FE911F /* Pods_Naikamu.framework */,
-				0C17EB3031B02CF54B6DF2EF /* Pods_Naikamu_NaikamuTests.framework */,
+				5EC2B1E1A78190ADB77F227A /* Pods_NaikamuCommonPods_Naikamu.framework */,
+				143A0B6072196EC648E080BB /* Pods_NaikamuCommonPods_NaikamuDev.framework */,
+				8FE82E0CD7667A78B50CD304 /* Pods_NaikamuCommonPods_NaikamuStg.framework */,
+				3766FF4D52101B8CA094C6E7 /* Pods_NaikamuCommonPods_NaikamuTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -268,6 +374,8 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
 				2A9AC68FCDE94559844784B8 /* Resources */,
+				A15CF30B2AD030C0004A53F3 /* Naikamu stg-Info.plist */,
+				A15CF3402AD030C3004A53F3 /* Naikamu dev-Info.plist */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -279,6 +387,8 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* Naikamu.app */,
 				00E356EE1AD99517003FC87E /* NaikamuTests.xctest */,
+				A15CF30A2AD030C0004A53F3 /* NaikamuStg.app */,
+				A15CF33F2AD030C3004A53F3 /* NaikamuDev.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -290,6 +400,14 @@
 				5709B34CF0A7D63546082F79 /* Pods-Naikamu.release.xcconfig */,
 				5B7EB9410499542E8C5724F5 /* Pods-Naikamu-NaikamuTests.debug.xcconfig */,
 				89C6BE57DB24E9ADA2F236DE /* Pods-Naikamu-NaikamuTests.release.xcconfig */,
+				3CACAB495B78CA0322E3F49A /* Pods-NaikamuCommonPods-Naikamu.debug.xcconfig */,
+				ED7A44F363AEE01F9684DBCA /* Pods-NaikamuCommonPods-Naikamu.release.xcconfig */,
+				9678A98687FD49407F5CA3DC /* Pods-NaikamuCommonPods-NaikamuDev.debug.xcconfig */,
+				5141AFEABEEA5F2252EB7546 /* Pods-NaikamuCommonPods-NaikamuDev.release.xcconfig */,
+				8CAD5F0ECF8EEC93E33F9011 /* Pods-NaikamuCommonPods-NaikamuStg.debug.xcconfig */,
+				8E244B65C608B81A719C7980 /* Pods-NaikamuCommonPods-NaikamuStg.release.xcconfig */,
+				6A130072470CB5F9251EE342 /* Pods-NaikamuCommonPods-NaikamuTests.debug.xcconfig */,
+				F21D0DDDB5F3F8E59B342B36 /* Pods-NaikamuCommonPods-NaikamuTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -314,6 +432,7 @@
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
 			name = NaikamuTests;
+			productName = NaikamuTests;
 			productReference = 00E356EE1AD99517003FC87E /* NaikamuTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
@@ -329,8 +448,6 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
 				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
-				F6EFD4D3D07D11077552049E /* [CP-User] [RNFB] Core Configuration */,
-				A4CC6D1F3F4FC7F39E8B038A /* [CP-User] [RNFB] Crashlytics Configuration */,
 			);
 			buildRules = (
 			);
@@ -339,6 +456,50 @@
 			name = Naikamu;
 			productName = Naikamu;
 			productReference = 13B07F961A680F5B00A75B9A /* Naikamu.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A15CF2D72AD030C0004A53F3 /* NaikamuStg */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A15CF3072AD030C0004A53F3 /* Build configuration list for PBXNativeTarget "NaikamuStg" */;
+			buildPhases = (
+				A15CF2D82AD030C0004A53F3 /* [CP] Check Pods Manifest.lock */,
+				A15CF2D92AD030C0004A53F3 /* Start Packager */,
+				A15CF2DA2AD030C0004A53F3 /* Sources */,
+				A15CF2DD2AD030C0004A53F3 /* Frameworks */,
+				A15CF2DF2AD030C0004A53F3 /* Resources */,
+				A15CF3022AD030C0004A53F3 /* Bundle React Native code and images */,
+				A15CF3032AD030C0004A53F3 /* [CP] Embed Pods Frameworks */,
+				A15CF3042AD030C0004A53F3 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NaikamuStg;
+			productName = Naikamu;
+			productReference = A15CF30A2AD030C0004A53F3 /* NaikamuStg.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A15CF30C2AD030C3004A53F3 /* NaikamuDev */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A15CF33C2AD030C3004A53F3 /* Build configuration list for PBXNativeTarget "NaikamuDev" */;
+			buildPhases = (
+				A15CF30D2AD030C3004A53F3 /* [CP] Check Pods Manifest.lock */,
+				A15CF30E2AD030C3004A53F3 /* Start Packager */,
+				A15CF30F2AD030C3004A53F3 /* Sources */,
+				A15CF3122AD030C3004A53F3 /* Frameworks */,
+				A15CF3142AD030C3004A53F3 /* Resources */,
+				A15CF3372AD030C3004A53F3 /* Bundle React Native code and images */,
+				A15CF3382AD030C3004A53F3 /* [CP] Embed Pods Frameworks */,
+				A15CF3392AD030C3004A53F3 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NaikamuDev;
+			productName = Naikamu;
+			productReference = A15CF33F2AD030C3004A53F3 /* NaikamuDev.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -373,6 +534,8 @@
 			targets = (
 				13B07F861A680F5B00A75B9A /* Naikamu */,
 				00E356ED1AD99517003FC87E /* NaikamuTests */,
+				A15CF2D72AD030C0004A53F3 /* NaikamuStg */,
+				A15CF30C2AD030C3004A53F3 /* NaikamuDev */,
 			);
 		};
 /* End PBXProject section */
@@ -426,6 +589,88 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A15CF2DF2AD030C0004A53F3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A15CF2E02AD030C0004A53F3 /* LaunchScreen.storyboard in Resources */,
+				A15CF2E12AD030C0004A53F3 /* GoogleService-Info.plist in Resources */,
+				A15CF2E22AD030C0004A53F3 /* Images.xcassets in Resources */,
+				A15CF2E32AD030C0004A53F3 /* Catamaran-Black.ttf in Resources */,
+				A15CF2E42AD030C0004A53F3 /* Catamaran-Bold.ttf in Resources */,
+				A15CF2E52AD030C0004A53F3 /* Catamaran-ExtraBold.ttf in Resources */,
+				A15CF2E62AD030C0004A53F3 /* Catamaran-ExtraLight.ttf in Resources */,
+				A15CF2E72AD030C0004A53F3 /* Catamaran-Light.ttf in Resources */,
+				A15CF2E82AD030C0004A53F3 /* Catamaran-Medium.ttf in Resources */,
+				A15CF2E92AD030C0004A53F3 /* Catamaran-Regular.ttf in Resources */,
+				A15CF2EA2AD030C0004A53F3 /* Catamaran-SemiBold.ttf in Resources */,
+				A15CF2EB2AD030C0004A53F3 /* Catamaran-Thin.ttf in Resources */,
+				A15CF2EC2AD030C0004A53F3 /* Lato-Black.ttf in Resources */,
+				A15CF2ED2AD030C0004A53F3 /* Lato-BlackItalic.ttf in Resources */,
+				A15CF2EE2AD030C0004A53F3 /* Lato-Bold.ttf in Resources */,
+				A15CF2EF2AD030C0004A53F3 /* Lato-BoldItalic.ttf in Resources */,
+				A15CF2F02AD030C0004A53F3 /* Lato-Italic.ttf in Resources */,
+				A15CF2F12AD030C0004A53F3 /* Lato-Light.ttf in Resources */,
+				A15CF2F22AD030C0004A53F3 /* Lato-LightItalic.ttf in Resources */,
+				A15CF2F32AD030C0004A53F3 /* Lato-Regular.ttf in Resources */,
+				A15CF2F42AD030C0004A53F3 /* Lato-Thin.ttf in Resources */,
+				A15CF2F52AD030C0004A53F3 /* Lato-ThinItalic.ttf in Resources */,
+				A15CF2F62AD030C0004A53F3 /* Roboto-Black.ttf in Resources */,
+				A15CF2F72AD030C0004A53F3 /* Roboto-BlackItalic.ttf in Resources */,
+				A15CF2F82AD030C0004A53F3 /* Roboto-Bold.ttf in Resources */,
+				A15CF2F92AD030C0004A53F3 /* Roboto-BoldItalic.ttf in Resources */,
+				A15CF2FA2AD030C0004A53F3 /* Roboto-Italic.ttf in Resources */,
+				A15CF2FB2AD030C0004A53F3 /* Roboto-Light.ttf in Resources */,
+				A15CF2FC2AD030C0004A53F3 /* Roboto-LightItalic.ttf in Resources */,
+				A15CF2FD2AD030C0004A53F3 /* Roboto-Medium.ttf in Resources */,
+				A15CF2FE2AD030C0004A53F3 /* Roboto-MediumItalic.ttf in Resources */,
+				A15CF2FF2AD030C0004A53F3 /* Roboto-Regular.ttf in Resources */,
+				A15CF3002AD030C0004A53F3 /* Roboto-Thin.ttf in Resources */,
+				A15CF3012AD030C0004A53F3 /* Roboto-ThinItalic.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A15CF3142AD030C3004A53F3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A15CF3152AD030C3004A53F3 /* LaunchScreen.storyboard in Resources */,
+				A15CF3162AD030C3004A53F3 /* GoogleService-Info.plist in Resources */,
+				A15CF3172AD030C3004A53F3 /* Images.xcassets in Resources */,
+				A15CF3182AD030C3004A53F3 /* Catamaran-Black.ttf in Resources */,
+				A15CF3192AD030C3004A53F3 /* Catamaran-Bold.ttf in Resources */,
+				A15CF31A2AD030C3004A53F3 /* Catamaran-ExtraBold.ttf in Resources */,
+				A15CF31B2AD030C3004A53F3 /* Catamaran-ExtraLight.ttf in Resources */,
+				A15CF31C2AD030C3004A53F3 /* Catamaran-Light.ttf in Resources */,
+				A15CF31D2AD030C3004A53F3 /* Catamaran-Medium.ttf in Resources */,
+				A15CF31E2AD030C3004A53F3 /* Catamaran-Regular.ttf in Resources */,
+				A15CF31F2AD030C3004A53F3 /* Catamaran-SemiBold.ttf in Resources */,
+				A15CF3202AD030C3004A53F3 /* Catamaran-Thin.ttf in Resources */,
+				A15CF3212AD030C3004A53F3 /* Lato-Black.ttf in Resources */,
+				A15CF3222AD030C3004A53F3 /* Lato-BlackItalic.ttf in Resources */,
+				A15CF3232AD030C3004A53F3 /* Lato-Bold.ttf in Resources */,
+				A15CF3242AD030C3004A53F3 /* Lato-BoldItalic.ttf in Resources */,
+				A15CF3252AD030C3004A53F3 /* Lato-Italic.ttf in Resources */,
+				A15CF3262AD030C3004A53F3 /* Lato-Light.ttf in Resources */,
+				A15CF3272AD030C3004A53F3 /* Lato-LightItalic.ttf in Resources */,
+				A15CF3282AD030C3004A53F3 /* Lato-Regular.ttf in Resources */,
+				A15CF3292AD030C3004A53F3 /* Lato-Thin.ttf in Resources */,
+				A15CF32A2AD030C3004A53F3 /* Lato-ThinItalic.ttf in Resources */,
+				A15CF32B2AD030C3004A53F3 /* Roboto-Black.ttf in Resources */,
+				A15CF32C2AD030C3004A53F3 /* Roboto-BlackItalic.ttf in Resources */,
+				A15CF32D2AD030C3004A53F3 /* Roboto-Bold.ttf in Resources */,
+				A15CF32E2AD030C3004A53F3 /* Roboto-BoldItalic.ttf in Resources */,
+				A15CF32F2AD030C3004A53F3 /* Roboto-Italic.ttf in Resources */,
+				A15CF3302AD030C3004A53F3 /* Roboto-Light.ttf in Resources */,
+				A15CF3312AD030C3004A53F3 /* Roboto-LightItalic.ttf in Resources */,
+				A15CF3322AD030C3004A53F3 /* Roboto-Medium.ttf in Resources */,
+				A15CF3332AD030C3004A53F3 /* Roboto-MediumItalic.ttf in Resources */,
+				A15CF3342AD030C3004A53F3 /* Roboto-Regular.ttf in Resources */,
+				A15CF3352AD030C3004A53F3 /* Roboto-Thin.ttf in Resources */,
+				A15CF3362AD030C3004A53F3 /* Roboto-ThinItalic.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -451,30 +696,198 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Naikamu/Pods-Naikamu-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-Naikamu/Pods-NaikamuCommonPods-Naikamu-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Naikamu/Pods-Naikamu-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-Naikamu/Pods-NaikamuCommonPods-Naikamu-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Naikamu/Pods-Naikamu-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-Naikamu/Pods-NaikamuCommonPods-Naikamu-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A4CC6D1F3F4FC7F39E8B038A /* [CP-User] [RNFB] Crashlytics Configuration */ = {
+		A15CF2D82AD030C0004A53F3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NaikamuCommonPods-NaikamuStg-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A15CF2D92AD030C0004A53F3 /* Start Packager */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Start Packager";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		A15CF3022AD030C0004A53F3 /* Bundle React Native code and images */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
-				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+				"$(SRCROOT)/.xcode.env.local",
+				"$(SRCROOT)/.xcode.env",
 			);
-			name = "[CP-User] [RNFB] Crashlytics Configuration";
+			name = "Bundle React Native code and images";
+			outputPaths = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/usr/bin/env bash\n#\n# Copyright (c) 2016-present Invertase Limited & Contributors\n#\n# Licensed under the Apache License, Version 2.0 (the \"License\");\n# you may not use this library except in compliance with the License.\n# You may obtain a copy of the License at\n#\n#   http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License.\n#\nset -e\n\nif [[ ${PODS_ROOT} ]]; then\n  echo \"info: Exec FirebaseCrashlytics Run from Pods\"\n  \"${PODS_ROOT}/FirebaseCrashlytics/run\"\nelse\n  echo \"info: Exec FirebaseCrashlytics Run from framework\"\n  \"${PROJECT_DIR}/FirebaseCrashlytics.framework/run\"\nfi\n";
+			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
+		};
+		A15CF3032AD030C0004A53F3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-NaikamuStg/Pods-NaikamuCommonPods-NaikamuStg-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-NaikamuStg/Pods-NaikamuCommonPods-NaikamuStg-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-NaikamuStg/Pods-NaikamuCommonPods-NaikamuStg-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A15CF3042AD030C0004A53F3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-NaikamuStg/Pods-NaikamuCommonPods-NaikamuStg-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-NaikamuStg/Pods-NaikamuCommonPods-NaikamuStg-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-NaikamuStg/Pods-NaikamuCommonPods-NaikamuStg-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A15CF30D2AD030C3004A53F3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NaikamuCommonPods-NaikamuDev-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A15CF30E2AD030C3004A53F3 /* Start Packager */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Start Packager";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		A15CF3372AD030C3004A53F3 /* Bundle React Native code and images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/.xcode.env.local",
+				"$(SRCROOT)/.xcode.env",
+			);
+			name = "Bundle React Native code and images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
+		};
+		A15CF3382AD030C3004A53F3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-NaikamuDev/Pods-NaikamuCommonPods-NaikamuDev-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-NaikamuDev/Pods-NaikamuCommonPods-NaikamuDev-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-NaikamuDev/Pods-NaikamuCommonPods-NaikamuDev-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A15CF3392AD030C3004A53F3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-NaikamuDev/Pods-NaikamuCommonPods-NaikamuDev-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-NaikamuDev/Pods-NaikamuCommonPods-NaikamuDev-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-NaikamuDev/Pods-NaikamuCommonPods-NaikamuDev-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -491,7 +904,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Naikamu-NaikamuTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-NaikamuCommonPods-NaikamuTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -513,7 +926,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Naikamu-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-NaikamuCommonPods-Naikamu-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -526,15 +939,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Naikamu-NaikamuTests/Pods-Naikamu-NaikamuTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-NaikamuTests/Pods-NaikamuCommonPods-NaikamuTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Naikamu-NaikamuTests/Pods-Naikamu-NaikamuTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-NaikamuTests/Pods-NaikamuCommonPods-NaikamuTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Naikamu-NaikamuTests/Pods-Naikamu-NaikamuTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-NaikamuTests/Pods-NaikamuCommonPods-NaikamuTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
@@ -543,15 +956,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Naikamu/Pods-Naikamu-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-Naikamu/Pods-NaikamuCommonPods-Naikamu-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Naikamu/Pods-Naikamu-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-Naikamu/Pods-NaikamuCommonPods-Naikamu-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Naikamu/Pods-Naikamu-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-Naikamu/Pods-NaikamuCommonPods-Naikamu-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */ = {
@@ -560,29 +973,16 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Naikamu-NaikamuTests/Pods-Naikamu-NaikamuTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-NaikamuTests/Pods-NaikamuCommonPods-NaikamuTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Naikamu-NaikamuTests/Pods-Naikamu-NaikamuTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-NaikamuTests/Pods-NaikamuCommonPods-NaikamuTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Naikamu-NaikamuTests/Pods-Naikamu-NaikamuTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-NaikamuTests/Pods-NaikamuCommonPods-NaikamuTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		F6EFD4D3D07D11077552049E /* [CP-User] [RNFB] Core Configuration */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
-			);
-			name = "[CP-User] [RNFB] Core Configuration";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/usr/bin/env bash\n#\n# Copyright (c) 2016-present Invertase Limited & Contributors\n#\n# Licensed under the Apache License, Version 2.0 (the \"License\");\n# you may not use this library except in compliance with the License.\n# You may obtain a copy of the License at\n#\n#   http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License.\n#\nset -e\n\n_MAX_LOOKUPS=2;\n_SEARCH_RESULT=''\n_RN_ROOT_EXISTS=''\n_CURRENT_LOOKUPS=1\n_JSON_ROOT=\"'react-native'\"\n_JSON_FILE_NAME='firebase.json'\n_JSON_OUTPUT_BASE64='e30=' # { }\n_CURRENT_SEARCH_DIR=${PROJECT_DIR}\n_PLIST_BUDDY=/usr/libexec/PlistBuddy\n_TARGET_PLIST=\"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH}\"\n_DSYM_PLIST=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist\"\n\n# plist arrays\n_PLIST_ENTRY_KEYS=()\n_PLIST_ENTRY_TYPES=()\n_PLIST_ENTRY_VALUES=()\n\nfunction setPlistValue {\n  echo \"info:      setting plist entry '$1' of type '$2' in file '$4'\"\n  ${_PLIST_BUDDY} -c \"Add :$1 $2 '$3'\" $4 || echo \"info:      '$1' already exists\"\n}\n\nfunction getFirebaseJsonKeyValue () {\n  if [[ ${_RN_ROOT_EXISTS} ]]; then\n    ruby -Ku -e \"require 'rubygems';require 'json'; output=JSON.parse('$1'); puts output[$_JSON_ROOT]['$2']\"\n  else\n    echo \"\"\n  fi;\n}\n\nfunction jsonBoolToYesNo () {\n  if [[ $1 == \"false\" ]]; then\n    echo \"NO\"\n  elif [[ $1 == \"true\" ]]; then\n    echo \"YES\"\n  else echo \"NO\"\n  fi\n}\n\necho \"info: -> RNFB build script started\"\necho \"info: 1) Locating ${_JSON_FILE_NAME} file:\"\n\nif [[ -z ${_CURRENT_SEARCH_DIR} ]]; then\n  _CURRENT_SEARCH_DIR=$(pwd)\nfi;\n\nwhile true; do\n  _CURRENT_SEARCH_DIR=$(dirname \"$_CURRENT_SEARCH_DIR\")\n  if [[ \"$_CURRENT_SEARCH_DIR\" == \"/\" ]] || [[ ${_CURRENT_LOOKUPS} -gt ${_MAX_LOOKUPS} ]]; then break; fi;\n  echo \"info:      ($_CURRENT_LOOKUPS of $_MAX_LOOKUPS) Searching in '$_CURRENT_SEARCH_DIR' for a ${_JSON_FILE_NAME} file.\"\n  _SEARCH_RESULT=$(find \"$_CURRENT_SEARCH_DIR\" -maxdepth 2 -name ${_JSON_FILE_NAME} -print | /usr/bin/head -n 1)\n  if [[ ${_SEARCH_RESULT} ]]; then\n    echo \"info:      ${_JSON_FILE_NAME} found at $_SEARCH_RESULT\"\n    break;\n  fi;\n  _CURRENT_LOOKUPS=$((_CURRENT_LOOKUPS+1))\ndone\n\nif [[ ${_SEARCH_RESULT} ]]; then\n  _JSON_OUTPUT_RAW=$(cat \"${_SEARCH_RESULT}\")\n  _RN_ROOT_EXISTS=$(ruby -Ku -e \"require 'rubygems';require 'json'; output=JSON.parse('$_JSON_OUTPUT_RAW'); puts output[$_JSON_ROOT]\" || echo '')\n\n  if [[ ${_RN_ROOT_EXISTS} ]]; then\n    if ! python3 --version >/dev/null 2>&1; then echo \"python3 not found, firebase.json file processing error.\" && exit 1; fi\n    _JSON_OUTPUT_BASE64=$(python3 -c 'import json,sys,base64;print(base64.b64encode(bytes(json.dumps(json.loads(open('\"'${_SEARCH_RESULT}'\"', '\"'rb'\"').read())['${_JSON_ROOT}']), '\"'utf-8'\"')).decode())' || echo \"e30=\")\n  fi\n\n  _PLIST_ENTRY_KEYS+=(\"firebase_json_raw\")\n  _PLIST_ENTRY_TYPES+=(\"string\")\n  _PLIST_ENTRY_VALUES+=(\"$_JSON_OUTPUT_BASE64\")\n\n  # config.app_data_collection_default_enabled\n  _APP_DATA_COLLECTION_ENABLED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"app_data_collection_default_enabled\")\n  if [[ $_APP_DATA_COLLECTION_ENABLED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseDataCollectionDefaultEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_APP_DATA_COLLECTION_ENABLED\")\")\n  fi\n\n  # config.analytics_auto_collection_enabled\n  _ANALYTICS_AUTO_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_auto_collection_enabled\")\n  if [[ $_ANALYTICS_AUTO_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FIREBASE_ANALYTICS_COLLECTION_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_AUTO_COLLECTION\")\")\n  fi\n\n  # config.analytics_collection_deactivated\n  _ANALYTICS_DEACTIVATED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_collection_deactivated\")\n  if [[ $_ANALYTICS_DEACTIVATED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FIREBASE_ANALYTICS_COLLECTION_DEACTIVATED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_DEACTIVATED\")\")\n  fi\n\n  # config.analytics_idfv_collection_enabled\n  _ANALYTICS_IDFV_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_idfv_collection_enabled\")\n  if [[ $_ANALYTICS_IDFV_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_IDFV_COLLECTION_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_IDFV_COLLECTION\")\")\n  fi\n\n  # config.analytics_default_allow_ad_personalization_signals\n  _ANALYTICS_PERSONALIZATION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_default_allow_ad_personalization_signals\")\n  if [[ $_ANALYTICS_PERSONALIZATION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_DEFAULT_ALLOW_AD_PERSONALIZATION_SIGNALS\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_PERSONALIZATION\")\")\n  fi\n\n  # config.analytics_registration_with_ad_network_enabled\n  _ANALYTICS_REGISTRATION_WITH_AD_NETWORK=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"google_analytics_registration_with_ad_network_enabled\")\n  if [[ $_ANALYTICS_REGISTRATION_WITH_AD_NETWORK ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_REGISTRATION_WITH_AD_NETWORK_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_REGISTRATION_WITH_AD_NETWORK\")\")\n  fi\n\n  # config.google_analytics_automatic_screen_reporting_enabled\n  _ANALYTICS_AUTO_SCREEN_REPORTING=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"google_analytics_automatic_screen_reporting_enabled\")\n  if [[ $_ANALYTICS_AUTO_SCREEN_REPORTING ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseAutomaticScreenReportingEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_AUTO_SCREEN_REPORTING\")\")\n  fi\n\n  # config.perf_auto_collection_enabled\n  _PERF_AUTO_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"perf_auto_collection_enabled\")\n  if [[ $_PERF_AUTO_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"firebase_performance_collection_enabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_PERF_AUTO_COLLECTION\")\")\n  fi\n\n  # config.perf_collection_deactivated\n  _PERF_DEACTIVATED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"perf_collection_deactivated\")\n  if [[ $_PERF_DEACTIVATED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"firebase_performance_collection_deactivated\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_PERF_DEACTIVATED\")\")\n  fi\n\n  # config.messaging_auto_init_enabled\n  _MESSAGING_AUTO_INIT=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"messaging_auto_init_enabled\")\n  if [[ $_MESSAGING_AUTO_INIT ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseMessagingAutoInitEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_MESSAGING_AUTO_INIT\")\")\n  fi\n\n  # config.in_app_messaging_auto_colllection_enabled\n  _FIAM_AUTO_INIT=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"in_app_messaging_auto_collection_enabled\")\n  if [[ $_FIAM_AUTO_INIT ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseInAppMessagingAutomaticDataCollectionEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_FIAM_AUTO_INIT\")\")\n  fi\n\n  # config.app_check_token_auto_refresh\n  _APP_CHECK_TOKEN_AUTO_REFRESH=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"app_check_token_auto_refresh\")\n  if [[ $_APP_CHECK_TOKEN_AUTO_REFRESH ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseAppCheckTokenAutoRefreshEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_APP_CHECK_TOKEN_AUTO_REFRESH\")\")\n  fi\n\n  # config.crashlytics_disable_auto_disabler - undocumented for now - mainly for debugging, document if becomes useful\n  _CRASHLYTICS_AUTO_DISABLE_ENABLED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"crashlytics_disable_auto_disabler\")\n  if [[ $_CRASHLYTICS_AUTO_DISABLE_ENABLED == \"true\" ]]; then\n    echo \"Disabled Crashlytics auto disabler.\" # do nothing\n  else\n    _PLIST_ENTRY_KEYS+=(\"FirebaseCrashlyticsCollectionEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"NO\")\n  fi\nelse\n  _PLIST_ENTRY_KEYS+=(\"firebase_json_raw\")\n  _PLIST_ENTRY_TYPES+=(\"string\")\n  _PLIST_ENTRY_VALUES+=(\"$_JSON_OUTPUT_BASE64\")\n  echo \"warning:   A firebase.json file was not found, whilst this file is optional it is recommended to include it to configure firebase services in React Native Firebase.\"\nfi;\n\necho \"info: 2) Injecting Info.plist entries: \"\n\n# Log out the keys we're adding\nfor i in \"${!_PLIST_ENTRY_KEYS[@]}\"; do\n  echo \"    ->  $i) ${_PLIST_ENTRY_KEYS[$i]}\" \"${_PLIST_ENTRY_TYPES[$i]}\" \"${_PLIST_ENTRY_VALUES[$i]}\"\ndone\n\nfor plist in \"${_TARGET_PLIST}\" \"${_DSYM_PLIST}\" ; do\n  if [[ -f \"${plist}\" ]]; then\n\n    # paths with spaces break the call to setPlistValue. temporarily modify\n    # the shell internal field separator variable (IFS), which normally\n    # includes spaces, to consist only of line breaks\n    oldifs=$IFS\n    IFS=\"\n\"\n\n    for i in \"${!_PLIST_ENTRY_KEYS[@]}\"; do\n      setPlistValue \"${_PLIST_ENTRY_KEYS[$i]}\" \"${_PLIST_ENTRY_TYPES[$i]}\" \"${_PLIST_ENTRY_VALUES[$i]}\" \"${plist}\"\n    done\n\n    # restore the original internal field separator value\n    IFS=$oldifs\n  else\n    echo \"warning:   A Info.plist build output file was not found (${plist})\"\n  fi\ndone\n\necho \"info: <- RNFB build script finished\"\n";
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -623,6 +1023,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A15CF2DA2AD030C0004A53F3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A15CF2DB2AD030C0004A53F3 /* AppDelegate.mm in Sources */,
+				A15CF2DC2AD030C0004A53F3 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A15CF30F2AD030C3004A53F3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A15CF3102AD030C3004A53F3 /* AppDelegate.mm in Sources */,
+				A15CF3112AD030C3004A53F3 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -636,7 +1054,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-Naikamu-NaikamuTests.debug.xcconfig */;
+			baseConfigurationReference = 6A130072470CB5F9251EE342 /* Pods-NaikamuCommonPods-NaikamuTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 7626K298Y6;
@@ -664,7 +1082,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-Naikamu-NaikamuTests.release.xcconfig */;
+			baseConfigurationReference = F21D0DDDB5F3F8E59B342B36 /* Pods-NaikamuCommonPods-NaikamuTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -689,7 +1107,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-Naikamu.debug.xcconfig */;
+			baseConfigurationReference = 3CACAB495B78CA0322E3F49A /* Pods-NaikamuCommonPods-Naikamu.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
@@ -720,7 +1138,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-Naikamu.release.xcconfig */;
+			baseConfigurationReference = ED7A44F363AEE01F9684DBCA /* Pods-NaikamuCommonPods-Naikamu.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
@@ -828,7 +1246,8 @@
 					"$(inherited)",
 					"-Wl",
 					"-ld_classic",
-					" ",
+					"-Wl",
+					"-ld_classic",
 					"-Wl -ld_classic ",
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
@@ -912,12 +1331,133 @@
 					"$(inherited)",
 					"-Wl",
 					"-ld_classic",
-					" ",
+					"-Wl",
+					"-ld_classic",
 					"-Wl -ld_classic ",
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A15CF3082AD030C0004A53F3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8CAD5F0ECF8EEC93E33F9011 /* Pods-NaikamuCommonPods-NaikamuStg.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Naikamu/Naikamu.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7626K298Y6;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = "Naikamu stg-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Naikamu stg";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tltcode.naikamu.staging;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		A15CF3092AD030C0004A53F3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8E244B65C608B81A719C7980 /* Pods-NaikamuCommonPods-NaikamuStg.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Naikamu/Naikamu.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7626K298Y6;
+				INFOPLIST_FILE = "Naikamu stg-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Naikamu stg";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tltcode.naikamu.staging;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		A15CF33D2AD030C3004A53F3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9678A98687FD49407F5CA3DC /* Pods-NaikamuCommonPods-NaikamuDev.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Naikamu/Naikamu.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7626K298Y6;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = "Naikamu dev-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Naikamu dev";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tltcode.naikamu.development;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		A15CF33E2AD030C3004A53F3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5141AFEABEEA5F2252EB7546 /* Pods-NaikamuCommonPods-NaikamuDev.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Naikamu/Naikamu.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7626K298Y6;
+				INFOPLIST_FILE = "Naikamu dev-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Naikamu dev";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tltcode.naikamu.development;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
@@ -947,6 +1487,24 @@
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
 				83CBBA211A601CBA00E9B192 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A15CF3072AD030C0004A53F3 /* Build configuration list for PBXNativeTarget "NaikamuStg" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A15CF3082AD030C0004A53F3 /* Debug */,
+				A15CF3092AD030C0004A53F3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A15CF33C2AD030C3004A53F3 /* Build configuration list for PBXNativeTarget "NaikamuDev" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A15CF33D2AD030C3004A53F3 /* Debug */,
+				A15CF33E2AD030C3004A53F3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

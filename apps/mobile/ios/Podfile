@@ -26,7 +26,7 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-target 'Naikamu' do
+abstract_target 'NaikamuCommonPods' do
   use_frameworks! :linkage => :static
 
   config = use_native_modules!
@@ -50,6 +50,15 @@ target 'Naikamu' do
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
+  
+  target 'NaikamuDev' do
+  end
+
+  target 'NaikamuStg' do
+  end
+
+  target 'Naikamu' do
+  end
 
   target 'NaikamuTests' do
     inherit! :complete

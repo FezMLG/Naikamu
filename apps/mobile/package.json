@@ -14,7 +14,7 @@
     "android:dev-release": "react-native run-android --variant=developmentrelease",
     "android:prod": "react-native run-android --variant=productiondebug --appId=com.naikamu",
     "android:prod-release": "react-native run-android --variant=productionrelease",
-    "ios": "ENVFILE=.env.dev react-native run-ios --simulator=\"iPhone 15\" ",
+    "ios": "ENVFILE=.env.dev react-native run-ios --simulator=\"iPhone 15\"",
     "ios:release": "ENVFILE=.env.dev react-native run-ios --mode=\"Release\"",
     "ios:stg:release": "ENVFILE=.env.stg react-native run-ios --mode=\"Release\"",
     "ios:prod:release": "ENVFILE=.env.prod react-native run-ios --mode=\"Release\"",
