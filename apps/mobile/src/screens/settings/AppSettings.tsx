@@ -126,7 +126,7 @@ export function AppSettingsScreen({}: SettingsStackPlaybackSettingsScreenProps) 
         <Text style={[fontStyles.text, colors.textLighter]}>
           {Config.API_URL}
         </Text>
-        {(Config.ENV === 'development' || Config.ENV === 'dev') && (
+        {Config.ENV === 'development' && (
           <>
             <Text
               style={[

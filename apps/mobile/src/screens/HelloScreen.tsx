@@ -52,7 +52,7 @@ export function HelloScreen({ navigation }: AuthStackHelloScreenProps) {
         style={[globalStyle.marginTopSmall]}
         type="secondary"
       />
-      {Config.ENV !== 'prod' && <Text>api_url: {Config.API_URL}</Text>}
+      {Config.ENV !== 'production' && <Text>api_url: {Config.API_URL}</Text>}
     </PageLayout.Default>
   );
 }

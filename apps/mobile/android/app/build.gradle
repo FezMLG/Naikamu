@@ -5,13 +5,13 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 
 project.ext.envConfigFiles = [
-    productiondebug: ".env.prod",
-    productionrelease: ".env.prod",
-    developmentrelease: ".env.dev",
-    developmentdebug: ".env.dev",
-    stagingrelease: ".env.stg",
-    stagingdebug: ".env.stg",
-    release: ".env.prod",
+    productiondebug: ".env.production",
+    productionrelease: ".env.production",
+    developmentrelease: ".env.development",
+    developmentdebug: ".env.development",
+    stagingrelease: ".env.staging",
+    stagingdebug: ".env.staging",
+    release: ".env.production",
 ]
 
 project.ext.vectoricons = [
@@ -104,13 +104,13 @@ android {
         }
         staging {
             minSdkVersion rootProject.ext.minSdkVersion
-            applicationId "com.tltcode.naikamu.stg"
+            applicationId "com.tltcode.naikamu.staging"
             targetSdkVersion rootProject.ext.targetSdkVersion
             resValue "string", "build_config_package", "com.tltcode.naikamu"
         }
         development {
             minSdkVersion rootProject.ext.minSdkVersion
-            applicationId "com.tltcode.naikamu.dev"
+            applicationId "com.tltcode.naikamu.development"
             targetSdkVersion rootProject.ext.targetSdkVersion
             resValue "string", "build_config_package", "com.tltcode.naikamu"
         }
@@ -165,7 +165,7 @@ dependencies {
 
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
-    
+
     implementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}")
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.flipper'

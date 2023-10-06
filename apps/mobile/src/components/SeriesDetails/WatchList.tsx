@@ -86,7 +86,7 @@ export function WatchList({ seriesId, watchStatus }: WatchListProps) {
         />
       ) : (
         <>
-          {Config.ENV !== 'prod' && mutation.isError ? (
+          {Config.ENV !== 'production' && mutation.isError ? (
             <Text>{'An error occurred ' + mutation.error}</Text>
           ) : null}
           <Pressable

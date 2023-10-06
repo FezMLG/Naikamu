@@ -140,7 +140,7 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
           {JSON.stringify(apiCheck.error)}
         </Text>
       ) : null}
-      {Config.ENV !== 'prod' && (
+      {Config.ENV !== 'production' && (
         <Text style={[fontStyles.text, colors.textLight]}>
           api_url: {Config.API_URL}
           {JSON.stringify(netInfo)}
