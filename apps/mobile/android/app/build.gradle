@@ -112,7 +112,7 @@ android {
         }
         development {
             minSdkVersion rootProject.ext.minSdkVersion
-            applicationId "com.tltcode.naikamu.development"
+            applicationId "com.tltcode.naikamu"
             applicationIdSuffix "development"
             targetSdkVersion rootProject.ext.targetSdkVersion
             resValue "string", "build_config_package", "com.tltcode.naikamu"
