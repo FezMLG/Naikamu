@@ -3,8 +3,8 @@ import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { default as Config } from 'react-native-config';
 import { Text } from 'react-native-paper';
-import VectorImage from 'react-native-vector-image';
 
+import Logo from '../../assets/logo_full.svg';
 import { Button, PageLayout, useLayout, GoogleSignIn } from '../components';
 import { useTranslate } from '../i18n/useTranslate';
 import { AuthStackRoutesNames, AuthStackHelloScreenProps } from '../routes';
@@ -27,11 +27,7 @@ export function HelloScreen({ navigation }: AuthStackHelloScreenProps) {
           justifyContent: 'center',
           height: '50%',
         }}>
-        <VectorImage
-          resizeMode="contain"
-          source={require('../../assets/logo_full.svg')}
-          style={styles.logo}
-        />
+        <Logo style={styles.logo} width="90%" />
       </View>
       <View
         style={{
@@ -59,7 +55,7 @@ export function HelloScreen({ navigation }: AuthStackHelloScreenProps) {
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 100,
+    marginVertical: 50,
   },
   logo: {
     alignSelf: 'center',

@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
   banner: {
     width: '100%',
     height: 300,
-    resizeMode: 'cover',
+    resizeMode: 'contain',
   },
   chipContainer: {
     flexDirection: 'row',

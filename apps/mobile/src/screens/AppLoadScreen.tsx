@@ -1,17 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
-import {
-  Image,
-  Linking,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { Linking, Pressable, StyleSheet, Text, View } from 'react-native';
 import { default as Config } from 'react-native-config';
+import { SvgUri } from 'react-native-svg';
 import semver from 'semver';
 
+import Logo from '../../assets/logo_full.svg';
 import { useQueryApiHealth } from '../api/hooks';
 import { ActivityIndicator, PageLayout, useLayout } from '../components';
 import { useTranslate } from '../i18n/useTranslate';
@@ -19,16 +14,15 @@ import {
   AuthStackAppLoadingScreenProps,
   AuthStackRoutesNames,
 } from '../routes';
+import { useUserSettingsService } from '../services';
 import { useUserService } from '../services/auth/user.service';
 import { useUserStore } from '../services/auth/user.store';
 import {
   fireGetIdToken,
   fireGetNewIdToken,
 } from '../services/firebase/fire-auth.service';
-import { useUserSettingsService } from '../services/settings/settings.service';
 import { colors, fontStyles, globalStyle } from '../styles';
 import { logger } from '../utils/logger';
-import VectorImage from 'react-native-vector-image';
 
 export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
   const supportedApiVersion = require('../../package.json').apiVersion;
@@ -103,12 +97,8 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
 
   return (
     <PageLayout.Default style={[styles.container]} {...layout}>
-      <VectorImage
-        resizeMode="contain"
-        source={require('../../assets/logo_full.svg')}
-        style={styles.logo}
-      />
-      <View style={[globalStyle.spacerBig]} />
+      <Logo style={styles.logo} width="90%" />
+      <View style={[globalStyle.spacer]} />
       <ActivityIndicator size="large" visible={true} />
       {apiError && (
         <Pressable
