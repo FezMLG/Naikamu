@@ -117,7 +117,7 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
       {apiError && (
         <Pressable
           onPress={() =>
-            Linking.openURL('https://github.com/FezMLG/AniWatch/issues')
+            Linking.openURL('https://github.com/FezMLG/Naikamu/issues')
           }
           style={styles.centerBox}>
           <Text style={[fontStyles.text, colors.error, globalStyle.textCenter]}>
