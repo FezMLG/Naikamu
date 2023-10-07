@@ -1,4 +1,16 @@
-# Naikamu
+# Naikamu Mobile
+
+## Build Naming
+
+```
+naikamu-{env}-{version}
+```
+
+Ex.
+
+```
+naikamu-stg-1.0.0-beta.4.1.0
+```
 
 For `.env` file:
 
