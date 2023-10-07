@@ -28,6 +28,7 @@ import {
 import { useUserSettingsService } from '../services/settings/settings.service';
 import { colors, fontStyles, globalStyle } from '../styles';
 import { logger } from '../utils/logger';
+import VectorImage from 'react-native-vector-image';
 
 export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
   const supportedApiVersion = require('../../package.json').apiVersion;
@@ -102,14 +103,9 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
 
   return (
     <PageLayout.Default style={[styles.container]} {...layout}>
-      <Text>{user?.displayName ?? user?.email}</Text>
-      <Text style={[colors.textLight, fontStyles.text]}>
-        {translate('welcomeScreen.welcome')}
-      </Text>
-      <Text style={[colors.textLight, fontStyles.screenHeader]}>naikamu</Text>
-      <View style={[globalStyle.spacerBig]} />
-      <Image
-        source={require('../../assets/aniwatch_logo_t.png')}
+      <VectorImage
+        resizeMode="contain"
+        source={require('../../assets/logo_full.svg')}
         style={styles.logo}
       />
       <View style={[globalStyle.spacerBig]} />
@@ -160,8 +156,8 @@ const styles = StyleSheet.create({
     margin: 16,
   },
   logo: {
-    maxWidth: 200,
-    maxHeight: 200,
+    alignSelf: 'center',
+    width: '90%',
   },
   centerBox: {
     alignItems: 'center',
