@@ -30,7 +30,6 @@
     "apk:rename": "mv $DIR/$APP $DIR/naikamu-$RENV$(jq -r '.version' package.json).apk",
     "apk:beta:rename": "DIR='android/app/build/outputs/apk/production/release' APP='app-production-release.apk' RENV= npm run apk:rename",
     "apk:stg:rename": "DIR='android/app/build/outputs/apk/staging/release' APP='app-staging-release.apk' RENV=stg- npm run apk:rename",
-    "generate:svg": "react-native-vector-image generate"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "1.19.3",
@@ -74,7 +73,6 @@
     "react-native-system-navigation-bar": "2.6.1",
     "react-native-tab-view": "3.5.2",
     "react-native-vector-icons": "10.0.0",
-    "react-native-vector-image": "^0.4.4",
     "react-native-video": "5.2.1",
     "react-native-webview": "13.6.0",
     "semver": "7.5.4",
