@@ -3,12 +3,16 @@ import React, { useCallback, useEffect, useState } from 'react';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import { Linking, Pressable, StyleSheet, Text, View } from 'react-native';
 import { default as Config } from 'react-native-config';
-import { SvgUri } from 'react-native-svg';
 import semver from 'semver';
 
 import Logo from '../../assets/logo_full.svg';
 import { useQueryApiHealth } from '../api/hooks';
-import { ActivityIndicator, PageLayout, useLayout } from '../components';
+import {
+  ActivityIndicator,
+  EnvironmentDebug,
+  PageLayout,
+  useLayout,
+} from '../components';
 import { useTranslate } from '../i18n/useTranslate';
 import {
   AuthStackAppLoadingScreenProps,
@@ -97,7 +101,14 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
 
   return (
     <PageLayout.Default style={[styles.container]} {...layout}>
-      <Logo style={styles.logo} width="90%" />
+      <EnvironmentDebug
+        style={[
+          {
+            width: '90%',
+          },
+        ]}>
+        <Logo style={styles.logo} width="90%" />
+      </EnvironmentDebug>
       <View style={[globalStyle.spacer]} />
       <ActivityIndicator size="large" visible={true} />
       {apiError && (
