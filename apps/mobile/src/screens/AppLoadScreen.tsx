@@ -84,7 +84,6 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
   });
 
   const handleLoginCheck = useCallback(async () => {
-    return;
     await initializeUserSettings();
     const token = await fireGetIdToken();
 
