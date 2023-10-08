@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AnimeEpisode } from '@aniwatch/shared';
+import { AnimeEpisode } from '@naikamu/shared';
 import { StyleSheet, ScrollView } from 'react-native';
 import { Text } from 'react-native-paper';
 

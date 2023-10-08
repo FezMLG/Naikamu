@@ -1,4 +1,4 @@
-import { IPlayerResponse } from '@aniwatch/shared';
+import { IPlayerResponse } from '@naikamu/shared';
 import { Linking } from 'react-native';
 
 import { RootStackScreenNames } from '../../routes';

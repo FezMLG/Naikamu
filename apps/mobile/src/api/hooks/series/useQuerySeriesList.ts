@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { IAnimeListItem, Paginate } from '@aniwatch/shared';
+import { IAnimeListItem, Paginate } from '@naikamu/shared';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { getAnimeSeason } from '../../../utils';

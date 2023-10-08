@@ -10,7 +10,7 @@ import {
   IWatchListSeries,
   Paginate,
   WatchListSeriesEpisode,
-} from '@aniwatch/shared';
+} from '@naikamu/shared';
 import axios, {
   AxiosHeaders,
   AxiosInstance,

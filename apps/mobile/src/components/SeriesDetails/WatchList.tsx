@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { WatchStatus } from '@aniwatch/shared';
+import { WatchStatus } from '@naikamu/shared';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { default as Config } from 'react-native-config';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -86,7 +86,7 @@ export function WatchList({ seriesId, watchStatus }: WatchListProps) {
         />
       ) : (
         <>
-          {Config.ENV !== 'prod' && mutation.isError ? (
+          {Config.ENV !== 'production' && mutation.isError ? (
             <Text>{'An error occurred ' + mutation.error}</Text>
           ) : null}
           <Pressable

@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { BlurView } from '@react-native-community/blur';
-import { StyleSheet, ScrollView, View } from 'react-native';
+import { StyleSheet, ScrollView, View, Pressable } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useQuerySeriesDetails } from '../../api/hooks';
 import {
@@ -15,15 +16,23 @@ import {
   useLayout,
 } from '../../components';
 import { SeriesStackSeriesScreenProps } from '../../routes';
-import { globalStyle, DarkColor } from '../../styles';
+import { globalStyle, DarkColor, colors } from '../../styles';
 
-export function SeriesScreen({ route }: SeriesStackSeriesScreenProps) {
+export function SeriesScreen({
+  route,
+  navigation,
+}: SeriesStackSeriesScreenProps) {
   const { id } = route.params;
   const layout = useLayout();
   const { data, isError, isLoading, refetch } = useQuerySeriesDetails(id);
 
   return (
     <PageLayout.Default margin={false} {...layout}>
+      <PlatformExplicit availablePlatforms={['android']}>
+        <Pressable onPress={() => navigation.goBack()} style={styles.closeIcon}>
+          <Icon name="close" size={20} style={colors.textLight} />
+        </Pressable>
+      </PlatformExplicit>
       <PageLayout.Loading isLoading={isLoading} />
       <PageLayout.Error isError={isError} refetch={refetch} />
       {data ? (
@@ -99,5 +108,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     gap: 50,
+  },
+  closeIcon: {
+    backgroundColor: colors.background.color,
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    zIndex: 10,
+    width: 30,
+    height: 30,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

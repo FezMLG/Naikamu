@@ -5,7 +5,7 @@
     "lib": ["es2021"],
     "baseUrl": "./",
     "paths": {
-      "@aniwatch/shared": ["../../lib/shared/"]
+      "@naikamu/shared": ["../../lib/shared/"]
     },
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
 

@@ -87,7 +87,7 @@ const Error = ({
               icon="open-in-new"
               label={translate('buttons.support')}
               onPress={() =>
-                Linking.openURL('https://github.com/FezMLG/AniWatch/issues')
+                Linking.openURL('https://github.com/FezMLG/Naikamu/issues')
               }
               size="medium"
               type="link"

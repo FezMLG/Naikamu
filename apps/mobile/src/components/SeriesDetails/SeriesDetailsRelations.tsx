@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AnimeDetails } from '@aniwatch/shared';
+import { AnimeDetails } from '@naikamu/shared';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { Linking, ScrollView, StyleSheet, Text } from 'react-native';
 

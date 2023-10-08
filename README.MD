@@ -1,27 +1,26 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/platform-android-brightgreen" />
+  <img src="./resources/logo_full.svg" alt="Naikamu Logo" width="445"/>
+</p>
+<p align="center">
+  Naikamu is an application that allows you to watch anime from Polish subs.
 </p>
 
-# AniWatch
+<p align="center">
+  <img src="https://img.shields.io/badge/platform-android-brightgreen"  alt="android-badge"/>
+  <img src="https://img.shields.io/badge/platform-ios-orange"  alt="ios-badge"/>
+</p>
 
-AniWatch is an application that allows you to watch anime from Polish subs.
-Currently the application is only available for android, in the future there may be a version for ios.
+
+## About us
+
+Naikamu is a dynamic and innovative team dedicated to the world of anime.
+Its mission is to create, promote, and celebrate the art of anime in all its forms.
+The name "Naikamu" is a fusion of two Japanese words: "nai" meaning "inside" and "kamu" meaning "to bring to life."
+This reflects the team's core objective of bringing the rich and vibrant world of anime to life for fans and enthusiasts.
 
 ## Installation
 
 To install this app go to [Releases](https://github.com/FezMLG/AniWatch/releases), download it, install and enjoy 🚀
-
-## Build Naming
-
-```
-aniwatch-{env}-{version}
-```
-
-Ex.
-
-```
-aniwatch-stg-1.0.0-beta.4.1.0
-```
 
 ## Contributing
 

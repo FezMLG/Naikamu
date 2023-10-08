@@ -4,13 +4,13 @@ import RNFS from 'react-native-fs';
 const relativeFolderPath = (folderName: string) => {
   switch (Platform.OS) {
     case 'android': {
-      return `AniWatch/downloads/${folderName}`;
+      return `Naikamu/downloads/${folderName}`;
     }
     case 'ios': {
       return `downloads/${folderName}`;
     }
     default: {
-      return `AniWatch/downloads/${folderName}`;
+      return `Naikamu/downloads/${folderName}`;
     }
   }
 };

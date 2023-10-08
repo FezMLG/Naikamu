@@ -1,5 +1,5 @@
 {
-  "name": "@aniwatch/shared",
+  "name": "@naikamu/shared",
   "version": "1.0.0",
   "license": "ISC",
   "main": "dist/index.js",

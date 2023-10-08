@@ -1,4 +1,4 @@
-import { IWatchListSeries, Paginate } from '@aniwatch/shared';
+import { IWatchListSeries, Paginate } from '@naikamu/shared';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { APIClient } from '../../APIClient';

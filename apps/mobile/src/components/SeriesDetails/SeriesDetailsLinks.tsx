@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AnimeDetails } from '@aniwatch/shared';
+import { AnimeDetails } from '@naikamu/shared';
 import { id } from 'date-fns/locale';
 import { Text, View, Linking, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';

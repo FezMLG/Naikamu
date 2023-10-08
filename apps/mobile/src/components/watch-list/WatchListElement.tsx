@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IWatchListSeries } from '@aniwatch/shared';
+import { IWatchListSeries } from '@naikamu/shared';
 import {
   StyleSheet,
   View,
