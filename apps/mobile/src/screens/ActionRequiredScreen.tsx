@@ -38,14 +38,14 @@ export function ActionRequiredScreen({
           icon="open-in-new"
           label={translate('important.requireAppUpdate.action')}
           onPress={() =>
-            Linking.openURL('https://github.com/FezMLG/AniWatch/releases')
+            Linking.openURL('https://github.com/FezMLG/Naikamu/releases')
           }
           type="primary"
         />
         <Button
           label={translate('important.requireAppUpdate.actionAlt')}
           onPress={() =>
-            Linking.openURL('https://github.com/FezMLG/AniWatch/issues')
+            Linking.openURL('https://github.com/FezMLG/Naikamu/issues')
           }
           type="link"
         />

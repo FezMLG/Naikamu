@@ -1,4 +1,4 @@
-import { ActionType } from '@aniwatch/shared';
+import { ActionType } from '@naikamu/shared';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 export enum SettingsStackScreenNames {

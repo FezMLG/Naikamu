@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { IAnimeListItem } from '@aniwatch/shared';
+import { IAnimeListItem } from '@naikamu/shared';
 import {
   StyleSheet,
   View,

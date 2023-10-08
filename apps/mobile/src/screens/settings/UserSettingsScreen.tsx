@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ActionType } from '@aniwatch/shared';
+import { ActionType } from '@naikamu/shared';
 import { StyleSheet } from 'react-native';
 
 import {

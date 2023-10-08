@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 
-import { IAnimeListItem } from '@aniwatch/shared';
+import { IAnimeListItem } from '@naikamu/shared';
 import { useNavigation } from '@react-navigation/native';
 import {
   StyleSheet,

@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 
-import { IWatchListSeries } from '@aniwatch/shared';
+import { IWatchListSeries } from '@naikamu/shared';
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, ActivityIndicator, FlatList, Text } from 'react-native';
 

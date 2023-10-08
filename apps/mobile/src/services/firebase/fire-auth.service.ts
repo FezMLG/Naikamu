@@ -1,4 +1,4 @@
-import { User } from '@aniwatch/shared';
+import { User } from '@naikamu/shared';
 import auth from '@react-native-firebase/auth';
 
 export const fireLoginUser = async (email: string, password: string) => {

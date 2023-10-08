@@ -1,4 +1,4 @@
-import { AnimeSeason } from '@aniwatch/shared';
+import { AnimeSeason } from '@naikamu/shared';
 
 export interface IAnimeSeasons {
   value: AnimeSeason;

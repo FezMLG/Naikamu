@@ -1,18 +1,17 @@
 import React, { useEffect } from 'react';
 
-import { Image, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { default as Config } from 'react-native-config';
 import { Text } from 'react-native-paper';
 
+import Logo from '../../assets/logo_full.svg';
 import { Button, PageLayout, useLayout, GoogleSignIn } from '../components';
 import { useTranslate } from '../i18n/useTranslate';
 import { AuthStackRoutesNames, AuthStackHelloScreenProps } from '../routes';
-import { useUserStore } from '../services/auth/user.store';
-import { darkStyle, globalStyle } from '../styles';
+import { globalStyle } from '../styles';
 
 export function HelloScreen({ navigation }: AuthStackHelloScreenProps) {
   const { translate } = useTranslate();
-  const user = useUserStore(state => state.user);
   const layout = useLayout();
 
   useEffect(() => {
@@ -23,51 +22,43 @@ export function HelloScreen({ navigation }: AuthStackHelloScreenProps) {
 
   return (
     <PageLayout.Default style={[styles.container]} {...layout}>
-      <Text>{user?.displayName ?? user?.email}</Text>
-      <Text style={darkStyle.font} variant="titleLarge">
-        {translate('welcomeScreen.welcome')}
-      </Text>
-      <Text
-        style={[darkStyle.font, { fontWeight: 'bold' }]}
-        variant="displayMedium">
-        AniWatch
-      </Text>
-      <View style={[globalStyle.spacerBig]} />
-      <Image
-        /* eslint-disable-next-line unicorn/prefer-module */
-        source={require('../../assets/aniwatch_logo_t.png')}
-        style={styles.logo}
-      />
-      <View style={[globalStyle.spacerBig]} />
-      <GoogleSignIn />
-      <View style={globalStyle.spacer} />
-      <Button
-        label={translate('auth.login')}
-        onPress={() => navigation.navigate(AuthStackRoutesNames.Login)}
-        type="primary"
-      />
-      <Button
-        label={translate('auth.register')}
-        onPress={() => navigation.navigate(AuthStackRoutesNames.SignUp)}
-        style={[globalStyle.marginTopSmall]}
-        type="secondary"
-      />
-      {Config.ENV !== 'prod' && <Text>api_url: {Config.API_URL}</Text>}
+      <View
+        style={{
+          justifyContent: 'center',
+          height: '50%',
+        }}>
+        <Logo style={styles.logo} width="90%" />
+      </View>
+      <View
+        style={{
+          justifyContent: 'flex-end',
+          height: '50%',
+        }}>
+        <GoogleSignIn />
+        <View style={globalStyle.spacer} />
+        <Button
+          label={translate('auth.login')}
+          onPress={() => navigation.navigate(AuthStackRoutesNames.Login)}
+          type="primary"
+        />
+        <Button
+          label={translate('auth.register')}
+          onPress={() => navigation.navigate(AuthStackRoutesNames.SignUp)}
+          style={[globalStyle.marginTopSmall]}
+          type="secondary"
+        />
+        {Config.ENV !== 'production' && <Text>api_url: {Config.API_URL}</Text>}
+      </View>
     </PageLayout.Default>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  video: {
-    flex: 1,
-    alignSelf: 'stretch',
+    marginVertical: 50,
   },
   logo: {
-    maxWidth: 200,
-    maxHeight: 200,
+    alignSelf: 'center',
+    width: '90%',
   },
 });

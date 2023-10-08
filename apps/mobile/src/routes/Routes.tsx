@@ -13,7 +13,7 @@ import {
 } from './main';
 
 const linking = {
-  prefixes: ['aniwatch://'],
+  prefixes: ['naikamu://'],
   config: {
     screens: {
       [BrowseStackScreenNames.Browse]: 'browse',

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AnimePlayer } from '@aniwatch/shared';
+import { AnimePlayer } from '@naikamu/shared';
 import { Linking, Pressable, StyleSheet, Text } from 'react-native';
 import { Menu } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';

@@ -1,17 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
-import {
-  Image,
-  Linking,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { Linking, Pressable, StyleSheet, Text, View } from 'react-native';
 import { default as Config } from 'react-native-config';
+import { SvgUri } from 'react-native-svg';
 import semver from 'semver';
 
+import Logo from '../../assets/logo_full.svg';
 import { useQueryApiHealth } from '../api/hooks';
 import { ActivityIndicator, PageLayout, useLayout } from '../components';
 import { useTranslate } from '../i18n/useTranslate';
@@ -19,13 +14,13 @@ import {
   AuthStackAppLoadingScreenProps,
   AuthStackRoutesNames,
 } from '../routes';
+import { useUserSettingsService } from '../services';
 import { useUserService } from '../services/auth/user.service';
 import { useUserStore } from '../services/auth/user.store';
 import {
   fireGetIdToken,
   fireGetNewIdToken,
 } from '../services/firebase/fire-auth.service';
-import { useUserSettingsService } from '../services/settings/settings.service';
 import { colors, fontStyles, globalStyle } from '../styles';
 import { logger } from '../utils/logger';
 
@@ -102,22 +97,13 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
 
   return (
     <PageLayout.Default style={[styles.container]} {...layout}>
-      <Text>{user?.displayName ?? user?.email}</Text>
-      <Text style={[colors.textLight, fontStyles.text]}>
-        {translate('welcomeScreen.welcome')}
-      </Text>
-      <Text style={[colors.textLight, fontStyles.screenHeader]}>AniWatch</Text>
-      <View style={[globalStyle.spacerBig]} />
-      <Image
-        source={require('../../assets/aniwatch_logo_t.png')}
-        style={styles.logo}
-      />
-      <View style={[globalStyle.spacerBig]} />
+      <Logo style={styles.logo} width="90%" />
+      <View style={[globalStyle.spacer]} />
       <ActivityIndicator size="large" visible={true} />
       {apiError && (
         <Pressable
           onPress={() =>
-            Linking.openURL('https://github.com/FezMLG/AniWatch/issues')
+            Linking.openURL('https://github.com/FezMLG/Naikamu/issues')
           }
           style={styles.centerBox}>
           <Text style={[fontStyles.text, colors.error, globalStyle.textCenter]}>
@@ -140,7 +126,7 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
           {JSON.stringify(apiCheck.error)}
         </Text>
       ) : null}
-      {Config.ENV !== 'prod' && (
+      {Config.ENV !== 'production' && (
         <Text style={[fontStyles.text, colors.textLight]}>
           api_url: {Config.API_URL}
           {JSON.stringify(netInfo)}
@@ -160,8 +146,8 @@ const styles = StyleSheet.create({
     margin: 16,
   },
   logo: {
-    maxWidth: 200,
-    maxHeight: 200,
+    alignSelf: 'center',
+    width: '90%',
   },
   centerBox: {
     alignItems: 'center',

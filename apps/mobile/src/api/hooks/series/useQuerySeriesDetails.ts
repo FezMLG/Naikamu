@@ -1,4 +1,4 @@
-import { AnimeDetails, AnimeSource } from '@aniwatch/shared';
+import { AnimeDetails, AnimeSource } from '@naikamu/shared';
 import { useQuery } from '@tanstack/react-query';
 
 import { useActiveSeriesStore } from '../../../services';

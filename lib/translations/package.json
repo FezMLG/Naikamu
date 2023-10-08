@@ -1,5 +1,5 @@
 {
-  "name": "@aniwatch/translations",
+  "name": "@naikamu/translations",
   "version": "1.0.0",
   "license": "ISC",
   "main": "dist/index.js",

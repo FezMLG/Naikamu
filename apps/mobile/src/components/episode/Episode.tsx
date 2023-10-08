@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { AnimeEpisode, AnimePlayer } from '@aniwatch/shared';
+import { AnimeEpisode, AnimePlayer } from '@naikamu/shared';
 import { BlurView } from '@react-native-community/blur';
 import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { ProgressBar } from 'react-native-paper';

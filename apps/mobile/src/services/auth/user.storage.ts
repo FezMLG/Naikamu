@@ -1,4 +1,4 @@
-import { User } from '@aniwatch/shared';
+import { User } from '@naikamu/shared';
 
 import { storageGetData, storageStoreData } from '../../utils';
 

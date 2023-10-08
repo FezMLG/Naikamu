@@ -1,4 +1,4 @@
-import { User } from '@aniwatch/shared';
+import { User } from '@naikamu/shared';
 import { create } from 'zustand';
 
 interface UserState {

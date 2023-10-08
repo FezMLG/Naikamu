@@ -1,4 +1,4 @@
-import { IPlayerResponse, IResolvePlayerDto } from '@aniwatch/shared';
+import { IPlayerResponse, IResolvePlayerDto } from '@naikamu/shared';
 import { useQuery } from '@tanstack/react-query';
 
 import { APIClient } from '../../APIClient';
