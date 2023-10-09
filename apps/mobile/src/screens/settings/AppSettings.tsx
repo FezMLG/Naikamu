@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import * as Sentry from '@sentry/react-native';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { default as Config } from 'react-native-config';
 import { RadioButton } from 'react-native-paper';
@@ -7,10 +8,12 @@ import { RadioButton } from 'react-native-paper';
 import { Button, Modal, SettingInputs, SettingsGroup } from '../../components';
 import { useTranslate } from '../../i18n/useTranslate';
 import { SettingsStackPlaybackSettingsScreenProps } from '../../routes';
-import { useOfflineService } from '../../services';
+import {
+  useOfflineService,
+  useUserSettingsService,
+  Resolution,
+} from '../../services';
 import { useDownloadsQueueStore } from '../../services/offline/queue.store';
-import { Resolution } from '../../services/settings/interfaces';
-import { useUserSettingsService } from '../../services/settings/settings.service';
 import { colors, fontStyles, globalStyle } from '../../styles';
 
 function QualityModal({
@@ -115,6 +118,13 @@ export function AppSettingsScreen({}: SettingsStackPlaybackSettingsScreenProps) 
       <View style={globalStyle.marginTop}>
         <Text style={[fontStyles.label, colors.textLight]}>Environment</Text>
         <Text style={[fontStyles.text, colors.textLighter]}>{Config.ENV}</Text>
+        <Button
+          label="Try!"
+          onPress={() => {
+            Sentry.captureException(new Error('First error'));
+          }}
+          type="primary"
+        />
         <Text
           style={[
             fontStyles.label,

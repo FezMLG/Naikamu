@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import * as Sentry from '@sentry/react-native';
 import { Image, Pressable, StyleSheet, Text } from 'react-native';
 
 import { useTranslate } from '../i18n/useTranslate';
@@ -17,8 +18,13 @@ GoogleSignin.configure({
 
 const onGoogleButtonPress = async () => {
   await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+  Sentry.captureMessage('Start Google sign in');
   const { idToken } = await GoogleSignin.signIn();
+
+  Sentry.captureMessage('Google sign in success');
   const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+  Sentry.captureMessage('Google sign in credential success');
 
   return auth().signInWithCredential(googleCredential);
 };
