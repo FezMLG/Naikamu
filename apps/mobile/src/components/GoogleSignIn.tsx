@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import * as Sentry from '@sentry/react-native';
 import { Image, Pressable, StyleSheet, Text } from 'react-native';
 
 import { useTranslate } from '../i18n/useTranslate';
@@ -32,8 +33,11 @@ export function GoogleSignIn() {
     <Pressable
       onPress={() =>
         onGoogleButtonPress()
-          .then(async () => await userService.setLoggedUser())
-          .catch(() => {
+          .then(async () => {
+            await userService.setLoggedUser();
+          })
+          .catch(error => {
+            Sentry.captureException(error);
             setIsLoading(false);
           })
       }

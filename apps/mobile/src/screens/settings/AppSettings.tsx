@@ -7,10 +7,12 @@ import { RadioButton } from 'react-native-paper';
 import { Button, Modal, SettingInputs, SettingsGroup } from '../../components';
 import { useTranslate } from '../../i18n/useTranslate';
 import { SettingsStackPlaybackSettingsScreenProps } from '../../routes';
-import { useOfflineService } from '../../services';
+import {
+  useOfflineService,
+  useUserSettingsService,
+  Resolution,
+} from '../../services';
 import { useDownloadsQueueStore } from '../../services/offline/queue.store';
-import { Resolution } from '../../services/settings/interfaces';
-import { useUserSettingsService } from '../../services/settings/settings.service';
 import { colors, fontStyles, globalStyle } from '../../styles';
 
 function QualityModal({
