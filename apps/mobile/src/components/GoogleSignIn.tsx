@@ -38,8 +38,12 @@ export function GoogleSignIn() {
     <Pressable
       onPress={() =>
         onGoogleButtonPress()
-          .then(async () => await userService.setLoggedUser())
-          .catch(() => {
+          .then(async response => {
+            Sentry.captureMessage(JSON.stringify(response));
+            await userService.setLoggedUser();
+          })
+          .catch(error => {
+            Sentry.captureException(error);
             setIsLoading(false);
           })
       }
