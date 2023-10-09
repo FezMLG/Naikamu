@@ -18,13 +18,8 @@ GoogleSignin.configure({
 
 const onGoogleButtonPress = async () => {
   await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-  Sentry.captureMessage('Start Google sign in');
   const { idToken } = await GoogleSignin.signIn();
-
-  Sentry.captureMessage('Google sign in success');
   const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-
-  Sentry.captureMessage('Google sign in credential success');
 
   return auth().signInWithCredential(googleCredential);
 };
@@ -38,8 +33,7 @@ export function GoogleSignIn() {
     <Pressable
       onPress={() =>
         onGoogleButtonPress()
-          .then(async response => {
-            Sentry.captureMessage(JSON.stringify(response));
+          .then(async () => {
             await userService.setLoggedUser();
           })
           .catch(error => {

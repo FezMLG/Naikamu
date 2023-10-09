@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-import * as Sentry from '@sentry/react-native';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { default as Config } from 'react-native-config';
 import { RadioButton } from 'react-native-paper';
@@ -118,13 +117,6 @@ export function AppSettingsScreen({}: SettingsStackPlaybackSettingsScreenProps) 
       <View style={globalStyle.marginTop}>
         <Text style={[fontStyles.label, colors.textLight]}>Environment</Text>
         <Text style={[fontStyles.text, colors.textLighter]}>{Config.ENV}</Text>
-        <Button
-          label="Try!"
-          onPress={() => {
-            Sentry.captureException(new Error('First error'));
-          }}
-          type="primary"
-        />
         <Text
           style={[
             fontStyles.label,

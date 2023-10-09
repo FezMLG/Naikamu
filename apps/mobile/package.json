@@ -1,6 +1,6 @@
 {
   "name": "naikamu",
-  "version": "0.8.4-1",
+  "version": "0.8.4",
   "apiVersion": "1.0.x",
   "private": true,
   "engines": {
@@ -45,7 +45,7 @@
     "@react-navigation/material-top-tabs": "6.6.4",
     "@react-navigation/native": "6.1.8",
     "@react-navigation/native-stack": "6.9.14",
-    "@sentry/react-native": "^5.10.0",
+    "@sentry/react-native": "5.10.0",
     "@tanstack/react-query": "4.35.7",
     "axios": "1.5.1",
     "classnames": "2.3.2",
