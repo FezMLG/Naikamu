@@ -21,6 +21,7 @@ import {
   defaultRadius,
   fontStyles,
 } from '../../styles';
+import { logger } from '../../utils/logger';
 import { ActivityIndicator } from '../atoms';
 import { UpdateEpisodeWatchStatus } from '../molecules';
 import { PlatformExplicit } from '../PlatformExplicit';
@@ -31,7 +32,6 @@ import {
   EpisodePlayerEmpty,
   EpisodePlayerError,
 } from './EpisodePlayer';
-import { logger } from '../../utils/logger';
 
 export function Episode({
   episode,
@@ -78,7 +78,7 @@ export function Episode({
       number: episode.number,
       title: episode.title,
       length: series.episodeLength,
-      translator: player.translator_name,
+      translator: player.translatorName,
       pathToFile: null,
       size: 0,
     };

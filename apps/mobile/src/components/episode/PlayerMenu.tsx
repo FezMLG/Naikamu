@@ -34,7 +34,7 @@ export function PlayerMenu({ player }: { player: AnimePlayer }) {
       visible={visible}>
       <Pressable
         android_ripple={{ color: '#fffff', radius: 20 }}
-        onPress={() => Linking.openURL(player.source_url)}
+        onPress={() => Linking.openURL(player.sourceUrl)}
         style={styles.menuItem}>
         <Text style={[colors.textLight, fontStyles.text]}>Source Page</Text>
       </Pressable>

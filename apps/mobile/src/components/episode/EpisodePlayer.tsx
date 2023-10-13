@@ -38,19 +38,19 @@ export function EpisodePlayer({
     isError,
   } = useQueryResolvePlayerLink({
     animeId: seriesId,
-    player: player.player_name,
-    url: player.player_link,
+    player: player.playerName,
+    url: player.playerLink,
     resolution: userSettings.preferredResolution,
-    translator: player.translator_name,
+    translator: player.translatorName,
     episode: episodeNumber,
   });
 
   const download = useQueryResolvePlayerLink({
     animeId: seriesId,
-    player: player.player_name,
-    url: player.player_link,
+    player: player.playerName,
+    url: player.playerLink,
     resolution: userSettings.preferredDownloadQuality,
-    translator: player.translator_name,
+    translator: player.translatorName,
     episode: episodeNumber,
   });
 
@@ -58,12 +58,12 @@ export function EpisodePlayer({
     <View
       style={[
         styles.playersListItem,
-        player.player_name.toLocaleLowerCase() === 'cda'
+        player.playerType === 'native'
           ? { borderColor: colors.accent.color }
           : { height: 50 },
       ]}>
       <View style={styles.rowCenter}>
-        {player.player_name.toLocaleLowerCase() === 'cda' ? (
+        {player.playerType === 'native' ? (
           <>
             {isLoading ? (
               <ActivityIndicator
@@ -89,28 +89,30 @@ export function EpisodePlayer({
               />
             )}
           </>
-        ) : (
-          // <IconButton
-          //   icon="open-in-new"
-          //   onPress={() => Linking.openURL(player.player_link)}
-          // />
-
+        ) : null}
+        {player.playerType === 'embed' ? (
           <IconButton
             icon="open-in-new"
             onPress={() => {
               navigation.navigate(RootStackScreenNames.WebViewPlayer, {
-                uri: player.player_link,
+                uri: player.playerLink,
                 seriesId,
                 episodeTitle,
                 episodeNumber,
               });
             }}
           />
-        )}
+        ) : null}
+        {player.playerType === 'external' ? (
+          <IconButton
+            icon="open-in-new"
+            onPress={() => Linking.openURL(player.playerLink)}
+          />
+        ) : null}
         <Text style={[colors.textLight]}>
-          {player.translator_name +
+          {player.translatorName +
             ' - ' +
-            player.player_name.toLocaleLowerCase()}
+            player.playerName.toLocaleLowerCase()}
         </Text>
       </View>
       <View style={styles.rowCenter}>
@@ -119,7 +121,7 @@ export function EpisodePlayer({
           source={require('../../../assets/logo_docchi.png')}
           style={[styles.logo, { maxWidth: 100 }]}
         />
-        {player.player_name.toLocaleLowerCase() === 'cda' ? (
+        {player.playerName.toLocaleLowerCase() === 'cda' ? (
           <>
             {isDownloaded ? (
               <Icon
