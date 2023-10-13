@@ -90,9 +90,21 @@ export function EpisodePlayer({
             )}
           </>
         ) : (
+          // <IconButton
+          //   icon="open-in-new"
+          //   onPress={() => Linking.openURL(player.player_link)}
+          // />
+
           <IconButton
             icon="open-in-new"
-            onPress={() => Linking.openURL(player.player_link)}
+            onPress={() => {
+              navigation.navigate(RootStackScreenNames.WebViewPlayer, {
+                uri: player.player_link,
+                seriesId,
+                episodeTitle,
+                episodeNumber,
+              });
+            }}
           />
         )}
         <Text style={[colors.textLight]}>
