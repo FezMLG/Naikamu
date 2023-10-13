@@ -1,1 +1,1 @@
-export type PlayerType = 'local' | 'external';
+export type PlayerType = 'native' | 'embed' | 'external';
