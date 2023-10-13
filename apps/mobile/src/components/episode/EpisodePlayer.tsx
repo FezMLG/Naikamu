@@ -60,7 +60,8 @@ export function EpisodePlayer({
         styles.playersListItem,
         player.playerType === 'native'
           ? { borderColor: colors.accent.color }
-          : { height: 50 },
+          : {},
+        player.playerType === 'external' ? { height: 50 } : {},
       ]}>
       <View style={styles.rowCenter}>
         {player.playerType === 'native' ? (
