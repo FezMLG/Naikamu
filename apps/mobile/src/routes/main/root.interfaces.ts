@@ -7,6 +7,7 @@ export enum RootStackScreenNames {
   Main = 'Main',
   SeriesStack = 'SeriesStack',
   NativePlayer = 'NativePlayer',
+  WebViewPlayer = 'WebViewPlayer',
 }
 
 export type RootStackParameterList = {
@@ -18,6 +19,9 @@ export type RootStackParameterList = {
     episodeTitle: string;
     episodeNumber: number;
   };
+  [RootStackScreenNames.WebViewPlayer]: {
+    uri: string;
+  };
 };
 
 export type RootStackSeriesStackScreenProps = NativeStackScreenProps<
@@ -27,4 +31,8 @@ export type RootStackSeriesStackScreenProps = NativeStackScreenProps<
 export type RootStackNativePlayerScreenProps = NativeStackScreenProps<
   RootStackParameterList,
   RootStackScreenNames.NativePlayer
+>;
+export type RootStackWebViewPlayerScreenProps = NativeStackScreenProps<
+  RootStackParameterList,
+  RootStackScreenNames.WebViewPlayer
 >;

@@ -14,6 +14,7 @@ import {
   RootStackScreenNames,
 } from './root.interfaces';
 import { SeriesStack } from './series';
+import { WebViewPlayerScreen } from '../../screens/player/WebViewPlayerScreen';
 
 const StackAuthorized = createNativeStackNavigator<RootStackParameterList>();
 
@@ -47,6 +48,15 @@ export function RootStack() {
       <StackAuthorized.Screen
         component={NativeVideoPlayerScreen}
         name={RootStackScreenNames.NativePlayer}
+        options={{
+          ...defaultSubHeaderOptions({}),
+          autoHideHomeIndicator: true,
+          presentation: 'fullScreenModal',
+        }}
+      />
+      <StackAuthorized.Screen
+        component={WebViewPlayerScreen}
+        name={RootStackScreenNames.WebViewPlayer}
         options={{
           ...defaultSubHeaderOptions({}),
           autoHideHomeIndicator: true,
