@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { BlurView } from '@react-native-community/blur';
-import { StyleSheet, ScrollView, View, Pressable } from 'react-native';
+import { StyleSheet, ScrollView, View, Pressable, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useQuerySeriesDetails } from '../../api/hooks';
@@ -86,6 +86,8 @@ export function SeriesScreen({
                 genres={data.genres}
               />
               <View style={globalStyle.marginTop} />
+              <SeriesDetails.AverageScore averageScore={data.averageScore} />
+              <View style={globalStyle.marginTopSmall} />
               <SeriesDetails.Description description={data.description} />
               <View style={globalStyle.marginTop} />
               <SeriesDetailsRelations relations={data.relations} />

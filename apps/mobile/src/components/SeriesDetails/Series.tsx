@@ -83,9 +83,10 @@ function NextEpisode(props: { episode?: number; airingAt?: number }) {
   );
 }
 
-function Genres(props: { genres: AnimeDetails['genres']; color: string }) {
+function Genres(props: { genres: AnimeDetails['genres']; color?: string }) {
+  const color = props.color ?? colors.accent.color;
   const textColor = pickTextColorBasedOnBgColorAdvanced(
-    props.color,
+    color,
     colors.textLight.color,
     colors.textDark.color,
   );
@@ -95,7 +96,7 @@ function Genres(props: { genres: AnimeDetails['genres']; color: string }) {
       {props.genres.map((genre, index) => (
         <View
           key={index}
-          style={[styles.chipGenre, { backgroundColor: props.color }]}>
+          style={[styles.chipGenre, { backgroundColor: color }]}>
           <Text style={{ color: textColor }}>{genre}</Text>
         </View>
       ))}
@@ -107,6 +108,14 @@ function Description(props: { description: string }) {
   return (
     <Text style={[darkStyle.font, fontStyles.text]}>
       {props.description.replaceAll(/<[^>]*>?/gm, '')}
+    </Text>
+  );
+}
+
+function AverageScore(props: { averageScore?: number }) {
+  return (
+    <Text style={[darkStyle.font, fontStyles.text]}>
+      Average score: {props.averageScore}
     </Text>
   );
 }
@@ -156,6 +165,7 @@ export const SeriesDetails = {
   QuickInfoContainer,
   NextEpisode,
   Description,
+  AverageScore,
   Genres,
   Trailer,
   DataSource,
