@@ -61,7 +61,9 @@ export function EpisodePlayer({
         player.playerType === 'native'
           ? { borderColor: colors.accent.color }
           : {},
-        player.playerType === 'external' ? { height: 50 } : {},
+        player.playerType === 'external'
+          ? { backgroundColor: colors.background.color, height: 50 }
+          : {},
       ]}>
       <View style={styles.rowCenter}>
         {player.playerType === 'native' ? (
@@ -93,7 +95,7 @@ export function EpisodePlayer({
         ) : null}
         {player.playerType === 'embed' ? (
           <IconButton
-            icon="open-in-new"
+            icon="play"
             onPress={() => {
               navigation.navigate(RootStackScreenNames.WebViewPlayer, {
                 uri: player.playerLink,
