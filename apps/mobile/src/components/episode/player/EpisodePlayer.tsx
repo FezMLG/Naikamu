@@ -2,7 +2,7 @@ import React from 'react';
 
 import { AnimePlayer } from '@naikamu/shared';
 import { useNavigation } from '@react-navigation/native';
-import { View, Text, Image, StyleSheet, Linking } from 'react-native';
+import { View, Text, StyleSheet, Linking } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useQueryResolvePlayerLink } from '../../../api/hooks';
@@ -120,11 +120,6 @@ export function EpisodePlayer({
         </Text>
       </View>
       <View style={styles.rowCenter}>
-        <Image
-          resizeMode="contain"
-          source={require('../../../../assets/logo_docchi.png')}
-          style={[styles.logo, { maxWidth: 100 }]}
-        />
         {player.playerName.toLocaleLowerCase() === 'cda' ? (
           <>
             {isDownloaded ? (

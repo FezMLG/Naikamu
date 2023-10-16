@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { AnimeEpisode } from '@naikamu/shared';
-import { StyleSheet, ScrollView } from 'react-native';
+import { StyleSheet, ScrollView, Image } from 'react-native';
 import { Text } from 'react-native-paper';
 
 import { useQuerySeriesEpisodes } from '../../api/hooks';
@@ -9,7 +9,7 @@ import { Episode, PageLayout, useLayout } from '../../components';
 import { useTranslate } from '../../i18n/useTranslate';
 import { SeriesStackEpisodeScreenProps } from '../../routes';
 import { useActiveSeriesStore } from '../../services';
-import { darkStyle, globalStyle } from '../../styles';
+import { DarkColor, darkStyle, globalStyle } from '../../styles';
 
 export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
   const series = useActiveSeriesStore(store => store.series);
@@ -28,6 +28,11 @@ export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
       <PageLayout.Loading isLoading={isLoading} />
       <PageLayout.Error isError={isError} refetch={refetch} />
       <ScrollView style={styles.scrollView}>
+        <Image
+          resizeMode="contain"
+          source={require('../../../assets/logo_docchi.png')}
+          style={[styles.logo]}
+        />
         {episodes
           ? episodes.episodes.map((episode: AnimeEpisode, index: number) => (
               <Episode
@@ -50,5 +55,11 @@ export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
 const styles = StyleSheet.create({
   scrollView: {
     marginHorizontal: 10,
+  },
+  logo: {
+    marginTop: 10,
+    height: 20,
+    width: 75,
+    opacity: 0.75,
   },
 });
