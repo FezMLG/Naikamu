@@ -146,7 +146,6 @@ export function EpisodePlayer({
             )}
           </>
         ) : null}
-        <PlayerMenu player={player} />
       </View>
     </View>
   );
