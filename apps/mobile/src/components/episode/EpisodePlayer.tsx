@@ -12,8 +12,6 @@ import { useUserSettingsService } from '../../services';
 import { colors, DarkColor } from '../../styles';
 import { ActivityIndicator, IconButton } from '../atoms';
 
-import { PlayerMenu } from './PlayerMenu';
-
 export function EpisodePlayer({
   seriesId,
   player,

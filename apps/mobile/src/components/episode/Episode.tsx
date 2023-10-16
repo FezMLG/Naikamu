@@ -3,14 +3,12 @@ import React, { useState } from 'react';
 import { AnimeEpisode, AnimePlayer } from '@naikamu/shared';
 import { BlurView } from '@react-native-community/blur';
 import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import { List, ProgressBar } from 'react-native-paper';
+import { List } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useQuerySeriesEpisodePlayers } from '../../api/hooks';
 import {
-  createEpisodeProgressKey,
   useOfflineService,
-  useVideoProgress,
   useUserSettingsService,
   useActiveSeriesStore,
 } from '../../services';
@@ -33,6 +31,7 @@ import {
   EpisodePlayerError,
 } from './EpisodePlayer';
 import { EpisodeImage } from './player';
+import { EpisodeWatchProgress } from './player/EpisodeWatchProgress';
 import { sortPlayers } from './player/helpers';
 
 export function Episode({
@@ -50,9 +49,6 @@ export function Episode({
   );
   const [isSelected, setIsSelected] = useState(false);
   const { addOfflineSeries, addToQueue } = useOfflineService();
-  const { progress, loadProgress } = useVideoProgress(
-    createEpisodeProgressKey(series.id, episode.number),
-  );
   const {
     userSettings: { preferredDownloadQuality },
   } = useUserSettingsService();
@@ -72,8 +68,6 @@ export function Episode({
     });
     refetch();
   };
-
-  loadProgress();
 
   const handleDownload = async (player: AnimePlayer, fileUrl: string) => {
     const episodeToAdd = {
@@ -101,17 +95,7 @@ export function Episode({
 
   return (
     <SafeAreaView style={[styles.episodeContainer]}>
-      <View
-        style={[
-          styles.cardContainer,
-          isSelected && darkStyle.card,
-          progress
-            ? null
-            : {
-                borderBottomLeftRadius: defaultRadius,
-                borderBottomRightRadius: defaultRadius,
-              },
-        ]}>
+      <View style={[styles.cardContainer, isSelected && darkStyle.card]}>
         <PlatformExplicit availablePlatforms={['ios']}>
           <ProgressiveImage
             key="blurryImage"
@@ -160,17 +144,7 @@ export function Episode({
             />
           </View>
         </Pressable>
-        {progress ? (
-          <ProgressBar
-            progress={progress / (24 * 60)}
-            style={{ zIndex: 1 }}
-            theme={{
-              colors: {
-                primary: colors.accent.color,
-              },
-            }}
-          />
-        ) : null}
+        <EpisodeWatchProgress episodeNumber={episode.number} />
         {isSelected ? (
           <>
             {episode.description ? (
