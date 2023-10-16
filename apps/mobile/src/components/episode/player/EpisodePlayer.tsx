@@ -5,28 +5,31 @@ import { useNavigation } from '@react-navigation/native';
 import { View, Text, Image, StyleSheet, Linking } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { useQueryResolvePlayerLink } from '../../api/hooks';
-import { useTranslate } from '../../i18n/useTranslate';
-import { RootStackScreenNames } from '../../routes';
-import { useUserSettingsService } from '../../services';
-import { colors, DarkColor } from '../../styles';
-import { ActivityIndicator, IconButton } from '../atoms';
+import { useQueryResolvePlayerLink } from '../../../api/hooks';
+import { useTranslate } from '../../../i18n/useTranslate';
+import { RootStackScreenNames } from '../../../routes';
+import {
+  useActiveSeriesStore,
+  useUserSettingsService,
+} from '../../../services';
+import { colors, DarkColor } from '../../../styles';
+import { ActivityIndicator, IconButton } from '../../atoms';
 
 export function EpisodePlayer({
-  seriesId,
   player,
   episodeNumber,
   episodeTitle,
   isDownloaded,
   handleDownload,
 }: {
-  seriesId: string;
   player: AnimePlayer;
   episodeNumber: number;
   episodeTitle: string;
   isDownloaded: boolean;
   handleDownload: (player: AnimePlayer, fileUrl: string) => void;
 }) {
+  const series = useActiveSeriesStore(store => store.series)!;
+
   const navigation = useNavigation<any>();
 
   const { userSettings } = useUserSettingsService();
@@ -35,7 +38,7 @@ export function EpisodePlayer({
     refetch: watchRefetch,
     isError,
   } = useQueryResolvePlayerLink({
-    animeId: seriesId,
+    animeId: series.id,
     player: player.playerName,
     url: player.playerLink,
     resolution: userSettings.preferredResolution,
@@ -44,7 +47,7 @@ export function EpisodePlayer({
   });
 
   const download = useQueryResolvePlayerLink({
-    animeId: seriesId,
+    animeId: series.id,
     player: player.playerName,
     url: player.playerLink,
     resolution: userSettings.preferredDownloadQuality,
@@ -80,7 +83,7 @@ export function EpisodePlayer({
                     if (result) {
                       navigation.navigate(RootStackScreenNames.NativePlayer, {
                         uri: result.uri,
-                        seriesId,
+                        seriesId: series.id,
                         episodeTitle,
                         episodeNumber,
                       });
@@ -97,7 +100,7 @@ export function EpisodePlayer({
             onPress={() => {
               navigation.navigate(RootStackScreenNames.WebViewPlayer, {
                 uri: player.playerLink,
-                seriesId,
+                seriesId: series.id,
                 episodeTitle,
                 episodeNumber,
               });
@@ -119,7 +122,7 @@ export function EpisodePlayer({
       <View style={styles.rowCenter}>
         <Image
           resizeMode="contain"
-          source={require('../../../assets/logo_docchi.png')}
+          source={require('../../../../assets/logo_docchi.png')}
           style={[styles.logo, { maxWidth: 100 }]}
         />
         {player.playerName.toLocaleLowerCase() === 'cda' ? (

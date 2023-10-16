@@ -11,9 +11,9 @@ import {
   SeriesDetailsRelations,
   WatchList,
   ProgressiveImage,
-  PlatformExplicit,
   PageLayout,
   useLayout,
+  PlatformExplicit,
 } from '../../components';
 import { SeriesStackSeriesScreenProps } from '../../routes';
 import { globalStyle, DarkColor, colors } from '../../styles';

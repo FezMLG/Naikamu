@@ -4,8 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import { Checkbox, RadioButton, Text } from 'react-native-paper';
 
 import { useTranslate } from '../../i18n/useTranslate';
-import { Resolution } from '../../services/settings/interfaces';
-import { useUserSettingsService } from '../../services/settings/settings.service';
+import { Resolution, useUserSettingsService } from '../../services';
 import { colors, fontStyles } from '../../styles';
 import { Button, Modal } from '../atoms';
 

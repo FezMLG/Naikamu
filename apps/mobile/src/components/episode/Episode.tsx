@@ -26,12 +26,12 @@ import { PlatformExplicit } from '../PlatformExplicit';
 import { ProgressiveImage } from '../ProgressiveImage';
 
 import {
+  EpisodeImage,
   EpisodePlayer,
   EpisodePlayerEmpty,
   EpisodePlayerError,
-} from './EpisodePlayer';
-import { EpisodeImage } from './player';
-import { EpisodeWatchProgress } from './player/EpisodeWatchProgress';
+  EpisodeWatchProgress,
+} from './player';
 import { sortPlayers } from './player/helpers';
 
 export function Episode({
@@ -175,9 +175,8 @@ export function Episode({
                         }
                         handleDownload={handleDownload}
                         isDownloaded={isDownloaded}
-                        key={index}
+                        key={player.playerType + index}
                         player={player}
-                        seriesId={series.id}
                       />
                     ))}
                 </>
@@ -195,7 +194,6 @@ export function Episode({
                           isDownloaded={isDownloaded}
                           key={player.playerType + index}
                           player={player}
-                          seriesId={series.id}
                         />
                       </View>
                     ))}

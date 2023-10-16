@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 
+import { StyleSheet } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
 
 import {
@@ -8,8 +9,6 @@ import {
   useVideoProgress,
 } from '../../../services';
 import { colors } from '../../../styles';
-import { logger } from '../../../utils/logger';
-import { StyleSheet } from 'react-native';
 
 export const EpisodeWatchProgress = ({
   episodeNumber,
@@ -23,7 +22,7 @@ export const EpisodeWatchProgress = ({
   );
 
   useEffect(() => {
-    loadProgress().then(r => logger('EpisodeWatchProgress#useEffect').info(r));
+    loadProgress();
   }, [loadProgress]);
 
   return (
