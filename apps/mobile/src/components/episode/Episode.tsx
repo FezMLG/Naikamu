@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-import { AnimeEpisode, AnimePlayer } from '@naikamu/shared';
+import { AnimeEpisode, AnimePlayer, PlayerType } from '@naikamu/shared';
 import { BlurView } from '@react-native-community/blur';
 import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import { ProgressBar } from 'react-native-paper';
+import { List, ProgressBar } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useQuerySeriesEpisodePlayers } from '../../api/hooks';
@@ -32,6 +32,8 @@ import {
   EpisodePlayerEmpty,
   EpisodePlayerError,
 } from './EpisodePlayer';
+import { sortPlayers } from './player/helpers/sortPlayers';
+import { EpisodeImage } from './player/EpisodeImage';
 
 export function Episode({
   episode,
@@ -134,18 +136,7 @@ export function Episode({
           />
         </PlatformExplicit>
         <Pressable onPress={openDetails} style={[styles.innerCard]}>
-          <PlatformExplicit availablePlatforms={['ios']}>
-            <ProgressiveImage
-              source={episode.poster_url ?? series.posterUrl}
-              style={[styles.poster]}
-            />
-          </PlatformExplicit>
-          <PlatformExplicit availablePlatforms={['android']}>
-            <ProgressiveImage
-              source={episode.poster_url ?? series.posterUrl}
-              style={[styles.poster, { borderRadius: defaultRadius }]}
-            />
-          </PlatformExplicit>
+          <EpisodeImage source={episode.poster_url ?? series.posterUrl} />
           <View style={styles.titleRow}>
             <Text numberOfLines={2} style={[styles.title, colors.textLight]}>
               {episode.number + '. ' + episode.title}
@@ -197,17 +188,45 @@ export function Episode({
           {isLoading ? <ActivityIndicator size="large" visible={true} /> : null}
           {data ? (
             data.players.length > 0 ? (
-              data.players.map((player: AnimePlayer, index: number) => (
-                <EpisodePlayer
-                  episodeNumber={episode.number}
-                  episodeTitle={'E' + episode.number + ' ' + episode.title}
-                  handleDownload={handleDownload}
-                  isDownloaded={isDownloaded}
-                  key={index}
-                  player={player}
-                  seriesId={series.id}
-                />
-              ))
+              <>
+                <>
+                  {data.players
+                    .filter(player => player.playerType !== 'external')
+                    .sort(sortPlayers)
+                    .map((player: AnimePlayer, index: number) => (
+                      <EpisodePlayer
+                        episodeNumber={episode.number}
+                        episodeTitle={
+                          'E' + episode.number + ' ' + episode.title
+                        }
+                        handleDownload={handleDownload}
+                        isDownloaded={isDownloaded}
+                        key={index}
+                        player={player}
+                        seriesId={series.id}
+                      />
+                    ))}
+                </>
+                <List.Accordion title="Inne">
+                  {data.players
+                    .filter(player => player.playerType === 'external')
+                    .map((player: AnimePlayer, index: number) => (
+                      <View style={{ marginTop: 10 }}>
+                        <EpisodePlayer
+                          episodeNumber={episode.number}
+                          episodeTitle={
+                            'E' + episode.number + ' ' + episode.title
+                          }
+                          handleDownload={handleDownload}
+                          isDownloaded={isDownloaded}
+                          key={player.playerType + index}
+                          player={player}
+                          seriesId={series.id}
+                        />
+                      </View>
+                    ))}
+                </List.Accordion>
+              </>
             ) : (
               <EpisodePlayerEmpty />
             )
@@ -223,12 +242,6 @@ const styles = StyleSheet.create({
     marginVertical: 16,
     width: '100%',
     maxWidth: 500,
-  },
-  poster: {
-    width: '30%',
-    height: 80,
-    borderTopLeftRadius: defaultRadius,
-    borderBottomLeftRadius: defaultRadius,
   },
   titleRow: {
     width: '55%',
