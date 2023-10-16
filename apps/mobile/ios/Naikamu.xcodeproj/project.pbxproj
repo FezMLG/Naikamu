@@ -30,6 +30,9 @@
 		8AC332D88D1E45F7B17A7872 /* Catamaran-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7FD1A202039C47F7B6472188 /* Catamaran-SemiBold.ttf */; };
 		9053529D6E704CEB89501E55 /* Catamaran-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7E85770909F4FE59E7BED83 /* Catamaran-Bold.ttf */; };
 		95923EB29FD04319B4B158D3 /* Catamaran-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 670EFE93C70145668E9C2065 /* Catamaran-Medium.ttf */; };
+		A1019C6F2ADDA12500AD0BD0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A15CF3412AD17C77004A53F3 /* GoogleService-Info.plist */; };
+		A1019C702ADDA12900AD0BD0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A15CF3452AD17C8B004A53F3 /* GoogleService-Info.plist */; };
+		A1019C712ADDA12C00AD0BD0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A15CF3432AD17C82004A53F3 /* GoogleService-Info.plist */; };
 		A15CF2DB2AD030C0004A53F3 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		A15CF2DC2AD030C0004A53F3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		A15CF2E02AD030C0004A53F3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
@@ -100,9 +103,6 @@
 		A15CF3342AD030C3004A53F3 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCDB922956DD4A088BB38541 /* Roboto-Regular.ttf */; };
 		A15CF3352AD030C3004A53F3 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9AF49667AA8B4F3085380A85 /* Roboto-Thin.ttf */; };
 		A15CF3362AD030C3004A53F3 /* Roboto-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2754ACDABB0E42EFB53D6194 /* Roboto-ThinItalic.ttf */; };
-		A15CF3422AD17C77004A53F3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A15CF3412AD17C77004A53F3 /* GoogleService-Info.plist */; };
-		A15CF3442AD17C82004A53F3 /* GoogleService-Info-Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = A15CF3432AD17C82004A53F3 /* GoogleService-Info-Dev.plist */; };
-		A15CF3462AD17C8B004A53F3 /* GoogleService-Info-Stg.plist in Resources */ = {isa = PBXBuildFile; fileRef = A15CF3452AD17C8B004A53F3 /* GoogleService-Info-Stg.plist */; };
 		BB52E950580D4DC084B58B83 /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E7D1975A2C084394AE17E3F6 /* Lato-BlackItalic.ttf */; };
 		C2867B7E972E4BB092B35A8B /* Lato-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BD10419163E143AD9C8A5D34 /* Lato-BoldItalic.ttf */; };
 		C55D25A767764655B7AB7B6C /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85ED07357DE04B329A35C091 /* Roboto-Medium.ttf */; };
@@ -200,8 +200,8 @@
 		A15CF33F2AD030C3004A53F3 /* NaikamuDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NaikamuDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A15CF3402AD030C3004A53F3 /* Naikamu dev-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Naikamu dev-Info.plist"; path = "/Users/konrad.ch/Documents/GitHub/AniWatch/apps/mobile/ios/Naikamu dev-Info.plist"; sourceTree = "<absolute>"; };
 		A15CF3412AD17C77004A53F3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		A15CF3432AD17C82004A53F3 /* GoogleService-Info-Dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Dev.plist"; sourceTree = "<group>"; };
-		A15CF3452AD17C8B004A53F3 /* GoogleService-Info-Stg.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Stg.plist"; sourceTree = "<group>"; };
+		A15CF3432AD17C82004A53F3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A15CF3452AD17C8B004A53F3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BCDB922956DD4A088BB38541 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Regular.ttf"; path = "../assets/fonts/Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		BD10419163E143AD9C8A5D34 /* Lato-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-BoldItalic.ttf"; path = "../assets/fonts/Lato-BoldItalic.ttf"; sourceTree = "<group>"; };
 		C7E85770909F4FE59E7BED83 /* Catamaran-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Catamaran-Bold.ttf"; path = "../assets/fonts/Catamaran-Bold.ttf"; sourceTree = "<group>"; };
@@ -273,6 +273,7 @@
 		13B07FAE1A68108700A75B9A /* Naikamu */ = {
 			isa = PBXGroup;
 			children = (
+				A1019C6C2ADDA0E500AD0BD0 /* GoogleService */,
 				71A6697D291D9A7000F886BB /* Naikamu.entitlements */,
 				71A6695A291D696300F886BB /* Fonts */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -368,9 +369,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				A15CF3452AD17C8B004A53F3 /* GoogleService-Info-Stg.plist */,
-				A15CF3432AD17C82004A53F3 /* GoogleService-Info-Dev.plist */,
-				A15CF3412AD17C77004A53F3 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* Naikamu */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* NaikamuTests */,
@@ -395,6 +393,40 @@
 				A15CF33F2AD030C3004A53F3 /* NaikamuDev.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		A1019C6B2ADDA0DB00AD0BD0 /* Dev */ = {
+			isa = PBXGroup;
+			children = (
+				A15CF3432AD17C82004A53F3 /* GoogleService-Info.plist */,
+			);
+			path = Dev;
+			sourceTree = "<group>";
+		};
+		A1019C6C2ADDA0E500AD0BD0 /* GoogleService */ = {
+			isa = PBXGroup;
+			children = (
+				A1019C6E2ADDA10000AD0BD0 /* Prod */,
+				A1019C6D2ADDA0F200AD0BD0 /* Stg */,
+				A1019C6B2ADDA0DB00AD0BD0 /* Dev */,
+			);
+			name = GoogleService;
+			sourceTree = "<group>";
+		};
+		A1019C6D2ADDA0F200AD0BD0 /* Stg */ = {
+			isa = PBXGroup;
+			children = (
+				A15CF3452AD17C8B004A53F3 /* GoogleService-Info.plist */,
+			);
+			name = Stg;
+			sourceTree = "<group>";
+		};
+		A1019C6E2ADDA10000AD0BD0 /* Prod */ = {
+			isa = PBXGroup;
+			children = (
+				A15CF3412AD17C77004A53F3 /* GoogleService-Info.plist */,
+			);
+			path = Prod;
 			sourceTree = "<group>";
 		};
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
@@ -586,7 +618,7 @@
 				DB6B33ACD4644DEAB3F408C0 /* Roboto-Light.ttf in Resources */,
 				CFFE76A268C648B58EBB3320 /* Roboto-LightItalic.ttf in Resources */,
 				C55D25A767764655B7AB7B6C /* Roboto-Medium.ttf in Resources */,
-				A15CF3422AD17C77004A53F3 /* GoogleService-Info.plist in Resources */,
+				A1019C6F2ADDA12500AD0BD0 /* GoogleService-Info.plist in Resources */,
 				5BEBB4A448C54542BE856AB3 /* Roboto-MediumItalic.ttf in Resources */,
 				FD6E4AA790FE404BB44544E7 /* Roboto-Regular.ttf in Resources */,
 				2C428F9E5A804BD18C21935C /* Roboto-Thin.ttf in Resources */,
@@ -620,7 +652,6 @@
 				A15CF2F42AD030C0004A53F3 /* Lato-Thin.ttf in Resources */,
 				A15CF2F52AD030C0004A53F3 /* Lato-ThinItalic.ttf in Resources */,
 				A15CF2F62AD030C0004A53F3 /* Roboto-Black.ttf in Resources */,
-				A15CF3462AD17C8B004A53F3 /* GoogleService-Info-Stg.plist in Resources */,
 				A15CF2F72AD030C0004A53F3 /* Roboto-BlackItalic.ttf in Resources */,
 				A15CF2F82AD030C0004A53F3 /* Roboto-Bold.ttf in Resources */,
 				A15CF2F92AD030C0004A53F3 /* Roboto-BoldItalic.ttf in Resources */,
@@ -628,6 +659,7 @@
 				A15CF2FB2AD030C0004A53F3 /* Roboto-Light.ttf in Resources */,
 				A15CF2FC2AD030C0004A53F3 /* Roboto-LightItalic.ttf in Resources */,
 				A15CF2FD2AD030C0004A53F3 /* Roboto-Medium.ttf in Resources */,
+				A1019C702ADDA12900AD0BD0 /* GoogleService-Info.plist in Resources */,
 				A15CF2FE2AD030C0004A53F3 /* Roboto-MediumItalic.ttf in Resources */,
 				A15CF2FF2AD030C0004A53F3 /* Roboto-Regular.ttf in Resources */,
 				A15CF3002AD030C0004A53F3 /* Roboto-Thin.ttf in Resources */,
@@ -668,9 +700,9 @@
 				A15CF3302AD030C3004A53F3 /* Roboto-Light.ttf in Resources */,
 				A15CF3312AD030C3004A53F3 /* Roboto-LightItalic.ttf in Resources */,
 				A15CF3322AD030C3004A53F3 /* Roboto-Medium.ttf in Resources */,
+				A1019C712ADDA12C00AD0BD0 /* GoogleService-Info.plist in Resources */,
 				A15CF3332AD030C3004A53F3 /* Roboto-MediumItalic.ttf in Resources */,
 				A15CF3342AD030C3004A53F3 /* Roboto-Regular.ttf in Resources */,
-				A15CF3442AD17C82004A53F3 /* GoogleService-Info-Dev.plist in Resources */,
 				A15CF3352AD030C3004A53F3 /* Roboto-Thin.ttf in Resources */,
 				A15CF3362AD030C3004A53F3 /* Roboto-ThinItalic.ttf in Resources */,
 			);
@@ -1273,6 +1305,8 @@
 					"-ld_classic",
 					"-Wl",
 					"-ld_classic",
+					"-Wl",
+					"-ld_classic",
 					"-Wl -ld_classic ",
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
@@ -1354,6 +1388,8 @@
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
+					"-Wl",
+					"-ld_classic",
 					"-Wl",
 					"-ld_classic",
 					"-Wl",

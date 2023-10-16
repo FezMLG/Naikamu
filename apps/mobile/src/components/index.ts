@@ -11,3 +11,4 @@ export * from './Timer';
 export * from './series';
 export * from './ActiveDownload';
 export * from './EnvironmentDebug';
+export * from './PlatformExplicit';

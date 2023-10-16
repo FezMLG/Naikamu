@@ -3,14 +3,12 @@ import React, { useState } from 'react';
 import { AnimeEpisode, AnimePlayer } from '@naikamu/shared';
 import { BlurView } from '@react-native-community/blur';
 import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import { ProgressBar } from 'react-native-paper';
+import { List } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useQuerySeriesEpisodePlayers } from '../../api/hooks';
 import {
-  createEpisodeProgressKey,
   useOfflineService,
-  useVideoProgress,
   useUserSettingsService,
   useActiveSeriesStore,
 } from '../../services';
@@ -21,17 +19,20 @@ import {
   defaultRadius,
   fontStyles,
 } from '../../styles';
+import { logger } from '../../utils/logger';
 import { ActivityIndicator } from '../atoms';
 import { UpdateEpisodeWatchStatus } from '../molecules';
 import { PlatformExplicit } from '../PlatformExplicit';
 import { ProgressiveImage } from '../ProgressiveImage';
 
 import {
+  EpisodeImage,
   EpisodePlayer,
   EpisodePlayerEmpty,
   EpisodePlayerError,
-} from './EpisodePlayer';
-import { logger } from '../../utils/logger';
+  EpisodeWatchProgress,
+} from './player';
+import { sortPlayers } from './player/helpers';
 
 export function Episode({
   episode,
@@ -48,9 +49,6 @@ export function Episode({
   );
   const [isSelected, setIsSelected] = useState(false);
   const { addOfflineSeries, addToQueue } = useOfflineService();
-  const { progress, loadProgress } = useVideoProgress(
-    createEpisodeProgressKey(series.id, episode.number),
-  );
   const {
     userSettings: { preferredDownloadQuality },
   } = useUserSettingsService();
@@ -71,14 +69,12 @@ export function Episode({
     refetch();
   };
 
-  loadProgress();
-
   const handleDownload = async (player: AnimePlayer, fileUrl: string) => {
     const episodeToAdd = {
       number: episode.number,
       title: episode.title,
       length: series.episodeLength,
-      translator: player.translator_name,
+      translator: player.translatorName,
       pathToFile: null,
       size: 0,
     };
@@ -99,17 +95,7 @@ export function Episode({
 
   return (
     <SafeAreaView style={[styles.episodeContainer]}>
-      <View
-        style={[
-          styles.cardContainer,
-          isSelected && darkStyle.card,
-          progress
-            ? null
-            : {
-                borderBottomLeftRadius: defaultRadius,
-                borderBottomRightRadius: defaultRadius,
-              },
-        ]}>
+      <View style={[styles.cardContainer, isSelected && darkStyle.card]}>
         <PlatformExplicit availablePlatforms={['ios']}>
           <ProgressiveImage
             key="blurryImage"
@@ -134,18 +120,7 @@ export function Episode({
           />
         </PlatformExplicit>
         <Pressable onPress={openDetails} style={[styles.innerCard]}>
-          <PlatformExplicit availablePlatforms={['ios']}>
-            <ProgressiveImage
-              source={episode.poster_url ?? series.posterUrl}
-              style={[styles.poster]}
-            />
-          </PlatformExplicit>
-          <PlatformExplicit availablePlatforms={['android']}>
-            <ProgressiveImage
-              source={episode.poster_url ?? series.posterUrl}
-              style={[styles.poster, { borderRadius: defaultRadius }]}
-            />
-          </PlatformExplicit>
+          <EpisodeImage source={episode.poster_url ?? series.posterUrl} />
           <View style={styles.titleRow}>
             <Text numberOfLines={2} style={[styles.title, colors.textLight]}>
               {episode.number + '. ' + episode.title}
@@ -169,17 +144,7 @@ export function Episode({
             />
           </View>
         </Pressable>
-        {progress ? (
-          <ProgressBar
-            progress={progress / (24 * 60)}
-            style={{ zIndex: 1 }}
-            theme={{
-              colors: {
-                primary: colors.accent.color,
-              },
-            }}
-          />
-        ) : null}
+        <EpisodeWatchProgress episodeNumber={episode.number} />
         {isSelected ? (
           <>
             {episode.description ? (
@@ -197,17 +162,43 @@ export function Episode({
           {isLoading ? <ActivityIndicator size="large" visible={true} /> : null}
           {data ? (
             data.players.length > 0 ? (
-              data.players.map((player: AnimePlayer, index: number) => (
-                <EpisodePlayer
-                  episodeNumber={episode.number}
-                  episodeTitle={'E' + episode.number + ' ' + episode.title}
-                  handleDownload={handleDownload}
-                  isDownloaded={isDownloaded}
-                  key={index}
-                  player={player}
-                  seriesId={series.id}
-                />
-              ))
+              <>
+                <>
+                  {data.players
+                    .filter(player => player.playerType !== 'external')
+                    .sort(sortPlayers)
+                    .map((player: AnimePlayer, index: number) => (
+                      <EpisodePlayer
+                        episodeNumber={episode.number}
+                        episodeTitle={
+                          'E' + episode.number + ' ' + episode.title
+                        }
+                        handleDownload={handleDownload}
+                        isDownloaded={isDownloaded}
+                        key={player.playerType + index}
+                        player={player}
+                      />
+                    ))}
+                </>
+                <List.Accordion title="Inne">
+                  {data.players
+                    .filter(player => player.playerType === 'external')
+                    .map((player: AnimePlayer, index: number) => (
+                      <View style={{ marginTop: 10 }}>
+                        <EpisodePlayer
+                          episodeNumber={episode.number}
+                          episodeTitle={
+                            'E' + episode.number + ' ' + episode.title
+                          }
+                          handleDownload={handleDownload}
+                          isDownloaded={isDownloaded}
+                          key={player.playerType + index}
+                          player={player}
+                        />
+                      </View>
+                    ))}
+                </List.Accordion>
+              </>
             ) : (
               <EpisodePlayerEmpty />
             )
@@ -223,11 +214,6 @@ const styles = StyleSheet.create({
     marginVertical: 16,
     width: '100%',
     maxWidth: 500,
-  },
-  poster: {
-    width: '30%',
-    height: 80,
-    borderTopLeftRadius: defaultRadius,
   },
   titleRow: {
     width: '55%',

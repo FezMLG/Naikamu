@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { BlurView } from '@react-native-community/blur';
-import { StyleSheet, ScrollView, View, Pressable, Text } from 'react-native';
+import { StyleSheet, ScrollView, View, Pressable } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useQuerySeriesDetails } from '../../api/hooks';
@@ -11,9 +11,9 @@ import {
   SeriesDetailsRelations,
   WatchList,
   ProgressiveImage,
-  PlatformExplicit,
   PageLayout,
   useLayout,
+  PlatformExplicit,
 } from '../../components';
 import { SeriesStackSeriesScreenProps } from '../../routes';
 import { globalStyle, DarkColor, colors } from '../../styles';

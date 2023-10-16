@@ -1,16 +1,13 @@
 import React from 'react';
 
-import { Animated, StyleProp } from 'react-native';
-import FastImage, {
-  FastImageStaticProperties,
-  ImageStyle,
-} from 'react-native-fast-image';
+import { Animated } from 'react-native';
+import FastImage, { FastImageProps } from 'react-native-fast-image';
 
-export function ProgressiveImage(props: {
-  source: string;
-  style: StyleProp<ImageStyle>;
-  resizeMode?: keyof FastImageStaticProperties['resizeMode'];
-}) {
+export function ProgressiveImage({
+  resizeMode,
+  source,
+  ...props
+}: Omit<FastImageProps, 'source'> & { source: string }) {
   const imageAnimated = new Animated.Value(0);
 
   const onImageLoad = () => {
@@ -20,8 +17,6 @@ export function ProgressiveImage(props: {
     }).start();
   };
 
-  const { source, style, resizeMode } = props;
-
   return (
     <FastImage
       onLoad={onImageLoad}
@@ -30,7 +25,7 @@ export function ProgressiveImage(props: {
         uri: source,
         priority: FastImage.priority.normal,
       }}
-      style={[style]}
+      {...props}
     />
   );
 }

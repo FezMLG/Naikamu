@@ -141,18 +141,13 @@ export class APIClient {
     );
   }
 
-  async getEpisodePlayers(
-    id: string,
-    episode: number,
-    resolution: Resolution,
-  ): Promise<AnimePlayers> {
+  async getEpisodePlayers(id: string, episode: number): Promise<AnimePlayers> {
     const token = await this.withToken();
 
     return this.post<AnimePlayers>(
       `/anime/details/episode/${episode}`,
       {
         id: id,
-        resolution: resolution,
       },
       { ...token },
     );

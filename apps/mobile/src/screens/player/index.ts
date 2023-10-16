@@ -1,1 +1,1 @@
-export * from './VideoPlayerScreen';
+export * from './NativeVideoPlayerScreen';
