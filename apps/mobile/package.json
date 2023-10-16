@@ -14,7 +14,7 @@
     "android:dev-release": "react-native run-android --mode developmentrelease",
     "android:prod": "react-native run-android --mode productiondebug",
     "android:prod-release": "react-native run-android --mode productionrelease",
-    "ios": "react-native run-ios --mode \"Debug\" --scheme \"Naikamu\" --simulator \"iPhone 15\"",
+    "ios": "react-native run-ios --mode \"Debug\" --scheme \"NaikamuDev\" --simulator \"iPhone 15\"",
     "ios:release": "react-native run-ios --mode \"Release\" --scheme \"NaikamuDev\" --simulator \"iPhone 15\"",
     "ios:stg:release": "react-native run-ios --mode \"Release\" --scheme \"NaikamuStg\"",
     "ios:prod:release": "react-native run-ios --mode \"Release\" --scheme \"Naikamu\"",

@@ -12,6 +12,8 @@ export function ActionRequiredScreen({
   navigation,
 }: AuthStackActionRequiredScreenProps) {
   const appVersion = require('../../package.json').version;
+  const apiVersion = require('../../package.json').apiVersion;
+
   const { translate } = useTranslate();
 
   React.useEffect(
@@ -52,7 +54,7 @@ export function ActionRequiredScreen({
         <View style={globalStyle.spacerSmall} />
         <Text
           style={[globalStyle.textCenter, fontStyles.label, colors.textLight]}>
-          app ver.: {appVersion} / {Config.ENV}
+          app ver.: {appVersion} / {Config.ENV} / {apiVersion}
         </Text>
       </View>
     </SafeAreaView>
