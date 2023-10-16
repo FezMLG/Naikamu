@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { AnimeEpisode, AnimePlayer, PlayerType } from '@naikamu/shared';
+import { AnimeEpisode, AnimePlayer } from '@naikamu/shared';
 import { BlurView } from '@react-native-community/blur';
 import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { List, ProgressBar } from 'react-native-paper';
@@ -32,8 +32,8 @@ import {
   EpisodePlayerEmpty,
   EpisodePlayerError,
 } from './EpisodePlayer';
-import { sortPlayers } from './player/helpers/sortPlayers';
-import { EpisodeImage } from './player/EpisodeImage';
+import { EpisodeImage } from './player';
+import { sortPlayers } from './player/helpers';
 
 export function Episode({
   episode,
