@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>235555521653-fqoe7nmlgdmqanse7l2rkae7hsrj0eni.apps.googleusercontent.com</string>
+	<string>235555521653-kk9kkjqbpcvfjplk97i5in8eab2joogm.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.235555521653-fqoe7nmlgdmqanse7l2rkae7hsrj0eni</string>
+	<string>com.googleusercontent.apps.235555521653-kk9kkjqbpcvfjplk97i5in8eab2joogm</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>235555521653-1d1hlrio36kc1dfogqasct7j8i99q5fb.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,23 +15,23 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.tltcode.naikamu.staging</string>
+	<string>com.tltcode.naikamu</string>
 	<key>PROJECT_ID</key>
 	<string>aniwatch-1f64a</string>
 	<key>STORAGE_BUCKET</key>
 	<string>aniwatch-1f64a.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
+	<true/>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_GCM_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:235555521653:ios:3a7fc51c8ec12a5614243c</string>
+	<string>1:235555521653:ios:fadb0eaa5aeb803714243c</string>
 	<key>DATABASE_URL</key>
 	<string>https://aniwatch-1f64a-default-rtdb.europe-west1.firebasedatabase.app</string>
 </dict>
