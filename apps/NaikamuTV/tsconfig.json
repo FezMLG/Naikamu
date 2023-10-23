@@ -1,0 +1,18 @@
+// prettier-ignore
+{
+  "extends": "@tsconfig/react-native/tsconfig.json",     /* Recommended React Native TSConfig base */
+  "compilerOptions": {
+    "lib": ["es2021"],
+    "baseUrl": "./",
+    "paths": {
+      "@naikamu/shared": ["../../lib/shared/"]
+    },
+    /* Visit https://aka.ms/tsconfig.json to read more about this file */
+
+    /* Completeness */
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+  },
+  "typeRoots": ["./src/types"],
+}
