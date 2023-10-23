@@ -19,6 +19,8 @@
 		41BF5F3596F87FEE707DDD11 /* libPods-NaikamuTV-NaikamuTVTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F21F13455730034D850CD1C /* libPods-NaikamuTV-NaikamuTVTests.a */; };
 		47EB63F3390701B2260096C6 /* libPods-NaikamuTV-tvOS-NaikamuTV-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0216F1136BF7C90703C880F /* libPods-NaikamuTV-tvOS-NaikamuTV-tvOSTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		A1019C732AE71CA800AD0BD0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A1019C722AE71CA800AD0BD0 /* GoogleService-Info.plist */; };
+		A1019C742AE71CA800AD0BD0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A1019C722AE71CA800AD0BD0 /* GoogleService-Info.plist */; };
 		EE57DEA5314790D63C074D03 /* libPods-NaikamuTV-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA54FCF2086BA3B4678F8237 /* libPods-NaikamuTV-tvOS.a */; };
 /* End PBXBuildFile section */
 
@@ -62,6 +64,7 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = NaikamuTV/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8DC2855AB2CCC04BED0978AE /* libPods-NaikamuTV.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NaikamuTV.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0216F1136BF7C90703C880F /* libPods-NaikamuTV-tvOS-NaikamuTV-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NaikamuTV-tvOS-NaikamuTV-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1019C722AE71CA800AD0BD0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CCE9A90FED9D09047497AB6D /* Pods-NaikamuTV-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NaikamuTV-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-NaikamuTV-tvOS/Pods-NaikamuTV-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		E8891750AE2DFBD87A5BDB74 /* Pods-NaikamuTV-tvOS-NaikamuTV-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NaikamuTV-tvOS-NaikamuTV-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-NaikamuTV-tvOS-NaikamuTV-tvOSTests/Pods-NaikamuTV-tvOS-NaikamuTV-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EA54FCF2086BA3B4678F8237 /* libPods-NaikamuTV-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NaikamuTV-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,6 +128,7 @@
 		13B07FAE1A68108700A75B9A /* NaikamuTV */ = {
 			isa = PBXGroup;
 			children = (
+				A1019C722AE71CA800AD0BD0 /* GoogleService-Info.plist */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
@@ -346,6 +350,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				A1019C732AE71CA800AD0BD0 /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -355,6 +360,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */,
+				A1019C742AE71CA800AD0BD0 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

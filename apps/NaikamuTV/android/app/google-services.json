@@ -1,0 +1,351 @@
+{
+  "project_info": {
+    "project_number": "235555521653",
+    "firebase_url": "https://aniwatch-1f64a-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "aniwatch-1f64a",
+    "storage_bucket": "aniwatch-1f64a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:235555521653:android:4929bba930b780c714243c",
+        "android_client_info": {
+          "package_name": "com.aniwatch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "235555521653-6dgp83lpgepat1o6h661sv3ksfs5cq6r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aniwatch",
+            "certificate_hash": "4f807712f1da5cdb8227fba6cc2e888e0d68416f"
+          }
+        },
+        {
+          "client_id": "235555521653-u912a0ccok2j0kmbpv11i4jlpfu29obf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBt9KGuQDfQNZXXRIRv0YC95L8gmA9Mdok"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "235555521653-u912a0ccok2j0kmbpv11i4jlpfu29obf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "235555521653-0psihep90o2s63ubvvbadt6hg3tilscp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.aniwatch.tv.dev"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:235555521653:android:d409a549410629e414243c",
+        "android_client_info": {
+          "package_name": "com.aniwatch.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "235555521653-8ldlff6gito14n264o4mutobj1labe8k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aniwatch.dev",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "235555521653-u912a0ccok2j0kmbpv11i4jlpfu29obf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBt9KGuQDfQNZXXRIRv0YC95L8gmA9Mdok"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "235555521653-u912a0ccok2j0kmbpv11i4jlpfu29obf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "235555521653-0psihep90o2s63ubvvbadt6hg3tilscp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.aniwatch.tv.dev"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:235555521653:android:5b54ca501a32862914243c",
+        "android_client_info": {
+          "package_name": "com.aniwatch.stg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "235555521653-1d1hlrio36kc1dfogqasct7j8i99q5fb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aniwatch.stg",
+            "certificate_hash": "4f807712f1da5cdb8227fba6cc2e888e0d68416f"
+          }
+        },
+        {
+          "client_id": "235555521653-u912a0ccok2j0kmbpv11i4jlpfu29obf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBt9KGuQDfQNZXXRIRv0YC95L8gmA9Mdok"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "235555521653-u912a0ccok2j0kmbpv11i4jlpfu29obf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "235555521653-0psihep90o2s63ubvvbadt6hg3tilscp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.aniwatch.tv.dev"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:235555521653:android:5f873810a59f643814243c",
+        "android_client_info": {
+          "package_name": "com.naikamutv"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "235555521653-nho3j2781obtkulpar4s7c7kl1pks98h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.naikamutv",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "235555521653-q5janam47c7ilaqg82kd00s09rod6m42.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.naikamutv",
+            "certificate_hash": "3b14264a4de3dba3462c9e1241f428a7531448a0"
+          }
+        },
+        {
+          "client_id": "235555521653-u912a0ccok2j0kmbpv11i4jlpfu29obf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBt9KGuQDfQNZXXRIRv0YC95L8gmA9Mdok"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "235555521653-u912a0ccok2j0kmbpv11i4jlpfu29obf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "235555521653-0psihep90o2s63ubvvbadt6hg3tilscp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.aniwatch.tv.dev"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:235555521653:android:d1cb65781860fae814243c",
+        "android_client_info": {
+          "package_name": "com.tltcode.naikamu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "235555521653-f8i5sdkn5tli9p9spehlauoa139ntsb4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tltcode.naikamu",
+            "certificate_hash": "4f807712f1da5cdb8227fba6cc2e888e0d68416f"
+          }
+        },
+        {
+          "client_id": "235555521653-tb154j5rnd1ushkfpanrhk9c71961vke.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tltcode.naikamu",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "235555521653-u912a0ccok2j0kmbpv11i4jlpfu29obf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBt9KGuQDfQNZXXRIRv0YC95L8gmA9Mdok"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "235555521653-u912a0ccok2j0kmbpv11i4jlpfu29obf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "235555521653-0psihep90o2s63ubvvbadt6hg3tilscp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.aniwatch.tv.dev"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:235555521653:android:76fb73881bac586a14243c",
+        "android_client_info": {
+          "package_name": "com.tltcode.naikamu.development"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "235555521653-k41msksnd32tv7n9a8u57jqu51m5nq3g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tltcode.naikamu.development",
+            "certificate_hash": "4f807712f1da5cdb8227fba6cc2e888e0d68416f"
+          }
+        },
+        {
+          "client_id": "235555521653-te4m9bpu3i4mo3vs25vf3su8hiju57ju.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tltcode.naikamu.development",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "235555521653-u912a0ccok2j0kmbpv11i4jlpfu29obf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBt9KGuQDfQNZXXRIRv0YC95L8gmA9Mdok"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "235555521653-u912a0ccok2j0kmbpv11i4jlpfu29obf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "235555521653-0psihep90o2s63ubvvbadt6hg3tilscp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.aniwatch.tv.dev"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:235555521653:android:66b63d8d64f0abe214243c",
+        "android_client_info": {
+          "package_name": "com.tltcode.naikamu.staging"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "235555521653-9q72snnqjenfjo7lpattne3u2hq9tp0a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tltcode.naikamu.staging",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "235555521653-ch8a7748qlvst895r9o15co2cn799rfj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tltcode.naikamu.staging",
+            "certificate_hash": "4f807712f1da5cdb8227fba6cc2e888e0d68416f"
+          }
+        },
+        {
+          "client_id": "235555521653-u912a0ccok2j0kmbpv11i4jlpfu29obf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBt9KGuQDfQNZXXRIRv0YC95L8gmA9Mdok"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "235555521653-u912a0ccok2j0kmbpv11i4jlpfu29obf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "235555521653-0psihep90o2s63ubvvbadt6hg3tilscp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.aniwatch.tv.dev"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
