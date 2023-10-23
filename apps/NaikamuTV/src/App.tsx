@@ -7,6 +7,7 @@
 
 import React from 'react';
 import type { PropsWithChildren } from 'react';
+
 import {
   SafeAreaView,
   ScrollView,
@@ -16,7 +17,6 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-
 import {
   Colors,
   DebugInstructions,
@@ -66,8 +66,8 @@ function App(): JSX.Element {
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
+        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
       />
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
