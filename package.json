@@ -1,12 +1,12 @@
 {
-  "name": "@aniwatch/core",
+  "name": "naikamu",
   "private": true,
   "scripts": {
     "install": "npm run install:mobile && npm run install:translations && npm run install:shared",
-    "install:mobile": "cd $INIT_CWD/apps/mobile && npm install",
-    "install:tv": "cd $INIT_CWD/apps/tv && npm install",
-    "install:translations": "cd $INIT_CWD/lib/translations && npm install",
-    "install:shared": "cd $INIT_CWD/lib/shared && npm install",
+    "install:mobile": "cd $INIT_CWD/apps/mobile && yarn",
+    "install:tv": "cd $INIT_CWD/apps/tv && yarn",
+    "install:translations": "cd $INIT_CWD/lib/translations && yarn",
+    "install:shared": "cd $INIT_CWD/lib/shared && yarn",
     "start": "lerna run start --stream",
     "start:mobile": "cd apps/mobile && npm start",
     "start:tv": "lerna run start --stream",
