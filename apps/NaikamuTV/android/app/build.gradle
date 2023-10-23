@@ -73,9 +73,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.naikamutv"
+    namespace "com.tltcode.naikamutv"
     defaultConfig {
-        applicationId "com.naikamutv"
+        applicationId "com.tltcode.naikamutv"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

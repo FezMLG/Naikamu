@@ -1,4 +1,4 @@
-package com.naikamutv;
+package com.tltcode.naikamutv;
 
 import android.app.Application;
 import com.facebook.react.PackageList;
