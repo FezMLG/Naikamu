@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>235555521653-ervcgeuj8nd6v0nhups0elv2raqik2kj.apps.googleusercontent.com</string>
+	<string>235555521653-vl4tqn6ti7tcpk4g49ssfjikpkatonki.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.235555521653-ervcgeuj8nd6v0nhups0elv2raqik2kj</string>
+	<string>com.googleusercontent.apps.235555521653-vl4tqn6ti7tcpk4g49ssfjikpkatonki</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>235555521653-1d1hlrio36kc1dfogqasct7j8i99q5fb.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.naikamutv</string>
+	<string>com.tltcode.naikamutv</string>
 	<key>PROJECT_ID</key>
 	<string>aniwatch-1f64a</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:235555521653:ios:71adf9095a6ebe3d14243c</string>
+	<string>1:235555521653:ios:a78713d5fb07a5b514243c</string>
 	<key>DATABASE_URL</key>
 	<string>https://aniwatch-1f64a-default-rtdb.europe-west1.firebasedatabase.app</string>
 </dict>
