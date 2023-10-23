@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {NavigationContainer, Theme} from '@react-navigation/native';
+import { NavigationContainer, Theme } from '@react-navigation/native';
 
 const linking = {
   prefixes: ['naikamu://'],
@@ -9,7 +9,7 @@ const linking = {
   },
 };
 
-function Routes({theme}: {theme: Theme}) {
+function Routes({ theme }: { theme: Theme }) {
   return (
     <NavigationContainer linking={linking} theme={theme}>
       <></>
