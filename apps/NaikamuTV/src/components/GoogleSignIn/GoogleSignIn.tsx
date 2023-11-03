@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 // import * as Sentry from '@sentry/react-native';
-import { Image, Pressable, StyleSheet, Text } from 'react-native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { useTranslate } from '../../i18n/useTranslate';
 import { useUserService } from '../../services';
@@ -25,11 +25,14 @@ const onGoogleButtonPress = async () => {
 
 export function GoogleSignIn() {
   const [isLoading, setIsLoading] = useState(false);
+  const [isFocus, setIsFocus] = useState(false);
   const userService = useUserService();
   const { translate } = useTranslate();
 
   return (
     <Pressable
+      onBlur={() => setIsFocus(previous => !previous)}
+      onFocus={() => setIsFocus(previous => !previous)}
       onPress={() =>
         onGoogleButtonPress()
           .then(async () => {
@@ -41,15 +44,31 @@ export function GoogleSignIn() {
           })
       }
       onPressIn={() => setIsLoading(true)}
-      style={styles.googleLogin}>
-      <Image
-        source={require('../../assets/google_g_logo.png')}
-        style={styles.gLogo}
-      />
-      <Text style={[colors.textLight, fontStyles.headerSmall]}>
-        {translate('auth.continue_with')} Google
-      </Text>
-      <ActivityIndicator size="small" style={styles.marginLeft} />
+      style={[
+        {
+          borderRadius: defaultRadius,
+        },
+        isFocus
+          ? { backgroundColor: colors.onBackground.color }
+          : { backgroundColor: 'transparent' },
+      ]}>
+      <View style={[styles.googleLogin]}>
+        {isLoading ? (
+          <ActivityIndicator size="small" />
+        ) : (
+          <Image
+            source={require('../../assets/google_g_logo.png')}
+            style={styles.gLogo}
+          />
+        )}
+        <Text
+          style={[
+            isFocus ? colors.textDark : colors.textLight,
+            fontStyles.headerSmall,
+          ]}>
+          {translate('auth.continue_with')} Google
+        </Text>
+      </View>
     </Pressable>
   );
 }
@@ -58,7 +77,6 @@ const styles = StyleSheet.create({
   gLogo: {
     width: 30,
     height: 30,
-    marginRight: 10,
   },
   googleLogin: {
     height: 60,
@@ -68,10 +86,6 @@ const styles = StyleSheet.create({
     borderColor: colors.textLight.color,
     borderWidth: 1,
     borderRadius: defaultRadius,
-    maxWidth: 500,
-    width: '100%',
-  },
-  marginLeft: {
-    marginLeft: 10,
+    width: 300,
   },
 });

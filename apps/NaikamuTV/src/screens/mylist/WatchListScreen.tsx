@@ -40,11 +40,11 @@ export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
       }}>
       {/*<Header />*/}
       <View style={{ height: '45%' }}>
-        {/*<Button*/}
-        {/*  label={translate('auth.logout')}*/}
-        {/*  onPress={() => userService.logoutUser()}*/}
-        {/*  type="secondary"*/}
-        {/*/>*/}
+        <Button
+          label={translate('auth.logout')}
+          onPress={() => userService.logoutUser()}
+          type="secondary"
+        />
         <Text>{selectedSeries?.id}</Text>
         <Text>{selectedSeries?.title}</Text>
       </View>

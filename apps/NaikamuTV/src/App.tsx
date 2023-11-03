@@ -14,6 +14,7 @@ const CombinedDarkTheme: Theme = {
   ...NavigationDarkTheme,
   colors: {
     ...NavigationDarkTheme.colors,
+    background: colors.background.color,
     primary: colors.accent.color,
   },
 };

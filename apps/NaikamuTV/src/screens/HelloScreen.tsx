@@ -18,18 +18,20 @@ export function HelloScreen({ navigation }: AuthStackHelloScreenProps) {
   }, [navigation]);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <View
         style={{
           justifyContent: 'center',
           height: '50%',
+          width: '100%',
         }}>
         <Logo style={styles.logo} width="90%" />
       </View>
       <View
         style={{
-          justifyContent: 'flex-end',
+          justifyContent: 'center',
           height: '50%',
+          alignSelf: 'center',
         }}>
         <GoogleSignIn />
         {Config.ENV !== 'production' && <Text>api_url: {Config.API_URL}</Text>}
@@ -40,7 +42,7 @@ export function HelloScreen({ navigation }: AuthStackHelloScreenProps) {
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 50,
+    flex: 1,
   },
   logo: {
     alignSelf: 'center',
