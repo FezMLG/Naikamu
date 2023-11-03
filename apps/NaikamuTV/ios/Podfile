@@ -17,7 +17,11 @@ if linkage != nil
 end
 
 target 'NaikamuTV' do
+  use_frameworks! :linkage => :static
+  $RNFirebaseAsStaticFramework = true
+
   config = use_native_modules!
+
   platform :ios, min_ios_version_supported
 
   # Flags change depending on the env values.
