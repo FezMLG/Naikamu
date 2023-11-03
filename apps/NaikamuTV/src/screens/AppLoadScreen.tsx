@@ -1,14 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
-import {
-  Linking,
-  Pressable,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { default as Config } from 'react-native-config';
 import semver from 'semver';
 
@@ -56,7 +49,7 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
       if (state.isConnected) {
         handleLoginCheck();
 
-        await apiCheck.refetch();
+        // await apiCheck.refetch();
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -96,29 +89,19 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
   }, [navigation, user, userService]);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView
+      style={{
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+        flex: 1,
+      }}>
       <Logo style={styles.logo} width="90%" />
       <View style={[globalStyle.spacer]} />
       <ActivityIndicator size="large" />
       {apiError && (
-        <Pressable
-          onPress={() =>
-            Linking.openURL('https://github.com/FezMLG/Naikamu/issues')
-          }
-          style={styles.centerBox}>
-          <Text style={[fontStyles.text, colors.error, globalStyle.textCenter]}>
-            {translate('welcomeScreen.apiError')}
-          </Text>
-          <Text
-            style={[
-              fontStyles.text,
-              fontStyles.underline,
-              globalStyle.textCenter,
-              colors.textLight,
-            ]}>
-            {translate('welcomeScreen.apiContact')}
-          </Text>
-        </Pressable>
+        <Text style={[fontStyles.text, colors.error, globalStyle.textCenter]}>
+          {translate('welcomeScreen.apiError')}
+        </Text>
       )}
       {apiCheck.isError ? (
         <Text style={[fontStyles.text, colors.textLight]}>

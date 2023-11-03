@@ -4,9 +4,10 @@ import {
   ActivityIndicator as RNActivityIndicator,
   ActivityIndicatorProps as RNActivityIndicatorProps,
 } from 'react-native';
+import { colors } from '../../../styles';
 
 type ActivityIndicatorProps = Omit<RNActivityIndicatorProps, 'color'>;
 
 export const ActivityIndicator = (props: ActivityIndicatorProps) => (
-  <RNActivityIndicator color="#0000ff" {...props} />
+  <RNActivityIndicator color={colors.accent.color} {...props} />
 );

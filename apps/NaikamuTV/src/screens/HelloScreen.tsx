@@ -5,12 +5,9 @@ import { default as Config } from 'react-native-config';
 
 import Logo from '../assets/logo.svg';
 import { GoogleSignIn } from '../components';
-import { useTranslate } from '../i18n/useTranslate';
 import { AuthStackHelloScreenProps } from '../routes';
 
 export function HelloScreen({ navigation }: AuthStackHelloScreenProps) {
-  const { translate } = useTranslate();
-
   useEffect(() => {
     navigation.addListener('beforeRemove', element => {
       element.preventDefault();
