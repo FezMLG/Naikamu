@@ -10,6 +10,9 @@ import { useTranslate } from '../../i18n/useTranslate';
 import { MyListStackWatchListScreenProps } from '../../routes';
 import { useSelectedSeriesStore, useUserService } from '../../services';
 import { colors } from '../../styles';
+import { maxWidth } from '../../utils';
+
+const numberOfColumns = Math.floor(maxWidth() / 160);
 
 export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
   const { translate } = useTranslate();
@@ -58,7 +61,7 @@ export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
             contentContainerStyle={[styles.flatListContent]}
             data={api.data.pages.flatMap(page => page.data)}
             keyExtractor={(_, index) => index.toString()}
-            numColumns={5}
+            numColumns={numberOfColumns}
             onEndReached={() => api.fetchNextPage()}
             onEndReachedThreshold={1}
             onRefresh={api.refetch}
