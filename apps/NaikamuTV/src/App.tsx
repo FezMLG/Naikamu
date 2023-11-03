@@ -1,10 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
 
 import {
@@ -12,6 +5,7 @@ import {
   Theme,
 } from '@react-navigation/native';
 
+import QueryClientWrap from './api/QueryClientWrap';
 import LanguagesProvider from './i18n/LanguagesProvider';
 import Routes from './routes/Routes';
 import { colors } from './styles';
@@ -26,9 +20,11 @@ const CombinedDarkTheme: Theme = {
 
 function App(): JSX.Element {
   return (
-    <LanguagesProvider>
-      <Routes theme={CombinedDarkTheme} />
-    </LanguagesProvider>
+    <QueryClientWrap>
+      <LanguagesProvider>
+        <Routes theme={CombinedDarkTheme} />
+      </LanguagesProvider>
+    </QueryClientWrap>
   );
 }
 
