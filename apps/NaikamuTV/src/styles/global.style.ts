@@ -54,12 +54,16 @@ export const fontStyles = StyleSheet.create({
   },
   screenHeader: {
     fontFamily: 'Catamaran-Black',
-    fontSize: 36,
-    lineHeight: 36 * 1.4,
+    fontSize: 32,
+    fontWeight: 'bold',
   },
   subScreenHeader: {
     fontFamily: 'Catamaran-Black',
     fontSize: 24,
+  },
+  normal: {
+    fontFamily: 'Roboto-Regular',
+    fontSize: 16,
   },
   text: {
     fontFamily: 'Roboto-Regular',

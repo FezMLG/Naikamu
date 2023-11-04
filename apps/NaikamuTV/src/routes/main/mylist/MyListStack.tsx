@@ -21,6 +21,7 @@ export function MyListStack() {
         name={MyListStackScreenNames.WatchList}
         options={{
           title: translate('routes.' + MyListStackScreenNames.WatchList),
+          headerShown: false,
         }}
       />
     </Stack.Navigator>

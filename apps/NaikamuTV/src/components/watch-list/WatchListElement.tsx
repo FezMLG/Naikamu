@@ -24,9 +24,9 @@ export function WatchListElement({
     <TouchableOpacity
       activeOpacity={1}
       key={anime.id}
-      onBlur={() => setIsFocus(previous => !previous)}
+      onBlur={() => setIsFocus(() => false)}
       onFocus={() => {
-        setIsFocus(previous => !previous);
+        setIsFocus(() => true);
         selectedSeriesService.setSeries(anime);
       }}
       // onPress={handlePageChange}

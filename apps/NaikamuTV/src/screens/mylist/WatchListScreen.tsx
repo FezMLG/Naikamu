@@ -3,14 +3,20 @@ import React from 'react';
 import { IWatchListSeries } from '@naikamu/shared';
 import { useNavigation } from '@react-navigation/native';
 import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { LinearGradient, Stop } from 'react-native-svg';
 
 import { useInfiniteQueryUserWatchList } from '../../api/hooks';
-import { ActivityIndicator, Button, WatchListElement } from '../../components';
+import {
+  ActivityIndicator,
+  ProgressiveImage,
+  SeriesDetails,
+  WatchListElement,
+} from '../../components';
 import { useTranslate } from '../../i18n/useTranslate';
 import { MyListStackWatchListScreenProps } from '../../routes';
 import { useSelectedSeriesStore, useUserService } from '../../services';
-import { colors } from '../../styles';
-import { maxWidth } from '../../utils';
+import { colors, fontStyles } from '../../styles';
+import { maxHeight, maxWidth } from '../../utils';
 
 const numberOfColumns = Math.floor(maxWidth() / 160);
 
@@ -42,17 +48,87 @@ export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
         flex: 1,
       }}>
       {/*<Header />*/}
-      <View style={{ height: '45%' }}>
-        <Button
-          label={translate('auth.logout')}
-          onPress={() => userService.logoutUser()}
-          type="secondary"
-        />
-        <Text>{selectedSeries?.id}</Text>
-        <Text>{selectedSeries?.title}</Text>
+      <View
+        style={{
+          height: '45%',
+          flexDirection: 'row',
+          flex: 1,
+        }}>
+        <View
+          style={{
+            gap: 15,
+            width: '60%',
+            flex: 1,
+            zIndex: 10,
+            marginLeft: 10,
+            marginTop: 10,
+          }}>
+          {/*<Button*/}
+          {/*  label={translate('auth.logout')}*/}
+          {/*  onPress={() => userService.logoutUser()}*/}
+          {/*  type="secondary"*/}
+          {/*/>*/}
+          <View>
+            <SeriesDetails.Title
+              romaji={selectedSeries?.title}
+              styles={{
+                width: '100%',
+              }}
+            />
+            <Text style={[colors.textLight, fontStyles.normal]}>
+              project No. 9
+            </Text>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              gap: 20,
+            }}>
+            <Text style={[colors.textLight, fontStyles.normal]}>
+              Popularność: 89%
+            </Text>
+            <Text style={[colors.textLight, fontStyles.normal]}>Zima 2022</Text>
+            <Text style={[colors.textLight, fontStyles.normal]}>
+              {selectedSeries?.id}
+            </Text>
+          </View>
+          <SeriesDetails.Genres
+            genres={['Thriller', 'Action', 'Ecchi', 'Harem']}
+          />
+        </View>
+        <View
+          style={{
+            flex: 1,
+            position: 'absolute',
+            right: 0,
+            width: '65%',
+            height: '100%',
+          }}>
+          <ProgressiveImage
+            resizeMode="cover"
+            source={selectedSeries?.poster ?? ''}
+            style={{
+              zIndex: 1,
+              width: '100%',
+              height: '100%',
+            }}
+          />
+          <View
+            style={{
+              zIndex: 5,
+              backgroundColor: 'rgba(0,0,0,0.6)',
+              width: '30%',
+              height: '100%',
+              position: 'absolute',
+            }}
+          />
+        </View>
       </View>
       <View style={{ height: '55%' }}>
-        <Text>Your watchlist</Text>
+        <Text
+          style={[colors.textLighter, fontStyles.normal, { marginLeft: 10 }]}>
+          Your watchlist
+        </Text>
         {api.isLoading ? <ActivityIndicator size="large" /> : null}
         {api.data ? (
           <FlatList
