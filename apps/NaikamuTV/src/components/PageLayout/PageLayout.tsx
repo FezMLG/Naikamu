@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import { Linking, StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useTranslate } from '../../i18n/useTranslate';
