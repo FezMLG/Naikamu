@@ -6,9 +6,9 @@ import { useQuerySeriesDetails } from '../../api/hooks';
 import { useSelectedSeriesStore } from '../../services';
 import { colors, fontStyles } from '../../styles';
 import { ProgressiveImage } from '../atoms';
+import { PageLayout } from '../PageLayout';
 
 import { SeriesDetails } from './Series';
-import { PageLayout } from '../PageLayout';
 
 export const SeriesPreview = () => {
   const selectedSeries = useSelectedSeriesStore(state => state.series);
@@ -41,7 +41,7 @@ export const SeriesPreview = () => {
                 {/*/>*/}
                 <View>
                   <SeriesDetails.Title
-                    romaji={selectedSeries?.title}
+                    romaji={selectedSeries.title}
                     styles={{
                       width: '100%',
                     }}
