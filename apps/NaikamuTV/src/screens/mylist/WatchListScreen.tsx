@@ -60,7 +60,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flex: 1,
   },
-  containerBottom: { height: '55%' },
+  containerBottom: {
+    height: '55%',
+    marginTop: 10,
+  },
   flatList: {
     marginTop: 10,
   },
