@@ -1,56 +1,35 @@
 import React from 'react';
 
 import { IWatchListSeries } from '@naikamu/shared';
-import { useNavigation } from '@react-navigation/native';
 import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
 import { useInfiniteQueryUserWatchList } from '../../api/hooks';
-import { ActivityIndicator, Button, WatchListElement } from '../../components';
-import { useTranslate } from '../../i18n/useTranslate';
+import { PageLayout, SeriesPreview, WatchListElement } from '../../components';
 import { MyListStackWatchListScreenProps } from '../../routes';
-import { useSelectedSeriesStore, useUserService } from '../../services';
-import { colors } from '../../styles';
+import { colors, fontStyles } from '../../styles';
+import { maxWidth } from '../../utils';
+
+const numberOfColumns = Math.floor(maxWidth() / 160);
 
 export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
-  const { translate } = useTranslate();
-  const userService = useUserService();
-  const selectedSeries = useSelectedSeriesStore(state => state.series);
   const { api } = useInfiniteQueryUserWatchList();
-  const navigation = useNavigation<any>();
 
   const renderItem = ({ item }: { item: IWatchListSeries }) => (
-    <WatchListElement
-      anime={item}
-      // handlePageChange={() => {
-      //   navigation.navigate(RootStackScreenNames.SeriesStack, {
-      //     screen: SeriesStackScreenNames.Series,
-      //     params: {
-      //       title: item.title,
-      //       id: item.animeId,
-      //     },
-      //   });
-      // }}
-    />
+    <WatchListElement anime={item} />
   );
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-      }}>
-      {/*<Header />*/}
-      <View style={{ height: '45%' }}>
-        <Button
-          label={translate('auth.logout')}
-          onPress={() => userService.logoutUser()}
-          type="secondary"
-        />
-        <Text>{selectedSeries?.id}</Text>
-        <Text>{selectedSeries?.title}</Text>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.containerTop}>
+        <SeriesPreview />
       </View>
-      <View style={{ height: '55%' }}>
-        <Text>Your watchlist</Text>
-        {api.isLoading ? <ActivityIndicator size="large" /> : null}
+      <View style={styles.containerBottom}>
+        <Text
+          style={[colors.textLighter, fontStyles.normal, { marginLeft: 10 }]}>
+          Your watchlist
+        </Text>
+        <PageLayout.Loading isLoading={api.isLoading} />
+        <PageLayout.Error isError={api.isError} refetch={() => api.refetch()} />
         {api.data ? (
           <FlatList
             ListFooterComponent={<View />}
@@ -58,7 +37,7 @@ export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
             contentContainerStyle={[styles.flatListContent]}
             data={api.data.pages.flatMap(page => page.data)}
             keyExtractor={(_, index) => index.toString()}
-            numColumns={5}
+            numColumns={numberOfColumns}
             onEndReached={() => api.fetchNextPage()}
             onEndReachedThreshold={1}
             onRefresh={api.refetch}
@@ -66,9 +45,7 @@ export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
             renderItem={renderItem}
             style={[styles.flatList]}
           />
-        ) : (
-          <Text style={colors.textLight}>No data</Text>
-        )}
+        ) : null}
       </View>
     </SafeAreaView>
   );
@@ -77,19 +54,15 @@ export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    backgroundColor: colors.background.color,
-    marginHorizontal: 0,
   },
+  containerTop: {
+    height: '45%',
+    flexDirection: 'row',
+    flex: 1,
+  },
+  containerBottom: { height: '55%' },
   flatList: {
     marginTop: 10,
-  },
-  fab: {
-    position: 'absolute',
-    margin: 16,
-    right: 0,
-    bottom: 80,
-    backgroundColor: colors.accent.color,
   },
   flatListContent: {
     flexGrow: 1,

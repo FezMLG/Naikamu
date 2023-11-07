@@ -4,9 +4,10 @@ import { IWatchListSeries } from '@naikamu/shared';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
 // import { useTranslate } from '../../i18n/useTranslate';
-import { darkStyle, defaultRadius } from '../../styles';
-import { ProgressiveImage } from '../atoms';
 import { useSelectedSeriesStore } from '../../services';
+import { colors, darkStyle, defaultRadius } from '../../styles';
+import { maxHeight } from '../../utils';
+import { ProgressiveImage } from '../atoms';
 
 export function WatchListElement({
   anime, // handlePageChange,
@@ -21,32 +22,37 @@ export function WatchListElement({
 
   return (
     <TouchableOpacity
+      activeOpacity={1}
       key={anime.id}
-      onBlur={() => setIsFocus(previous => !previous)}
+      onBlur={() => setIsFocus(() => false)}
       onFocus={() => {
-        setIsFocus(previous => !previous);
+        setIsFocus(() => true);
         selectedSeriesService.setSeries(anime);
       }}
       // onPress={handlePageChange}
       style={[
         styles.container,
-        isFocus ? { borderColor: '#FF0000' } : { borderColor: 'transparent' },
+        isFocus
+          ? { borderColor: colors.accent.color }
+          : { borderColor: 'transparent' },
       ]}>
       <View style={[styles.poster, { backgroundColor: '#000000' }]}>
         <ProgressiveImage source={anime.poster} style={styles.poster} />
       </View>
-      <View
-        onLayout={event => setTextHeight(event.nativeEvent.layout.height)}
-        style={[styles.titleContainer, { bottom: textHeight }]}>
-        <Text numberOfLines={4} style={[darkStyle.font, styles.title]}>
-          {anime.title}
-        </Text>
-        {/*<Text*/}
-        {/*  numberOfLines={1}*/}
-        {/*  style={[{ color: '#FFFFFF' }, styles.subTitle]}>*/}
-        {/*  {anime.studios[0]?.name ?? ''}*/}
-        {/*</Text>*/}
-      </View>
+      {isFocus ? null : (
+        <View
+          onLayout={event => setTextHeight(event.nativeEvent.layout.height)}
+          style={[styles.titleContainer, { bottom: textHeight }]}>
+          <Text numberOfLines={4} style={[darkStyle.font, styles.title]}>
+            {anime.title}
+          </Text>
+          {/*<Text*/}
+          {/*  numberOfLines={1}*/}
+          {/*  style={[{ color: '#FFFFFF' }, styles.subTitle]}>*/}
+          {/*  {anime.studios[0]?.name ?? ''}*/}
+          {/*</Text>*/}
+        </View>
+      )}
     </TouchableOpacity>
   );
 }
@@ -55,8 +61,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    height: 250,
-    maxWidth: 175,
+    height: maxHeight() / 2 - 50,
+    maxWidth: 150,
+    borderStyle: 'solid',
+    borderWidth: 2,
+    borderRadius: defaultRadius,
+    margin: 5,
+    marginTop: 0,
   },
   scrollView: {
     marginHorizontal: 20,
@@ -64,7 +75,7 @@ const styles = StyleSheet.create({
   poster: {
     width: '100%',
     height: '100%',
-    borderRadius: defaultRadius,
+    borderRadius: defaultRadius - 2,
     resizeMode: 'cover',
   },
   title: {
@@ -81,7 +92,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     width: '100%',
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
-    borderBottomStartRadius: defaultRadius,
-    borderBottomEndRadius: defaultRadius,
+    borderBottomStartRadius: defaultRadius - 2,
+    borderBottomEndRadius: defaultRadius - 2,
   },
 });

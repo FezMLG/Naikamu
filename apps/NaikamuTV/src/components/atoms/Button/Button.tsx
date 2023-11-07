@@ -120,8 +120,8 @@ export function Button(props: ButtonProps) {
 
   return (
     <TouchableOpacity
-      onBlur={() => setIsFocus(previous => !previous)}
-      onFocus={() => setIsFocus(previous => !previous)}
+      onBlur={() => setIsFocus(() => false)}
+      onFocus={() => setIsFocus(() => true)}
       onPress={onPress}
       style={[
         styles.container,

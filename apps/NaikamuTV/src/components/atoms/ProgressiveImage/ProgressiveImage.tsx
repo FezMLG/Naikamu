@@ -24,6 +24,7 @@ export function ProgressiveImage({
       source={{
         uri: source,
         priority: FastImage.priority.normal,
+        cache: 'web',
       }}
       {...props}
     />
