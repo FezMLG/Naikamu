@@ -30,6 +30,7 @@ interface GetAnimeListDTO {
 
 export class APIClient {
   private instance: AxiosInstance;
+  private debug = false;
 
   constructor() {
     this.instance = axios.create({
@@ -40,6 +41,20 @@ export class APIClient {
         'Content-Type': 'application/json',
       },
     });
+
+    if (this.debug) {
+      this.instance.interceptors.request.use(request => {
+        console.log('Starting Request', JSON.stringify(request, null, 2));
+
+        return request;
+      });
+
+      this.instance.interceptors.response.use(response => {
+        console.log('Response:', JSON.stringify(response, null, 2));
+
+        return response;
+      });
+    }
   }
 
   private async get<T>(
