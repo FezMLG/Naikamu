@@ -6,7 +6,7 @@ import { APIClient } from '../../APIClient';
 export const useInfiniteQueryUserWatchList = () => {
   const apiClient = new APIClient();
 
-  const { isLoading, data, refetch, fetchNextPage, isRefetching } =
+  const { isLoading, data, refetch, fetchNextPage, isRefetching, isError } =
     useInfiniteQuery<Paginate<IWatchListSeries[]>>({
       queryKey: ['watch list'],
       initialPageParam: 1,
@@ -21,6 +21,7 @@ export const useInfiniteQueryUserWatchList = () => {
   return {
     api: {
       isLoading,
+      isError,
       data,
       refetch,
       fetchNextPage,
