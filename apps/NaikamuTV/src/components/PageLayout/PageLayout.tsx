@@ -63,12 +63,6 @@ const Error = ({
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
-
 export const PageLayout = {
   Loading,
   Error,
