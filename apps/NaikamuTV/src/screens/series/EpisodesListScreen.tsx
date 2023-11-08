@@ -1,29 +1,34 @@
 import React from 'react';
 
 import { AnimeEpisode } from '@naikamu/shared';
-import { StyleSheet, ScrollView, Image } from 'react-native';
+import {
+  StyleSheet,
+  ScrollView,
+  Image,
+  SafeAreaView,
+  Text,
+} from 'react-native';
 
 import { useQuerySeriesEpisodes } from '../../api/hooks';
-import { Episode, PageLayout, useLayout } from '../../components';
+import { Episode, PageLayout } from '../../components';
 import { useTranslate } from '../../i18n/useTranslate';
 import { SeriesStackEpisodeScreenProps } from '../../routes';
-import { useActiveSeriesStore } from '../../services';
-import { DarkColor, darkStyle, globalStyle } from '../../styles';
+import { useSelectedSeriesStore } from '../../services';
+import { darkStyle, globalStyle } from '../../styles';
 
 export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
-  const series = useActiveSeriesStore(store => store.series);
+  const series = useSelectedSeriesStore(store => store.series);
 
   const { translate } = useTranslate();
-  const layout = useLayout();
   const {
     data: episodes,
     isError,
     isLoading,
     refetch,
-  } = useQuerySeriesEpisodes(route.params.seriesId, series.numOfAiredEpisodes);
+  } = useQuerySeriesEpisodes();
 
   return (
-    <PageLayout.Default margin={false} {...layout}>
+    <SafeAreaView style={{ flex: 1 }}>
       <PageLayout.Loading isLoading={isLoading} />
       <PageLayout.Error isError={isError} refetch={refetch} />
       <ScrollView style={styles.scrollView}>
@@ -41,13 +46,11 @@ export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
               />
             ))
           : null}
-        <Text
-          style={[globalStyle.disclaimer, darkStyle.font]}
-          variant="bodySmall">
+        <Text style={[globalStyle.disclaimer, darkStyle.font]}>
           {translate('anime_episodes.disclaimer')}
         </Text>
       </ScrollView>
-    </PageLayout.Default>
+    </SafeAreaView>
   );
 }
 

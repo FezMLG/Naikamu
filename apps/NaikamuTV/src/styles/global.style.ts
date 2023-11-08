@@ -82,6 +82,7 @@ export const fontStyles = StyleSheet.create({
   header: {
     fontFamily: 'Lato-Bold',
     fontSize: 24,
+    fontWeight: 'bold',
   },
   headerSmall: {
     fontFamily: 'Lato-Bold',

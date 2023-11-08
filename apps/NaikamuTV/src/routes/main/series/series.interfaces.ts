@@ -7,9 +7,7 @@ export enum SeriesStackScreenNames {
 
 export type SeriesStackParameterList = {
   [SeriesStackScreenNames.Series]: { title: string; id: number };
-  [SeriesStackScreenNames.Episodes]: {
-    seriesId: string;
-  };
+  [SeriesStackScreenNames.Episodes]: undefined;
 };
 
 export type SeriesStackSeriesScreenProps = NativeStackScreenProps<
