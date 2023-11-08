@@ -76,7 +76,7 @@ export function Episode({
             }}>
             <Text
               numberOfLines={2}
-              style={[fontStyles.header, colors.textLight]}>
+              style={[fontStyles.headerSmall, colors.textLight]}>
               {episode.number + '. ' + episode.title}
             </Text>
             <Icon

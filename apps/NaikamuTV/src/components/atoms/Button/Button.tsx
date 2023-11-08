@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
+  Pressable,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -26,7 +26,7 @@ type SizeType = 'small' | 'medium' | 'large';
 
 type WidthType = 'auto' | 'short' | 'medium' | 'full';
 
-interface ButtonProps extends ComponentProps<typeof TouchableOpacity> {
+interface ButtonProps extends ComponentProps<typeof Pressable> {
   label: string;
   type: ButtonType;
   size?: SizeType;
@@ -119,7 +119,7 @@ export function Button(props: ButtonProps) {
   };
 
   return (
-    <TouchableOpacity
+    <Pressable
       onBlur={() => setIsFocus(() => false)}
       onFocus={() => setIsFocus(() => true)}
       onPress={onPress}
@@ -144,7 +144,7 @@ export function Button(props: ButtonProps) {
           />
         ) : null}
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 }
 

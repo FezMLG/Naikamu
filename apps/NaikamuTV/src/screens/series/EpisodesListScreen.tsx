@@ -10,9 +10,10 @@ import {
   View,
   Pressable,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useQuerySeriesEpisodes } from '../../api/hooks';
-import { Episode, PageLayout } from '../../components';
+import { Episode, IconButton, PageLayout } from '../../components';
 import { useTranslate } from '../../i18n/useTranslate';
 import { SeriesStackEpisodeScreenProps } from '../../routes';
 import { useSelectedSeriesStore } from '../../services';
@@ -24,6 +25,7 @@ import {
   fontStyles,
   globalStyle,
 } from '../../styles';
+import { useNavigation } from '@react-navigation/native';
 
 function sliceIntoChunks<T>(array: T[], chunkSize = 10) {
   const result: T[][] = [];
@@ -81,6 +83,7 @@ export const EpisodeNumber = ({
 export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
   const series = useSelectedSeriesStore(store => store.series);
   const scrollViewRef = useRef<ScrollView>(null);
+  const navigation = useNavigation<any>();
 
   const { translate } = useTranslate();
   const {
@@ -102,8 +105,25 @@ export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
         <ScrollView
           style={{
             width: '30%',
+            paddingLeft: 16,
+            paddingTop: 10,
           }}>
-          <Text>Episodes</Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+            <IconButton
+              icon="chevron-left"
+              onPress={() => {
+                navigation.goBack();
+              }}
+              size={24}
+            />
+            <Text style={[fontStyles.header, colors.textLighter]}>
+              Episodes
+            </Text>
+          </View>
           {episodes
             ? sliceIntoChunks(episodes.episodes).map((item, index) => (
                 <EpisodeNumber
