@@ -7,7 +7,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useQueryResolvePlayerLink } from '../../api/hooks';
 import { useTranslate } from '../../i18n/useTranslate';
-import { RootStackScreenNames } from '../../routes';
 import { useSelectedSeriesStore } from '../../services';
 import { colors, DarkColor } from '../../styles';
 import { ActivityIndicator } from '../atoms';
@@ -130,6 +129,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: DarkColor.C900,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
   },
   logo: {
     height: 20,
@@ -138,5 +139,6 @@ const styles = StyleSheet.create({
   rowCenter: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: 20,
   },
 });

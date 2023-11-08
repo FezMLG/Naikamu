@@ -2,20 +2,19 @@ import React, { useState } from 'react';
 
 import { AnimeEpisode, AnimePlayer } from '@naikamu/shared';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useQuerySeriesEpisodePlayers } from '../../api/hooks';
 import { useSelectedSeriesStore } from '../../services';
-import {
-  colors,
-  DarkColor,
-  darkStyle,
-  defaultRadius,
-  fontStyles,
-} from '../../styles';
+import { colors, darkStyle, defaultRadius, fontStyles } from '../../styles';
 import { ProgressiveImage } from '../atoms';
 import { PageLayout } from '../PageLayout';
 
-import { EpisodePlayer, EpisodePlayerEmpty } from './EpisodePlayer';
+import {
+  EpisodePlayer,
+  EpisodePlayerEmpty,
+  EpisodePlayerError,
+} from './EpisodePlayer';
 
 export function Episode({
   episode,
@@ -40,7 +39,13 @@ export function Episode({
   };
 
   return (
-    <>
+    <View
+      style={[
+        styles.episodeContainer,
+        isFocus
+          ? { borderColor: colors.accent.color }
+          : { borderColor: 'transparent' },
+      ]}>
       <TouchableOpacity
         activeOpacity={1}
         onBlur={() => setIsFocus(() => false)}
@@ -49,47 +54,50 @@ export function Episode({
         }}
         onPress={openDetails}
         style={[
-          styles.episodeContainer,
+          styles.mainContainer,
           isFocus
             ? { borderColor: colors.accent.color }
             : { borderColor: 'transparent' },
         ]}>
-        <View style={[styles.cardContainer, isSelected && darkStyle.card]}>
-          <View style={[styles.innerCard]}>
-            <ProgressiveImage
-              source={episode.poster_url ?? series.coverImage.extraLarge}
-              style={{
-                width: '40%',
-                height: '100%',
-                borderRadius: defaultRadius - 2,
-              }}
+        <ProgressiveImage
+          source={episode.poster_url ?? series.coverImage.extraLarge}
+          style={{
+            width: '40%',
+            height: '100%',
+            borderRadius: defaultRadius - 2,
+          }}
+        />
+        <View style={styles.detailsContainer}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}>
+            <Text
+              numberOfLines={2}
+              style={[fontStyles.header, colors.textLight]}>
+              {episode.number + '. ' + episode.title}
+            </Text>
+            <Icon
+              name={isWatched ? 'check-circle' : 'check-circle-outline'}
+              size={fontStyles.header.fontSize}
             />
-            <View style={styles.detailsContainer}>
-              <Text
-                numberOfLines={2}
-                style={[fontStyles.header, colors.textLight]}>
-                {episode.number + '. ' + episode.title}
-              </Text>
-              <Text
-                numberOfLines={2}
-                style={[fontStyles.label, colors.textLight]}>
-                {series.duration} min
-              </Text>
-              {episode.description ? (
-                <Text
-                  numberOfLines={4}
-                  style={[darkStyle.font, fontStyles.text]}>
-                  {episode.description}
-                </Text>
-              ) : null}
-            </View>
           </View>
-          {/*<EpisodeWatchProgress episodeNumber={episode.number} />*/}
+          <Text numberOfLines={2} style={[fontStyles.label, colors.textLight]}>
+            {series.duration} min
+          </Text>
+          {episode.description ? (
+            <Text numberOfLines={4} style={[darkStyle.font, fontStyles.text]}>
+              {episode.description}
+            </Text>
+          ) : null}
         </View>
+        {/*<EpisodeWatchProgress episodeNumber={episode.number} />*/}
       </TouchableOpacity>
       {isSelected ? (
         <View style={styles.playersListContainer}>
-          {/*{isError ? <EpisodePlayerError /> : null}*/}
+          {isError ? <EpisodePlayerError /> : null}
           <PageLayout.Loading isLoading={isLoading} />
           {data ? (
             data.players.length > 0 ? (
@@ -111,7 +119,7 @@ export function Episode({
           ) : null}
         </View>
       ) : null}
-    </>
+    </View>
   );
 }
 
@@ -120,12 +128,16 @@ const styles = StyleSheet.create({
     marginVertical: 16,
     width: '100%',
     maxWidth: 550,
+  },
+  mainContainer: {
+    width: '100%',
     height: 150,
     flex: 1,
     borderColor: 'blue',
     borderWidth: 1,
     borderStyle: 'solid',
     borderRadius: defaultRadius,
+    flexDirection: 'row',
   },
   detailsContainer: {
     width: '60%',
@@ -133,37 +145,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     flexDirection: 'column',
   },
-  watchStatus: {
-    width: '15%',
-    alignItems: 'center',
-  },
-  innerCard: {
-    width: '100%',
-    flexDirection: 'row',
-    height: '100%',
-    // flex: 1,
-  },
-  cardContainer: {
-    borderTopLeftRadius: defaultRadius,
-    borderTopRightRadius: defaultRadius,
-    width: '100%',
-  },
   playersListContainer: {
-    maxWidth: '100%',
+    width: '100%',
     marginTop: 20,
     gap: 10,
-  },
-  playersLoading: {
-    height: 70,
-    backgroundColor: DarkColor.C900,
-    borderRadius: defaultRadius,
-  },
-  logo: {
-    height: 20,
-    opacity: 0.75,
-  },
-  rowCenter: {
-    flexDirection: 'row',
-    alignItems: 'center',
   },
 });
