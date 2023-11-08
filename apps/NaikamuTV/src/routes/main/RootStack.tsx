@@ -2,19 +2,16 @@ import React from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { useTranslate } from '../../i18n/useTranslate';
-
 import { MyListStack } from './mylist';
 import {
   RootStackParameterList,
   RootStackScreenNames,
 } from './root.interfaces';
+import { SeriesStack } from './series';
 
 const Stack = createNativeStackNavigator<RootStackParameterList>();
 
 export function RootStack() {
-  const { translate } = useTranslate();
-
   return (
     <Stack.Navigator
       initialRouteName={RootStackScreenNames.Main}
@@ -24,6 +21,13 @@ export function RootStack() {
       <Stack.Screen
         component={MyListStack}
         name={RootStackScreenNames.Main}
+        options={() => ({
+          animation: 'slide_from_right',
+        })}
+      />
+      <Stack.Screen
+        component={SeriesStack}
+        name={RootStackScreenNames.SeriesStack}
         options={() => ({
           animation: 'slide_from_right',
         })}

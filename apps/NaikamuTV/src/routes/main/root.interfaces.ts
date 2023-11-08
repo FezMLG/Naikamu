@@ -9,6 +9,7 @@ export enum RootStackScreenNames {
 
 export type RootStackParameterList = {
   [RootStackScreenNames.Main]: undefined;
+  [RootStackScreenNames.SeriesStack]: undefined;
   [RootStackScreenNames.NativePlayer]: {
     uri: string;
     seriesId: string;
