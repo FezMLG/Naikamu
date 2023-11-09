@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 
 import { IWatchListSeries } from '@naikamu/shared';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  GestureResponderEvent,
+} from 'react-native';
 
 // import { useTranslate } from '../../i18n/useTranslate';
 import { useSelectedSeriesStore } from '../../services';
@@ -10,10 +16,11 @@ import { maxHeight } from '../../utils';
 import { ProgressiveImage } from '../atoms';
 
 export function WatchListElement({
-  anime, // handlePageChange,
+  anime,
+  handlePageChange,
 }: {
   anime: IWatchListSeries;
-  // handlePageChange: ((event: GestureResponderEvent) => void) | null | undefined;
+  handlePageChange: ((event: GestureResponderEvent) => void) | undefined;
 }) {
   const [isFocus, setIsFocus] = useState(false);
   const [textHeight, setTextHeight] = useState(140);
@@ -29,7 +36,7 @@ export function WatchListElement({
         setIsFocus(() => true);
         selectedSeriesService.setSeries(anime);
       }}
-      // onPress={handlePageChange}
+      onPress={handlePageChange}
       style={[
         styles.container,
         isFocus

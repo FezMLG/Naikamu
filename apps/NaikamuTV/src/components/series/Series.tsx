@@ -5,7 +5,6 @@ import { format } from 'date-fns';
 import {
   Linking,
   Pressable,
-  StyleProp,
   StyleSheet,
   Text,
   TextStyle,

@@ -7,6 +7,7 @@ import { APIClient } from '../../APIClient';
 export const useQuerySeriesDetails = () => {
   const apiClient = new APIClient();
   const store = useSelectedSeriesStore(state => state.series);
+  const actions = useSelectedSeriesStore(state => state.actions);
 
   const source =
     typeof store?.animeId === 'string'
@@ -15,7 +16,13 @@ export const useQuerySeriesDetails = () => {
 
   const { data, isError, isLoading, refetch } = useQuery<AnimeDetails>({
     queryKey: ['anime', store?.id, 'details'],
-    queryFn: async () => apiClient.getAnimeDetails(store!.animeId, source),
+    queryFn: async () => {
+      const response = await apiClient.getAnimeDetails(store!.animeId, source);
+
+      actions.setDetails(response);
+
+      return response;
+    },
     enabled: !!store?.id,
   });
 

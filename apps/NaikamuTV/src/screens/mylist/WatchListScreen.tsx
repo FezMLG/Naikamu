@@ -1,11 +1,16 @@
 import React from 'react';
 
 import { IWatchListSeries } from '@naikamu/shared';
+import { useNavigation } from '@react-navigation/native';
 import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
 import { useInfiniteQueryUserWatchList } from '../../api/hooks';
 import { PageLayout, SeriesPreview, WatchListElement } from '../../components';
-import { MyListStackWatchListScreenProps } from '../../routes';
+import {
+  MyListStackWatchListScreenProps,
+  RootStackScreenNames,
+  SeriesStackScreenNames,
+} from '../../routes';
 import { colors, fontStyles } from '../../styles';
 import { maxWidth } from '../../utils';
 
@@ -13,9 +18,15 @@ const numberOfColumns = Math.floor(maxWidth() / 160);
 
 export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
   const { api } = useInfiniteQueryUserWatchList();
+  const navigation = useNavigation<any>();
 
   const renderItem = ({ item }: { item: IWatchListSeries }) => (
-    <WatchListElement anime={item} />
+    <WatchListElement
+      anime={item}
+      handlePageChange={() => {
+        navigation.navigate(RootStackScreenNames.SeriesStack);
+      }}
+    />
   );
 
   return (
