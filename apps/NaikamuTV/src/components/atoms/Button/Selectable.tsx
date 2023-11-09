@@ -33,7 +33,7 @@ export const Selectable = (props: SelectableProps) => {
 
 const styles = StyleSheet.create({
   borderBase: {
-    borderWidth: 1,
+    borderWidth: 2,
     borderStyle: 'solid',
   },
 });
