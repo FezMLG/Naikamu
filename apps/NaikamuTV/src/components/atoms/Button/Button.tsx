@@ -1,4 +1,4 @@
-import React, { ComponentProps, useState } from 'react';
+import React, { ComponentProps } from 'react';
 
 import {
   StyleProp,
@@ -13,6 +13,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { colors, defaultRadius } from '../../../styles';
 import { ActivityIndicator } from '../ActivityIndicator';
+
+import { Selectable } from './Selectable';
 
 type ButtonType =
   | 'primary'
@@ -47,7 +49,6 @@ export function Button(props: ButtonProps) {
     size = 'medium',
     width = 'full',
   }: ButtonProps = props;
-  const [isFocus, setIsFocus] = useState(false);
 
   const textStyle: Record<ButtonType, TextStyle> = {
     primary: {
@@ -119,19 +120,16 @@ export function Button(props: ButtonProps) {
   };
 
   return (
-    <Pressable
-      onBlur={() => setIsFocus(() => false)}
-      onFocus={() => setIsFocus(() => true)}
-      onPress={onPress}
-      style={[
+    <Selectable
+      customStyles={[
         styles.container,
         ...style,
         sizeStyle[size],
         widthStyle[width],
         buttonStyle[type],
         styles.borderBase,
-        isFocus ? { borderColor: '#FF0000' } : { borderColor: 'transparent' },
-      ]}>
+      ]}
+      onPress={onPress}>
       <View>
         {loading ? <ActivityIndicator size="small" /> : null}
         <Text style={[styles.baseText, textStyle[type]]}>{label}</Text>
@@ -144,7 +142,7 @@ export function Button(props: ButtonProps) {
           />
         ) : null}
       </View>
-    </Pressable>
+    </Selectable>
   );
 }
 

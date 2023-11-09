@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { AnimePlayer } from '@naikamu/shared';
 import { useNavigation } from '@react-navigation/native';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useQueryResolvePlayerLink } from '../../api/hooks';
 import { useTranslate } from '../../i18n/useTranslate';
 import { useSelectedSeriesStore } from '../../services';
 import { colors, DarkColor } from '../../styles';
-import { ActivityIndicator } from '../atoms';
+import { ActivityIndicator, Selectable } from '../atoms';
 
 export function EpisodePlayer({
   player,
@@ -20,7 +20,6 @@ export function EpisodePlayer({
   episodeNumber: number;
   episodeTitle: string;
 }) {
-  const [isFocus, setIsFocus] = useState(false);
   const series = useSelectedSeriesStore(store => store.series)!;
 
   const navigation = useNavigation<any>();
@@ -39,11 +38,8 @@ export function EpisodePlayer({
   });
 
   return (
-    <Pressable
-      onBlur={() => setIsFocus(() => false)}
-      onFocus={() => {
-        setIsFocus(() => true);
-      }}
+    <Selectable
+      customStyles={[styles.playersListItem]}
       onPress={() =>
         watchRefetch().then(({ data: result }) => {
           // if (result) {
@@ -56,13 +52,7 @@ export function EpisodePlayer({
           // }
           console.log(result);
         })
-      }
-      style={[
-        styles.playersListItem,
-        isFocus
-          ? { borderColor: colors.accent.color }
-          : { borderColor: 'transparent' },
-      ]}>
+      }>
       <View style={styles.rowCenter}>
         {isLoading ? (
           <ActivityIndicator size="large" style={{ marginHorizontal: 10 }} />
@@ -75,7 +65,7 @@ export function EpisodePlayer({
             player.playerName.toLocaleLowerCase()}
         </Text>
       </View>
-    </Pressable>
+    </Selectable>
   );
 }
 

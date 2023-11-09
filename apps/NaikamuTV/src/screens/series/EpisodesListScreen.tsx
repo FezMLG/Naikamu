@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 
 import { AnimeEpisode } from '@naikamu/shared';
+import { useNavigation } from '@react-navigation/native';
 import {
   StyleSheet,
   ScrollView,
@@ -10,7 +11,6 @@ import {
   View,
   Pressable,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useQuerySeriesEpisodes } from '../../api/hooks';
 import { Episode, IconButton, PageLayout } from '../../components';
@@ -25,7 +25,6 @@ import {
   fontStyles,
   globalStyle,
 } from '../../styles';
-import { useNavigation } from '@react-navigation/native';
 
 function sliceIntoChunks<T>(array: T[], chunkSize = 10) {
   const result: T[][] = [];

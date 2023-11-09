@@ -1,16 +1,13 @@
 import React from 'react';
 
-import {
-  StyleSheet,
-  ScrollView,
-  View,
-  Pressable,
-  SafeAreaView,
-  Text,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { StyleSheet, ScrollView, View, SafeAreaView, Text } from 'react-native';
 
-import { EpisodesButton, PageLayout, SeriesDetails } from '../../components';
+import {
+  EpisodesButton,
+  IconButton,
+  PageLayout,
+  SeriesDetails,
+} from '../../components';
 import { SeriesStackSeriesScreenProps } from '../../routes';
 import { useSelectedSeriesStore } from '../../services';
 import { globalStyle, colors, fontStyles } from '../../styles';
@@ -20,9 +17,7 @@ export function SeriesScreen({ navigation }: SeriesStackSeriesScreenProps) {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Pressable onPress={() => navigation.goBack()} style={styles.closeIcon}>
-        <Icon name="close" size={20} style={colors.textLight} />
-      </Pressable>
+      <IconButton icon="chevron-left" onPress={() => navigation.goBack()} />
       {data ? (
         <>
           <ScrollView style={styles.scrollView}>
@@ -105,17 +100,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     gap: 50,
-  },
-  closeIcon: {
-    backgroundColor: colors.background.color,
-    position: 'absolute',
-    top: 10,
-    right: 10,
-    zIndex: 10,
-    width: 30,
-    height: 30,
-    borderRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });

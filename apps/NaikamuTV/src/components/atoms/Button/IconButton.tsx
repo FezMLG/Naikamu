@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import { GestureResponderEvent, Pressable } from 'react-native';
+import { GestureResponderEvent } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { colors } from '../../../styles';
+
+import { Selectable } from './Selectable';
 
 type IconButtonProps = {
   icon: string;
@@ -13,16 +15,10 @@ type IconButtonProps = {
 
 export const IconButton = (props: IconButtonProps) => {
   const { icon, onPress, size = 24 } = props;
-  const [isFocus, setIsFocus] = useState(false);
 
   return (
-    <Pressable
-      onBlur={() => setIsFocus(() => false)}
-      onFocus={() => {
-        setIsFocus(() => true);
-      }}
-      onPress={onPress}
-      style={[
+    <Selectable
+      customStyles={[
         {
           borderWidth: 1,
           borderStyle: 'solid',
@@ -32,11 +28,9 @@ export const IconButton = (props: IconButtonProps) => {
           alignItems: 'center',
           borderRadius: 40,
         },
-        isFocus
-          ? { borderColor: colors.accent.color }
-          : { borderColor: 'transparent' },
-      ]}>
+      ]}
+      onPress={onPress}>
       <Icon name={icon} size={size} style={[colors.textLight]} />
-    </Pressable>
+    </Selectable>
   );
 };

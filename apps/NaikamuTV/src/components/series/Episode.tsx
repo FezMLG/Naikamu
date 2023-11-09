@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 
 import { AnimeEpisode, AnimePlayer } from '@naikamu/shared';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useQuerySeriesEpisodePlayers } from '../../api/hooks';
 import { useSelectedSeriesStore } from '../../services';
 import { colors, darkStyle, defaultRadius, fontStyles } from '../../styles';
-import { ProgressiveImage } from '../atoms';
+import { ProgressiveImage, Selectable } from '../atoms';
 import { PageLayout } from '../PageLayout';
 
 import {
@@ -31,7 +31,6 @@ export function Episode({
     episode.number,
   );
   const [isSelected, setIsSelected] = useState(false);
-  const [isFocus, setIsFocus] = useState(false);
 
   const openDetails = () => {
     setIsSelected(previous => !previous);
@@ -39,26 +38,8 @@ export function Episode({
   };
 
   return (
-    <View
-      style={[
-        styles.episodeContainer,
-        isFocus
-          ? { borderColor: colors.accent.color }
-          : { borderColor: 'transparent' },
-      ]}>
-      <TouchableOpacity
-        activeOpacity={1}
-        onBlur={() => setIsFocus(() => false)}
-        onFocus={() => {
-          setIsFocus(() => true);
-        }}
-        onPress={openDetails}
-        style={[
-          styles.mainContainer,
-          isFocus
-            ? { borderColor: colors.accent.color }
-            : { borderColor: 'transparent' },
-        ]}>
+    <View style={[styles.episodeContainer]}>
+      <Selectable customStyles={[styles.mainContainer]} onPress={openDetails}>
         <ProgressiveImage
           source={episode.poster_url ?? series.coverImage.extraLarge}
           style={{
@@ -94,7 +75,7 @@ export function Episode({
           ) : null}
         </View>
         {/*<EpisodeWatchProgress episodeNumber={episode.number} />*/}
-      </TouchableOpacity>
+      </Selectable>
       {isSelected ? (
         <View style={styles.playersListContainer}>
           {isError ? <EpisodePlayerError /> : null}
