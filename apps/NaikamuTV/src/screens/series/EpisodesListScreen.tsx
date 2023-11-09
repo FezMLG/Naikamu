@@ -9,11 +9,10 @@ import {
   SafeAreaView,
   Text,
   View,
-  Pressable,
 } from 'react-native';
 
 import { useQuerySeriesEpisodes } from '../../api/hooks';
-import { Episode, IconButton, PageLayout } from '../../components';
+import { Episode, IconButton, PageLayout, Selectable } from '../../components';
 import { useTranslate } from '../../i18n/useTranslate';
 import { SeriesStackEpisodeScreenProps } from '../../routes';
 import { useSelectedSeriesStore } from '../../services';
@@ -44,45 +43,35 @@ export const EpisodeNumber = ({
 }: {
   items: AnimeEpisode[];
   onPress: () => void;
-}) => {
-  const [isFocus, setIsFocus] = useState(false);
-
-  return (
-    <Pressable
-      onBlur={() => setIsFocus(() => false)}
-      onFocus={() => {
-        setIsFocus(() => true);
-      }}
-      onPress={onPress}
-      style={[
-        {
-          justifyContent: 'center',
-          width: '100%',
-          height: 40,
-          maxWidth: 200,
-          borderWidth: 1,
-          borderStyle: 'solid',
-          borderColor: 'blue',
-          backgroundColor: DarkColor.C800,
-          borderRadius: defaultRadius,
-          paddingHorizontal: 10,
-          marginTop: 15,
-        },
-        isFocus
-          ? { borderColor: colors.accent.color }
-          : { borderColor: 'transparent' },
-      ]}>
-      <Text style={[fontStyles.text, colors.textLight]}>
-        {items.at(0)?.number} - {items.at(-1)?.number}
-      </Text>
-    </Pressable>
-  );
-};
+}) => (
+  <Selectable
+    customStyles={[
+      {
+        justifyContent: 'center',
+        width: '100%',
+        height: 40,
+        maxWidth: 200,
+        borderWidth: 1,
+        borderStyle: 'solid',
+        borderColor: 'blue',
+        backgroundColor: DarkColor.C800,
+        borderRadius: defaultRadius,
+        paddingHorizontal: 10,
+        marginTop: 15,
+      },
+    ]}
+    onPress={onPress}>
+    <Text style={[fontStyles.text, colors.textLight]}>
+      {items.at(0)?.number} - {items.at(-1)?.number}
+    </Text>
+  </Selectable>
+);
 
 export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
   const series = useSelectedSeriesStore(store => store.series);
   const scrollViewRef = useRef<ScrollView>(null);
   const navigation = useNavigation<any>();
+  const [episodeHeight, setEpisodeHeight] = useState(190 * 12);
 
   const { translate } = useTranslate();
   const {
@@ -130,7 +119,9 @@ export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
                   key={index}
                   onPress={() => {
                     scrollViewRef.current?.scrollTo({
-                      y: ((item.at(0)?.number ?? 1) - 1) * 190,
+                      y:
+                        ((item.at(0)?.number ?? 1) - 1) *
+                        Math.floor(episodeHeight / episodes.episodes.length),
                       animated: true,
                     });
                   }}
@@ -144,15 +135,22 @@ export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
             source={require('../../assets/logo_docchi.png')}
             style={[styles.logo]}
           />
-          {episodes
-            ? episodes.episodes.map((episode: AnimeEpisode, index: number) => (
-                <Episode
-                  episode={episode}
-                  isWatched={episode.isWatched}
-                  key={index}
-                />
-              ))
-            : null}
+          <View
+            onLayout={event =>
+              setEpisodeHeight(event.nativeEvent.layout.height)
+            }>
+            {episodes
+              ? episodes.episodes.map(
+                  (episode: AnimeEpisode, index: number) => (
+                    <Episode
+                      episode={episode}
+                      isWatched={episode.isWatched}
+                      key={index}
+                    />
+                  ),
+                )
+              : null}
+          </View>
           <Text style={[globalStyle.disclaimer, darkStyle.font]}>
             {translate('anime_episodes.disclaimer')}
           </Text>
