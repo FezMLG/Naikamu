@@ -73,6 +73,13 @@ export function Episode({
               {episode.description}
             </Text>
           ) : null}
+          <Icon
+            name={isSelected ? 'chevron-down' : 'chevron-up'}
+            size={fontStyles.header.fontSize}
+            style={{
+              alignSelf: 'flex-end',
+            }}
+          />
         </View>
         {/*<EpisodeWatchProgress episodeNumber={episode.number} />*/}
       </Selectable>
