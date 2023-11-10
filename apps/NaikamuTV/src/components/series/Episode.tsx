@@ -6,7 +6,13 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useQuerySeriesEpisodePlayers } from '../../api/hooks';
 import { useSelectedSeriesStore } from '../../services';
-import { colors, darkStyle, defaultRadius, fontStyles } from '../../styles';
+import {
+  colors,
+  DarkColor,
+  darkStyle,
+  defaultRadius,
+  fontStyles,
+} from '../../styles';
 import { ProgressiveImage, Selectable } from '../atoms';
 import { PageLayout } from '../PageLayout';
 
@@ -45,7 +51,6 @@ export function Episode({
           style={{
             width: '40%',
             height: '100%',
-            borderRadius: defaultRadius - 2,
           }}
         />
         <View style={styles.detailsContainer}>
@@ -61,6 +66,7 @@ export function Episode({
               {episode.number + '. ' + episode.title}
             </Text>
             <Icon
+              color={colors.textLight.color}
               name={isWatched ? 'check-circle' : 'check-circle-outline'}
               size={fontStyles.header.fontSize}
             />
@@ -74,6 +80,7 @@ export function Episode({
             </Text>
           ) : null}
           <Icon
+            color={colors.textLight.color}
             name={isSelected ? 'chevron-down' : 'chevron-up'}
             size={fontStyles.header.fontSize}
             style={{
@@ -121,7 +128,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 150,
     flex: 1,
-    borderColor: 'blue',
+    borderColor: DarkColor.C700,
     borderWidth: 1,
     borderStyle: 'solid',
     borderRadius: defaultRadius,

@@ -53,7 +53,7 @@ export const EpisodeNumber = ({
         maxWidth: 200,
         borderWidth: 1,
         borderStyle: 'solid',
-        borderColor: 'blue',
+        borderColor: 'transparent',
         backgroundColor: DarkColor.C800,
         borderRadius: defaultRadius,
         paddingHorizontal: 10,

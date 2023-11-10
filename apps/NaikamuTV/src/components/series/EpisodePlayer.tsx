@@ -57,13 +57,13 @@ export function EpisodePlayer({
         {isLoading ? (
           <ActivityIndicator size="large" style={{ marginHorizontal: 10 }} />
         ) : (
-          <Icon name={isError ? 'alert-circle-outline' : 'play'} size={24} />
+          <Icon
+            color={colors.textLight.color}
+            name={isError ? 'alert-circle-outline' : 'play'}
+            size={24}
+          />
         )}
-        <Text style={[colors.textLight]}>
-          {player.translatorName +
-            ' - ' +
-            player.playerName.toLocaleLowerCase()}
-        </Text>
+        <Text style={[colors.textLight]}>{player.translatorName}</Text>
       </View>
     </Selectable>
   );
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     width: '100%',
     borderWidth: 1,
     borderStyle: 'solid',
-    borderColor: DarkColor.C800,
+    borderColor: DarkColor.C700,
     borderRadius: 8,
     flexDirection: 'row',
     alignItems: 'center',
