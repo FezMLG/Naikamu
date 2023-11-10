@@ -1,4 +1,4 @@
-import React, { ComponentProps } from 'react';
+import React, { ComponentProps, useState } from 'react';
 
 import {
   StyleProp,
@@ -6,15 +6,12 @@ import {
   ViewStyle,
   StyleSheet,
   Text,
-  View,
   Pressable,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { colors, defaultRadius } from '../../../styles';
 import { ActivityIndicator } from '../ActivityIndicator';
-
-import { Selectable } from './Selectable';
 
 type ButtonType =
   | 'primary'
@@ -26,7 +23,7 @@ type ButtonType =
 
 type SizeType = 'small' | 'medium' | 'large';
 
-type WidthType = 'auto' | 'short' | 'medium' | 'full';
+type WidthType = 'auto' | 'short' | 'medium' | 'full' | 'long';
 
 interface ButtonProps extends ComponentProps<typeof Pressable> {
   label: string;
@@ -49,8 +46,32 @@ export function Button(props: ButtonProps) {
     size = 'medium',
     width = 'full',
   }: ButtonProps = props;
+  const [isFocus, setIsFocus] = useState(false);
 
   const textStyle: Record<ButtonType, TextStyle> = {
+    primary: {
+      color: colors.textLight.color,
+      fontWeight: 'bold',
+    },
+    secondary: {
+      color: colors.textLight.color,
+    },
+    link: {
+      color: colors.textLight.color,
+      fontWeight: 'normal',
+    },
+    success: {
+      color: colors.textLight.color,
+    },
+    warning: {
+      color: colors.error.color,
+    },
+    danger: {
+      color: colors.error.color,
+    },
+  };
+
+  const textFocusStyle: Record<ButtonType, TextStyle> = {
     primary: {
       color: colors.textLight.color,
       fontWeight: 'bold',
@@ -78,6 +99,25 @@ export function Button(props: ButtonProps) {
       backgroundColor: colors.accent.color,
     },
     secondary: {
+      borderColor: colors.textLighter.color,
+      backgroundColor: colors.background.color,
+    },
+    link: {
+      backgroundColor: colors.transparent.color,
+    },
+    success: {},
+    warning: {
+      borderColor: colors.error.color,
+      backgroundColor: colors.transparent.color,
+    },
+    danger: {},
+  };
+
+  const buttonFocusStyle: Record<ButtonType, ViewStyle> = {
+    primary: {
+      backgroundColor: colors.accent.color,
+    },
+    secondary: {
       backgroundColor: colors.onBackground.color,
     },
     link: {
@@ -85,7 +125,6 @@ export function Button(props: ButtonProps) {
     },
     success: {},
     warning: {
-      ...styles.borderBase,
       borderColor: colors.error.color,
       backgroundColor: colors.transparent.color,
     },
@@ -114,35 +153,52 @@ export function Button(props: ButtonProps) {
     medium: {
       width: 200,
     },
+    long: {
+      width: 300,
+    },
     full: {
       width: '100%',
     },
   };
 
   return (
-    <Selectable
-      customStyles={[
+    <Pressable
+      onBlur={() => setIsFocus(() => false)}
+      onFocus={() => {
+        setIsFocus(() => true);
+      }}
+      onPress={onPress}
+      style={[
         styles.container,
         ...style,
+        styles.borderBase,
         sizeStyle[size],
         widthStyle[width],
-        buttonStyle[type],
-        styles.borderBase,
+        isFocus ? buttonFocusStyle[type] : buttonStyle[type],
+        isFocus ? { borderColor: colors.accent.color } : {},
       ]}
-      onPress={onPress}>
-      <View>
-        {loading ? <ActivityIndicator size="small" /> : null}
-        <Text style={[styles.baseText, textStyle[type]]}>{label}</Text>
-        {icon ? (
-          <Icon
-            color={textStyle[type].color || colors.textLight.color}
-            name={icon}
-            size={24}
-            style={styles.icon}
-          />
-        ) : null}
-      </View>
-    </Selectable>
+      {...props}>
+      {loading ? <ActivityIndicator size="small" /> : null}
+      <Text
+        style={[
+          styles.baseText,
+          isFocus ? textFocusStyle[type] : textStyle[type],
+        ]}>
+        {label}
+      </Text>
+      {icon ? (
+        <Icon
+          color={
+            isFocus
+              ? textFocusStyle[type].color
+              : textStyle[type].color || colors.textLight.color
+          }
+          name={icon}
+          size={24}
+          style={styles.icon}
+        />
+      ) : null}
+    </Pressable>
   );
 }
 

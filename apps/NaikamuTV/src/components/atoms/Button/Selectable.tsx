@@ -6,10 +6,11 @@ import { colors } from '../../../styles';
 
 interface SelectableProps extends ComponentProps<typeof Pressable> {
   customStyles?: StyleProp<ViewStyle>[];
+  focusStyle?: StyleProp<ViewStyle>[];
 }
 
 export const Selectable = (props: SelectableProps) => {
-  const { customStyles = [], children } = props;
+  const { customStyles = [], focusStyle = [], children } = props;
   const [isFocus, setIsFocus] = useState(false);
 
   return (
@@ -24,6 +25,7 @@ export const Selectable = (props: SelectableProps) => {
         isFocus
           ? { borderColor: colors.accent.color }
           : { borderColor: 'transparent' },
+        isFocus ? focusStyle : {},
       ]}
       {...props}>
       {children}

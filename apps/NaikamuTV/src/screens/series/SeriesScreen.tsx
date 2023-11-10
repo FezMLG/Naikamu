@@ -17,14 +17,20 @@ export function SeriesScreen({ navigation }: SeriesStackSeriesScreenProps) {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <IconButton icon="chevron-left" onPress={() => navigation.goBack()} />
+      {data ? null : (
+        <IconButton icon="chevron-left" onPress={() => navigation.goBack()} />
+      )}
       {data ? (
         <>
           <ScrollView style={styles.scrollView}>
-            {/*<SeriesDetails.Poster*/}
-            {/*  altImage={data.coverImage.extraLarge}*/}
-            {/*  bannerImage={data.coverImage.extraLarge}*/}
-            {/*/>*/}
+            <IconButton
+              icon="chevron-left"
+              onPress={() => navigation.goBack()}
+            />
+            <SeriesDetails.Poster
+              altImage={data.coverImage.extraLarge}
+              bannerImage={data.bannerImage}
+            />
             <View style={styles.body}>
               <SeriesDetails.Title
                 english={data.title.english}
@@ -43,43 +49,34 @@ export function SeriesScreen({ navigation }: SeriesStackSeriesScreenProps) {
                 ]}>
                 {data.studios[0].name}
               </Text>
+              <View style={globalStyle.marginTopSmall} />
+              <SeriesDetails.QuickInfoContainer data={data} />
               <View style={globalStyle.marginTop} />
-              {/*<SeriesDetails.QuickInfoContainer data={data} />*/}
-              {data.nextAiringEpisode ? (
-                <View style={globalStyle.marginTop} />
-              ) : null}
+              <SeriesDetails.AverageScore averageScore={data.averageScore} />
               <View style={globalStyle.marginTop} />
-              <View
-                style={{
-                  flexDirection: 'row',
-                  gap: 20,
-                }}>
-                <SeriesDetails.AverageScore averageScore={data.averageScore} />
-                <Text style={[colors.textLight, fontStyles.normal]}>
-                  {data.season} {data.seasonYear}
-                </Text>
-              </View>
               <SeriesDetails.Genres
                 color={data.coverImage.color}
                 genres={data.genres}
               />
+              <View style={globalStyle.marginTop} />
               <SeriesDetails.NextEpisode
                 airingAt={data.nextAiringEpisode?.airingAt}
                 episode={data.nextAiringEpisode?.episode}
               />
-              <View style={globalStyle.marginTop} />
+              {data.nextAiringEpisode ? (
+                <View style={globalStyle.marginTopSmall} />
+              ) : null}
               <EpisodesButton />
               <View style={globalStyle.marginTop} />
               {/*<View style={styles.watchlistTrailerContainer}>*/}
               {/*  <WatchList seriesId={data.id} watchStatus={data.watchStatus} />*/}
               {/*  <SeriesDetails.Trailer trailer={data.trailer} />*/}
               {/*</View>*/}
-
               <View style={globalStyle.marginTopSmall} />
               <SeriesDetails.Description description={data.description} />
-              <View style={globalStyle.marginTop} />
+              {/*<View style={globalStyle.marginTop} />*/}
               {/*<SeriesDetailsRelations relations={data.relations} />*/}
-              <View style={globalStyle.marginTop} />
+              {/*<View style={globalStyle.marginTop} />*/}
               <SeriesDetails.DataSource sourceId={data.sourceId} />
             </View>
           </ScrollView>
