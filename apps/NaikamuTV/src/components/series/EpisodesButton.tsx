@@ -15,6 +15,7 @@ export function EpisodesButton() {
 
   return (
     <Button
+      hasTVPreferredFocus
       icon="play-box-multiple"
       label={translate('anime_details.see_episodes')}
       onPress={() => {
