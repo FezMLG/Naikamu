@@ -15,7 +15,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useTranslate } from '../../i18n/useTranslate';
 import { colors, darkStyle, fontStyles, globalStyle } from '../../styles';
 import { ProgressiveImage } from '../atoms';
-import { Dot } from '../atoms/Dot';
 
 import { QuickInfo } from './QuickInfo';
 
@@ -51,10 +50,34 @@ function SubTitle(props: { romaji?: string; english?: string }) {
 
 function Poster(props: { bannerImage?: string; altImage: string }) {
   return (
-    <ProgressiveImage
-      source={props.bannerImage ?? props.altImage}
-      style={styles.banner}
-    />
+    <View
+      style={{
+        flex: 1,
+        position: 'absolute',
+        right: 0,
+        width: '100%',
+        height: 300,
+        zIndex: -1,
+      }}>
+      <ProgressiveImage
+        resizeMode="cover"
+        source={props.bannerImage ?? props.altImage}
+        style={{
+          zIndex: 1,
+          width: '100%',
+          height: '100%',
+        }}
+      />
+      <View
+        style={{
+          zIndex: 5,
+          backgroundColor: 'rgba(0,0,0,0.6)',
+          width: '60%',
+          height: '100%',
+          position: 'absolute',
+        }}
+      />
+    </View>
   );
 }
 

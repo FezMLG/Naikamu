@@ -17,14 +17,20 @@ export function SeriesScreen({ navigation }: SeriesStackSeriesScreenProps) {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <IconButton icon="chevron-left" onPress={() => navigation.goBack()} />
+      {data ? null : (
+        <IconButton icon="chevron-left" onPress={() => navigation.goBack()} />
+      )}
       {data ? (
         <>
           <ScrollView style={styles.scrollView}>
-            {/*<SeriesDetails.Poster*/}
-            {/*  altImage={data.coverImage.extraLarge}*/}
-            {/*  bannerImage={data.bannerImage}*/}
-            {/*/>*/}
+            <IconButton
+              icon="chevron-left"
+              onPress={() => navigation.goBack()}
+            />
+            <SeriesDetails.Poster
+              altImage={data.coverImage.extraLarge}
+              bannerImage={data.bannerImage}
+            />
             <View style={styles.body}>
               <SeriesDetails.Title
                 english={data.title.english}
