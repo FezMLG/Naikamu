@@ -9,7 +9,6 @@ import { PageLayout, SeriesPreview, WatchListElement } from '../../components';
 import {
   MyListStackWatchListScreenProps,
   RootStackScreenNames,
-  SeriesStackScreenNames,
 } from '../../routes';
 import { colors, fontStyles } from '../../styles';
 import { maxWidth } from '../../utils';

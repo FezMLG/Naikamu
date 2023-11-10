@@ -2,6 +2,8 @@ import React from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import { NativeVideoPlayerScreen } from '../../screens';
+
 import { MyListStack } from './mylist';
 import {
   RootStackParameterList,
@@ -32,15 +34,14 @@ export function RootStack() {
           animation: 'slide_from_right',
         })}
       />
-      {/*<Stack.Screen*/}
-      {/*  component={NativeVideoPlayerScreen}*/}
-      {/*  name={RootStackScreenNames.NativePlayer}*/}
-      {/*  options={{*/}
-      {/*    ...defaultSubHeaderOptions({}),*/}
-      {/*    autoHideHomeIndicator: true,*/}
-      {/*    presentation: 'fullScreenModal',*/}
-      {/*  }}*/}
-      {/*/>*/}
+      <Stack.Screen
+        component={NativeVideoPlayerScreen}
+        name={RootStackScreenNames.NativePlayer}
+        options={{
+          autoHideHomeIndicator: true,
+          presentation: 'fullScreenModal',
+        }}
+      />
     </Stack.Navigator>
   );
 }

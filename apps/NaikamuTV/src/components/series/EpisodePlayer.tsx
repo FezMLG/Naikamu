@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useQueryResolvePlayerLink } from '../../api/hooks';
 import { useTranslate } from '../../i18n/useTranslate';
+import { RootStackScreenNames } from '../../routes';
 import { useSelectedSeriesStore } from '../../services';
 import { colors, DarkColor } from '../../styles';
 import { ActivityIndicator, Selectable } from '../atoms';
@@ -42,15 +43,14 @@ export function EpisodePlayer({
       customStyles={[styles.playersListItem]}
       onPress={() =>
         watchRefetch().then(({ data: result }) => {
-          // if (result) {
-          //   navigation.navigate(RootStackScreenNames.NativePlayer, {
-          //     uri: result.uri,
-          //     seriesId: series.id,
-          //     episodeTitle,
-          //     episodeNumber,
-          //   });
-          // }
-          console.log(result);
+          if (result) {
+            navigation.navigate(RootStackScreenNames.NativePlayer, {
+              uri: result.uri,
+              seriesId: series.id,
+              episodeTitle,
+              episodeNumber,
+            });
+          }
         })
       }>
       <View style={styles.rowCenter}>
