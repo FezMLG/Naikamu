@@ -21,6 +21,7 @@ export function EpisodesButton() {
         navigation.navigate(SeriesStackScreenNames.Episodes);
       }}
       type="secondary"
+      width="long"
     />
   );
 }
