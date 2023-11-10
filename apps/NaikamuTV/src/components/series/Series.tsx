@@ -15,6 +15,9 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useTranslate } from '../../i18n/useTranslate';
 import { colors, darkStyle, fontStyles, globalStyle } from '../../styles';
 import { ProgressiveImage } from '../atoms';
+import { Dot } from '../atoms/Dot';
+
+import { QuickInfo } from './QuickInfo';
 
 function Title({
   romaji,
@@ -55,27 +58,24 @@ function Poster(props: { bannerImage?: string; altImage: string }) {
   );
 }
 
-// function QuickInfoContainer({ data }: { data: AnimeDetails }) {
-//   const { translate } = useTranslate();
-//
-//   return (
-//     <View style={[styles.quickInfoContainer]}>
-//       <QuickInfo
-//         value={translate('anime_details.status_list.' + data.status)}
-//       />
-//       <Dot />
-//       <QuickInfo
-//         value={`${translate('animeSeason.' + data.season)} ${data.seasonYear}`}
-//       />
-//       <Dot />
-//       <QuickInfo value={data.format} />
-//       <Dot />
-//       <QuickInfo value={data.episodes} />
-//       <Dot />
-//       <QuickInfo value={`${data.duration} mins`} />
-//     </View>
-//   );
-// }
+function QuickInfoContainer({ data }: { data: AnimeDetails }) {
+  const { translate } = useTranslate();
+
+  return (
+    <View style={[styles.quickInfoContainer]}>
+      <QuickInfo
+        value={translate('anime_details.status_list.' + data.status)}
+      />
+      <QuickInfo
+        prefix={`${translate('animeSeason.' + data.season)} `}
+        value={`${data.seasonYear}`}
+      />
+      <QuickInfo value={data.format} />
+      <QuickInfo suffix=" episodes" value={data.episodes} />
+      <QuickInfo isLast suffix=" mins" value={data.duration} />
+    </View>
+  );
+}
 
 function NextEpisode(props: { episode?: number; airingAt?: number }) {
   const { translate } = useTranslate();
@@ -162,13 +162,17 @@ function DataSource({ sourceId }: { sourceId: AnimeDetails['sourceId'] }) {
   const { translate } = useTranslate();
 
   return (
-    <Pressable
-      onPress={() => Linking.openURL('https://anilist.co/anime/' + sourceId)}>
-      <Text style={[globalStyle.disclaimer, darkStyle.font]}>
-        {translate('anime_details.source')}: AniList{' '}
-        <Icon color="white" name="open-in-new" size={16} />
+    <View>
+      <Text
+        style={[
+          globalStyle.disclaimer,
+          darkStyle.font,
+          colors.textLighter,
+          fontStyles.label,
+        ]}>
+        {translate('anime_details.source')}: AniList ({sourceId})
       </Text>
-    </Pressable>
+    </View>
   );
 }
 
@@ -177,6 +181,7 @@ export const SeriesDetails = {
   Title,
   SubTitle,
   NextEpisode,
+  QuickInfoContainer,
   Description,
   AverageScore,
   Genres,
@@ -196,6 +201,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 300,
     resizeMode: 'contain',
+    position: 'absolute',
   },
   chipContainer: {
     flexDirection: 'row',
