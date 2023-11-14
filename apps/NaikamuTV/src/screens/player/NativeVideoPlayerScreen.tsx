@@ -5,6 +5,7 @@ import VideoPlayer from 'react-native-media-console';
 import Video from 'react-native-video';
 
 import { RootStackNativePlayerScreenProps } from '../../routes';
+import { createEpisodeProgressKey, useVideoProgress } from '../../services';
 
 export function NativeVideoPlayerScreen({
   route,
@@ -13,6 +14,10 @@ export function NativeVideoPlayerScreen({
   const { uri, episodeTitle, episodeNumber, seriesId } = route.params;
   const videoPlayer = useRef<Video>(null);
   const [isPaused, setIsPaused] = useState(false);
+  const { loadProgress, handleSaveVideoProgress } = useVideoProgress(
+    createEpisodeProgressKey(seriesId, episodeNumber),
+  );
+
   const myTVEventHandler = (event: HWEvent) => {
     switch (event.eventType) {
       case 'play': {
@@ -32,24 +37,15 @@ export function NativeVideoPlayerScreen({
 
   useTVEventHandler(myTVEventHandler);
 
-  // const storageKey = createEpisodeProgressKey(seriesId, episodeNumber);
+  const handleVideoLoad = async () => {
+    const progress = await loadProgress();
 
-  // const handleProgress = async (progress: OnProgressData) => {
-  //   if (Math.round(progress.currentTime) % 5 === 0) {
-  //     await storageStoreData(storageKey, progress);
-  //   }
-  // };
-  //
-  // const handleVideoLoad = async () => {
-  //   const progress = await storageGetData<OnProgressData>(storageKey);
-  //
-  //   console.log(uri);
-  //   if (videoPlayer) {
-  //     videoPlayer.current?.seek(
-  //       progress?.currentTime ? progress.currentTime - 15 : 0,
-  //     );
-  //   }
-  // };
+    if (videoPlayer) {
+      videoPlayer.current?.seek(
+        progress?.currentTime ? progress.currentTime - 15 : 0,
+      );
+    }
+  };
 
   return (
     <View style={styles.absoluteFill}>
@@ -66,9 +62,9 @@ export function NativeVideoPlayerScreen({
         ignoreSilentSwitch="ignore"
         isFullscreen
         onBack={navigation.goBack}
+        onLoad={handleVideoLoad}
+        onProgress={handleSaveVideoProgress}
         paused={isPaused}
-        // onLoad={handleVideoLoad}
-        // onProgress={handleProgress}
         pictureInPicture
         playInBackground
         resizeMode="contain"

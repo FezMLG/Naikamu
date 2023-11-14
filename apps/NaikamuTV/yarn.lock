@@ -8305,6 +8305,13 @@ react-native-media-console@^2.1.0:
   resolved "https://registry.yarnpkg.com/react-native-media-console/-/react-native-media-console-2.1.0.tgz#f7efafcfea3f636ccae217abeef02e5497a80737"
   integrity sha512-KeVnu+cBJUgMwKagKDwYufSeMkrG6+pRRu+kQWVbjJR7Q0wKgAUDkvtocrZcy7sv5fTvpizNPqGq1k7bmCB2NQ==
 
+react-native-progress@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-progress/-/react-native-progress-5.0.1.tgz#4e15258b5661c49bad74554352326ca540bb7c58"
+  integrity sha512-TYfJ4auAe5vubDma2yfFvt7ktSI+UCfysqJnkdHEcLXqAitRFOozgF/cLgN5VNi/iLdaf3ga1ETi2RF4jVZ/+g==
+  dependencies:
+    prop-types "^15.7.2"
+
 react-native-safe-area-context@4.7.3:
   version "4.7.3"
   resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-4.7.3.tgz#149542a05fa68b2892568e8b338bc1e4e005cd0d"

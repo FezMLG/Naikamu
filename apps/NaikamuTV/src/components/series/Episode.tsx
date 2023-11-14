@@ -30,7 +30,6 @@ export function Episode({
   isWatched: boolean;
 }) {
   const series = useSelectedSeriesStore(store => store.details)!;
-  const episodes = useSelectedSeriesStore(store => store.episodes)!;
 
   const { data, refetch, isLoading, isError } = useQuerySeriesEpisodePlayers(
     series.id,

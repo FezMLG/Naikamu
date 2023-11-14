@@ -30,7 +30,7 @@ export function EpisodePlayer({
     refetch: watchRefetch,
     isError,
   } = useQueryResolvePlayerLink({
-    animeId: series.id,
+    animeId: series.animeId,
     player: player.playerName,
     url: player.playerLink,
     resolution: '1080p',
@@ -46,7 +46,7 @@ export function EpisodePlayer({
           if (result) {
             navigation.navigate(RootStackScreenNames.NativePlayer, {
               uri: result.uri,
-              seriesId: series.id,
+              seriesId: series.animeId,
               episodeTitle,
               episodeNumber,
             });
