@@ -12,8 +12,10 @@ import { colors } from '../../styles';
 
 export const EpisodeWatchProgress = ({
   episodeNumber,
+  width,
 }: {
   episodeNumber: number;
+  width: number;
 }) => {
   const series = useSelectedSeriesStore(store => store.details)!;
 
@@ -29,9 +31,11 @@ export const EpisodeWatchProgress = ({
     <>
       {progress ? (
         <Progress.Bar
+          borderColor="transparent"
           color={colors.accent.color}
           progress={progress / ((series.duration ?? 24) * 60)}
           style={styles.progressBar}
+          width={width}
         />
       ) : null}
     </>

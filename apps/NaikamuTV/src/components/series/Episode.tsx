@@ -21,6 +21,7 @@ import {
   EpisodePlayerEmpty,
   EpisodePlayerError,
 } from './EpisodePlayer';
+import { EpisodeWatchProgress } from './EpisodeWatchProgress';
 
 export function Episode({
   episode,
@@ -36,6 +37,7 @@ export function Episode({
     episode.number,
   );
   const [isSelected, setIsSelected] = useState(false);
+  const [episodeWidth, setEpisodeWidth] = useState(0);
 
   const openDetails = () => {
     setIsSelected(previous => !previous);
@@ -44,7 +46,10 @@ export function Episode({
 
   return (
     <View style={[styles.episodeContainer]}>
-      <Selectable customStyles={[styles.mainContainer]} onPress={openDetails}>
+      <Selectable
+        customStyles={[styles.mainContainer]}
+        onLayout={event => setEpisodeWidth(event.nativeEvent.layout.width)}
+        onPress={openDetails}>
         <ProgressiveImage
           source={episode.poster_url ?? series.coverImage.extraLarge}
           style={{
@@ -87,8 +92,11 @@ export function Episode({
             }}
           />
         </View>
-        {/*<EpisodeWatchProgress episodeNumber={episode.number} />*/}
       </Selectable>
+      <EpisodeWatchProgress
+        episodeNumber={episode.number}
+        width={episodeWidth}
+      />
       {isSelected ? (
         <View style={styles.playersListContainer}>
           {isError ? <EpisodePlayerError /> : null}
