@@ -53,13 +53,11 @@ export const SeriesPreview = () => {
                 ) : null}
                 <View style={styles.info}>
                   <Text style={[colors.textLight, fontStyles.normal]}>
-                    Popularność: {api.data.popularity}
+                    {translate('anime_details.score')}: {api.data.averageScore}
                   </Text>
                   <Text style={[colors.textLight, fontStyles.normal]}>
-                    {api.data.season} {api.data.seasonYear}
-                  </Text>
-                  <Text style={[colors.textLight, fontStyles.normal]}>
-                    {selectedSeries?.id}
+                    {translate('animeSeason.' + api.data.season)}{' '}
+                    {api.data.seasonYear}
                   </Text>
                 </View>
                 <SeriesDetails.Genres
