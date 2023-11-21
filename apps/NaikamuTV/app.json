@@ -1,4 +1,10 @@
 {
   "name": "NaikamuTV",
-  "displayName": "NaikamuTV"
+  "displayName": "NaikamuTV",
+  "android": {
+    "package": "com.tltcode.naikamutv"
+  },
+  "ios": {
+    "bundleIdentifier": "com.tltcode.naikamutv"
+  }
 }

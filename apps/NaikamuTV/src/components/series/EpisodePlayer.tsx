@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useQueryResolvePlayerLink } from '../../api/hooks';
 import { useTranslate } from '../../i18n/useTranslate';
+import { RootStackScreenNames } from '../../routes';
 import { useSelectedSeriesStore } from '../../services';
 import { colors, DarkColor } from '../../styles';
 import { ActivityIndicator, Selectable } from '../atoms';
@@ -29,7 +30,7 @@ export function EpisodePlayer({
     refetch: watchRefetch,
     isError,
   } = useQueryResolvePlayerLink({
-    animeId: series.id,
+    animeId: series.animeId,
     player: player.playerName,
     url: player.playerLink,
     resolution: '1080p',
@@ -42,28 +43,27 @@ export function EpisodePlayer({
       customStyles={[styles.playersListItem]}
       onPress={() =>
         watchRefetch().then(({ data: result }) => {
-          // if (result) {
-          //   navigation.navigate(RootStackScreenNames.NativePlayer, {
-          //     uri: result.uri,
-          //     seriesId: series.id,
-          //     episodeTitle,
-          //     episodeNumber,
-          //   });
-          // }
-          console.log(result);
+          if (result) {
+            navigation.navigate(RootStackScreenNames.NativePlayer, {
+              uri: result.uri,
+              seriesId: series.animeId,
+              episodeTitle,
+              episodeNumber,
+            });
+          }
         })
       }>
       <View style={styles.rowCenter}>
         {isLoading ? (
           <ActivityIndicator size="large" style={{ marginHorizontal: 10 }} />
         ) : (
-          <Icon name={isError ? 'alert-circle-outline' : 'play'} size={24} />
+          <Icon
+            color={colors.textLight.color}
+            name={isError ? 'alert-circle-outline' : 'play'}
+            size={24}
+          />
         )}
-        <Text style={[colors.textLight]}>
-          {player.translatorName +
-            ' - ' +
-            player.playerName.toLocaleLowerCase()}
-        </Text>
+        <Text style={[colors.textLight]}>{player.translatorName}</Text>
       </View>
     </Selectable>
   );
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     width: '100%',
     borderWidth: 1,
     borderStyle: 'solid',
-    borderColor: DarkColor.C800,
+    borderColor: DarkColor.C700,
     borderRadius: 8,
     flexDirection: 'row',
     alignItems: 'center',

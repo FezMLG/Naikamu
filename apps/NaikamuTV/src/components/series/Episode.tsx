@@ -6,7 +6,13 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useQuerySeriesEpisodePlayers } from '../../api/hooks';
 import { useSelectedSeriesStore } from '../../services';
-import { colors, darkStyle, defaultRadius, fontStyles } from '../../styles';
+import {
+  colors,
+  DarkColor,
+  darkStyle,
+  defaultRadius,
+  fontStyles,
+} from '../../styles';
 import { ProgressiveImage, Selectable } from '../atoms';
 import { PageLayout } from '../PageLayout';
 
@@ -15,6 +21,7 @@ import {
   EpisodePlayerEmpty,
   EpisodePlayerError,
 } from './EpisodePlayer';
+import { EpisodeWatchProgress } from './EpisodeWatchProgress';
 
 export function Episode({
   episode,
@@ -24,13 +31,13 @@ export function Episode({
   isWatched: boolean;
 }) {
   const series = useSelectedSeriesStore(store => store.details)!;
-  const episodes = useSelectedSeriesStore(store => store.episodes)!;
 
   const { data, refetch, isLoading, isError } = useQuerySeriesEpisodePlayers(
     series.id,
     episode.number,
   );
   const [isSelected, setIsSelected] = useState(false);
+  const [episodeWidth, setEpisodeWidth] = useState(0);
 
   const openDetails = () => {
     setIsSelected(previous => !previous);
@@ -39,13 +46,15 @@ export function Episode({
 
   return (
     <View style={[styles.episodeContainer]}>
-      <Selectable customStyles={[styles.mainContainer]} onPress={openDetails}>
+      <Selectable
+        customStyles={[styles.mainContainer]}
+        onLayout={event => setEpisodeWidth(event.nativeEvent.layout.width)}
+        onPress={openDetails}>
         <ProgressiveImage
           source={episode.poster_url ?? series.coverImage.extraLarge}
           style={{
             width: '40%',
             height: '100%',
-            borderRadius: defaultRadius - 2,
           }}
         />
         <View style={styles.detailsContainer}>
@@ -61,6 +70,7 @@ export function Episode({
               {episode.number + '. ' + episode.title}
             </Text>
             <Icon
+              color={colors.textLight.color}
               name={isWatched ? 'check-circle' : 'check-circle-outline'}
               size={fontStyles.header.fontSize}
             />
@@ -74,6 +84,7 @@ export function Episode({
             </Text>
           ) : null}
           <Icon
+            color={colors.textLight.color}
             name={isSelected ? 'chevron-down' : 'chevron-up'}
             size={fontStyles.header.fontSize}
             style={{
@@ -81,8 +92,11 @@ export function Episode({
             }}
           />
         </View>
-        {/*<EpisodeWatchProgress episodeNumber={episode.number} />*/}
       </Selectable>
+      <EpisodeWatchProgress
+        episodeNumber={episode.number}
+        width={episodeWidth}
+      />
       {isSelected ? (
         <View style={styles.playersListContainer}>
           {isError ? <EpisodePlayerError /> : null}
@@ -121,7 +135,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 150,
     flex: 1,
-    borderColor: 'blue',
+    borderColor: DarkColor.C700,
     borderWidth: 1,
     borderStyle: 'solid',
     borderRadius: defaultRadius,

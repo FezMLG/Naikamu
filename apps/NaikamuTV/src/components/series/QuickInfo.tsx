@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { StyleProp, ViewStyle, TextStyle, View, Text } from 'react-native';
+import { StyleProp, ViewStyle, View, Text } from 'react-native';
 
-import { colors, darkStyle, fontStyles } from '../../styles';
+import { colors, fontStyles } from '../../styles';
 import { Dot } from '../atoms/Dot';
 
 export function QuickInfo({

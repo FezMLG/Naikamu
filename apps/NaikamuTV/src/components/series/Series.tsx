@@ -28,9 +28,7 @@ function Title({
   styles?: TextStyle;
 }) {
   return (
-    <Text
-      selectable={true}
-      style={[colors.textLight, fontStyles.screenHeader, styles]}>
+    <Text style={[colors.textLight, fontStyles.screenHeader, styles]}>
       {romaji ?? english}
     </Text>
   );

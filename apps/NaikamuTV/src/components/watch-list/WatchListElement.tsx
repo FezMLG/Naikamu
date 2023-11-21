@@ -9,10 +9,10 @@ import {
   GestureResponderEvent,
 } from 'react-native';
 
-// import { useTranslate } from '../../i18n/useTranslate';
+import { useTranslate } from '../../i18n/useTranslate';
 import { useSelectedSeriesStore } from '../../services';
-import { colors, darkStyle, defaultRadius } from '../../styles';
-import { maxHeight } from '../../utils';
+import { colors, darkStyle, defaultRadius, fontStyles } from '../../styles';
+import { maxHeight, calculateNumberOfWatched } from '../../utils';
 import { ProgressiveImage } from '../atoms';
 
 export function WatchListElement({
@@ -25,7 +25,7 @@ export function WatchListElement({
   const [isFocus, setIsFocus] = useState(false);
   const [textHeight, setTextHeight] = useState(140);
   const selectedSeriesService = useSelectedSeriesStore(state => state.actions);
-  // const { translate } = useTranslate();
+  const { translate } = useTranslate();
 
   return (
     <TouchableOpacity
@@ -53,11 +53,10 @@ export function WatchListElement({
           <Text numberOfLines={4} style={[darkStyle.font, styles.title]}>
             {anime.title}
           </Text>
-          {/*<Text*/}
-          {/*  numberOfLines={1}*/}
-          {/*  style={[{ color: '#FFFFFF' }, styles.subTitle]}>*/}
-          {/*  {anime.studios[0]?.name ?? ''}*/}
-          {/*</Text>*/}
+          <Text style={[fontStyles.label, colors.textLighter]}>
+            {translate('myList.common.watched')}:{' '}
+            {calculateNumberOfWatched(anime.watched)}
+          </Text>
         </View>
       )}
     </TouchableOpacity>

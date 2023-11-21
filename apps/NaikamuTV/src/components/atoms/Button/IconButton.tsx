@@ -22,6 +22,7 @@ export const IconButton = (props: IconButtonProps) => {
         {
           borderWidth: 1,
           borderStyle: 'solid',
+          borderColor: 'transparent',
           width: 40,
           height: 40,
           justifyContent: 'center',

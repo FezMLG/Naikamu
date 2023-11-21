@@ -20,11 +20,9 @@ export const Selectable = (props: SelectableProps) => {
         setIsFocus(() => true);
       }}
       style={[
-        ...customStyles,
         styles.borderBase,
-        isFocus
-          ? { borderColor: colors.accent.color }
-          : { borderColor: 'transparent' },
+        ...customStyles,
+        isFocus ? { borderColor: colors.accent.color } : {},
         isFocus ? focusStyle : {},
       ]}
       {...props}>

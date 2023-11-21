@@ -9,7 +9,10 @@
     "tvos": "expo run:ios --scheme NaikamuTV-tvOS --device \"Apple TV\"",
     "lint": "eslint .",
     "start": "expo start",
-    "test": "jest"
+    "test": "jest",
+    "apk:release": "cd android && ./gradlew assemble && cd .. && npm run apk:beta:rename && open android/app/build/outputs/apk/release",
+    "apk:rename": "mv $DIR/$APP $DIR/naikamutv-$RENV$(jq -r '.version' package.json).apk",
+    "apk:beta:rename": "DIR='android/app/build/outputs/apk/release' APP='app-release.apk' RENV= npm run apk:rename"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "1.19.4",
@@ -23,6 +26,8 @@
     "axios": "1.6.0",
     "date-fns": "2.30.0",
     "expo": "49.0.16",
+    "expo-splash-screen": "~0.20.5",
+    "expo-status-bar": "~1.6.0",
     "i18next": "23.6.0",
     "react": "18.2.0",
     "react-i18next": "13.3.1",
@@ -30,10 +35,13 @@
     "react-native-config": "1.5.1",
     "react-native-fast-image": "8.6.3",
     "react-native-localize": "3.0.2",
+    "react-native-media-console": "^2.1.0",
+    "react-native-progress": "^5.0.1",
     "react-native-safe-area-context": "4.7.3",
     "react-native-screens": "3.26.0",
     "react-native-svg": "13.14.0",
     "react-native-vector-icons": "10.0.1",
+    "react-native-video": "^5.2.1",
     "zustand": "4.4.5"
   },
   "devDependencies": {
@@ -45,6 +53,7 @@
     "@tsconfig/react-native": "3.0.2",
     "@types/react": "18.2.31",
     "@types/react-native-vector-icons": "6.4.16",
+    "@types/react-native-video": "^5.0.18",
     "@types/react-test-renderer": "18.0.5",
     "babel-jest": "29.7.0",
     "babel-plugin-module-resolver": "5.0.0",

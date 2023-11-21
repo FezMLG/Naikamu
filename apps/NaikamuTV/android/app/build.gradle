@@ -77,13 +77,13 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.tltcode.naikamutv"
+    namespace 'com.tltcode.naikamutv'
     defaultConfig {
-        applicationId "com.tltcode.naikamutv"
+        applicationId 'com.tltcode.naikamutv'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "1.0"
+        versionName "0.0.1"
     }
     signingConfigs {
         debug {

@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 
 import { AnimeEpisode } from '@naikamu/shared';
-import { useNavigation } from '@react-navigation/native';
 import {
   StyleSheet,
   ScrollView,
@@ -15,7 +14,6 @@ import { useQuerySeriesEpisodes } from '../../api/hooks';
 import { Episode, IconButton, PageLayout, Selectable } from '../../components';
 import { useTranslate } from '../../i18n/useTranslate';
 import { SeriesStackEpisodeScreenProps } from '../../routes';
-import { useSelectedSeriesStore } from '../../services';
 import {
   colors,
   DarkColor,
@@ -53,7 +51,7 @@ export const EpisodeNumber = ({
         maxWidth: 200,
         borderWidth: 1,
         borderStyle: 'solid',
-        borderColor: 'blue',
+        borderColor: 'transparent',
         backgroundColor: DarkColor.C800,
         borderRadius: defaultRadius,
         paddingHorizontal: 10,
@@ -67,10 +65,10 @@ export const EpisodeNumber = ({
   </Selectable>
 );
 
-export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
-  const series = useSelectedSeriesStore(store => store.series);
+export function EpisodesListScreen({
+  navigation,
+}: SeriesStackEpisodeScreenProps) {
   const scrollViewRef = useRef<ScrollView>(null);
-  const navigation = useNavigation<any>();
   const [episodeHeight, setEpisodeHeight] = useState(190 * 12);
 
   const { translate } = useTranslate();
@@ -132,6 +130,7 @@ export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
         <ScrollView ref={scrollViewRef} style={styles.scrollView}>
           <Image
             resizeMode="contain"
+            //eslint-disable-next-line unicorn/prefer-module
             source={require('../../assets/logo_docchi.png')}
             style={[styles.logo]}
           />

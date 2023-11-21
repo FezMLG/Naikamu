@@ -24,6 +24,7 @@
 		A1019C782AE71E2500AD0BD0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A1019C752AE71E2500AD0BD0 /* GoogleService-Info.plist */; };
 		A1019C792AE71E2500AD0BD0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A1019C752AE71E2500AD0BD0 /* GoogleService-Info.plist */; };
 		EE57DEA5314790D63C074D03 /* libPods-NaikamuTV-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA54FCF2086BA3B4678F8237 /* libPods-NaikamuTV-tvOS.a */; };
+		F4409ADFFE184E67AE6682AC /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442C8AB7D83B4E4C85DB9BFA /* noop-file.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,9 @@
 		EA54FCF2086BA3B4678F8237 /* libPods-NaikamuTV-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NaikamuTV-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		442C8AB7D83B4E4C85DB9BFA /* noop-file.swift */ = {isa = PBXFileReference; name = "noop-file.swift"; path = "NaikamuTV/noop-file.swift"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; explicitFileType = undefined; includeInIndex = 0; };
+		39D68738BC1F4ED781D366F2 /* NaikamuTV-Bridging-Header.h */ = {isa = PBXFileReference; name = "NaikamuTV-Bridging-Header.h"; path = "NaikamuTV/NaikamuTV-Bridging-Header.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		672D52B241894A4EB4D75807 /* SplashScreen.storyboard */ = {isa = PBXFileReference; name = "SplashScreen.storyboard"; path = "NaikamuTV/SplashScreen.storyboard"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +142,9 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				442C8AB7D83B4E4C85DB9BFA /* noop-file.swift */,
+				39D68738BC1F4ED781D366F2 /* NaikamuTV-Bridging-Header.h */,
+				672D52B241894A4EB4D75807 /* SplashScreen.storyboard */,
 			);
 			name = NaikamuTV;
 			sourceTree = "<group>";
@@ -355,6 +362,8 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				A1019C762AE71E2500AD0BD0 /* GoogleService-Info.plist in Resources */,
+				CF049F98A9174DDFB483DD6F /* NaikamuTV-Bridging-Header.h in Resources */,
+				B2349DA7F5D64233AAC0B807 /* SplashScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -687,6 +696,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				F4409ADFFE184E67AE6682AC /* noop-file.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -747,6 +757,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NaikamuTV.app/NaikamuTV";
+				TARGETED_DEVICE_FAMILY = "1";
+				SWIFT_OBJC_BRIDGING_HEADER = NaikamuTV/NaikamuTV-Bridging-Header.h;
 			};
 			name = Debug;
 		};
@@ -771,6 +783,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NaikamuTV.app/NaikamuTV";
+				TARGETED_DEVICE_FAMILY = "1";
+				SWIFT_OBJC_BRIDGING_HEADER = NaikamuTV/NaikamuTV-Bridging-Header.h;
 			};
 			name = Release;
 		};
@@ -799,11 +813,14 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = NaikamuTV;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tltcode.naikamutv";
+				PRODUCT_NAME = "NaikamuTV";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
+				TARGETED_DEVICE_FAMILY = "1";
+				SWIFT_OBJC_BRIDGING_HEADER = NaikamuTV/NaikamuTV-Bridging-Header.h;
+				CODE_SIGN_ENTITLEMENTS = NaikamuTV/NaikamuTV.entitlements;
 			};
 			name = Debug;
 		};
@@ -827,10 +844,13 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = NaikamuTV;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tltcode.naikamutv";
+				PRODUCT_NAME = "NaikamuTV";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
+				TARGETED_DEVICE_FAMILY = "1";
+				SWIFT_OBJC_BRIDGING_HEADER = NaikamuTV/NaikamuTV-Bridging-Header.h;
+				CODE_SIGN_ENTITLEMENTS = NaikamuTV/NaikamuTV.entitlements;
 			};
 			name = Release;
 		};
@@ -865,8 +885,9 @@
 				SDKROOT = appletvos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 3;
+				TARGETED_DEVICE_FAMILY = "1";
 				TVOS_DEPLOYMENT_TARGET = 12.4;
+				SWIFT_OBJC_BRIDGING_HEADER = NaikamuTV/NaikamuTV-Bridging-Header.h;
 			};
 			name = Debug;
 		};
@@ -900,8 +921,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 3;
+				TARGETED_DEVICE_FAMILY = "1";
 				TVOS_DEPLOYMENT_TARGET = 12.4;
+				SWIFT_OBJC_BRIDGING_HEADER = NaikamuTV/NaikamuTV-Bridging-Header.h;
 			};
 			name = Release;
 		};
@@ -933,6 +955,8 @@
 				SDKROOT = appletvos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NaikamuTV-tvOS.app/NaikamuTV-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 12.4;
+				TARGETED_DEVICE_FAMILY = "1";
+				SWIFT_OBJC_BRIDGING_HEADER = NaikamuTV/NaikamuTV-Bridging-Header.h;
 			};
 			name = Debug;
 		};
@@ -964,6 +988,8 @@
 				SDKROOT = appletvos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NaikamuTV-tvOS.app/NaikamuTV-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 12.4;
+				TARGETED_DEVICE_FAMILY = "1";
+				SWIFT_OBJC_BRIDGING_HEADER = NaikamuTV/NaikamuTV-Bridging-Header.h;
 			};
 			name = Release;
 		};
