@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 import { useQuerySeriesDetails } from '../../api/hooks';
 import { useSelectedSeriesStore } from '../../services';
@@ -13,6 +13,7 @@ import { SeriesDetails } from './Series';
 export const SeriesPreview = () => {
   const selectedSeries = useSelectedSeriesStore(state => state.series);
   const api = useQuerySeriesDetails();
+  const [detailsWidth, setDetailsWidth] = useState(0);
 
   return (
     <>
@@ -26,44 +27,28 @@ export const SeriesPreview = () => {
           {api.data ? (
             <>
               <View
-                style={{
-                  gap: 15,
-                  width: '60%',
-                  flex: 1,
-                  zIndex: 10,
-                  marginLeft: 10,
-                  marginTop: 10,
-                }}>
+                onLayout={event =>
+                  setDetailsWidth(event.nativeEvent.layout.width)
+                }
+                style={styles.details}>
                 {/*<Button*/}
                 {/*  label={translate('auth.logout')}*/}
                 {/*  onPress={() => userService.logoutUser()}*/}
                 {/*  type="secondary"*/}
                 {/*/>*/}
-                <View>
-                  <SeriesDetails.Title
-                    romaji={selectedSeries.title}
-                    styles={{
-                      width: '100%',
-                    }}
-                  />
-                  {api.data.studios.length > 0 ? (
-                    <Text
-                      style={[
-                        {
-                          color:
-                            api.data.coverImage.color ?? colors.accent.color,
-                        },
-                        fontStyles.normal,
-                      ]}>
-                      {api.data.studios[0].name}
-                    </Text>
-                  ) : null}
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    gap: 20,
-                  }}>
+                <SeriesDetails.Title romaji={selectedSeries.title} />
+                {api.data.studios.length > 0 ? (
+                  <Text
+                    style={[
+                      {
+                        color: api.data.coverImage.color ?? colors.accent.color,
+                      },
+                      fontStyles.normal,
+                    ]}>
+                    {api.data.studios[0].name}
+                  </Text>
+                ) : null}
+                <View style={styles.info}>
                   <Text style={[colors.textLight, fontStyles.normal]}>
                     Popularność: {api.data.popularity}
                   </Text>
@@ -79,31 +64,19 @@ export const SeriesPreview = () => {
                   genres={api.data.genres}
                 />
               </View>
-              <View
-                style={{
-                  flex: 1,
-                  position: 'absolute',
-                  right: 0,
-                  width: '100%',
-                  height: '100%',
-                }}>
+              <View style={styles.imageContainer}>
                 <ProgressiveImage
                   resizeMode="cover"
                   source={api.data.bannerImage ?? ''}
-                  style={{
-                    zIndex: 1,
-                    width: '100%',
-                    height: '100%',
-                  }}
+                  style={styles.image}
                 />
                 <View
-                  style={{
-                    zIndex: 5,
-                    backgroundColor: 'rgba(0,0,0,0.6)',
-                    width: '60%',
-                    height: '100%',
-                    position: 'absolute',
-                  }}
+                  style={[
+                    styles.backdrop,
+                    {
+                      width: detailsWidth + 20,
+                    },
+                  ]}
                 />
               </View>
             </>
@@ -113,3 +86,35 @@ export const SeriesPreview = () => {
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  details: {
+    gap: 15,
+    maxWidth: '60%',
+    zIndex: 10,
+    marginLeft: 10,
+    marginTop: 10,
+  },
+  info: {
+    flexDirection: 'row',
+    gap: 20,
+  },
+  imageContainer: {
+    flex: 1,
+    position: 'absolute',
+    right: 0,
+    width: '100%',
+    height: '100%',
+  },
+  image: {
+    zIndex: 1,
+    width: '100%',
+    height: '100%',
+  },
+  backdrop: {
+    zIndex: 5,
+    backgroundColor: 'rgba(0,0,0,0.6)',
+    height: '100%',
+    position: 'absolute',
+  },
+});
