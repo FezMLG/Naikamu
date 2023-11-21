@@ -9,11 +9,14 @@ import { ProgressiveImage } from '../atoms';
 import { PageLayout } from '../PageLayout';
 
 import { SeriesDetails } from './Series';
+import { calculateNumberOfWatched } from '../../utils';
+import { useTranslate } from '../../i18n/useTranslate';
 
 export const SeriesPreview = () => {
   const selectedSeries = useSelectedSeriesStore(state => state.series);
   const api = useQuerySeriesDetails();
   const [detailsWidth, setDetailsWidth] = useState(0);
+  const { translate } = useTranslate();
 
   return (
     <>
@@ -63,6 +66,11 @@ export const SeriesPreview = () => {
                   color={api.data.coverImage.color}
                   genres={api.data.genres}
                 />
+                <Text style={[fontStyles.normal, colors.textLight]}>
+                  {translate('myList.common.watched')}:{' '}
+                  {calculateNumberOfWatched(selectedSeries.watched)} /{' '}
+                  {api.data.episodes}
+                </Text>
               </View>
               <View style={styles.imageContainer}>
                 <ProgressiveImage
@@ -89,7 +97,7 @@ export const SeriesPreview = () => {
 
 const styles = StyleSheet.create({
   details: {
-    gap: 15,
+    gap: 10,
     maxWidth: '60%',
     zIndex: 10,
     marginLeft: 10,

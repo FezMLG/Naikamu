@@ -144,6 +144,7 @@ export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
                   (episode: AnimeEpisode, index: number) => (
                     <Episode
                       episode={episode}
+                      hasTVPreferredFocus={false}
                       isWatched={episode.isWatched}
                       key={index}
                     />

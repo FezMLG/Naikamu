@@ -17,7 +17,7 @@ export const en = {
     SearchResults: 'Search Results',
     MyListStack: 'My List',
     OfflineStack: 'Offline',
-    WatchList: 'Watch List'
+    WatchList: 'Watch List',
   },
   forms: {
     save: 'Save',
@@ -80,7 +80,7 @@ export const en = {
       email_already_in_use: 'This user already exist',
       passwords_do_not_match: 'Passwords do not match',
       weak_password: 'Password should be at least 6 characters',
-      wrong_password: 'Incorrect email or password'
+      wrong_password: 'Incorrect email or password',
     },
     continue_with: 'Continue with',
     delete_account: 'Delete account',
@@ -166,12 +166,14 @@ export const en = {
   myList: {
     common: {
       episodes: 'Episodes',
+      watched: 'Watched',
     },
     download: {
-      notFound: 'No downloaded series found'
-    }
+      notFound: 'No downloaded series found',
+    },
   },
   errors: {
-    error_occurred: 'Something went wrong.\n Please try again later or contact support.',
-  }
+    error_occurred:
+      'Something went wrong.\n Please try again later or contact support.',
+  },
 };

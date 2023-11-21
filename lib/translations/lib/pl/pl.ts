@@ -17,7 +17,7 @@ export const pl = {
     SearchResults: 'Wyniki wyszukiwania',
     MyListStack: 'Moja lista',
     OfflineStack: 'Pobrane',
-    WatchList: 'Do Obejrzenia'
+    WatchList: 'Do Obejrzenia',
   },
   forms: {
     save: 'Zapisz',
@@ -81,7 +81,7 @@ export const pl = {
       email_already_in_use: 'Ten użytkownik już istnieje',
       passwords_do_not_match: 'Hasła nie są takie same',
       weak_password: 'Hasło powinno mieć co najmniej 6 znaków',
-      wrong_password: 'Hasło lub email jest nieprawidłowe'
+      wrong_password: 'Hasło lub email jest nieprawidłowe',
     },
     continue_with: 'Kontynuuj z',
     delete_account: 'Usuń konto',
@@ -167,12 +167,14 @@ export const pl = {
   myList: {
     common: {
       episodes: 'Epizody',
+      watched: 'Obejrzane',
     },
     download: {
-      notFound: 'Nie znaleziono pobranych serii'
-    }
+      notFound: 'Nie znaleziono pobranych serii',
+    },
   },
   errors: {
-    error_occurred: 'Wystąpił błąd.\n Spróbuj ponownie później lub skontaktuj się z pomocą techniczną.',
-  }
+    error_occurred:
+      'Wystąpił błąd.\n Spróbuj ponownie później lub skontaktuj się z pomocą techniczną.',
+  },
 };
