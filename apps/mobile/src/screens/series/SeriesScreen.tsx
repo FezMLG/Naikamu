@@ -86,7 +86,7 @@ export function SeriesScreen({
                 <WatchList
                   parentWidth={widthForStatus}
                   seriesId={data.id}
-                  watchStatus={data.watchStatus}
+                  initialWatchStatus={data.watchStatus}
                 />
                 <SeriesDetails.Trailer trailer={data.trailer} />
               </View>

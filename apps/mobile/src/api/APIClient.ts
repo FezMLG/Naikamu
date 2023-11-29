@@ -10,6 +10,7 @@ import {
   IWatchListSeries,
   Paginate,
   WatchListSeriesEpisode,
+  WatchStatusNew,
 } from '@naikamu/shared';
 import axios, {
   AxiosHeaders,
@@ -178,10 +179,12 @@ export class APIClient {
     });
   }
 
-  async updateUserSeriesWatchList(animeId: string) {
+  async updateUserSeriesWatchList(animeId: string, status: WatchStatusNew) {
     return this.post<IWatchListSeries>(
       `user/watch-list/${animeId}`,
-      {},
+      {
+        status,
+      },
       {
         ...(await this.withToken()),
       },

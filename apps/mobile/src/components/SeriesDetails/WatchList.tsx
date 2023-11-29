@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { WatchStatus, WatchStatusNew } from '@naikamu/shared';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { default as Config } from 'react-native-config';
 import RNPickerSelect from 'react-native-picker-select';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -9,43 +9,37 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useMutationUpdateUserWatchList } from '../../api/hooks';
 import { useTranslate } from '../../i18n/useTranslate';
 import { colors, defaultRadius, fontStyles } from '../../styles';
-import { ActivityIndicator } from '../atoms';
 
 interface WatchListProps {
   seriesId: string;
-  watchStatus: WatchStatus;
+  initialWatchStatus: WatchStatusNew;
   parentWidth: number;
 }
 
 export function WatchList({
   seriesId,
-  watchStatus,
+  initialWatchStatus,
   parentWidth,
 }: WatchListProps) {
   const { translate } = useTranslate();
+  const [selectedStatus, setSelectedStatus] =
+    useState<WatchStatusNew>(initialWatchStatus);
   const { watching, mutation } = useMutationUpdateUserWatchList(
-    watchStatus,
+    selectedStatus,
     seriesId,
   );
-  const [selectedStatus, setSelectedStatus] = useState(watchStatus);
 
-  const watchIconRender = (status: WatchStatus) => {
+  const watchIconRender = (status: WatchStatusNew) => {
     let icon = 'movie-open-plus';
-    let textKey = 'add';
 
     switch (status) {
-      case WatchStatus.Following: {
+      case WatchStatusNew.Watching: {
         icon = 'movie-open-star';
-        textKey = 'watching';
-
         break;
       }
 
-      case WatchStatus.Finished: {
+      case WatchStatusNew.Completed: {
         icon = 'movie-open-check';
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        textKey = 'finished';
-
         break;
       }
     }
@@ -69,13 +63,6 @@ export function WatchList({
       {Config.ENV === 'development' && mutation.isError ? (
         <Text>{'error: ' + mutation.error}</Text>
       ) : null}
-      {/*<Pressable*/}
-      {/*  onPress={() => {*/}
-      {/*    mutation.mutate();*/}
-      {/*  }}*/}
-      {/*  style={styles.statusInfo}>*/}
-      {/*  {watchIconRender(watching)}*/}
-      {/*</Pressable>*/}
       {watchIconRender(watching)}
       <RNPickerSelect
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
