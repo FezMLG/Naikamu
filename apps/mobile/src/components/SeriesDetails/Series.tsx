@@ -242,6 +242,7 @@ const styles = StyleSheet.create({
   },
   trailerContainer: {
     height: 60,
+    width: '25%',
   },
   trailerButton: {
     justifyContent: 'space-evenly',
