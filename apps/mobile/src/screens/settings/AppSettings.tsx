@@ -38,7 +38,11 @@ function QualityModal({
           <View key={key} style={[styles.inline, styles.radioContainer]}>
             <RadioButton value={key} />
             <Text
-              style={[fontStyles.text, colors.textLight, styles.radioLabel]}>
+              style={[
+                fontStyles.paragraph,
+                colors.textLight,
+                styles.radioLabel,
+              ]}>
               {Resolution[key as keyof typeof Resolution]}
             </Text>
           </View>
@@ -116,7 +120,9 @@ export function AppSettingsScreen({}: SettingsStackPlaybackSettingsScreenProps) 
       </SettingsGroup>
       <View style={globalStyle.marginTop}>
         <Text style={[fontStyles.label, colors.textLight]}>Environment</Text>
-        <Text style={[fontStyles.text, colors.textLighter]}>{Config.ENV}</Text>
+        <Text style={[fontStyles.paragraph, colors.textLighter]}>
+          {Config.ENV}
+        </Text>
         <Text
           style={[
             fontStyles.label,
@@ -125,7 +131,7 @@ export function AppSettingsScreen({}: SettingsStackPlaybackSettingsScreenProps) 
           ]}>
           API Endpoint
         </Text>
-        <Text style={[fontStyles.text, colors.textLighter]}>
+        <Text style={[fontStyles.paragraph, colors.textLighter]}>
           {Config.API_URL}
         </Text>
         {Config.ENV === 'development' && (
@@ -138,7 +144,7 @@ export function AppSettingsScreen({}: SettingsStackPlaybackSettingsScreenProps) 
               ]}>
               User Settings
             </Text>
-            <Text style={[fontStyles.text, colors.textLighter]}>
+            <Text style={[fontStyles.paragraph, colors.textLighter]}>
               {JSON.stringify(userSettings)}
             </Text>
             <Button

@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   title: {
-    ...fontStyles.text,
+    ...fontStyles.paragraph,
     fontFamily: 'Roboto-Bold',
     width: 185,
   },

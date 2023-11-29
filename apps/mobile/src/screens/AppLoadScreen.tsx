@@ -117,12 +117,17 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
             Linking.openURL('https://github.com/FezMLG/Naikamu/issues')
           }
           style={styles.centerBox}>
-          <Text style={[fontStyles.text, colors.error, globalStyle.textCenter]}>
+          <Text
+            style={[
+              fontStyles.paragraph,
+              colors.error,
+              globalStyle.textCenter,
+            ]}>
             {translate('welcomeScreen.apiError')}
           </Text>
           <Text
             style={[
-              fontStyles.text,
+              fontStyles.paragraph,
               fontStyles.underline,
               globalStyle.textCenter,
               colors.textLight,
@@ -132,13 +137,13 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
         </Pressable>
       )}
       {apiCheck.isError ? (
-        <Text style={[fontStyles.text, colors.textLight]}>
+        <Text style={[fontStyles.paragraph, colors.textLight]}>
           There was an error
           {JSON.stringify(apiCheck.error)}
         </Text>
       ) : null}
       {Config.ENV !== 'production' && (
-        <Text style={[fontStyles.text, colors.textLight]}>
+        <Text style={[fontStyles.paragraph, colors.textLight]}>
           api_url: {Config.API_URL}
           {JSON.stringify(netInfo)}
         </Text>

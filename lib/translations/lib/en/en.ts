@@ -138,6 +138,7 @@ export const en = {
     trailer: 'Trailer',
     links: 'Links',
     source: 'Source',
+    averageScore: 'Average score',
   },
   watch_list: {
     watching: 'Watching',

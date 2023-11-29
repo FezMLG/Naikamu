@@ -28,7 +28,7 @@ export function Snackbar({
       onDismiss={() => setVisible(false)}
       style={{ backgroundColor: DarkColor.C800 }}
       visible={visible}>
-      <Text style={[colors.textLight, fontStyles.text]}>{text}</Text>
+      <Text style={[colors.textLight, fontStyles.paragraph]}>{text}</Text>
     </PaperSnackbar>
   );
 }

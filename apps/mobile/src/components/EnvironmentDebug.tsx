@@ -30,7 +30,9 @@ export const EnvironmentDebug = ({
               ]}>
               {key}
             </Text>
-            <Text style={[fontStyles.text, colors.textLighter]}>{value}</Text>
+            <Text style={[fontStyles.paragraph, colors.textLighter]}>
+              {value}
+            </Text>
           </View>
         ))}
       </Modal.Container>

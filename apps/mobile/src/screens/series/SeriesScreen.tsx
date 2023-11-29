@@ -84,9 +84,9 @@ export function SeriesScreen({
                 }
                 style={styles.watchlistTrailerContainer}>
                 <WatchList
+                  initialWatchStatus={data.watchStatus}
                   parentWidth={widthForStatus}
                   seriesId={data.id}
-                  initialWatchStatus={data.watchStatus}
                 />
                 <SeriesDetails.Trailer trailer={data.trailer} />
               </View>
@@ -95,9 +95,9 @@ export function SeriesScreen({
                 color={data.coverImage.color}
                 genres={data.genres}
               />
-              <View style={globalStyle.marginTop} />
-              <SeriesDetails.AverageScore averageScore={data.averageScore} />
               <View style={globalStyle.marginTopSmall} />
+              <SeriesDetails.AverageScore averageScore={data.averageScore} />
+              <View style={globalStyle.marginTop} />
               <SeriesDetails.Description description={data.description} />
               <View style={globalStyle.marginTop} />
               <SeriesDetailsRelations relations={data.relations} />
@@ -120,7 +120,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    ...debugBorder(),
   },
   closeIcon: {
     backgroundColor: colors.background.color,

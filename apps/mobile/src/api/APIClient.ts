@@ -10,7 +10,7 @@ import {
   IWatchListSeries,
   Paginate,
   WatchListSeriesEpisode,
-  WatchStatusNew,
+  WatchStatus,
 } from '@naikamu/shared';
 import axios, {
   AxiosHeaders,
@@ -19,7 +19,6 @@ import axios, {
 } from 'axios';
 import Config from 'react-native-config';
 
-import { Resolution } from '../services';
 import { fireGetIdToken } from '../services/firebase/fire-auth.service';
 
 interface GetAnimeListDTO {
@@ -179,7 +178,7 @@ export class APIClient {
     });
   }
 
-  async updateUserSeriesWatchList(animeId: string, status: WatchStatusNew) {
+  async updateUserSeriesWatchList(animeId: string, status: WatchStatus) {
     return this.post<IWatchListSeries>(
       `user/watch-list/${animeId}`,
       {

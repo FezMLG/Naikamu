@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { WatchStatus, WatchStatusNew } from '@naikamu/shared';
+import { WatchStatus } from '@naikamu/shared';
 import { StyleSheet, Text, View } from 'react-native';
 import { default as Config } from 'react-native-config';
 import RNPickerSelect from 'react-native-picker-select';
@@ -12,7 +12,7 @@ import { colors, defaultRadius, fontStyles } from '../../styles';
 
 interface WatchListProps {
   seriesId: string;
-  initialWatchStatus: WatchStatusNew;
+  initialWatchStatus: WatchStatus;
   parentWidth: number;
 }
 
@@ -23,22 +23,22 @@ export function WatchList({
 }: WatchListProps) {
   const { translate } = useTranslate();
   const [selectedStatus, setSelectedStatus] =
-    useState<WatchStatusNew>(initialWatchStatus);
+    useState<WatchStatus>(initialWatchStatus);
   const { watching, mutation } = useMutationUpdateUserWatchList(
     selectedStatus,
     seriesId,
   );
 
-  const watchIconRender = (status: WatchStatusNew) => {
+  const watchIconRender = (status: WatchStatus) => {
     let icon = 'movie-open-plus';
 
     switch (status) {
-      case WatchStatusNew.Watching: {
+      case WatchStatus.Watching: {
         icon = 'movie-open-star';
         break;
       }
 
-      case WatchStatusNew.Completed: {
+      case WatchStatus.Completed: {
         icon = 'movie-open-check';
         break;
       }
@@ -80,7 +80,7 @@ export function WatchList({
         style={{
           inputIOSContainer: {
             width: Math.floor(parentWidth * 0.75),
-            borderWidth: 1,
+            borderWidth: 2,
             borderStyle: 'solid',
             borderColor: 'white',
             height: '100%',
@@ -107,7 +107,7 @@ export function WatchList({
             borderRadius: defaultRadius,
             borderBottomLeftRadius: 0,
             borderTopLeftRadius: 0,
-            borderLeftWidth: 1,
+            borderLeftWidth: 2,
           },
           viewContainer: {},
         }}

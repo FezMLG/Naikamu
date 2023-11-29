@@ -1,10 +1,10 @@
-import { WatchStatusNew } from '../../enums';
+import { WatchStatus } from '../../enums';
 
 export interface IWatchListSeries {
   id: string;
   animeId: string;
   title: string;
-  status: WatchStatusNew;
+  status: WatchStatus;
   watched: WatchListSeriesEpisode[];
   poster: string;
 }

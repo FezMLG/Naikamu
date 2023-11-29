@@ -139,6 +139,7 @@ export const pl = {
     trailer: 'Zwiastun',
     links: 'Linki',
     source: 'Źródło',
+    averageScore: 'Średnia ocena',
   },
   watch_list: {
     watching: 'Oglądam',

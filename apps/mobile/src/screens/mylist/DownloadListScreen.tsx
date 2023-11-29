@@ -63,7 +63,7 @@ export function DownloadListScreen() {
               <OfflineSeries key={series.seriesId} series={series} />
             ))
         ) : (
-          <Text style={[colors.textLight, fontStyles.text]}>
+          <Text style={[colors.textLight, fontStyles.paragraph]}>
             {translate('myList.download.notFound')}
           </Text>
         )}
