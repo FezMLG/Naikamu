@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { WatchStatus } from '@naikamu/shared';
-import { StyleSheet, Text, View } from 'react-native';
+import { ColorValue, StyleSheet, Text, View } from 'react-native';
 import { default as Config } from 'react-native-config';
 import RNPickerSelect from 'react-native-picker-select';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -31,10 +31,17 @@ export function WatchList({
 
   const watchIconRender = (status: WatchStatus) => {
     let icon = 'movie-open-plus';
+    let color: ColorValue = colors.textLight.color;
 
     switch (status) {
+      case WatchStatus.Planning: {
+        icon = 'movie-open';
+        break;
+      }
+
       case WatchStatus.Watching: {
-        icon = 'movie-open-star';
+        icon = 'movie-open';
+        color = colors.accent.color;
         break;
       }
 
@@ -42,11 +49,21 @@ export function WatchList({
         icon = 'movie-open-check';
         break;
       }
+
+      case WatchStatus.Dropped: {
+        icon = 'movie-off';
+        break;
+      }
+
+      case WatchStatus.OnHold: {
+        icon = 'movie-open-minus';
+        break;
+      }
     }
 
     return (
       <Icon
-        color={colors.textLight.color}
+        color={color}
         name={icon}
         size={24}
         style={{
@@ -70,13 +87,42 @@ export function WatchList({
         Icon={() => (
           <Icon color={colors.textLight.color} name="chevron-down" size={24} />
         )}
-        items={Object.entries(WatchStatus).map(([value, label]) => ({
-          label: translate(label),
-          value,
-        }))}
+        items={[
+          {
+            key: WatchStatus.Planning,
+            label: translate('watch_list.Planning'),
+            value: WatchStatus.Planning,
+          },
+          {
+            key: WatchStatus.Watching,
+            label: translate('watch_list.Watching'),
+            value: WatchStatus.Watching,
+          },
+          {
+            key: WatchStatus.Completed,
+            label: translate('watch_list.Completed'),
+            value: WatchStatus.Completed,
+          },
+          {
+            key: WatchStatus.OnHold,
+            label: translate('watch_list.OnHold'),
+            value: WatchStatus.OnHold,
+          },
+        ]}
         onDonePress={() => mutation.mutate()}
         onValueChange={value => setSelectedStatus(() => value)}
-        placeholder="Select status..."
+        placeholder={{
+          key: WatchStatus.NotFollowing,
+          label:
+            watching === WatchStatus.NotFollowing
+              ? translate('watch_list.add')
+              : translate('watch_list.remove'),
+          value: WatchStatus.NotFollowing,
+          inputLabel:
+            watching === WatchStatus.NotFollowing
+              ? translate('watch_list.add')
+              : translate('watch_list.remove'),
+        }}
         style={{
           inputIOSContainer: {
             width: Math.floor(parentWidth * 0.75),

@@ -145,6 +145,11 @@ export const pl = {
     watching: 'Oglądam',
     add: 'Dodaj do listy',
     finished: 'Objerzane',
+    remove: 'Usuń z listy',
+    Planning: 'Planuję',
+    Watching: 'Oglądam',
+    Completed: 'Obejrzane',
+    OnHold: 'Wstrzymane',
   },
   anime_episodes: {
     players_not_found: 'Nie znaleziono odtwarzaczy',
