@@ -65,7 +65,7 @@ export const pl = {
     password_again: 'Hasło ponownie',
     new_user: 'New user? Join here',
     logout: 'Wyloguj',
-    username: 'Nazwa użytkownia',
+    username: 'Nazwa użytkownika',
     email_verify: {
       top: 'Zweryfikuj swój adres email',
       bottom: 'i zaloguj się ponownie',
@@ -91,7 +91,7 @@ export const pl = {
     cto: 'Zaczynamy',
     apiLoading: 'Proszę czekać, nasze serwery rozgrzewają się',
     apiError: 'Wystąpiłem problem z serwerami',
-    apiContact: 'Kiliknij tutaj, aby się z nami skontaktować',
+    apiContact: 'Kliknij tutaj, aby się z nami skontaktować',
   },
   animeSeason: {
     winter: 'Zima',
@@ -144,12 +144,13 @@ export const pl = {
   watch_list: {
     watching: 'Oglądam',
     add: 'Dodaj do listy',
-    finished: 'Objerzane',
+    finished: 'Obejrzane',
     remove: 'Usuń z listy',
     Planning: 'Planuję',
     Watching: 'Oglądam',
     Completed: 'Obejrzane',
     OnHold: 'Wstrzymane',
+    Dropped: 'Porzucone',
   },
   anime_episodes: {
     players_not_found: 'Nie znaleziono odtwarzaczy',
@@ -158,7 +159,7 @@ export const pl = {
     load_players: 'Załaduj odtwarzacze',
     disclaimer:
       'AniWatch nie hostuje żadnych plików na własnych serwerach, udostępniamy jedynie linki do treści hostowanych na serwerach stron trzecich.',
-    load_players_error: 'Nie udało się załadować odwarzaczy',
+    load_players_error: 'Nie udało się załadować odtwarzaczy',
     load_players_empty: 'Nie znaleziono odtwarzaczy',
   },
   important: {

@@ -149,6 +149,7 @@ export const en = {
     Watching: 'Watching',
     Completed: 'Completed',
     OnHold: 'On Hold',
+    Dropped: 'Dropped',
   },
   anime_episodes: {
     players_not_found: 'Players not found',

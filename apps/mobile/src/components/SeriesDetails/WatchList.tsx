@@ -80,7 +80,7 @@ export function WatchList({
       {Config.ENV === 'development' && mutation.isError ? (
         <Text>{'error: ' + mutation.error}</Text>
       ) : null}
-      {watchIconRender(watching)}
+      {watchIconRender(selectedStatus)}
       <RNPickerSelect
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
@@ -107,6 +107,11 @@ export function WatchList({
             key: WatchStatus.OnHold,
             label: translate('watch_list.OnHold'),
             value: WatchStatus.OnHold,
+          },
+          {
+            key: WatchStatus.Dropped,
+            label: translate('watch_list.Dropped'),
+            value: WatchStatus.Dropped,
           },
         ]}
         onDonePress={() => mutation.mutate()}
