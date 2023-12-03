@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { WatchStatus } from '@naikamu/shared';
-import { ColorValue, StyleSheet, Text, View } from 'react-native';
+import { ColorValue, Platform, StyleSheet, Text, View } from 'react-native';
 import { default as Config } from 'react-native-config';
 import RNPickerSelect from 'react-native-picker-select';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -115,7 +115,13 @@ export function WatchListStatusSelect({
           },
         ]}
         onDonePress={() => mutation.mutate()}
-        onValueChange={value => setSelectedStatus(() => value)}
+        onValueChange={value => {
+          setSelectedStatus(() => value);
+
+          if (Platform.OS === 'android') {
+            return mutation.mutate();
+          }
+        }}
         placeholder={{
           key: WatchStatus.NotFollowing,
           label:
@@ -144,6 +150,7 @@ export function WatchListStatusSelect({
           inputAndroid: select.input,
           iconContainer: select.iconContainer,
         }}
+        useNativeAndroidPickerStyle={false}
         value={selectedStatus}
       />
     </View>
