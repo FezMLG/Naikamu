@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { useTranslate } from '../../i18n/useTranslate';
 import { NativeVideoPlayerScreen } from '../../screens';
+import { WebViewPlayerScreen } from '../../screens/player/WebViewPlayerScreen';
 
 import { BottomTabStack } from './BottomTabStack';
 import { BrowseStackScreenNames } from './browse';
@@ -14,7 +15,6 @@ import {
   RootStackScreenNames,
 } from './root.interfaces';
 import { SeriesStack } from './series';
-import { WebViewPlayerScreen } from '../../screens/player/WebViewPlayerScreen';
 
 const StackAuthorized = createNativeStackNavigator<RootStackParameterList>();
 
