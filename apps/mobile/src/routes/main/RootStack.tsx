@@ -43,6 +43,7 @@ export function RootStack() {
         options={() => ({
           ...defaultSubHeaderOptions({}),
           presentation: 'modal',
+          animation: 'slide_from_bottom',
         })}
       />
       <StackAuthorized.Screen
