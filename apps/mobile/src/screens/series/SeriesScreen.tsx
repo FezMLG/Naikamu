@@ -9,7 +9,7 @@ import {
   EpisodesButton,
   SeriesDetails,
   SeriesDetailsRelations,
-  WatchList,
+  WatchListStatusSelect,
   ProgressiveImage,
   PageLayout,
   useLayout,
@@ -83,7 +83,7 @@ export function SeriesScreen({
                   setWidthForStatus(event.nativeEvent.layout.width)
                 }
                 style={styles.watchlistTrailerContainer}>
-                <WatchList
+                <WatchListStatusSelect
                   initialWatchStatus={data.watchStatus}
                   parentWidth={widthForStatus}
                   seriesId={data.id}

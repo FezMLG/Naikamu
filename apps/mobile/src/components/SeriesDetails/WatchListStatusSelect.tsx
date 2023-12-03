@@ -10,17 +10,17 @@ import { useMutationUpdateUserWatchList } from '../../api/hooks';
 import { useTranslate } from '../../i18n/useTranslate';
 import { colors, defaultRadius, fontStyles } from '../../styles';
 
-interface WatchListProps {
+interface WatchListStatusSelectProps {
   seriesId: string;
   initialWatchStatus: WatchStatus;
   parentWidth: number;
 }
 
-export function WatchList({
+export function WatchListStatusSelect({
   seriesId,
   initialWatchStatus,
   parentWidth,
-}: WatchListProps) {
+}: WatchListStatusSelectProps) {
   const { translate } = useTranslate();
   const [selectedStatus, setSelectedStatus] =
     useState<WatchStatus>(initialWatchStatus);
@@ -131,36 +131,18 @@ export function WatchList({
         style={{
           inputIOSContainer: {
             width: Math.floor(parentWidth * 0.75),
-            borderWidth: 2,
-            borderStyle: 'solid',
-            borderColor: 'white',
-            height: '100%',
-            borderRadius: defaultRadius,
-            justifyContent: 'center',
+            ...select.inputContainer,
+          },
+          inputAndroidContainer: {
+            width: Math.floor(parentWidth * 0.75),
+            ...select.inputContainer,
           },
           placeholder: {
             ...colors.textLight,
           },
-          inputIOS: {
-            ...colors.textLight,
-            ...fontStyles.normal,
-            paddingLeft: 40,
-          },
-          iconContainer: {
-            position: 'absolute',
-            width: 40,
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderWidth: 0,
-            borderStyle: 'solid',
-            borderColor: 'white',
-            height: '100%',
-            borderRadius: defaultRadius,
-            borderBottomLeftRadius: 0,
-            borderTopLeftRadius: 0,
-            borderLeftWidth: 2,
-          },
-          viewContainer: {},
+          inputIOS: select.input,
+          inputAndroid: select.input,
+          iconContainer: select.iconContainer,
         }}
         value={selectedStatus}
       />
@@ -181,5 +163,36 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     alignItems: 'center',
     gap: 5,
+  },
+  selectInputContainer: {},
+});
+
+const select = StyleSheet.create({
+  inputContainer: {
+    borderWidth: 2,
+    borderStyle: 'solid',
+    borderColor: 'white',
+    height: '100%',
+    borderRadius: defaultRadius,
+    justifyContent: 'center',
+  },
+  input: {
+    ...colors.textLight,
+    ...fontStyles.normal,
+    paddingLeft: 40,
+  },
+  iconContainer: {
+    position: 'absolute',
+    width: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 0,
+    borderStyle: 'solid',
+    borderColor: 'white',
+    height: '100%',
+    borderRadius: defaultRadius,
+    borderBottomLeftRadius: 0,
+    borderTopLeftRadius: 0,
+    borderLeftWidth: 2,
   },
 });

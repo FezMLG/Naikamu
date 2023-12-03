@@ -1,4 +1,4 @@
-export * from './WatchList';
+export * from './WatchListStatusSelect';
 export * from './EpisodesButton';
 export * from './QuickInfo';
 export * from './SeriesRelations';
