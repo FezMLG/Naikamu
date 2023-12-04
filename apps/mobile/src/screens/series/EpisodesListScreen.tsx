@@ -9,7 +9,7 @@ import { Episode, PageLayout, useLayout } from '../../components';
 import { useTranslate } from '../../i18n/useTranslate';
 import { SeriesStackEpisodeScreenProps } from '../../routes';
 import { useActiveSeriesStore } from '../../services';
-import { DarkColor, darkStyle, globalStyle } from '../../styles';
+import { darkStyle, globalStyle } from '../../styles';
 
 export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
   const series = useActiveSeriesStore(store => store.series);

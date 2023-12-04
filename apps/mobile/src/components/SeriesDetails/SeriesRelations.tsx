@@ -30,7 +30,7 @@ export function SeriesRelations({
         style={[styles.poster]}
       />
       <View style={styles.details}>
-        <View style={[styles.flexColumn, styles.marginTop]}>
+        <View style={[styles.flexColumn]}>
           <Text
             style={[styles.textCapitalize, fontStyles.label, colors.textLight]}>
             {translate('anime_details.relations_list.' + relation.relationType)}
@@ -39,7 +39,7 @@ export function SeriesRelations({
             {relation.title.romaji}
           </Text>
         </View>
-        <View style={[styles.type, styles.marginBottom]}>
+        <View style={[styles.type]}>
           <Text style={[styles.uppercase, fontStyles.label, colors.textLight]}>
             {relation.format}
           </Text>
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   title: {
-    ...fontStyles.text,
+    ...fontStyles.paragraph,
     fontFamily: 'Roboto-Bold',
     width: 185,
   },
@@ -83,6 +83,8 @@ const styles = StyleSheet.create({
     width: '100%',
     borderTopRightRadius: 8,
     borderBottomRightRadius: 8,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
   },
   flexColumn: {
     flexDirection: 'column',
@@ -91,14 +93,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
-  },
-  marginTop: {
-    marginLeft: 10,
-    marginTop: 5,
-  },
-  marginBottom: {
-    marginLeft: 10,
-    marginBottom: 5,
   },
   textCapitalize: {
     textTransform: 'capitalize',

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { BlurView } from '@react-native-community/blur';
 import { StyleSheet, ScrollView, View, Pressable } from 'react-native';
@@ -9,7 +9,7 @@ import {
   EpisodesButton,
   SeriesDetails,
   SeriesDetailsRelations,
-  WatchList,
+  WatchListStatusSelect,
   ProgressiveImage,
   PageLayout,
   useLayout,
@@ -17,6 +17,7 @@ import {
 } from '../../components';
 import { SeriesStackSeriesScreenProps } from '../../routes';
 import { globalStyle, DarkColor, colors } from '../../styles';
+import { debugBorder } from '../../utils/debugBorder';
 
 export function SeriesScreen({
   route,
@@ -25,6 +26,7 @@ export function SeriesScreen({
   const { id } = route.params;
   const layout = useLayout();
   const { data, isError, isLoading, refetch } = useQuerySeriesDetails(id);
+  const [widthForStatus, setWidthForStatus] = useState(500);
 
   return (
     <PageLayout.Default margin={false} {...layout}>
@@ -76,8 +78,16 @@ export function SeriesScreen({
               <View style={globalStyle.marginTop} />
               <EpisodesButton series={data} />
               <View style={globalStyle.marginTop} />
-              <View style={styles.watchlistTrailerContainer}>
-                <WatchList seriesId={data.id} watchStatus={data.watchStatus} />
+              <View
+                onLayout={event =>
+                  setWidthForStatus(event.nativeEvent.layout.width)
+                }
+                style={styles.watchlistTrailerContainer}>
+                <WatchListStatusSelect
+                  initialWatchStatus={data.watchStatus}
+                  parentWidth={widthForStatus}
+                  seriesId={data.id}
+                />
                 <SeriesDetails.Trailer trailer={data.trailer} />
               </View>
               <View style={globalStyle.marginTop} />
@@ -85,9 +95,9 @@ export function SeriesScreen({
                 color={data.coverImage.color}
                 genres={data.genres}
               />
-              <View style={globalStyle.marginTop} />
-              <SeriesDetails.AverageScore averageScore={data.averageScore} />
               <View style={globalStyle.marginTopSmall} />
+              <SeriesDetails.AverageScore averageScore={data.averageScore} />
+              <View style={globalStyle.marginTop} />
               <SeriesDetails.Description description={data.description} />
               <View style={globalStyle.marginTop} />
               <SeriesDetailsRelations relations={data.relations} />
@@ -108,8 +118,8 @@ const styles = StyleSheet.create({
   },
   watchlistTrailerContainer: {
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'center',
-    gap: 50,
   },
   closeIcon: {
     backgroundColor: colors.background.color,

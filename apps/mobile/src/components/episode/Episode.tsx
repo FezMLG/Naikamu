@@ -149,7 +149,11 @@ export function Episode({
           <>
             {episode.description ? (
               <Text
-                style={[styles.description, darkStyle.font, fontStyles.text]}>
+                style={[
+                  styles.description,
+                  darkStyle.font,
+                  fontStyles.paragraph,
+                ]}>
                 {episode.description}
               </Text>
             ) : null}

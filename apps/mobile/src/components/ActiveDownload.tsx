@@ -49,7 +49,7 @@ export function ActiveDownload({
           </Text>
           <Text
             style={[
-              fontStyles.text,
+              fontStyles.paragraph,
               colors.textLight,
               globalStyle.marginBottomSmall,
             ]}>

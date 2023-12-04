@@ -63,7 +63,7 @@ function Select({
       style={[groupStyles.setting, isFirstOrLast(isFirst, isLast)]}>
       <Text style={[colors.textLight, fontStyles.headerSmall]}>{title}</Text>
       <View style={[styles.inline]}>
-        <Text style={[colors.textLighter, fontStyles.text]}>{text}</Text>
+        <Text style={[colors.textLighter, fontStyles.paragraph]}>{text}</Text>
         <Icon color={colors.textLighter.color} name="chevron-right" size={28} />
       </View>
     </Pressable>

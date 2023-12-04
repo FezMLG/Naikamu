@@ -92,7 +92,11 @@ export function ForgotPasswordScreen({}: AuthStackForgotPasswordScreenProps) {
         {emailSent && <Timer initialMinute={0} initialSeconds={10} />}
         {emailSent && (
           <Text
-            style={[globalStyle.marginTop, fontStyles.text, colors.textLight]}>
+            style={[
+              globalStyle.marginTop,
+              fontStyles.paragraph,
+              colors.textLight,
+            ]}>
             {translate('auth.email_has_been_sent')}
           </Text>
         )}

@@ -16,7 +16,7 @@ export function MyListStack() {
 
   return (
     <Tab.Navigator
-      initialRouteName={MyListStackScreenNames.OfflineStack}
+      initialRouteName={MyListStackScreenNames.WatchList}
       screenOptions={{
         tabBarStyle: { backgroundColor: 'transparent' },
         tabBarIndicatorStyle: { backgroundColor: colors.accent.color },

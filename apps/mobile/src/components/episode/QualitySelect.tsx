@@ -35,7 +35,11 @@ export function QualitySelect({
             <View key={key} style={[styles.inline, styles.radioContainer]}>
               <RadioButton value={key} />
               <Text
-                style={[fontStyles.text, colors.textLight, styles.radioLabel]}>
+                style={[
+                  fontStyles.paragraph,
+                  colors.textLight,
+                  styles.radioLabel,
+                ]}>
                 {Resolution[key as keyof typeof Resolution]}
               </Text>
             </View>
@@ -49,7 +53,7 @@ export function QualitySelect({
             status={checked ? 'checked' : 'unchecked'}
           />
           <View style={styles.radioLabel}>
-            <Text style={[fontStyles.text, colors.textLight]}>
+            <Text style={[fontStyles.paragraph, colors.textLight]}>
               Remember my choice
             </Text>
             <Text style={[fontStyles.label, colors.textLight]}>

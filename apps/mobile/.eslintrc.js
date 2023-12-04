@@ -27,6 +27,14 @@ module.exports = {
     },
   ],
   rules: {
+    'no-restricted-imports': [
+      'error',
+      {
+        paths: [
+          { name: 'utils/debugBorder', message: 'For debug purposes only' },
+        ],
+      },
+    ],
     'import/namespace': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'error',

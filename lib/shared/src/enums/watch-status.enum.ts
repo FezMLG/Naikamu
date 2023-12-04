@@ -1,7 +1,8 @@
 export enum WatchStatus {
+  Planning = 'Planning',
   Watching = 'Watching',
-  Following = 'Following',
   NotFollowing = 'NotFollowing',
-  Finished = 'Finished',
-  Removed = 'Removed',
+  Completed = 'Completed',
+  Dropped = 'Dropped',
+  OnHold = 'OnHold',
 }

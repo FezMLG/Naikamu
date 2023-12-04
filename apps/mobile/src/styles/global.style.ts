@@ -61,10 +61,14 @@ export const fontStyles = StyleSheet.create({
     fontFamily: 'Catamaran-Black',
     fontSize: 24,
   },
-  text: {
+  paragraph: {
     fontFamily: 'Roboto-Regular',
     fontSize: 16,
     lineHeight: 16 * 1.4,
+  },
+  normal: {
+    fontFamily: 'Roboto-Regular',
+    fontSize: 16,
   },
   label: {
     fontFamily: 'Lato-Regular',

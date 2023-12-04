@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
+import { WatchStatus } from '@naikamu/shared';
 import { useMutation } from '@tanstack/react-query';
 
-import { WatchStatus } from '../../../../../../lib/shared/dist';
 import { APIClient } from '../../APIClient';
 
 export const useMutationUpdateUserWatchList = (
@@ -12,7 +12,8 @@ export const useMutationUpdateUserWatchList = (
   const apiClient = new APIClient();
   const [watching, setWatching] = useState<WatchStatus>(watchStatus);
   const mutation = useMutation({
-    mutationFn: () => apiClient.updateUserSeriesWatchList(seriesId),
+    mutationFn: () =>
+      apiClient.updateUserSeriesWatchList(seriesId, watchStatus),
     onSuccess: data => {
       setWatching(data.status);
     },

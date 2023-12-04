@@ -138,11 +138,18 @@ export const en = {
     trailer: 'Trailer',
     links: 'Links',
     source: 'Source',
+    averageScore: 'Average score',
   },
   watch_list: {
     watching: 'Watching',
     add: 'Add to list',
     finished: 'Watched',
+    remove: 'Remove from list',
+    Planning: 'Planning',
+    Watching: 'Watching',
+    Completed: 'Completed',
+    OnHold: 'On Hold',
+    Dropped: 'Dropped',
   },
   anime_episodes: {
     players_not_found: 'Players not found',

@@ -6,7 +6,7 @@ import { Linking, Pressable, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useTranslate } from '../../i18n/useTranslate';
-import { colors, darkStyle, fontStyles, globalStyle } from '../../styles';
+import { colors, fontStyles, globalStyle } from '../../styles';
 import { Dot } from '../atoms';
 import { ProgressiveImage } from '../ProgressiveImage';
 
@@ -14,7 +14,7 @@ import { QuickInfo } from './QuickInfo';
 
 function Title(props: { romaji?: string; english?: string }) {
   return (
-    <Text selectable={true} style={[darkStyle.font, styles.title]}>
+    <Text selectable={true} style={[colors.textLight, styles.title]}>
       {props.romaji ?? props.english}
     </Text>
   );
@@ -106,16 +106,19 @@ function Genres(props: { genres: AnimeDetails['genres']; color?: string }) {
 
 function Description(props: { description: string }) {
   return (
-    <Text style={[darkStyle.font, fontStyles.text]}>
+    <Text style={[colors.textLight, fontStyles.paragraph]}>
       {props.description.replaceAll(/<[^>]*>?/gm, '')}
     </Text>
   );
 }
 
 function AverageScore(props: { averageScore?: number }) {
+  const { translate } = useTranslate();
+
   return (
-    <Text style={[darkStyle.font, fontStyles.text]}>
-      Average score: {props.averageScore}
+    <Text style={[colors.textLight, fontStyles.normal]}>
+      {translate('anime_details.averageScore')}: {props.averageScore}
+      <Text style={[colors.textLighter, fontStyles.normal]}> / 100</Text>
     </Text>
   );
 }
@@ -134,7 +137,7 @@ function Trailer(props: { trailer: AnimeDetails['trailer'] }) {
             }
             style={styles.trailerButton}>
             <Icon color="white" name="movie-play-outline" size={30} />
-            <Text style={[fontStyles.text, colors.textLight]}>
+            <Text style={[fontStyles.normal, colors.textLight]}>
               {translate('anime_details.trailer')}
             </Text>
           </Pressable>
@@ -150,7 +153,7 @@ function DataSource({ sourceId }: { sourceId: AnimeDetails['sourceId'] }) {
   return (
     <Pressable
       onPress={() => Linking.openURL('https://anilist.co/anime/' + sourceId)}>
-      <Text style={[globalStyle.disclaimer, darkStyle.font]}>
+      <Text style={[globalStyle.disclaimer, colors.textLight]}>
         {translate('anime_details.source')}: AniList{' '}
         <Icon color="white" name="open-in-new" size={16} />
       </Text>
@@ -242,6 +245,7 @@ const styles = StyleSheet.create({
   },
   trailerContainer: {
     height: 60,
+    width: '25%',
   },
   trailerButton: {
     justifyContent: 'space-evenly',

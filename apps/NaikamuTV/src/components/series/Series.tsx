@@ -169,7 +169,7 @@ function Trailer(props: { trailer: AnimeDetails['trailer'] }) {
             }
             style={styles.trailerButton}>
             <Icon color="white" name="movie-play-outline" size={30} />
-            <Text style={[fontStyles.text, colors.textLight]}>
+            <Text style={[fontStyles.normal, colors.textLight]}>
               {translate('anime_details.trailer')}
             </Text>
           </Pressable>
