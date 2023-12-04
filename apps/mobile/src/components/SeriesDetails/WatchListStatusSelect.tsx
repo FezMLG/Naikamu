@@ -159,7 +159,7 @@ export function WatchListStatusSelect({
 
 const styles = StyleSheet.create({
   container: {
-    height: 60,
+    height: 55,
     flexDirection: 'row',
     width: '75%',
   },
