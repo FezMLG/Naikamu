@@ -27,6 +27,7 @@ interface GetAnimeListDTO {
   season?: AnimeSeason;
   seasonYear?: number;
   search?: string | null;
+  status?: WatchStatus[];
 }
 
 export class APIClient {
@@ -34,7 +35,8 @@ export class APIClient {
 
   constructor() {
     this.instance = axios.create({
-      baseURL: Config.API_URL,
+      // baseURL: Config.API_URL,
+      baseURL: 'http://10.0.2.2:3333/api',
       timeout: 2000,
       headers: {
         Accept: 'application/json',
@@ -157,6 +159,7 @@ export class APIClient {
     page,
     perPage = 25,
     search = null,
+    status,
   }: GetAnimeListDTO): Promise<Paginate<IWatchListSeries[]>> {
     const token = await this.withToken();
 
@@ -167,6 +170,7 @@ export class APIClient {
         perPage,
         search,
         dataSource: 'AniList',
+        status,
       },
       { ...token },
     );

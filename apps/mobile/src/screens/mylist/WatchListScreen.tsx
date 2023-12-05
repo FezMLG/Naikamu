@@ -5,18 +5,23 @@ import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, ActivityIndicator, FlatList, Text } from 'react-native';
 
 import { useInfiniteQueryUserWatchList } from '../../api/hooks';
-import { WatchListElement } from '../../components/watch-list';
+import {
+  WatchListElement,
+  WatchListFilters,
+} from '../../components/watch-list';
 import {
   MyListStackWatchListScreenProps,
   RootStackScreenNames,
   SeriesStackScreenNames,
 } from '../../routes';
 import { colors } from '../../styles';
+import { PageLayout, useLayout } from '../../components';
 
 export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
   const navigation = useNavigation<any>();
   const listRef = useRef<FlatList>(null);
   const { api } = useInfiniteQueryUserWatchList();
+  const layout = useLayout();
 
   const renderItem = ({ item }: { item: IWatchListSeries }) => (
     <WatchListElement
@@ -34,7 +39,15 @@ export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
   );
 
   return (
-    <>
+    <PageLayout.Default
+      {...layout}
+      margin={false}
+      style={[
+        {
+          flex: 0,
+        },
+      ]}>
+      <WatchListFilters />
       {api.isLoading ? <ActivityIndicator size="large" /> : null}
       {api.data ? (
         <FlatList
@@ -54,7 +67,7 @@ export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
       ) : (
         <Text style={colors.textLight}>No data</Text>
       )}
-    </>
+    </PageLayout.Default>
   );
 };
 
