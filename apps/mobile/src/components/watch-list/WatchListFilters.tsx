@@ -3,11 +3,20 @@ import React from 'react';
 import { WatchStatus } from '@naikamu/shared';
 import { ScrollView } from 'react-native';
 
+import { useTranslate } from '../../i18n/useTranslate';
 import { useWatchListStore } from '../../services';
 import { Chip } from '../atoms';
 
+const userVisibleWatchStatuses: WatchStatus[] = [
+  WatchStatus.Planning,
+  WatchStatus.Watching,
+  WatchStatus.Completed,
+  WatchStatus.OnHold,
+  WatchStatus.Dropped,
+];
+
 export const WatchListFilters = () => {
-  // const selectedFilters = useWatchListStore(state => state.filters);
+  const { translate } = useTranslate();
   const filtersActions = useWatchListStore(state => state.actions);
 
   return (
@@ -18,15 +27,10 @@ export const WatchListFilters = () => {
           paddingTop: 10,
         },
       ]}>
-      {/*{[...selectedFilters.keys()].map(k => (*/}
-      {/*  <Text key={k} style={colors.textLight}>*/}
-      {/*    {selectedFilters.get(k)}*/}
-      {/*  </Text>*/}
-      {/*))}*/}
-      {Object.values(WatchStatus).map((element, index) => (
+      {userVisibleWatchStatuses.map((element, index) => (
         <Chip
           key={index}
-          label={element}
+          label={translate(`watch_list.${element}`)}
           onPress={() => {
             filtersActions.updateFilters(element, element);
           }}
