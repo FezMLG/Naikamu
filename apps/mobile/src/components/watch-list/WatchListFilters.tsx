@@ -25,6 +25,7 @@ export const WatchListFilters = () => {
   return (
     <ScrollView
       horizontal
+      showsVerticalScrollIndicator={false}
       style={[
         {
           paddingTop: 10,
