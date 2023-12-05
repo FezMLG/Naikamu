@@ -14,6 +14,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { colors, darkStyle, defaultRadius, fontStyles } from '../../styles';
 import { ProgressiveImage } from '../ProgressiveImage';
 import { QuickInfo } from '../SeriesDetails';
+import { Dot } from '../atoms';
 
 export function WatchListElement({
   anime,
@@ -54,7 +55,8 @@ export function WatchListElement({
             justifyContent: 'space-between',
           }}>
           <View style={styles.detailsRow}>
-            {/*<QuickInfo value={anime.format} />*/}
+            <QuickInfo value={anime.status} />
+            <Dot />
             <QuickInfo value="TV" />
           </View>
           <Pressable>
@@ -103,5 +105,7 @@ const styles = StyleSheet.create({
   },
   detailsRow: {
     flexDirection: 'row',
+    gap: 5,
+    alignItems: 'center',
   },
 });

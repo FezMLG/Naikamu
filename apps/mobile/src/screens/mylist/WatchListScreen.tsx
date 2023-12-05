@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, ActivityIndicator, FlatList, Text } from 'react-native';
 
 import { useInfiniteQueryUserWatchList } from '../../api/hooks';
+import { PageLayout, useLayout } from '../../components';
 import {
   WatchListElement,
   WatchListFilters,
@@ -15,7 +16,6 @@ import {
   SeriesStackScreenNames,
 } from '../../routes';
 import { colors } from '../../styles';
-import { PageLayout, useLayout } from '../../components';
 
 export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
   const navigation = useNavigation<any>();

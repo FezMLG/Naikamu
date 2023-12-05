@@ -7,11 +7,12 @@ import { colors, fontStyles } from '../../../styles';
 
 interface ChipProps extends Omit<PressableProps, 'style'> {
   label: string;
+  initialState?: boolean;
 }
 
 export const Chip = (props: ChipProps) => {
-  const { label, onPress, ...pressableProps } = props;
-  const [isSelected, setIsSelected] = useState<boolean>(false);
+  const { label, onPress, initialState, ...pressableProps } = props;
+  const [isSelected, setIsSelected] = useState<boolean>(initialState ?? false);
 
   return (
     <Pressable
