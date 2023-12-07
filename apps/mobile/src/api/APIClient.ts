@@ -35,8 +35,7 @@ export class APIClient {
 
   constructor() {
     this.instance = axios.create({
-      // baseURL: Config.API_URL,
-      baseURL: 'http://10.0.2.2:3333/api',
+      baseURL: Config.API_URL,
       timeout: 2000,
       headers: {
         Accept: 'application/json',
