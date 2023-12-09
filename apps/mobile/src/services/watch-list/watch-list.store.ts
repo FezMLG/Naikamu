@@ -1,5 +1,7 @@
 import { create } from 'zustand';
 
+import { userVisibleWatchStatuses } from './userVisibleWatchStatuses';
+
 interface WatchListState {
   filters: Map<string, string>;
   actions: {
@@ -8,7 +10,11 @@ interface WatchListState {
 }
 
 export const useWatchListStore = create<WatchListState>(set => ({
-  filters: new Map(),
+  filters: new Map(
+    userVisibleWatchStatuses
+      .filter(status => status.isDefaultActive)
+      .map(status => [status.key, status.key]),
+  ),
   actions: {
     updateFilters: (key: string, value: string) => {
       set(state => {
