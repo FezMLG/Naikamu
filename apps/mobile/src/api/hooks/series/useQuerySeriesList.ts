@@ -13,7 +13,7 @@ export const useQuerySeriesList = () => {
   const [season, setSeason] = useState(getAnimeSeason());
   const [year, setYear] = useState(new Date().getFullYear());
 
-  const { isLoading, data, refetch, fetchNextPage, isRefetching } =
+  const { isLoading, isError, data, refetch, fetchNextPage, isRefetching } =
     useInfiniteQuery<Paginate<IAnimeListItem[]>>(
       ['browse', season, year],
       ({ pageParam }) =>
@@ -30,6 +30,7 @@ export const useQuerySeriesList = () => {
   return {
     api: {
       isLoading,
+      isError,
       data,
       refetch,
       fetchNextPage,

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet } from 'react-native';
 import {
   Button,
   Dialog,
@@ -9,6 +9,7 @@ import {
   Text,
   TextInput,
 } from 'react-native-paper';
+import Animated from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useTranslate } from '../../i18n/useTranslate';
@@ -21,12 +22,14 @@ export function SeasonYearSelectButtons({
   setSeason,
   year,
   setYear,
+  transform,
 }: {
   currentSeason: IAnimeSeasons;
   season: IAnimeSeasons;
   setSeason: (season: IAnimeSeasons) => void;
   year: number;
   setYear: (year: number) => void;
+  transform: { transform: { translateY: number }[] };
 }): JSX.Element {
   const { translate } = useTranslate();
   const [yearDialogVisible, setYearDialogVisible] = useState(false);
@@ -42,7 +45,19 @@ export function SeasonYearSelectButtons({
   };
 
   return (
-    <View style={styles.container}>
+    <Animated.View
+      style={[
+        styles.container,
+        transform,
+        {
+          backgroundColor: colors.background.color,
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          elevation: 4,
+          zIndex: 1,
+        },
+      ]}>
       <Pressable onPress={showDialog} style={styles.buttonContainer}>
         <Icon
           color="#ffffff"
@@ -113,7 +128,7 @@ export function SeasonYearSelectButtons({
           />
         ))}
       </Menu>
-    </View>
+    </Animated.View>
   );
 }
 
@@ -123,6 +138,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
     paddingHorizontal: 8,
+    paddingVertical: 8,
   },
   buttonContainer: {
     paddingHorizontal: 15,

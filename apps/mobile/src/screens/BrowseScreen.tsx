@@ -3,8 +3,9 @@ import React, { useRef, useState } from 'react';
 import { IAnimeListItem } from '@naikamu/shared';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
-import { StyleSheet, ActivityIndicator, FlatList, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { FAB } from 'react-native-paper';
+import Animated from 'react-native-reanimated';
 
 import { useQuerySeriesList } from '../api/hooks';
 import {
@@ -13,6 +14,7 @@ import {
   PageLayout,
   useLayout,
 } from '../components';
+import { useAnimatedHeader } from '../components/atoms/Animated';
 import {
   BrowseStackBrowseScreenProps,
   RootStackScreenNames,
@@ -24,11 +26,15 @@ export function BrowseScreen({}: BrowseStackBrowseScreenProps) {
   const layout = useLayout();
   const CONTENT_OFFSET_THRESHOLD = 300;
   const navigation = useNavigation<any>();
-  const listRef = useRef<FlatList>(null);
+  const listRef = useRef<any>(null);
   const [contentVerticalOffset, setContentVerticalOffset] = useState(0);
   const { api, currentSeason, season, year, setSeason, setYear } =
     useQuerySeriesList();
   const tabHeight = useBottomTabBarHeight();
+
+  const { scrollHandler, animatedStyle } = useAnimatedHeader(60, event =>
+    setContentVerticalOffset(() => event.contentOffset.y),
+  );
 
   const renderItem = ({ item }: { item: IAnimeListItem }) => (
     <BrowseElement
@@ -52,12 +58,14 @@ export function BrowseScreen({}: BrowseStackBrowseScreenProps) {
         season={season}
         setSeason={setSeason}
         setYear={setYear}
+        transform={animatedStyle}
         year={year}
       />
-      {api.isLoading ? <ActivityIndicator size="large" /> : null}
+      <PageLayout.Loading isLoading={api.isLoading} />
+      <PageLayout.Error isError={api.isError} refetch={api.refetch} />
       {api.data ? (
-        <View>
-          <FlatList
+        <>
+          <Animated.FlatList
             ListFooterComponent={<View />}
             ListFooterComponentStyle={{ height: tabHeight * 2, width: '100%' }}
             contentContainerStyle={[styles.flatListContent]}
@@ -68,12 +76,11 @@ export function BrowseScreen({}: BrowseStackBrowseScreenProps) {
             onEndReached={() => api.fetchNextPage()}
             onEndReachedThreshold={1}
             onRefresh={api.refetch}
-            onScroll={event => {
-              setContentVerticalOffset(event.nativeEvent.contentOffset.y);
-            }}
+            onScroll={scrollHandler}
             ref={listRef}
             refreshing={api.isRefetching}
             renderItem={renderItem}
+            scrollEventThrottle={16}
             style={[styles.flatList]}
           />
           {contentVerticalOffset > CONTENT_OFFSET_THRESHOLD && (
@@ -86,7 +93,7 @@ export function BrowseScreen({}: BrowseStackBrowseScreenProps) {
               style={styles.fab}
             />
           )}
-        </View>
+        </>
       ) : null}
     </PageLayout.Default>
   );
@@ -99,9 +106,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background.color,
     marginHorizontal: 0,
   },
-  flatList: {
-    marginTop: 10,
-  },
+  flatList: {},
   fab: {
     position: 'absolute',
     margin: 16,
@@ -111,5 +116,6 @@ const styles = StyleSheet.create({
   },
   flatListContent: {
     flexGrow: 1,
+    marginTop: 60,
   },
 });

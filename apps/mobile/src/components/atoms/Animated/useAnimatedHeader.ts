@@ -1,70 +1,63 @@
-import { RefObject, useRef } from 'react';
-
+import { NativeScrollEvent } from 'react-native';
 import {
-  Animated,
-  FlatList,
-  NativeScrollEvent,
-  NativeSyntheticEvent,
-} from 'react-native';
+  Easing,
+  runOnJS,
+  useAnimatedScrollHandler,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated';
 
-const getCloser = (value: number, checkOne: number, checkTwo: number) =>
-  Math.abs(value - checkOne) < Math.abs(value - checkTwo) ? checkOne : checkTwo;
-
-export const useAnimatedHeader = <T = unknown>(
+export const useAnimatedHeader = (
   headerHeight: number,
-  listRef: RefObject<FlatList<T>>,
+  onScrollCallback?: (event: NativeScrollEvent) => void,
 ) => {
-  const scrollY = useRef(new Animated.Value(0));
-  const handleScroll = Animated.event(
-    [
-      {
-        nativeEvent: {
-          contentOffset: { y: scrollY.current },
+  const lastContentOffset = useSharedValue(0);
+  const isScrolling = useSharedValue(false);
+  const translateY = useSharedValue(0);
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          translateY: withTiming(translateY.value, {
+            duration: 300,
+            easing: Easing.inOut(Easing.ease),
+          }),
         },
-      },
-    ],
-    {
-      useNativeDriver: true,
+      ],
+    };
+  });
+
+  const scrollHandler = useAnimatedScrollHandler({
+    onScroll: event => {
+      if (
+        lastContentOffset.value > event.contentOffset.y &&
+        isScrolling.value
+      ) {
+        translateY.value = 0;
+      } else if (
+        lastContentOffset.value < event.contentOffset.y &&
+        isScrolling.value
+      ) {
+        translateY.value = -headerHeight;
+      }
+      lastContentOffset.value = event.contentOffset.y;
+
+      if (onScrollCallback) {
+        runOnJS(onScrollCallback)(event);
+      }
     },
-  );
-  const scrollYClamped = Animated.diffClamp(scrollY.current, 0, headerHeight);
-
-  const translateY = scrollYClamped.interpolate({
-    inputRange: [0, headerHeight],
-    outputRange: [0, -(headerHeight / 2)],
+    onBeginDrag: () => {
+      isScrolling.value = true;
+    },
+    onEndDrag: () => {
+      isScrolling.value = false;
+    },
   });
-
-  const translateYNumber = useRef<number>();
-
-  translateY.addListener(({ value }) => {
-    translateYNumber.current = value;
-  });
-
-  const handleSnap = ({
-    nativeEvent,
-  }: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const offsetY = nativeEvent.contentOffset.y;
-
-    if (
-      !(
-        translateYNumber.current === 0 ||
-        translateYNumber.current === -headerHeight / 2
-      ) &&
-      listRef.current
-    ) {
-      listRef.current.scrollToOffset({
-        offset:
-          getCloser(translateYNumber.current!, -headerHeight / 2, 0) ===
-          -headerHeight / 2
-            ? offsetY + headerHeight / 2
-            : offsetY - headerHeight / 2,
-      });
-    }
-  };
 
   return {
-    handleScroll,
-    handleSnap,
-    translateY,
+    animatedStyle,
+    scrollHandler,
   };
 };

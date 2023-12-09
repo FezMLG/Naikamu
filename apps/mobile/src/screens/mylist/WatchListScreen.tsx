@@ -1,8 +1,9 @@
-import React, { useRef } from 'react';
+import React from 'react';
 
 import { IWatchListSeries } from '@naikamu/shared';
 import { useNavigation } from '@react-navigation/native';
-import { StyleSheet, FlatList, Text, Animated, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import Animated from 'react-native-reanimated';
 
 import { useInfiniteQueryUserWatchList } from '../../api/hooks';
 import { PageLayout, useLayout } from '../../components';
@@ -22,14 +23,10 @@ const headerHeight = 100;
 
 export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
   const navigation = useNavigation<any>();
-  const listRef = useRef<FlatList>(null);
   const { api } = useInfiniteQueryUserWatchList();
   const layout = useLayout();
 
-  const { handleSnap, handleScroll, translateY } = useAnimatedHeader(
-    headerHeight,
-    listRef,
-  );
+  const { scrollHandler, animatedStyle } = useAnimatedHeader(headerHeight);
 
   const renderItem = ({ item }: { item: IWatchListSeries }) => (
     <WatchListElement
@@ -55,7 +52,7 @@ export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
           flex: 0,
         },
       ]}>
-      <WatchListFilters translateY={translateY} />
+      <WatchListFilters transform={animatedStyle} />
       <PageLayout.Loading isLoading={api.isLoading} />
       <PageLayout.Error isError={api.isError} refetch={api.refetch} />
       {api.data ? (
@@ -71,12 +68,11 @@ export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
           numColumns={1}
           onEndReached={() => api.fetchNextPage()}
           onEndReachedThreshold={1}
-          onMomentumScrollEnd={handleSnap}
           onRefresh={api.refetch}
-          onScroll={handleScroll}
-          ref={listRef}
+          onScroll={scrollHandler}
           refreshing={api.isRefetching}
           renderItem={renderItem}
+          scrollEventThrottle={16}
           style={[styles.flatList]}
         />
       ) : (
@@ -97,6 +93,5 @@ const styles = StyleSheet.create({
   },
   flatListContent: {
     flexGrow: 1,
-    // paddingTop: headerHeight / 2,
   },
 });

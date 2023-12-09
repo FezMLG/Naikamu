@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Animated } from 'react-native';
+import Animated from 'react-native-reanimated';
 
 import { useTranslate } from '../../i18n/useTranslate';
 import { userVisibleWatchStatuses, useWatchListStore } from '../../services';
@@ -8,9 +8,9 @@ import { colors } from '../../styles';
 import { Chip } from '../atoms';
 
 export const WatchListFilters = ({
-  translateY,
+  transform,
 }: {
-  translateY: Animated.AnimatedInterpolation<string | number>;
+  transform: { transform: { translateY: number }[] };
 }) => {
   const { translate } = useTranslate();
   const filtersActions = useWatchListStore(state => state.actions);
@@ -25,7 +25,6 @@ export const WatchListFilters = ({
       style={[
         {
           height: 50,
-          transform: [{ translateY: translateY }],
           backgroundColor: colors.background.color,
           position: 'absolute',
           top: 0,
@@ -33,6 +32,7 @@ export const WatchListFilters = ({
           elevation: 4,
           zIndex: 1,
         },
+        transform,
       ]}>
       {userVisibleWatchStatuses.map((element, index) => (
         <Chip
