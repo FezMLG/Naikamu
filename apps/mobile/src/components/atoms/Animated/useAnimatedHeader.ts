@@ -16,18 +16,16 @@ export const useAnimatedHeader = (
   const isScrolling = useSharedValue(false);
   const translateY = useSharedValue(0);
 
-  const animatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [
-        {
-          translateY: withTiming(translateY.value, {
-            duration: 300,
-            easing: Easing.inOut(Easing.ease),
-          }),
-        },
-      ],
-    };
-  });
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [
+      {
+        translateY: withTiming(translateY.value, {
+          duration: 300,
+          easing: Easing.inOut(Easing.ease),
+        }),
+      },
+    ],
+  }));
 
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: event => {
