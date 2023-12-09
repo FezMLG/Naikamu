@@ -7,7 +7,11 @@ import { userVisibleWatchStatuses, useWatchListStore } from '../../services';
 import { colors } from '../../styles';
 import { Chip } from '../atoms';
 
-export const WatchListFilters = ({ translateY }: { translateY: any }) => {
+export const WatchListFilters = ({
+  translateY,
+}: {
+  translateY: Animated.AnimatedInterpolation<string | number>;
+}) => {
   const { translate } = useTranslate();
   const filtersActions = useWatchListStore(state => state.actions);
 

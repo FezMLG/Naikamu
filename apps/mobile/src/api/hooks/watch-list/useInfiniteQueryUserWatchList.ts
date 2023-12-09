@@ -11,7 +11,7 @@ export const useInfiniteQueryUserWatchList = () => {
 
   const filters = useWatchListStore(state => state.filters);
 
-  const { isLoading, data, refetch, fetchNextPage, isRefetching } =
+  const { isLoading, data, refetch, fetchNextPage, isRefetching, isError } =
     useInfiniteQuery<Paginate<IWatchListSeries[]>>(
       ['watch list'],
       ({ pageParam: pageParameter = 1 }) =>
@@ -30,6 +30,7 @@ export const useInfiniteQueryUserWatchList = () => {
 
   return {
     api: {
+      isError,
       isLoading,
       data,
       refetch,

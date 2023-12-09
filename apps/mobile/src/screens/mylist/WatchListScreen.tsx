@@ -2,19 +2,11 @@ import React, { useRef } from 'react';
 
 import { IWatchListSeries } from '@naikamu/shared';
 import { useNavigation } from '@react-navigation/native';
-import {
-  StyleSheet,
-  ActivityIndicator,
-  FlatList,
-  Text,
-  Animated,
-  NativeScrollEvent,
-  NativeSyntheticEvent,
-  View,
-} from 'react-native';
+import { StyleSheet, FlatList, Text, Animated, View } from 'react-native';
 
 import { useInfiniteQueryUserWatchList } from '../../api/hooks';
 import { PageLayout, useLayout } from '../../components';
+import { useAnimatedHeader } from '../../components/atoms/Animated';
 import {
   WatchListElement,
   WatchListFilters,
@@ -28,62 +20,16 @@ import { colors } from '../../styles';
 
 const headerHeight = 100;
 
-export const getCloser = (value: number, checkOne: number, checkTwo: number) =>
-  Math.abs(value - checkOne) < Math.abs(value - checkTwo) ? checkOne : checkTwo;
-
 export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
   const navigation = useNavigation<any>();
   const listRef = useRef<FlatList>(null);
   const { api } = useInfiniteQueryUserWatchList();
   const layout = useLayout();
 
-  const scrollY = useRef(new Animated.Value(0));
-  const handleScroll = Animated.event(
-    [
-      {
-        nativeEvent: {
-          contentOffset: { y: scrollY.current },
-        },
-      },
-    ],
-    {
-      useNativeDriver: true,
-    },
+  const { handleSnap, handleScroll, translateY } = useAnimatedHeader(
+    headerHeight,
+    listRef,
   );
-  const scrollYClamped = Animated.diffClamp(scrollY.current, 0, headerHeight);
-
-  const translateY = scrollYClamped.interpolate({
-    inputRange: [0, headerHeight],
-    outputRange: [0, -(headerHeight / 2)],
-  });
-
-  const translateYNumber = useRef<number>();
-
-  translateY.addListener(({ value }) => {
-    translateYNumber.current = value;
-  });
-
-  const handleSnap = ({
-    nativeEvent,
-  }: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const offsetY = nativeEvent.contentOffset.y;
-
-    if (
-      !(
-        translateYNumber.current === 0 ||
-        translateYNumber.current === -headerHeight / 2
-      ) &&
-      listRef.current
-    ) {
-      listRef.current.scrollToOffset({
-        offset:
-          getCloser(translateYNumber.current!, -headerHeight / 2, 0) ===
-          -headerHeight / 2
-            ? offsetY + headerHeight / 2
-            : offsetY - headerHeight / 2,
-      });
-    }
-  };
 
   const renderItem = ({ item }: { item: IWatchListSeries }) => (
     <WatchListElement
@@ -110,7 +56,8 @@ export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
         },
       ]}>
       <WatchListFilters translateY={translateY} />
-      {api.isLoading ? <ActivityIndicator size="large" /> : null}
+      <PageLayout.Loading isLoading={api.isLoading} />
+      <PageLayout.Error isError={api.isError} refetch={api.refetch} />
       {api.data ? (
         <Animated.FlatList
           ListHeaderComponent={<View />}
