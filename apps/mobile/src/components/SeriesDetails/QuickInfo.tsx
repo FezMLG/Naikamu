@@ -3,7 +3,7 @@ import React from 'react';
 import { StyleProp, ViewStyle, TextStyle, View } from 'react-native';
 import { Text } from 'react-native-paper';
 
-import { darkStyle } from '../../styles/darkMode.style';
+import { darkStyle } from '../../styles';
 
 export function QuickInfo({
   value,
