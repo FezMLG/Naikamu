@@ -55,7 +55,7 @@ export function SeasonYearSelectButtons({
           top: 0,
           left: 0,
           elevation: 4,
-          zIndex: 1,
+          zIndex: 10,
         },
       ]}>
       <Pressable onPress={showDialog} style={styles.buttonContainer}>
