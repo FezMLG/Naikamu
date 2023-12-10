@@ -66,7 +66,12 @@ export function SeriesScreen({
       <PageLayout.Loading isLoading={isLoading} />
       <PageLayout.Error isError={isError} refetch={refetch} />
       {data ? (
-        <>
+        <View
+          style={[
+            {
+              backgroundColor: data.coverImage.color ?? colors.background.color,
+            },
+          ]}>
           <SeriesDetails.Poster
             altImage={data.coverImage.extraLarge}
             animationStyle={imageTranslate}
@@ -132,7 +137,7 @@ export function SeriesScreen({
             <View style={globalStyle.marginTop} />
             <SeriesDetails.DataSource sourceId={data.sourceId} />
           </View>
-        </>
+        </View>
       ) : null}
     </Animated.ScrollView>
   );
