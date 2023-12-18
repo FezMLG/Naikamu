@@ -27,6 +27,7 @@ interface GetAnimeListDTO {
   season?: AnimeSeason;
   seasonYear?: number;
   search?: string | null;
+  status?: WatchStatus[];
 }
 
 export class APIClient {
@@ -157,6 +158,7 @@ export class APIClient {
     page,
     perPage = 25,
     search = null,
+    status,
   }: GetAnimeListDTO): Promise<Paginate<IWatchListSeries[]>> {
     const token = await this.withToken();
 
@@ -167,6 +169,7 @@ export class APIClient {
         perPage,
         search,
         dataSource: 'AniList',
+        status,
       },
       { ...token },
     );

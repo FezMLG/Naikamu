@@ -3,6 +3,8 @@ import React from 'react';
 import { AnimeDetails } from '@naikamu/shared';
 import { format } from 'date-fns';
 import { Linking, Pressable, StyleSheet, Text, View } from 'react-native';
+import FastImage from 'react-native-fast-image';
+import Animated from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useTranslate } from '../../i18n/useTranslate';
@@ -32,11 +34,17 @@ function SubTitle(props: { romaji?: string; english?: string }) {
   );
 }
 
-function Poster(props: { bannerImage?: string; altImage: string }) {
+function Poster(props: {
+  bannerImage?: string;
+  altImage: string;
+  animationStyle: { transform: { translateY: number }[] };
+}) {
   return (
-    <ProgressiveImage
-      source={props.bannerImage ?? props.altImage}
-      style={styles.banner}
+    <Animated.Image
+      source={{
+        uri: props.bannerImage ?? props.altImage,
+      }}
+      style={[styles.banner, props.animationStyle]}
     />
   );
 }
@@ -185,7 +193,7 @@ const styles = StyleSheet.create({
   banner: {
     width: '100%',
     height: 300,
-    resizeMode: 'contain',
+    resizeMode: 'cover',
   },
   chipContainer: {
     flexDirection: 'row',

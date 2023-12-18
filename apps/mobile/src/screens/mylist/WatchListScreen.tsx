@@ -1,11 +1,17 @@
-import React, { useRef } from 'react';
+import React from 'react';
 
 import { IWatchListSeries } from '@naikamu/shared';
 import { useNavigation } from '@react-navigation/native';
-import { StyleSheet, ActivityIndicator, FlatList, Text } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
+import Animated from 'react-native-reanimated';
 
 import { useInfiniteQueryUserWatchList } from '../../api/hooks';
-import { WatchListElement } from '../../components/watch-list';
+import { PageLayout, useLayout } from '../../components';
+import { useAnimatedHeader } from '../../components/atoms/Animated';
+import {
+  WatchListElement,
+  WatchListFilters,
+} from '../../components/watch-list';
 import {
   MyListStackWatchListScreenProps,
   RootStackScreenNames,
@@ -13,10 +19,15 @@ import {
 } from '../../routes';
 import { colors } from '../../styles';
 
+const headerHeight = 100;
+
 export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
   const navigation = useNavigation<any>();
-  const listRef = useRef<FlatList>(null);
   const { api } = useInfiniteQueryUserWatchList();
+  const layout = useLayout();
+
+  const { scrollHandler, animatedHeight, animatedTransform } =
+    useAnimatedHeader(headerHeight);
 
   const renderItem = ({ item }: { item: IWatchListSeries }) => (
     <WatchListElement
@@ -34,10 +45,22 @@ export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
   );
 
   return (
-    <>
-      {api.isLoading ? <ActivityIndicator size="large" /> : null}
+    <PageLayout.Default
+      {...layout}
+      margin={false}
+      style={[
+        {
+          flex: 0,
+        },
+      ]}>
+      <WatchListFilters
+        animatedHeight={animatedHeight}
+        animatedTransform={animatedTransform}
+      />
+      <PageLayout.Loading isLoading={api.isLoading} />
+      <PageLayout.Error isError={api.isError} refetch={api.refetch} />
       {api.data ? (
-        <FlatList
+        <Animated.FlatList
           contentContainerStyle={[styles.flatListContent]}
           contentInsetAdjustmentBehavior="automatic"
           data={api.data.pages.flatMap(page => page.data)}
@@ -46,15 +69,16 @@ export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
           onEndReached={() => api.fetchNextPage()}
           onEndReachedThreshold={1}
           onRefresh={api.refetch}
-          ref={listRef}
+          onScroll={scrollHandler}
           refreshing={api.isRefetching}
           renderItem={renderItem}
+          scrollEventThrottle={16}
           style={[styles.flatList]}
         />
       ) : (
         <Text style={colors.textLight}>No data</Text>
       )}
-    </>
+    </PageLayout.Default>
   );
 };
 
@@ -66,13 +90,7 @@ const styles = StyleSheet.create({
   },
   flatList: {
     marginHorizontal: 16,
-  },
-  fab: {
-    position: 'absolute',
-    margin: 16,
-    right: 0,
-    bottom: 80,
-    backgroundColor: colors.accent.color,
+    height: '100%',
   },
   flatListContent: {
     flexGrow: 1,

@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-// import { useTranslate } from '../../i18n/useTranslate';
+import { useTranslate } from '../../i18n/useTranslate';
 import { colors, darkStyle, defaultRadius, fontStyles } from '../../styles';
 import { ProgressiveImage } from '../ProgressiveImage';
 import { QuickInfo } from '../SeriesDetails';
@@ -22,7 +22,7 @@ export function WatchListElement({
   anime: IWatchListSeries;
   handlePageChange: ((event: GestureResponderEvent) => void) | null | undefined;
 }) {
-  // const { translate } = useTranslate();
+  const { translate } = useTranslate();
 
   return (
     <Pressable
@@ -45,7 +45,7 @@ export function WatchListElement({
             {anime.title}
           </Text>
           <Text style={[darkStyle.font, fontStyles.label]}>
-            Watched: {anime.watched.length}
+            {translate('myList.common.watched')}: {anime.watched.length}
           </Text>
         </View>
         <View
@@ -54,8 +54,7 @@ export function WatchListElement({
             justifyContent: 'space-between',
           }}>
           <View style={styles.detailsRow}>
-            {/*<QuickInfo value={anime.format} />*/}
-            <QuickInfo value="TV" />
+            <QuickInfo value={translate('watch_list.' + anime.status)} />
           </View>
           <Pressable>
             <Icon name="dots-vertical" size={24} style={colors.textLight} />
@@ -103,5 +102,7 @@ const styles = StyleSheet.create({
   },
   detailsRow: {
     flexDirection: 'row',
+    gap: 5,
+    alignItems: 'center',
   },
 });
