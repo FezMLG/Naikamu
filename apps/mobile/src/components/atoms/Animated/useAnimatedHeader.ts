@@ -15,8 +15,9 @@ export const useAnimatedHeader = (
   const lastContentOffset = useSharedValue(0);
   const isScrolling = useSharedValue(false);
   const translateY = useSharedValue(0);
+  const underHeight = useSharedValue<number>(headerHeight);
 
-  const animatedStyle = useAnimatedStyle(() => ({
+  const animatedTransform = useAnimatedStyle(() => ({
     transform: [
       {
         translateY: withTiming(translateY.value, {
@@ -27,9 +28,18 @@ export const useAnimatedHeader = (
     ],
   }));
 
+  const animatedHeight = useAnimatedStyle(() => ({
+    height: withTiming(underHeight.value, {
+      duration: 60,
+      easing: Easing.inOut(Easing.ease),
+    }),
+  }));
+
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: event => {
-      if (
+      if (event.contentOffset.y < headerHeight / 2) {
+        underHeight.value = headerHeight / 2 - event.contentOffset.y;
+      } else if (
         lastContentOffset.value > event.contentOffset.y &&
         isScrolling.value
       ) {
@@ -55,7 +65,8 @@ export const useAnimatedHeader = (
   });
 
   return {
-    animatedStyle,
+    animatedTransform,
+    animatedHeight,
     scrollHandler,
   };
 };

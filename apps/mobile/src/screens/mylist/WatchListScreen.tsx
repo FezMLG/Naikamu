@@ -2,7 +2,7 @@ import React from 'react';
 
 import { IWatchListSeries } from '@naikamu/shared';
 import { useNavigation } from '@react-navigation/native';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import Animated from 'react-native-reanimated';
 
 import { useInfiniteQueryUserWatchList } from '../../api/hooks';
@@ -26,7 +26,8 @@ export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
   const { api } = useInfiniteQueryUserWatchList();
   const layout = useLayout();
 
-  const { scrollHandler, animatedStyle } = useAnimatedHeader(headerHeight);
+  const { scrollHandler, animatedHeight, animatedTransform } =
+    useAnimatedHeader(headerHeight);
 
   const renderItem = ({ item }: { item: IWatchListSeries }) => (
     <WatchListElement
@@ -52,15 +53,14 @@ export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
           flex: 0,
         },
       ]}>
-      <WatchListFilters transform={animatedStyle} />
+      <WatchListFilters
+        animatedHeight={animatedHeight}
+        animatedTransform={animatedTransform}
+      />
       <PageLayout.Loading isLoading={api.isLoading} />
       <PageLayout.Error isError={api.isError} refetch={api.refetch} />
       {api.data ? (
         <Animated.FlatList
-          ListHeaderComponent={<View />}
-          ListHeaderComponentStyle={{
-            height: headerHeight / 2,
-          }}
           contentContainerStyle={[styles.flatListContent]}
           contentInsetAdjustmentBehavior="automatic"
           data={api.data.pages.flatMap(page => page.data)}
@@ -90,6 +90,7 @@ const styles = StyleSheet.create({
   },
   flatList: {
     marginHorizontal: 16,
+    height: '100%',
   },
   flatListContent: {
     flexGrow: 1,

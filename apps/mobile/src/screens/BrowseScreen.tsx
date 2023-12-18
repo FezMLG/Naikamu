@@ -21,7 +21,7 @@ import {
 } from '../routes';
 import { colors } from '../styles';
 
-const headerHeight = 60;
+const headerHeight = 120;
 
 export function BrowseScreen({}: BrowseStackBrowseScreenProps) {
   const layout = useLayout();
@@ -30,7 +30,8 @@ export function BrowseScreen({}: BrowseStackBrowseScreenProps) {
     useQuerySeriesList();
   const tabHeight = useBottomTabBarHeight();
 
-  const { scrollHandler, animatedStyle } = useAnimatedHeader(headerHeight);
+  const { scrollHandler, animatedTransform, animatedHeight } =
+    useAnimatedHeader(headerHeight);
 
   const renderItem = ({ item }: { item: IAnimeListItem }) => (
     <BrowseElement
@@ -48,13 +49,21 @@ export function BrowseScreen({}: BrowseStackBrowseScreenProps) {
   );
 
   return (
-    <PageLayout.Default style={[styles.container]} {...layout}>
+    <PageLayout.Default
+      style={[
+        styles.container,
+        {
+          flex: api.data ? 0 : 1,
+        },
+      ]}
+      {...layout}>
       <SeasonYearSelectButtons
+        animatedHeight={animatedHeight}
+        animatedTransform={animatedTransform}
         currentSeason={currentSeason}
         season={season}
         setSeason={setSeason}
         setYear={setYear}
-        transform={animatedStyle}
         year={year}
       />
       <PageLayout.Loading isLoading={api.isLoading} />
@@ -75,7 +84,6 @@ export function BrowseScreen({}: BrowseStackBrowseScreenProps) {
           refreshing={api.isRefetching}
           renderItem={renderItem}
           scrollEventThrottle={16}
-          style={[styles.flatList]}
         />
       ) : null}
     </PageLayout.Default>
@@ -84,21 +92,10 @@ export function BrowseScreen({}: BrowseStackBrowseScreenProps) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
     backgroundColor: colors.background.color,
     marginHorizontal: 0,
   },
-  flatList: {},
-  fab: {
-    position: 'absolute',
-    margin: 16,
-    right: 0,
-    bottom: 80,
-    backgroundColor: colors.accent.color,
-  },
   flatListContent: {
     flexGrow: 1,
-    marginTop: headerHeight,
   },
 });
