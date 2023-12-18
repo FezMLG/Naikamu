@@ -15,7 +15,7 @@ export const useAnimatedHeader = (
   const lastContentOffset = useSharedValue(0);
   const isScrolling = useSharedValue(false);
   const translateY = useSharedValue(0);
-  const underHeight = useSharedValue<number>(headerHeight);
+  const underHeight = useSharedValue<number>(headerHeight / 2);
 
   const animatedTransform = useAnimatedStyle(() => ({
     transform: [
