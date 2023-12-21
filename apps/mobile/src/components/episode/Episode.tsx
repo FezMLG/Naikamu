@@ -8,9 +8,9 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useQuerySeriesEpisodePlayers } from '../../api/hooks';
 import {
+  useActiveSeriesStore,
   useOfflineService,
   useUserSettingsService,
-  useActiveSeriesStore,
 } from '../../services';
 import {
   colors,
@@ -179,7 +179,7 @@ export function Episode({
                         }
                         handleDownload={handleDownload}
                         isDownloaded={isDownloaded}
-                        key={player.playerType + index}
+                        key={index}
                         player={player}
                       />
                     ))}
@@ -188,7 +188,7 @@ export function Episode({
                   {data.players
                     .filter(player => player.playerType === 'external')
                     .map((player: AnimePlayer, index: number) => (
-                      <View style={{ marginTop: 10 }}>
+                      <View key={100 + index} style={{ marginTop: 10 }}>
                         <EpisodePlayer
                           episodeNumber={episode.number}
                           episodeTitle={
@@ -196,7 +196,6 @@ export function Episode({
                           }
                           handleDownload={handleDownload}
                           isDownloaded={isDownloaded}
-                          key={player.playerType + index}
                           player={player}
                         />
                       </View>
