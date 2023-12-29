@@ -56,6 +56,7 @@ export const pl = {
     go_back: 'Powrót',
     reload: 'Odśwież',
     support: 'Wsparcie',
+    delete: 'Usuń',
   },
   auth: {
     login: 'Zaloguj się',

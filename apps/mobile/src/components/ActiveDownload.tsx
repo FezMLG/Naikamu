@@ -32,7 +32,7 @@ export function ActiveDownload({
       <Text
         style={[
           fontStyles.label,
-          colors.textLighter,
+          colors.textLight,
           globalStyle.marginBottomSmall,
         ]}>
         {download.series.title}
