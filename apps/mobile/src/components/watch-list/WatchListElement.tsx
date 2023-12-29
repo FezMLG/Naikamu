@@ -11,7 +11,7 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useTranslate } from '../../i18n/useTranslate';
-import { colors, darkStyle, defaultRadius, fontStyles } from '../../styles';
+import { darkStyle, defaultRadius, fontStyles } from '../../styles';
 import { ProgressiveImage } from '../ProgressiveImage';
 import { QuickInfo } from '../SeriesDetails';
 
@@ -56,9 +56,6 @@ export function WatchListElement({
           <View style={styles.detailsRow}>
             <QuickInfo value={translate('watch_list.' + anime.status)} />
           </View>
-          <Pressable>
-            <Icon name="dots-vertical" size={24} style={colors.textLight} />
-          </Pressable>
         </View>
       </View>
       <View>
