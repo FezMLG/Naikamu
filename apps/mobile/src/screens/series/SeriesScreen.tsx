@@ -58,11 +58,9 @@ export function SeriesScreen({
 
   return (
     <Animated.ScrollView onScroll={handleScroll} scrollEventThrottle={16}>
-      <PlatformExplicit availablePlatforms={['android']}>
-        <Pressable onPress={() => navigation.goBack()} style={styles.closeIcon}>
-          <Icon name="close" size={20} style={colors.textLight} />
-        </Pressable>
-      </PlatformExplicit>
+      <Pressable onPress={() => navigation.goBack()} style={styles.closeIcon}>
+        <Icon name="close" size={20} style={colors.textLight} />
+      </Pressable>
       <PageLayout.Loading isLoading={isLoading} />
       <PageLayout.Error isError={isError} refetch={refetch} />
       {data ? (
