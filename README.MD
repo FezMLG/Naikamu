@@ -10,6 +10,14 @@
   <img src="https://img.shields.io/badge/platform-ios-orange"  alt="ios-badge"/>
 </p>
 
+<div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 20px">
+    <img src="./resources/screenshots/browse.jpg" height="300" alt="ios-badge"/>
+    <img src="./resources/screenshots/series.jpg" height="300" alt="ios-badge"/>
+    <img src="./resources/screenshots/episodes.jpg" height="300" alt="ios-badge"/>
+    <img src="./resources/screenshots/downloads.jpg" height="300" alt="ios-badge"/>
+    <img src="./resources/screenshots/to_watch.jpg" height="300" alt="ios-badge"/>
+</div>
+
 
 ## About us
 
