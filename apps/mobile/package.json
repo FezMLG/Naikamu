@@ -25,8 +25,8 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "app:release": "cd android && ./gradlew bundleRelease",
     "apk:beta:release": "cd android && fastlane beta && cd .. && npm run apk:beta:rename && open android/app/build/outputs/apk/production/release",
-    "apk:release": "cd android && ./gradlew assembleRelease && cd .. && npm run apk:beta:rename && open android/app/build/outputs/apk/production/release",
-    "apk:stg:release": "cd android && ./gradlew assembleStaging && cd .. && npm run apk:stg:rename && open android/app/build/outputs/apk/staging/release",
+    "apk:release": "react-native build-android --mode=assembleProduction && npm run apk:beta:rename && open android/app/build/outputs/apk/production/release",
+    "apk:stg:release": "react-native build-android --mode=assembleStaging && npm run apk:stg:rename && open android/app/build/outputs/apk/staging/release",
     "apk:rename": "mv $DIR/$APP $DIR/naikamu-$RENV$(jq -r '.version' package.json).apk",
     "apk:beta:rename": "DIR='android/app/build/outputs/apk/production/release' APP='app-production-release.apk' RENV= npm run apk:rename",
     "apk:stg:rename": "DIR='android/app/build/outputs/apk/staging/release' APP='app-staging-release.apk' RENV=stg- npm run apk:rename"
