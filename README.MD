@@ -6,6 +6,12 @@
 </p>
 
 <p align="center">
+    <a href="https://naikamu.com">
+        naikamu.com
+    </a>
+</p>
+
+<p align="center">
   <img src="https://img.shields.io/badge/platform-android-brightgreen"  alt="android-badge"/>
   <img src="https://img.shields.io/badge/platform-ios-orange"  alt="ios-badge"/>
 </p>
