@@ -1,28 +1,22 @@
 <p align="center">
-  <img src="./resources/logo_full.svg" alt="Naikamu Logo" width="445"/>
+    <a href="https://naikamu.com">
+        <img src="./resources/logo_full.svg" alt="Naikamu Logo" width="445"/>
+    </a>
 </p>
 <p align="center">
-  Naikamu is an application that allows you to watch anime from Polish subs.
+  Naikamu jest aplikacją pozwalającą na oglądanie i pobieranie anime z tłumaczeniami od polskich tłumaczy.
 </p>
 
 <p align="center">
-    <a href="https://naikamu.com">
-        naikamu.com
-    </a>
+<a href="https://naikamu.com">
+naikamu.com
+</a>
 </p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/platform-android-brightgreen"  alt="android-badge"/>
   <img src="https://img.shields.io/badge/platform-ios-orange"  alt="ios-badge"/>
 </p>
-
-<div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 20px">
-    <img src="./resources/screenshots/browse.jpg" height="300" alt="ios-badge"/>
-    <img src="./resources/screenshots/series.jpg" height="300" alt="ios-badge"/>
-    <img src="./resources/screenshots/episodes.jpg" height="300" alt="ios-badge"/>
-    <img src="./resources/screenshots/downloads.jpg" height="300" alt="ios-badge"/>
-    <img src="./resources/screenshots/to_watch.jpg" height="300" alt="ios-badge"/>
-</div>
 
 
 ## About us
@@ -34,7 +28,7 @@ This reflects the team's core objective of bringing the rich and vibrant world o
 
 ## Installation
 
-To install this app go to [Releases](https://github.com/FezMLG/AniWatch/releases), download it, install and enjoy 🚀
+Aby, zainstalować aplikację przejdź do [Releases](https://github.com/FezMLG/AniWatch/releases), pobierz, zainstaluj and enjoy 🚀
 
 ## Contributing
 

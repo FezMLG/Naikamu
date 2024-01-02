@@ -184,23 +184,27 @@ export function Episode({
                       />
                     ))}
                 </>
-                <List.Accordion title="Inne">
-                  {data.players
-                    .filter(player => player.playerType === 'external')
-                    .map((player: AnimePlayer, index: number) => (
-                      <View key={100 + index} style={{ marginTop: 10 }}>
-                        <EpisodePlayer
-                          episodeNumber={episode.number}
-                          episodeTitle={
-                            'E' + episode.number + ' ' + episode.title
-                          }
-                          handleDownload={handleDownload}
-                          isDownloaded={isDownloaded}
-                          player={player}
-                        />
-                      </View>
-                    ))}
-                </List.Accordion>
+                {data.players.some(
+                  player => player.playerType === 'external',
+                ) ? (
+                  <List.Accordion title="Inne">
+                    {data.players
+                      .filter(player => player.playerType === 'external')
+                      .map((player: AnimePlayer, index: number) => (
+                        <View key={100 + index} style={{ marginTop: 10 }}>
+                          <EpisodePlayer
+                            episodeNumber={episode.number}
+                            episodeTitle={
+                              'E' + episode.number + ' ' + episode.title
+                            }
+                            handleDownload={handleDownload}
+                            isDownloaded={isDownloaded}
+                            player={player}
+                          />
+                        </View>
+                      ))}
+                  </List.Accordion>
+                ) : null}
               </>
             ) : (
               <EpisodePlayerEmpty />

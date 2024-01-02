@@ -18,7 +18,7 @@ export function NativeVideoPlayerScreen({
   const storageKey = createEpisodeProgressKey(seriesId, episodeNumber);
 
   useEffect(() => {
-    SystemNavigationBar.immersive();
+    SystemNavigationBar.fullScreen(true);
   }, []);
 
   const handleProgress = async (progress: OnProgressData) => {
@@ -71,6 +71,7 @@ export function NativeVideoPlayerScreen({
           ignoreSilentSwitch="ignore"
           isFullscreen
           onBack={navigation.goBack}
+          onHideControls={() => SystemNavigationBar.fullScreen(true)}
           onLoad={handleVideoLoad}
           onProgress={handleProgress}
           pictureInPicture
