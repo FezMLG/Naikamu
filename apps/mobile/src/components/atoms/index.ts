@@ -7,3 +7,4 @@ export * from './Loader';
 export * from './Inputs';
 export * from './Dot';
 export * from './Chip';
+export * from './ActionSheet';

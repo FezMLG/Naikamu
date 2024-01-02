@@ -1,11 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
+import {
+  ActionsheetIcon,
+  TrashIcon,
+  Icon as GlueIcon,
+} from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { Swipeable } from 'react-native-gesture-handler';
 import { ProgressBar } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import { useTranslate } from '../../i18n/useTranslate';
 import { RootStackScreenNames } from '../../routes';
 import {
   IOfflineSeriesEpisodes,
@@ -14,15 +19,9 @@ import {
   useVideoProgress,
   offlineFS,
 } from '../../services';
-import {
-  colors,
-  defaultRadius,
-  fontStyles,
-  globalStyle,
-  DarkColor,
-} from '../../styles';
+import { colors, defaultRadius, fontStyles, DarkColor } from '../../styles';
 import { humanFileSize } from '../../utils/humanFileSize';
-import { Button, Modal } from '../atoms';
+import { ActionSheet, ActionSheetItem, useActionSheet } from '../atoms';
 
 export function OfflineEpisode({
   episode,
@@ -38,49 +37,33 @@ export function OfflineEpisode({
   const episodeKey = createEpisodeProgressKey(animeId, episode.number);
   const { progressMinutes, loadProgress } = useVideoProgress(episodeKey);
   const { deleteEpisodeOffline } = useOfflineService();
-  const [isOpen, setIsOpen] = useState(false);
+  const { showActionSheet, setShowActionSheet } = useActionSheet();
 
   useEffect(() => {
     loadProgress();
   }, [loadProgress]);
 
-  // const { translate } = useTranslate();
+  const { translate } = useTranslate();
 
   return (
     <>
-      <Modal.Container isOpen={isOpen} setIsOpen={setIsOpen}>
-        <Modal.Title title={episodeTitle} />
-        <Button
-          label="Delete"
-          onPress={() => {
-            console.log('delete episode', animeId, episode.number);
-            deleteEpisodeOffline(animeId, episode.number);
-            setIsOpen(false);
-          }}
-          type="warning"
-        />
-      </Modal.Container>
-      <Swipeable
-        containerStyle={globalStyle.spacerSmall}
-        renderRightActions={() => (
-          <RightSwipeActions
-            animeId={animeId}
-            deleteEpisodeOffline={deleteEpisodeOffline}
-            episodeNumber={episode.number}
-          />
-        )}>
-        <Pressable
-          onLongPress={() => setIsOpen(true)}
-          style={[
-            styles.cardContainer,
-            progressMinutes
-              ? null
-              : {
-                  borderBottomLeftRadius: defaultRadius,
-                  borderBottomRightRadius: defaultRadius,
-                },
-          ]}>
-          <View style={[styles.innerCard]}>
+      <Pressable
+        onLongPress={() => setShowActionSheet(true)}
+        style={[
+          styles.cardContainer,
+          progressMinutes
+            ? null
+            : {
+                borderBottomLeftRadius: defaultRadius,
+                borderBottomRightRadius: defaultRadius,
+              },
+        ]}>
+        <View style={[styles.innerCard]}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
             {pathToFile ? (
               <Pressable
                 onPress={() =>
@@ -112,49 +95,49 @@ export function OfflineEpisode({
               </Text>
             </View>
           </View>
-          <ProgressBar
-            progress={progressMinutes / length}
-            theme={{
-              colors: {
-                primary: colors.accent.color,
-              },
-            }}
-          />
-        </Pressable>
-      </Swipeable>
+          <Pressable
+            onPress={() => setShowActionSheet(true)}
+            style={{
+              marginRight: 20,
+            }}>
+            <Icon
+              color={colors.textLight.color}
+              name="dots-horizontal"
+              size={30}
+            />
+          </Pressable>
+        </View>
+        <ProgressBar
+          progress={progressMinutes / length}
+          theme={{
+            colors: {
+              primary: colors.accent.color,
+            },
+          }}
+        />
+      </Pressable>
+      <ActionSheet
+        setShowActionSheet={setShowActionSheet}
+        showActionSheet={showActionSheet}>
+        <ActionSheetItem
+          label={translate('buttons.delete')}
+          onPress={() => {
+            console.log('delete episode', animeId, episode.number);
+            deleteEpisodeOffline(animeId, episode.number);
+          }}>
+          {/** @ts-expect-error wrong types **/}
+          <ActionsheetIcon
+            style={{
+              height: 20,
+            }}>
+            {/** @ts-expect-error wrong types **/}
+            <GlueIcon as={TrashIcon} style={{ color: colors.error.color }} />
+          </ActionsheetIcon>
+        </ActionSheetItem>
+      </ActionSheet>
     </>
   );
 }
-
-const RightSwipeActions = ({
-  animeId,
-  episodeNumber,
-  deleteEpisodeOffline,
-}: {
-  animeId: string;
-  episodeNumber: number;
-  deleteEpisodeOffline: (animeId: string, episodeNumber: number) => void;
-}) => (
-  <Pressable
-    onPress={() => {
-      console.log('delete episode', animeId, episodeNumber);
-      deleteEpisodeOffline(animeId, episodeNumber);
-    }}
-    style={{
-      backgroundColor: colors.error.color,
-      justifyContent: 'center',
-      alignItems: 'flex-end',
-      borderRadius: defaultRadius,
-      width: '100%',
-    }}>
-    <Icon
-      color={colors.textLight.color}
-      name="trash-can-outline"
-      size={30}
-      style={{ paddingHorizontal: 16 }}
-    />
-  </Pressable>
-);
 
 const styles = StyleSheet.create({
   poster: {
@@ -181,6 +164,7 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
   cardContainer: {
     borderTopLeftRadius: defaultRadius,

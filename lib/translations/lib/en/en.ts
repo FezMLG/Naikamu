@@ -56,6 +56,7 @@ export const en = {
     go_back: 'Go Back',
     reload: 'Reload',
     support: 'Support',
+    delete: 'Delete',
   },
   auth: {
     login: 'Login',

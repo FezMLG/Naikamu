@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { ActionsheetIcon, TrashIcon } from '@gluestack-ui/themed';
+import { Icon as GlueIcon } from '@gluestack-ui/themed/build/components/Icons';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { Pressable, View, Text, StyleSheet } from 'react-native';
 import Animated, { SlideInLeft } from 'react-native-reanimated';
@@ -13,7 +15,7 @@ import {
 import { IOfflineSeries, useOfflineService } from '../../services';
 import { globalStyle, fontStyles, colors, defaultRadius } from '../../styles';
 import { humanFileSize } from '../../utils/humanFileSize';
-import { Button, Modal } from '../atoms';
+import { ActionSheet, ActionSheetItem, useActionSheet } from '../atoms';
 
 export function OfflineSeries({ series }: { series: IOfflineSeries }) {
   const { translate } = useTranslate();
@@ -21,14 +23,14 @@ export function OfflineSeries({ series }: { series: IOfflineSeries }) {
   const navigation =
     useNavigation<NavigationProp<DownloadStackParameterList>>();
   const { deleteSeriesOffline } = useOfflineService();
-  const [modalVisible, setModalVisible] = React.useState(false);
+  const { showActionSheet, setShowActionSheet } = useActionSheet();
 
   return (
     <>
       <Animated.View entering={SlideInLeft}>
         <Pressable
           onLongPress={() => {
-            setModalVisible(true);
+            setShowActionSheet(true);
           }}
           onPress={() =>
             navigation.navigate(DownloadStackScreenNames.SeriesEpisodes, series)
@@ -59,18 +61,25 @@ export function OfflineSeries({ series }: { series: IOfflineSeries }) {
           />
         </Pressable>
       </Animated.View>
-      <Modal.Container isOpen={modalVisible} setIsOpen={setModalVisible}>
-        <Modal.Title title={title} />
-        <Button
-          label="Delete"
+      <ActionSheet
+        setShowActionSheet={setShowActionSheet}
+        showActionSheet={showActionSheet}>
+        <ActionSheetItem
+          label={translate('buttons.delete')}
           onPress={() => {
             console.log('delete', seriesId);
             deleteSeriesOffline(seriesId);
-            setModalVisible(false);
-          }}
-          type="warning"
-        />
-      </Modal.Container>
+          }}>
+          {/** @ts-expect-error wrong types **/}
+          <ActionsheetIcon
+            style={{
+              height: 20,
+            }}>
+            {/** @ts-expect-error wrong types **/}
+            <GlueIcon as={TrashIcon} style={{ color: colors.error.color }} />
+          </ActionsheetIcon>
+        </ActionSheetItem>
+      </ActionSheet>
     </>
   );
 }

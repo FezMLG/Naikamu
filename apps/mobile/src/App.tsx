@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { config } from '@gluestack-ui/config';
+import { GluestackUIProvider } from '@gluestack-ui/themed';
 import {
   DarkTheme as NavigationDarkTheme,
   Theme,
@@ -41,11 +43,13 @@ function App() {
           icon: props => <Icon {...props} />,
         }}
         theme={CombinedDarkTheme}>
-        <LanguagesProvider>
-          <GestureHandlerRootView style={{ flex: 1 }}>
-            <Routes theme={CombinedDarkTheme} />
-          </GestureHandlerRootView>
-        </LanguagesProvider>
+        <GluestackUIProvider colorMode="dark" config={config}>
+          <LanguagesProvider>
+            <GestureHandlerRootView style={{ flex: 1 }}>
+              <Routes theme={CombinedDarkTheme} />
+            </GestureHandlerRootView>
+          </LanguagesProvider>
+        </GluestackUIProvider>
       </PaperProvider>
     </QueryClientWrap>
   );
