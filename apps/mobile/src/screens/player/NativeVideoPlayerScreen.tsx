@@ -18,7 +18,7 @@ export function NativeVideoPlayerScreen({
   const storageKey = createEpisodeProgressKey(seriesId, episodeNumber);
 
   useEffect(() => {
-    SystemNavigationBar.fullScreen(true);
+    SystemNavigationBar.immersive();
   }, []);
 
   const handleProgress = async (progress: OnProgressData) => {
@@ -70,8 +70,11 @@ export function NativeVideoPlayerScreen({
           fullscreenOrientation="landscape"
           ignoreSilentSwitch="ignore"
           isFullscreen
-          onBack={navigation.goBack}
-          onHideControls={() => SystemNavigationBar.fullScreen(true)}
+          onBack={() => {
+            SystemNavigationBar.fullScreen(false);
+            navigation.goBack();
+          }}
+          onHideControls={() => SystemNavigationBar.immersive()}
           onLoad={handleVideoLoad}
           onProgress={handleProgress}
           pictureInPicture

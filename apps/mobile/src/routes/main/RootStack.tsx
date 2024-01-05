@@ -62,6 +62,7 @@ export function RootStack() {
           ...defaultSubHeaderOptions({}),
           autoHideHomeIndicator: true,
           fullScreenGestureEnabled: true,
+          presentation: 'fullScreenModal',
         }}
       />
     </StackAuthorized.Navigator>
