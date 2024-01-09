@@ -72,6 +72,7 @@ export function OfflineEpisode({
                     episodeTitle: episodeTitle,
                     episodeNumber: episode.number,
                     title: animeName,
+                    seriesId: animeId,
                   })
                 }
                 style={styles.watchStatus}>
