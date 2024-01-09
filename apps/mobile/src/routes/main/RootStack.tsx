@@ -15,6 +15,7 @@ import {
   RootStackScreenNames,
 } from './root.interfaces';
 import { SeriesStack } from './series';
+import { Platform } from 'react-native';
 
 const StackAuthorized = createNativeStackNavigator<RootStackParameterList>();
 
@@ -53,6 +54,7 @@ export function RootStack() {
           ...defaultSubHeaderOptions({}),
           autoHideHomeIndicator: true,
           fullScreenGestureEnabled: true,
+          presentation: Platform.OS === 'android' ? 'card' : 'fullScreenModal',
         }}
       />
       <StackAuthorized.Screen
@@ -62,7 +64,7 @@ export function RootStack() {
           ...defaultSubHeaderOptions({}),
           autoHideHomeIndicator: true,
           fullScreenGestureEnabled: true,
-          presentation: 'fullScreenModal',
+          presentation: Platform.OS === 'android' ? 'card' : 'fullScreenModal',
         }}
       />
     </StackAuthorized.Navigator>
