@@ -32,6 +32,9 @@
     "apk:stg:rename": "DIR='android/app/build/outputs/apk/staging/release' APP='app-staging-release.apk' RENV=stg- npm run apk:rename"
   },
   "dependencies": {
+    "@gluestack-style/react": "1.0.31",
+    "@gluestack-ui/config": "1.0.11",
+    "@gluestack-ui/themed": "1.0.34",
     "@react-native-async-storage/async-storage": "1.19.8",
     "@react-native-community/blur": "4.3.2",
     "@react-native-community/netinfo": "11.1.0",
@@ -72,7 +75,7 @@
     "react-native-safe-area-context": "4.7.4",
     "react-native-screens": "3.29.0",
     "react-native-shadow-2": "7.0.8",
-    "react-native-svg": "14.0.0",
+    "react-native-svg": "13.4.0",
     "react-native-system-navigation-bar": "2.6.3",
     "react-native-tab-view": "3.5.2",
     "react-native-vector-icons": "10.0.2",

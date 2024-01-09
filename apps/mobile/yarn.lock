@@ -1274,18 +1274,18 @@
   resolved "https://registry.yarnpkg.com/@gluestack-style/legend-motion-animation-driver/-/legend-motion-animation-driver-1.0.3.tgz#e2408ff8515ced92cb75f096f5eeff1f9636a0da"
   integrity sha512-sD6aFS6Tq5XpyjrboFEIc8LrRY4TA4kodFYHzk6mDchvbkdLODijtjnaDQB1UqihOkMRg49e7ANRAOzc7eymaQ==
 
-"@gluestack-style/react@^1.0.30":
-  version "1.0.30"
-  resolved "https://registry.yarnpkg.com/@gluestack-style/react/-/react-1.0.30.tgz#76aefe437c3020f416a760696c593d7b65f09747"
-  integrity sha512-mzBWp+GzbiNi/tAhjGyJiuoxPl9Djaev4rm/rOscL+hpmx3UBNdgt8IB5J32alZ461lOikzmAaMIiaLwoOLHtw==
+"@gluestack-style/react@^1.0.31":
+  version "1.0.31"
+  resolved "https://registry.yarnpkg.com/@gluestack-style/react/-/react-1.0.31.tgz#8d025a0e5bb7fd62f45d73905af544976fef6cd7"
+  integrity sha512-YT3TEiXy91w2WIAHUxeRfz+YnuN2UR36Z1bTQxRXrhgUU6No4TMKN1MbWdzcLpNHC6wlzkumcV0RSEszndlfUA==
   dependencies:
     inline-style-prefixer "^6.0.1"
     normalize-css-color "^1.0.2"
 
-"@gluestack-ui/accordion@0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@gluestack-ui/accordion/-/accordion-0.0.3.tgz#75f7e116dd5ddfe17dcb7ac55d85686b1457bb09"
-  integrity sha512-aF3AzV46irgsY2lTObpIC7JjNzs+d9IlkUfAk7kaRqUikEdj8oVP8M9mGieQCjFW3kMHfd7EKZhuj4l9uctB+w==
+"@gluestack-ui/accordion@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@gluestack-ui/accordion/-/accordion-1.0.0.tgz#a5a61279a10efe0b551bd7e320b5a83f8ca6fc6a"
+  integrity sha512-97L37wSRP2TgXQEPnekIteZWKJvtPn3XYEZmbAbVmLUjuEsfAXJYHD8VnB5BM8fJDjUPF7iS0NeKU6isbPgAVQ==
   dependencies:
     "@gluestack-ui/utils" "^0.1.12"
     "@react-native-aria/accordion" "^0.0.2"
@@ -1352,10 +1352,10 @@
     "@react-native-aria/utils" "^0.2.10"
     "@react-stately/checkbox" "^3.4.2"
 
-"@gluestack-ui/config@^1.0.10":
-  version "1.0.10"
-  resolved "https://registry.yarnpkg.com/@gluestack-ui/config/-/config-1.0.10.tgz#e0d226f95ea52900368e5b11e42f8d969268485d"
-  integrity sha512-19Ewiv/ETKKRlSCBwofoIA8v2ZouLeeycGWp87Okwlnrc6VdxEOrwm3OXmi1zxVe1lqQ2aNu1+Cvy/fTanh5CQ==
+"@gluestack-ui/config@^1.0.11":
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/@gluestack-ui/config/-/config-1.0.11.tgz#8a6525beb94d424df75212f48c31b97a59c0c51e"
+  integrity sha512-93DJKGqBMHcjrlpvqa41+4mz2tQUXWW7CKQmzLUdUGv+MdGzif3HPNrJ/lSbT7dhu8HZInSKn9MUEFs6iT+zXg==
 
 "@gluestack-ui/divider@0.1.8":
   version "0.1.8"
@@ -1581,15 +1581,15 @@
     "@gluestack-ui/utils" "^0.1.12"
     "@react-native-aria/focus" "^0.2.9"
 
-"@gluestack-ui/themed@^1.0.33":
-  version "1.0.33"
-  resolved "https://registry.yarnpkg.com/@gluestack-ui/themed/-/themed-1.0.33.tgz#7651e231d8aa8061de3867e21baafea8aae970f1"
-  integrity sha512-Pg9vOysVHazJKYMvjtYhFugOJiJmSR5dNL6EBZImbZ9SHPKAmY599TmC6+OxWhN26E3qIHLKPPPPOB0AsWpOJQ==
+"@gluestack-ui/themed@^1.0.34":
+  version "1.0.34"
+  resolved "https://registry.yarnpkg.com/@gluestack-ui/themed/-/themed-1.0.34.tgz#75551159568cdc68fbf417ca920f86a34b5b21d1"
+  integrity sha512-Qyq6i/R4/4L1KFqh8VQWm0WKqW6sO6nDHKoWEHZZYLgSTyKRsAHN+MbkXT7Hh2IiOrlKWs0Tgzy5+/7FAAYDLA==
   dependencies:
     "@expo/html-elements" latest
     "@gluestack-style/animation-resolver" "1.0.3"
     "@gluestack-style/legend-motion-animation-driver" "1.0.3"
-    "@gluestack-ui/accordion" "0.0.3"
+    "@gluestack-ui/accordion" "1.0.0"
     "@gluestack-ui/actionsheet" "0.2.36"
     "@gluestack-ui/alert" "0.1.12"
     "@gluestack-ui/alert-dialog" "0.1.24"
