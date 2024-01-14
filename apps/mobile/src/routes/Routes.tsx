@@ -6,7 +6,7 @@ import { NavigationContainer, Theme } from '@react-navigation/native';
 import { SplashScreen } from '../screens';
 import { useUserStore } from '../services/auth/user.store';
 
-import { AuthStack } from './auth';
+import { AuthStack, AuthStackRoutesNames } from './auth';
 import {
   BrowseStackScreenNames,
   SeriesStackScreenNames,
@@ -17,6 +17,7 @@ const linking = {
   prefixes: ['naikamu://'],
   config: {
     screens: {
+      [AuthStackRoutesNames.Login]: 'login',
       [BrowseStackScreenNames.Browse]: 'browse',
       [SeriesStackScreenNames.Series]: 'browse/:id',
     },

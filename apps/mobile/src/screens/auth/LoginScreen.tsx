@@ -17,6 +17,7 @@ import { AuthStackLoginScreenProps, AuthStackRoutesNames } from '../../routes';
 import { useUserService } from '../../services/auth/user.service';
 import { useUserStore } from '../../services/auth/user.store';
 import { globalStyle } from '../../styles';
+import { logger } from '../../utils/logger';
 
 export interface LoginForm {
   email: string;
@@ -56,6 +57,7 @@ export function LoginScreen({ navigation }: AuthStackLoginScreenProps) {
     } catch (error: unknown) {
       const authError = error as FirebaseAuthTypes.NativeFirebaseAuthError;
 
+      logger('handleLogin').warn(error);
       layout.setInfo(translate(errorResolver(authError.code)));
       layout.setVisible(true);
     }
