@@ -1,6 +1,9 @@
 import { default as notifee } from '@notifee/react-native';
+import { useTranslate } from '../../i18n/useTranslate';
 
 export function useNotificationService() {
+  const { translate } = useTranslate();
+
   const initialize = async () => {
     // Request permissions (required for iOS)
     await notifee.requestPermission();
@@ -12,13 +15,13 @@ export function useNotificationService() {
     });
   };
 
-  const displayNotification = async (title: string, body: string) => {
+  const displayNotification = async (translationKey: string) => {
     const channelId = await initialize();
 
     // Display a notification
     await notifee.displayNotification({
-      title,
-      body,
+      title: translate(`${translationKey}.title`),
+      body: translate(`${translationKey}.body`),
       android: {
         channelId,
         pressAction: {
@@ -29,6 +32,7 @@ export function useNotificationService() {
   };
 
   return {
+    initialize,
     displayNotification,
   };
 }

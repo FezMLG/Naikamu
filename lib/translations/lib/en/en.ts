@@ -1,6 +1,8 @@
 import { enSettings } from './categories';
+import { notifications } from './notifications';
 
 export const en = {
+  notifications,
   ...enSettings,
   routes: {
     Browse: 'Browse',
