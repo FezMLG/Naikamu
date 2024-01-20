@@ -18,7 +18,7 @@ import {
   AuthStackAppLoadingScreenProps,
   AuthStackRoutesNames,
 } from '../routes';
-import { useUserSettingsService } from '../services';
+import { useNotificationService, useUserSettingsService } from '../services';
 import { useUserService } from '../services/auth/user.service';
 import { useUserStore } from '../services/auth/user.store';
 import {
@@ -38,18 +38,22 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
   const userService = useUserService();
   const user = useUserStore(state => state.user);
   const [netInfo] = useState<NetInfoState>();
+  const notifications = useNotificationService();
 
   useEffect(() => {
-    checkConnection();
-    setTimeout(() => {
-      layout.setInfo(translate('welcomeScreen.apiLoading'));
-      layout.setVisible(true);
-      setLongLoading(true);
-    }, 3000);
-    setTimeout(() => {
-      setLongLoading(false);
-      setApiError(true);
-    }, 15_000);
+    (async () => {
+      checkConnection();
+      await notifications.initialize();
+      setTimeout(() => {
+        layout.setInfo(translate('welcomeScreen.apiLoading'));
+        layout.setVisible(true);
+        setLongLoading(true);
+      }, 3000);
+      setTimeout(() => {
+        setLongLoading(false);
+        setApiError(true);
+      }, 15_000);
+    })();
   }, []);
 
   const checkConnection = useCallback(async () => {

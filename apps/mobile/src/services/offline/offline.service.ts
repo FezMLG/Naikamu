@@ -107,9 +107,7 @@ export const useOfflineService = () => {
         }
         logger('progressDownload').warn('no items in queue left', series);
 
-        await notificationService.displayNotification(
-          'notifications.download.finish',
-        );
+        await notificationService.displayNotification('download', 'finish');
       }
     });
   };

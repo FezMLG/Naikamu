@@ -2,34 +2,34 @@ import { AndroidChannel, default as notifee } from '@notifee/react-native';
 
 import { useTranslate } from '../../i18n/useTranslate';
 
+export type NotificationChannels = 'download' | 'default';
+
 export function useNotificationService() {
   const { translate } = useTranslate();
 
-  const initialize = async (channelKey?: 'downloads') => {
-    let channelId = 'default';
-
-    // eslint-disable-next-line sonarjs/no-small-switch
-    switch (channelKey) {
-      case 'downloads': {
-        channelId = 'download';
-      }
-    }
-
-    await notifee.requestPermission();
-
-    return notifee.createChannel({
-      id: channelId,
-      name: translate(`notifications.${channelId}.channelName`),
+  const createChannel = async (channelKey: NotificationChannels) => {
+    await notifee.createChannel({
+      id: channelKey,
+      name: translate(`notifications.${channelKey}.channelName`),
     });
   };
 
-  const displayNotification = async (translationKey: string) => {
-    const channelId = await initialize();
+  const initialize = async () => {
+    await notifee.requestPermission();
 
-    // Display a notification
+    await createChannel('default');
+    await createChannel('download');
+  };
+
+  const displayNotification = async (
+    channelId: NotificationChannels,
+    translationActionKey: string,
+  ) => {
     await notifee.displayNotification({
-      title: translate(`${translationKey}.title`),
-      body: translate(`${translationKey}.body`),
+      title: translate(
+        `notification.${channelId}.${translationActionKey}.title`,
+      ),
+      body: translate(`notification.${channelId}.${translationActionKey}.body`),
       android: {
         channelId,
         pressAction: {
