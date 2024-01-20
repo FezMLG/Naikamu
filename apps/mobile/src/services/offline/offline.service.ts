@@ -2,6 +2,7 @@ import { Platform } from 'react-native';
 import RNFS from 'react-native-fs';
 
 import { logger } from '../../utils/logger';
+import { event } from '../events';
 
 import { IEpisodeDownloadJob, useDownloadsStore } from './downloads.store';
 import { IOfflineSeries, IOfflineSeriesEpisodes } from './interfaces';
@@ -229,3 +230,7 @@ export const useOfflineService = () => {
     },
   };
 };
+
+event.on('testEvent', () => {
+  console.log('this is test events');
+});

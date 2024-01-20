@@ -54,6 +54,7 @@
     "axios": "1.6.2",
     "classnames": "2.3.2",
     "date-fns": "2.30.0",
+    "eventemitter3": "5.0.1",
     "i18next": "23.7.6",
     "react": "18.2.0",
     "react-hook-form": "7.48.2",
