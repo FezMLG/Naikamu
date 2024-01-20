@@ -4,7 +4,7 @@ import auth from '@react-native-firebase/auth';
 export const fireLoginUser = async (email: string, password: string) => {
   const newAuthState = await auth().signInWithEmailAndPassword(email, password);
 
-  if (!newAuthState.user.emailVerified) {
+  if (newAuthState && !newAuthState.user.emailVerified) {
     await sendEmailVerification();
   }
 };
@@ -47,7 +47,7 @@ export const fireForgotPassword = (email: string) => async () => {
 const sendEmailVerification = async () => {
   await auth().currentUser?.sendEmailVerification({
     handleCodeInApp: true,
-    url: 'https://aniwatch.page.link/V9Hh',
+    url: 'https://naikamu.com',
   });
 };
 

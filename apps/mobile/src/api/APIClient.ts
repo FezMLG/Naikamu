@@ -17,7 +17,7 @@ import axios, {
   AxiosInstance,
   RawAxiosRequestHeaders,
 } from 'axios';
-import Config from 'react-native-config';
+import { default as Config } from 'react-native-config';
 
 import { fireGetIdToken } from '../services/firebase/fire-auth.service';
 

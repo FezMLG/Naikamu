@@ -68,7 +68,7 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
   }, []);
 
   const apiCheck = useQueryApiHealth(data => {
-    logger('useQueryApiHealth').warn(data);
+    logger('useQueryApiHealth').info(data);
     if (semver.satisfies(data.version, supportedApiVersion)) {
       handleLoginCheck();
     } else {
@@ -94,9 +94,8 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
       if (!user?.emailVerified && user?.emailVerified !== undefined) {
         navigation.navigate(AuthStackRoutesNames.VerifyEmail);
       }
-    } else {
-      navigation.navigate(AuthStackRoutesNames.Hello);
     }
+    navigation.navigate(AuthStackRoutesNames.Hello);
   }, [initializeUserSettings, navigation]);
 
   return (
