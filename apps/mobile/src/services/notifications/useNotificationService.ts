@@ -1,17 +1,25 @@
-import { default as notifee } from '@notifee/react-native';
+import { AndroidChannel, default as notifee } from '@notifee/react-native';
+
 import { useTranslate } from '../../i18n/useTranslate';
 
 export function useNotificationService() {
   const { translate } = useTranslate();
 
-  const initialize = async () => {
-    // Request permissions (required for iOS)
+  const initialize = async (channelKey?: 'downloads') => {
+    let channelId = 'default';
+
+    // eslint-disable-next-line sonarjs/no-small-switch
+    switch (channelKey) {
+      case 'downloads': {
+        channelId = 'download';
+      }
+    }
+
     await notifee.requestPermission();
 
-    // Create a channel (required for Android)
     return notifee.createChannel({
-      id: 'default',
-      name: 'Default Channel',
+      id: channelId,
+      name: translate(`notifications.${channelId}.channelName`),
     });
   };
 
