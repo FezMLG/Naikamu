@@ -19,6 +19,7 @@ import QueryClientWrap from './api/QueryClientWrap';
 import LanguagesProvider from './i18n/LanguagesProvider';
 import Routes from './routes/Routes';
 import { colors } from './styles';
+import EventProvider from './services/events/EventProvider';
 
 Sentry.init({
   dsn: 'https://bd2c8809bfbed36fe09962e13c96de20@o4506020904697856.ingest.sentry.io/4506020907057152',
@@ -46,7 +47,9 @@ function App() {
         <GluestackUIProvider colorMode="dark" config={config}>
           <LanguagesProvider>
             <GestureHandlerRootView style={{ flex: 1 }}>
-              <Routes theme={CombinedDarkTheme} />
+              <EventProvider>
+                <Routes theme={CombinedDarkTheme} />
+              </EventProvider>
             </GestureHandlerRootView>
           </LanguagesProvider>
         </GluestackUIProvider>
