@@ -1,4 +1,8 @@
-import { AndroidChannel, default as notifee } from '@notifee/react-native';
+import {
+  AndroidChannel,
+  default as notifee,
+  Notification,
+} from '@notifee/react-native';
 
 import { useTranslate } from '../../i18n/useTranslate';
 
@@ -24,17 +28,37 @@ export function useNotificationService() {
   const displayNotification = async (
     channelId: NotificationChannels,
     translationActionKey: string,
+    notification: Notification = {},
   ) => {
     await notifee.displayNotification({
+      ...notification,
       title: translate(
         `notification.${channelId}.${translationActionKey}.title`,
       ),
       body: translate(`notification.${channelId}.${translationActionKey}.body`),
       android: {
+        ...notification.android,
         channelId,
         pressAction: {
           id: 'default',
         },
+      },
+    });
+  };
+
+  const registerForegroundService = () => {
+    notifee.registerForegroundService(notification => {
+      return new Promise(() => {});
+    });
+  };
+
+  const attachNotificationToService = async (
+    channelId: NotificationChannels,
+    translationActionKey: string,
+  ) => {
+    await displayNotification(channelId, translationActionKey, {
+      android: {
+        asForegroundService: true,
       },
     });
   };
