@@ -144,6 +144,8 @@ export const useOfflineService = () => {
       );
 
       await saveEpisodeOffline();
+    } else {
+      event.emit(NotificationForegroundServiceEvents.UPDATE);
     }
   };
 
