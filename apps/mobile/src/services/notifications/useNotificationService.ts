@@ -55,19 +55,14 @@ export function useNotificationService() {
     notifee.registerForegroundService(
       notification =>
         new Promise(() => {
-          console.log('registerForegroundService');
           event.on(NotificationForegroundServiceEvents.UPDATE, async () => {
             await notifee.displayNotification({
               ...notification,
               id: notification.id,
               body: translate('notifications.download.progress.body', {
-                progress: downloadQueue.getQueueLength() + 1,
+                progress: downloadQueue.getQueueLength(),
               }),
             });
-            console.log(
-              'update notification',
-              downloadQueue.getQueueLength() + 1,
-            );
           });
           event.on(NotificationForegroundServiceEvents.STOP, async () => {
             await notifee.stopForegroundService();
