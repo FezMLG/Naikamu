@@ -18,7 +18,11 @@ import {
   AuthStackAppLoadingScreenProps,
   AuthStackRoutesNames,
 } from '../routes';
-import { useNotificationService, useUserSettingsService } from '../services';
+import {
+  offlineFS,
+  useNotificationService,
+  useUserSettingsService,
+} from '../services';
 import { useUserService } from '../services/auth/user.service';
 import { useUserStore } from '../services/auth/user.store';
 import {
@@ -42,8 +46,9 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
 
   useEffect(() => {
     (async () => {
-      checkConnection();
+      await checkConnection();
       await notifications.initialize();
+      await offlineFS.checkPermissions();
       setTimeout(() => {
         layout.setInfo(translate('welcomeScreen.apiLoading'));
         layout.setVisible(true);
@@ -71,10 +76,10 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
     });
   }, []);
 
-  const apiCheck = useQueryApiHealth(data => {
+  const apiCheck = useQueryApiHealth(async data => {
     logger('useQueryApiHealth').info(data);
     if (semver.satisfies(data.version, supportedApiVersion)) {
-      handleLoginCheck();
+      await handleLoginCheck();
     } else {
       logger('API Version Check').warn(
         'Wrong version',

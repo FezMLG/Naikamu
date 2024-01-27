@@ -2,8 +2,8 @@ import { Platform } from 'react-native';
 import RNFS from 'react-native-fs';
 
 import { logger } from '../../utils/logger';
-import { useNotificationService } from '../notifications';
 import { event } from '../events';
+import { useNotificationService } from '../notifications';
 
 import { IEpisodeDownloadJob, useDownloadsStore } from './downloads.store';
 import { IOfflineSeries, IOfflineSeriesEpisodes } from './interfaces';
@@ -34,8 +34,6 @@ export const useOfflineService = () => {
   };
 
   const saveEpisodeOffline = async () => {
-    await notificationService.initialize();
-
     const firstItem = queueActions.getFirstItem();
 
     if (!firstItem) {
@@ -45,6 +43,9 @@ export const useOfflineService = () => {
 
       return;
     }
+
+    event.emit('update');
+
     const { series, episode, fileUrl } = firstItem;
 
     checkIfSeriesExist(series.seriesId);
@@ -61,9 +62,9 @@ export const useOfflineService = () => {
     const progressDownload = async (
       result: RNFS.DownloadProgressCallbackResult,
     ) => {
-      logger('progressDownload').info(
-        ((result.bytesWritten / result.contentLength) * 100).toFixed(2),
-      );
+      // logger('progressDownload').info(
+      //   ((result.bytesWritten / result.contentLength) * 100).toFixed(2),
+      // );
 
       downloadsActions.changeProgress(
         jobId,
@@ -108,6 +109,8 @@ export const useOfflineService = () => {
         }
         logger('progressDownload').warn('no items in queue left', series);
 
+        event.emit('stop');
+
         await notificationService.displayNotification('download', 'finish');
       }
     });
@@ -133,7 +136,13 @@ export const useOfflineService = () => {
     });
 
     if (isQueueEmpty) {
-      saveEpisodeOffline();
+      notificationService.registerForegroundService();
+      await notificationService.attachNotificationToService(
+        'download',
+        'start',
+      );
+
+      await saveEpisodeOffline();
     }
   };
 
