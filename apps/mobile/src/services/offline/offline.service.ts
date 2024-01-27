@@ -3,7 +3,10 @@ import RNFS from 'react-native-fs';
 
 import { logger } from '../../utils/logger';
 import { event } from '../events';
-import { useNotificationService } from '../notifications';
+import {
+  NotificationForegroundServiceEvents,
+  useNotificationService,
+} from '../notifications';
 
 import { IEpisodeDownloadJob, useDownloadsStore } from './downloads.store';
 import { IOfflineSeries, IOfflineSeriesEpisodes } from './interfaces';
@@ -44,7 +47,7 @@ export const useOfflineService = () => {
       return;
     }
 
-    event.emit('update');
+    event.emit(NotificationForegroundServiceEvents.UPDATE);
 
     const { series, episode, fileUrl } = firstItem;
 
@@ -102,16 +105,14 @@ export const useOfflineService = () => {
       const firstItemInQueue = queueActions.getFirstItem();
 
       if (firstItemInQueue) {
-        await saveEpisodeOffline();
+        saveEpisodeOffline();
       } else {
         if (Platform.OS === 'ios') {
           RNFS.completeHandlerIOS(jobId);
         }
         logger('progressDownload').warn('no items in queue left', series);
 
-        event.emit('stop');
-
-        await notificationService.displayNotification('download', 'finish');
+        event.emit(NotificationForegroundServiceEvents.STOP);
       }
     });
   };
@@ -139,7 +140,7 @@ export const useOfflineService = () => {
       notificationService.registerForegroundService();
       await notificationService.attachNotificationToService(
         'download',
-        'start',
+        'progress',
       );
 
       await saveEpisodeOffline();
@@ -152,7 +153,7 @@ export const useOfflineService = () => {
     if (!series.episodes) {
       throw new Error('Series not downloaded');
     }
-    Promise.all(
+    await Promise.all(
       series.episodes.map(async episode => {
         if (!episode.pathToFile) {
           throw new Error('Episode not downloaded');
@@ -162,7 +163,7 @@ export const useOfflineService = () => {
     );
     const saved = offlineActions.deleteOfflineSeries(seriesId);
 
-    offlineStorage.saveOfflineSeries(saved);
+    await offlineStorage.saveOfflineSeries(saved);
   };
 
   return {
@@ -248,7 +249,3 @@ export const useOfflineService = () => {
     },
   };
 };
-
-event.on('testEvent', () => {
-  console.log('this is test events');
-});

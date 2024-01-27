@@ -18,6 +18,7 @@ interface DownloadsState {
     getFirstItem: () => IDownloadsQueueItem | undefined;
     removeFirstItem: () => void;
     getQueue: () => IDownloadsQueueItem[];
+    getQueueLength: () => number;
   };
 }
 
@@ -25,6 +26,7 @@ export const useDownloadsQueueStore = create<DownloadsState>((set, get) => ({
   queue: [],
   actions: {
     getQueue: () => get().queue,
+    getQueueLength: () => get().queue.length,
     addToQueue: item => {
       set(state => ({
         queue: [...state.queue, item],

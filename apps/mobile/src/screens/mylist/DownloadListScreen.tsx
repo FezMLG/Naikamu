@@ -10,7 +10,6 @@ import {
 } from '../../components';
 import { useTranslate } from '../../i18n/useTranslate';
 import { useOfflineService } from '../../services';
-import { event } from '../../services/events';
 import { useDownloadsQueueStore } from '../../services/offline/queue.store';
 import { colors, fontStyles } from '../../styles';
 import { logger } from '../../utils/logger';
@@ -29,7 +28,6 @@ export function DownloadListScreen() {
   const queueActions = useDownloadsQueueStore(state => state.actions);
 
   const handleLoadingOffline = useCallback(async () => {
-    event.emit('testEvent');
     try {
       const offline = await getAllOfflineSeries();
 
