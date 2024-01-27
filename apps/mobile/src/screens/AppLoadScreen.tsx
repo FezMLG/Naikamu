@@ -21,6 +21,7 @@ import {
 import {
   offlineFS,
   useNotificationService,
+  useOfflineService,
   useUserSettingsService,
 } from '../services';
 import { useUserService } from '../services/auth/user.service';
@@ -43,12 +44,14 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
   const user = useUserStore(state => state.user);
   const [netInfo] = useState<NetInfoState>();
   const notifications = useNotificationService();
+  const offlineService = useOfflineService();
 
   useEffect(() => {
     (async () => {
       await checkConnection();
       await notifications.initialize();
       await offlineFS.checkPermissions();
+      await offlineService.getAllOfflineSeries();
       setTimeout(() => {
         layout.setInfo(translate('welcomeScreen.apiLoading'));
         layout.setVisible(true);
