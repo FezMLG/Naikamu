@@ -47,7 +47,9 @@ export const useOfflineService = () => {
       return;
     }
 
-    event.emit(NotificationForegroundServiceEvents.UPDATE);
+    if (Platform.OS === 'android') {
+      event.emit(NotificationForegroundServiceEvents.UPDATE);
+    }
 
     const { series, episode, fileUrl } = firstItem;
 
@@ -101,6 +103,16 @@ export const useOfflineService = () => {
 
       await offlineStorage.saveOfflineSeries(saved);
 
+      if (Platform.OS === 'ios') {
+        await notificationService.displayNotification('download', {
+          key: 'finish.ios',
+          format: {
+            episode: episode.number,
+            series: series.title,
+          },
+        });
+      }
+
       queueActions.removeFirstItem();
       const firstItemInQueue = queueActions.getFirstItem();
 
@@ -110,9 +122,11 @@ export const useOfflineService = () => {
         if (Platform.OS === 'ios') {
           RNFS.completeHandlerIOS(jobId);
         }
-        logger('progressDownload').warn('no items in queue left', series);
 
-        event.emit(NotificationForegroundServiceEvents.STOP);
+        if (Platform.OS === 'android') {
+          event.emit(NotificationForegroundServiceEvents.STOP);
+        }
+        logger('progressDownload').warn('no items in queue left', series);
       }
     });
   };
@@ -137,15 +151,19 @@ export const useOfflineService = () => {
     });
 
     if (isQueueEmpty) {
-      notificationService.registerForegroundService();
-      await notificationService.attachNotificationToService(
-        'download',
-        'progress',
-      );
+      if (Platform.OS === 'android') {
+        notificationService.registerForegroundService();
+        await notificationService.attachNotificationToService(
+          'download',
+          'progress',
+        );
+      }
 
       await saveEpisodeOffline();
     } else {
-      event.emit(NotificationForegroundServiceEvents.UPDATE);
+      if (Platform.OS === 'android') {
+        event.emit(NotificationForegroundServiceEvents.UPDATE);
+      }
     }
   };
 

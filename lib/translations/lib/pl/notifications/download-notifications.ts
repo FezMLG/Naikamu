@@ -3,6 +3,10 @@ export const downloadNotifications = {
   finish: {
     title: 'Pobieranie zakończone',
     body: 'Pobieranie elementów z kolejki zostało ukończone',
+    ios: {
+      title: 'Pobieranie zakończone',
+      body: '{{episode}} - {{series}}',
+    },
   },
   progress: {
     title: 'Pobieranie',
