@@ -57,11 +57,9 @@ export function DownloadListScreen() {
     <PageLayout.Default {...layout}>
       <ScrollView>
         {offlineSeries.length > 0 ? (
-          offlineSeries
-            .filter(series => series.episodes.length > 0)
-            .map(series => (
-              <OfflineSeries key={series.seriesId} series={series} />
-            ))
+          offlineSeries.map(series => (
+            <OfflineSeries key={series.seriesId} series={series} />
+          ))
         ) : (
           <Text style={[colors.textLight, fontStyles.paragraph]}>
             {translate('myList.download.notFound')}
@@ -76,15 +74,15 @@ export function DownloadListScreen() {
             }}
           />
         ))}
-        {sortDownloadQueueItems(queueActions.getQueue())
-          .slice(activeDownloads.length > 0 ? 1 : 0)
-          .map((queueItem, index) => (
+        {sortDownloadQueueItems(queueActions.getQueue()).map(
+          (queueItem, index) => (
             <DownloadQueueGroup
               action={queueActions.removeFromQueue}
               item={queueItem}
               key={index}
             />
-          ))}
+          ),
+        )}
       </ScrollView>
     </PageLayout.Default>
   );

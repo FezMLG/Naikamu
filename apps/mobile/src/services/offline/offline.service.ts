@@ -47,6 +47,8 @@ export const useOfflineService = () => {
       return;
     }
 
+    queueActions.removeFirstItem();
+
     if (Platform.OS === 'android') {
       event.emit(NotificationForegroundServiceEvents.UPDATE);
     }
@@ -113,7 +115,6 @@ export const useOfflineService = () => {
         });
       }
 
-      queueActions.removeFirstItem();
       const firstItemInQueue = queueActions.getFirstItem();
 
       if (firstItemInQueue) {
@@ -143,6 +144,7 @@ export const useOfflineService = () => {
     const series = checkIfSeriesExist(seriesId);
 
     const isQueueEmpty = queueActions.isQueueEmpty();
+    const downloadsActive = downloadsActions.getActiveDownloads();
 
     queueActions.addToQueue({
       series,
@@ -150,20 +152,20 @@ export const useOfflineService = () => {
       fileUrl,
     });
 
-    if (isQueueEmpty) {
-      if (Platform.OS === 'android') {
-        notificationService.registerForegroundService();
-        await notificationService.attachNotificationToService(
-          'download',
-          'progress',
-        );
-      }
-
-      await saveEpisodeOffline();
+    if (isQueueEmpty && Platform.OS === 'android') {
+      notificationService.registerForegroundService();
+      await notificationService.attachNotificationToService(
+        'download',
+        'progress',
+      );
     } else {
       if (Platform.OS === 'android') {
         event.emit(NotificationForegroundServiceEvents.UPDATE);
       }
+    }
+
+    if (downloadsActive.length < 3) {
+      await saveEpisodeOffline();
     }
   };
 
