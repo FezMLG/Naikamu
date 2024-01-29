@@ -175,6 +175,7 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderColor: DarkColor.C800,
     backgroundColor: DarkColor.C900,
+    marginVertical: 10,
   },
   linksContainer: {
     width: '100%',

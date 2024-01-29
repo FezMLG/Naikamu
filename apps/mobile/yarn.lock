@@ -1274,7 +1274,7 @@
   resolved "https://registry.yarnpkg.com/@gluestack-style/legend-motion-animation-driver/-/legend-motion-animation-driver-1.0.3.tgz#e2408ff8515ced92cb75f096f5eeff1f9636a0da"
   integrity sha512-sD6aFS6Tq5XpyjrboFEIc8LrRY4TA4kodFYHzk6mDchvbkdLODijtjnaDQB1UqihOkMRg49e7ANRAOzc7eymaQ==
 
-"@gluestack-style/react@^1.0.31":
+"@gluestack-style/react@1.0.31":
   version "1.0.31"
   resolved "https://registry.yarnpkg.com/@gluestack-style/react/-/react-1.0.31.tgz#8d025a0e5bb7fd62f45d73905af544976fef6cd7"
   integrity sha512-YT3TEiXy91w2WIAHUxeRfz+YnuN2UR36Z1bTQxRXrhgUU6No4TMKN1MbWdzcLpNHC6wlzkumcV0RSEszndlfUA==
@@ -1352,7 +1352,7 @@
     "@react-native-aria/utils" "^0.2.10"
     "@react-stately/checkbox" "^3.4.2"
 
-"@gluestack-ui/config@^1.0.11":
+"@gluestack-ui/config@1.0.11":
   version "1.0.11"
   resolved "https://registry.yarnpkg.com/@gluestack-ui/config/-/config-1.0.11.tgz#8a6525beb94d424df75212f48c31b97a59c0c51e"
   integrity sha512-93DJKGqBMHcjrlpvqa41+4mz2tQUXWW7CKQmzLUdUGv+MdGzif3HPNrJ/lSbT7dhu8HZInSKn9MUEFs6iT+zXg==
@@ -1581,7 +1581,7 @@
     "@gluestack-ui/utils" "^0.1.12"
     "@react-native-aria/focus" "^0.2.9"
 
-"@gluestack-ui/themed@^1.0.34":
+"@gluestack-ui/themed@1.0.34":
   version "1.0.34"
   resolved "https://registry.yarnpkg.com/@gluestack-ui/themed/-/themed-1.0.34.tgz#75551159568cdc68fbf417ca920f86a34b5b21d1"
   integrity sha512-Qyq6i/R4/4L1KFqh8VQWm0WKqW6sO6nDHKoWEHZZYLgSTyKRsAHN+MbkXT7Hh2IiOrlKWs0Tgzy5+/7FAAYDLA==
@@ -2038,6 +2038,11 @@
   dependencies:
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
+
+"@notifee/react-native@7.8.2":
+  version "7.8.2"
+  resolved "https://registry.yarnpkg.com/@notifee/react-native/-/react-native-7.8.2.tgz#72d3199ae830b4128ddaef3c1c2f11604759c9c4"
+  integrity sha512-VG4IkWJIlOKqXwa3aExC3WFCVCGCC9BA55Ivg0SMRfEs+ruvYy/zlLANcrVGiPtgkUEryXDhA8SXx9+JcO8oLA==
 
 "@pkgr/utils@^2.3.1":
   version "2.4.2"
@@ -5441,6 +5446,11 @@ event-target-shim@^5.0.0, event-target-shim@^5.0.1:
   resolved "https://registry.yarnpkg.com/event-target-shim/-/event-target-shim-5.0.1.tgz#5d4d3ebdf9583d63a5333ce2deb7480ab2b05789"
   integrity sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ==
 
+eventemitter3@5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-5.0.1.tgz#53f5ffd0a492ac800721bb42c66b841de96423c4"
+  integrity sha512-GWkBvjiSZK87ELrYOSESUYeVIc9mvLLf/nXalMOS5dYrgZq9o5OVkbZAVM06CVxYsCwH9BDZFPlQTlPA1j4ahA==
+
 execa@^5.0.0:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/execa/-/execa-5.1.1.tgz#f80ad9cbf4298f7bd1d4c9555c21e93741c411dd"
@@ -7095,7 +7105,7 @@ lodash.throttle@^4.1.1:
   resolved "https://registry.yarnpkg.com/lodash.throttle/-/lodash.throttle-4.1.1.tgz#c23e91b710242ac70c37f1e1cda9274cc39bf2f4"
   integrity sha512-wIkUCfVKpVsWo3JSZlc+8MB5it+2AN5W8J7YVMST30UrvcQNZ1Okbj+rbVniijTWE6FGYy4XJq/rHkas8qJMLQ==
 
-lodash@^4.17.21:
+lodash@4.17.21, lodash@^4.17.21:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==

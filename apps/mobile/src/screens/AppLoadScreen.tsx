@@ -18,7 +18,12 @@ import {
   AuthStackAppLoadingScreenProps,
   AuthStackRoutesNames,
 } from '../routes';
-import { useUserSettingsService } from '../services';
+import {
+  offlineFS,
+  useNotificationService,
+  useOfflineService,
+  useUserSettingsService,
+} from '../services';
 import { useUserService } from '../services/auth/user.service';
 import { useUserStore } from '../services/auth/user.store';
 import {
@@ -38,18 +43,25 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
   const userService = useUserService();
   const user = useUserStore(state => state.user);
   const [netInfo] = useState<NetInfoState>();
+  const notifications = useNotificationService();
+  const offlineService = useOfflineService();
 
   useEffect(() => {
-    checkConnection();
-    setTimeout(() => {
-      layout.setInfo(translate('welcomeScreen.apiLoading'));
-      layout.setVisible(true);
-      setLongLoading(true);
-    }, 3000);
-    setTimeout(() => {
-      setLongLoading(false);
-      setApiError(true);
-    }, 15_000);
+    (async () => {
+      await checkConnection();
+      await notifications.initialize();
+      await offlineFS.checkPermissions();
+      await offlineService.getAllOfflineSeries();
+      setTimeout(() => {
+        layout.setInfo(translate('welcomeScreen.apiLoading'));
+        layout.setVisible(true);
+        setLongLoading(true);
+      }, 3000);
+      setTimeout(() => {
+        setLongLoading(false);
+        setApiError(true);
+      }, 15_000);
+    })();
   }, []);
 
   const checkConnection = useCallback(async () => {
@@ -67,10 +79,10 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
     });
   }, []);
 
-  const apiCheck = useQueryApiHealth(data => {
+  const apiCheck = useQueryApiHealth(async data => {
     logger('useQueryApiHealth').info(data);
     if (semver.satisfies(data.version, supportedApiVersion)) {
-      handleLoginCheck();
+      await handleLoginCheck();
     } else {
       logger('API Version Check').warn(
         'Wrong version',

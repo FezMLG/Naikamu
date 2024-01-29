@@ -2,6 +2,11 @@ import { Platform } from 'react-native';
 import RNFS from 'react-native-fs';
 
 import { logger } from '../../utils/logger';
+import { event } from '../events';
+import {
+  NotificationForegroundServiceEvents,
+  useNotificationService,
+} from '../notifications';
 
 import { IEpisodeDownloadJob, useDownloadsStore } from './downloads.store';
 import { IOfflineSeries, IOfflineSeriesEpisodes } from './interfaces';
@@ -19,6 +24,8 @@ export const useOfflineService = () => {
   const offlineState = useOfflineSeriesStore(state => state.offlineSeries);
   const offlineActions = useOfflineSeriesStore(state => state.actions);
 
+  const notificationService = useNotificationService();
+
   const checkIfSeriesExist = (seriesId: string) => {
     const result = offlineActions.getOfflineSeries(seriesId);
 
@@ -33,10 +40,17 @@ export const useOfflineService = () => {
     const firstItem = queueActions.getFirstItem();
 
     if (!firstItem) {
-      logger('saveEpisodeOffline').warn('no items in queue');
+      logger('saveEpisodeOffline').warn(
+        'saveEpisodeOffline was called without items in queue',
+      );
 
       return;
     }
+
+    if (Platform.OS === 'android') {
+      event.emit(NotificationForegroundServiceEvents.UPDATE);
+    }
+
     const { series, episode, fileUrl } = firstItem;
 
     checkIfSeriesExist(series.seriesId);
@@ -53,9 +67,9 @@ export const useOfflineService = () => {
     const progressDownload = async (
       result: RNFS.DownloadProgressCallbackResult,
     ) => {
-      logger('progressDownload').info(
-        ((result.bytesWritten / result.contentLength) * 100).toFixed(2),
-      );
+      // logger('progressDownload').info(
+      //   ((result.bytesWritten / result.contentLength) * 100).toFixed(2),
+      // );
 
       downloadsActions.changeProgress(
         jobId,
@@ -89,6 +103,16 @@ export const useOfflineService = () => {
 
       await offlineStorage.saveOfflineSeries(saved);
 
+      if (Platform.OS === 'ios') {
+        await notificationService.displayNotification('download', {
+          key: 'finish.ios',
+          format: {
+            episode: episode.number,
+            series: series.title,
+          },
+        });
+      }
+
       queueActions.removeFirstItem();
       const firstItemInQueue = queueActions.getFirstItem();
 
@@ -98,7 +122,11 @@ export const useOfflineService = () => {
         if (Platform.OS === 'ios') {
           RNFS.completeHandlerIOS(jobId);
         }
-        logger('progressDownload').warn('no items in queue 2', series);
+
+        if (Platform.OS === 'android') {
+          event.emit(NotificationForegroundServiceEvents.STOP);
+        }
+        logger('progressDownload').warn('no items in queue left', series);
       }
     });
   };
@@ -123,7 +151,19 @@ export const useOfflineService = () => {
     });
 
     if (isQueueEmpty) {
-      saveEpisodeOffline();
+      if (Platform.OS === 'android') {
+        notificationService.registerForegroundService();
+        await notificationService.attachNotificationToService(
+          'download',
+          'progress',
+        );
+      }
+
+      await saveEpisodeOffline();
+    } else {
+      if (Platform.OS === 'android') {
+        event.emit(NotificationForegroundServiceEvents.UPDATE);
+      }
     }
   };
 
@@ -133,7 +173,7 @@ export const useOfflineService = () => {
     if (!series.episodes) {
       throw new Error('Series not downloaded');
     }
-    Promise.all(
+    await Promise.all(
       series.episodes.map(async episode => {
         if (!episode.pathToFile) {
           throw new Error('Episode not downloaded');
@@ -143,7 +183,7 @@ export const useOfflineService = () => {
     );
     const saved = offlineActions.deleteOfflineSeries(seriesId);
 
-    offlineStorage.saveOfflineSeries(saved);
+    await offlineStorage.saveOfflineSeries(saved);
   };
 
   return {

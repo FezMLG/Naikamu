@@ -1,6 +1,8 @@
 import { plSettings } from './categories';
+import { notifications } from './notifications';
 
 export const pl = {
+  notifications,
   ...plSettings,
   routes: {
     Browse: 'Przeglądaj',

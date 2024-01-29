@@ -32,6 +32,10 @@ const grantPermissions = async () => {
 
 const checkPermissions = async () => {
   if (Platform.OS === 'android') {
+    if (Number(Platform.Version) >= 33) {
+      return true;
+    }
+
     const write = await PermissionsAndroid.check(
       PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
     );
@@ -106,4 +110,5 @@ export const offlineFS = {
   stopDownloadingFile,
   deleteFile,
   getAbsolutePath,
+  checkPermissions,
 };
