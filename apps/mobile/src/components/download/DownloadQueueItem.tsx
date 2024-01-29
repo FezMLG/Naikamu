@@ -1,54 +1,42 @@
 import React from 'react';
 
-import { Divider } from '@gluestack-ui/themed';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import Animated, { SlideOutLeft } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import { IDownloadsQueueItem } from '../../services/offline/queue.store';
 import { colors, fontStyles, globalStyle } from '../../styles';
 
-import { SortedDownloadQueueItem } from './sortDownloadQueueItems';
-
 export type DownloadQueueItemProps = {
-  item: SortedDownloadQueueItem;
+  item: IDownloadsQueueItem;
+  action: (seriesId: string, episodeNumber: number) => void;
 };
 
-export const DownloadQueueItem = ({ item }: DownloadQueueItemProps) => (
-  <View>
-    <Text
-      style={[fontStyles.headerSmall, colors.textLight, globalStyle.marginTop]}>
-      {item.series.title}
-    </Text>
-    <Divider bg={colors.grey.color} />
-    {item.episodes.map((episode, episodeIndex) => (
-      <Animated.View
-        exiting={SlideOutLeft}
-        key={episodeIndex}
-        style={globalStyle.spacerSmall}>
-        <View style={styles.titleContainer}>
-          <View>
-            <Text
-              style={[
-                fontStyles.normal,
-                colors.textLight,
-                globalStyle.marginBottomSmall,
-              ]}>
-              {episode.episode.number}.{' '}
-              <Text style={[fontStyles.normal, colors.textLight]}>
-                {episode.episode.title}
-              </Text>
-            </Text>
-            <Text style={[fontStyles.label, colors.textLighter]}>
-              {episode.episode.translator}
-            </Text>
-          </View>
-          <Pressable onPress={() => {}}>
-            <Icon color="white" name="stop" size={36} />
-          </Pressable>
-        </View>
-      </Animated.View>
-    ))}
-  </View>
+export const DownloadQueueItem = ({ item, action }: DownloadQueueItemProps) => (
+  <Animated.View exiting={SlideOutLeft} style={globalStyle.spacerSmall}>
+    <View style={styles.titleContainer}>
+      <View>
+        <Text
+          style={[
+            fontStyles.normal,
+            colors.textLight,
+            globalStyle.marginBottomSmall,
+          ]}>
+          {item.episode.number}.{' '}
+          <Text style={[fontStyles.normal, colors.textLight]}>
+            {item.episode.title}
+          </Text>
+        </Text>
+        <Text style={[fontStyles.label, colors.textLighter]}>
+          {item.episode.translator}
+        </Text>
+      </View>
+      <Pressable
+        onPress={() => action(item.series.seriesId, item.episode.number)}>
+        <Icon color="white" name="stop" size={36} />
+      </Pressable>
+    </View>
+  </Animated.View>
 );
 
 const styles = StyleSheet.create({

@@ -4,7 +4,7 @@ import { ScrollView, Text } from 'react-native';
 
 import {
   ActiveDownload,
-  DownloadQueueItem,
+  DownloadQueueGroup,
   OfflineSeries,
   PageLayout,
   sortDownloadQueueItems,
@@ -79,7 +79,11 @@ export function DownloadListScreen() {
         {sortDownloadQueueItems(queueActions.getQueue())
           .slice(activeDownloads.length > 0 ? 1 : 0)
           .map((queueItem, index) => (
-            <DownloadQueueItem item={queueItem} key={index} />
+            <DownloadQueueGroup
+              action={queueActions.removeFromQueue}
+              item={queueItem}
+              key={index}
+            />
           ))}
       </ScrollView>
     </PageLayout.Default>
