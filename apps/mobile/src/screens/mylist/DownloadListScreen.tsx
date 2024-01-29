@@ -4,8 +4,10 @@ import { ScrollView, Text } from 'react-native';
 
 import {
   ActiveDownload,
+  DownloadQueueItem,
   OfflineSeries,
   PageLayout,
+  sortDownloadQueueItems,
   useLayout,
 } from '../../components';
 import { useTranslate } from '../../i18n/useTranslate';
@@ -53,10 +55,8 @@ export function DownloadListScreen() {
 
   return (
     <PageLayout.Default {...layout}>
-      {/* <Icon name={'pencil-outline'} size={36} color={'white'} /> */}
       <ScrollView>
         {offlineSeries.length > 0 ? (
-          // <Text>{JSON.stringify(offlineSeries)}</Text>
           offlineSeries
             .filter(series => series.episodes.length > 0)
             .map(series => (
@@ -76,20 +76,10 @@ export function DownloadListScreen() {
             }}
           />
         ))}
-        {queueActions
-          .getQueue()
+        {sortDownloadQueueItems(queueActions.getQueue())
           .slice(activeDownloads.length > 0 ? 1 : 0)
-          .map((download, index) => (
-            <ActiveDownload
-              download={download}
-              key={index}
-              stopAction={() => {
-                queueActions.removeFromQueue(
-                  download.series.seriesId,
-                  download.episode.number,
-                );
-              }}
-            />
+          .map((queueItem, index) => (
+            <DownloadQueueItem item={queueItem} key={index} />
           ))}
       </ScrollView>
     </PageLayout.Default>

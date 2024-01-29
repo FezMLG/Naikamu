@@ -9,6 +9,6 @@ export * from './maxDimensions';
 export * from './ProgressiveImage';
 export * from './Timer';
 export * from './series';
-export * from './ActiveDownload';
+export * from './download';
 export * from './EnvironmentDebug';
 export * from './PlatformExplicit';

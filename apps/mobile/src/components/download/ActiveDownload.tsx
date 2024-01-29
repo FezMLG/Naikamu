@@ -12,8 +12,8 @@ import { ProgressBar } from 'react-native-paper';
 import Animated, { SlideOutLeft } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { IEpisodeDownloadJob } from '../services/offline/downloads.store';
-import { fontStyles, colors, globalStyle } from '../styles';
+import { IEpisodeDownloadJob } from '../../services/offline/downloads.store';
+import { fontStyles, colors, globalStyle } from '../../styles';
 
 export function ActiveDownload({
   download,
