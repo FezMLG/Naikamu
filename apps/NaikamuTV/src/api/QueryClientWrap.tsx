@@ -8,13 +8,8 @@ function QueryClientWrap(props: { children: React.ReactNode }) {
       new QueryClient({
         defaultOptions: {
           queries: {
-            retry: (failureCount, error: any) => {
-              if (error?.response.status === 502 && failureCount > 3) {
-                return false;
-              }
-
-              return error?.response.status < 400;
-            },
+            retry: (failureCount, error: any) =>
+              !(error?.response.status === 502 && failureCount > 3),
           },
         },
       }),
