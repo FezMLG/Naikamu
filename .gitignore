@@ -72,3 +72,6 @@ dist
 
 .yarn
 apps/mobile/android/app/gradle.properties
+
+apps/NaikamuTV/android/sentry.properties
+apps/NaikamuTV/ios/sentry.properties
