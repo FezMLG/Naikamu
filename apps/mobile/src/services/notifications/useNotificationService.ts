@@ -51,7 +51,6 @@ export function useNotificationService() {
         pressAction: {
           id: 'default',
         },
-        // smallIcon: 'ic_small_icon',
       },
     });
   };
