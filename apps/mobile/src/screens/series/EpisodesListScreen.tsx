@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { AnimeEpisode } from '@naikamu/shared';
-import { StyleSheet, ScrollView, Image } from 'react-native';
+import { StyleSheet, Image, FlatList } from 'react-native';
 import { Text } from 'react-native-paper';
 
 import { useQuerySeriesEpisodes } from '../../api/hooks';
@@ -23,43 +23,53 @@ export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
     refetch,
   } = useQuerySeriesEpisodes(route.params.seriesId, series.numOfAiredEpisodes);
 
+  const renderItem = ({ item }: { item: AnimeEpisode }) => (
+    <Episode episode={item} isWatched={item.isWatched} />
+  );
+
   return (
     <PageLayout.Default margin={false} {...layout}>
       <PageLayout.Loading isLoading={isLoading} />
       <PageLayout.Error isError={isError} refetch={refetch} />
-      <ScrollView style={styles.scrollView}>
-        <Image
-          resizeMode="contain"
-          source={require('../../../assets/logo_docchi.png')}
-          style={[styles.logo]}
+      {episodes ? (
+        <FlatList
+          ListFooterComponent={
+            <Text
+              style={[globalStyle.disclaimer, darkStyle.font]}
+              variant="bodySmall">
+              {translate('anime_episodes.disclaimer')}
+            </Text>
+          }
+          ListHeaderComponent={
+            <Image
+              resizeMode="contain"
+              source={require('../../../assets/logo_docchi.png')}
+              style={[styles.logo]}
+            />
+          }
+          contentContainerStyle={[styles.flatListContent]}
+          contentInsetAdjustmentBehavior="automatic"
+          data={episodes.episodes}
+          keyExtractor={(_, index) => index.toString()}
+          numColumns={1}
+          onRefresh={refetch}
+          refreshing={isLoading}
+          renderItem={renderItem}
         />
-        {episodes
-          ? episodes.episodes.map((episode: AnimeEpisode, index: number) => (
-              <Episode
-                episode={episode}
-                isWatched={episode.isWatched}
-                key={index}
-              />
-            ))
-          : null}
-        <Text
-          style={[globalStyle.disclaimer, darkStyle.font]}
-          variant="bodySmall">
-          {translate('anime_episodes.disclaimer')}
-        </Text>
-      </ScrollView>
+      ) : null}
     </PageLayout.Default>
   );
 }
 
 const styles = StyleSheet.create({
-  scrollView: {
-    marginHorizontal: 10,
-  },
   logo: {
     marginTop: 10,
     height: 20,
     width: 75,
     opacity: 0.75,
+  },
+  flatListContent: {
+    flexGrow: 1,
+    marginHorizontal: 10,
   },
 });
