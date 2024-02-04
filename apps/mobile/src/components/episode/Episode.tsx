@@ -7,11 +7,7 @@ import { List } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useQuerySeriesEpisodePlayers } from '../../api/hooks';
-import {
-  useActiveSeriesStore,
-  useOfflineService,
-  useUserSettingsService,
-} from '../../services';
+import { useActiveSeriesStore, useOfflineService } from '../../services';
 import {
   colors,
   DarkColor,
@@ -48,10 +44,8 @@ export function Episode({
     episode.number,
   );
   const [isSelected, setIsSelected] = useState(false);
-  const { addOfflineSeries, addToQueue } = useOfflineService();
-  const {
-    userSettings: { preferredDownloadQuality },
-  } = useUserSettingsService();
+  const { addToQueue } = useOfflineService();
+
   const { checkIfEpisodeIsDownloaded } = useOfflineService();
 
   const [isDownloaded, setIsDownloaded] = useState(false);
@@ -79,14 +73,7 @@ export function Episode({
       size: 0,
     };
 
-    await addOfflineSeries({
-      seriesId: series.id,
-      title: series.title,
-      quality: preferredDownloadQuality,
-      episodes: [],
-    });
     await addToQueue({
-      seriesId: series.id,
       episode: episodeToAdd,
       fileUrl,
     });

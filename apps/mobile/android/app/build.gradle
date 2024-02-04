@@ -7,10 +7,13 @@ apply plugin: 'com.google.firebase.crashlytics'
 project.ext.envConfigFiles = [
     productiondebug: ".env.production",
     productionrelease: ".env.production",
+    production: ".env.production",
     developmentrelease: ".env.development",
     developmentdebug: ".env.development",
+    development: ".env.development",
     stagingrelease: ".env.staging",
     stagingdebug: ".env.staging",
+    staging: ".env.staging",
     release: ".env.production",
 ]
 

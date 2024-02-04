@@ -2,7 +2,10 @@ import { default as notifee, Notification } from '@notifee/react-native';
 
 import { useTranslate } from '../../i18n/useTranslate';
 import { event } from '../events';
+import { useDownloadsStore } from '../offline/downloads.store';
 import { useDownloadsQueueStore } from '../offline/queue.store';
+import { logger } from '../../utils/logger';
+import { colors } from '../../styles';
 
 export type NotificationChannels = 'download';
 
@@ -15,6 +18,7 @@ export enum NotificationForegroundServiceEvents {
 export function useNotificationService() {
   const { translate } = useTranslate();
   const downloadQueue = useDownloadsQueueStore(store => store.actions);
+  const activeDownloads = useDownloadsStore(store => store.actions);
 
   const createChannel = async (channelKey: NotificationChannels) => {
     await notifee.createChannel({
@@ -52,19 +56,25 @@ export function useNotificationService() {
   };
 
   const registerForegroundService = () => {
+    logger('registerForegroundService').info('registered');
     notifee.registerForegroundService(
       notification =>
         new Promise(() => {
           event.on(NotificationForegroundServiceEvents.UPDATE, async () => {
             await notifee.displayNotification({
-              ...notification,
               id: notification.id,
               body: translate('notifications.download.progress.body', {
-                progress: downloadQueue.getQueueLength(),
+                progress:
+                  downloadQueue.getQueueLength() +
+                  activeDownloads.getActiveDownloads().length,
               }),
+              android: {
+                ...notification.android,
+              },
             });
           });
           event.on(NotificationForegroundServiceEvents.STOP, async () => {
+            logger('STOP').info('stop event');
             await notifee.stopForegroundService();
             await displayNotification('download', { key: 'finish' });
           });

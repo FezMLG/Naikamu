@@ -2,11 +2,13 @@ import { Platform } from 'react-native';
 import RNFS from 'react-native-fs';
 
 import { logger } from '../../utils/logger';
+import { useActiveSeriesStore } from '../active-series';
 import { event } from '../events';
 import {
   NotificationForegroundServiceEvents,
   useNotificationService,
 } from '../notifications';
+import { useUserSettingsService } from '../settings';
 
 import { IEpisodeDownloadJob, useDownloadsStore } from './downloads.store';
 import { IOfflineSeries, IOfflineSeriesEpisodes } from './interfaces';
@@ -14,6 +16,8 @@ import { offlineFS } from './offline.fs';
 import { offlineStorage } from './offline.storage';
 import { useOfflineSeriesStore } from './offline.store';
 import { useDownloadsQueueStore } from './queue.store';
+
+const MAX_CONCURRENT_DOWNLOADS = 2;
 
 export const useOfflineService = () => {
   const downloadJobs = useDownloadsStore(state => state.activeDownloads);
@@ -26,6 +30,12 @@ export const useOfflineService = () => {
 
   const notificationService = useNotificationService();
 
+  const activeSeries = useActiveSeriesStore(store => store.series)!;
+
+  const {
+    userSettings: { preferredDownloadQuality },
+  } = useUserSettingsService();
+
   const checkIfSeriesExist = (seriesId: string) => {
     const result = offlineActions.getOfflineSeries(seriesId);
 
@@ -34,6 +44,41 @@ export const useOfflineService = () => {
     }
 
     return result;
+  };
+
+  const getOrCreateOfflineSeries = async (seriesId: string) => {
+    let series = offlineActions.getOfflineSeries(seriesId);
+
+    if (!series) {
+      series = await addOfflineSeries();
+    }
+
+    return series;
+  };
+
+  const addOfflineSeries = async (): Promise<IOfflineSeries> => {
+    const exist = offlineActions.getOfflineSeries(activeSeries.id);
+
+    if (!exist) {
+      const saved = offlineActions.saveOrReplaceOfflineSeries({
+        seriesId: activeSeries.id,
+        title: activeSeries.title,
+        quality: preferredDownloadQuality,
+        episodes: [],
+      });
+
+      await offlineStorage.saveOfflineSeries(saved);
+
+      const seriesSaved = offlineActions.getOfflineSeries(activeSeries.id);
+
+      if (!seriesSaved) {
+        throw new Error('addOfflineSeries Failed to save series');
+      }
+
+      return seriesSaved;
+    }
+
+    return exist;
   };
 
   const saveEpisodeOffline = async () => {
@@ -46,6 +91,8 @@ export const useOfflineService = () => {
 
       return;
     }
+
+    queueActions.removeFirstItem();
 
     if (Platform.OS === 'android') {
       event.emit(NotificationForegroundServiceEvents.UPDATE);
@@ -113,36 +160,43 @@ export const useOfflineService = () => {
         });
       }
 
-      queueActions.removeFirstItem();
       const firstItemInQueue = queueActions.getFirstItem();
+      const downloadsActive = downloadsActions.getActiveDownloads();
 
-      if (firstItemInQueue) {
+      if (
+        firstItemInQueue &&
+        downloadsActive.length < MAX_CONCURRENT_DOWNLOADS
+      ) {
         saveEpisodeOffline();
-      } else {
+
+        return;
+      }
+
+      if (!firstItemInQueue && downloadsActive.length === 0) {
         if (Platform.OS === 'ios') {
           RNFS.completeHandlerIOS(jobId);
         }
-
         if (Platform.OS === 'android') {
           event.emit(NotificationForegroundServiceEvents.STOP);
         }
-        logger('progressDownload').warn('no items in queue left', series);
+        logger('progressDownload').warn(
+          'no items in queue left and all downloads finished',
+        );
       }
     });
   };
 
   const addToQueue = async ({
-    seriesId,
     episode,
     fileUrl,
   }: {
-    seriesId: string;
     episode: IOfflineSeriesEpisodes;
     fileUrl: string;
   }) => {
-    const series = checkIfSeriesExist(seriesId);
+    const series = await getOrCreateOfflineSeries(activeSeries.id);
 
     const isQueueEmpty = queueActions.isQueueEmpty();
+    const downloadsActive = downloadsActions.getActiveDownloads();
 
     queueActions.addToQueue({
       series,
@@ -150,20 +204,27 @@ export const useOfflineService = () => {
       fileUrl,
     });
 
-    if (isQueueEmpty) {
-      if (Platform.OS === 'android') {
-        notificationService.registerForegroundService();
-        await notificationService.attachNotificationToService(
-          'download',
-          'progress',
-        );
-      }
+    if (
+      isQueueEmpty &&
+      downloadsActive.length === 0 &&
+      Platform.OS === 'android'
+    ) {
+      notificationService.registerForegroundService();
+      await notificationService.attachNotificationToService(
+        'download',
+        'progress',
+      );
+    }
 
+    if (
+      (!isQueueEmpty || downloadsActive.length > 0) &&
+      Platform.OS === 'android'
+    ) {
+      event.emit(NotificationForegroundServiceEvents.UPDATE);
+    }
+
+    if (downloadsActive.length < MAX_CONCURRENT_DOWNLOADS) {
       await saveEpisodeOffline();
-    } else {
-      if (Platform.OS === 'android') {
-        event.emit(NotificationForegroundServiceEvents.UPDATE);
-      }
     }
   };
 
@@ -191,15 +252,6 @@ export const useOfflineService = () => {
     queueDownloads: useDownloadsQueueStore().queue,
     offlineSeries: offlineState,
     offlineStore: offlineActions,
-    addOfflineSeries: async (series: IOfflineSeries) => {
-      const exist = offlineActions.getOfflineSeries(series.seriesId);
-
-      if (!exist) {
-        const saved = offlineActions.saveOrReplaceOfflineSeries(series);
-
-        await offlineStorage.saveOfflineSeries(saved);
-      }
-    },
     getAllOfflineSeries: async (): Promise<IOfflineSeries[]> => {
       const state = offlineActions.getOfflineSeriesList();
 
@@ -260,8 +312,11 @@ export const useOfflineService = () => {
       offlineFS.stopDownloadingFile(jobId);
       downloadsActions.removeDownload(jobId);
       queueActions.removeFromQueue(series.seriesId, episode.number);
-      if (!queueActions.isQueueEmpty()) {
-        saveEpisodeOffline();
+
+      const downloadsActive = downloadsActions.getActiveDownloads();
+
+      if (downloadsActive.length < 3) {
+        await saveEpisodeOffline();
       }
     },
     clearOffline: async () => {

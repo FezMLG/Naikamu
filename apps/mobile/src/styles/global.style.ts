@@ -115,4 +115,7 @@ export const colors = StyleSheet.create({
   transparent: {
     color: 'transparent',
   },
+  grey: {
+    color: '#626262',
+  },
 });

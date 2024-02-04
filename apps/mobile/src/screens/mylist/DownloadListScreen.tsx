@@ -4,8 +4,10 @@ import { ScrollView, Text } from 'react-native';
 
 import {
   ActiveDownload,
+  DownloadQueueGroup,
   OfflineSeries,
   PageLayout,
+  sortDownloadQueueItems,
   useLayout,
 } from '../../components';
 import { useTranslate } from '../../i18n/useTranslate';
@@ -53,15 +55,11 @@ export function DownloadListScreen() {
 
   return (
     <PageLayout.Default {...layout}>
-      {/* <Icon name={'pencil-outline'} size={36} color={'white'} /> */}
       <ScrollView>
         {offlineSeries.length > 0 ? (
-          // <Text>{JSON.stringify(offlineSeries)}</Text>
-          offlineSeries
-            .filter(series => series.episodes.length > 0)
-            .map(series => (
-              <OfflineSeries key={series.seriesId} series={series} />
-            ))
+          offlineSeries.map(series => (
+            <OfflineSeries key={series.seriesId} series={series} />
+          ))
         ) : (
           <Text style={[colors.textLight, fontStyles.paragraph]}>
             {translate('myList.download.notFound')}
@@ -76,21 +74,15 @@ export function DownloadListScreen() {
             }}
           />
         ))}
-        {queueActions
-          .getQueue()
-          .slice(activeDownloads.length > 0 ? 1 : 0)
-          .map((download, index) => (
-            <ActiveDownload
-              download={download}
+        {sortDownloadQueueItems(queueActions.getQueue()).map(
+          (queueItem, index) => (
+            <DownloadQueueGroup
+              action={queueActions.removeFromQueue}
+              item={queueItem}
               key={index}
-              stopAction={() => {
-                queueActions.removeFromQueue(
-                  download.series.seriesId,
-                  download.episode.number,
-                );
-              }}
             />
-          ))}
+          ),
+        )}
       </ScrollView>
     </PageLayout.Default>
   );
