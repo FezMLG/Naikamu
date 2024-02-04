@@ -60,24 +60,28 @@ export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
       <PageLayout.Loading isLoading={api.isLoading} />
       <PageLayout.Error isError={api.isError} refetch={api.refetch} />
       {api.data ? (
-        <Animated.FlatList
-          contentContainerStyle={[styles.flatListContent]}
-          contentInsetAdjustmentBehavior="automatic"
-          data={api.data.pages.flatMap(page => page.data)}
-          keyExtractor={(_, index) => index.toString()}
-          numColumns={1}
-          onEndReached={() => api.fetchNextPage()}
-          onEndReachedThreshold={1}
-          onRefresh={api.refetch}
-          onScroll={scrollHandler}
-          refreshing={api.isRefetching}
-          renderItem={renderItem}
-          scrollEventThrottle={16}
-          style={[styles.flatList]}
-        />
-      ) : (
-        <Text style={colors.textLight}>No data</Text>
-      )}
+        <>
+          {api.data.pages[0].pageInfo.total > 0 ? (
+            <Animated.FlatList
+              contentContainerStyle={[styles.flatListContent]}
+              contentInsetAdjustmentBehavior="automatic"
+              data={api.data.pages.flatMap(page => page.data)}
+              keyExtractor={(_, index) => index.toString()}
+              numColumns={1}
+              onEndReached={() => api.fetchNextPage()}
+              onEndReachedThreshold={1}
+              onRefresh={api.refetch}
+              onScroll={scrollHandler}
+              refreshing={api.isRefetching}
+              renderItem={renderItem}
+              scrollEventThrottle={16}
+              style={[styles.flatList]}
+            />
+          ) : (
+            <Text style={colors.textLight}>No data</Text>
+          )}
+        </>
+      ) : null}
     </PageLayout.Default>
   );
 };
