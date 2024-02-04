@@ -1,25 +1,15 @@
 import React from 'react';
 
-import { AnimeEpisode, IAnimeListItem } from '@naikamu/shared';
-import { StyleSheet, ScrollView, Image, View } from 'react-native';
+import { AnimeEpisode } from '@naikamu/shared';
+import { StyleSheet, Image, FlatList } from 'react-native';
 import { Text } from 'react-native-paper';
 
 import { useQuerySeriesEpisodes } from '../../api/hooks';
-import {
-  BrowseElement,
-  Episode,
-  PageLayout,
-  useLayout,
-} from '../../components';
+import { Episode, PageLayout, useLayout } from '../../components';
 import { useTranslate } from '../../i18n/useTranslate';
-import {
-  RootStackScreenNames,
-  SeriesStackEpisodeScreenProps,
-  SeriesStackScreenNames,
-} from '../../routes';
+import { SeriesStackEpisodeScreenProps } from '../../routes';
 import { useActiveSeriesStore } from '../../services';
 import { darkStyle, globalStyle } from '../../styles';
-import Animated from 'react-native-reanimated';
 
 export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
   const series = useActiveSeriesStore(store => store.series);
@@ -42,7 +32,7 @@ export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
       <PageLayout.Loading isLoading={isLoading} />
       <PageLayout.Error isError={isError} refetch={refetch} />
       {episodes ? (
-        <Animated.FlatList
+        <FlatList
           ListFooterComponent={
             <Text
               style={[globalStyle.disclaimer, darkStyle.font]}
