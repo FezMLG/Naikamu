@@ -9,6 +9,11 @@ import QueryClientWrap from './api/QueryClientWrap';
 import LanguagesProvider from './i18n/LanguagesProvider';
 import Routes from './routes/Routes';
 import { colors } from './styles';
+import * as Sentry from '@sentry/react-native';
+
+Sentry.init({
+  dsn: 'https://84335994fbbcda63bb3322b389fc789c@o4506020904697856.ingest.sentry.io/4506684700164096',
+});
 
 const CombinedDarkTheme: Theme = {
   ...NavigationDarkTheme,
