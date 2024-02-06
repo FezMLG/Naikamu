@@ -19,6 +19,7 @@ import axios, {
 import Config from 'react-native-config';
 
 import { fireGetIdToken } from '../services/firebase/fire-auth.service';
+import { logger } from '../utils';
 
 interface GetAnimeListDTO {
   page?: number;
@@ -174,7 +175,7 @@ export class APIClient {
   }: GetAnimeListDTO): Promise<Paginate<IWatchListSeries[]>> {
     const token = await this.withToken();
 
-    return this.post<Paginate<IWatchListSeries[]>>(
+    const apiCall = await this.post<Paginate<IWatchListSeries[]>>(
       'user/watch-list',
       {
         page,
@@ -184,6 +185,10 @@ export class APIClient {
       },
       { ...token },
     );
+
+    logger('user/watch-list').info(apiCall);
+
+    return apiCall;
   }
 
   async getUserWatchListSeries(animeId: string) {

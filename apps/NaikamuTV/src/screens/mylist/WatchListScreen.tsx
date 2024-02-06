@@ -3,6 +3,7 @@ import React from 'react';
 import { IWatchListSeries } from '@naikamu/shared';
 import { useNavigation } from '@react-navigation/native';
 import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import * as Sentry from '@sentry/react-native';
 
 import { useInfiniteQueryUserWatchList } from '../../api/hooks';
 import { PageLayout, SeriesPreview, WatchListElement } from '../../components';
@@ -55,7 +56,15 @@ export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
             renderItem={renderItem}
             style={[styles.flatList]}
           />
-        ) : null}
+        ) : (
+          <PageLayout.Error
+            isError
+            refetch={() => {
+              Sentry.captureException('API returned without data');
+              api.refetch();
+            }}
+          />
+        )}
       </View>
     </SafeAreaView>
   );

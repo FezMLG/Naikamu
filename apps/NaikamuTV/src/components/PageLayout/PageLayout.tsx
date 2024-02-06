@@ -51,7 +51,9 @@ const Error = ({
           <View style={{ alignItems: 'center', gap: 10 }}>
             <Button
               label={translate('buttons.reload')}
-              onPress={() => refetch()}
+              onPress={() => {
+                refetch();
+              }}
               size="medium"
               type="primary"
               width="medium"

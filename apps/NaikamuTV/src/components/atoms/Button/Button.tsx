@@ -96,7 +96,8 @@ export function Button(props: ButtonProps) {
 
   const buttonStyle: Record<ButtonType, ViewStyle> = {
     primary: {
-      backgroundColor: colors.accent.color,
+      backgroundColor: colors.transparent.color,
+      borderColor: colors.accent.color,
     },
     secondary: {
       borderColor: colors.textLighter.color,
