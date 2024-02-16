@@ -67,6 +67,18 @@ export class APIClient {
     return data;
   }
 
+  private async patch<T>(
+    url: string,
+    dataToSend: unknown,
+    headers?: RawAxiosRequestHeaders | AxiosHeaders,
+  ): Promise<T> {
+    const { data } = await this.instance.patch<T>(url, dataToSend, {
+      headers: headers,
+    });
+
+    return data;
+  }
+
   async getApiHealth(): Promise<{
     status: number;
     message: string;
@@ -211,6 +223,12 @@ export class APIClient {
         ...(await this.withToken()),
       },
     );
+  }
+
+  async saveNotificationToken(token: string) {
+    const apiToken = await this.withToken();
+
+    return this.patch('user', { notificationToken: token }, apiToken);
   }
 
   async withToken() {

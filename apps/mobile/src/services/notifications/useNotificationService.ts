@@ -1,13 +1,20 @@
-import { default as notifee, Notification } from '@notifee/react-native';
+import {
+  AndroidVisibility,
+  default as notifee,
+  Notification,
+} from '@notifee/react-native';
+import messaging, {
+  FirebaseMessagingTypes,
+} from '@react-native-firebase/messaging';
 
+import { useMutationSaveNotificationToken } from '../../api/hooks';
 import { useTranslate } from '../../i18n/useTranslate';
+import { logger } from '../../utils/logger';
 import { event } from '../events';
 import { useDownloadsStore } from '../offline/downloads.store';
 import { useDownloadsQueueStore } from '../offline/queue.store';
-import { logger } from '../../utils/logger';
-import { colors } from '../../styles';
 
-export type NotificationChannels = 'download';
+export type NotificationChannels = 'download' | 'general';
 
 export enum NotificationForegroundServiceEvents {
   'START' = 'START',
@@ -17,6 +24,7 @@ export enum NotificationForegroundServiceEvents {
 
 export function useNotificationService() {
   const { translate } = useTranslate();
+  const { mutation } = useMutationSaveNotificationToken();
   const downloadQueue = useDownloadsQueueStore(store => store.actions);
   const activeDownloads = useDownloadsStore(store => store.actions);
 
@@ -31,6 +39,24 @@ export function useNotificationService() {
     await notifee.requestPermission();
 
     await createChannel('download');
+    await createChannel('general');
+
+    async function onMessageReceived(
+      message: FirebaseMessagingTypes.RemoteMessage,
+    ) {
+      await displayRemoteNotification('general', message);
+      logger('NOTIFICATION RECEIVED').info(message);
+    }
+
+    messaging().onMessage(onMessageReceived);
+    messaging().setBackgroundMessageHandler(onMessageReceived);
+
+    await messaging().registerDeviceForRemoteMessages();
+
+    const token = await messaging().getToken();
+
+    logger('NOTIFICATION TOKEN').info(token);
+    mutation.mutate(token);
   };
 
   const displayNotification = async (
@@ -47,6 +73,26 @@ export function useNotificationService() {
       ),
       android: {
         ...notification.android,
+        channelId,
+        pressAction: {
+          id: 'default',
+        },
+      },
+    });
+  };
+
+  const displayRemoteNotification = async (
+    channelId: NotificationChannels,
+    notification: FirebaseMessagingTypes.RemoteMessage,
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+  ) => {
+    await notifee.displayNotification({
+      title: notification.notification?.title,
+      body: notification.notification?.body,
+      android: {
+        ...notification.notification?.android,
+        visibility: notification.notification?.android
+          ?.visibility as unknown as AndroidVisibility,
         channelId,
         pressAction: {
           id: 'default',
