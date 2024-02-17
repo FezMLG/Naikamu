@@ -2553,39 +2553,44 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/netinfo/-/netinfo-11.1.0.tgz#b3b2ab741a5d935e445685ade8a53d48775e082b"
   integrity sha512-pIbCuqgrY7SkngAcjUs9fMzNh1h4soQMVw1IeGp1HN5//wox3fUVOuvyIubTscUbdLFKiltJAiuQek7Nhx1bqA==
 
-"@react-native-firebase/analytics@18.6.2":
-  version "18.6.2"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/analytics/-/analytics-18.6.2.tgz#4594cdd2d1b410b1dd6a86659b42d0c1b2f3e178"
-  integrity sha512-SDvQvAq7NZZixG/gpzgdy4++bjCHlSXytg4gWXxfVZQSquY3K/wiGFxelAvHjYQRvJ9CAuZw7jvq/RbJ3wT4zg==
+"@react-native-firebase/analytics@18.8.0":
+  version "18.8.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/analytics/-/analytics-18.8.0.tgz#7595701f868992de615fe78c2246c889e0140171"
+  integrity sha512-7Zgs5g8H/QqQqisoE3TJCqkwy+lATKlA2zHIm9kwjj/+WbkCXcUQgdxklhAcWWFPDQyEVfhZHbFjFOoag9z5NQ==
 
-"@react-native-firebase/app@18.6.2":
-  version "18.6.2"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-18.6.2.tgz#c6ad83c86574e4e91fcef0ac2c1a10fa95dc6ae5"
-  integrity sha512-0hZ/4itfn5kxoUZsZfrpyTh4FDh4jFU/5svYaSAldPK3+xRmi1BSSx9PVzWt7vyw1Bi5ep/oLq/6sFaoqk5FFw==
+"@react-native-firebase/app@18.8.0":
+  version "18.8.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-18.8.0.tgz#54864f4c54fa0b938ddece67598dc401aecd1e9a"
+  integrity sha512-bVwjop3zLKV1G+ZxyxrdSXVutdSHSM9mngk3qG9W1swmAdeTjvWWIFpyJBf6KlkbKzWbDmLeK7Q+Yc+HLJlg7A==
   dependencies:
     opencollective-postinstall "^2.0.3"
     superstruct "^0.6.2"
 
-"@react-native-firebase/auth@18.6.2":
-  version "18.6.2"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/auth/-/auth-18.6.2.tgz#53d6dc27c1c613887114a72d123e5fd0204085a0"
-  integrity sha512-9YWMVWorCypcnpzEEDphk6yB1twC7JHeg4rsC8N3Los5EJf23Fz2eHtFf5aRJwAtgE89RUE5OGwqaEjbBHcvSw==
+"@react-native-firebase/auth@18.8.0":
+  version "18.8.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/auth/-/auth-18.8.0.tgz#bba2aa87d59ab52e4e1e7c6af4be922852b58a36"
+  integrity sha512-hjeaxCEvujqAiX8uoQCSaoG4n2yof5QlyJWeyoaQcpstIkHtA49JZBpqDJt1lLb1uJumGfr27SyrNzDgHzriOw==
   dependencies:
     plist "^3.1.0"
 
-"@react-native-firebase/crashlytics@18.6.2":
-  version "18.6.2"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/crashlytics/-/crashlytics-18.6.2.tgz#7bda5c6ab9e2531e6e09cca7347cc9443f0a832a"
-  integrity sha512-Wo7uuPKHx4eQg8MS/JnKZK7k90tIxmAyz8RonrqgQYBG2GO2NguNHZsZqo3VP9XlpHW0lImdq5J0BWBwL4+a3w==
+"@react-native-firebase/crashlytics@18.8.0":
+  version "18.8.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/crashlytics/-/crashlytics-18.8.0.tgz#1a0dfd055520799d6f00bf55d829d2d5abc54f5c"
+  integrity sha512-wqcl98CkoUz2wj9IBJzGEHNqgfeXSkIN9EcgMBO4osKganXSgxGXZW+cSJ35IqPdOIL8pWXbFN7YfznHN++wfA==
   dependencies:
     stacktrace-js "^2.0.2"
+
+"@react-native-firebase/messaging@18.8.0":
+  version "18.8.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/messaging/-/messaging-18.8.0.tgz#96fb7ab88e1057bbfb6034585e09686172d10d4a"
+  integrity sha512-MJVJ4dvczCEdPWER1vF7rhBMI78HpuMmGg7qsahERfho3dETNroust82DNqBSawsGTz4vVMOFpDSzs0Kt2WgSQ==
 
 "@react-native-google-signin/google-signin@10.1.1":
   version "10.1.1"
   resolved "https://registry.yarnpkg.com/@react-native-google-signin/google-signin/-/google-signin-10.1.1.tgz#1306aac8c32cb5deb994a1bfb05bed8172defed1"
   integrity sha512-o6VufmUpdP174WY7r+ojVccyVHrTMjZEzCBJVa52r/wGJBzbxe8eD9MXdAYClkS2f4AGOdH6epNkySow89HRrA==
 
-"@react-native-picker/picker@^2.5.1":
+"@react-native-picker/picker@2.5.1":
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/@react-native-picker/picker/-/picker-2.5.1.tgz#dfa13d5b97bfbedf1f7e7c608181a82f1d58b351"
   integrity sha512-/sADUfQsosMRYtrqqL3ZYZSECRygj0fXtpRLqxJfwuMEoqfvfn40756R6B1alzusVvDRZFI0ari0iQid56hA/Q==
@@ -8481,7 +8486,7 @@ react-native-paper@5.11.2:
     color "^3.1.2"
     use-latest-callback "^0.1.5"
 
-react-native-picker-select@^9.0.0:
+react-native-picker-select@9.0.0:
   version "9.0.0"
   resolved "https://registry.yarnpkg.com/react-native-picker-select/-/react-native-picker-select-9.0.0.tgz#4f9725c5f951d0aedf92cae0da21e40e439a4223"
   integrity sha512-jkG3gpp2oGMSXSBt5zu76Yp5JNzkF1K8BaKH7erf9Q5oTFI80lozsGMc9FkJokzxuy5+jHRCX+pHHBhtl0SI+A==
