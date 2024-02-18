@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
 
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { default as Config } from 'react-native-config';
 import { RadioButton } from 'react-native-paper';
 
-import { Button, Modal, SettingInputs, SettingsGroup } from '../../components';
+import * as packageJson from '../../../package.json';
+import {
+  Button,
+  Modal,
+  PageLayout,
+  SettingInputs,
+  SettingsGroup,
+  useLayout,
+} from '../../components';
 import { useTranslate } from '../../i18n/useTranslate';
 import { SettingsStackPlaybackSettingsScreenProps } from '../../routes';
 import {
@@ -84,8 +92,10 @@ export function AppSettingsScreen({}: SettingsStackPlaybackSettingsScreenProps) 
     setIsOpenQ(false);
   };
 
+  const layout = useLayout();
+
   return (
-    <SafeAreaView style={[styles.container]}>
+    <PageLayout.Default {...layout}>
       <QualityModal
         handleChange={handlePlaybackQualityChange}
         isOpen={isOpenP}
@@ -134,6 +144,28 @@ export function AppSettingsScreen({}: SettingsStackPlaybackSettingsScreenProps) 
         <Text style={[fontStyles.paragraph, colors.textLighter]}>
           {Config.API_URL}
         </Text>
+        <Text
+          style={[
+            fontStyles.label,
+            colors.textLight,
+            globalStyle.marginTopSmall,
+          ]}>
+          API Version
+        </Text>
+        <Text style={[fontStyles.paragraph, colors.textLighter]}>
+          {packageJson.apiVersion}
+        </Text>
+        <Text
+          style={[
+            fontStyles.label,
+            colors.textLight,
+            globalStyle.marginTopSmall,
+          ]}>
+          APP Version
+        </Text>
+        <Text style={[fontStyles.paragraph, colors.textLighter]}>
+          {packageJson.version}
+        </Text>
         {Config.ENV === 'development' && (
           <>
             <Text
@@ -164,7 +196,7 @@ export function AppSettingsScreen({}: SettingsStackPlaybackSettingsScreenProps) 
           </>
         )}
       </View>
-    </SafeAreaView>
+    </PageLayout.Default>
   );
 }
 
@@ -181,10 +213,7 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 16,
+    marginTop: 16,
   },
   radioContainer: {
     marginVertical: 10,
