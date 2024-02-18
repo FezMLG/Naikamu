@@ -12,7 +12,8 @@
     /* Completeness */
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+    "skipLibCheck": true, /* Skip type checking all .d.ts files. */
+    "moduleResolution": "node"
   },
   "typeRoots": ["./src/types"],
 }

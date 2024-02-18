@@ -133,7 +133,7 @@ const groupStyles = StyleSheet.create({
     flexDirection: 'column',
     borderRadius: defaultRadius,
     width: '100%',
-    margin: 16,
+    marginTop: 16,
   },
   setting: {
     alignSelf: 'stretch',
