@@ -3,6 +3,7 @@ import React from 'react';
 import { Linking, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { default as Config } from 'react-native-config';
 
+import * as packageJson from '../../package.json';
 import { Button } from '../components';
 import { useTranslate } from '../i18n/useTranslate';
 import { AuthStackActionRequiredScreenProps } from '../routes';
@@ -11,9 +12,6 @@ import { colors, fontStyles, globalStyle } from '../styles';
 export function ActionRequiredScreen({
   navigation,
 }: AuthStackActionRequiredScreenProps) {
-  const appVersion = require('../../package.json').version;
-  const apiVersion = require('../../package.json').apiVersion;
-
   const { translate } = useTranslate();
 
   React.useEffect(
@@ -39,9 +37,7 @@ export function ActionRequiredScreen({
         <Button
           icon="open-in-new"
           label={translate('important.requireAppUpdate.action')}
-          onPress={() =>
-            Linking.openURL('https://github.com/FezMLG/Naikamu/releases')
-          }
+          onPress={() => Linking.openURL('https://naikamu.com/download')}
           type="primary"
         />
         <Button
@@ -54,7 +50,8 @@ export function ActionRequiredScreen({
         <View style={globalStyle.spacerSmall} />
         <Text
           style={[globalStyle.textCenter, fontStyles.label, colors.textLight]}>
-          app ver.: {appVersion} / {Config.ENV} / {apiVersion}
+          app ver.: {packageJson.version} / {Config.ENV} /{' '}
+          {packageJson.apiVersion}
         </Text>
       </View>
     </SafeAreaView>
