@@ -24,5 +24,6 @@ export const enSettings = {
     modals: {
       videoQuality: 'Select video quality',
     },
+    checkForUpdates: 'Check for update',
   },
 };

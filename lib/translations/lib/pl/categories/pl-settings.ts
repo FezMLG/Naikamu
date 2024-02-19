@@ -24,5 +24,6 @@ export const plSettings = {
     modals: {
       videoQuality: 'Wybierz jakość wideo',
     },
+    checkForUpdates: 'Sprawdź aktualizację',
   },
 };
