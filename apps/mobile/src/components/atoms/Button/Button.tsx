@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { colors, defaultRadius } from '../../../styles';
+import { colors, defaultRadius, globalStyle } from '../../../styles';
 import { ActivityIndicator } from '../Loader';
 
 type ButtonType =
@@ -116,6 +116,15 @@ export function Button(props: ButtonProps) {
     },
   };
 
+  const loaderColor: Record<ButtonType, string> = {
+    primary: colors.textLight.color,
+    secondary: colors.accent.color,
+    success: colors.textLight.color,
+    warning: colors.textLight.color,
+    danger: colors.textLight.color,
+    link: colors.textLight.color,
+  };
+
   return (
     <Pressable
       disabled={disabled}
@@ -129,8 +138,11 @@ export function Button(props: ButtonProps) {
       ]}>
       {loading ? (
         <ActivityIndicator
-          color={colors.textLight.color}
+          color={loaderColor[type]}
           size="small"
+          style={{
+            marginRight: 10,
+          }}
           visible={loading}
         />
       ) : null}
