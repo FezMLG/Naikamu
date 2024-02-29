@@ -168,6 +168,7 @@ export function Episode({
                         isDownloaded={isDownloaded}
                         key={index}
                         player={player}
+                        position={index}
                       />
                     ))}
                 </>
@@ -178,7 +179,7 @@ export function Episode({
                     {data.players
                       .filter(player => player.playerType === 'external')
                       .map((player: AnimePlayer, index: number) => (
-                        <View key={100 + index} style={{ marginTop: 10 }}>
+                        <View key={10_000 + index} style={{ marginTop: 10 }}>
                           <EpisodePlayer
                             episodeNumber={episode.number}
                             episodeTitle={
@@ -187,6 +188,7 @@ export function Episode({
                             handleDownload={handleDownload}
                             isDownloaded={isDownloaded}
                             player={player}
+                            position={index}
                           />
                         </View>
                       ))}
