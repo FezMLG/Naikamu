@@ -88,6 +88,7 @@
     "react-native-video": "5.2.1",
     "react-native-webview": "13.6.3",
     "semver": "7.5.4",
+    "styled-components": "6.1.8",
     "zustand": "4.4.6"
   },
   "devDependencies": {
@@ -132,5 +133,8 @@
       "json",
       "node"
     ]
+  },
+  "resolutions": {
+    "styled-components/native": "^5"
   }
 }

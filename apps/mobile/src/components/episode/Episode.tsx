@@ -5,6 +5,7 @@ import { BlurView } from '@react-native-community/blur';
 import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { List } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import styled from 'styled-components/native';
 
 import { useQuerySeriesEpisodePlayers } from '../../api/hooks';
 import { useActiveSeriesStore, useOfflineService } from '../../services';
@@ -107,22 +108,34 @@ export function Episode({
           />
         </PlatformExplicit>
         <Pressable onPress={openDetails} style={[styles.innerCard]}>
-          <EpisodeImage source={episode.poster_url ?? series.posterUrl} />
-          <View style={styles.titleRow}>
-            <Text numberOfLines={2} style={[styles.title, colors.textLight]}>
-              {episode.number + '. ' + episode.title}
-            </Text>
-            <Text
-              numberOfLines={2}
-              style={[fontStyles.label, colors.textLight]}>
-              {series.episodeLength} min
-            </Text>
-          </View>
-          <View style={styles.watchStatus}>
-            <UpdateEpisodeWatchStatus
-              animeId={series.id}
-              episode={episode.number}
+          <EpisodeImage
+            isWatched={isWatched}
+            source={episode.poster_url ?? series.posterUrl}
+          />
+          <TitleContainer>
+            <Title
               isWatched={isWatched}
+              numberOfLines={2}
+              style={[styles.title]}>
+              {episode.number + '. ' + episode.title}
+            </Title>
+            <Details
+              isWatched={isWatched}
+              numberOfLines={2}
+              style={[fontStyles.label]}>
+              {series.episodeLength} min
+            </Details>
+          </TitleContainer>
+          <View style={styles.watchStatus}>
+            {/*<UpdateEpisodeWatchStatus*/}
+            {/*  animeId={series.id}*/}
+            {/*  episode={episode.number}*/}
+            {/*  isWatched={isWatched}*/}
+            {/*/>*/}
+            <Icon
+              color={colors.textLight.color}
+              name="dots-horizontal"
+              size={30}
             />
             <Icon
               color={colors.textLight.color}
@@ -204,6 +217,23 @@ export function Episode({
     </SafeAreaView>
   );
 }
+
+const Details = styled.Text<{ isWatched: boolean }>`
+  color: ${props =>
+    props.isWatched ? colors.grey.color : colors.textLighter.color};
+`;
+
+const Title = styled.Text<{ isWatched: boolean }>`
+  color: ${props =>
+    props.isWatched ? colors.grey.color : colors.textLight.color};
+`;
+
+const TitleContainer = styled.View`
+  width: 55%;
+  padding-vertical: 5px;
+  padding-horizontal: 10px;
+  flex-direction: column;
+`;
 
 const styles = StyleSheet.create({
   episodeContainer: {
