@@ -27,6 +27,7 @@ export function RootStack() {
       initialRouteName={RootStackScreenNames.Main}
       screenOptions={{
         headerShown: false,
+        orientation: 'portrait',
       }}>
       <StackAuthorized.Screen
         component={BottomTabStack}
@@ -55,6 +56,7 @@ export function RootStack() {
           autoHideHomeIndicator: true,
           fullScreenGestureEnabled: true,
           presentation: Platform.OS === 'android' ? 'card' : 'fullScreenModal',
+          orientation: 'default',
         }}
       />
       <StackAuthorized.Screen
@@ -65,6 +67,7 @@ export function RootStack() {
           autoHideHomeIndicator: true,
           fullScreenGestureEnabled: true,
           presentation: Platform.OS === 'android' ? 'card' : 'fullScreenModal',
+          orientation: 'default',
         }}
       />
     </StackAuthorized.Navigator>
