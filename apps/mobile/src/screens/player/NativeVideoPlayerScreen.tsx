@@ -61,6 +61,7 @@ export function NativeVideoPlayerScreen({
         />
       ) : (
         <VideoPlayer
+          // @ts-expect-error broken types
           allowsExternalPlayback
           disableFullscreen
           disableVolume
