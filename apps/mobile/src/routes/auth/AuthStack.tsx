@@ -24,7 +24,11 @@ export function AuthStack() {
   const { translate } = useTranslate();
 
   return (
-    <Stack.Navigator initialRouteName={AuthStackRoutesNames.AppLoading}>
+    <Stack.Navigator
+      initialRouteName={AuthStackRoutesNames.AppLoading}
+      screenOptions={{
+        orientation: 'portrait',
+      }}>
       <Stack.Screen
         component={AppLoadScreen}
         name={AuthStackRoutesNames.AppLoading}
