@@ -14,3 +14,8 @@ export interface WatchListSeriesEpisode {
   readonly progress: number;
   readonly isWatched: boolean;
 }
+
+export interface IUpdateWatchListEpisode {
+  isWatched?: boolean;
+  progress?: number;
+}

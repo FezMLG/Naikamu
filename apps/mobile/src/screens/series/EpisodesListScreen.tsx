@@ -24,7 +24,7 @@ export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
   } = useQuerySeriesEpisodes(route.params.seriesId, series.numOfAiredEpisodes);
 
   const renderItem = ({ item }: { item: AnimeEpisode }) => (
-    <Episode episode={item} isWatched={item.isWatched} />
+    <Episode episodeNumber={item.number} isWatched={item.isWatched} />
   );
 
   return (

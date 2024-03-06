@@ -7,6 +7,7 @@ import {
   IAnimeListItem,
   IPlayerResponse,
   IResolvePlayerDto,
+  IUpdateWatchListEpisode,
   IWatchListSeries,
   Paginate,
   WatchListSeriesEpisode,
@@ -36,6 +37,7 @@ export class APIClient {
   constructor() {
     this.instance = axios.create({
       baseURL: Config.API_URL,
+      // baseURL: 'http://10.0.2.2:3333/api',
       timeout: 2000,
       headers: {
         Accept: 'application/json',
@@ -205,10 +207,14 @@ export class APIClient {
     );
   }
 
-  async updateUserSeriesWatchProgress(animeId: string, episode: number) {
+  async updateUserSeriesWatchProgress(
+    animeId: string,
+    episode: number,
+    dto: IUpdateWatchListEpisode,
+  ) {
     return this.post<WatchListSeriesEpisode>(
       `user/watch-list/${animeId}/${episode}`,
-      {},
+      dto,
       {
         ...(await this.withToken()),
       },
@@ -239,3 +245,5 @@ export class APIClient {
     };
   }
 }
+
+export const apiClient = new APIClient();

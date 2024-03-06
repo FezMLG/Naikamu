@@ -1,64 +1,57 @@
 import React from 'react';
 
-import { StyleSheet, View } from 'react-native';
-import { IconButton } from 'react-native-paper';
+import { ActionsheetIcon, CheckCircleIcon } from '@gluestack-ui/themed';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useMutationUpdateUserSeriesWatchProgress } from '../../../api/hooks';
-import { ActivityIndicator } from '../../atoms';
+import { useTranslate } from '../../../i18n/useTranslate';
+import { useActiveSeriesStore } from '../../../services';
+import { colors } from '../../../styles';
+import { ActionSheetItem } from '../../atoms';
 
 interface UpdateEpisodeWatchStatusProps {
   animeId: string;
-  episode: number;
-  isWatched: boolean;
+  episodeNumber: number;
+  handleClose: () => void;
 }
 
 export function UpdateEpisodeWatchStatus({
   animeId,
-  episode,
-  isWatched,
+  episodeNumber,
+  handleClose,
 }: UpdateEpisodeWatchStatusProps) {
-  const { watched, mutation } = useMutationUpdateUserSeriesWatchProgress(
-    isWatched,
+  const { translate } = useTranslate();
+  const activeSeriesStore = useActiveSeriesStore(store => store.actions);
+  const episode = activeSeriesStore.getEpisode(episodeNumber);
+  const { mutation } = useMutationUpdateUserSeriesWatchProgress(
     animeId,
-    episode,
+    episodeNumber,
   );
 
   return (
-    <View style={styles.container}>
-      {mutation.isLoading ? (
-        <ActivityIndicator size="small" visible={mutation.isLoading} />
-      ) : (
-        <>
-          {watched ? (
-            <IconButton
-              icon="check-circle"
-              iconColor="#ffffff"
-              onPress={() => {
-                mutation.mutate();
-              }}
-              size={36}
-            />
-          ) : (
-            <IconButton
-              icon="check-circle-outline"
-              iconColor="#ffffff"
-              onPress={() => {
-                mutation.mutate();
-              }}
-              size={36}
-            />
-          )}
-        </>
-      )}
-    </View>
+    <ActionSheetItem
+      label={episode.isWatched ? 'Mark as unwatched' : 'Mark as watched'}
+      onPress={() => {
+        activeSeriesStore.updateEpisode(episodeNumber, {
+          isWatched: !episode.isWatched,
+        });
+
+        mutation.mutate({
+          isWatched: !episode.isWatched,
+        });
+        handleClose();
+      }}>
+      {/** @ts-expect-error wrong types **/}
+      <ActionsheetIcon
+        style={{
+          height: 20,
+        }}>
+        <Icon
+          name={episode.isWatched ? 'minus' : 'plus'}
+          size={20}
+          style={colors.textLight}
+        />
+      </ActionsheetIcon>
+    </ActionSheetItem>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: 45,
-    height: 45,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

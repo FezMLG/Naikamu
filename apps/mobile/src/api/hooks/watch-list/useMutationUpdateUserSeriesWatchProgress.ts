@@ -1,26 +1,38 @@
-import { useState } from 'react';
-
+import { IUpdateWatchListEpisode } from '@naikamu/shared';
 import { useMutation } from '@tanstack/react-query';
 
-import { APIClient } from '../../APIClient';
+import { useActiveSeriesStore } from '../../../services';
+import { apiClient } from '../../APIClient';
 
 export const useMutationUpdateUserSeriesWatchProgress = (
-  isWatched: boolean,
   seriesId: string,
-  episode: number,
+  episodeNumber: number,
 ) => {
-  const [watched, setWatched] = useState<boolean>(isWatched);
-  const apiClient = new APIClient();
+  const activeSeriesStore = useActiveSeriesStore(store => store.actions);
+
   const mutation = useMutation({
-    mutationFn: () =>
-      apiClient.updateUserSeriesWatchProgress(seriesId, episode),
+    mutationFn: async (dto: IUpdateWatchListEpisode) => {
+      const episode = activeSeriesStore.getEpisode(episodeNumber);
+
+      const results = await apiClient.updateUserSeriesWatchProgress(
+        seriesId,
+        episodeNumber,
+        {
+          isWatched: dto.isWatched,
+          progress: episode.progress,
+        },
+      );
+
+      activeSeriesStore.updateEpisode(episodeNumber, results);
+
+      return results;
+    },
     onSuccess(data) {
-      setWatched(data.isWatched);
+      console.log(data);
     },
   });
 
   return {
-    watched,
     mutation,
   };
 };

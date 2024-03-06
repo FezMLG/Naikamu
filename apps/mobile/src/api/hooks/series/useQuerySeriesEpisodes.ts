@@ -1,15 +1,23 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { APIClient } from '../../APIClient';
+import { useActiveSeriesStore } from '../../../services';
+import { apiClient } from '../../APIClient';
 
 export const useQuerySeriesEpisodes = (
   id: string,
   numberOfAiredEpisodes: number,
 ) => {
-  const apiClient = new APIClient();
+  const store = useActiveSeriesStore(state => state.actions);
+
   const { data, isLoading, isError, refetch } = useQuery(
     ['anime', id, 'episodes'],
-    () => apiClient.getEpisodes(id, numberOfAiredEpisodes),
+    async () => {
+      const results = await apiClient.getEpisodes(id, numberOfAiredEpisodes);
+
+      store.setEpisodes(results.episodes);
+
+      return results;
+    },
   );
 
   return {
