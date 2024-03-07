@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ActionsheetIcon, CheckCircleIcon } from '@gluestack-ui/themed';
+import { ActionsheetIcon } from '@gluestack-ui/themed';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useMutationUpdateUserSeriesWatchProgress } from '../../../api/hooks';
@@ -30,7 +30,9 @@ export function UpdateEpisodeWatchStatus({
 
   return (
     <ActionSheetItem
-      label={episode.isWatched ? 'Mark as unwatched' : 'Mark as watched'}
+      label={
+        episode.isWatched ? 'Oznacz jako nieobejrzane' : 'Oznacz jako obejrzane'
+      }
       onPress={() => {
         activeSeriesStore.updateEpisode(episodeNumber, {
           isWatched: !episode.isWatched,

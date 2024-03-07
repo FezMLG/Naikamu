@@ -164,6 +164,10 @@ export const pl = {
       'AniWatch nie hostuje żadnych plików na własnych serwerach, udostępniamy jedynie linki do treści hostowanych na serwerach stron trzecich.',
     load_players_error: 'Nie udało się załadować odtwarzaczy',
     load_players_empty: 'Nie znaleziono odtwarzaczy',
+    watch_list: {
+      add: 'Oznacz jako obejrzane',
+      remove: 'Usuń z obejrzanych',
+    },
   },
   important: {
     requireAppUpdate: {
