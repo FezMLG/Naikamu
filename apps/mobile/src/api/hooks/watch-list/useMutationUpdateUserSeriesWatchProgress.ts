@@ -3,6 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import { useActiveSeriesStore } from '../../../services';
 import { apiClient } from '../../APIClient';
+import { logger } from '../../../utils/logger';
 
 export const useMutationUpdateUserSeriesWatchProgress = (
   seriesId: string,
@@ -12,17 +13,18 @@ export const useMutationUpdateUserSeriesWatchProgress = (
 
   const mutation = useMutation({
     mutationFn: async (dto: IUpdateWatchListEpisode) => {
-      const episode = activeSeriesStore.getEpisode(episodeNumber);
+      logger('useMutationUpdateUserSeriesWatchProgress').info(dto);
 
       const results = await apiClient.updateUserSeriesWatchProgress(
         seriesId,
         episodeNumber,
         {
           isWatched: dto.isWatched,
-          progress: episode.progress,
+          progress: dto.progress,
         },
       );
 
+      logger('useMutationUpdateUserSeriesWatchProgress').info(results);
       activeSeriesStore.updateEpisode(episodeNumber, results);
 
       return results;

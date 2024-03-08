@@ -6,8 +6,10 @@ import SystemNavigationBar from 'react-native-system-navigation-bar';
 import Video, { OnProgressData } from 'react-native-video';
 
 import { RootStackNativePlayerScreenProps } from '../../routes';
-import { createEpisodeProgressKey } from '../../services';
+import { createEpisodeProgressKey, useActiveSeriesStore } from '../../services';
 import { storageGetData, storageStoreData } from '../../utils';
+import { useFocusEffect } from '@react-navigation/native';
+import { useMutationUpdateUserSeriesWatchProgress } from '../../api/hooks';
 
 export function NativeVideoPlayerScreen({
   route,
@@ -16,14 +18,46 @@ export function NativeVideoPlayerScreen({
   const { uri, episodeTitle, episodeNumber, seriesId } = route.params;
   const videoPlayer = useRef<Video>(null);
   const storageKey = createEpisodeProgressKey(seriesId, episodeNumber);
+  const { mutation } = useMutationUpdateUserSeriesWatchProgress(
+    seriesId,
+    episodeNumber,
+  );
+
+  const episodeActions = useActiveSeriesStore(store => store.actions);
 
   useEffect(() => {
     SystemNavigationBar.immersive();
   }, []);
 
+  useFocusEffect(
+    React.useCallback(
+      () => async () => {
+        const progress = await storageGetData<OnProgressData>(storageKey);
+        let isWatched;
+
+        if (progress?.currentTime && progress?.playableDuration) {
+          isWatched = progress.currentTime / progress.playableDuration >= 0.85;
+        }
+
+        episodeActions.updateEpisode(episodeNumber, {
+          isWatched,
+        });
+
+        mutation.mutate({
+          progress: progress?.currentTime ?? 0,
+          isWatched,
+        });
+      },
+      [],
+    ),
+  );
+
   const handleProgress = async (progress: OnProgressData) => {
     if (Math.round(progress.currentTime) % 5 === 0) {
       await storageStoreData(storageKey, progress);
+      episodeActions.updateEpisode(episodeNumber, {
+        progress: progress.currentTime,
+      });
     }
   };
 
