@@ -9,6 +9,10 @@ export const createEpisodeProgressKey = (
   episodeNumber: number,
 ) => `${animeId}-${episodeNumber}`.toLowerCase();
 
+/**
+ * @deprecated use only for handling offline video progress, to be removed in favor of offline api requests queue
+ * @param episodeProgressKey created with createEpisodeProgressKey
+ */
 export const useVideoProgress = (episodeProgressKey: string) => {
   const [progress, setProgress] = useState<number>(0);
 

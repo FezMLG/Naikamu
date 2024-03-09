@@ -33,16 +33,12 @@ export function NativeVideoPlayerScreen({
   useFocusEffect(
     React.useCallback(
       () => async () => {
-        const progress = await storageGetData<OnProgressData>(storageKey);
+        const episode = episodeActions.getEpisode(episodeNumber);
 
-        if (progress) {
-          const episode = episodeActions.getEpisode(episodeNumber);
-
-          mutation.mutate({
-            progress: progress.currentTime,
-            isWatched: episode.isWatched,
-          });
-        }
+        mutation.mutate({
+          progress: episode.progress,
+          isWatched: episode.isWatched,
+        });
       },
       [],
     ),
@@ -81,13 +77,17 @@ export function NativeVideoPlayerScreen({
   };
 
   const handleVideoLoad = async () => {
+    const episode = episodeActions.getEpisode(episodeNumber);
     const progress = await storageGetData<OnProgressData>(storageKey);
+
+    const currentTime =
+      episode.progress !== 0 && episode.progress >= (progress?.currentTime ?? 0)
+        ? episode.progress
+        : progress?.currentTime ?? 0;
 
     console.log(uri);
     if (videoPlayer) {
-      videoPlayer.current?.seek(
-        progress?.currentTime ? progress.currentTime - 15 : 0,
-      );
+      videoPlayer.current?.seek(currentTime - 15);
     }
   };
 
