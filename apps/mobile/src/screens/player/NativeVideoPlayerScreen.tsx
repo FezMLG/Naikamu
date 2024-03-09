@@ -1,20 +1,21 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
+import { useFocusEffect } from '@react-navigation/native';
 import { Platform, StyleSheet } from 'react-native';
 import VideoPlayer from 'react-native-media-console';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
 import Video, { OnProgressData } from 'react-native-video';
 
+import { useMutationUpdateUserSeriesWatchProgress } from '../../api/hooks';
 import { RootStackNativePlayerScreenProps } from '../../routes';
 import { createEpisodeProgressKey, useActiveSeriesStore } from '../../services';
 import { storageGetData, storageStoreData } from '../../utils';
-import { useFocusEffect } from '@react-navigation/native';
-import { useMutationUpdateUserSeriesWatchProgress } from '../../api/hooks';
 
 export function NativeVideoPlayerScreen({
   route,
   navigation,
 }: RootStackNativePlayerScreenProps) {
+  const [lastSave, setLastSave] = useState(0);
   const { uri, episodeTitle, episodeNumber, seriesId } = route.params;
   const videoPlayer = useRef<Video>(null);
   const storageKey = createEpisodeProgressKey(seriesId, episodeNumber);
@@ -33,30 +34,30 @@ export function NativeVideoPlayerScreen({
     React.useCallback(
       () => async () => {
         const progress = await storageGetData<OnProgressData>(storageKey);
-        let isWatched;
 
-        if (progress?.currentTime && progress?.playableDuration) {
-          isWatched = progress.currentTime / progress.playableDuration >= 0.85;
+        if (progress) {
+          const episode = episodeActions.getEpisode(episodeNumber);
+
+          mutation.mutate({
+            progress: progress.currentTime,
+            isWatched: episode.isWatched,
+          });
         }
-
-        episodeActions.updateEpisode(episodeNumber, {
-          isWatched,
-        });
-
-        mutation.mutate({
-          progress: progress?.currentTime ?? 0,
-          isWatched,
-        });
       },
       [],
     ),
   );
 
   const handleProgress = async (progress: OnProgressData) => {
-    if (Math.round(progress.currentTime) % 5 === 0) {
+    const roundedProgress = Math.round(progress.currentTime);
+
+    if (roundedProgress % 5 === 0 && roundedProgress !== lastSave) {
+      setLastSave(() => roundedProgress);
+
       await storageStoreData(storageKey, progress);
       episodeActions.updateEpisode(episodeNumber, {
         progress: progress.currentTime,
+        isWatched: progress.currentTime >= progress.playableDuration - 5 * 60,
       });
     }
   };
