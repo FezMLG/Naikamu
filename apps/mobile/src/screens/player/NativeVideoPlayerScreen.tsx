@@ -54,10 +54,28 @@ export function NativeVideoPlayerScreen({
     if (roundedProgress % 5 === 0 && roundedProgress !== lastSave) {
       setLastSave(() => roundedProgress);
 
+      /**
+       * if video has length then
+       * <20 minutes then leftForWatched = 2 minutes
+       * 20 >= length < 60 minutes then leftForWatched = 3 minutes
+       * >60 minutes then leftForWatched = 5 minutes
+       */
+      let leftForWatched = 2 * 60;
+
+      if (
+        progress.seekableDuration >= 20 * 60 &&
+        progress.seekableDuration < 60 * 60
+      ) {
+        leftForWatched = 3 * 60;
+      } else if (progress.seekableDuration > 60 * 60) {
+        leftForWatched = 5 * 60;
+      }
+
       await storageStoreData(storageKey, progress);
       episodeActions.updateEpisode(episodeNumber, {
         progress: progress.currentTime,
-        isWatched: progress.currentTime >= progress.playableDuration - 5 * 60,
+        isWatched:
+          progress.currentTime >= progress.seekableDuration - leftForWatched,
       });
     }
   };
