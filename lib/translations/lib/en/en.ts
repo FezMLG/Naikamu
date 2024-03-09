@@ -167,6 +167,7 @@ export const en = {
       add: 'Mark as watched',
       remove: 'Mark as unwatched',
     },
+    upcoming: 'Upcoming',
   },
   important: {
     requireAppUpdate: {

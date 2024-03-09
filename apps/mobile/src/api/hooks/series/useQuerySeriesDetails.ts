@@ -24,6 +24,7 @@ export const useQuerySeriesDetails = (id: number | string) => {
           ? result.nextAiringEpisode?.episode - 1
           : result.episodes ?? 12,
         posterUrl: result.coverImage.large,
+        nextAiringEpisode: result.nextAiringEpisode,
       });
 
       return result;

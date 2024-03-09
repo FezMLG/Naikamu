@@ -37,13 +37,7 @@ import {
 } from './player';
 import { sortPlayers } from './player/helpers';
 
-export function Episode({
-  episodeNumber,
-  isWatched,
-}: {
-  episodeNumber: number;
-  isWatched: boolean;
-}) {
+export function Episode({ episodeNumber }: { episodeNumber: number }) {
   const { showActionSheet, setShowActionSheet } = useActionSheet();
   const series = useActiveSeriesStore(store => store.series)!;
   const activeSeriesActions = useActiveSeriesStore(store => store.actions);

@@ -168,6 +168,7 @@ export const pl = {
       add: 'Oznacz jako obejrzane',
       remove: 'Usuń z obejrzanych',
     },
+    upcoming: 'Nadchodzący',
   },
   important: {
     requireAppUpdate: {

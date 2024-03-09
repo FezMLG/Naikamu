@@ -7,6 +7,7 @@ export interface ActiveSeries {
   episodeLength: number;
   numOfAiredEpisodes: number;
   posterUrl: string;
+  nextAiringEpisode?: { airingAt: number; episode: number };
 }
 
 interface ActiveSeriesState {
