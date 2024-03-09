@@ -17,7 +17,7 @@ export const EpisodeWatchProgress = ({
 
   return (
     <>
-      {episode.progress ? (
+      {episode.progress && !episode.isWatched ? (
         <ProgressBar
           progress={episode.progress / (24 * 60)}
           style={styles.progressBar}
