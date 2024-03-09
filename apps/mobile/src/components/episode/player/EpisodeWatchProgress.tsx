@@ -1,13 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { StyleSheet } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
 
-import {
-  createEpisodeProgressKey,
-  useActiveSeriesStore,
-  useVideoProgress,
-} from '../../../services';
+import { useActiveSeriesStore } from '../../../services';
 import { colors } from '../../../styles';
 
 export const EpisodeWatchProgress = ({
@@ -15,21 +11,15 @@ export const EpisodeWatchProgress = ({
 }: {
   episodeNumber: number;
 }) => {
-  const series = useActiveSeriesStore(store => store.series)!;
-
-  const { progress, loadProgress } = useVideoProgress(
-    createEpisodeProgressKey(series.id, episodeNumber),
+  const episode = useActiveSeriesStore(store =>
+    store.actions.getEpisode(episodeNumber),
   );
-
-  useEffect(() => {
-    loadProgress();
-  }, [loadProgress]);
 
   return (
     <>
-      {progress ? (
+      {episode.progress ? (
         <ProgressBar
-          progress={progress / (24 * 60)}
+          progress={episode.progress / (24 * 60)}
           style={styles.progressBar}
           theme={{
             colors: {
