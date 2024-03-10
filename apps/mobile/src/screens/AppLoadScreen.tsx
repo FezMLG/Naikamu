@@ -32,6 +32,7 @@ import {
 } from '../services/firebase/fire-auth.service';
 import { colors, fontStyles, globalStyle } from '../styles';
 import { logger } from '../utils/logger';
+import { sendLocalProgressToCloud } from '../services/watch-list/sendLocalProgressToCloud';
 
 export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
   const supportedApiVersion = require('../../package.json').apiVersion;
@@ -52,6 +53,7 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
       await notifications.initialize();
       await offlineFS.checkPermissions();
       await offlineService.getAllOfflineSeries();
+      await sendLocalProgressToCloud();
       setTimeout(() => {
         layout.setInfo(translate('welcomeScreen.apiLoading'));
         layout.setVisible(true);
