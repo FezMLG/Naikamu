@@ -2,8 +2,8 @@ import { IUpdateWatchListEpisode } from '@naikamu/shared';
 import { useMutation } from '@tanstack/react-query';
 
 import { useActiveSeriesStore } from '../../../services';
-import { apiClient } from '../../APIClient';
 import { logger } from '../../../utils/logger';
+import { apiClient } from '../../APIClient';
 
 export const useMutationUpdateUserSeriesWatchProgress = (
   seriesId: string,
@@ -28,9 +28,6 @@ export const useMutationUpdateUserSeriesWatchProgress = (
       activeSeriesStore.updateEpisode(episodeNumber, results);
 
       return results;
-    },
-    onSuccess(data) {
-      console.log(data);
     },
   });
 
