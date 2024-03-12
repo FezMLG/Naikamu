@@ -5,6 +5,7 @@ import { BlurView } from '@react-native-community/blur';
 import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { List } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import styled from 'styled-components/native';
 
 import { useQuerySeriesEpisodePlayers } from '../../api/hooks';
 import { useActiveSeriesStore, useOfflineService } from '../../services';
@@ -16,7 +17,13 @@ import {
   fontStyles,
 } from '../../styles';
 import { logger } from '../../utils/logger';
-import { ActivityIndicator } from '../atoms';
+import {
+  ActionSheet,
+  ActionSheetItem,
+  ActivityIndicator,
+  IconButton,
+  useActionSheet,
+} from '../atoms';
 import { UpdateEpisodeWatchStatus } from '../molecules';
 import { PlatformExplicit } from '../PlatformExplicit';
 import { ProgressiveImage } from '../ProgressiveImage';
@@ -30,14 +37,11 @@ import {
 } from './player';
 import { sortPlayers } from './player/helpers';
 
-export function Episode({
-  episode,
-  isWatched,
-}: {
-  episode: AnimeEpisode;
-  isWatched: boolean;
-}) {
+export function Episode({ episodeNumber }: { episodeNumber: number }) {
+  const { showActionSheet, setShowActionSheet } = useActionSheet();
   const series = useActiveSeriesStore(store => store.series)!;
+  const activeSeriesActions = useActiveSeriesStore(store => store.actions);
+  const episode = activeSeriesActions.getEpisode(episodeNumber);
 
   const { data, refetch, isLoading, isError } = useQuerySeriesEpisodePlayers(
     series.id,
@@ -81,127 +85,165 @@ export function Episode({
   };
 
   return (
-    <SafeAreaView style={[styles.episodeContainer]}>
-      <View style={[styles.cardContainer, isSelected && darkStyle.card]}>
-        <PlatformExplicit availablePlatforms={['ios']}>
-          <ProgressiveImage
-            key="blurryImage"
-            source={episode.poster_url ?? series.posterUrl}
-            style={[
-              StyleSheet.absoluteFill,
-              {
-                borderRadius: defaultRadius - 1,
-              },
-            ]}
-          />
-          <BlurView
-            blurAmount={25}
-            blurType="dark"
-            reducedTransparencyFallbackColor={DarkColor.C900}
-            style={[
-              StyleSheet.absoluteFill,
-              {
-                borderRadius: defaultRadius - 1,
-              },
-            ]}
-          />
-        </PlatformExplicit>
-        <Pressable onPress={openDetails} style={[styles.innerCard]}>
-          <EpisodeImage source={episode.poster_url ?? series.posterUrl} />
-          <View style={styles.titleRow}>
-            <Text numberOfLines={2} style={[styles.title, colors.textLight]}>
-              {episode.number + '. ' + episode.title}
-            </Text>
-            <Text
-              numberOfLines={2}
-              style={[fontStyles.label, colors.textLight]}>
-              {series.episodeLength} min
-            </Text>
-          </View>
-          <View style={styles.watchStatus}>
-            <UpdateEpisodeWatchStatus
-              animeId={series.id}
-              episode={episode.number}
-              isWatched={isWatched}
+    <>
+      <SafeAreaView style={[styles.episodeContainer]}>
+        <View style={[styles.cardContainer, isSelected && darkStyle.card]}>
+          <PlatformExplicit availablePlatforms={['ios']}>
+            <ProgressiveImage
+              key="blurryImage"
+              source={episode.poster_url ?? series.posterUrl}
+              style={[
+                StyleSheet.absoluteFill,
+                {
+                  borderRadius: defaultRadius - 1,
+                },
+              ]}
             />
-            <Icon
-              color={colors.textLight.color}
-              name={isSelected ? 'chevron-up' : 'chevron-down'}
-              size={30}
+            <BlurView
+              blurAmount={25}
+              blurType="dark"
+              reducedTransparencyFallbackColor={DarkColor.C900}
+              style={[
+                StyleSheet.absoluteFill,
+                {
+                  borderRadius: defaultRadius - 1,
+                },
+              ]}
             />
-          </View>
-        </Pressable>
-        <EpisodeWatchProgress episodeNumber={episode.number} />
-        {isSelected ? (
-          <>
-            {episode.description ? (
-              <Text
-                style={[
-                  styles.description,
-                  darkStyle.font,
-                  fontStyles.paragraph,
-                ]}>
-                {episode.description}
-              </Text>
-            ) : null}
-          </>
-        ) : null}
-      </View>
-      {isSelected ? (
-        <View style={styles.playersListContainer}>
-          {isError ? <EpisodePlayerError /> : null}
-          {isLoading ? <ActivityIndicator size="large" visible={true} /> : null}
-          {data ? (
-            data.players.length > 0 ? (
-              <>
-                <>
-                  {data.players
-                    .filter(player => player.playerType !== 'external')
-                    .sort(sortPlayers)
-                    .map((player: AnimePlayer, index: number) => (
-                      <EpisodePlayer
-                        episodeNumber={episode.number}
-                        episodeTitle={
-                          'E' + episode.number + ' ' + episode.title
-                        }
-                        handleDownload={handleDownload}
-                        isDownloaded={isDownloaded}
-                        key={index}
-                        player={player}
-                      />
-                    ))}
-                </>
-                {data.players.some(
-                  player => player.playerType === 'external',
-                ) ? (
-                  <List.Accordion title="Inne">
-                    {data.players
-                      .filter(player => player.playerType === 'external')
-                      .map((player: AnimePlayer, index: number) => (
-                        <View key={100 + index} style={{ marginTop: 10 }}>
-                          <EpisodePlayer
-                            episodeNumber={episode.number}
-                            episodeTitle={
-                              'E' + episode.number + ' ' + episode.title
-                            }
-                            handleDownload={handleDownload}
-                            isDownloaded={isDownloaded}
-                            player={player}
-                          />
-                        </View>
-                      ))}
-                  </List.Accordion>
-                ) : null}
-              </>
-            ) : (
-              <EpisodePlayerEmpty />
-            )
+          </PlatformExplicit>
+          <Pressable onPress={openDetails} style={[styles.innerCard]}>
+            <EpisodeImage
+              isWatched={episode.isWatched}
+              source={episode.poster_url ?? series.posterUrl}
+            />
+            <TitleContainer>
+              <Title
+                isWatched={episode.isWatched}
+                numberOfLines={2}
+                style={[styles.title]}>
+                {episode.number + '. ' + episode.title}
+              </Title>
+              <Details
+                isWatched={episode.isWatched}
+                numberOfLines={2}
+                style={[fontStyles.label]}>
+                {series.episodeLength} min
+              </Details>
+            </TitleContainer>
+            <View style={styles.watchStatus}>
+              <IconButton
+                icon="dots-horizontal"
+                onPress={() => setShowActionSheet(true)}
+              />
+              <Icon
+                color={colors.textLight.color}
+                name={isSelected ? 'chevron-up' : 'chevron-down'}
+                size={30}
+              />
+            </View>
+          </Pressable>
+          <EpisodeWatchProgress episodeNumber={episode.number} />
+          {isSelected ? (
+            <>
+              {episode.description ? (
+                <Text
+                  style={[
+                    styles.description,
+                    darkStyle.font,
+                    fontStyles.paragraph,
+                  ]}>
+                  {episode.description}
+                </Text>
+              ) : null}
+            </>
           ) : null}
         </View>
-      ) : null}
-    </SafeAreaView>
+        {isSelected ? (
+          <View style={styles.playersListContainer}>
+            {isError ? <EpisodePlayerError /> : null}
+            {isLoading ? (
+              <ActivityIndicator size="large" visible={true} />
+            ) : null}
+            {data ? (
+              data.players.length > 0 ? (
+                <>
+                  <>
+                    {data.players
+                      .filter(player => player.playerType !== 'external')
+                      .sort(sortPlayers)
+                      .map((player: AnimePlayer, index: number) => (
+                        <EpisodePlayer
+                          episodeNumber={episode.number}
+                          episodeTitle={
+                            'E' + episode.number + ' ' + episode.title
+                          }
+                          handleDownload={handleDownload}
+                          isDownloaded={isDownloaded}
+                          key={index}
+                          player={player}
+                          position={index}
+                        />
+                      ))}
+                  </>
+                  {data.players.some(
+                    player => player.playerType === 'external',
+                  ) ? (
+                    <List.Accordion title="Inne">
+                      {data.players
+                        .filter(player => player.playerType === 'external')
+                        .map((player: AnimePlayer, index: number) => (
+                          <View key={10_000 + index} style={{ marginTop: 10 }}>
+                            <EpisodePlayer
+                              episodeNumber={episode.number}
+                              episodeTitle={
+                                'E' + episode.number + ' ' + episode.title
+                              }
+                              handleDownload={handleDownload}
+                              isDownloaded={isDownloaded}
+                              player={player}
+                              position={index}
+                            />
+                          </View>
+                        ))}
+                    </List.Accordion>
+                  ) : null}
+                </>
+              ) : (
+                <EpisodePlayerEmpty />
+              )
+            ) : null}
+          </View>
+        ) : null}
+      </SafeAreaView>
+      <ActionSheet
+        setShowActionSheet={setShowActionSheet}
+        showActionSheet={showActionSheet}>
+        <UpdateEpisodeWatchStatus
+          animeId={series.id}
+          episodeNumber={episode.number}
+          handleClose={() => setShowActionSheet(false)}
+        />
+      </ActionSheet>
+    </>
   );
 }
+
+const Details = styled.Text<{ isWatched: boolean }>`
+  color: ${props =>
+    props.isWatched ? colors.grey.color : colors.textLighter.color};
+`;
+
+const Title = styled.Text<{ isWatched: boolean }>`
+  color: ${props =>
+    props.isWatched ? colors.grey.color : colors.textLight.color};
+`;
+
+const TitleContainer = styled.View`
+  width: 55%;
+  padding-vertical: 5px;
+  padding-horizontal: 10px;
+  flex-direction: column;
+`;
 
 const styles = StyleSheet.create({
   episodeContainer: {

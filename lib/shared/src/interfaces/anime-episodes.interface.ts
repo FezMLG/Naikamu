@@ -9,4 +9,5 @@ export interface AnimeEpisode {
   number: number;
   description: string;
   isWatched: boolean;
+  progress: number;
 }

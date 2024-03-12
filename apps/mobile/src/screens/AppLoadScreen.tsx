@@ -30,6 +30,7 @@ import {
   fireGetIdToken,
   fireGetNewIdToken,
 } from '../services/firebase/fire-auth.service';
+import { sendLocalProgressToCloud } from '../services/watch-list/sendLocalProgressToCloud';
 import { colors, fontStyles, globalStyle } from '../styles';
 import { logger } from '../utils/logger';
 
@@ -70,6 +71,7 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
       logger('NetInfo').info('Is connected?', state.isConnected);
       if (state.isConnected) {
         await apiCheck.refetch();
+        await sendLocalProgressToCloud();
       } else {
         layout.setInfo('useQueryApiHealth#onError');
         await initializeUserSettings();

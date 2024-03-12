@@ -6,6 +6,7 @@ import { Text } from 'react-native-paper';
 
 import { useQuerySeriesEpisodes } from '../../api/hooks';
 import { Episode, PageLayout, useLayout } from '../../components';
+import { UpcomingEpisode } from '../../components/episode/UpcomingEpisode';
 import { useTranslate } from '../../i18n/useTranslate';
 import { SeriesStackEpisodeScreenProps } from '../../routes';
 import { useActiveSeriesStore } from '../../services';
@@ -24,7 +25,7 @@ export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
   } = useQuerySeriesEpisodes(route.params.seriesId, series.numOfAiredEpisodes);
 
   const renderItem = ({ item }: { item: AnimeEpisode }) => (
-    <Episode episode={item} isWatched={item.isWatched} />
+    <Episode episodeNumber={item.number} />
   );
 
   return (
@@ -34,11 +35,14 @@ export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
       {episodes ? (
         <FlatList
           ListFooterComponent={
-            <Text
-              style={[globalStyle.disclaimer, darkStyle.font]}
-              variant="bodySmall">
-              {translate('anime_episodes.disclaimer')}
-            </Text>
+            <>
+              {series.nextAiringEpisode?.episode ? <UpcomingEpisode /> : null}
+              <Text
+                style={[globalStyle.disclaimer, darkStyle.font]}
+                variant="bodySmall">
+                {translate('anime_episodes.disclaimer')}
+              </Text>
+            </>
           }
           ListHeaderComponent={
             <Image

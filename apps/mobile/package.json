@@ -1,17 +1,17 @@
 {
   "name": "@naikamu/mobile",
-  "version": "0.13.5",
-  "apiVersion": "1.4.x",
+  "version": "0.14.0",
+  "apiVersion": "1.5.x",
   "private": true,
   "engines": {
     "node": "18.17.1"
   },
   "engineStrict": true,
   "scripts": {
-    "android:staging": "react-native run-android --mode stagingdebug",
-    "android:staging-release": "react-native run-android --mode stagingrelease",
-    "android:dev": "react-native run-android --mode developmentdebug",
-    "android:dev-release": "react-native run-android --mode developmentrelease",
+    "android:staging": "react-native run-android --mode stagingdebug --appIdSuffix staging",
+    "android:staging-release": "react-native run-android --mode stagingrelease --appIdSuffix staging",
+    "android:dev": "react-native run-android --mode developmentdebug --appIdSuffix development",
+    "android:dev-release": "react-native run-android --mode developmentrelease --appIdSuffix development",
     "android:prod": "react-native run-android --mode productiondebug",
     "android:prod-release": "react-native run-android --mode productionrelease",
     "ios": "react-native run-ios --mode \"Debug\" --scheme \"NaikamuDev\" --simulator \"iPhone 15\"",
@@ -33,9 +33,9 @@
     "apk:remove_assets": "rm -rf ./android/app/build/generated/assets"
   },
   "dependencies": {
-    "@gluestack-style/react": "1.0.31",
-    "@gluestack-ui/config": "1.0.11",
-    "@gluestack-ui/themed": "1.0.34",
+    "@gluestack-style/react": "1.0.49",
+    "@gluestack-ui/config": "1.1.16",
+    "@gluestack-ui/themed": "1.1.9",
     "@notifee/react-native": "7.8.2",
     "@react-native-async-storage/async-storage": "1.19.8",
     "@react-native-community/blur": "4.3.2",
@@ -88,6 +88,7 @@
     "react-native-video": "5.2.1",
     "react-native-webview": "13.6.3",
     "semver": "7.5.4",
+    "styled-components": "6.1.8",
     "zustand": "4.4.6"
   },
   "devDependencies": {
@@ -132,5 +133,8 @@
       "json",
       "node"
     ]
+  },
+  "resolutions": {
+    "styled-components/native": "^0.3.3"
   }
 }

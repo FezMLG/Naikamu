@@ -1,3 +1,4 @@
+import { AnimeEpisode } from '@naikamu/shared';
 import { create } from 'zustand';
 
 export interface ActiveSeries {
@@ -6,13 +7,18 @@ export interface ActiveSeries {
   episodeLength: number;
   numOfAiredEpisodes: number;
   posterUrl: string;
+  nextAiringEpisode?: { airingAt: number; episode: number };
 }
 
 interface ActiveSeriesState {
   series: ActiveSeries;
+  episodes: AnimeEpisode[];
   actions: {
-    setActiveSeries: (player: ActiveSeries) => void;
-    updateActiveSeries: (playee: Partial<ActiveSeries>) => void;
+    setActiveSeries: (series: ActiveSeries) => void;
+    updateActiveSeries: (series: Partial<ActiveSeries>) => void;
+    setEpisodes: (episodes: AnimeEpisode[]) => void;
+    getEpisode: (number: number) => AnimeEpisode;
+    updateEpisode: (number: number, episode: Partial<AnimeEpisode>) => void;
   };
 }
 
@@ -24,8 +30,11 @@ const initialState: ActiveSeries = {
   posterUrl: '',
 };
 
-export const useActiveSeriesStore = create<ActiveSeriesState>(set => ({
+const initialEpisodes: AnimeEpisode[] = [];
+
+export const useActiveSeriesStore = create<ActiveSeriesState>((set, get) => ({
   series: initialState,
+  episodes: initialEpisodes,
   actions: {
     setActiveSeries: series => set({ series }),
     updateActiveSeries: series =>
@@ -33,5 +42,46 @@ export const useActiveSeriesStore = create<ActiveSeriesState>(set => ({
         ...old,
         ...series,
       })),
+    setEpisodes: episodes => set({ episodes }),
+    getEpisode: number => {
+      const episodes = get().episodes;
+
+      const episode = episodes.find(element => element.number === number);
+
+      if (!episode) {
+        throw new Error(
+          `Episode with number ${number} from series ${
+            get().series.id
+          } not found`,
+        );
+      }
+
+      return episode;
+    },
+    updateEpisode: (number, episode) => {
+      const episodes = get().episodes;
+      const episodeIndex = episodes.findIndex(
+        element => element.number === number,
+      );
+
+      if (episodeIndex === -1) {
+        throw new Error(
+          `Episode with number ${number} from series ${
+            get().series.id
+          } not found`,
+        );
+      }
+
+      set(state => ({
+        episodes: [
+          ...state.episodes.slice(0, episodeIndex),
+          {
+            ...state.episodes[episodeIndex],
+            ...episode,
+          },
+          ...state.episodes.slice(episodeIndex + 1),
+        ],
+      }));
+    },
   },
 }));

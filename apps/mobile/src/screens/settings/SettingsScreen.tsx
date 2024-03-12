@@ -65,22 +65,22 @@ export function SettingsScreen({
           title={translate('settings.categories.AppSettings')}
         />
       </View>
-      <View style={globalStyle.marginTopBig}>
-        <Button
-          icon="update"
-          label={translate('settings.checkForUpdates')}
-          loading={isChecking}
-          onPress={async () => {
-            setIsCheking(() => true);
-            await codePush.sync({
-              updateDialog: {},
-              installMode: codePush.InstallMode.IMMEDIATE,
-            });
-            setIsCheking(() => false);
-          }}
-          type="secondary"
-        />
-      </View>
+      {/*<View style={globalStyle.marginTopBig}>*/}
+      {/*  <Button*/}
+      {/*    icon="update"*/}
+      {/*    label={translate('settings.checkForUpdates')}*/}
+      {/*    loading={isChecking}*/}
+      {/*    onPress={async () => {*/}
+      {/*      setIsCheking(() => true);*/}
+      {/*      await codePush.sync({*/}
+      {/*        updateDialog: {},*/}
+      {/*        installMode: codePush.InstallMode.IMMEDIATE,*/}
+      {/*      });*/}
+      {/*      setIsCheking(() => false);*/}
+      {/*    }}*/}
+      {/*    type="secondary"*/}
+      {/*  />*/}
+      {/*</View>*/}
     </PageLayout.Default>
   );
 }

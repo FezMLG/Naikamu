@@ -1,40 +1,93 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
+import { useFocusEffect } from '@react-navigation/native';
 import { Platform, StyleSheet } from 'react-native';
 import VideoPlayer from 'react-native-media-console';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
 import Video, { OnProgressData } from 'react-native-video';
 
+import { useMutationUpdateUserSeriesWatchProgress } from '../../api/hooks';
 import { RootStackNativePlayerScreenProps } from '../../routes';
-import { createEpisodeProgressKey } from '../../services';
+import { createEpisodeProgressKey, useActiveSeriesStore } from '../../services';
 import { storageGetData, storageStoreData } from '../../utils';
 
 export function NativeVideoPlayerScreen({
   route,
   navigation,
 }: RootStackNativePlayerScreenProps) {
+  const [lastSave, setLastSave] = useState(0);
   const { uri, episodeTitle, episodeNumber, seriesId } = route.params;
   const videoPlayer = useRef<Video>(null);
   const storageKey = createEpisodeProgressKey(seriesId, episodeNumber);
+  const { mutation } = useMutationUpdateUserSeriesWatchProgress(
+    seriesId,
+    episodeNumber,
+  );
+
+  const episodeActions = useActiveSeriesStore(store => store.actions);
 
   useEffect(() => {
     SystemNavigationBar.immersive();
   }, []);
 
+  useFocusEffect(
+    React.useCallback(
+      () => async () => {
+        const episode = episodeActions.getEpisode(episodeNumber);
+
+        mutation.mutate({
+          progress: episode.progress,
+          isWatched: episode.isWatched,
+        });
+      },
+      [],
+    ),
+  );
+
   const handleProgress = async (progress: OnProgressData) => {
-    if (Math.round(progress.currentTime) % 5 === 0) {
+    const roundedProgress = Math.round(progress.currentTime);
+
+    if (roundedProgress % 5 === 0 && roundedProgress !== lastSave) {
+      setLastSave(() => roundedProgress);
+
+      /**
+       * if video has length then
+       * <20 minutes then leftForWatched = 2 minutes
+       * 20 >= length < 60 minutes then leftForWatched = 3 minutes
+       * >60 minutes then leftForWatched = 5 minutes
+       */
+      let leftForWatched = 2 * 60;
+
+      if (
+        progress.seekableDuration >= 20 * 60 &&
+        progress.seekableDuration < 60 * 60
+      ) {
+        leftForWatched = 3 * 60;
+      } else if (progress.seekableDuration > 60 * 60) {
+        leftForWatched = 5 * 60;
+      }
+
       await storageStoreData(storageKey, progress);
+      episodeActions.updateEpisode(episodeNumber, {
+        progress: progress.currentTime,
+        isWatched:
+          progress.currentTime >= progress.seekableDuration - leftForWatched,
+      });
     }
   };
 
   const handleVideoLoad = async () => {
+    const episode = episodeActions.getEpisode(episodeNumber);
     const progress = await storageGetData<OnProgressData>(storageKey);
+
+    const currentTime =
+      episode.progress !== 0 && episode.progress >= (progress?.currentTime ?? 0)
+        ? episode.progress
+        : progress?.currentTime ?? 0;
 
     console.log(uri);
     if (videoPlayer) {
-      videoPlayer.current?.seek(
-        progress?.currentTime ? progress.currentTime - 15 : 0,
-      );
+      videoPlayer.current?.seek(currentTime - 15);
     }
   };
 

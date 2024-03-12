@@ -7,6 +7,7 @@ import {
   IAnimeListItem,
   IPlayerResponse,
   IResolvePlayerDto,
+  IUpdateWatchListEpisode,
   IWatchListSeries,
   Paginate,
   WatchListSeriesEpisode,
@@ -205,10 +206,14 @@ export class APIClient {
     );
   }
 
-  async updateUserSeriesWatchProgress(animeId: string, episode: number) {
+  async updateUserSeriesWatchProgress(
+    animeId: string,
+    episode: number,
+    dto: IUpdateWatchListEpisode,
+  ) {
     return this.post<WatchListSeriesEpisode>(
       `user/watch-list/${animeId}/${episode}`,
-      {},
+      dto,
       {
         ...(await this.withToken()),
       },
@@ -239,3 +244,5 @@ export class APIClient {
     };
   }
 }
+
+export const apiClient = new APIClient();

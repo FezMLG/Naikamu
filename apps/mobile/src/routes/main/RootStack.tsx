@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Platform } from 'react-native';
 
 import { useTranslate } from '../../i18n/useTranslate';
 import { NativeVideoPlayerScreen } from '../../screens';
@@ -15,7 +16,6 @@ import {
   RootStackScreenNames,
 } from './root.interfaces';
 import { SeriesStack } from './series';
-import { Platform } from 'react-native';
 
 const StackAuthorized = createNativeStackNavigator<RootStackParameterList>();
 

@@ -3,6 +3,7 @@ import React from 'react';
 import { AnimePlayer } from '@naikamu/shared';
 import { useNavigation } from '@react-navigation/native';
 import { View, Text, StyleSheet, Linking } from 'react-native';
+import Animated, { SlideInLeft } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useQueryResolvePlayerLink } from '../../../api/hooks';
@@ -21,7 +22,9 @@ export function EpisodePlayer({
   episodeTitle,
   isDownloaded,
   handleDownload,
+  position,
 }: {
+  position: number;
   player: AnimePlayer;
   episodeNumber: number;
   episodeTitle: string;
@@ -56,7 +59,8 @@ export function EpisodePlayer({
   });
 
   return (
-    <View
+    <Animated.View
+      entering={SlideInLeft.delay(position * 25)}
       style={[
         styles.playersListItem,
         player.playerType === 'native'
@@ -143,7 +147,7 @@ export function EpisodePlayer({
           </>
         ) : null}
       </View>
-    </View>
+    </Animated.View>
   );
 }
 

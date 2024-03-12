@@ -163,6 +163,11 @@ export const en = {
       'AniWatch does not host any files on its own servers, we only provide links to content hosted on third-party servers.',
     load_players_error: 'Error loading players',
     load_players_empty: 'No players found',
+    watch_list: {
+      add: 'Mark as watched',
+      remove: 'Mark as unwatched',
+    },
+    upcoming: 'Upcoming',
   },
   important: {
     requireAppUpdate: {
