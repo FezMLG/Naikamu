@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
+import analytics from '@react-native-firebase/analytics';
 import { Linking, Pressable, StyleSheet, Text, View } from 'react-native';
 import { default as Config } from 'react-native-config';
 import semver from 'semver';
@@ -34,7 +35,6 @@ import {
 import { sendLocalProgressToCloud } from '../services/watch-list/sendLocalProgressToCloud';
 import { colors, fontStyles, globalStyle } from '../styles';
 import { logger } from '../utils/logger';
-import analytics from '@react-native-firebase/analytics';
 
 export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
   const supportedApiVersion = packageJson.apiVersion;
@@ -72,9 +72,12 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
       logger('NetInfo').info('Connection type', state.type);
       logger('NetInfo').info('Is connected?', state.isConnected);
       if (state.isConnected) {
-        await analytics().logAppOpen();
+        await analytics().logEvent('app_load_screen', {
+          connection: state.type,
+          isConnected: state.isConnected,
+          appVersion: packageJson.version,
+        });
         await apiCheck.refetch();
-        await sendLocalProgressToCloud();
       } else {
         layout.setInfo('useQueryApiHealth#onError');
         await initializeUserSettings();
@@ -107,6 +110,7 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
     if (token) {
       await fireGetNewIdToken();
       await userService.setLoggedUser();
+      await sendLocalProgressToCloud();
       logger('handleLoginCheck').info(user);
       if (!user?.emailVerified && user?.emailVerified !== undefined) {
         navigation.navigate(AuthStackRoutesNames.VerifyEmail);
