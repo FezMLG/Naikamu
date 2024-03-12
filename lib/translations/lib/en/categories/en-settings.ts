@@ -25,5 +25,13 @@ export const enSettings = {
       videoQuality: 'Select video quality',
     },
     checkForUpdates: 'Check for updates',
+    noUpdates: 'You have the latest version of the app',
+    updateAvailable: {
+      title: 'Update available',
+      description:
+        'You have currently installed version {{current}}. A new version of the app is available {{new}}. Do you want to update?',
+      update: 'Update',
+      later: 'Later',
+    },
   },
 };

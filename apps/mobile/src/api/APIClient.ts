@@ -236,6 +236,18 @@ export class APIClient {
     return this.patch('user', { notificationToken: token }, apiToken);
   }
 
+  async checkForUpdates() {
+    const response = await axios.get<{
+      tag_name: string;
+      assets: {
+        name: string;
+        browser_download_url: string;
+      }[];
+    }>('https://api.github.com/repos/fezmlg/naikamu/releases/latest');
+
+    return response.data;
+  }
+
   async withToken() {
     const token = await fireGetIdToken();
 

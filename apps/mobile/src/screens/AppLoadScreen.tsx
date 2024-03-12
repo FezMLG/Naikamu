@@ -6,6 +6,7 @@ import { default as Config } from 'react-native-config';
 import semver from 'semver';
 
 import Logo from '../../assets/logo_full.svg';
+import * as packageJson from '../../package.json';
 import { useQueryApiHealth } from '../api/hooks';
 import {
   ActivityIndicator,
@@ -35,7 +36,7 @@ import { colors, fontStyles, globalStyle } from '../styles';
 import { logger } from '../utils/logger';
 
 export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
-  const supportedApiVersion = require('../../package.json').apiVersion;
+  const supportedApiVersion = packageJson.apiVersion;
   const layout = useLayout();
   const { translate } = useTranslate();
   const [, setLongLoading] = useState(false);
