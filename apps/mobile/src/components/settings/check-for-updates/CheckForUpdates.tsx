@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import analytics from '@react-native-firebase/analytics';
 import { Linking, Platform } from 'react-native';
 import { Text } from 'react-native-paper';
 import semver from 'semver';
@@ -28,7 +29,14 @@ export const CheckForUpdates = () => {
         loading={isChecking}
         onPress={async () => {
           setIsChecking(() => true);
+
           const update = await apiClient.checkForUpdates();
+
+          await analytics().logEvent('check_for_updates', {
+            platform: Platform.OS,
+            currentVersion: packageJson.version,
+            newestVersion: update.tag_name,
+          });
 
           const currentOsUpdate = update.assets.find(a => {
             const android = /^naikamu-\d+\.\d+\.\d+.apk/;
