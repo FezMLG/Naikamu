@@ -34,6 +34,7 @@ import {
 import { sendLocalProgressToCloud } from '../services/watch-list/sendLocalProgressToCloud';
 import { colors, fontStyles, globalStyle } from '../styles';
 import { logger } from '../utils/logger';
+import analytics from '@react-native-firebase/analytics';
 
 export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
   const supportedApiVersion = packageJson.apiVersion;
@@ -71,6 +72,7 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
       logger('NetInfo').info('Connection type', state.type);
       logger('NetInfo').info('Is connected?', state.isConnected);
       if (state.isConnected) {
+        await analytics().logAppOpen();
         await apiCheck.refetch();
         await sendLocalProgressToCloud();
       } else {
