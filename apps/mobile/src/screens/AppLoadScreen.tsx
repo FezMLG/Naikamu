@@ -71,12 +71,13 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
     await NetInfo.fetch().then(async state => {
       logger('NetInfo').info('Connection type', state.type);
       logger('NetInfo').info('Is connected?', state.isConnected);
+      await analytics().logEvent('app_open', {
+        connection: state.type,
+        isConnected: state.isConnected,
+        appVersion: packageJson.version,
+      });
+
       if (state.isConnected) {
-        await analytics().logEvent('app_load_screen', {
-          connection: state.type,
-          isConnected: state.isConnected,
-          appVersion: packageJson.version,
-        });
         await apiCheck.refetch();
       } else {
         layout.setInfo('useQueryApiHealth#onError');
