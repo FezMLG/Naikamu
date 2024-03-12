@@ -75,6 +75,7 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
         connection: state.type,
         isConnected: state.isConnected,
         appVersion: packageJson.version,
+        environment: Config.ENV,
       });
 
       if (state.isConnected) {
