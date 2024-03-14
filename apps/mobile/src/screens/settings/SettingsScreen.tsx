@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Image, StyleSheet, View } from 'react-native';
-// eslint-disable-next-line import/default
-import codePush from 'react-native-code-push';
 import { Text } from 'react-native-paper';
 
 import {
@@ -10,7 +8,7 @@ import {
   SectionButton,
   useLayout,
   ProgressiveImage,
-  Button,
+  CheckForUpdates,
 } from '../../components';
 import { useTranslate } from '../../i18n/useTranslate';
 import {
@@ -26,7 +24,6 @@ export function SettingsScreen({
   const layout = useLayout();
   const user = useUserStore(state => state.user);
   const { translate } = useTranslate();
-  const [isChecking, setIsCheking] = useState(false);
 
   return (
     <PageLayout.Default style={[styles.container]} {...layout}>
@@ -65,22 +62,9 @@ export function SettingsScreen({
           title={translate('settings.categories.AppSettings')}
         />
       </View>
-      {/*<View style={globalStyle.marginTopBig}>*/}
-      {/*  <Button*/}
-      {/*    icon="update"*/}
-      {/*    label={translate('settings.checkForUpdates')}*/}
-      {/*    loading={isChecking}*/}
-      {/*    onPress={async () => {*/}
-      {/*      setIsCheking(() => true);*/}
-      {/*      await codePush.sync({*/}
-      {/*        updateDialog: {},*/}
-      {/*        installMode: codePush.InstallMode.IMMEDIATE,*/}
-      {/*      });*/}
-      {/*      setIsCheking(() => false);*/}
-      {/*    }}*/}
-      {/*    type="secondary"*/}
-      {/*  />*/}
-      {/*</View>*/}
+      <View style={globalStyle.marginTopBig}>
+        <CheckForUpdates />
+      </View>
     </PageLayout.Default>
   );
 }

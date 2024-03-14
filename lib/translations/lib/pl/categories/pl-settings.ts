@@ -25,5 +25,13 @@ export const plSettings = {
       videoQuality: 'Wybierz jakość wideo',
     },
     checkForUpdates: 'Sprawdź aktualizację',
+    noUpdates: 'Posiadasz najnowszą wersję aplikacji',
+    updateAvailable: {
+      title: 'Dostępna aktualizacja',
+      description:
+        'Zainstalowana wersja aplikacji to {{current}}. Dostępna jest nowa wersja {{new}} do pobrania. Czy chcesz zaktualizować?',
+      update: 'Aktualizuj',
+      later: 'Później',
+    },
   },
 };

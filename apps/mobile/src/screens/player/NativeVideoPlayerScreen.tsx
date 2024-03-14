@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import { useFocusEffect } from '@react-navigation/native';
+import * as Sentry from '@sentry/react-native';
 import { Platform, StyleSheet } from 'react-native';
 import VideoPlayer from 'react-native-media-console';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
@@ -10,6 +11,7 @@ import { useMutationUpdateUserSeriesWatchProgress } from '../../api/hooks';
 import { RootStackNativePlayerScreenProps } from '../../routes';
 import { createEpisodeProgressKey, useActiveSeriesStore } from '../../services';
 import { storageGetData, storageStoreData } from '../../utils';
+import { logger } from '../../utils/logger';
 
 export function NativeVideoPlayerScreen({
   route,
@@ -101,8 +103,16 @@ export function NativeVideoPlayerScreen({
           fullscreenAutorotate
           fullscreenOrientation="landscape"
           ignoreSilentSwitch="ignore"
+          onError={error => {
+            logger('VideoPlayer').warn('Error', error);
+            Sentry.captureException(error);
+          }}
           onLoad={handleVideoLoad}
           onProgress={handleProgress}
+          onVideoError={() => {
+            logger('VideoPlayer').warn('Video Error');
+            Sentry.captureException('Unknown video error');
+          }}
           pictureInPicture
           playInBackground
           ref={videoPlayer}
@@ -128,9 +138,17 @@ export function NativeVideoPlayerScreen({
             SystemNavigationBar.fullScreen(false);
             navigation.goBack();
           }}
+          onError={(error: unknown) => {
+            logger('VideoPlayer').warn('Error', error);
+            Sentry.captureException(error);
+          }}
           onHideControls={() => SystemNavigationBar.immersive()}
           onLoad={handleVideoLoad}
           onProgress={handleProgress}
+          onVideoError={() => {
+            logger('VideoPlayer').warn('Video Error');
+            Sentry.captureException('Unknown video error');
+          }}
           pictureInPicture
           playInBackground
           resizeMode="contain"

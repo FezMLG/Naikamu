@@ -1,11 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
+import analytics from '@react-native-firebase/analytics';
 import { Linking, Pressable, StyleSheet, Text, View } from 'react-native';
 import { default as Config } from 'react-native-config';
 import semver from 'semver';
 
 import Logo from '../../assets/logo_full.svg';
+import * as packageJson from '../../package.json';
 import { useQueryApiHealth } from '../api/hooks';
 import {
   ActivityIndicator,
@@ -35,7 +37,7 @@ import { colors, fontStyles, globalStyle } from '../styles';
 import { logger } from '../utils/logger';
 
 export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
-  const supportedApiVersion = require('../../package.json').apiVersion;
+  const supportedApiVersion = packageJson.apiVersion;
   const layout = useLayout();
   const { translate } = useTranslate();
   const [, setLongLoading] = useState(false);
@@ -69,9 +71,15 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
     await NetInfo.fetch().then(async state => {
       logger('NetInfo').info('Connection type', state.type);
       logger('NetInfo').info('Is connected?', state.isConnected);
+      await analytics().logEvent('app_open', {
+        connection: state.type,
+        isConnected: state.isConnected,
+        appVersion: packageJson.version,
+        environment: Config.ENV,
+      });
+
       if (state.isConnected) {
         await apiCheck.refetch();
-        await sendLocalProgressToCloud();
       } else {
         layout.setInfo('useQueryApiHealth#onError');
         await initializeUserSettings();
@@ -104,6 +112,7 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
     if (token) {
       await fireGetNewIdToken();
       await userService.setLoggedUser();
+      await sendLocalProgressToCloud();
       logger('handleLoginCheck').info(user);
       if (!user?.emailVerified && user?.emailVerified !== undefined) {
         navigation.navigate(AuthStackRoutesNames.VerifyEmail);
