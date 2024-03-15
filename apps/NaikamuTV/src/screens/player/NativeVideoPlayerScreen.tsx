@@ -1,11 +1,13 @@
 import React, { useRef, useState } from 'react';
 
+import * as Sentry from '@sentry/react-native';
 import { HWEvent, StyleSheet, View, useTVEventHandler } from 'react-native';
 import VideoPlayer from 'react-native-media-console';
 import Video from 'react-native-video';
 
 import { RootStackNativePlayerScreenProps } from '../../routes';
 import { createEpisodeProgressKey, useVideoProgress } from '../../services';
+import { logger } from '../../utils';
 
 export function NativeVideoPlayerScreen({
   route,
@@ -62,8 +64,16 @@ export function NativeVideoPlayerScreen({
         ignoreSilentSwitch="ignore"
         isFullscreen
         onBack={navigation.goBack}
+        onError={error => {
+          logger('VideoPlayer').warn('Error', error);
+          Sentry.captureException(error);
+        }}
         onLoad={handleVideoLoad}
         onProgress={handleSaveVideoProgress}
+        onVideoError={() => {
+          logger('VideoPlayer').warn('Video Error');
+          Sentry.captureException('Unknown video error');
+        }}
         paused={isPaused}
         pictureInPicture
         playInBackground

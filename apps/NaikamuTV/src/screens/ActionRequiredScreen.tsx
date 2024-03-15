@@ -3,6 +3,7 @@ import React from 'react';
 import { Linking, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { default as Config } from 'react-native-config';
 
+import * as packageJson from '../../package.json';
 import { Button } from '../components';
 import { useTranslate } from '../i18n/useTranslate';
 import { AuthStackActionRequiredScreenProps } from '../routes';
@@ -11,8 +12,8 @@ import { colors, fontStyles, globalStyle } from '../styles';
 export function ActionRequiredScreen({
   navigation,
 }: AuthStackActionRequiredScreenProps) {
-  const appVersion = require('../../package.json').version;
-  const apiVersion = require('../../package.json').apiVersion;
+  const appVersion = packageJson.version;
+  const apiVersion = packageJson.apiVersion;
 
   const { translate } = useTranslate();
 
