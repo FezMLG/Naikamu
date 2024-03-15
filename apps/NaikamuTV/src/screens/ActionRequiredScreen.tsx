@@ -40,17 +40,8 @@ export function ActionRequiredScreen({
         <Button
           icon="open-in-new"
           label={translate('important.requireAppUpdate.action')}
-          onPress={() =>
-            Linking.openURL('https://github.com/FezMLG/Naikamu/releases')
-          }
+          onPress={() => Linking.openURL('https://naikamu.com/download.html')}
           type="primary"
-        />
-        <Button
-          label={translate('important.requireAppUpdate.actionAlt')}
-          onPress={() =>
-            Linking.openURL('https://github.com/FezMLG/Naikamu/issues')
-          }
-          type="link"
         />
         <View style={globalStyle.spacerSmall} />
         <Text
