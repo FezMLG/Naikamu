@@ -1,13 +1,18 @@
 import React, { useRef, useState } from 'react';
 
+import { useFocusEffect } from '@react-navigation/native';
 import * as Sentry from '@sentry/react-native';
 import { HWEvent, StyleSheet, View, useTVEventHandler } from 'react-native';
 import VideoPlayer from 'react-native-media-console';
-import Video from 'react-native-video';
+import Video, { OnProgressData } from 'react-native-video';
 
+import { useMutationUpdateUserSeriesWatchProgress } from '../../api/hooks/watch-list/useMutationUpdateUserSeriesWatchProgress';
 import { RootStackNativePlayerScreenProps } from '../../routes';
-import { createEpisodeProgressKey, useVideoProgress } from '../../services';
-import { logger } from '../../utils';
+import {
+  createEpisodeProgressKey,
+  useSelectedSeriesStore,
+} from '../../services';
+import { logger, storageGetData, storageStoreData } from '../../utils';
 
 export function NativeVideoPlayerScreen({
   route,
@@ -15,9 +20,13 @@ export function NativeVideoPlayerScreen({
 }: RootStackNativePlayerScreenProps) {
   const { uri, episodeTitle, episodeNumber, seriesId } = route.params;
   const videoPlayer = useRef<Video>(null);
+  const [lastSave, setLastSave] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const { loadProgress, handleSaveVideoProgress } = useVideoProgress(
-    createEpisodeProgressKey(seriesId, episodeNumber),
+  const episodeProgressKey = createEpisodeProgressKey(seriesId, episodeNumber);
+  const episodeActions = useSelectedSeriesStore(store => store.actions);
+  const { mutation } = useMutationUpdateUserSeriesWatchProgress(
+    seriesId,
+    episodeNumber,
   );
 
   const myTVEventHandler = (event: HWEvent) => {
@@ -39,13 +48,64 @@ export function NativeVideoPlayerScreen({
 
   useTVEventHandler(myTVEventHandler);
 
-  const handleVideoLoad = async () => {
-    const progress = await loadProgress();
+  useFocusEffect(
+    React.useCallback(
+      () => async () => {
+        const episode = episodeActions.getEpisode(episodeNumber);
 
+        mutation.mutate({
+          progress: episode.progress,
+          isWatched: episode.isWatched,
+        });
+      },
+      [],
+    ),
+  );
+
+  const handleProgress = async (progress: OnProgressData) => {
+    const roundedProgress = Math.round(progress.currentTime);
+
+    if (roundedProgress % 5 === 0 && roundedProgress !== lastSave) {
+      setLastSave(() => roundedProgress);
+
+      /**
+       * if video has length then
+       * <20 minutes then leftForWatched = 2 minutes
+       * 20 >= length < 60 minutes then leftForWatched = 3 minutes
+       * >60 minutes then leftForWatched = 5 minutes
+       */
+      let leftForWatched = 2 * 60;
+
+      if (
+        progress.seekableDuration >= 20 * 60 &&
+        progress.seekableDuration < 60 * 60
+      ) {
+        leftForWatched = 3 * 60;
+      } else if (progress.seekableDuration > 60 * 60) {
+        leftForWatched = 5 * 60;
+      }
+
+      await storageStoreData(episodeProgressKey, progress);
+      episodeActions.updateEpisode(episodeNumber, {
+        progress: progress.currentTime,
+        isWatched:
+          progress.currentTime >= progress.seekableDuration - leftForWatched,
+      });
+    }
+  };
+
+  const handleVideoLoad = async () => {
+    const episode = episodeActions.getEpisode(episodeNumber);
+    const progress = await storageGetData<OnProgressData>(episodeProgressKey);
+
+    const currentTime =
+      episode.progress !== 0 && episode.progress >= (progress?.currentTime ?? 0)
+        ? episode.progress
+        : progress?.currentTime ?? 0;
+
+    console.log(uri);
     if (videoPlayer) {
-      videoPlayer.current?.seek(
-        progress?.currentTime ? progress.currentTime - 15 : 0,
-      );
+      videoPlayer.current?.seek(currentTime - 15);
     }
   };
 
@@ -69,7 +129,7 @@ export function NativeVideoPlayerScreen({
           Sentry.captureException(error);
         }}
         onLoad={handleVideoLoad}
-        onProgress={handleSaveVideoProgress}
+        onProgress={handleProgress}
         onVideoError={() => {
           logger('VideoPlayer').warn('Video Error');
           Sentry.captureException('Unknown video error');

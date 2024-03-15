@@ -7,6 +7,7 @@ import {
   IAnimeListItem,
   IPlayerResponse,
   IResolvePlayerDto,
+  IUpdateWatchListEpisode,
   IWatchListSeries,
   Paginate,
   WatchListSeriesEpisode,
@@ -16,9 +17,9 @@ import axios, {
   AxiosInstance,
   RawAxiosRequestHeaders,
 } from 'axios';
-import Config from 'react-native-config';
+import { default as Config } from 'react-native-config';
 
-import { fireGetIdToken } from '../services/firebase/fire-auth.service';
+import { fireGetIdToken } from '../services';
 import { logger } from '../utils';
 
 interface GetAnimeListDTO {
@@ -35,7 +36,8 @@ export class APIClient {
 
   constructor() {
     this.instance = axios.create({
-      baseURL: Config.API_URL,
+      // baseURL: Config.API_URL,
+      baseURL: 'https://staging.api.naikamu.com/api',
       timeout: 2000,
       headers: {
         Accept: 'application/json',
@@ -175,7 +177,7 @@ export class APIClient {
   }: GetAnimeListDTO): Promise<Paginate<IWatchListSeries[]>> {
     const token = await this.withToken();
 
-    const apiCall = await this.post<Paginate<IWatchListSeries[]>>(
+    return this.post<Paginate<IWatchListSeries[]>>(
       'user/watch-list',
       {
         page,
@@ -185,10 +187,6 @@ export class APIClient {
       },
       { ...token },
     );
-
-    logger('user/watch-list').info(apiCall);
-
-    return apiCall;
   }
 
   async getUserWatchListSeries(animeId: string) {
@@ -207,10 +205,14 @@ export class APIClient {
     );
   }
 
-  async updateUserSeriesWatchProgress(animeId: string, episode: number) {
+  async updateUserSeriesWatchProgress(
+    animeId: string,
+    episode: number,
+    dto: IUpdateWatchListEpisode,
+  ) {
     return this.post<WatchListSeriesEpisode>(
       `user/watch-list/${animeId}/${episode}`,
-      {},
+      dto,
       {
         ...(await this.withToken()),
       },
@@ -235,3 +237,5 @@ export class APIClient {
     };
   }
 }
+
+export const apiClient = new APIClient();
