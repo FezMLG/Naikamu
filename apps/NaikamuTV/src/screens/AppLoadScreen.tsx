@@ -17,6 +17,7 @@ import {
 import {
   fireGetIdToken,
   fireGetNewIdToken,
+  sendLocalProgressToCloud,
   useUserService,
   useUserStore,
 } from '../services';
@@ -47,9 +48,7 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
       logger('NetInfo').info('Connection type', state.type);
       logger('NetInfo').info('Is connected?', state.isConnected);
       if (state.isConnected) {
-        handleLoginCheck();
-
-        // await apiCheck.refetch();
+        await apiCheck.refetch();
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -82,11 +81,13 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
     if (token) {
       await fireGetNewIdToken();
       await userService.setLoggedUser();
+      await sendLocalProgressToCloud();
       logger('handleLoginCheck').info(user);
     } else {
       navigation.navigate(AuthStackRoutesNames.Hello);
     }
-  }, [navigation, user, userService]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <SafeAreaView
