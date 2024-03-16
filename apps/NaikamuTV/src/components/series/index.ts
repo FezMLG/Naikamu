@@ -5,3 +5,4 @@ export * from './Episode';
 export * from './QuickInfo';
 export * from './EpisodeWatchProgress';
 export * from './EpisodeImage';
+export * from './UpcomingEpisode';

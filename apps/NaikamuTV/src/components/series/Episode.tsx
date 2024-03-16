@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { AnimeEpisode, AnimePlayer } from '@naikamu/shared';
+import { AnimePlayer } from '@naikamu/shared';
 import { StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import styled from 'styled-components/native';
@@ -25,16 +25,10 @@ import {
 } from './EpisodePlayer';
 import { EpisodeWatchProgress } from './EpisodeWatchProgress';
 
-export function Episode({
-  episodeOld,
-  isWatched,
-}: {
-  episodeOld: AnimeEpisode;
-  isWatched: boolean;
-}) {
+export function Episode({ episodeNumber }: { episodeNumber: number }) {
   const series = useSelectedSeriesStore(store => store.details)!;
   const episode = useSelectedSeriesStore(store =>
-    store.actions.getEpisode(episodeOld.number),
+    store.actions.getEpisode(episodeNumber),
   )!;
 
   const { data, refetch, isLoading, isError } = useQuerySeriesEpisodePlayers(

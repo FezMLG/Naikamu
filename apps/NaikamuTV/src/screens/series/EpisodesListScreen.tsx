@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 
 import { AnimeEpisode } from '@naikamu/shared';
 import {
@@ -8,12 +8,20 @@ import {
   SafeAreaView,
   Text,
   View,
+  FlatList,
 } from 'react-native';
 
 import { useQuerySeriesEpisodes } from '../../api/hooks';
-import { Episode, IconButton, PageLayout, Selectable } from '../../components';
+import {
+  Episode,
+  IconButton,
+  PageLayout,
+  Selectable,
+  UpcomingEpisode,
+} from '../../components';
 import { useTranslate } from '../../i18n/useTranslate';
 import { SeriesStackEpisodeScreenProps } from '../../routes';
+import { useSelectedSeriesStore } from '../../services';
 import {
   colors,
   DarkColor,
@@ -68,8 +76,8 @@ export const EpisodeNumber = ({
 export function EpisodesListScreen({
   navigation,
 }: SeriesStackEpisodeScreenProps) {
-  const scrollViewRef = useRef<ScrollView>(null);
-  const [episodeHeight, setEpisodeHeight] = useState(190 * 12);
+  const flatListRef = useRef<FlatList>(null);
+  const { nextAiringEpisode } = useSelectedSeriesStore(store => store.details)!;
 
   const { translate } = useTranslate();
   const {
@@ -78,6 +86,10 @@ export function EpisodesListScreen({
     isLoading,
     refetch,
   } = useQuerySeriesEpisodes();
+
+  const renderItem = ({ item }: { item: AnimeEpisode }) => (
+    <Episode episodeNumber={item.number} />
+  );
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -116,44 +128,47 @@ export function EpisodesListScreen({
                   items={item}
                   key={index}
                   onPress={() => {
-                    scrollViewRef.current?.scrollTo({
-                      y:
-                        ((item.at(0)?.number ?? 1) - 1) *
-                        Math.floor(episodeHeight / episodes.episodes.length),
+                    flatListRef.current?.scrollToIndex({
+                      index: (item.at(0)?.number ?? 1) - 1,
                       animated: true,
                     });
                   }}
                 />
               ))
             : null}
-        </ScrollView>
-        <ScrollView ref={scrollViewRef} style={styles.scrollView}>
-          <Image
-            resizeMode="contain"
-            //eslint-disable-next-line unicorn/prefer-module
-            source={require('../../assets/logo_docchi.png')}
-            style={[styles.logo]}
-          />
-          <View
-            onLayout={event =>
-              setEpisodeHeight(event.nativeEvent.layout.height)
-            }>
-            {episodes
-              ? episodes.episodes.map(
-                  (episode: AnimeEpisode, index: number) => (
-                    <Episode
-                      episodeOld={episode}
-                      isWatched={episode.isWatched}
-                      key={index}
-                    />
-                  ),
-                )
-              : null}
-          </View>
           <Text style={[globalStyle.disclaimer, darkStyle.font]}>
             {translate('anime_episodes.disclaimer')}
           </Text>
         </ScrollView>
+        {episodes ? (
+          <FlatList
+            ListFooterComponent={
+              nextAiringEpisode?.episode ? <UpcomingEpisode /> : null
+            }
+            ListHeaderComponent={
+              <Image
+                resizeMode="contain"
+                //eslint-disable-next-line unicorn/prefer-module
+                source={require('../../assets/logo_docchi.png')}
+                style={[styles.logo]}
+              />
+            }
+            contentContainerStyle={[styles.flatListContent]}
+            contentInsetAdjustmentBehavior="automatic"
+            data={episodes.episodes}
+            getItemLayout={(data, index) => ({
+              length: 182,
+              offset: 182 * index,
+              index,
+            })}
+            keyExtractor={(_, index) => index.toString()}
+            numColumns={1}
+            onRefresh={refetch}
+            ref={flatListRef}
+            refreshing={isLoading}
+            renderItem={renderItem}
+          />
+        ) : null}
       </View>
     </SafeAreaView>
   );
@@ -169,5 +184,9 @@ const styles = StyleSheet.create({
     height: 20,
     width: 75,
     opacity: 0.75,
+  },
+  flatListContent: {
+    flexGrow: 1,
+    marginHorizontal: 10,
   },
 });

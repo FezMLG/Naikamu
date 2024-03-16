@@ -36,6 +36,22 @@ export const EpisodeImage = ({
         <WatchedLabel />
       </Overlay>
     ) : null}
+    {isUpcoming ? (
+      <Overlay>
+        <Icon
+          color={colors.accent.color}
+          name="clock-outline"
+          size={50}
+          style={{
+            position: 'absolute',
+            width: 50,
+            height: 50,
+            top: 45,
+            left: 90,
+          }}
+        />
+      </Overlay>
+    ) : null}
     <ProgressiveImage
       resizeMode={FastImage.resizeMode.cover}
       source={source}
