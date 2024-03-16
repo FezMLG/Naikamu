@@ -1,11 +1,9 @@
 import { IWatchListSeries, Paginate } from '@naikamu/shared';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
-import { APIClient } from '../../APIClient';
+import { apiClient } from '../../APIClient';
 
 export const useInfiniteQueryUserWatchList = () => {
-  const apiClient = new APIClient();
-
   const { isLoading, data, refetch, fetchNextPage, isRefetching, isError } =
     useInfiniteQuery<Paginate<IWatchListSeries[]>>({
       queryKey: ['watch list'],

@@ -5,7 +5,7 @@ import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { default as Config } from 'react-native-config';
 import semver from 'semver';
 
-import { APIClient } from '../api/APIClient';
+import { apiClient } from '../api/APIClient';
 import { useQueryApiHealth } from '../api/hooks';
 import Logo from '../assets/logo.svg';
 import { ActivityIndicator } from '../components';
@@ -31,7 +31,7 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
   const [, setLongLoading] = useState(false);
   const [apiError, setApiError] = useState(false);
   const userService = useUserService();
-  const user = useUserStore(state => state.user);
+  const userStore = useUserStore(state => state.actions);
   const [netInfo] = useState<NetInfoState>();
 
   useEffect(() => {
@@ -43,19 +43,7 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const checkConnection = useCallback(async () => {
-    await NetInfo.fetch().then(async state => {
-      logger('NetInfo').info('Connection type', state.type);
-      logger('NetInfo').info('Is connected?', state.isConnected);
-      if (state.isConnected) {
-        await apiCheck.refetch();
-      }
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const apiCheck = useQueryApiHealth(async () => {
-    const apiClient = new APIClient();
     const data = await apiClient.getApiHealth();
 
     logger('useQueryApiHealth').warn(data);
@@ -75,6 +63,18 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
     return data;
   });
 
+  const checkConnection = useCallback(async () => {
+    await NetInfo.fetch().then(async state => {
+      logger('NetInfo').info('Connection type', state.type);
+      logger('NetInfo').info('Is connected?', state.isConnected);
+      if (state.isConnected) {
+        // await apiCheck.refetch();
+        await handleLoginCheck();
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const handleLoginCheck = useCallback(async () => {
     const token = await fireGetIdToken();
 
@@ -82,7 +82,7 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
       await fireGetNewIdToken();
       await userService.setLoggedUser();
       await sendLocalProgressToCloud();
-      logger('handleLoginCheck').info(user);
+      logger('handleLoginCheck').info(userStore.getUser());
     } else {
       navigation.navigate(AuthStackRoutesNames.Hello);
     }

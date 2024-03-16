@@ -43,6 +43,7 @@
     "react-native-svg": "13.14.0",
     "react-native-vector-icons": "10.0.1",
     "react-native-video": "^5.2.1",
+    "styled-components": "^6.1.8",
     "zustand": "4.4.5"
   },
   "devDependencies": {
