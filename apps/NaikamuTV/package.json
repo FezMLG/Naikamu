@@ -11,7 +11,7 @@
     "start": "expo start",
     "test": "jest",
     "apk:release": "cd android && ./gradlew assemble && cd .. && npm run apk:beta:rename && open android/app/build/outputs/apk/release",
-    "apk:rename": "mv $DIR/$APP $DIR/naikamutv-$RENV$(jq -r '.version' package.json).apk",
+    "apk:rename": "mv $DIR/$APP $DIR/naikamutv-beta-$RENV$(jq -r '.version' package.json).apk",
     "apk:beta:rename": "DIR='android/app/build/outputs/apk/release' APP='app-release.apk' RENV= npm run apk:rename"
   },
   "dependencies": {
