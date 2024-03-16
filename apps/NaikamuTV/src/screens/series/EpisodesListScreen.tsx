@@ -142,7 +142,7 @@ export function EpisodesListScreen({
               ? episodes.episodes.map(
                   (episode: AnimeEpisode, index: number) => (
                     <Episode
-                      episode={episode}
+                      episodeOld={episode}
                       isWatched={episode.isWatched}
                       key={index}
                     />

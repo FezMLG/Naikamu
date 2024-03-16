@@ -110,6 +110,9 @@ export const colors = StyleSheet.create({
   textLighter: {
     color: '#C2C2C2',
   },
+  grey: {
+    color: '#626262',
+  },
   error: {
     color: '#FF453A',
   },

@@ -4,3 +4,4 @@ export * from './EpisodesButton';
 export * from './Episode';
 export * from './QuickInfo';
 export * from './EpisodeWatchProgress';
+export * from './EpisodeImage';

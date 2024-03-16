@@ -21,7 +21,7 @@ export const EpisodeWatchProgress = ({
 
   return (
     <>
-      {episode.progress ? (
+      {episode.progress && !episode.isWatched ? (
         <Progress.Bar
           borderColor="transparent"
           color={colors.accent.color}

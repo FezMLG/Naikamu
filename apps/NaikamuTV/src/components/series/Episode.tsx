@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { AnimeEpisode, AnimePlayer } from '@naikamu/shared';
 import { StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import styled from 'styled-components/native';
 
 import { useQuerySeriesEpisodePlayers } from '../../api/hooks';
 import { useSelectedSeriesStore } from '../../services';
@@ -13,9 +14,10 @@ import {
   defaultRadius,
   fontStyles,
 } from '../../styles';
-import { ProgressiveImage, Selectable } from '../atoms';
+import { Selectable } from '../atoms';
 import { PageLayout } from '../PageLayout';
 
+import { EpisodeImage } from './EpisodeImage';
 import {
   EpisodePlayer,
   EpisodePlayerEmpty,
@@ -24,13 +26,16 @@ import {
 import { EpisodeWatchProgress } from './EpisodeWatchProgress';
 
 export function Episode({
-  episode,
+  episodeOld,
   isWatched,
 }: {
-  episode: AnimeEpisode;
+  episodeOld: AnimeEpisode;
   isWatched: boolean;
 }) {
   const series = useSelectedSeriesStore(store => store.details)!;
+  const episode = useSelectedSeriesStore(store =>
+    store.actions.getEpisode(episodeOld.number),
+  )!;
 
   const { data, refetch, isLoading, isError } = useQuerySeriesEpisodePlayers(
     series.id,
@@ -50,34 +55,23 @@ export function Episode({
         customStyles={[styles.mainContainer]}
         onLayout={event => setEpisodeWidth(event.nativeEvent.layout.width)}
         onPress={openDetails}>
-        <ProgressiveImage
+        <EpisodeImage
+          isWatched={episode.isWatched}
           source={episode.poster_url ?? series.coverImage.extraLarge}
-          style={{
-            width: '40%',
-            height: '100%',
-          }}
         />
         <View style={styles.detailsContainer}>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}>
-            <Text
-              numberOfLines={2}
-              style={[fontStyles.headerSmall, colors.textLight]}>
-              {episode.number + '. ' + episode.title}
-            </Text>
-            <Icon
-              color={colors.textLight.color}
-              name={isWatched ? 'check-circle' : 'check-circle-outline'}
-              size={fontStyles.header.fontSize}
-            />
-          </View>
-          <Text numberOfLines={2} style={[fontStyles.label, colors.textLight]}>
+          <Title
+            isWatched={episode.isWatched}
+            numberOfLines={2}
+            style={[fontStyles.headerSmall]}>
+            {episode.number + '. ' + episode.title}
+          </Title>
+          <Details
+            isWatched={episode.isWatched}
+            numberOfLines={2}
+            style={[fontStyles.label]}>
             {series.duration} min
-          </Text>
+          </Details>
           {episode.description ? (
             <Text numberOfLines={4} style={[darkStyle.font, fontStyles.text]}>
               {episode.description}
@@ -124,6 +118,16 @@ export function Episode({
     </View>
   );
 }
+
+const Details = styled.Text<{ isWatched: boolean }>`
+  color: ${props =>
+    props.isWatched ? colors.grey.color : colors.textLighter.color};
+`;
+
+const Title = styled.Text<{ isWatched: boolean }>`
+  color: ${props =>
+    props.isWatched ? colors.grey.color : colors.textLight.color};
+`;
 
 const styles = StyleSheet.create({
   episodeContainer: {
