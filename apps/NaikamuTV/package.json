@@ -42,8 +42,8 @@
     "react-native-screens": "3.26.0",
     "react-native-svg": "13.14.0",
     "react-native-vector-icons": "10.0.1",
-    "react-native-video": "^5.2.1",
-    "styled-components": "^6.1.8",
+    "react-native-video": "5.2.1",
+    "styled-components": "6.1.8",
     "zustand": "4.4.5"
   },
   "devDependencies": {
@@ -55,10 +55,11 @@
     "@tsconfig/react-native": "3.0.2",
     "@types/react": "18.2.31",
     "@types/react-native-vector-icons": "6.4.16",
-    "@types/react-native-video": "^5.0.18",
+    "@types/react-native-video": "5.0.18",
     "@types/react-test-renderer": "18.0.5",
     "babel-jest": "29.7.0",
     "babel-plugin-module-resolver": "5.0.0",
+    "babel-plugin-styled-components": "2.1.4",
     "eslint": "8.52.0",
     "eslint-import-resolver-babel-module": "5.3.2",
     "eslint-plugin-import": "2.28.1",
@@ -75,5 +76,8 @@
   },
   "engines": {
     "node": "18.17.1"
+  },
+  "resolutions": {
+    "styled-components": "^5"
   }
 }
