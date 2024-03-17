@@ -1,13 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { StyleSheet } from 'react-native';
 import * as Progress from 'react-native-progress';
 
-import {
-  createEpisodeProgressKey,
-  useSelectedSeriesStore,
-  useVideoProgress,
-} from '../../services';
+import { useSelectedSeriesStore } from '../../services';
 import { colors } from '../../styles';
 
 export const EpisodeWatchProgress = ({
@@ -19,21 +15,17 @@ export const EpisodeWatchProgress = ({
 }) => {
   const series = useSelectedSeriesStore(store => store.details)!;
 
-  const { progress, loadProgress } = useVideoProgress(
-    createEpisodeProgressKey(series.id, episodeNumber),
+  const episode = useSelectedSeriesStore(store =>
+    store.actions.getEpisode(episodeNumber),
   );
-
-  useEffect(() => {
-    loadProgress();
-  }, [loadProgress]);
 
   return (
     <>
-      {progress ? (
+      {episode.progress && !episode.isWatched ? (
         <Progress.Bar
           borderColor="transparent"
           color={colors.accent.color}
-          progress={progress / ((series.duration ?? 24) * 60)}
+          progress={episode.progress / ((series.duration ?? 24) * 60)}
           style={styles.progressBar}
           width={width}
         />

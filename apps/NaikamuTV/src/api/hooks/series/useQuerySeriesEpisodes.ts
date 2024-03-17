@@ -18,7 +18,7 @@ export const useQuerySeriesEpisodes = () => {
           : state!.episodes ?? 12,
       );
 
-      actions.setEpisodes(response);
+      actions.setEpisodes(response.episodes);
 
       return response;
     },
