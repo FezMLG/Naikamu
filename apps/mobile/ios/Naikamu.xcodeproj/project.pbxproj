@@ -1166,9 +1166,11 @@
 				CODE_SIGN_ENTITLEMENTS = Naikamu/Naikamu.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7626K298Y6;
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = Naikamu/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Naikamu;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1197,8 +1199,11 @@
 				CODE_SIGN_ENTITLEMENTS = Naikamu/Naikamu.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7626K298Y6;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = Naikamu/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Naikamu;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1307,7 +1312,8 @@
 					"-ld_classic",
 					"-Wl",
 					"-ld_classic",
-					"-Wl -ld_classic ",
+					"-Wl",
+					"-ld_classic",
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
@@ -1400,7 +1406,8 @@
 					"-ld_classic",
 					"-Wl",
 					"-ld_classic",
-					"-Wl -ld_classic ",
+					"-Wl",
+					"-ld_classic",
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
@@ -1418,9 +1425,10 @@
 				CODE_SIGN_ENTITLEMENTS = Naikamu/Naikamu.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7626K298Y6;
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = "Naikamu stg-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Naikamu stg";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1449,8 +1457,10 @@
 				CODE_SIGN_ENTITLEMENTS = Naikamu/Naikamu.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7626K298Y6;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = "Naikamu stg-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Naikamu stg";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1478,9 +1488,10 @@
 				CODE_SIGN_ENTITLEMENTS = Naikamu/Naikamu.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7626K298Y6;
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = "Naikamu dev-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Naikamu dev";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1509,8 +1520,10 @@
 				CODE_SIGN_ENTITLEMENTS = Naikamu/Naikamu.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7626K298Y6;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = "Naikamu dev-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Naikamu dev";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
