@@ -1,7 +1,8 @@
 {
   "name": "@naikamu/tv",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "apiVersion": "1.5.x",
+  "codeVersion": "11",
   "private": true,
   "scripts": {
     "android": "expo run:android",
@@ -75,7 +76,7 @@
     "typescript": "5.2.2"
   },
   "engines": {
-    "node": "18.17.1"
+    "node": "20.11.1"
   },
   "resolutions": {
     "styled-components": "^5"
