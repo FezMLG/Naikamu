@@ -73,7 +73,7 @@
     "react-native-linear-gradient": "2.8.3",
     "react-native-localize": "3.0.6",
     "react-native-media-console": "2.2.0",
-    "react-native-mmkv": "^2.12.2",
+    "react-native-mmkv": "2.12.2",
     "react-native-pager-view": "6.2.3",
     "react-native-paper": "5.12.3",
     "react-native-picker-select": "9.0.1",
