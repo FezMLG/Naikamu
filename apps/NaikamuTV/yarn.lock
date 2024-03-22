@@ -9428,12 +9428,12 @@ react-native-localize@3.0.6:
   resolved "https://registry.yarnpkg.com/react-native-localize/-/react-native-localize-3.0.6.tgz#6df2e317038c0cafe051184b2f0280f89ef8050c"
   integrity sha512-pfwwNKRfXcxp0LZEzj5oW2/uo5oZOhiQ4PYlg8uLlsl9pDLcWg03yLCHohTWKX02vE/BFz9hkrHT/nQtlO/iFg==
 
-react-native-media-console@^2.2.0:
+react-native-media-console@2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/react-native-media-console/-/react-native-media-console-2.2.0.tgz#a6cf94ca6945d1fbeb1ae6f8cc3422d9fad13f22"
   integrity sha512-TsClEFUz9OZ3d2wU4w0wYY9RA2ULCi3VFyKW4ho9by9WHGMokSwCViDMVE6+PuE6Fi4a+IgwgtcJ0euqI2aYAg==
 
-react-native-progress@^5.0.1:
+react-native-progress@5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/react-native-progress/-/react-native-progress-5.0.1.tgz#4e15258b5661c49bad74554352326ca540bb7c58"
   integrity sha512-TYfJ4auAe5vubDma2yfFvt7ktSI+UCfysqJnkdHEcLXqAitRFOozgF/cLgN5VNi/iLdaf3ga1ETi2RF4jVZ/+g==
