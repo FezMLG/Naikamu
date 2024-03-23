@@ -46,7 +46,7 @@
     "react-native-screens": "3.29.0",
     "react-native-svg": "15.1.0",
     "react-native-vector-icons": "10.0.3",
-    "react-native-video": "5.2.1",
+    "react-native-video": "6.0.0-beta.6",
     "styled-components": "6.1.8",
     "zustand": "4.5.2"
   },

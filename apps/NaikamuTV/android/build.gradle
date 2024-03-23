@@ -23,4 +23,14 @@ buildscript {
     }
 }
 
+allprojects {
+    project.ext {
+        compileSdkVersion = 34
+        buildToolsVersion = "34.0.0"
+
+        minSdkVersion = 21
+        targetSdkVersion = 34
+    }
+}
+
 apply plugin: "com.facebook.react.rootproject"
