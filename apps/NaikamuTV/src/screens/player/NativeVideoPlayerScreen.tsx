@@ -4,7 +4,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import * as Sentry from '@sentry/react-native';
 import { HWEvent, StyleSheet, View, useTVEventHandler } from 'react-native';
 import VideoPlayer from 'react-native-media-console';
-import Video, { OnProgressData } from 'react-native-video';
+import { OnProgressData, VideoRef } from 'react-native-video';
 
 import { useMutationUpdateUserSeriesWatchProgress } from '../../api/hooks/watch-list/useMutationUpdateUserSeriesWatchProgress';
 import { RootStackNativePlayerScreenProps } from '../../routes';
@@ -19,7 +19,7 @@ export function NativeVideoPlayerScreen({
   navigation,
 }: RootStackNativePlayerScreenProps) {
   const { uri, episodeTitle, episodeNumber, seriesId } = route.params;
-  const videoPlayer = useRef<Video>(null);
+  const videoPlayer = useRef<VideoRef>(null);
   const [lastSave, setLastSave] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const episodeProgressKey = createEpisodeProgressKey(seriesId, episodeNumber);
@@ -130,10 +130,6 @@ export function NativeVideoPlayerScreen({
         }}
         onLoad={handleVideoLoad}
         onProgress={handleProgress}
-        onVideoError={() => {
-          logger('VideoPlayer').warn('Video Error');
-          Sentry.captureException('Unknown video error');
-        }}
         paused={isPaused}
         pictureInPicture
         playInBackground

@@ -1,23 +1,33 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Sentry from '@sentry/react-native';
+import { MMKV } from 'react-native-mmkv';
 
-export const storageStoreData = async <T = unknown>(key: string, value: T) => {
+import { logger } from './logger';
+
+export const storage = new MMKV();
+
+export const storageStoreData = <T = unknown>(key: string, value: T): void => {
   try {
     const jsonValue = JSON.stringify(value);
 
-    await AsyncStorage.setItem(key, jsonValue);
-  } catch {
-    // saving error
+    storage.set(key, jsonValue);
+  } catch (error: unknown) {
+    logger('storageStoreData').warn(
+      `Error storing value for key ${key}`,
+      error,
+    );
+    Sentry.captureException(error);
   }
 };
 
-export const storageGetData = async <T = unknown>(
+export const storageGetData = <T = unknown>(
   key: string,
-): Promise<T | null | undefined> => {
+): T | null | undefined => {
   try {
-    const jsonValue = await AsyncStorage.getItem(key);
+    const jsonValue = storage.getString(key);
 
     return jsonValue == null ? null : JSON.parse(jsonValue);
-  } catch {
-    // error reading value
+  } catch (error: unknown) {
+    logger('storageGetData').warn(`Error reading value for key ${key}`, error);
+    Sentry.captureException(error);
   }
 };

@@ -5,7 +5,7 @@ import * as Sentry from '@sentry/react-native';
 import { Platform, StyleSheet } from 'react-native';
 import VideoPlayer from 'react-native-media-console';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
-import Video, { OnProgressData } from 'react-native-video';
+import Video, { OnProgressData, VideoRef } from 'react-native-video';
 
 import { useMutationUpdateUserSeriesWatchProgress } from '../../api/hooks';
 import { RootStackNativePlayerScreenProps } from '../../routes';
@@ -19,7 +19,7 @@ export function NativeVideoPlayerScreen({
 }: RootStackNativePlayerScreenProps) {
   const [lastSave, setLastSave] = useState(0);
   const { uri, episodeTitle, episodeNumber, seriesId } = route.params;
-  const videoPlayer = useRef<Video>(null);
+  const videoPlayer = useRef<VideoRef>(null);
   const storageKey = createEpisodeProgressKey(seriesId, episodeNumber);
   const { mutation } = useMutationUpdateUserSeriesWatchProgress(
     seriesId,
@@ -109,10 +109,6 @@ export function NativeVideoPlayerScreen({
           }}
           onLoad={handleVideoLoad}
           onProgress={handleProgress}
-          onVideoError={() => {
-            logger('VideoPlayer').warn('Video Error');
-            Sentry.captureException('Unknown video error');
-          }}
           pictureInPicture
           playInBackground
           ref={videoPlayer}
@@ -124,7 +120,6 @@ export function NativeVideoPlayerScreen({
         />
       ) : (
         <VideoPlayer
-          // @ts-expect-error broken types
           allowsExternalPlayback
           disableFullscreen
           disableVolume
@@ -145,10 +140,6 @@ export function NativeVideoPlayerScreen({
           onHideControls={() => SystemNavigationBar.immersive()}
           onLoad={handleVideoLoad}
           onProgress={handleProgress}
-          onVideoError={() => {
-            logger('VideoPlayer').warn('Video Error');
-            Sentry.captureException('Unknown video error');
-          }}
           pictureInPicture
           playInBackground
           resizeMode="contain"

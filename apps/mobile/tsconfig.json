@@ -1,19 +1,26 @@
 // prettier-ignore
 {
-  "extends": "@tsconfig/react-native/tsconfig.json",     /* Recommended React Native TSConfig base */
+  "extends": "@react-native/typescript-config/tsconfig.json",
   "compilerOptions": {
-    "lib": ["es2021"],
+    "lib": [
+      "es2021"
+    ],
     "baseUrl": "./",
     "paths": {
-      "@naikamu/shared": ["../../lib/shared/"]
+      "@naikamu/shared": [
+        "../../lib/shared/"
+      ]
     },
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
 
     /* Completeness */
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "skipLibCheck": true, /* Skip type checking all .d.ts files. */
+    "skipLibCheck": true,
+    /* Skip type checking all .d.ts files. */
     "moduleResolution": "node"
   },
-  "typeRoots": ["./src/types"],
+  "typeRoots": [
+    "./src/types"
+  ]
 }

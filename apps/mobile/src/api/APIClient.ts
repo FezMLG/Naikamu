@@ -21,6 +21,7 @@ import axios, {
 import { default as Config } from 'react-native-config';
 
 import { fireGetIdToken } from '../services/firebase/fire-auth.service';
+import { Platform } from 'react-native';
 
 interface GetAnimeListDTO {
   page?: number;
@@ -35,8 +36,18 @@ export class APIClient {
   private instance: AxiosInstance;
 
   constructor() {
+    let configUrl = Config.API_URL;
+
+    if (
+      configUrl &&
+      configUrl.includes('localhost') &&
+      Platform.OS === 'android'
+    ) {
+      configUrl = configUrl.replace('localhost', '10.0.2.2');
+    }
+
     this.instance = axios.create({
-      baseURL: Config.API_URL,
+      baseURL: configUrl,
       timeout: 2000,
       headers: {
         Accept: 'application/json',
