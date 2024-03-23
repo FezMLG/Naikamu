@@ -1,12 +1,11 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Sentry from '@sentry/react-native';
 import { OnProgressData } from 'react-native-video';
 
 import { apiClient } from '../../api/APIClient';
-import { storageGetData, logger } from '../../utils';
+import { storageGetData, logger, storage } from '../../utils';
 
 export const sendLocalProgressToCloud = async () => {
-  const allAsyncStorageEntries = await AsyncStorage.getAllKeys();
+  const allAsyncStorageEntries = storage.getAllKeys();
 
   const episodeKeys = allAsyncStorageEntries.filter(key =>
     key.match(/\S{24}-\d{1,5}/),
@@ -14,7 +13,7 @@ export const sendLocalProgressToCloud = async () => {
 
   const episodeData = await Promise.allSettled(
     episodeKeys.map(async key => {
-      const progress = await storageGetData<OnProgressData>(key);
+      const progress = storageGetData<OnProgressData>(key);
       const [seriesId, episodeNumber] = key.split('-');
 
       if (!progress) {
@@ -46,7 +45,7 @@ export const sendLocalProgressToCloud = async () => {
 
       logger('removeLocalProgress').info(key, response);
 
-      await AsyncStorage.removeItem(key);
+      storage.delete(key);
     }),
   );
 
