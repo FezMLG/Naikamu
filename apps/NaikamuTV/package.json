@@ -2,7 +2,7 @@
   "name": "@naikamu/tv",
   "version": "0.3.0",
   "apiVersion": "1.5.x",
-  "codeVersion": "13",
+  "codeVersion": "14",
   "private": true,
   "scripts": {
     "android": "expo run:android",
