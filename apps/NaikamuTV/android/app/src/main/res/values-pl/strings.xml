@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NaikamuTV</string>
+    <string name="default_home_screen_channel_name">Kanał NaikamuTV</string>
+    <string name="default_home_screen_channel_description">Kanał NaikamuTV zawierający serie lub filmy anime dla Ciebie</string>
+</resources>

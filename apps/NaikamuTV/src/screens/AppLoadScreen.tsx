@@ -21,6 +21,7 @@ import {
   useUserService,
   useUserStore,
 } from '../services';
+import HomeScreenChannel from '../services/HomeScreenChannel';
 import { colors, fontStyles, globalStyle } from '../styles';
 import { logger } from '../utils';
 
@@ -35,6 +36,8 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
   const [netInfo] = useState<NetInfoState>();
 
   useEffect(() => {
+    HomeScreenChannel.createDefaultChannel();
+
     checkConnection();
     setTimeout(() => {
       setLongLoading(false);
@@ -80,8 +83,8 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
 
     if (token) {
       await fireGetNewIdToken();
-      await userService.setLoggedUser();
       await sendLocalProgressToCloud();
+      await userService.setLoggedUser();
       logger('handleLoginCheck').info(userStore.getUser());
     } else {
       navigation.navigate(AuthStackRoutesNames.Hello);

@@ -2,7 +2,7 @@
   "name": "@naikamu/tv",
   "version": "0.3.0",
   "apiVersion": "1.5.x",
-  "codeVersion": "11",
+  "codeVersion": "12",
   "private": true,
   "scripts": {
     "android": "expo run:android",
@@ -17,8 +17,8 @@
     "apk:release": "cd android && ./gradlew assemble && cd .. && npm run apk:beta:rename && open android/app/build/outputs/apk/release",
     "apk:stg:release": "cd android && ./gradlew assemble && cd .. && npm run apk:stg:rename && open android/app/build/outputs/apk/release",
     "apk:rename": "mv $DIR/$APP $DIR/naikamutv-beta-$RENV$VER.apk",
-    "apk:beta:rename": "DIR='android/app/build/outputs/apk/production/release' APP='app-release.apk' RENV=v VER=$(jq -r '.version' package.json) npm run apk:rename",
-    "apk:stg:rename": "DIR='android/app/build/outputs/apk/staging/release' APP='app-release.apk' RENV=stg-r VER=$(jq -r '.codeVersion' package.json) npm run apk:rename"
+    "apk:beta:rename": "DIR='android/app/build/outputs/apk/release' APP='app-release.apk' RENV=v VER=$(jq -r '.version' package.json) npm run apk:rename",
+    "apk:stg:rename": "DIR='android/app/build/outputs/apk/release' APP='app-release.apk' RENV=stg-r VER=$(jq -r '.codeVersion' package.json) npm run apk:rename"
   },
   "dependencies": {
     "@react-native-community/netinfo": "11.3.1",
