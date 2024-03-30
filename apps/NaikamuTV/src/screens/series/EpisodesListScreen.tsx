@@ -30,7 +30,6 @@ import {
   fontStyles,
   globalStyle,
 } from '../../styles';
-import { useFocusEffect } from '@react-navigation/native';
 
 function sliceIntoChunks<T>(array: T[], chunkSize = 10) {
   const result: T[][] = [];
