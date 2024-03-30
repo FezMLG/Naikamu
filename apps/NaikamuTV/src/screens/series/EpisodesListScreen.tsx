@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { AnimeEpisode } from '@naikamu/shared';
 import {
@@ -30,6 +30,7 @@ import {
   fontStyles,
   globalStyle,
 } from '../../styles';
+import { useFocusEffect } from '@react-navigation/native';
 
 function sliceIntoChunks<T>(array: T[], chunkSize = 10) {
   const result: T[][] = [];
@@ -86,6 +87,21 @@ export function EpisodesListScreen({
     isLoading,
     refetch,
   } = useQuerySeriesEpisodes();
+
+  useEffect(() => {
+    if (episodes) {
+      const firstNotWatchedIndex = episodes.episodes.findIndex(
+        episode => !episode.isWatched,
+      );
+
+      if (firstNotWatchedIndex > 0) {
+        flatListRef.current?.scrollToIndex({
+          index: firstNotWatchedIndex,
+          animated: true,
+        });
+      }
+    }
+  }, [episodes]);
 
   const renderItem = ({ item }: { item: AnimeEpisode }) => (
     <Episode episodeNumber={item.number} />
