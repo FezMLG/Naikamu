@@ -79,7 +79,13 @@ def getVersionNameFromNpm() {
     def inputFile = new File("$rootDir/../package.json")
     def packageJson = new JsonSlurper().parseText(inputFile.text)
 
-    return packageJson["version"]
+    def environment = project.env.get("ENV")
+
+    if (environment == "production") {
+        return packageJson["version"]
+    }
+
+    return packageJson["codeVersion"]
 }
 
 apply from: new File(["node", "--print", "require.resolve('@sentry/react-native/package.json')"].execute().text.trim(), "../sentry.gradle")
