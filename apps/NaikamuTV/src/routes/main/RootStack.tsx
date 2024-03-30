@@ -24,14 +24,14 @@ export function RootStack() {
         component={MyListStack}
         name={RootStackScreenNames.Main}
         options={() => ({
-          animation: 'slide_from_right',
+          animation: 'fade_from_bottom',
         })}
       />
       <Stack.Screen
         component={SeriesStack}
         name={RootStackScreenNames.SeriesStack}
         options={() => ({
-          animation: 'slide_from_right',
+          animation: 'fade_from_bottom',
         })}
       />
       <Stack.Screen
