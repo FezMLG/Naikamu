@@ -20,6 +20,7 @@ import axios, {
 import { default as Config } from 'react-native-config';
 
 import { fireGetIdToken } from '../services';
+import * as appJson from '../../app.json';
 import { logger } from '../utils';
 
 interface GetAnimeListDTO {
@@ -41,6 +42,7 @@ export class APIClient {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
+        Package: appJson.android.package,
       },
     });
 
