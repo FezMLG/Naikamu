@@ -46,44 +46,9 @@ class HomeScreenChannelReceiver : BroadcastReceiver() {
 
         val previewChannelHelper = PreviewChannelHelper(context)
         val channelHelper = HomeScreenChannelHelper(previewChannelHelper)
-
-        // IDs of programs already in the channel or that have been removed by the user
-        val setOfProgramIdsToExclude = HashSet<String>()
-        var programsToAdd = HomeScreenChannelReceiver.DEFAULT_CHANNEL_SIZE
-
+        
         // Get or create the default channel
-        val defaultChannel = channelHelper.getDefaultChannel()?.also {
-            val programIdsInChannel = channelHelper.getProgramIdsInChannel(context, it.id)
-            programsToAdd -= programIdsInChannel.getBrowsableProgramCount()
-
-            // If the channel already has enough content, bail early
-            if (programsToAdd <= 0) {
-                Log.println(
-                    Log.DEBUG,
-                    "HomeScreenChannelWorker",
-                    "Home screen channel already populated, worker finished"
-                )
-                return;
-            }
-
-            // Any programs that are already in the channel should not be added again
-            setOfProgramIdsToExclude.addAll(programIdsInChannel.getBrowsableProgramIds())
-            setOfProgramIdsToExclude.addAll(programIdsInChannel.getNonBrowsableProgramIds())
-        }
-        val channelId = defaultChannel?.id ?: channelHelper.createHomeScreenDefaultChannel(context)
-
-//         Populate the default channel with videos
-//        val videos = channelHelper.getVideosForDefaultChannel(
-//            context as Application,
-//            setOfProgramIdsToExclude,
-//            programsToAdd
-//        )
-//        Log.println(
-//            Log.DEBUG,
-//            "HomeScreenChannelWorker",
-//            "Adding $videos to default channel $channelId"
-//        )
-//        channelHelper.addProgramsToChannel(videos, channelId)
+        channelHelper.getDefaultChannel()
 
         Log.println(
             Log.DEBUG,

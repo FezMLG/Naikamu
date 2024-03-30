@@ -1,7 +1,7 @@
 import { IWatchListSeries, Paginate } from '@naikamu/shared';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
-import TVChannel from '../../../services/TVChannel';
+import HomeScreenChannel from '../../../services/HomeScreenChannel';
 import { apiClient } from '../../APIClient';
 
 export const useInfiniteQueryUserWatchList = () => {
@@ -16,7 +16,9 @@ export const useInfiniteQueryUserWatchList = () => {
         });
 
         if (response.pageInfo.currentPage === 1) {
-          TVChannel.populateDefaultChannel(response.data);
+          const firstSix = response.data.slice(0, 6);
+
+          HomeScreenChannel.populateDefaultChannel(firstSix);
         }
 
         return response;

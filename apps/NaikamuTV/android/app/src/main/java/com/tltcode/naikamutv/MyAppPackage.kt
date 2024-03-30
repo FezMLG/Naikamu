@@ -6,7 +6,7 @@ import com.facebook.react.bridge.NativeModule
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.uimanager.ReactShadowNode
 import com.facebook.react.uimanager.ViewManager
-import com.tltcode.naikamutv.homescreenchannel.TVChannel
+import com.tltcode.naikamutv.homescreenchannel.HomeScreenChannel
 
 class MyAppPackage : ReactPackage {
 
@@ -17,5 +17,5 @@ class MyAppPackage : ReactPackage {
     override fun createNativeModules(
         reactContext: ReactApplicationContext
     ): MutableList<NativeModule> =
-        listOf(TVChannel(reactContext)).toMutableList()
+        listOf(HomeScreenChannel(reactContext)).toMutableList()
 }

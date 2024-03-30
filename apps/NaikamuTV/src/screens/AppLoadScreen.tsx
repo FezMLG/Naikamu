@@ -21,9 +21,9 @@ import {
   useUserService,
   useUserStore,
 } from '../services';
+import HomeScreenChannel from '../services/HomeScreenChannel';
 import { colors, fontStyles, globalStyle } from '../styles';
 import { logger } from '../utils';
-import TVChannel from '../services/TVChannel';
 
 export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
   // eslint-disable-next-line @typescript-eslint/no-var-requires,unicorn/prefer-module
@@ -36,7 +36,7 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
   const [netInfo] = useState<NetInfoState>();
 
   useEffect(() => {
-    TVChannel.createDefaultChannel();
+    HomeScreenChannel.createDefaultChannel();
 
     checkConnection();
     setTimeout(() => {

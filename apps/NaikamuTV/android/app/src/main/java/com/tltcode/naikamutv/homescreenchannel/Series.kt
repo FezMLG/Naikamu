@@ -2,7 +2,7 @@ package com.tltcode.naikamutv.homescreenchannel
 
 import com.facebook.react.bridge.ReadableMap
 
-class WatchListSeries(
+class WatchlistSeries(
     val id: String,
     val animeId: String,
     val title: String,
@@ -12,8 +12,8 @@ class WatchListSeries(
 ) {
 
     companion object {
-        fun createSeriesEpisode(seriesObject: ReadableMap): WatchListSeries {
-            return WatchListSeries(
+        fun createSeriesEpisode(seriesObject: ReadableMap): WatchlistSeries {
+            return WatchlistSeries(
                 getStringOrThrow(seriesObject, "id"),
                 getStringOrThrow(seriesObject, "animeId"),
                 getStringOrThrow(seriesObject, "title"),
