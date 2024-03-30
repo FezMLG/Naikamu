@@ -35,6 +35,11 @@ export function WatchListElement({
       onFocus={() => {
         setIsFocus(() => true);
         selectedSeriesService.setSeries(anime);
+        const details = selectedSeriesService.getDetails();
+
+        if (details && details.id !== anime.animeId) {
+          selectedSeriesService.setDetails(null);
+        }
       }}
       onPress={handlePageChange}
       style={[

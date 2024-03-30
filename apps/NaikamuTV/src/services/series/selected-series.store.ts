@@ -13,6 +13,7 @@ interface SelectedSeriesState {
   actions: {
     getSeries: () => IWatchListSeries | null;
     setSeries: (seriesToSet: IWatchListSeries | null) => void;
+    getDetails: () => AnimeDetails | null;
     setDetails: (detailsToSet: AnimeDetails | null) => void;
     setEpisodes: (episodesToSet: AnimeEpisode[]) => void;
     getEpisode: (number: number) => AnimeEpisode;
@@ -32,6 +33,7 @@ export const useSelectedSeriesStore = create<SelectedSeriesState>(
           series: seriesToSet,
         });
       },
+      getDetails: () => get().details,
       setDetails: (detailsToSet: AnimeDetails | null) => {
         set({
           details: detailsToSet,
