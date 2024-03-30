@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { AnimeEpisode } from '@naikamu/shared';
 import {
@@ -86,6 +86,21 @@ export function EpisodesListScreen({
     isLoading,
     refetch,
   } = useQuerySeriesEpisodes();
+
+  useEffect(() => {
+    if (episodes) {
+      const firstNotWatchedIndex = episodes.episodes.findIndex(
+        episode => !episode.isWatched,
+      );
+
+      if (firstNotWatchedIndex > 0) {
+        flatListRef.current?.scrollToIndex({
+          index: firstNotWatchedIndex,
+          animated: true,
+        });
+      }
+    }
+  }, [episodes]);
 
   const renderItem = ({ item }: { item: AnimeEpisode }) => (
     <Episode episodeNumber={item.number} />
