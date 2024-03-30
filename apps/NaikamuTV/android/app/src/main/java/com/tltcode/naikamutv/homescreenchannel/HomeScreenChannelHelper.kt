@@ -21,8 +21,7 @@ class HomeScreenChannelHelper(private val previewChannelHelper: PreviewChannelHe
 
     companion object {
         private const val DEFAULT_CHANNEL_ID = "DEFAULT_CHANNEL_ID"
-        private const val DEFAULT_CHANNEL_LINK =
-            "https://atv-reference-app.firebaseapp.com/channels/default"
+        private const val DEFAULT_CHANNEL_LINK = "naikamutv://watchlist"
     }
 
     // Creates a new default home screen channel and returns its ID
