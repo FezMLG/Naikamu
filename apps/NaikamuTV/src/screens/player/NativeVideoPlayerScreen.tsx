@@ -12,6 +12,7 @@ import {
   createEpisodeProgressKey,
   useSelectedSeriesStore,
 } from '../../services';
+import AndroidTVChannel from '../../services/TVChannel';
 import { logger, storageGetData, storageStoreData } from '../../utils';
 
 export function NativeVideoPlayerScreen({
