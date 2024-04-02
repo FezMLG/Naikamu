@@ -83,7 +83,7 @@ function NextEpisode(props: { episode?: number; airingAt?: number }) {
           </Text>
           <Text style={[styles.nextEpisode, colors.accent]}>
             Ep {props.episode}:{' '}
-            {format(new Date(props.airingAt ?? 0 * 1000), 'dd/MM H:mm')}
+            {format(new Date((props.airingAt ?? 0) * 1000), 'dd/MM H:mm')}
           </Text>
         </>
       ) : null}
