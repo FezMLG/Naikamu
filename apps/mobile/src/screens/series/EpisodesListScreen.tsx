@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { AnimeEpisode } from '@naikamu/shared';
 import { StyleSheet, Image, FlatList } from 'react-native';
@@ -15,6 +15,7 @@ import { darkStyle, globalStyle } from '../../styles';
 export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
   const series = useActiveSeriesStore(store => store.series);
 
+  const flatListRef = useRef<FlatList>(null);
   const { translate } = useTranslate();
   const layout = useLayout();
   const {
@@ -23,6 +24,21 @@ export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
     isLoading,
     refetch,
   } = useQuerySeriesEpisodes(route.params.seriesId, series.numOfAiredEpisodes);
+
+  useEffect(() => {
+    if (episodes) {
+      const firstNotWatchedIndex = episodes.episodes.findIndex(
+        episode => !episode.isWatched,
+      );
+
+      if (firstNotWatchedIndex > 0) {
+        flatListRef.current?.scrollToIndex({
+          index: firstNotWatchedIndex,
+          animated: true,
+        });
+      }
+    }
+  }, [episodes]);
 
   const renderItem = ({ item }: { item: AnimeEpisode }) => (
     <Episode episodeNumber={item.number} />
@@ -54,9 +70,15 @@ export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
           contentContainerStyle={[styles.flatListContent]}
           contentInsetAdjustmentBehavior="automatic"
           data={episodes.episodes}
+          getItemLayout={(data, index) => ({
+            length: 110,
+            offset: 110 * index,
+            index,
+          })}
           keyExtractor={(_, index) => index.toString()}
           numColumns={1}
           onRefresh={refetch}
+          ref={flatListRef}
           refreshing={isLoading}
           renderItem={renderItem}
         />
