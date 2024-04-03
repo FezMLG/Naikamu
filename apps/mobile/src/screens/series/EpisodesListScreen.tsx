@@ -3,63 +3,23 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Button, ButtonText } from '@gluestack-ui/themed';
 import { AnimeEpisode } from '@naikamu/shared';
 import _ from 'lodash';
-import {
-  StyleSheet,
-  Image,
-  FlatList,
-  Pressable,
-  ScrollView,
-} from 'react-native';
+import { StyleSheet, Image, FlatList, ScrollView } from 'react-native';
 import { Drawer } from 'react-native-drawer-layout';
 import { Text } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useQuerySeriesEpisodes } from '../../api/hooks';
-import { Episode, PageLayout, useLayout } from '../../components';
+import {
+  Episode,
+  EpisodeNumber,
+  PageLayout,
+  useLayout,
+} from '../../components';
 import { UpcomingEpisode } from '../../components/episode/UpcomingEpisode';
 import { useTranslate } from '../../i18n/useTranslate';
 import { SeriesStackEpisodeScreenProps } from '../../routes';
 import { useActiveSeriesStore } from '../../services';
-import {
-  colors,
-  DarkColor,
-  darkStyle,
-  defaultRadius,
-  fontStyles,
-  globalStyle,
-} from '../../styles';
-
-export const EpisodeNumber = ({
-  items,
-  onPress,
-}: {
-  items: AnimeEpisode[];
-  onPress: () => void;
-}) => (
-  <Pressable
-    onPress={onPress}
-    style={[
-      {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        width: '100%',
-        height: 40,
-        borderWidth: 1,
-        borderStyle: 'solid',
-        borderColor: 'transparent',
-        backgroundColor: DarkColor.C800,
-        borderRadius: defaultRadius,
-        paddingHorizontal: 15,
-        marginTop: 15,
-      },
-    ]}>
-    <Text style={[fontStyles.normal, colors.textLight, { textAlign: 'left' }]}>
-      {items.at(0)?.number} - {items.at(-1)?.number}
-    </Text>
-    <Icon name="chevron-right" size={20} style={[colors.textLight]} />
-  </Pressable>
-);
+import { colors, DarkColor, darkStyle, globalStyle } from '../../styles';
 
 export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
   const series = useActiveSeriesStore(store => store.series);
@@ -123,20 +83,22 @@ export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
         <PageLayout.Error isError={isError} refetch={refetch} />
         {episodes ? (
           <>
-            <Button
-              action="primary"
-              onPress={() => {
-                setOpen(!open);
-              }}
-              size="md"
-              style={{
-                justifyContent: 'flex-end',
-                marginHorizontal: 10,
-              }}
-              variant="link">
-              <ButtonText style={[colors.accent]}>Go to episode</ButtonText>
-              <Icon name="menu" size={30} style={[colors.accent]} />
-            </Button>
+            {episodes.episodes.length >= 20 ? (
+              <Button
+                action="primary"
+                onPress={() => {
+                  setOpen(!open);
+                }}
+                size="md"
+                style={{
+                  justifyContent: 'flex-end',
+                  marginHorizontal: 10,
+                }}
+                variant="link">
+                <ButtonText style={[colors.accent]}>Go to episode</ButtonText>
+                <Icon name="menu" size={30} style={[colors.accent]} />
+              </Button>
+            ) : null}
             <FlatList
               ListFooterComponent={
                 <>
