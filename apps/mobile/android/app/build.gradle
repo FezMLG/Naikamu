@@ -126,14 +126,14 @@ android {
         staging {
             minSdkVersion rootProject.ext.minSdkVersion
             applicationId "com.tltcode.naikamu"
-            applicationIdSuffix "staging"
+            applicationIdSuffix ".staging"
             targetSdkVersion rootProject.ext.targetSdkVersion
             resValue "string", "build_config_package", "com.tltcode.naikamu"
         }
         development {
             minSdkVersion rootProject.ext.minSdkVersion
             applicationId "com.tltcode.naikamu"
-            applicationIdSuffix "development"
+            applicationIdSuffix ".development"
             targetSdkVersion rootProject.ext.targetSdkVersion
             resValue "string", "build_config_package", "com.tltcode.naikamu"
         }
@@ -145,7 +145,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 2
-        versionName getVersionFromNpm()
+        versionName getVersionNameFromNpm()
     }
 
     signingConfigs {
