@@ -63,12 +63,16 @@ export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
       onOpen={() => setOpen(true)}
       open={open}
       renderDrawerContent={() => (
-        <ScrollView>
+        <ScrollView
+          contentContainerStyle={{
+            marginLeft: 20,
+          }}>
           {_.chunk(episodes?.episodes, 20).map((item, index) => (
             <EpisodeNumber
               items={item}
               key={index}
               onPress={() => {
+                setOpen(false);
                 flatListRef.current?.scrollToIndex({
                   index: (item.at(0)?.number ?? 1) - 1,
                   animated: true,
@@ -96,7 +100,11 @@ export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
                 }}
                 variant="link">
                 <ButtonText style={[colors.accent]}>Go to episode</ButtonText>
-                <Icon name="menu" size={30} style={[colors.accent]} />
+                <Icon
+                  name="menu-open"
+                  size={24}
+                  style={[colors.accent, { transform: [{ rotate: '180deg' }] }]}
+                />
               </Button>
             ) : null}
             <FlatList

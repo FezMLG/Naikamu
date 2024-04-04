@@ -14,13 +14,14 @@ export const EpisodeNumber = ({
   onPress: () => void;
 }) => (
   <Pressable
+    android_ripple={{ color: DarkColor.C700 }}
     onPress={onPress}
     style={[
       {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        width: '100%',
+        width: '90%',
         height: 40,
         borderWidth: 1,
         borderStyle: 'solid',
@@ -28,7 +29,7 @@ export const EpisodeNumber = ({
         backgroundColor: DarkColor.C800,
         borderRadius: defaultRadius,
         paddingHorizontal: 15,
-        marginTop: 15,
+        marginVertical: 10,
       },
     ]}>
     <Text style={[fontStyles.normal, colors.textLight, { textAlign: 'left' }]}>
