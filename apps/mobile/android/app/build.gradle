@@ -8,20 +8,20 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 
 project.ext.envConfigFiles = [
-    productiondebug: ".env.production",
-    productionrelease: ".env.production",
-    production: ".env.production",
-    developmentrelease: ".env.development",
-    developmentdebug: ".env.development",
-    development: ".env.development",
-    stagingrelease: ".env.staging",
-    stagingdebug: ".env.staging",
-    staging: ".env.staging",
-    release: ".env.production",
+        productiondebug   : ".env.production",
+        productionrelease : ".env.production",
+        production        : ".env.production",
+        developmentrelease: ".env.development",
+        developmentdebug  : ".env.development",
+        development       : ".env.development",
+        stagingrelease    : ".env.staging",
+        stagingdebug      : ".env.staging",
+        staging           : ".env.staging",
+        release           : ".env.production",
 ]
 
 project.ext.vectoricons = [
-    iconFontNames: [ 'MaterialCommunityIcons.ttf' ] // Name of the font files you want to copy
+        iconFontNames: ['MaterialCommunityIcons.ttf'] // Name of the font files you want to copy
 ]
 
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
@@ -95,11 +95,17 @@ def enableProguardInReleaseBuilds = false
  */
 def jscFlavor = 'org.webkit:android-jsc:+'
 
-def getVersionFromNpm() {
+def getVersionNameFromNpm() {
     def inputFile = new File("$rootDir/../package.json")
     def packageJson = new JsonSlurper().parseText(inputFile.text)
 
-    return packageJson["version"]
+    def environment = project.env.get("ENV")
+
+    if (environment == "production") {
+        return packageJson["version"]
+    }
+
+    return packageJson["codeVersion"]
 }
 
 apply from: "../../node_modules/@sentry/react-native/sentry.gradle"
