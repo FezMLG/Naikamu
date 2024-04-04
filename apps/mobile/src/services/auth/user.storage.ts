@@ -4,15 +4,15 @@ import { storageGetData, storageStoreData } from '../../utils';
 
 const USER_KEY = 'loggedUser';
 
-const clearSavedUser = async () => {
-  await storageStoreData(USER_KEY, null);
+const clearSavedUser = () => {
+  storageStoreData(USER_KEY, null);
 };
 
-const saveUser = async (user: User | null) => {
-  await storageStoreData(USER_KEY, user);
+const saveUser = (user: User | null) => {
+  storageStoreData(USER_KEY, user);
 };
 
-const getUser = async () => storageGetData<User>(USER_KEY);
+const getUser = () => storageGetData<User>(USER_KEY);
 
 export const userStorage = {
   clearSavedUser,

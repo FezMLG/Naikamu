@@ -83,8 +83,8 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
       } else {
         layout.setInfo('useQueryApiHealth#onError');
         await initializeUserSettings();
-        await userService.readUserFromStorage();
-        await userService.setLoggedUser();
+        userService.readUserFromStorage();
+        userService.setLoggedUser();
       }
     });
   }, []);
@@ -111,7 +111,7 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
 
     if (token) {
       await fireGetNewIdToken();
-      await userService.setLoggedUser();
+      userService.setLoggedUser();
       await sendLocalProgressToCloud();
       logger('handleLoginCheck').info(user);
       if (!user?.emailVerified && user?.emailVerified !== undefined) {

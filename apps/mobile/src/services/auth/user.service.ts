@@ -20,29 +20,31 @@ const updateUserPassword = async (newPassword: string) => {
 export const useUserService = () => {
   const userActions = useUserStore(state => state.actions);
 
-  const setLoggedUser = async () => {
+  const setLoggedUser = () => {
     const user = fireGetUser();
 
     userActions.setUser(user);
-    await userStorage.saveUser(user);
+    userStorage.saveUser(user);
   };
 
   const loginUser = async (data: LoginForm) => {
     await fireLoginUser(data.email, data.password);
-    await setLoggedUser();
+    setLoggedUser();
 
     return userActions.getUser();
   };
 
   const registerUser = async (data: SignUpForm) => {
     await fireRegisterUser(data.displayName, data.email, data.password);
-    await setLoggedUser();
+    setLoggedUser();
 
     return userActions.getUser();
   };
 
   const logoutUser = async () => {
     await fireLogoutUser();
+
+    userStorage.clearSavedUser();
     userActions.setUser(null);
   };
 
@@ -60,13 +62,13 @@ export const useUserService = () => {
     userActions.setUser(null);
   };
 
-  const readUserFromStorage = async () => {
-    await userStorage.getUser().then(user => {
-      if (user) {
-        logger('readUserFromStorage').info(user);
-        userActions.setUser(user);
-      }
-    });
+  const readUserFromStorage = () => {
+    const user = userStorage.getUser();
+
+    if (user) {
+      logger('readUserFromStorage').info(user);
+      userActions.setUser(user);
+    }
   };
 
   return {
