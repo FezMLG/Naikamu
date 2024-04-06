@@ -22,18 +22,18 @@ export function AppLoadScreen() {
   const { initialize } = useAppLoadService();
 
   useEffect(() => {
-    setTimeout(() => {
-      layout.setInfo(translate('welcomeScreen.apiLoading'));
-      layout.setVisible(true);
-      setLongLoading(true);
-    }, 3000);
-    setTimeout(() => {
-      setLongLoading(false);
-      setApiError(true);
-    }, 15_000);
-
     (async () => {
       await initialize();
+
+      setTimeout(() => {
+        layout.setInfo(translate('welcomeScreen.apiLoading'));
+        layout.setVisible(true);
+        setLongLoading(true);
+      }, 3000);
+      setTimeout(() => {
+        setLongLoading(false);
+        setApiError(true);
+      }, 15_000);
     })();
   }, []);
 

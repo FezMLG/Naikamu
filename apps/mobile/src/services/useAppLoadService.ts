@@ -28,7 +28,7 @@ export const useAppLoadService = () => {
   const notifications = useNotificationService();
   const userService = useUserService();
   const { initializeUserSettings } = useUserSettingsService();
-  const user = useUserStore(state => state.user);
+  const userActions = useUserStore(state => state.actions);
   const navigation = useNavigation<any>();
   const layout = useLayout();
   const offlineService = useOfflineService();
@@ -75,6 +75,8 @@ export const useAppLoadService = () => {
       await fireGetNewIdToken();
       await sendLocalProgressToCloud();
       userService.setLoggedUser();
+      const user = userActions.getUser();
+
       logger('handleLoginCheck').info(user);
       if (user && !user.emailVerified) {
         navigation.navigate(AuthStackRoutesNames.VerifyEmail);

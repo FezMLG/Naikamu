@@ -17,7 +17,7 @@ import { AuthStackLoginScreenProps, AuthStackRoutesNames } from '../../routes';
 import { useUserService } from '../../services/auth/user.service';
 import { useUserStore } from '../../services/auth/user.store';
 import { globalStyle } from '../../styles';
-import { logger } from '../../utils/logger';
+import { logger } from '../../utils';
 
 export interface LoginForm {
   email: string;
@@ -29,7 +29,7 @@ export function LoginScreen({ navigation }: AuthStackLoginScreenProps) {
   const layout = useLayout();
   const [loading, isLoading] = useState(false);
   const { translate } = useTranslate();
-  const user = useUserStore(state => state.user);
+  const userActions = useUserStore(state => state.actions);
   const { errorResolver } = useErrorHandler();
   const {
     control,
@@ -47,6 +47,8 @@ export function LoginScreen({ navigation }: AuthStackLoginScreenProps) {
     try {
       await userService.loginUser(data);
       isLoading(false);
+      const user = userActions.getUser();
+
       if (user && !user.emailVerified) {
         try {
           navigation.navigate(AuthStackRoutesNames.VerifyEmail);
