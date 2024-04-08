@@ -82,8 +82,6 @@ export function WatchListStatusSelect({
       ) : null}
       {watchIconRender(selectedStatus)}
       <RNPickerSelect
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
         Icon={() => (
           <Icon color={colors.textLight.color} name="chevron-down" size={24} />
         )}
