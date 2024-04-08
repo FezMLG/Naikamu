@@ -21,7 +21,7 @@ import {
 import { useNotificationService } from './notifications';
 import { offlineFS, useOfflineService } from './offline';
 import { useUserSettingsService } from './settings';
-import { sendLocalProgressToCloud } from './watch-list/sendLocalProgressToCloud.ts';
+import { sendLocalProgressToCloud } from './watch-list';
 
 export const useAppLoadService = () => {
   const supportedApiVersion = packageJson.apiVersion;
