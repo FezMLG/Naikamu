@@ -21,6 +21,8 @@ import {
 
 const Stack = createNativeStackNavigator<SettingsStackParameterList>();
 
+const translateScreenNameKey = 'settings.categories.';
+
 export function SettingsStack() {
   const { translate } = useTranslate();
 
@@ -41,7 +43,9 @@ export function SettingsStack() {
         name={SettingsStackScreenNames.UserSettings}
         options={() => ({
           ...defaultSubHeaderOptions({
-            title: translate('settings.' + SettingsStackScreenNames.Settings),
+            title: translate(
+              translateScreenNameKey + SettingsStackScreenNames.UserSettings,
+            ),
           }),
           animation: 'slide_from_right',
         })}
@@ -51,7 +55,9 @@ export function SettingsStack() {
         name={SettingsStackScreenNames.AppSettings}
         options={() => ({
           ...defaultSubHeaderOptions({
-            title: translate('settings.' + SettingsStackScreenNames.Settings),
+            title: translate(
+              translateScreenNameKey + SettingsStackScreenNames.AppSettings,
+            ),
           }),
           animation: 'slide_from_right',
         })}
@@ -61,7 +67,9 @@ export function SettingsStack() {
         name={SettingsStackScreenNames.HelpSettings}
         options={() => ({
           ...defaultSubHeaderOptions({
-            title: translate('settings.' + SettingsStackScreenNames.Settings),
+            title: translate(
+              translateScreenNameKey + SettingsStackScreenNames.HelpSettings,
+            ),
           }),
           animation: 'slide_from_right',
         })}
@@ -72,7 +80,7 @@ export function SettingsStack() {
         options={{
           ...defaultSubHeaderOptions({
             title: translate(
-              'settings.categories.' +
+              translateScreenNameKey +
                 SettingsStackScreenNames.SettingsActionConfirm,
             ),
           }),
@@ -85,7 +93,7 @@ export function SettingsStack() {
         options={{
           ...defaultSubHeaderOptions({
             title: translate(
-              'settings.categories.' + SettingsStackScreenNames.SettingsAction,
+              translateScreenNameKey + SettingsStackScreenNames.SettingsAction,
             ),
           }),
           animation: 'slide_from_right',
