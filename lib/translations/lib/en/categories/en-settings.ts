@@ -6,6 +6,7 @@ export const enSettings = {
       ProvidersSettings: 'Connected providers',
       DangerSettings: 'Danger zone',
       AppSettings: 'App settings',
+      HelpSettings: 'Help',
     },
     providers: {
       connect: 'Connect',

@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useTranslate } from '../../../i18n/useTranslate';
 import {
   AppSettingsScreen,
+  HelpSettingsScreen,
   SettingsActionConfirmScreen,
   SettingsActionScreen,
   SettingsScreen,
@@ -48,6 +49,16 @@ export function SettingsStack() {
       <Stack.Screen
         component={AppSettingsScreen}
         name={SettingsStackScreenNames.AppSettings}
+        options={() => ({
+          ...defaultSubHeaderOptions({
+            title: translate('settings.' + SettingsStackScreenNames.Settings),
+          }),
+          animation: 'slide_from_right',
+        })}
+      />
+      <Stack.Screen
+        component={HelpSettingsScreen}
+        name={SettingsStackScreenNames.HelpSettings}
         options={() => ({
           ...defaultSubHeaderOptions({
             title: translate('settings.' + SettingsStackScreenNames.Settings),

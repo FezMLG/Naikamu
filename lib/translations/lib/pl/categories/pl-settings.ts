@@ -6,6 +6,7 @@ export const plSettings = {
       ProvidersSettings: 'Połączone usługi',
       DangerSettings: 'Niebezpieczna strefa',
       AppSettings: 'Ustawienia aplikacji',
+      HelpSettings: 'Pomoc',
     },
     providers: {
       connect: 'Połącz',
