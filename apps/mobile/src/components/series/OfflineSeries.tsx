@@ -75,7 +75,6 @@ export function OfflineSeries({ series }: { series: IOfflineSeries }) {
             style={{
               height: 20,
             }}>
-            {/** @ts-expect-error wrong types **/}
             <GlueIcon as={TrashIcon} style={{ color: colors.error.color }} />
           </ActionsheetIcon>
         </ActionSheetItem>

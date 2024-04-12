@@ -50,7 +50,7 @@ function Routes({ theme }: { theme: Theme }) {
       }}
       ref={navigationRef}
       theme={theme}>
-      {user && user?.emailVerified ? <RootStack /> : <AuthStack />}
+      {user && user.emailVerified ? <RootStack /> : <AuthStack />}
     </NavigationContainer>
   );
 }

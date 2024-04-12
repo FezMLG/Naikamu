@@ -1,14 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
-import analytics from '@react-native-firebase/analytics';
 import { Linking, Pressable, StyleSheet, Text, View } from 'react-native';
 import { default as Config } from 'react-native-config';
-import semver from 'semver';
 
 import Logo from '../../assets/logo_full.svg';
-import * as packageJson from '../../package.json';
-import { useQueryApiHealth } from '../api/hooks';
 import {
   ActivityIndicator,
   EnvironmentDebug,
@@ -16,45 +11,20 @@ import {
   useLayout,
 } from '../components';
 import { useTranslate } from '../i18n/useTranslate';
-import {
-  AuthStackAppLoadingScreenProps,
-  AuthStackRoutesNames,
-} from '../routes';
-import {
-  offlineFS,
-  useNotificationService,
-  useOfflineService,
-  useUserSettingsService,
-} from '../services';
-import { useUserService } from '../services/auth/user.service';
-import { useUserStore } from '../services/auth/user.store';
-import {
-  fireGetIdToken,
-  fireGetNewIdToken,
-} from '../services/firebase/fire-auth.service';
-import { sendLocalProgressToCloud } from '../services/watch-list/sendLocalProgressToCloud';
+import { useAppLoadService } from '../services';
 import { colors, fontStyles, globalStyle } from '../styles';
-import { logger } from '../utils/logger';
 
-export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
-  const supportedApiVersion = packageJson.apiVersion;
+export function AppLoadScreen() {
   const layout = useLayout();
   const { translate } = useTranslate();
   const [, setLongLoading] = useState(false);
   const [apiError, setApiError] = useState(false);
-  const { initializeUserSettings } = useUserSettingsService();
-  const userService = useUserService();
-  const user = useUserStore(state => state.user);
-  const [netInfo] = useState<NetInfoState>();
-  const notifications = useNotificationService();
-  const offlineService = useOfflineService();
+  const { initialize } = useAppLoadService();
 
   useEffect(() => {
     (async () => {
-      await checkConnection();
-      await notifications.initialize();
-      await offlineFS.checkPermissions();
-      await offlineService.getAllOfflineSeries();
+      await initialize();
+
       setTimeout(() => {
         layout.setInfo(translate('welcomeScreen.apiLoading'));
         layout.setVisible(true);
@@ -66,60 +36,6 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
       }, 15_000);
     })();
   }, []);
-
-  const checkConnection = useCallback(async () => {
-    await NetInfo.fetch().then(async state => {
-      logger('NetInfo').info('Connection type', state.type);
-      logger('NetInfo').info('Is connected?', state.isConnected);
-      await analytics().logEvent('app_open', {
-        connection: state.type,
-        isConnected: state.isConnected,
-        appVersion: packageJson.version,
-        environment: Config.ENV,
-      });
-
-      if (state.isConnected) {
-        await apiCheck.refetch();
-      } else {
-        layout.setInfo('useQueryApiHealth#onError');
-        await initializeUserSettings();
-        await userService.readUserFromStorage();
-        await userService.setLoggedUser();
-      }
-    });
-  }, []);
-
-  const apiCheck = useQueryApiHealth(async data => {
-    logger('useQueryApiHealth').info(data);
-    if (semver.satisfies(data.version, supportedApiVersion)) {
-      await handleLoginCheck();
-    } else {
-      logger('API Version Check').warn(
-        'Wrong version',
-        'API',
-        data.version,
-        'Supported',
-        supportedApiVersion,
-      );
-      navigation.navigate(AuthStackRoutesNames.ActionRequired);
-    }
-  });
-
-  const handleLoginCheck = useCallback(async () => {
-    await initializeUserSettings();
-    const token = await fireGetIdToken();
-
-    if (token) {
-      await fireGetNewIdToken();
-      await userService.setLoggedUser();
-      await sendLocalProgressToCloud();
-      logger('handleLoginCheck').info(user);
-      if (!user?.emailVerified && user?.emailVerified !== undefined) {
-        navigation.navigate(AuthStackRoutesNames.VerifyEmail);
-      }
-    }
-    navigation.navigate(AuthStackRoutesNames.Hello);
-  }, [initializeUserSettings, navigation]);
 
   return (
     <PageLayout.Default style={[styles.container]} {...layout}>
@@ -158,16 +74,9 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
           </Text>
         </Pressable>
       )}
-      {apiCheck.isError ? (
-        <Text style={[fontStyles.paragraph, colors.textLight]}>
-          There was an error
-          {JSON.stringify(apiCheck.error)}
-        </Text>
-      ) : null}
       {Config.ENV !== 'production' && (
         <Text style={[fontStyles.paragraph, colors.textLight]}>
           api_url: {Config.API_URL}
-          {JSON.stringify(netInfo)}
         </Text>
       )}
     </PageLayout.Default>

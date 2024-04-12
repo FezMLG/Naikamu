@@ -164,7 +164,7 @@ export function AppSettingsScreen({}: SettingsStackPlaybackSettingsScreenProps) 
           APP Version
         </Text>
         <Text style={[fontStyles.paragraph, colors.textLighter]}>
-          {packageJson.version}
+          {packageJson.version} ({packageJson.codeVersion})
         </Text>
         {Config.ENV === 'development' && (
           <>

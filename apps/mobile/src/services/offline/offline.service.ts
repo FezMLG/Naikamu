@@ -1,7 +1,7 @@
 import { Platform } from 'react-native';
 import RNFS from 'react-native-fs';
 
-import { logger } from '../../utils/logger';
+import { logger } from '../../utils';
 import { useActiveSeriesStore } from '../active-series';
 import { event } from '../events';
 import {
@@ -46,17 +46,17 @@ export const useOfflineService = () => {
     return result;
   };
 
-  const getOrCreateOfflineSeries = async (seriesId: string) => {
+  const getOrCreateOfflineSeries = (seriesId: string) => {
     let series = offlineActions.getOfflineSeries(seriesId);
 
     if (!series) {
-      series = await addOfflineSeries();
+      series = addOfflineSeries();
     }
 
     return series;
   };
 
-  const addOfflineSeries = async (): Promise<IOfflineSeries> => {
+  const addOfflineSeries = (): IOfflineSeries => {
     const exist = offlineActions.getOfflineSeries(activeSeries.id);
 
     if (!exist) {
@@ -67,7 +67,7 @@ export const useOfflineService = () => {
         episodes: [],
       });
 
-      await offlineStorage.saveOfflineSeries(saved);
+      offlineStorage.saveOfflineSeries(saved);
 
       const seriesSaved = offlineActions.getOfflineSeries(activeSeries.id);
 
@@ -148,7 +148,7 @@ export const useOfflineService = () => {
 
       const saved = offlineActions.saveOrReplaceOfflineSeries(series);
 
-      await offlineStorage.saveOfflineSeries(saved);
+      offlineStorage.saveOfflineSeries(saved);
 
       if (Platform.OS === 'ios') {
         await notificationService.displayNotification('download', {
@@ -193,7 +193,7 @@ export const useOfflineService = () => {
     episode: IOfflineSeriesEpisodes;
     fileUrl: string;
   }) => {
-    const series = await getOrCreateOfflineSeries(activeSeries.id);
+    const series = getOrCreateOfflineSeries(activeSeries.id);
 
     const isQueueEmpty = queueActions.isQueueEmpty();
     const downloadsActive = downloadsActions.getActiveDownloads();
@@ -244,7 +244,7 @@ export const useOfflineService = () => {
     );
     const saved = offlineActions.deleteOfflineSeries(seriesId);
 
-    await offlineStorage.saveOfflineSeries(saved);
+    offlineStorage.saveOfflineSeries(saved);
   };
 
   return {
@@ -252,11 +252,11 @@ export const useOfflineService = () => {
     queueDownloads: useDownloadsQueueStore().queue,
     offlineSeries: offlineState,
     offlineStore: offlineActions,
-    getAllOfflineSeries: async (): Promise<IOfflineSeries[]> => {
+    getAllOfflineSeries: (): IOfflineSeries[] => {
       const state = offlineActions.getOfflineSeriesList();
 
       if (state.length === 0) {
-        const local = await offlineStorage.getOfflineSeriesList();
+        const local = offlineStorage.getOfflineSeriesList();
 
         if (Array.isArray(local)) {
           offlineActions.setSeriesList(local);
@@ -304,7 +304,7 @@ export const useOfflineService = () => {
         episodeNumber,
       );
 
-      await offlineStorage.saveOfflineSeries(saved);
+      offlineStorage.saveOfflineSeries(saved);
     },
     stopDownload: async (download: IEpisodeDownloadJob) => {
       const { jobId, series, episode } = download;
@@ -319,8 +319,6 @@ export const useOfflineService = () => {
         await saveEpisodeOffline();
       }
     },
-    clearOffline: async () => {
-      await offlineStorage.clearOffline();
-    },
+    clearOffline: () => offlineStorage.clearOffline(),
   };
 };
