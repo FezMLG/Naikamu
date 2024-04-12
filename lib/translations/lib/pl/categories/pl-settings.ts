@@ -34,5 +34,8 @@ export const plSettings = {
       update: 'Aktualizuj',
       later: 'Później',
     },
+    helpCenter: 'Centrum pomocy',
+    donation: 'Wesprzyj nas',
+    beta: 'Dołącz do Naikamu Beta',
   },
 };

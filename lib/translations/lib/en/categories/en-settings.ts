@@ -34,5 +34,8 @@ export const enSettings = {
       update: 'Update',
       later: 'Later',
     },
+    helpCenter: 'Help center',
+    donation: 'Support us',
+    beta: 'Join Naikamu Beta',
   },
 };

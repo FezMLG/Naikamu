@@ -20,7 +20,7 @@ export function HelpSettingsScreen({}: SettingsStackHelpSettingsScreenProps) {
       <View style={globalStyle.marginTop}>
         <SectionButton
           external
-          icon="help"
+          icon="help-circle-outline"
           onPress={async () => {
             await analytics().logEvent('help_center', {
               user: user?.uid,
@@ -30,7 +30,7 @@ export function HelpSettingsScreen({}: SettingsStackHelpSettingsScreenProps) {
             });
             await Linking.openURL(externalLinks.guides);
           }}
-          title={translate('centrum pomocy')}
+          title={translate('settings.helpCenter')}
         />
         <SectionButton
           external
@@ -44,7 +44,7 @@ export function HelpSettingsScreen({}: SettingsStackHelpSettingsScreenProps) {
             });
             await Linking.openURL(externalLinks.beta);
           }}
-          title={translate('dołącz do beta testów')}
+          title={translate('settings.beta')}
         />
         <SectionButton
           external
@@ -58,7 +58,7 @@ export function HelpSettingsScreen({}: SettingsStackHelpSettingsScreenProps) {
             });
             await Linking.openURL(externalLinks.koFi);
           }}
-          title={translate('wesprzyj nas')}
+          title={translate('settings.donation')}
         />
       </View>
     </PageLayout.Default>
