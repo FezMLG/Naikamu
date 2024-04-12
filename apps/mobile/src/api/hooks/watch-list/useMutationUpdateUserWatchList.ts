@@ -12,10 +12,15 @@ export const useMutationUpdateUserWatchList = (
   const apiClient = new APIClient();
   const [watching, setWatching] = useState<WatchStatus>(watchStatus);
   const mutation = useMutation({
-    mutationFn: () =>
-      apiClient.updateUserSeriesWatchList(seriesId, watchStatus),
-    onSuccess: data => {
-      setWatching(data.status);
+    mutationFn: async () => {
+      const response = await apiClient.updateUserSeriesWatchList(
+        seriesId,
+        watchStatus,
+      );
+
+      setWatching(response.status);
+
+      return response;
     },
   });
 
