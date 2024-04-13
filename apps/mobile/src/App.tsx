@@ -17,7 +17,7 @@ import {
 } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import QueryClientWrap from './api/QueryClientWrap';
+import { QueryClientWrap } from './api/QueryClientWrap';
 import LanguagesProvider from './i18n/LanguagesProvider';
 import Routes from './routes/Routes';
 import EventProvider from './services/events/EventProvider';
