@@ -60,6 +60,20 @@ export function HelpSettingsScreen({}: SettingsStackHelpSettingsScreenProps) {
           }}
           title={translate('settings.donation')}
         />
+        <SectionButton
+          external
+          icon="email-fast-outline"
+          onPress={async () => {
+            await analytics().logEvent('email_contact', {
+              user: user?.uid,
+              source: 'app-settings',
+              device: 'mobile',
+              os: Platform.OS,
+            });
+            await Linking.openURL(externalLinks.email);
+          }}
+          title={translate('settings.contact')}
+        />
       </View>
     </PageLayout.Default>
   );

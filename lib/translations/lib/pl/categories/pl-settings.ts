@@ -37,5 +37,6 @@ export const plSettings = {
     helpCenter: 'Centrum pomocy',
     donation: 'Wesprzyj nas',
     beta: 'Dołącz do Naikamu Beta',
+    contact: 'Zgłoś problem lub sugestię',
   },
 };
