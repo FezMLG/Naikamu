@@ -13,6 +13,7 @@ import { logger } from '../../utils/logger';
 import { event } from '../events';
 import { useDownloadsStore } from '../offline/downloads.store';
 import { useDownloadsQueueStore } from '../offline/queue.store';
+import { Platform } from 'react-native';
 
 export type NotificationChannels = 'download' | 'general';
 
@@ -35,28 +36,30 @@ export function useNotificationService() {
     });
   };
 
+  const onMessageReceived = async (
+    message: FirebaseMessagingTypes.RemoteMessage,
+  ) => {
+    await displayRemoteNotification('general', message);
+    logger('NOTIFICATION RECEIVED').info(message);
+  };
+
   const initialize = async () => {
     await notifee.requestPermission();
 
     await createChannel('download');
     await createChannel('general');
 
-    async function onMessageReceived(
-      message: FirebaseMessagingTypes.RemoteMessage,
-    ) {
-      await displayRemoteNotification('general', message);
-      logger('NOTIFICATION RECEIVED').info(message);
-    }
-
     messaging().onMessage(onMessageReceived);
     messaging().setBackgroundMessageHandler(onMessageReceived);
 
-    await messaging().registerDeviceForRemoteMessages();
+    if (Platform.OS === 'android') {
+      await messaging().registerDeviceForRemoteMessages();
 
-    const token = await messaging().getToken();
+      const token = await messaging().getToken();
 
-    logger('NOTIFICATION TOKEN').info(token);
-    mutation.mutate(token);
+      logger('NOTIFICATION TOKEN').info(token);
+      mutation.mutate(token);
+    }
   };
 
   const displayNotification = async (
