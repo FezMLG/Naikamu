@@ -6,6 +6,7 @@ export const plSettings = {
       ProvidersSettings: 'Połączone usługi',
       DangerSettings: 'Niebezpieczna strefa',
       AppSettings: 'Ustawienia aplikacji',
+      HelpSettings: 'Pomoc',
     },
     providers: {
       connect: 'Połącz',
@@ -33,5 +34,9 @@ export const plSettings = {
       update: 'Aktualizuj',
       later: 'Później',
     },
+    helpCenter: 'Centrum pomocy',
+    donation: 'Wesprzyj nas',
+    beta: 'Dołącz do Naikamu Beta',
+    contact: 'Zgłoś problem lub sugestię',
   },
 };

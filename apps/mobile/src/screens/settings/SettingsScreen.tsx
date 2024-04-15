@@ -61,6 +61,13 @@ export function SettingsScreen({
           }
           title={translate('settings.categories.AppSettings')}
         />
+        <SectionButton
+          icon="help-circle-outline"
+          onPress={() =>
+            navigation.navigate(SettingsStackScreenNames.HelpSettings)
+          }
+          title={translate('settings.categories.HelpSettings')}
+        />
       </View>
       <View style={globalStyle.marginTopBig}>
         <CheckForUpdates />

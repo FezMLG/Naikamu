@@ -6,6 +6,7 @@ export const enSettings = {
       ProvidersSettings: 'Connected providers',
       DangerSettings: 'Danger zone',
       AppSettings: 'App settings',
+      HelpSettings: 'Help',
     },
     providers: {
       connect: 'Connect',
@@ -33,5 +34,9 @@ export const enSettings = {
       update: 'Update',
       later: 'Later',
     },
+    helpCenter: 'Help center',
+    donation: 'Support us',
+    beta: 'Join Naikamu Beta',
+    contact: 'Report a problem or suggestion',
   },
 };

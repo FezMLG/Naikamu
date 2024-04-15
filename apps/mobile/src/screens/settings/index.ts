@@ -3,3 +3,4 @@ export * from './ActionScreen';
 export * from './AppSettings';
 export * from './SettingsScreen';
 export * from './UserSettingsScreen';
+export * from './HelpSettingsScreen';
