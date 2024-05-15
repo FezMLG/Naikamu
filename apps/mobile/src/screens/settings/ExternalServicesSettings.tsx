@@ -61,11 +61,12 @@ export function ExternalServicesSettings({
 
   return (
     <PageLayout.Default {...layout}>
-      <SettingsGroup title={translate('settings.groups.accountDetails')}>
+      <SettingsGroup title={translate('settings.groups.shindenAccount')}>
         {user ? (
           <>
             <SettingInputs.Edit
-              isLast={true}
+              isFirst
+              isLast
               label={translate('forms.labels.' + ActionType.ShindenIdChange)}
               onPress={() =>
                 navigation.navigate(SettingsStackScreenNames.SettingsAction, {
@@ -80,7 +81,7 @@ export function ExternalServicesSettings({
             />
             <Link
               URL="#"
-              label="How to find my Shiden User ID?"
+              label={translate('settings.externalServices.howToFindShindenId')}
               style={globalStyle.marginTopSmall}
             />
           </>
@@ -98,19 +99,19 @@ export function ExternalServicesSettings({
           disabled={
             user && (user.shindenUserId === null || user.shindenUserId === '')
           }
-          label="Import from shinden"
+          label={translate('settings.externalServices.importFromShinden')}
           onPress={() => refetch()}
           type="secondary"
         />
         <Link
           URL="#"
-          label="You can only import once a day"
+          label={translate('settings.externalServices.importLimit')}
           style={globalStyle.marginTopSmall}
         />
       </View>
       <View style={[globalStyle.marginTop]}>
         <Text style={[[colors.textLight, fontStyles.headerSmall]]}>
-          Your last imports
+          {translate('settings.externalServices.lastImports')}
         </Text>
         <ScrollView>
           {user && user.shindenUserId && watchListImportHistory ? (
@@ -151,7 +152,7 @@ export function ExternalServicesSettings({
                     {formatDistanceToNow(importHistory.createdAt, {
                       locale: pl,
                     })}{' '}
-                    temu
+                    {translate('ago')}
                   </Text>
                 </Row>
               </Card>
@@ -162,7 +163,7 @@ export function ExternalServicesSettings({
                 backgroundColor: DarkColor.C900,
               }}>
               <Text style={[colors.textLight, fontStyles.normal]}>
-                No Last Imports
+                {translate('settings.externalServices.noLastImports')}
               </Text>
             </Card>
           )}

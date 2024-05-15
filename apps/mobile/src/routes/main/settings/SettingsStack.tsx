@@ -11,6 +11,7 @@ import {
   SettingsScreen,
   UserSettingsScreen,
 } from '../../../screens';
+import { ExternalServicesSettings } from '../../../screens/settings/ExternalServicesSettings.tsx';
 import { defaultHeaderOptions } from '../defaultHeaderOptions';
 import { defaultSubHeaderOptions } from '../defaultSubHeaderOptions';
 
@@ -18,7 +19,6 @@ import {
   SettingsStackScreenNames,
   SettingsStackParameterList as SettingsStackParameterList,
 } from './settings.interfaces';
-import { ExternalServicesSettings } from '../../../screens/settings/ExternalServicesSettings.tsx';
 
 const Stack = createNativeStackNavigator<SettingsStackParameterList>();
 
@@ -94,8 +94,7 @@ export function SettingsStack() {
         options={{
           ...defaultSubHeaderOptions({
             title: translate(
-              translateScreenNameKey +
-                SettingsStackScreenNames.SettingsActionConfirm,
+              'routes.' + SettingsStackScreenNames.SettingsActionConfirm,
             ),
           }),
           animation: 'slide_from_right',
@@ -107,7 +106,7 @@ export function SettingsStack() {
         options={{
           ...defaultSubHeaderOptions({
             title: translate(
-              translateScreenNameKey + SettingsStackScreenNames.SettingsAction,
+              'routes.' + SettingsStackScreenNames.SettingsAction,
             ),
           }),
           animation: 'slide_from_right',

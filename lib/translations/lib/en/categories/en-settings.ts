@@ -7,6 +7,7 @@ export const enSettings = {
       DangerSettings: 'Danger zone',
       AppSettings: 'App settings',
       HelpSettings: 'Help',
+      ExternalServicesSettings: 'Watch List Connections',
     },
     providers: {
       connect: 'Connect',
@@ -18,6 +19,7 @@ export const enSettings = {
       dangerZone: 'Danger zone',
       videoDownload: 'Video download',
       videoPlaybackDownload: 'Video playback & download',
+      shindenAccount: 'Shinden account',
     },
     titles: {
       videoQuality: 'Video quality',
@@ -38,5 +40,12 @@ export const enSettings = {
     donation: 'Support us',
     beta: 'Join Naikamu Beta',
     contact: 'Report a problem or suggestion',
+    externalServices: {
+      howToFindShindenId: 'How to find my Shinden ID?',
+      importFromShinden: 'Import from Shinden',
+      importLimit: 'You can import once a day',
+      lastImports: 'Your Last Imports',
+      noLastImports: 'No last imports',
+    },
   },
 };

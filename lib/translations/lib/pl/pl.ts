@@ -15,6 +15,7 @@ export const pl = {
     SearchStack: 'Wyszukaj',
     Settings: 'Ustawienia',
     SettingsStack: 'Ustawienia',
+    SettingsAction: 'Edycja ustawienia',
     ActionConfirm: 'Potwierdź Akcję',
     SearchResults: 'Wyniki wyszukiwania',
     MyListStack: 'Moja lista',
@@ -30,16 +31,19 @@ export const pl = {
       NickChange: 'Nazwa użytkownika',
       EmailChange: 'example@example.com',
       PasswordChange: '*************',
+      ShindenIdChange: 'Shinden ID',
     },
     labels: {
       password: 'Hasło',
       NickChange: 'Nazwa użytkownika',
       EmailChange: 'Email',
       PasswordChange: 'Hasło',
+      ShindenIdChange: 'Shinden ID',
       new: {
         NickChange: 'Nowa nazwa użytkownika',
         EmailChange: 'Nowy email',
         PasswordChange: 'Nowe hasło',
+        ShindenIdChange: 'Nowe Shinden ID',
       },
     },
   },
@@ -192,4 +196,5 @@ export const pl = {
     error_occurred:
       'Wystąpił błąd.\n Spróbuj ponownie później lub skontaktuj się z pomocą techniczną.',
   },
+  ago: 'temu',
 };

@@ -7,6 +7,7 @@ export const plSettings = {
       DangerSettings: 'Niebezpieczna strefa',
       AppSettings: 'Ustawienia aplikacji',
       HelpSettings: 'Pomoc',
+      ExternalServicesSettings: 'Połączenia List Oglądania',
     },
     providers: {
       connect: 'Połącz',
@@ -18,6 +19,7 @@ export const plSettings = {
       dangerZone: 'Niebezpieczna strefa',
       videoDownload: 'Pobieranie wideo',
       videoPlaybackDownload: 'Odtwarzanie & pobieranie wideo',
+      shindenAccount: 'Konto Shinden',
     },
     titles: {
       videoQuality: 'Jakość wideo',
@@ -38,5 +40,12 @@ export const plSettings = {
     donation: 'Wesprzyj nas',
     beta: 'Dołącz do Naikamu Beta',
     contact: 'Zgłoś problem lub sugestię',
+    externalServices: {
+      howToFindShindenId: 'Jak znaleźć moje Shinden ID?',
+      importFromShinden: "Importuj z Shinden'a",
+      importLimit: 'Możesz importować raz dziennie',
+      lastImports: 'Twoje Ostatnie Importy',
+      noLastImports: 'Brak ostatnioch importów',
+    },
   },
 };
