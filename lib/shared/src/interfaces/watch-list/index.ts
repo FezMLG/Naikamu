@@ -24,6 +24,7 @@ export interface IWatchListImport {
   id: string;
   platform: string;
   status: string;
-  startedAt: Date;
-  finishedAt: Date;
+  startedAt: string;
+  finishedAt: string;
+  createdAt: string;
 }

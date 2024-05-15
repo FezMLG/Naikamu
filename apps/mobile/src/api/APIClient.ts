@@ -81,6 +81,21 @@ export class APIClient {
     return data;
   }
 
+  private async put<T>(
+    url: string,
+    headers?: RawAxiosRequestHeaders | AxiosHeaders,
+  ): Promise<T> {
+    const { data } = await this.instance.put<T>(
+      url,
+      {},
+      {
+        headers: headers,
+      },
+    );
+
+    return data;
+  }
+
   private async patch<T>(
     url: string,
     dataToSend: unknown,
@@ -283,6 +298,12 @@ export class APIClient {
 
   async getUserWatchListImportHistory() {
     return this.get<IWatchListImport[]>('user/watch-list/imports', {
+      ...(await this.withToken()),
+    });
+  }
+
+  async watchListImport() {
+    return this.put<IWatchListImport>('user/watch-list/imports/shinden', {
       ...(await this.withToken()),
     });
   }

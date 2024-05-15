@@ -1,10 +1,15 @@
 import React from 'react';
 
 import { ActionType } from '@naikamu/shared';
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { useMutationSaveShindenUserId, useQueryUser } from '../../api/hooks';
+import {
+  useMutationSaveShindenUserId,
+  useQueryUser,
+  useQueryWatchListImport,
+  useQueryWatchListImportHistory,
+} from '../../api/hooks';
 import {
   Button,
   Link,
@@ -25,6 +30,8 @@ export function ExternalServicesSettings({
   // const user = useUserStore(state => state.user);
   const { data: user } = useQueryUser();
   const { mutation } = useMutationSaveShindenUserId();
+  const { data: watchListImportHistory } = useQueryWatchListImportHistory();
+  const { refetch } = useQueryWatchListImport();
 
   const { translate } = useTranslate();
 
@@ -53,19 +60,29 @@ export function ExternalServicesSettings({
           </>
         ) : null}
       </SettingsGroup>
-      <Button label="Import from shinden" type="secondary" />
+      <Button
+        label="Import from shinden"
+        onPress={() => refetch()}
+        type="secondary"
+      />
       <Link URL="#" label="You can only import once a day" />
       <View>
         <Text>Your last imports</Text>
-        <View>
-          <View>
-            <Icon name="star" size={30} />
-            <Text>Success</Text>
-          </View>
-          <View>
-            <Text>1 hour ago</Text>
-          </View>
-        </View>
+        <ScrollView>
+          {watchListImportHistory
+            ? watchListImportHistory.map(importHistory => (
+                <View key={importHistory.id}>
+                  <View>
+                    <Icon name="star" size={30} />
+                    <Text>{importHistory.status}</Text>
+                  </View>
+                  <View>
+                    <Text>{importHistory.createdAt}</Text>
+                  </View>
+                </View>
+              ))
+            : null}
+        </ScrollView>
       </View>
     </PageLayout.Default>
   );
