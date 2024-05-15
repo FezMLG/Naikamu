@@ -1,8 +1,11 @@
 import React from 'react';
 
-import { ActionType } from '@naikamu/shared';
+import { ActionType, WatchListImportStatus } from '@naikamu/shared';
+import { formatDistanceToNow } from 'date-fns';
+import { pl } from 'date-fns/locale';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import styled from 'styled-components/native';
 
 import {
   useMutationSaveShindenUserId,
@@ -11,6 +14,7 @@ import {
   useQueryWatchListImportHistory,
 } from '../../api/hooks';
 import {
+  ActivityIndicator,
   Button,
   Link,
   PageLayout,
@@ -23,6 +27,24 @@ import {
   SettingsStackExternalServicesSettingsScreenProps,
   SettingsStackScreenNames,
 } from '../../routes';
+import { colors, DarkColor, fontStyles, globalStyle } from '../../styles';
+
+const getIconForStatus = (status: WatchListImportStatus) => {
+  switch (status) {
+    case 'AlreadyImported': {
+      return 'clock-outline';
+    }
+    case 'Completed': {
+      return 'check';
+    }
+    case 'Pending': {
+      return 'timer-sand';
+    }
+    default: {
+      return 'alert-circle-outline';
+    }
+  }
+};
 
 export function ExternalServicesSettings({
   navigation,
@@ -56,37 +78,113 @@ export function ExternalServicesSettings({
               }
               text={user.shindenUserId ?? ''}
             />
-            <Link URL="#" label="How to find my Shiden User ID?" />
+            <Link
+              URL="#"
+              label="How to find my Shiden User ID?"
+              style={globalStyle.marginTopSmall}
+            />
           </>
         ) : null}
       </SettingsGroup>
-      <Button
-        label="Import from shinden"
-        onPress={() => refetch()}
-        type="secondary"
-      />
-      <Link URL="#" label="You can only import once a day" />
-      <View>
-        <Text>Your last imports</Text>
+      <View
+        style={[
+          {
+            flexDirection: 'column',
+            alignItems: 'center',
+          },
+          globalStyle.marginTop,
+        ]}>
+        <Button
+          disabled={
+            user && (user.shindenUserId === null || user.shindenUserId === '')
+          }
+          label="Import from shinden"
+          onPress={() => refetch()}
+          type="secondary"
+        />
+        <Link
+          URL="#"
+          label="You can only import once a day"
+          style={globalStyle.marginTopSmall}
+        />
+      </View>
+      <View style={[globalStyle.marginTop]}>
+        <Text style={[[colors.textLight, fontStyles.headerSmall]]}>
+          Your last imports
+        </Text>
         <ScrollView>
-          {watchListImportHistory
-            ? watchListImportHistory.map(importHistory => (
-                <View key={importHistory.id}>
-                  <View>
-                    <Icon name="star" size={30} />
-                    <Text>{importHistory.status}</Text>
-                  </View>
-                  <View>
-                    <Text>{importHistory.createdAt}</Text>
-                  </View>
-                </View>
-              ))
-            : null}
+          {user && user.shindenUserId && watchListImportHistory ? (
+            watchListImportHistory.map(importHistory => (
+              <Card
+                key={importHistory.id}
+                style={{
+                  backgroundColor: DarkColor.C900,
+                }}>
+                <Row
+                  style={{
+                    alignItems: 'center',
+                  }}>
+                  {importHistory.status === 'InProgress' ? (
+                    <ActivityIndicator
+                      size="small"
+                      style={{ marginLeft: 5 }}
+                      visible
+                    />
+                  ) : (
+                    <Icon
+                      color={colors.textLight.color}
+                      name={getIconForStatus(importHistory.status)}
+                      size={30}
+                    />
+                  )}
+                  <Text
+                    style={[
+                      colors.textLight,
+                      fontStyles.normal,
+                      { marginLeft: 5 },
+                    ]}>
+                    {importHistory.status}
+                  </Text>
+                </Row>
+                <Row>
+                  <Text style={[colors.textLight, fontStyles.normal]}>
+                    {formatDistanceToNow(importHistory.createdAt, {
+                      locale: pl,
+                    })}{' '}
+                    temu
+                  </Text>
+                </Row>
+              </Card>
+            ))
+          ) : (
+            <Card
+              style={{
+                backgroundColor: DarkColor.C900,
+              }}>
+              <Text style={[colors.textLight, fontStyles.normal]}>
+                No Last Imports
+              </Text>
+            </Card>
+          )}
         </ScrollView>
       </View>
     </PageLayout.Default>
   );
 }
+
+const Card = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 70px;
+  padding: 0 15px;
+  margin: 5px 0;
+  border-radius: 8px;
+`;
+
+const Row = styled.View`
+  flex-direction: row;
+`;
 
 const styles = StyleSheet.create({
   inline: {

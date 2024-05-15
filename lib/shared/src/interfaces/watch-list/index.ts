@@ -1,4 +1,4 @@
-import { WatchStatus } from '../../enums';
+import { WatchListImportStatus, WatchStatus } from '../../enums';
 
 export interface IWatchListSeries {
   id: string;
@@ -23,7 +23,7 @@ export interface IUpdateWatchListEpisode {
 export interface IWatchListImport {
   id: string;
   platform: string;
-  status: string;
+  status: WatchListImportStatus;
   startedAt: string;
   finishedAt: string;
   createdAt: string;

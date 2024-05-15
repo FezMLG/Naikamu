@@ -4,19 +4,29 @@ import { Linking, Pressable, Text } from 'react-native';
 
 import { colors } from '../../../styles';
 
-export const Link = ({ URL, label }: { URL: string; label: string }) => (
-  <Pressable
-    onPress={async () => {
-      await Linking.openURL(URL);
-    }}>
-    <Text
-      style={[
-        {
-          textDecorationLine: 'underline',
-        },
-        colors.accent,
-      ]}>
-      {label}
-    </Text>
-  </Pressable>
-);
+interface LinkProps extends React.ComponentProps<typeof Pressable> {
+  URL: string;
+  label: string;
+}
+
+export const Link = (props: LinkProps) => {
+  const { URL, label, ...rest } = props;
+
+  return (
+    <Pressable
+      onPress={async () => {
+        await Linking.openURL(URL);
+      }}
+      {...rest}>
+      <Text
+        style={[
+          {
+            textDecorationLine: 'underline',
+          },
+          colors.accent,
+        ]}>
+        {label}
+      </Text>
+    </Pressable>
+  );
+};
