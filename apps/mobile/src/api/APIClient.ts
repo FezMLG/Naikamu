@@ -18,10 +18,10 @@ import axios, {
   AxiosInstance,
   RawAxiosRequestHeaders,
 } from 'axios';
+import { Platform } from 'react-native';
 import { default as Config } from 'react-native-config';
 
 import { fireGetIdToken } from '../services/firebase/fire-auth.service';
-import { Platform } from 'react-native';
 
 interface GetAnimeListDTO {
   page?: number;
