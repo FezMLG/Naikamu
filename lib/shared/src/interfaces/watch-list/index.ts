@@ -19,3 +19,11 @@ export interface IUpdateWatchListEpisode {
   isWatched?: boolean;
   progress?: number;
 }
+
+export interface IWatchListImport {
+  id: string;
+  platform: string;
+  status: string;
+  startedAt: Date;
+  finishedAt: Date;
+}

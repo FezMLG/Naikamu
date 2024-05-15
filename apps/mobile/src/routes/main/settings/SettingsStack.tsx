@@ -18,6 +18,7 @@ import {
   SettingsStackScreenNames,
   SettingsStackParameterList as SettingsStackParameterList,
 } from './settings.interfaces';
+import { ExternalServicesSettings } from '../../../screens/settings/ExternalServicesSettings.tsx';
 
 const Stack = createNativeStackNavigator<SettingsStackParameterList>();
 
@@ -57,6 +58,19 @@ export function SettingsStack() {
           ...defaultSubHeaderOptions({
             title: translate(
               translateScreenNameKey + SettingsStackScreenNames.AppSettings,
+            ),
+          }),
+          animation: 'slide_from_right',
+        })}
+      />
+      <Stack.Screen
+        component={ExternalServicesSettings}
+        name={SettingsStackScreenNames.ExternalServicesSettings}
+        options={() => ({
+          ...defaultSubHeaderOptions({
+            title: translate(
+              translateScreenNameKey +
+                SettingsStackScreenNames.ExternalServicesSettings,
             ),
           }),
           animation: 'slide_from_right',

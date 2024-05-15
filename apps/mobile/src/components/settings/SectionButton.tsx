@@ -51,7 +51,7 @@ export function SectionButton({
 
 const styles = StyleSheet.create({
   container: {
-    height: 70,
+    height: 60,
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: 10,

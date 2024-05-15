@@ -8,8 +8,10 @@ import {
   IPlayerResponse,
   IResolvePlayerDto,
   IUpdateWatchListEpisode,
+  IWatchListImport,
   IWatchListSeries,
   Paginate,
+  User,
   WatchListSeriesEpisode,
   WatchStatus,
 } from '@naikamu/shared';
@@ -109,6 +111,12 @@ export class APIClient {
     return this.get<{
       version: string;
     }>('/version');
+  }
+
+  async getUser() {
+    return this.get<User>('/user', {
+      ...(await this.withToken()),
+    });
   }
 
   async getAnimeList({
@@ -247,6 +255,12 @@ export class APIClient {
     return this.patch('user', { notificationToken: token }, apiToken);
   }
 
+  async saveShindenUserId(shindenUserId: string) {
+    const apiToken = await this.withToken();
+
+    return this.patch('user', { shindenUserId }, apiToken);
+  }
+
   async checkForUpdates() {
     const response = await axios.get<{
       tag_name: string;
@@ -265,6 +279,12 @@ export class APIClient {
     return {
       Authorization: 'Bearer ' + token,
     };
+  }
+
+  async getUserWatchListImportHistory() {
+    return this.get<IWatchListImport[]>('user/watch-list/imports', {
+      ...(await this.withToken()),
+    });
   }
 }
 
