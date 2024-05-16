@@ -77,7 +77,7 @@ export function ExternalServicesSettings({
                   payload: user.shindenUserId ?? '',
                 })
               }
-              text={user.shindenUserId ?? ''}
+              text={user.shindenUserId}
             />
             <Link
               URL="#"

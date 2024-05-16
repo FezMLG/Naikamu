@@ -98,12 +98,14 @@ function Switch({
 function Edit({
   label,
   text,
+  placeholder,
   onPress,
   isFirst = false,
   isLast = false,
 }: {
   label: string;
-  text: string;
+  text?: string | null;
+  placeholder?: string;
   onPress: () => void;
   isFirst?: boolean;
   isLast?: boolean;
@@ -113,17 +115,31 @@ function Edit({
       onPress={onPress}
       style={[groupStyles.setting, isFirstOrLast(isFirst, isLast)]}>
       <View>
-        <Text
-          style={[
-            colors.textLight,
-            fontStyles.label,
-            globalStyle.marginBottomSmall,
-          ]}>
-          {label}
-        </Text>
-        <Text style={[colors.textLight, fontStyles.headerSmall]}>{text}</Text>
+        {text ? (
+          <>
+            <Text
+              style={[
+                colors.textLight,
+                fontStyles.label,
+                globalStyle.marginBottomSmall,
+              ]}>
+              {label}
+            </Text>
+            <Text style={[colors.textLight, fontStyles.headerSmall]}>
+              {text}
+            </Text>
+          </>
+        ) : (
+          <Text style={[colors.textLighter, fontStyles.headerSmall]}>
+            {placeholder ?? label}
+          </Text>
+        )}
       </View>
-      <Icon color={colors.textLighter.color} name="pencil" size={28} />
+      <Icon
+        color={colors.textLighter.color}
+        name={text ? 'pencil' : 'plus'}
+        size={28}
+      />
     </Pressable>
   );
 }
