@@ -103,11 +103,12 @@ export function ExternalServicesSettings({
           onPress={() => refetch()}
           type="secondary"
         />
-        <Link
-          URL="#"
-          label={translate('settings.externalServices.importLimit')}
-          style={globalStyle.marginTopSmall}
-        />
+        <Text
+          style={[
+            [colors.textLighter, fontStyles.normal, globalStyle.marginTopSmall],
+          ]}>
+          {translate('settings.externalServices.importLimit')}
+        </Text>
       </View>
       <View style={[globalStyle.marginTop]}>
         <Text style={[[colors.textLight, fontStyles.headerSmall]]}>
