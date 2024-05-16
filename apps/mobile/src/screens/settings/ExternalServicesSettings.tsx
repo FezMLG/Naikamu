@@ -3,7 +3,13 @@ import React from 'react';
 import { ActionType, WatchListImportStatus } from '@naikamu/shared';
 import { formatDistanceToNow } from 'date-fns';
 import { pl } from 'date-fns/locale';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import Animated, {
+  Easing,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import styled from 'styled-components/native';
 
@@ -46,18 +52,28 @@ const getIconForStatus = (status: WatchListImportStatus) => {
   }
 };
 
+const duration = 1000;
+const easing = Easing.bezier(0.25, -0.5, 0.25, 1);
+
 export function ExternalServicesSettings({
   navigation,
 }: SettingsStackExternalServicesSettingsScreenProps) {
   // const user = useUserStore(state => state.user);
   const { data: user } = useQueryUser();
   const { mutation } = useMutationSaveShindenUserId();
-  const { data: watchListImportHistory } = useQueryWatchListImportHistory();
+  const { data: watchListImportHistory, refetch: watchListImportRefetch } =
+    useQueryWatchListImportHistory();
   const { refetch } = useQueryWatchListImport();
 
   const { translate } = useTranslate();
 
   const layout = useLayout();
+
+  const sv = useSharedValue<number>(0);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ rotate: `${sv.value * 360}deg` }],
+  }));
 
   return (
     <PageLayout.Default {...layout}>
@@ -111,9 +127,28 @@ export function ExternalServicesSettings({
         </Text>
       </View>
       <View style={[globalStyle.marginTop]}>
-        <Text style={[[colors.textLight, fontStyles.headerSmall]]}>
-          {translate('settings.externalServices.lastImports')}
-        </Text>
+        <Row
+          style={{
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
+          <Text style={[[colors.textLight, fontStyles.headerSmall]]}>
+            {translate('settings.externalServices.lastImports')}
+          </Text>
+          <Animated.View style={animatedStyle}>
+            <Pressable
+              onPress={() => watchListImportRefetch()}
+              onPressIn={() => {
+                sv.value = withTiming(
+                  1,
+                  { duration, easing },
+                  () => (sv.value = 0),
+                );
+              }}>
+              <Icon color={colors.textLight.color} name="refresh" size={30} />
+            </Pressable>
+          </Animated.View>
+        </Row>
         <ScrollView>
           {user && user.shindenUserId && watchListImportHistory ? (
             watchListImportHistory.map(importHistory => (
