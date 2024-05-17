@@ -77,79 +77,85 @@ export function ExternalServicesSettings({
 
   return (
     <PageLayout.Default {...layout}>
-      <SettingsGroup title={translate('settings.groups.shindenAccount')}>
-        {user ? (
-          <>
-            <SettingInputs.Edit
-              isFirst
-              isLast
-              label={translate('forms.labels.' + ActionType.ShindenIdChange)}
-              onPress={() =>
-                navigation.navigate(SettingsStackScreenNames.SettingsAction, {
-                  action: mutation.mutate,
-                  requiresLogin: false,
-                  type: ActionType.ShindenIdChange,
-                  origin: SettingsStackScreenNames.ExternalServicesSettings,
-                  payload: user.shindenUserId ?? '',
-                })
-              }
-              text={user.shindenUserId}
-            />
-            <Link
-              URL="#"
-              label={translate('settings.externalServices.howToFindShindenId')}
-              style={globalStyle.marginTopSmall}
-            />
-          </>
-        ) : null}
-      </SettingsGroup>
-      <View
-        style={[
-          {
-            flexDirection: 'column',
-            alignItems: 'center',
-          },
-          globalStyle.marginTop,
-        ]}>
-        <Button
-          disabled={
-            user && (user.shindenUserId === null || user.shindenUserId === '')
-          }
-          label={translate('settings.externalServices.importFromShinden')}
-          onPress={() => refetch()}
-          type="secondary"
-        />
-        <Text
+      <ScrollView>
+        <SettingsGroup title={translate('settings.groups.shindenAccount')}>
+          {user ? (
+            <>
+              <SettingInputs.Edit
+                isFirst
+                isLast
+                label={translate('forms.labels.' + ActionType.ShindenIdChange)}
+                onPress={() =>
+                  navigation.navigate(SettingsStackScreenNames.SettingsAction, {
+                    action: mutation.mutate,
+                    requiresLogin: false,
+                    type: ActionType.ShindenIdChange,
+                    origin: SettingsStackScreenNames.ExternalServicesSettings,
+                    payload: user.shindenUserId ?? '',
+                  })
+                }
+                text={user.shindenUserId}
+              />
+              <Link
+                URL="#"
+                label={translate(
+                  'settings.externalServices.howToFindShindenId',
+                )}
+                style={globalStyle.marginTopSmall}
+              />
+            </>
+          ) : null}
+        </SettingsGroup>
+        <View
           style={[
-            [colors.textLighter, fontStyles.normal, globalStyle.marginTopSmall],
+            {
+              flexDirection: 'column',
+              alignItems: 'center',
+            },
+            globalStyle.marginTop,
           ]}>
-          {translate('settings.externalServices.importLimit')}
-        </Text>
-      </View>
-      <View style={[globalStyle.marginTop]}>
-        <Row
-          style={{
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}>
-          <Text style={[[colors.textLight, fontStyles.headerSmall]]}>
-            {translate('settings.externalServices.lastImports')}
+          <Button
+            disabled={
+              user && (user.shindenUserId === null || user.shindenUserId === '')
+            }
+            label={translate('settings.externalServices.importFromShinden')}
+            onPress={() => refetch()}
+            type="secondary"
+          />
+          <Text
+            style={[
+              [
+                colors.textLighter,
+                fontStyles.normal,
+                globalStyle.marginTopSmall,
+              ],
+            ]}>
+            {translate('settings.externalServices.importLimit')}
           </Text>
-          <Animated.View style={animatedStyle}>
-            <Pressable
-              onPress={() => watchListImportRefetch()}
-              onPressIn={() => {
-                sv.value = withTiming(
-                  1,
-                  { duration, easing },
-                  () => (sv.value = 0),
-                );
-              }}>
-              <Icon color={colors.textLight.color} name="refresh" size={30} />
-            </Pressable>
-          </Animated.View>
-        </Row>
-        <ScrollView>
+        </View>
+        <View style={[globalStyle.marginTop]}>
+          <Row
+            style={{
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}>
+            <Text style={[[colors.textLight, fontStyles.headerSmall]]}>
+              {translate('settings.externalServices.lastImports')}
+            </Text>
+            <Animated.View style={animatedStyle}>
+              <Pressable
+                onPress={() => watchListImportRefetch()}
+                onPressIn={() => {
+                  sv.value = withTiming(
+                    1,
+                    { duration, easing },
+                    () => (sv.value = 0),
+                  );
+                }}>
+                <Icon color={colors.textLight.color} name="refresh" size={30} />
+              </Pressable>
+            </Animated.View>
+          </Row>
           {user && user.shindenUserId && watchListImportHistory ? (
             watchListImportHistory.map(importHistory => (
               <Card
@@ -203,8 +209,8 @@ export function ExternalServicesSettings({
               </Text>
             </Card>
           )}
-        </ScrollView>
-      </View>
+        </View>
+      </ScrollView>
     </PageLayout.Default>
   );
 }
@@ -212,7 +218,7 @@ export function ExternalServicesSettings({
 const Card = styled.View`
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   height: 70px;
   padding: 0 15px;
   margin: 5px 0;
