@@ -28,7 +28,7 @@ export function HelpSettingsScreen({}: SettingsStackHelpSettingsScreenProps) {
               device: 'mobile',
               os: Platform.OS,
             });
-            await Linking.openURL(externalLinks.guides);
+            await Linking.openURL(externalLinks.guides.getStarted);
           }}
           title={translate('settings.helpCenter')}
         />

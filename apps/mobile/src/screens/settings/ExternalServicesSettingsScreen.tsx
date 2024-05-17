@@ -35,6 +35,7 @@ import {
   SettingsStackScreenNames,
 } from '../../routes';
 import { colors, DarkColor, fontStyles, globalStyle } from '../../styles';
+import { externalLinks } from '../../externalLinks.ts';
 
 export function ExternalServicesSettingsScreen({}: SettingsStackExternalServicesSettingsScreenProps) {
   const { data: user } = useQueryUser();
@@ -99,7 +100,7 @@ const ShindenSettings = ({ user }: { user?: User }) => {
             text={user.shindenUserId}
           />
           <Link
-            URL="#"
+            URL={externalLinks.guides.externalLinks}
             label={translate('settings.externalServices.howToFindShindenId')}
             style={globalStyle.marginTopSmall}
           />
