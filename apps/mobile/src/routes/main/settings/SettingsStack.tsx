@@ -11,7 +11,7 @@ import {
   SettingsScreen,
   UserSettingsScreen,
 } from '../../../screens';
-import { ExternalServicesSettings } from '../../../screens/settings/ExternalServicesSettings.tsx';
+import { ExternalServicesSettingsScreen } from '../../../screens/settings/ExternalServicesSettingsScreen.tsx';
 import { defaultHeaderOptions } from '../defaultHeaderOptions';
 import { defaultSubHeaderOptions } from '../defaultSubHeaderOptions';
 
@@ -64,7 +64,7 @@ export function SettingsStack() {
         })}
       />
       <Stack.Screen
-        component={ExternalServicesSettings}
+        component={ExternalServicesSettingsScreen}
         name={SettingsStackScreenNames.ExternalServicesSettings}
         options={() => ({
           ...defaultSubHeaderOptions({
