@@ -10,15 +10,14 @@ import Video, { OnProgressData, VideoRef } from 'react-native-video';
 import { useMutationUpdateUserSeriesWatchProgress } from '../../api/hooks';
 import { RootStackNativePlayerScreenProps } from '../../routes';
 import { createEpisodeProgressKey, useActiveSeriesStore } from '../../services';
-import { storageGetData, storageStoreData } from '../../utils';
-import { logger } from '../../utils/logger';
+import { storageGetData, storageStoreData, logger } from '../../utils';
 
 export function NativeVideoPlayerScreen({
   route,
   navigation,
 }: RootStackNativePlayerScreenProps) {
   const [lastSave, setLastSave] = useState(0);
-  const { uri, episodeTitle, episodeNumber, seriesId } = route.params;
+  const { uri, episodeTitle, episodeNumber, seriesId, referer } = route.params;
   const videoPlayer = useRef<VideoRef>(null);
   const storageKey = createEpisodeProgressKey(seriesId, episodeNumber);
   const { mutation } = useMutationUpdateUserSeriesWatchProgress(
@@ -115,6 +114,9 @@ export function NativeVideoPlayerScreen({
           resizeMode="contain"
           source={{
             uri,
+            headers: {
+              Referer: referer,
+            },
           }}
           style={styles.absoluteFill}
         />
@@ -146,6 +148,9 @@ export function NativeVideoPlayerScreen({
           showDuration
           source={{
             uri: uri,
+            headers: {
+              Referer: referer,
+            },
           }}
           style={styles.absoluteFill}
           title={episodeTitle}
