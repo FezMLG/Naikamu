@@ -29,13 +29,13 @@ import {
   SettingsGroup,
   useLayout,
 } from '../../components';
+import { externalLinks } from '../../externalLinks.ts';
 import { useTranslate } from '../../i18n/useTranslate';
 import {
   SettingsStackExternalServicesSettingsScreenProps,
   SettingsStackScreenNames,
 } from '../../routes';
 import { colors, DarkColor, fontStyles, globalStyle } from '../../styles';
-import { externalLinks } from '../../externalLinks.ts';
 
 export function ExternalServicesSettingsScreen({}: SettingsStackExternalServicesSettingsScreenProps) {
   const { data: user } = useQueryUser();
