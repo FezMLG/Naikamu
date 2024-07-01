@@ -90,6 +90,7 @@ export function EpisodePlayer({
                         seriesId: series.id,
                         episodeTitle,
                         episodeNumber,
+                        referer: player.playerLink,
                       });
                     }
                   })

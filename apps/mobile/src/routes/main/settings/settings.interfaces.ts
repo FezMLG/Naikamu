@@ -8,6 +8,7 @@ export enum SettingsStackScreenNames {
   SettingsAction = 'SettingsAction',
   AppSettings = 'AppSettings',
   HelpSettings = 'HelpSettings',
+  ExternalServicesSettings = 'ExternalServicesSettings',
 }
 
 export type SettingsStackParameterList = {
@@ -15,6 +16,7 @@ export type SettingsStackParameterList = {
   [SettingsStackScreenNames.UserSettings]: undefined;
   [SettingsStackScreenNames.AppSettings]: undefined;
   [SettingsStackScreenNames.HelpSettings]: undefined;
+  [SettingsStackScreenNames.ExternalServicesSettings]: undefined;
   [SettingsStackScreenNames.SettingsActionConfirm]: {
     action: (payload: string) => void;
     payload: string;
@@ -60,3 +62,9 @@ export type SettingsStackHelpSettingsScreenProps = NativeStackScreenProps<
   SettingsStackParameterList,
   SettingsStackScreenNames.HelpSettings
 >;
+
+export type SettingsStackExternalServicesSettingsScreenProps =
+  NativeStackScreenProps<
+    SettingsStackParameterList,
+    SettingsStackScreenNames.ExternalServicesSettings
+  >;

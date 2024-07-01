@@ -3,4 +3,5 @@ export enum ActionType {
   PasswordChange = 'PasswordChange',
   EmailChange = 'EmailChange',
   NickChange = 'NickChange',
+  ShindenIdChange = 'ShindenIdChange',
 }
