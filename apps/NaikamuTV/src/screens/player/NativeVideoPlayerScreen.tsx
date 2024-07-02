@@ -19,7 +19,7 @@ export function NativeVideoPlayerScreen({
   route,
   navigation,
 }: RootStackNativePlayerScreenProps) {
-  const { uri, episodeTitle, episodeNumber, seriesId } = route.params;
+  const { uri, episodeTitle, episodeNumber, seriesId, referer } = route.params;
   const videoPlayer = useRef<VideoRef>(null);
   const [lastSave, setLastSave] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
@@ -138,6 +138,9 @@ export function NativeVideoPlayerScreen({
         showDuration
         source={{
           uri: uri,
+          headers: {
+            Referer: referer,
+          },
         }}
         style={styles.absoluteFill}
         tapAnywhereToPause

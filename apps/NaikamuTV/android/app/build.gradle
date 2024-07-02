@@ -151,7 +151,7 @@ dependencies {
 
     implementation("com.tencent:mmkv:1.3.4")
 
-    implementation 'androidx.core:core-ktx:+'
+    implementation 'androidx.core:core-ktx:1.13.1'
 
     if (hermesEnabled.toBoolean()) {
         implementation("io.github.react-native-tvos:hermes-android")
