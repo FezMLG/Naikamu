@@ -125,6 +125,10 @@ export function Button(props: ButtonProps) {
     link: colors.textLight.color,
   };
 
+  const disabledStyle: ViewStyle = {
+    opacity: 0.5,
+  };
+
   return (
     <Pressable
       disabled={disabled}
@@ -132,6 +136,7 @@ export function Button(props: ButtonProps) {
       style={[
         styles.container,
         ...style,
+        disabled ? disabledStyle : {},
         sizeStyle[size],
         widthStyle[width],
         buttonStyle[type],

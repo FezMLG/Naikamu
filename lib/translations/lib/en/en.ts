@@ -15,6 +15,7 @@ export const en = {
     SearchStack: 'Search',
     Settings: 'Settings',
     SettingsStack: 'Settings',
+    SettingsAction: 'Setting Edit',
     ActionConfirm: 'Confirm Action',
     SearchResults: 'Search Results',
     MyListStack: 'My List',
@@ -30,16 +31,19 @@ export const en = {
       NickChange: 'Username',
       EmailChange: 'example@example.com',
       PasswordChange: '*************',
+      ShindenIdChange: 'Shinden ID',
     },
     labels: {
       password: 'Password',
       NickChange: 'Username',
       EmailChange: 'Email',
       PasswordChange: 'Password',
+      ShindenIdChange: 'Shinden ID',
       new: {
         NickChange: 'New username',
         EmailChange: 'New email',
         PasswordChange: 'New password',
+        ShindenIdChange: 'New Shinden ID',
       },
     },
   },
@@ -191,4 +195,5 @@ export const en = {
     error_occurred:
       'Something went wrong.\n Please try again later or contact support.',
   },
+  ago: 'ago',
 };

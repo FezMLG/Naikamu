@@ -5,4 +5,5 @@ export interface User {
   isAnonymous: boolean;
   uid: string;
   picture: string | null;
+  shindenUserId: string | null;
 }

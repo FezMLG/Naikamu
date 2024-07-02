@@ -11,6 +11,7 @@ import {
   SettingsScreen,
   UserSettingsScreen,
 } from '../../../screens';
+import { ExternalServicesSettingsScreen } from '../../../screens/settings/ExternalServicesSettingsScreen.tsx';
 import { defaultHeaderOptions } from '../defaultHeaderOptions';
 import { defaultSubHeaderOptions } from '../defaultSubHeaderOptions';
 
@@ -63,6 +64,19 @@ export function SettingsStack() {
         })}
       />
       <Stack.Screen
+        component={ExternalServicesSettingsScreen}
+        name={SettingsStackScreenNames.ExternalServicesSettings}
+        options={() => ({
+          ...defaultSubHeaderOptions({
+            title: translate(
+              translateScreenNameKey +
+                SettingsStackScreenNames.ExternalServicesSettings,
+            ),
+          }),
+          animation: 'slide_from_right',
+        })}
+      />
+      <Stack.Screen
         component={HelpSettingsScreen}
         name={SettingsStackScreenNames.HelpSettings}
         options={() => ({
@@ -80,8 +94,7 @@ export function SettingsStack() {
         options={{
           ...defaultSubHeaderOptions({
             title: translate(
-              translateScreenNameKey +
-                SettingsStackScreenNames.SettingsActionConfirm,
+              'routes.' + SettingsStackScreenNames.SettingsActionConfirm,
             ),
           }),
           animation: 'slide_from_right',
@@ -93,7 +106,7 @@ export function SettingsStack() {
         options={{
           ...defaultSubHeaderOptions({
             title: translate(
-              translateScreenNameKey + SettingsStackScreenNames.SettingsAction,
+              'routes.' + SettingsStackScreenNames.SettingsAction,
             ),
           }),
           animation: 'slide_from_right',

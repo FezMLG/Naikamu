@@ -28,7 +28,7 @@ export function HelpSettingsScreen({}: SettingsStackHelpSettingsScreenProps) {
               device: 'mobile',
               os: Platform.OS,
             });
-            await Linking.openURL(externalLinks.guides);
+            await Linking.openURL(externalLinks.guides.getStarted);
           }}
           title={translate('settings.helpCenter')}
         />
@@ -42,7 +42,12 @@ export function HelpSettingsScreen({}: SettingsStackHelpSettingsScreenProps) {
               device: 'mobile',
               os: Platform.OS,
             });
-            await Linking.openURL(externalLinks.beta);
+
+            if (Platform.OS === 'ios') {
+              await Linking.openURL(externalLinks.beta.ios);
+            } else if (Platform.OS === 'android') {
+              await Linking.openURL(externalLinks.beta.android);
+            }
           }}
           title={translate('settings.beta')}
         />

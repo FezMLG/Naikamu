@@ -8,8 +8,10 @@ import {
   IPlayerResponse,
   IResolvePlayerDto,
   IUpdateWatchListEpisode,
+  IWatchListImport,
   IWatchListSeries,
   Paginate,
+  User,
   WatchListSeriesEpisode,
   WatchStatus,
 } from '@naikamu/shared';
@@ -18,10 +20,10 @@ import axios, {
   AxiosInstance,
   RawAxiosRequestHeaders,
 } from 'axios';
+import { Platform } from 'react-native';
 import { default as Config } from 'react-native-config';
 
 import { fireGetIdToken } from '../services/firebase/fire-auth.service';
-import { Platform } from 'react-native';
 
 interface GetAnimeListDTO {
   page?: number;
@@ -79,6 +81,21 @@ export class APIClient {
     return data;
   }
 
+  private async put<T>(
+    url: string,
+    headers?: RawAxiosRequestHeaders | AxiosHeaders,
+  ): Promise<T> {
+    const { data } = await this.instance.put<T>(
+      url,
+      {},
+      {
+        headers: headers,
+      },
+    );
+
+    return data;
+  }
+
   private async patch<T>(
     url: string,
     dataToSend: unknown,
@@ -109,6 +126,12 @@ export class APIClient {
     return this.get<{
       version: string;
     }>('/version');
+  }
+
+  async getUser() {
+    return this.get<User>('/user', {
+      ...(await this.withToken()),
+    });
   }
 
   async getAnimeList({
@@ -247,6 +270,12 @@ export class APIClient {
     return this.patch('user', { notificationToken: token }, apiToken);
   }
 
+  async saveShindenUserId(shindenUserId: string) {
+    const apiToken = await this.withToken();
+
+    return this.patch('user', { shindenUserId }, apiToken);
+  }
+
   async checkForUpdates() {
     const response = await axios.get<{
       tag_name: string;
@@ -265,6 +294,18 @@ export class APIClient {
     return {
       Authorization: 'Bearer ' + token,
     };
+  }
+
+  async getUserWatchListImportHistory() {
+    return this.get<IWatchListImport[]>('user/watch-list/imports', {
+      ...(await this.withToken()),
+    });
+  }
+
+  async watchListImport() {
+    return this.put<IWatchListImport>('user/watch-list/imports/shinden', {
+      ...(await this.withToken()),
+    });
   }
 }
 
