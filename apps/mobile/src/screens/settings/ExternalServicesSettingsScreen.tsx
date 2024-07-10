@@ -14,10 +14,11 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import styled from 'styled-components/native';
 
 import {
+  useMutationAddImportChunk,
   useMutationSaveShindenUserId,
   useQueryUser,
-  useQueryWatchListImport,
   useQueryWatchListImportHistory,
+  useQueryGetWatchListFromShinden,
 } from '../../api/hooks';
 import {
   ActivityIndicator,
@@ -29,7 +30,7 @@ import {
   SettingsGroup,
   useLayout,
 } from '../../components';
-import { externalLinks } from '../../externalLinks.ts';
+import { externalLinks } from '../../externalLinks';
 import { useTranslate } from '../../i18n/useTranslate';
 import {
   SettingsStackExternalServicesSettingsScreenProps,
@@ -63,8 +64,8 @@ export function ExternalServicesSettingsScreen({}: SettingsStackExternalServices
             <RefreshButton refresh={watchListImportRefetch} />
           </Row>
           {user && user.shindenUserId && watchListImportHistory ? (
-            watchListImportHistory.map(importHistory => (
-              <ImportHistoryCard importHistory={importHistory} />
+            watchListImportHistory.map((importHistory, index) => (
+              <ImportHistoryCard importHistory={importHistory} key={index} />
             ))
           ) : (
             <EmptyImportHistoryCard />
@@ -112,7 +113,8 @@ const ShindenSettings = ({ user }: { user?: User }) => {
 
 const ImportButton = ({ user }: { user?: User }) => {
   const { translate } = useTranslate();
-  const { refetch } = useQueryWatchListImport();
+  const { refetch, isLoading } = useQueryGetWatchListFromShinden({ user });
+  const watchListImportMutation = useMutationAddImportChunk();
 
   return (
     <View
@@ -125,10 +127,16 @@ const ImportButton = ({ user }: { user?: User }) => {
       ]}>
       <Button
         disabled={
-          user && (user.shindenUserId === null || user.shindenUserId === '')
+          (user &&
+            (user.shindenUserId === null || user.shindenUserId === '')) ||
+          isLoading
         }
         label={translate('settings.externalServices.importFromShinden')}
-        onPress={() => refetch()}
+        loading={isLoading}
+        onPress={async () => {
+          await refetch();
+          watchListImportMutation.mutate();
+        }}
         type="secondary"
       />
       <Text

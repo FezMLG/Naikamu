@@ -28,3 +28,15 @@ export interface IWatchListImport {
   finishedAt: string;
   createdAt: string;
 }
+
+export interface IWatchListImportChunk {
+  data: IWatchListImportChunkData[];
+  isLast: boolean;
+}
+
+export interface IWatchListImportChunkData {
+  providerId: string;
+  title: string;
+  status: string;
+  watchedEpisodesCount: number;
+}

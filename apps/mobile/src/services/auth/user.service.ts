@@ -1,5 +1,5 @@
 import { LoginForm, SignUpForm } from '../../screens';
-import { logger } from '../../utils/logger';
+import { logger } from '../../utils';
 import {
   fireDeleteAccount,
   fireGetUser,

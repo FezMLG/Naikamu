@@ -4,10 +4,10 @@ import analytics from '@react-native-firebase/analytics';
 import { Linking, Platform, View } from 'react-native';
 
 import { PageLayout, SectionButton, useLayout } from '../../components';
-import { externalLinks } from '../../externalLinks.ts';
+import { externalLinks } from '../../externalLinks';
 import { useTranslate } from '../../i18n/useTranslate';
 import { SettingsStackHelpSettingsScreenProps } from '../../routes';
-import { useUserStore } from '../../services/auth/user.store.ts';
+import { useUserStore } from '../../services/auth/user.store';
 import { globalStyle } from '../../styles';
 
 export function HelpSettingsScreen({}: SettingsStackHelpSettingsScreenProps) {
