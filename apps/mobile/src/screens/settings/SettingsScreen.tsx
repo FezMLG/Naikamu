@@ -9,6 +9,7 @@ import {
   useLayout,
   ProgressiveImage,
   CheckForUpdates,
+  Hidden,
 } from '../../components';
 import { useTranslate } from '../../i18n/useTranslate';
 import {
@@ -62,17 +63,17 @@ export function SettingsScreen({
             }
             title={translate('settings.categories.AppSettings')}
           />
-          {/*<Hidden>*/}
-          <SectionButton
-            icon="earth"
-            onPress={() =>
-              navigation.navigate(
-                SettingsStackScreenNames.ExternalServicesSettings,
-              )
-            }
-            title={translate('settings.categories.ExternalServicesSettings')}
-          />
-          {/*</Hidden>*/}
+          <Hidden>
+            <SectionButton
+              icon="earth"
+              onPress={() =>
+                navigation.navigate(
+                  SettingsStackScreenNames.ExternalServicesSettings,
+                )
+              }
+              title={translate('settings.categories.ExternalServicesSettings')}
+            />
+          </Hidden>
           <SectionButton
             icon="help-circle-outline"
             onPress={() =>
