@@ -1,18 +1,12 @@
 import { User } from '@naikamu/shared';
 import { useQuery } from '@tanstack/react-query';
 
-import { apiClient } from '../../APIClient.ts';
+import { apiClient } from '../../APIClient';
 
 export const useQueryUser = () => {
   const { data, isError, isLoading, refetch, fetchStatus } = useQuery<User>({
     queryKey: ['user'],
-    queryFn: async () => {
-      const response = await apiClient.getUser();
-
-      console.log(response);
-
-      return response;
-    },
+    queryFn: async () => apiClient.getUser(),
   });
 
   return {

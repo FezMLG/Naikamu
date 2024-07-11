@@ -2,8 +2,7 @@ import * as Sentry from '@sentry/react-native';
 import { OnProgressData } from 'react-native-video';
 
 import { apiClient } from '../../api/APIClient';
-import { storage, storageGetData } from '../../utils';
-import { logger } from '../../utils/logger';
+import { storage, storageGetData, logger } from '../../utils';
 
 export const sendLocalProgressToCloud = async () => {
   const allAsyncStorageEntries = storage.getAllKeys();

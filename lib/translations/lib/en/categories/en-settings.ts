@@ -42,7 +42,7 @@ export const enSettings = {
     contact: 'Report a problem or suggestion',
     externalServices: {
       howToFindShindenId: 'How to find my Shinden ID?',
-      importFromShinden: 'Import from Shinden',
+      importFromShinden: 'Import from Shinden (Beta)',
       importLimit: 'You can import once a day',
       lastImports: 'Your Last Imports',
       noLastImports: 'No last imports',

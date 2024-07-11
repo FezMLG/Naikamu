@@ -1,7 +1,7 @@
 import { IWatchListImport } from '@naikamu/shared';
 import { useQuery } from '@tanstack/react-query';
 
-import { apiClient } from '../../APIClient.ts';
+import { apiClient } from '../../APIClient';
 
 export const useQueryWatchListImportHistory = () => {
   const { data, isError, isLoading, refetch, fetchStatus } = useQuery<

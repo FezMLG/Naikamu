@@ -9,6 +9,7 @@ import {
   IResolvePlayerDto,
   IUpdateWatchListEpisode,
   IWatchListImport,
+  IWatchListImportChunk,
   IWatchListSeries,
   Paginate,
   User,
@@ -48,6 +49,8 @@ export class APIClient {
       configUrl = configUrl.replace('localhost', '10.0.2.2');
     }
 
+    console.log('API URL:', configUrl);
+
     this.instance = axios.create({
       baseURL: configUrl,
       timeout: 2000,
@@ -62,11 +65,12 @@ export class APIClient {
     url: string,
     headers?: RawAxiosRequestHeaders | AxiosHeaders,
   ): Promise<T> {
-    const { data } = await this.instance.get<T>(url, {
+    console.log('GET', url);
+    const a = await this.instance.get<T>(url, {
       headers: headers,
     });
 
-    return data;
+    return a.data;
   }
 
   private async post<T>(
@@ -83,15 +87,12 @@ export class APIClient {
 
   private async put<T>(
     url: string,
+    dataToSend: unknown,
     headers?: RawAxiosRequestHeaders | AxiosHeaders,
   ): Promise<T> {
-    const { data } = await this.instance.put<T>(
-      url,
-      {},
-      {
-        headers: headers,
-      },
-    );
+    const { data } = await this.instance.put<T>(url, dataToSend, {
+      headers: headers,
+    });
 
     return data;
   }
@@ -302,8 +303,10 @@ export class APIClient {
     });
   }
 
-  async watchListImport() {
-    return this.put<IWatchListImport>('user/watch-list/imports/shinden', {
+  async addWatchListImportChunk(chunk: IWatchListImportChunk) {
+    console.log('addWatchListImportChunk', chunk);
+
+    return this.put<void>('user/watch-list/imports/shinden', chunk, {
       ...(await this.withToken()),
     });
   }

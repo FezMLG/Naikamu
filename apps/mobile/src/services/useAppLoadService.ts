@@ -7,17 +7,17 @@ import { default as Config } from 'react-native-config';
 import semver from 'semver';
 
 import * as packageJson from '../../package.json';
-import { apiClient } from '../api/APIClient.ts';
+import { apiClient } from '../api/APIClient';
 import { useLayout } from '../components';
 import { AuthStackRoutesNames } from '../routes';
 import { logger } from '../utils';
 
-import { useUserService } from './auth/user.service.ts';
-import { useUserStore } from './auth/user.store.ts';
+import { useUserService } from './auth/user.service';
+import { useUserStore } from './auth/user.store';
 import {
   fireGetIdToken,
   fireGetNewIdToken,
-} from './firebase/fire-auth.service.ts';
+} from './firebase/fire-auth.service';
 import { useNotificationService } from './notifications';
 import { offlineFS, useOfflineService } from './offline';
 import { useUserSettingsService } from './settings';

@@ -20,7 +20,7 @@ export const pl = {
     SearchResults: 'Wyniki wyszukiwania',
     MyListStack: 'Moja lista',
     OfflineStack: 'Pobrane',
-    WatchList: 'Do Obejrzenia',
+    WatchList: 'Lista oglądania (Beta)',
   },
   forms: {
     save: 'Zapisz',
