@@ -51,7 +51,7 @@ export function ExternalServicesSettingsScreen({}: SettingsStackExternalServices
     <PageLayout.Default {...layout}>
       <ScrollView>
         <ShindenSettings user={user} />
-        <ImportButton user={user} />
+        <ImportButton historyRefetch={watchListImportRefetch} user={user} />
         <View style={[globalStyle.marginTop]}>
           <Row
             style={{
@@ -111,7 +111,13 @@ const ShindenSettings = ({ user }: { user?: User }) => {
   );
 };
 
-const ImportButton = ({ user }: { user?: User }) => {
+const ImportButton = ({
+  user,
+  historyRefetch,
+}: {
+  user?: User;
+  historyRefetch: () => unknown;
+}) => {
   const { translate } = useTranslate();
   const { refetch, isLoading } = useQueryGetWatchListFromShinden({ user });
   const watchListImportMutation = useMutationAddImportChunk();
@@ -136,6 +142,7 @@ const ImportButton = ({ user }: { user?: User }) => {
         onPress={async () => {
           await refetch();
           watchListImportMutation.mutate();
+          historyRefetch();
         }}
         type="secondary"
       />

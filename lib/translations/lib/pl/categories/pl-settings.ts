@@ -42,7 +42,7 @@ export const plSettings = {
     contact: 'Zgłoś problem lub sugestię',
     externalServices: {
       howToFindShindenId: 'Jak znaleźć moje Shinden ID?',
-      importFromShinden: "Importuj z Shinden'a",
+      importFromShinden: "Importuj z Shinden'a (Beta)",
       importLimit: 'Możesz importować raz dziennie',
       lastImports: 'Twoje Ostatnie Importy',
       noLastImports: 'Brak ostatnioch importów',
