@@ -98,7 +98,7 @@ export const useOfflineService = () => {
       event.emit(NotificationForegroundServiceEvents.UPDATE);
     }
 
-    const { series, episode, fileUrl } = firstItem;
+    const { series, episode, fileUrl, referer } = firstItem;
 
     checkIfSeriesExist(series.seriesId);
 
@@ -129,6 +129,7 @@ export const useOfflineService = () => {
         series.seriesId,
         episode.number,
         fileUrl,
+        referer,
         beginDownload,
         progressDownload,
       );
@@ -137,6 +138,8 @@ export const useOfflineService = () => {
       'download started',
       jobId,
       relativePathToFile,
+      fileUrl,
+      referer,
     );
 
     job.then(async result => {
@@ -150,15 +153,15 @@ export const useOfflineService = () => {
 
       offlineStorage.saveOfflineSeries(saved);
 
-      if (Platform.OS === 'ios') {
-        await notificationService.displayNotification('download', {
-          key: 'finish.ios',
-          format: {
-            episode: episode.number,
-            series: series.title,
-          },
-        });
-      }
+      // if (Platform.OS === 'ios') {
+      //   await notificationService.displayNotification('download', {
+      //     key: 'finish.ios',
+      //     format: {
+      //       episode: episode.number,
+      //       series: series.title,
+      //     },
+      //   });
+      // }
 
       const firstItemInQueue = queueActions.getFirstItem();
       const downloadsActive = downloadsActions.getActiveDownloads();
@@ -189,9 +192,11 @@ export const useOfflineService = () => {
   const addToQueue = async ({
     episode,
     fileUrl,
+    referer,
   }: {
     episode: IOfflineSeriesEpisodes;
     fileUrl: string;
+    referer: string;
   }) => {
     const series = getOrCreateOfflineSeries(activeSeries.id);
 
@@ -202,19 +207,20 @@ export const useOfflineService = () => {
       series,
       episode,
       fileUrl,
+      referer,
     });
 
-    if (
-      isQueueEmpty &&
-      downloadsActive.length === 0 &&
-      Platform.OS === 'android'
-    ) {
-      notificationService.registerForegroundService();
-      await notificationService.attachNotificationToService(
-        'download',
-        'progress',
-      );
-    }
+    // if (
+    //   isQueueEmpty &&
+    //   downloadsActive.length === 0 &&
+    //   Platform.OS === 'android'
+    // ) {
+    //   notificationService.registerForegroundService();
+    //   await notificationService.attachNotificationToService(
+    //     'download',
+    //     'progress',
+    //   );
+    // }
 
     if (
       (!isQueueEmpty || downloadsActive.length > 0) &&

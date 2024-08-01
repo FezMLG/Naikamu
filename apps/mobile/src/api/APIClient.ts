@@ -49,8 +49,6 @@ export class APIClient {
       configUrl = configUrl.replace('localhost', '10.0.2.2');
     }
 
-    console.log('API URL:', configUrl);
-
     this.instance = axios.create({
       baseURL: configUrl,
       timeout: 2000,

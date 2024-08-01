@@ -61,6 +61,7 @@ const startDownloadingFile = async (
   seriesId: string,
   episodeNumber: number,
   fileUrl: string,
+  referer: string,
   beginDownload: (result: RNFS.DownloadBeginCallbackResult) => void,
   progressDownload: (result: RNFS.DownloadProgressCallbackResult) => void,
 ): Promise<[string, number, Promise<RNFS.DownloadResult>]> => {
@@ -85,6 +86,9 @@ const startDownloadingFile = async (
     progress: progressDownload,
     progressInterval: 1000,
     background: true,
+    headers: {
+      Referer: referer,
+    },
   });
 
   return [relativePathToFile, job.jobId, job.promise];

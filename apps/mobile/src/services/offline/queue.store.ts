@@ -6,6 +6,7 @@ export interface IDownloadsQueueItem {
   series: IOfflineSeries;
   episode: IOfflineSeriesEpisodes;
   fileUrl: string;
+  referer: string;
 }
 
 interface DownloadsState {

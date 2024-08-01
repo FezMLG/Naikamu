@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { AnimeEpisode, AnimePlayer } from '@naikamu/shared';
+import { AnimePlayer } from '@naikamu/shared';
 import { BlurView } from '@react-native-community/blur';
 import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { List } from 'react-native-paper';
@@ -16,10 +16,9 @@ import {
   defaultRadius,
   fontStyles,
 } from '../../styles';
-import { logger } from '../../utils/logger';
+import { logger } from '../../utils';
 import {
   ActionSheet,
-  ActionSheetItem,
   ActivityIndicator,
   IconButton,
   useActionSheet,
@@ -37,6 +36,7 @@ import {
 } from './player';
 import { sortPlayers } from './player/helpers';
 
+// eslint-disable-next-line sonarjs/cognitive-complexity
 export function Episode({ episodeNumber }: { episodeNumber: number }) {
   const { showActionSheet, setShowActionSheet } = useActionSheet();
   const series = useActiveSeriesStore(store => store.series)!;
@@ -80,6 +80,7 @@ export function Episode({ episodeNumber }: { episodeNumber: number }) {
     await addToQueue({
       episode: episodeToAdd,
       fileUrl,
+      referer: player.playerLink,
     });
     setIsDownloaded(previous => !previous);
   };
