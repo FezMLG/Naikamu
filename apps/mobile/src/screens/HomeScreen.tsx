@@ -2,7 +2,7 @@ import React from 'react';
 
 import { StyleSheet, Text, View } from 'react-native';
 
-import { PageLayout, useLayout } from '../components';
+import { ContinueWatchingList, PageLayout, useLayout } from '../components';
 import { HomeStackHomeScreenProps } from '../routes';
 
 export function HomeScreen({}: HomeStackHomeScreenProps) {
@@ -13,6 +13,7 @@ export function HomeScreen({}: HomeStackHomeScreenProps) {
       <View>
         <Text>Home Screen</Text>
       </View>
+      <ContinueWatchingList />
     </PageLayout.Default>
   );
 }
