@@ -11,8 +11,8 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useTranslate } from '../../i18n/useTranslate';
-import { darkStyle, defaultRadius, fontStyles } from '../../styles';
-import { ProgressiveImage } from '../ProgressiveImage';
+import { darkStyle, fontStyles } from '../../styles';
+import { SmallPoster } from '../molecules';
 import { QuickInfo } from '../SeriesDetails';
 
 export function WatchListElement({
@@ -29,13 +29,7 @@ export function WatchListElement({
       key={anime.id}
       onPress={handlePageChange}
       style={[styles.container]}>
-      <View style={[styles.posterContainer]}>
-        <ProgressiveImage
-          resizeMode="contain"
-          source={anime.poster}
-          style={styles.poster}
-        />
-      </View>
+      <SmallPoster source={anime.poster} />
       <View style={styles.detailsContainer}>
         <View
           style={{
@@ -74,15 +68,6 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     maxWidth: 500,
     gap: 10,
-  },
-  posterContainer: {
-    width: '25%',
-    height: '100%',
-  },
-  poster: {
-    width: '100%',
-    height: '100%',
-    borderRadius: defaultRadius,
   },
   title: {
     fontFamily: 'Lato-Bold',
