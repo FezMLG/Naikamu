@@ -8,3 +8,4 @@ export * from './mylist';
 export * from './series';
 export * from './settings';
 export * from './player';
+export * from './HomeScreen';

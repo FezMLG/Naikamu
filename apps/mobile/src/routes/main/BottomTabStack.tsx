@@ -14,6 +14,7 @@ import {
 } from './bottom-tab.interfaces';
 import { BrowseStack } from './browse';
 import { defaultHeaderOptions } from './defaultHeaderOptions';
+import { HomeStack } from './home';
 import { MyListStack } from './mylist';
 import { SearchStack } from './search';
 import { SettingsStack } from './settings';
@@ -103,6 +104,16 @@ export function BottomTabStack() {
         tabBarActiveTintColor: 'white',
       })}>
       <BottomTab.Group>
+        <BottomTab.Screen
+          component={HomeStack}
+          name={BottomTabStackScreenNames.HomeStack}
+          options={() => ({
+            ...defaultHeaderOptions({
+              title: translate('routes.' + BottomTabStackScreenNames.HomeStack),
+            }),
+            animation: 'slide_from_right',
+          })}
+        />
         <BottomTab.Screen
           component={BrowseStack}
           name={BottomTabStackScreenNames.BrowseStack}

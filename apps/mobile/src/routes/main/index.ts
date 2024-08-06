@@ -9,3 +9,4 @@ export * from './settings';
 export * from './search';
 export * from './root.interfaces';
 export * from './RootStack';
+export * from './home';
