@@ -40,3 +40,16 @@ export interface IWatchListImportChunkData {
   status: string;
   watchedEpisodesCount: number;
 }
+
+export interface IContinueWatching {
+  anime: {
+    id: string;
+    title: string;
+    poster: string;
+  };
+  episode: {
+    id: string;
+    number: number;
+    progress: number;
+  };
+}
