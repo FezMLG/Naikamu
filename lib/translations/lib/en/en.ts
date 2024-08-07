@@ -21,6 +21,8 @@ export const en = {
     MyListStack: 'My List',
     OfflineStack: 'Offline',
     WatchList: 'Watch List (Beta)',
+    HomeStack: 'Home',
+    Home: 'Home',
   },
   forms: {
     save: 'Save',

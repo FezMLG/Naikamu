@@ -21,6 +21,8 @@ export const pl = {
     MyListStack: 'Moja lista',
     OfflineStack: 'Pobrane',
     WatchList: 'Lista oglądania (Beta)',
+    HomeStack: 'Główna',
+    Home: 'Główna',
   },
   forms: {
     save: 'Zapisz',
