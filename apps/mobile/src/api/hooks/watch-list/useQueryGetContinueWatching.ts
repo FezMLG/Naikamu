@@ -1,16 +1,7 @@
+import { IContinueWatching } from '@naikamu/shared';
 import { useQuery } from '@tanstack/react-query';
 
 import { apiClient } from '../../APIClient';
-
-export interface IContinueWatching {
-  seriesId: number;
-  episodeId: number;
-  episodeNumber: number;
-  seriesTitle: string;
-  episodeTitle: string;
-  imageUrl: string;
-  progress: number;
-}
 
 export const useQueryGetContinueWatching = () => {
   const query = useQuery<IContinueWatching[]>({

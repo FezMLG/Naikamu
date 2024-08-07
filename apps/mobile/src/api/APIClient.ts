@@ -5,6 +5,7 @@ import {
   AnimeSeason,
   AnimeSource,
   IAnimeListItem,
+  IContinueWatching,
   IPlayerResponse,
   IResolvePlayerDto,
   IUpdateWatchListEpisode,
@@ -310,26 +311,9 @@ export class APIClient {
   }
 
   async getContinueWatching() {
-    return [
-      {
-        seriesId: 1,
-        episodeId: 1,
-        episodeNumber: 1,
-        seriesTitle: 'Test',
-        episodeTitle: 'Test',
-        imageUrl: 'https://via.placeholder.com/150',
-        progress: 50,
-      },
-      {
-        seriesId: 2,
-        episodeId: 2,
-        episodeNumber: 2,
-        seriesTitle: 'Test',
-        episodeTitle: 'Test',
-        imageUrl: 'https://via.placeholder.com/150',
-        progress: 50,
-      },
-    ];
+    return this.get<IContinueWatching[]>('user/watch-list/continue-watching', {
+      ...(await this.withToken()),
+    });
   }
 }
 

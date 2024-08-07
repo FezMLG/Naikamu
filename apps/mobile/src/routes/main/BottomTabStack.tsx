@@ -51,6 +51,10 @@ function BottomTabContent(props: {
         : 'bookmark-box-multiple-outline';
       break;
     }
+    case BottomTabStackScreenNames.HomeStack: {
+      iconName = props.focused ? 'home' : 'home-outline';
+      break;
+    }
   }
 
   return <Icon color={props.color} name={iconName} size={props.size} />;

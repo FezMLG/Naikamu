@@ -73,7 +73,7 @@ export const useAppLoadService = () => {
 
     if (token) {
       await fireGetNewIdToken();
-      await sendLocalProgressToCloud();
+      // await sendLocalProgressToCloud();
       userService.setLoggedUser();
       const user = userActions.getUser();
 
