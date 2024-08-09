@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import { ContinueWatchingList, PageLayout, useLayout } from '../components';
 import { HomeStackHomeScreenProps } from '../routes';
@@ -10,9 +10,6 @@ export function HomeScreen({}: HomeStackHomeScreenProps) {
 
   return (
     <PageLayout.Default style={[styles.container]} {...layout}>
-      <View>
-        <Text>Home Screen</Text>
-      </View>
       <ContinueWatchingList />
     </PageLayout.Default>
   );

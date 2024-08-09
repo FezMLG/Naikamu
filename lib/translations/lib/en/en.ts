@@ -198,4 +198,9 @@ export const en = {
       'Something went wrong.\n Please try again later or contact support.',
   },
   ago: 'ago',
+  home: {
+    headers: {
+      continueWatching: 'Continue Watching',
+    },
+  },
 };

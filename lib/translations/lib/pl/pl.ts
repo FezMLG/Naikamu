@@ -199,4 +199,9 @@ export const pl = {
       'Wystąpił błąd.\n Spróbuj ponownie później lub skontaktuj się z pomocą techniczną.',
   },
   ago: 'temu',
+  home: {
+    headers: {
+      continueWatching: 'Continue Watching',
+    },
+  },
 };
