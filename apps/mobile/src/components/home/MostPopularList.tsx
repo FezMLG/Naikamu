@@ -1,20 +1,19 @@
 import React from 'react';
 
-import { IContinueWatching } from '@naikamu/shared';
+import { IAnimeListItem } from '@naikamu/shared';
 import { FlatList, Text, View } from 'react-native';
 
-import { useQueryGetContinueWatching } from '../../api/hooks';
+import { useQueryGetMostPopularAnimeInCurrentSeason } from '../../api/hooks';
 import { useTranslate } from '../../i18n/useTranslate';
 import { colors, fontStyles, globalStyle } from '../../styles';
 
-import { ContinueWatchingElement } from './ContinueWatchingElement';
+import { MostPopularElement } from './MostPopularElement';
 
-export type ContinueWatchingListProps = Record<string, never>;
+export type MostPopularListProps = Record<string, never>;
 
-export const ContinueWatchingList: React.FC<
-  ContinueWatchingListProps
-> = ({}) => {
-  const { data, refetch, isRefetching } = useQueryGetContinueWatching();
+export const MostPopularList: React.FC<MostPopularListProps> = ({}) => {
+  const { data, refetch, isRefetching } =
+    useQueryGetMostPopularAnimeInCurrentSeason();
   const { translate } = useTranslate();
 
   return (
@@ -29,8 +28,8 @@ export const ContinueWatchingList: React.FC<
           horizontal
           onRefresh={refetch}
           refreshing={isRefetching}
-          renderItem={({ item }: { item: IContinueWatching }) => (
-            <ContinueWatchingElement item={item} />
+          renderItem={({ item }: { item: IAnimeListItem }) => (
+            <MostPopularElement item={item} />
           )}
         />
       ) : null}

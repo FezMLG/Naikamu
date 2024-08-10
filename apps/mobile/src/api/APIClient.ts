@@ -315,6 +315,12 @@ export class APIClient {
       ...(await this.withToken()),
     });
   }
+
+  async getMostPopularAnimeInCurrentSeason() {
+    return this.get<IAnimeListItem[]>('anime/popular/current', {
+      ...(await this.withToken()),
+    });
+  }
 }
 
 export const apiClient = new APIClient();

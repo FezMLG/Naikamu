@@ -5,3 +5,4 @@ export * from './useQueryWatchListImportHistory';
 export * from './useMutationAddImportChunk';
 export * from './useQueryGetWatchListFromShinden';
 export * from './useQueryGetContinueWatching';
+export * from './useQueryGetMostPopularAnimeInCurrentSeason';

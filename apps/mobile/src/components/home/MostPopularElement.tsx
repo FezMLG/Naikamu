@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IContinueWatching } from '@naikamu/shared';
+import { IAnimeListItem, IContinueWatching } from '@naikamu/shared';
 import { useNavigation } from '@react-navigation/native';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
@@ -9,16 +9,16 @@ import { RootStackScreenNames, SeriesStackScreenNames } from '../../routes';
 import { colors, defaultRadius, fontStyles } from '../../styles';
 import { ProgressiveImage } from '../ProgressiveImage';
 
-export const HomeEpisodeElement = ({ item }: { item: IContinueWatching }) => {
+export const MostPopularElement = ({ item }: { item: IAnimeListItem }) => {
   const { navigate } = useNavigation<any>();
 
   return (
     <Pressable
       onPress={() =>
         navigate(RootStackScreenNames.SeriesStack, {
-          screen: SeriesStackScreenNames.Episodes,
+          screen: SeriesStackScreenNames.Series,
           params: {
-            seriesId: item.anime.id,
+            seriesId: item.id,
           },
         })
       }
@@ -26,25 +26,16 @@ export const HomeEpisodeElement = ({ item }: { item: IContinueWatching }) => {
       <View style={[styles.posterContainer]}>
         <ProgressiveImage
           resizeMode="cover"
-          source={item.anime.poster}
+          source={item.coverImage.extraLarge}
           style={styles.poster}
         />
       </View>
       <View style={styles.titleProgressContainer}>
         <View style={styles.titleContainer}>
           <Text style={[fontStyles.normal, colors.textLight]}>
-            Episode: {item.episode.number}
+            {item.title.romaji}
           </Text>
         </View>
-        <ProgressBar
-          progress={item.episode.progress / (24 * 60)}
-          style={styles.progressBar}
-          theme={{
-            colors: {
-              primary: colors.accent.color,
-            },
-          }}
-        />
       </View>
     </Pressable>
   );
