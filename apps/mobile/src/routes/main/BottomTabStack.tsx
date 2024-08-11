@@ -65,7 +65,7 @@ export function BottomTabStack() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName={BottomTabStackScreenNames.BrowseStack}
+      initialRouteName={BottomTabStackScreenNames.HomeStack}
       screenOptions={({ route }) => ({
         headerShown: false,
         // eslint-disable-next-line react/no-unstable-nested-components
