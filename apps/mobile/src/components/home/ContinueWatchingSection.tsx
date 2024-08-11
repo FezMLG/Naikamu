@@ -11,7 +11,7 @@ import { ContinueWatchingElement } from './ContinueWatchingElement';
 
 export type ContinueWatchingListProps = Record<string, never>;
 
-export const ContinueWatchingList: React.FC<
+export const ContinueWatchingSection: React.FC<
   ContinueWatchingListProps
 > = ({}) => {
   const { data, refetch, isRefetching } = useQueryGetContinueWatching();

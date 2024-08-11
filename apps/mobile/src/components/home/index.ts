@@ -1,3 +1,3 @@
-export * from './ContinueWatchingList';
+export * from './ContinueWatchingSection';
 export * from './HomeUpdateAlert';
-export * from './MostPopularList';
+export * from './MostPopularSection';

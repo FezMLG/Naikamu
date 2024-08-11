@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { IAnimeListItem, IContinueWatching } from '@naikamu/shared';
+import { IAnimeListItem } from '@naikamu/shared';
 import { useNavigation } from '@react-navigation/native';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { ProgressBar } from 'react-native-paper';
 
 import { RootStackScreenNames, SeriesStackScreenNames } from '../../routes';
 import { colors, defaultRadius, fontStyles } from '../../styles';
@@ -11,6 +10,7 @@ import { ProgressiveImage } from '../ProgressiveImage';
 
 export const MostPopularElement = ({ item }: { item: IAnimeListItem }) => {
   const { navigate } = useNavigation<any>();
+  const [textHeight, setTextHeight] = useState(140);
 
   return (
     <Pressable
@@ -18,7 +18,8 @@ export const MostPopularElement = ({ item }: { item: IAnimeListItem }) => {
         navigate(RootStackScreenNames.SeriesStack, {
           screen: SeriesStackScreenNames.Series,
           params: {
-            seriesId: item.id,
+            title: item.title.romaji,
+            id: item.id,
           },
         })
       }
@@ -30,7 +31,14 @@ export const MostPopularElement = ({ item }: { item: IAnimeListItem }) => {
           style={styles.poster}
         />
       </View>
-      <View style={styles.titleProgressContainer}>
+      <View
+        onLayout={event => setTextHeight(event.nativeEvent.layout.height)}
+        style={[
+          styles.titleProgressContainer,
+          {
+            bottom: textHeight,
+          },
+        ]}>
         <View style={styles.titleContainer}>
           <Text style={[fontStyles.normal, colors.textLight]}>
             {item.title.romaji}
@@ -55,23 +63,19 @@ const styles = StyleSheet.create({
   poster: {
     width: '100%',
     height: '100%',
-    borderTopLeftRadius: defaultRadius,
-    borderTopRightRadius: defaultRadius,
+    borderRadius: defaultRadius,
   },
   titleProgressContainer: {
     position: 'relative',
-    bottom: 40,
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
-    borderBottomStartRadius: defaultRadius,
-    borderBottomEndRadius: defaultRadius,
+    borderBottomLeftRadius: defaultRadius,
+    borderBottomRightRadius: defaultRadius,
     width: '100%',
-    height: 40,
     zIndex: 10,
   },
   titleContainer: {
     paddingVertical: 5,
     paddingHorizontal: 10,
-    height: 37,
   },
   progressBar: {
     zIndex: 20,

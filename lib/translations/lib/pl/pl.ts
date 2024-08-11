@@ -201,7 +201,8 @@ export const pl = {
   ago: 'temu',
   home: {
     headers: {
-      continueWatching: 'Continue Watching',
+      continueWatching: 'Kontynuuj Oglądanie',
+      mostPopular: 'Najpopularniejsze W Tym Sezonie',
     },
   },
 };

@@ -201,6 +201,7 @@ export const en = {
   home: {
     headers: {
       continueWatching: 'Continue Watching',
+      mostPopular: 'Most Popular This Season',
     },
   },
 };

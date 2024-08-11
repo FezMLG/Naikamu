@@ -11,16 +11,16 @@ import { MostPopularElement } from './MostPopularElement';
 
 export type MostPopularListProps = Record<string, never>;
 
-export const MostPopularList: React.FC<MostPopularListProps> = ({}) => {
+export const MostPopularSection: React.FC<MostPopularListProps> = ({}) => {
   const { data, refetch, isRefetching } =
     useQueryGetMostPopularAnimeInCurrentSeason();
   const { translate } = useTranslate();
 
   return (
-    <View>
+    <View style={globalStyle.marginTopBig}>
       <Text
         style={[fontStyles.header, colors.textLight, globalStyle.marginBottom]}>
-        {translate('home.headers.continueWatching')}
+        {translate('home.headers.mostPopular')}
       </Text>
       {data ? (
         <FlatList

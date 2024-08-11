@@ -3,9 +3,9 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 
 import {
-  ContinueWatchingList,
+  ContinueWatchingSection,
   HomeUpdateAlert,
-  MostPopularList,
+  MostPopularSection,
   PageLayout,
   useLayout,
 } from '../components';
@@ -17,8 +17,8 @@ export function HomeScreen({}: HomeStackHomeScreenProps) {
   return (
     <PageLayout.Default style={[styles.container]} {...layout}>
       <HomeUpdateAlert />
-      <ContinueWatchingList />
-      <MostPopularList />
+      <ContinueWatchingSection />
+      <MostPopularSection />
     </PageLayout.Default>
   );
 }
