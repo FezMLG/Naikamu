@@ -75,8 +75,6 @@ const styles = StyleSheet.create({
     position: 'relative',
     bottom: 40,
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
-    borderBottomStartRadius: defaultRadius,
-    borderBottomEndRadius: defaultRadius,
     width: '100%',
     height: 40,
     zIndex: 10,
