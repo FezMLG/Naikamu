@@ -203,5 +203,8 @@ export const en = {
       continueWatching: 'Continue Watching',
       mostPopular: 'Most Popular This Season',
     },
+    emptyState: {
+      continueWatching: 'Start watching to see it here',
+    },
   },
 };

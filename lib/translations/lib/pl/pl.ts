@@ -204,5 +204,8 @@ export const pl = {
       continueWatching: 'Kontynuuj Oglądanie',
       mostPopular: 'Najpopularniejsze W Tym Sezonie',
     },
+    emptyState: {
+      continueWatching: 'Zacznij oglądać, a to co oglądasz pojawi się tutaj',
+    },
   },
 };

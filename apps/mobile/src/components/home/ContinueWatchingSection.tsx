@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { IContinueWatching } from '@naikamu/shared';
-import { FlatList, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useQueryGetContinueWatching } from '../../api/hooks';
 import { useTranslate } from '../../i18n/useTranslate';
@@ -24,16 +25,47 @@ export const ContinueWatchingSection: React.FC<
         {translate('home.headers.continueWatching')}
       </Text>
       {data ? (
-        <FlatList
-          data={data}
-          horizontal
-          onRefresh={refetch}
-          refreshing={isRefetching}
-          renderItem={({ item }: { item: IContinueWatching }) => (
-            <ContinueWatchingElement item={item} />
+        <>
+          {data.length > 0 ? (
+            <FlatList
+              data={data}
+              horizontal
+              onRefresh={refetch}
+              refreshing={isRefetching}
+              renderItem={({ item }: { item: IContinueWatching }) => (
+                <ContinueWatchingElement item={item} />
+              )}
+              style={styles.mainContainerSize}
+            />
+          ) : (
+            <View style={[styles.mainContainerSize, styles.mainContainer]}>
+              <Icon
+                color={colors.textLighter.color}
+                name="video-outline"
+                size={48}
+              />
+              <Text style={[fontStyles.normal, colors.textLight]}>
+                {translate('home.emptyState.continueWatching')}
+              </Text>
+            </View>
           )}
-        />
+        </>
       ) : null}
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  mainContainerSize: {
+    width: '100%',
+    height: 180,
+  },
+  mainContainer: {
+    borderColor: colors.accent.color,
+    borderWidth: 1,
+    borderStyle: 'dashed',
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
