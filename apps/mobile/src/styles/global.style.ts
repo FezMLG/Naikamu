@@ -90,7 +90,6 @@ export const fontStyles = StyleSheet.create({
   },
   bold: {
     fontWeight: 'bold',
-    letterSpacing: 1.5,
   },
 });
 

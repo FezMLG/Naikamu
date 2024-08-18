@@ -18,8 +18,11 @@ export const Alert: React.FC<AlertProps> = ({ title, message, onPress }) => (
       paddingHorizontal: 16,
       paddingVertical: 8,
       borderRadius: defaultRadius,
+      borderColor: colors.accent.color,
+      borderWidth: 1,
+      borderStyle: 'solid',
     }}>
-    <Text style={[fontStyles.header, colors.accent, fontStyles.bold]}>
+    <Text style={[fontStyles.headerSmall, colors.textLight, fontStyles.bold]}>
       {title}
     </Text>
     <Text style={[fontStyles.normal, colors.textLight]}>{message}</Text>

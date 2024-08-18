@@ -41,15 +41,15 @@ export const checkForUpdates = async (): Promise<CheckForUpdatesResponse> => {
     throw new Error('Unsupported platform');
   }
 
-  if (semver.gt(update.tag_name, packageJson.version)) {
-    return {
-      isUpdate: true,
-      data: {
-        tag_name: update.tag_name,
-        assets: currentOsUpdate,
-      },
-    };
-  }
+  // if (semver.gt(update.tag_name, packageJson.version)) {
+  return {
+    isUpdate: true,
+    data: {
+      tag_name: update.tag_name,
+      assets: currentOsUpdate,
+    },
+  };
+  // }
 
   return {
     isUpdate: false,
