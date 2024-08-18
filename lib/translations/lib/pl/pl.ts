@@ -206,6 +206,7 @@ export const pl = {
     },
     emptyState: {
       continueWatching: 'Zacznij oglądać, a to co oglądasz pojawi się tutaj',
+      mostPopular: 'Brak danych',
     },
   },
 };

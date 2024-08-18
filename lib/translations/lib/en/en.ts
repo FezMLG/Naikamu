@@ -205,6 +205,7 @@ export const en = {
     },
     emptyState: {
       continueWatching: 'Start watching to see it here',
+      mostPopular: 'No data',
     },
   },
 };
