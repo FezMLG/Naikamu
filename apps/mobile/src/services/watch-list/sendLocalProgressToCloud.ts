@@ -7,20 +7,29 @@ import { storage, storageGetData, logger } from '../../utils';
 export const sendLocalProgressToCloud = async () => {
   const allAsyncStorageEntries = storage.getAllKeys();
 
+  const regexWithoutGroup =
+    /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}-\d{1,5}/;
   const episodeKeys = allAsyncStorageEntries.filter(key =>
-    key.match(/\S{24}-\d{1,5}/),
+    key.match(regexWithoutGroup),
   );
 
   const episodeData = await Promise.allSettled(
     episodeKeys.map(async key => {
       const progress = storageGetData<OnProgressData>(key);
-      const [seriesId, episodeNumber] = key.split('-');
+      const regex =
+        /([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})-(\d{1,5})/;
+      const [seriesId, episodeNumber] = key.split(regex).filter(e => e);
 
       if (!progress) {
         throw new Error(`No data found for key ${key}`);
       }
 
-      logger('sendLocalProgressToCloud').info(key, progress);
+      logger('sendLocalProgressToCloud').info(
+        key,
+        seriesId,
+        episodeNumber,
+        progress,
+      );
 
       let leftForWatched = 2 * 60;
 
