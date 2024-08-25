@@ -27,5 +27,5 @@ Please delete options that are not relevant.
 - I have commented my code, particularly in hard-to-understand areas
 - I have added tests that prove my fix is effective or that my feature works
 - I have made corresponding changes to the documentation
-- I have updated `versionCode` in `android/app/build.gradle` if necessary
-- I have updated `codeVersion` in `package.json` if necessary
+- I have updated `versionCode` in `android/app/build.gradle`, if changes are related to Android native code
+- I have updated `version` and `codeVersion` in `package.json`
