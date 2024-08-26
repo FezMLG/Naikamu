@@ -5,6 +5,7 @@ import {
   AnimeSeason,
   AnimeSource,
   IAnimeListItem,
+  IContinueWatching,
   IPlayerResponse,
   IResolvePlayerDto,
   IUpdateWatchListEpisode,
@@ -305,6 +306,18 @@ export class APIClient {
     console.log('addWatchListImportChunk', chunk);
 
     return this.put<void>('user/watch-list/imports/shinden', chunk, {
+      ...(await this.withToken()),
+    });
+  }
+
+  async getContinueWatching() {
+    return this.get<IContinueWatching[]>('user/watch-list/continue-watching', {
+      ...(await this.withToken()),
+    });
+  }
+
+  async getMostPopularAnimeInCurrentSeason() {
+    return this.get<IAnimeListItem[]>('anime/popular/current', {
       ...(await this.withToken()),
     });
   }

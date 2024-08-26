@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 
-import analytics from '@react-native-firebase/analytics';
-import { Linking, Platform } from 'react-native';
+import { Linking } from 'react-native';
 import { Text } from 'react-native-paper';
-import semver from 'semver';
 
 import * as packageJson from '../../../../package.json';
-import { apiClient } from '../../../api/APIClient';
 import { useTranslate } from '../../../i18n/useTranslate';
+import { checkForUpdates } from '../../../services';
 import { colors, fontStyles, globalStyle } from '../../../styles';
 import { Button, Modal } from '../../atoms';
 
@@ -30,35 +28,14 @@ export const CheckForUpdates = () => {
         onPress={async () => {
           setIsChecking(() => true);
 
-          const update = await apiClient.checkForUpdates();
+          const update = await checkForUpdates();
 
-          await analytics().logEvent('check_for_updates', {
-            platform: Platform.OS,
-            currentVersion: packageJson.version,
-            newestVersion: update.tag_name,
-          });
+          if (update.isUpdate) {
+            setUpdateData(() => ({
+              tag_name: update.data.tag_name,
+              assets: update.data.assets,
+            }));
 
-          const currentOsUpdate = update.assets.find(a => {
-            const android = /^naikamu-\d+\.\d+\.\d+.apk/;
-            const ios = /^Naikamu-\d+\.\d+\.\d+.ipa/;
-
-            if (Platform.OS === 'android') {
-              return android.test(a.name);
-            } else if (Platform.OS === 'ios') {
-              return ios.test(a.name);
-            }
-          });
-
-          if (!currentOsUpdate) {
-            throw new Error('Unsupported platform');
-          }
-
-          setUpdateData(() => ({
-            tag_name: update.tag_name,
-            assets: currentOsUpdate,
-          }));
-
-          if (semver.gt(update.tag_name, packageJson.version)) {
             setIsOpen(() => true);
           } else {
             setUpdateText('settings.noUpdates');

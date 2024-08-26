@@ -14,6 +14,7 @@ import {
 } from './bottom-tab.interfaces';
 import { BrowseStack } from './browse';
 import { defaultHeaderOptions } from './defaultHeaderOptions';
+import { HomeStack } from './home';
 import { MyListStack } from './mylist';
 import { SearchStack } from './search';
 import { SettingsStack } from './settings';
@@ -50,6 +51,10 @@ function BottomTabContent(props: {
         : 'bookmark-box-multiple-outline';
       break;
     }
+    case BottomTabStackScreenNames.HomeStack: {
+      iconName = props.focused ? 'home' : 'home-outline';
+      break;
+    }
   }
 
   return <Icon color={props.color} name={iconName} size={props.size} />;
@@ -60,7 +65,7 @@ export function BottomTabStack() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName={BottomTabStackScreenNames.BrowseStack}
+      initialRouteName={BottomTabStackScreenNames.HomeStack}
       screenOptions={({ route }) => ({
         headerShown: false,
         // eslint-disable-next-line react/no-unstable-nested-components
@@ -103,6 +108,16 @@ export function BottomTabStack() {
         tabBarActiveTintColor: 'white',
       })}>
       <BottomTab.Group>
+        <BottomTab.Screen
+          component={HomeStack}
+          name={BottomTabStackScreenNames.HomeStack}
+          options={() => ({
+            ...defaultHeaderOptions({
+              title: translate('routes.' + BottomTabStackScreenNames.HomeStack),
+            }),
+            animation: 'slide_from_right',
+          })}
+        />
         <BottomTab.Screen
           component={BrowseStack}
           name={BottomTabStackScreenNames.BrowseStack}

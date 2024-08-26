@@ -21,6 +21,8 @@ export const en = {
     MyListStack: 'My List',
     OfflineStack: 'Offline',
     WatchList: 'Watch List (Beta)',
+    HomeStack: 'Home',
+    Home: 'Home',
   },
   forms: {
     save: 'Save',
@@ -196,4 +198,14 @@ export const en = {
       'Something went wrong.\n Please try again later or contact support.',
   },
   ago: 'ago',
+  home: {
+    headers: {
+      continueWatching: 'Continue Watching',
+      mostPopular: 'Most Popular This Season',
+    },
+    emptyState: {
+      continueWatching: 'Start watching to see it here',
+      mostPopular: 'No data',
+    },
+  },
 };

@@ -1,4 +1,4 @@
-import { logger } from '../../utils/logger';
+import { logger } from '../../utils';
 
 import { Resolution, UserSettings } from './interfaces';
 import { useUserSettingsStorage } from './settings.storage';

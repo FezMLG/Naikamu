@@ -1,7 +1,7 @@
 {
   "name": "@naikamu/mobile",
-  "version": "0.15.2",
-  "codeVersion": "69",
+  "version": "0.16.0",
+  "codeVersion": "70",
   "apiVersion": "1.5.x",
   "private": true,
   "engines": {
@@ -26,11 +26,8 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "app:release": "cd android && ./gradlew bundleRelease",
     "apk:beta:release": "cd android && fastlane beta && cd .. && npm run apk:beta:rename && open android/app/build/outputs/apk/production/release",
-    "apk:release": "npm run apk:remove_assets && cd android && ./gradlew assembleRelease && cd .. && npm run apk:beta:rename && open android/app/build/outputs/apk/production/release",
-    "apk:stg:release": "npm run apk:remove_assets && cd android && ./gradlew assembleStaging && cd .. && npm run apk:stg:rename && open android/app/build/outputs/apk/staging/release",
-    "apk:rename": "mv $DIR/$APP $DIR/naikamu-$RENV$VER.apk",
-    "apk:beta:rename": "DIR='android/app/build/outputs/apk/production/release' APP='app-production-release.apk' RENV=v VER=$(jq -r '.version' package.json) npm run apk:rename",
-    "apk:stg:rename": "DIR='android/app/build/outputs/apk/staging/release' APP='app-staging-release.apk' RENV=stg-r VER=$(jq -r '.codeVersion' package.json) npm run apk:rename",
+    "apk:release:stg": "./release.sh stg",
+    "apk:release:prod": "./release.sh prod",
     "apk:remove_assets": "rm -rf ./android/app/build/generated/assets"
   },
   "dependencies": {

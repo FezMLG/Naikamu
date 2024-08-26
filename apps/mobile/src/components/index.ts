@@ -12,3 +12,4 @@ export * from './series';
 export * from './download';
 export * from './EnvironmentDebug';
 export * from './PlatformExplicit';
+export * from './home';

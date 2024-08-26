@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.background.color,
     marginHorizontal: 0,
+    alignItems: 'center',
   },
   flatListContent: {
     flexGrow: 1,

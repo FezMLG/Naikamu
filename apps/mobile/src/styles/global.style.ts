@@ -88,6 +88,9 @@ export const fontStyles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 18 * 1.4,
   },
+  bold: {
+    fontWeight: 'bold',
+  },
 });
 
 export const colors = StyleSheet.create({

@@ -8,7 +8,7 @@ import { Drawer } from 'react-native-drawer-layout';
 import { Text } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { useQuerySeriesEpisodes } from '../../api/hooks';
+import { useQuerySeriesDetails, useQuerySeriesEpisodes } from '../../api/hooks';
 import {
   Episode,
   EpisodeNumber,
@@ -22,6 +22,7 @@ import { useActiveSeriesStore } from '../../services';
 import { colors, DarkColor, darkStyle, globalStyle } from '../../styles';
 
 export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
+  useQuerySeriesDetails(route.params.seriesId);
   const series = useActiveSeriesStore(store => store.series);
   const [open, setOpen] = useState(false);
 

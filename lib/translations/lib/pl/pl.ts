@@ -21,6 +21,8 @@ export const pl = {
     MyListStack: 'Moja lista',
     OfflineStack: 'Pobrane',
     WatchList: 'Lista oglądania (Beta)',
+    HomeStack: 'Główna',
+    Home: 'Główna',
   },
   forms: {
     save: 'Zapisz',
@@ -197,4 +199,14 @@ export const pl = {
       'Wystąpił błąd.\n Spróbuj ponownie później lub skontaktuj się z pomocą techniczną.',
   },
   ago: 'temu',
+  home: {
+    headers: {
+      continueWatching: 'Kontynuuj Oglądanie',
+      mostPopular: 'Najpopularniejsze W Tym Sezonie',
+    },
+    emptyState: {
+      continueWatching: 'Zacznij oglądać, a to co oglądasz pojawi się tutaj',
+      mostPopular: 'Brak danych',
+    },
+  },
 };
