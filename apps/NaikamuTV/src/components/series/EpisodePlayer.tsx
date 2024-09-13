@@ -49,6 +49,7 @@ export function EpisodePlayer({
               seriesId: series.animeId,
               episodeTitle,
               episodeNumber,
+              referer: player.playerLink,
             });
           }
         })
