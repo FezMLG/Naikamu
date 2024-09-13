@@ -15,6 +15,7 @@ export type RootStackParameterList = {
     seriesId: string;
     episodeTitle: string;
     episodeNumber: number;
+    referer: string;
   };
   [RootStackScreenNames.WebViewPlayer]: {
     uri: string;
