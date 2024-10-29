@@ -50,7 +50,18 @@ export const ContinueWatchingSection: React.FC<
             </View>
           )}
         </>
-      ) : null}
+      ) : (
+        <View style={[styles.mainContainerSize, styles.mainContainer]}>
+          <Icon
+            color={colors.textLighter.color}
+            name="video-outline"
+            size={48}
+          />
+          <Text style={[fontStyles.normal, colors.textLight]}>
+            {translate('home.emptyState.continueWatching')}
+          </Text>
+        </View>
+      )}
     </View>
   );
 };
