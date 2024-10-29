@@ -65,5 +65,15 @@ abstract_target 'NaikamuCommonPods' do
       config[:reactNativePath],
       :mac_catalyst_enabled => false
     )
+
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        if target.name == 'Sentry'
+          config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = 'YES'
+        else
+          # configuration for other targets
+        end
+      end
+    end
   end
 end
