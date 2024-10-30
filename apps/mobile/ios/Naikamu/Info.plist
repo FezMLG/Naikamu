@@ -60,7 +60,7 @@
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>$(PRODUCT_NAME) uses the local network to discover Cast-enabled devices on your WiFi network.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Required by Firebase</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
