@@ -1,24 +1,20 @@
 import { logger } from '../../utils';
 
-import { Resolution, UserSettings } from './interfaces';
+import { UserSettings } from './interfaces';
 import { useUserSettingsStorage } from './settings.storage';
-import { useUserSettingsStore } from './settings.store';
+import { defaultSettings, useUserSettingsStore } from './settings.store';
 
 export const useUserSettingsService = () => {
   const { getUserSettingsFromStorage, saveUserSettingsToStorage } =
     useUserSettingsStorage();
   const settings = useUserSettingsStore(state => state.settings);
   const actions = useUserSettingsStore(state => state.actions);
-  const defaultSettings: UserSettings = {
-    preferredResolution: Resolution['1080p'],
-    preferredDownloadQuality: Resolution['1080p'],
-  };
 
   return {
     userSettings: settings,
-    updateUserSettings: async (updatedSettings: Partial<UserSettings>) => {
+    updateUserSettings: (updatedSettings: Partial<UserSettings>) => {
       try {
-        const existingSettings = await getUserSettingsFromStorage();
+        const existingSettings = getUserSettingsFromStorage();
 
         if (!existingSettings) {
           return;
@@ -29,22 +25,22 @@ export const useUserSettingsService = () => {
           ...updatedSettings,
         };
 
-        await saveUserSettingsToStorage(userSettings);
+        saveUserSettingsToStorage(userSettings);
         actions.saveSettings(userSettings);
         logger('updateUserSettings').warn('userSettings', userSettings);
       } catch (error: unknown) {
         logger('updateUserSettings').warn(error);
       }
     },
-    initializeUserSettings: async () => {
+    initializeUserSettings: () => {
       try {
-        const existingSettings = await getUserSettingsFromStorage();
+        const existingSettings = getUserSettingsFromStorage();
 
         if (!existingSettings) {
           logger('initializeUserSettings').warn(
             'no existing settings, saving default settings',
           );
-          await saveUserSettingsToStorage(defaultSettings);
+          saveUserSettingsToStorage(defaultSettings);
         }
         actions.saveSettings({ ...defaultSettings, ...existingSettings });
       } catch (error: unknown) {

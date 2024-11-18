@@ -1,5 +1,6 @@
 export const downloadNotifications = {
   channelName: 'Pobieranie',
+  channelDescription: 'Powiadomienia o pobieraniu',
   finish: {
     title: 'Pobieranie zakończone',
     body: 'Pobieranie elementów z kolejki zostało ukończone',

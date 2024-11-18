@@ -1,5 +1,6 @@
 import {
   AndroidVisibility,
+  AuthorizationStatus,
   default as notifee,
   Notification,
 } from '@notifee/react-native';
@@ -14,8 +15,13 @@ import { logger } from '../../utils';
 import { event } from '../events';
 import { useDownloadsStore } from '../offline/downloads.store';
 import { useDownloadsQueueStore } from '../offline/queue.store';
+import { useUserSettingsStore } from '../settings';
 
-export type NotificationChannels = 'download' | 'general';
+export type NotificationChannels =
+  | 'download'
+  | 'general'
+  | 'updates'
+  | 'important';
 
 export enum NotificationForegroundServiceEvents {
   'START' = 'START',
@@ -28,6 +34,7 @@ export function useNotificationService() {
   const { mutation } = useMutationSaveNotificationToken();
   const downloadQueue = useDownloadsQueueStore(store => store.actions);
   const activeDownloads = useDownloadsStore(store => store.actions);
+  const userSettings = useUserSettingsStore(store => store.actions);
 
   const createChannel = async (channelKey: NotificationChannels) => {
     await notifee.createChannel({
@@ -44,10 +51,20 @@ export function useNotificationService() {
   };
 
   const initialize = async () => {
-    await notifee.requestPermission();
+    const settings = await notifee.requestPermission();
 
-    await createChannel('download');
-    await createChannel('general');
+    if (settings.authorizationStatus === AuthorizationStatus.DENIED) {
+      userSettings.changeNotificationSetting('enabled', false);
+    } else {
+      userSettings.changeNotificationSetting('enabled', true);
+    }
+
+    await Promise.all([
+      createChannel('download'),
+      createChannel('general'),
+      createChannel('updates'),
+      createChannel('important'),
+    ]);
 
     messaging().onMessage(onMessageReceived);
     messaging().setBackgroundMessageHandler(onMessageReceived);
