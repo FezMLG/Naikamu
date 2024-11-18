@@ -66,15 +66,15 @@ function QualityModal({
 }
 
 export function AppSettingsScreen({}: SettingsStackPlaybackSettingsScreenProps) {
-  const {
-    userSettings: { preferredResolution, preferredDownloadQuality },
-  } = useUserSettingsService();
-  const [playbackQuality, setPlaybackQuality] =
-    useState<string>(preferredResolution);
-  const [downloadQuality, setDownloadQuality] = useState<string>(
-    preferredDownloadQuality,
+  const { updateUserSettings, userSettings, updateUserNotificationSettings } =
+    useUserSettingsService();
+
+  const [playbackQuality, setPlaybackQuality] = useState<string>(
+    userSettings.preferredResolution,
   );
-  const { updateUserSettings, userSettings } = useUserSettingsService();
+  const [downloadQuality, setDownloadQuality] = useState<string>(
+    userSettings.preferredDownloadQuality,
+  );
   const { clearOffline } = useOfflineService();
   const queueActions = useDownloadsQueueStore(state => state.actions);
 
@@ -82,13 +82,13 @@ export function AppSettingsScreen({}: SettingsStackPlaybackSettingsScreenProps) 
   const [isOpenP, setIsOpenP] = useState(false);
   const [isOpenQ, setIsOpenQ] = useState(false);
 
-  const handlePlaybackQualityChange = async (newResolution: Resolution) => {
-    await updateUserSettings({ preferredResolution: newResolution });
+  const handlePlaybackQualityChange = (newResolution: Resolution) => {
+    updateUserSettings({ preferredResolution: newResolution });
     setIsOpenP(false);
   };
 
-  const handleDownloadQualityChange = async (newResolution: Resolution) => {
-    await updateUserSettings({ preferredDownloadQuality: newResolution });
+  const handleDownloadQualityChange = (newResolution: Resolution) => {
+    updateUserSettings({ preferredDownloadQuality: newResolution });
     setIsOpenQ(false);
   };
 
@@ -126,6 +126,19 @@ export function AppSettingsScreen({}: SettingsStackPlaybackSettingsScreenProps) 
           setIsModalOpen={setIsOpenQ}
           text={downloadQuality ?? '1080p'}
           title={translate('settings.titles.videoQuality')}
+        />
+      </SettingsGroup>
+      <SettingsGroup title={translate('settings.groups.notifications')}>
+        <SettingInputs.Switch
+          isFirst={true}
+          isLast={true}
+          isSwitchOn={userSettings.notifications.enabled}
+          setIsSwitchOn={value =>
+            updateUserNotificationSettings({
+              enabled: value,
+            })
+          }
+          text={translate('settings.titles.notifications')}
         />
       </SettingsGroup>
       <View style={globalStyle.marginTop}>

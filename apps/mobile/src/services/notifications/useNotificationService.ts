@@ -51,6 +51,7 @@ export function useNotificationService() {
   };
 
   const initialize = async () => {
+    logger('INITIALIZE NOTIFICATIONS').info('initializing');
     const settings = await notifee.requestPermission();
 
     if (settings.authorizationStatus === AuthorizationStatus.DENIED) {
@@ -77,6 +78,14 @@ export function useNotificationService() {
       logger('NOTIFICATION TOKEN').info(token);
       mutation.mutate(token);
     }
+  };
+
+  // eslint-disable-next-line unicorn/consistent-function-scoping
+  const disable = async () => {
+    await notifee.cancelAllNotifications();
+    await notifee.stopForegroundService();
+
+    logger('DISABLE NOTIFICATIONS').info('disabled');
   };
 
   const displayNotification = async (
@@ -173,5 +182,6 @@ export function useNotificationService() {
     displayNotification,
     registerForegroundService,
     attachNotificationToService,
+    disable,
   };
 }

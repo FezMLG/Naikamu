@@ -20,9 +20,11 @@ export const plSettings = {
       videoDownload: 'Pobieranie wideo',
       videoPlaybackDownload: 'Odtwarzanie & pobieranie wideo',
       shindenAccount: 'Konto Shinden',
+      notifications: 'Powiadomienia',
     },
     titles: {
       videoQuality: 'Jakość wideo',
+      notifications: 'Powiadomienia',
     },
     modals: {
       videoQuality: 'Wybierz jakość wideo',
