@@ -9,6 +9,7 @@ import {
   Button,
   Modal,
   PageLayout,
+  SectionButton,
   SettingInputs,
   SettingsGroup,
   useLayout,
@@ -19,6 +20,7 @@ import {
   useOfflineService,
   useUserSettingsService,
   Resolution,
+  useNotificationService,
 } from '../../services';
 import { useDownloadsQueueStore } from '../../services/offline/queue.store';
 import { colors, fontStyles, globalStyle } from '../../styles';
@@ -68,6 +70,8 @@ function QualityModal({
 export function AppSettingsScreen({}: SettingsStackPlaybackSettingsScreenProps) {
   const { updateUserSettings, userSettings, updateUserNotificationSettings } =
     useUserSettingsService();
+
+  const notificationService = useNotificationService();
 
   const [playbackQuality, setPlaybackQuality] = useState<string>(
     userSettings.preferredResolution,
@@ -129,22 +133,17 @@ export function AppSettingsScreen({}: SettingsStackPlaybackSettingsScreenProps) 
         />
       </SettingsGroup>
       <SettingsGroup title={translate('settings.groups.notifications')}>
-        <SettingInputs.Switch
-          isFirst={true}
-          isLast={true}
-          isSwitchOn={userSettings.notifications.enabled}
-          setIsSwitchOn={value =>
-            updateUserNotificationSettings({
-              enabled: value,
-            })
-          }
-          text={translate('settings.titles.notifications')}
+        <SectionButton
+          onPress={async () => {
+            await notificationService.openDeviceNotificationSettings();
+          }}
+          title={translate('settings.openAppNotificationSettings')}
         />
       </SettingsGroup>
       <View style={globalStyle.marginTop}>
         <Text style={[fontStyles.label, colors.textLight]}>Environment</Text>
         <Text style={[fontStyles.paragraph, colors.textLighter]}>
-          {Config.ENV}
+          {JSON.stringify(Config)}
         </Text>
         <Text
           style={[

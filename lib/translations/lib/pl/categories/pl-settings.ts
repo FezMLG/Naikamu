@@ -49,5 +49,6 @@ export const plSettings = {
       lastImports: 'Twoje Ostatnie Importy',
       noLastImports: 'Brak ostatnioch importów',
     },
+    openAppNotificationSettings: 'Otwórz ustawienia powiadomień aplikacji',
   },
 };

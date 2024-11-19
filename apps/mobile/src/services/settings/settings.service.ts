@@ -1,7 +1,6 @@
 import { logger } from '../../utils';
 
-import { useNotificationService } from '../notifications';
-import { INotificationSettings, UserSettings } from './interfaces';
+import { UserSettings } from './interfaces';
 import { useUserSettingsStorage } from './settings.storage';
 import { defaultSettings, useUserSettingsStore } from './settings.store';
 
@@ -10,7 +9,6 @@ export const useUserSettingsService = () => {
     useUserSettingsStorage();
   const settings = useUserSettingsStore(state => state.settings);
   const actions = useUserSettingsStore(state => state.actions);
-  const notificationsService = useNotificationService();
 
   return {
     userSettings: settings,
@@ -34,42 +32,6 @@ export const useUserSettingsService = () => {
         logger('updateUserSettings').warn(error);
       }
     },
-    updateUserNotificationSettings: async (
-      updatedSettings: Partial<INotificationSettings>,
-    ) => {
-      try {
-        const existingSettings = getUserSettingsFromStorage();
-
-        logger('updateUserNotificationSettings').info(existingSettings);
-
-        if (!existingSettings) {
-          return;
-        }
-
-        const userSettings: UserSettings = {
-          ...existingSettings,
-          notifications: {
-            ...existingSettings.notifications,
-            ...updatedSettings,
-          },
-        };
-
-        if (updatedSettings.enabled) {
-          await notificationsService.initialize();
-        } else {
-          await notificationsService.disable();
-        }
-
-        saveUserSettingsToStorage(userSettings);
-        actions.saveSettings(userSettings);
-        logger('updateUserNotificationSettings').warn(
-          'userSettings',
-          userSettings,
-        );
-      } catch (error: unknown) {
-        logger('updateUserNotificationSettings').warn(error);
-      }
-    },
     initializeUserSettings: () => {
       try {
         const existingSettings = getUserSettingsFromStorage();
@@ -82,10 +44,6 @@ export const useUserSettingsService = () => {
         const initializedSettings = {
           ...defaultSettings,
           ...existingSettings,
-          notifications: {
-            ...defaultSettings.notifications,
-            ...existingSettings?.notifications,
-          },
         };
 
         saveUserSettingsToStorage(initializedSettings);

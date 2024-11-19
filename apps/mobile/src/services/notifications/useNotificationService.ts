@@ -1,13 +1,13 @@
 import {
   AndroidVisibility,
-  AuthorizationStatus,
   default as notifee,
   Notification,
 } from '@notifee/react-native';
 import messaging, {
   FirebaseMessagingTypes,
 } from '@react-native-firebase/messaging';
-import { Platform } from 'react-native';
+import { Linking, Platform } from 'react-native';
+import Config from 'react-native-config';
 
 import { useMutationSaveNotificationToken } from '../../api/hooks';
 import { useTranslate } from '../../i18n/useTranslate';
@@ -15,7 +15,6 @@ import { logger } from '../../utils';
 import { event } from '../events';
 import { useDownloadsStore } from '../offline/downloads.store';
 import { useDownloadsQueueStore } from '../offline/queue.store';
-import { useUserSettingsStore } from '../settings';
 
 export type NotificationChannels =
   | 'download'
@@ -34,7 +33,6 @@ export function useNotificationService() {
   const { mutation } = useMutationSaveNotificationToken();
   const downloadQueue = useDownloadsQueueStore(store => store.actions);
   const activeDownloads = useDownloadsStore(store => store.actions);
-  const userSettings = useUserSettingsStore(store => store.actions);
 
   const createChannel = async (channelKey: NotificationChannels) => {
     await notifee.createChannel({
@@ -54,11 +52,7 @@ export function useNotificationService() {
     logger('INITIALIZE NOTIFICATIONS').info('initializing');
     const settings = await notifee.requestPermission();
 
-    if (settings.authorizationStatus === AuthorizationStatus.DENIED) {
-      userSettings.changeNotificationSetting('enabled', false);
-    } else {
-      userSettings.changeNotificationSetting('enabled', true);
-    }
+    logger('NOTIFICATION SETTINGS').info(settings);
 
     await Promise.all([
       createChannel('download'),
@@ -78,14 +72,6 @@ export function useNotificationService() {
       logger('NOTIFICATION TOKEN').info(token);
       mutation.mutate(token);
     }
-  };
-
-  // eslint-disable-next-line unicorn/consistent-function-scoping
-  const disable = async () => {
-    await notifee.cancelAllNotifications();
-    await notifee.stopForegroundService();
-
-    logger('DISABLE NOTIFICATIONS').info('disabled');
   };
 
   const displayNotification = async (
@@ -177,11 +163,27 @@ export function useNotificationService() {
     );
   };
 
+  // eslint-disable-next-line unicorn/consistent-function-scoping
+  const openDeviceNotificationSettings = async () => {
+    const packageName = Config.APPLICATION_ID ?? '';
+
+    if (Platform.OS === 'ios') {
+      await Linking.openURL(`App-Prefs:NOTIFICATIONS_ID&path=${packageName}`);
+    } else if (Platform.OS === 'android') {
+      await Linking.sendIntent('android.settings.APP_NOTIFICATION_SETTINGS', [
+        {
+          key: 'android.provider.extra.APP_PACKAGE',
+          value: packageName,
+        },
+      ]);
+    }
+  };
+
   return {
     initialize,
     displayNotification,
     registerForegroundService,
     attachNotificationToService,
-    disable,
+    openDeviceNotificationSettings,
   };
 }

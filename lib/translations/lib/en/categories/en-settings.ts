@@ -49,5 +49,6 @@ export const enSettings = {
       lastImports: 'Your Last Imports',
       noLastImports: 'No last imports',
     },
+    openAppNotificationSettings: 'Open app notification settings',
   },
 };
