@@ -16,11 +16,14 @@ import { event } from '../events';
 import { useDownloadsStore } from '../offline/downloads.store';
 import { useDownloadsQueueStore } from '../offline/queue.store';
 
-export type NotificationChannels =
-  | 'download'
-  | 'general'
-  | 'updates'
-  | 'important';
+const notificationChannelsNames = [
+  'download',
+  'general',
+  'updates',
+  'important',
+] as const;
+
+export type NotificationChannels = (typeof notificationChannelsNames)[number];
 
 export enum NotificationForegroundServiceEvents {
   'START' = 'START',
@@ -48,18 +51,34 @@ export function useNotificationService() {
     logger('NOTIFICATION RECEIVED').info(message);
   };
 
+  const deleteOldChannelsAndCreateNew = async () => {
+    const notificationChannels = await notifee.getChannels();
+
+    for (const channel of notificationChannels) {
+      if (
+        !notificationChannelsNames.includes(channel.id as NotificationChannels)
+      ) {
+        logger('DELETE NOTIFICATION CHANNEL').info(channel.id);
+        await notifee.deleteChannel(channel.id);
+      }
+    }
+
+    await Promise.all(
+      notificationChannelsNames.map(channel => {
+        logger('CREATE NOTIFICATION CHANNEL').info(channel);
+
+        return createChannel(channel);
+      }),
+    );
+  };
+
   const initialize = async () => {
     logger('INITIALIZE NOTIFICATIONS').info('initializing');
     const settings = await notifee.requestPermission();
 
     logger('NOTIFICATION SETTINGS').info(settings);
 
-    await Promise.all([
-      createChannel('download'),
-      createChannel('general'),
-      createChannel('updates'),
-      createChannel('important'),
-    ]);
+    await deleteOldChannelsAndCreateNew();
 
     messaging().onMessage(onMessageReceived);
     messaging().setBackgroundMessageHandler(onMessageReceived);
