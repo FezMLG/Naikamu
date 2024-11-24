@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { default as Config } from 'react-native-config';
 import { RadioButton } from 'react-native-paper';
 
@@ -68,8 +68,7 @@ function QualityModal({
 }
 
 export function AppSettingsScreen({}: SettingsStackPlaybackSettingsScreenProps) {
-  const { updateUserSettings, userSettings, updateUserNotificationSettings } =
-    useUserSettingsService();
+  const { updateUserSettings, userSettings } = useUserSettingsService();
 
   const notificationService = useNotificationService();
 
@@ -114,100 +113,102 @@ export function AppSettingsScreen({}: SettingsStackPlaybackSettingsScreenProps) 
         setIsOpen={setIsOpenQ}
         setQuality={setDownloadQuality}
       />
-      <SettingsGroup title={translate('settings.groups.videoPlayback')}>
-        <SettingInputs.Select
-          isFirst={true}
-          isLast={true}
-          setIsModalOpen={setIsOpenP}
-          text={playbackQuality ?? '1080p'}
-          title={translate('settings.titles.videoQuality')}
-        />
-      </SettingsGroup>
-      <SettingsGroup title={translate('settings.groups.videoDownload')}>
-        <SettingInputs.Select
-          isFirst={true}
-          isLast={true}
-          setIsModalOpen={setIsOpenQ}
-          text={downloadQuality ?? '1080p'}
-          title={translate('settings.titles.videoQuality')}
-        />
-      </SettingsGroup>
-      <SettingsGroup title={translate('settings.groups.notifications')}>
-        <SectionButton
-          onPress={async () => {
-            await notificationService.openDeviceNotificationSettings();
-          }}
-          title={translate('settings.openAppNotificationSettings')}
-        />
-      </SettingsGroup>
-      <View style={globalStyle.marginTop}>
-        <Text style={[fontStyles.label, colors.textLight]}>Environment</Text>
-        <Text style={[fontStyles.paragraph, colors.textLighter]}>
-          {JSON.stringify(Config)}
-        </Text>
-        <Text
-          style={[
-            fontStyles.label,
-            colors.textLight,
-            globalStyle.marginTopSmall,
-          ]}>
-          API Endpoint
-        </Text>
-        <Text style={[fontStyles.paragraph, colors.textLighter]}>
-          {Config.API_URL}
-        </Text>
-        <Text
-          style={[
-            fontStyles.label,
-            colors.textLight,
-            globalStyle.marginTopSmall,
-          ]}>
-          API Version
-        </Text>
-        <Text style={[fontStyles.paragraph, colors.textLighter]}>
-          {packageJson.apiVersion}
-        </Text>
-        <Text
-          style={[
-            fontStyles.label,
-            colors.textLight,
-            globalStyle.marginTopSmall,
-          ]}>
-          APP Version
-        </Text>
-        <Text style={[fontStyles.paragraph, colors.textLighter]}>
-          {packageJson.version} ({packageJson.codeVersion})
-        </Text>
-        {Config.ENV === 'development' && (
-          <>
-            <Text
-              style={[
-                fontStyles.label,
-                colors.textLight,
-                globalStyle.marginTopSmall,
-              ]}>
-              User Settings
-            </Text>
-            <Text style={[fontStyles.paragraph, colors.textLighter]}>
-              {JSON.stringify(userSettings)}
-            </Text>
-            <Button
-              label="Clear downloads"
-              onPress={() => {
-                clearOffline();
-              }}
-              type="primary"
-            />
-            <Button
-              label="Clear downloads queue"
-              onPress={() => {
-                queueActions.clearQueue();
-              }}
-              type="primary"
-            />
-          </>
-        )}
-      </View>
+      <ScrollView>
+        <SettingsGroup title={translate('settings.groups.videoPlayback')}>
+          <SettingInputs.Select
+            isFirst={true}
+            isLast={true}
+            setIsModalOpen={setIsOpenP}
+            text={playbackQuality ?? '1080p'}
+            title={translate('settings.titles.videoQuality')}
+          />
+        </SettingsGroup>
+        <SettingsGroup title={translate('settings.groups.videoDownload')}>
+          <SettingInputs.Select
+            isFirst={true}
+            isLast={true}
+            setIsModalOpen={setIsOpenQ}
+            text={downloadQuality ?? '1080p'}
+            title={translate('settings.titles.videoQuality')}
+          />
+        </SettingsGroup>
+        <SettingsGroup title={translate('settings.groups.notifications')}>
+          <SectionButton
+            onPress={async () => {
+              await notificationService.openDeviceNotificationSettings();
+            }}
+            title={translate('settings.openAppNotificationSettings')}
+          />
+        </SettingsGroup>
+        <View style={globalStyle.marginTop}>
+          <Text style={[fontStyles.label, colors.textLight]}>Environment</Text>
+          <Text style={[fontStyles.paragraph, colors.textLighter]}>
+            {JSON.stringify(Config)}
+          </Text>
+          <Text
+            style={[
+              fontStyles.label,
+              colors.textLight,
+              globalStyle.marginTopSmall,
+            ]}>
+            API Endpoint
+          </Text>
+          <Text style={[fontStyles.paragraph, colors.textLighter]}>
+            {Config.API_URL}
+          </Text>
+          <Text
+            style={[
+              fontStyles.label,
+              colors.textLight,
+              globalStyle.marginTopSmall,
+            ]}>
+            API Version
+          </Text>
+          <Text style={[fontStyles.paragraph, colors.textLighter]}>
+            {packageJson.apiVersion}
+          </Text>
+          <Text
+            style={[
+              fontStyles.label,
+              colors.textLight,
+              globalStyle.marginTopSmall,
+            ]}>
+            APP Version
+          </Text>
+          <Text style={[fontStyles.paragraph, colors.textLighter]}>
+            {packageJson.version} ({packageJson.codeVersion})
+          </Text>
+          {Config.ENV === 'development' && (
+            <>
+              <Text
+                style={[
+                  fontStyles.label,
+                  colors.textLight,
+                  globalStyle.marginTopSmall,
+                ]}>
+                User Settings
+              </Text>
+              <Text style={[fontStyles.paragraph, colors.textLighter]}>
+                {JSON.stringify(userSettings)}
+              </Text>
+              <Button
+                label="Clear downloads"
+                onPress={() => {
+                  clearOffline();
+                }}
+                type="primary"
+              />
+              <Button
+                label="Clear downloads queue"
+                onPress={() => {
+                  queueActions.clearQueue();
+                }}
+                type="primary"
+              />
+            </>
+          )}
+        </View>
+      </ScrollView>
     </PageLayout.Default>
   );
 }

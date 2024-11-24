@@ -3,14 +3,12 @@ import React from 'react';
 import { AnimeDetails } from '@naikamu/shared';
 import { format } from 'date-fns';
 import { Linking, Pressable, StyleSheet, Text, View } from 'react-native';
-import FastImage from 'react-native-fast-image';
 import Animated from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useTranslate } from '../../i18n/useTranslate';
 import { colors, fontStyles, globalStyle } from '../../styles';
 import { Dot } from '../atoms';
-import { ProgressiveImage } from '../ProgressiveImage';
 
 import { QuickInfo } from './QuickInfo';
 
@@ -57,16 +55,24 @@ function QuickInfoContainer({ data }: { data: AnimeDetails }) {
       <QuickInfo
         value={translate('anime_details.status_list.' + data.status)}
       />
-      <Dot />
-      <QuickInfo
-        value={`${translate('animeSeason.' + data.season)} ${data.seasonYear}`}
-      />
+      {data.season ? (
+        <>
+          <Dot />
+          <QuickInfo
+            value={`${translate('animeSeason.' + data.season)} ${data.seasonYear}`}
+          />
+        </>
+      ) : null}
       <Dot />
       <QuickInfo value={data.format} />
       <Dot />
       <QuickInfo value={data.episodes} />
-      <Dot />
-      <QuickInfo value={`${data.duration} mins`} />
+      {data.duration ? (
+        <>
+          <Dot />
+          <QuickInfo value={`${data.duration} mins`} />
+        </>
+      ) : null}
     </View>
   );
 }
@@ -114,9 +120,13 @@ function Genres(props: { genres: AnimeDetails['genres']; color?: string }) {
 
 function Description(props: { description: string }) {
   return (
-    <Text style={[colors.textLight, fontStyles.paragraph]}>
-      {props.description.replaceAll(/<[^>]*>?/gm, '')}
-    </Text>
+    <>
+      {props.description ? (
+        <Text style={[colors.textLight, fontStyles.paragraph]}>
+          {props.description.replaceAll(/<[^>]*>?/gm, '')}
+        </Text>
+      ) : null}
+    </>
   );
 }
 
@@ -124,10 +134,14 @@ function AverageScore(props: { averageScore?: number }) {
   const { translate } = useTranslate();
 
   return (
-    <Text style={[colors.textLight, fontStyles.normal]}>
-      {translate('anime_details.averageScore')}: {props.averageScore}
-      <Text style={[colors.textLighter, fontStyles.normal]}> / 100</Text>
-    </Text>
+    <>
+      {props.averageScore ? (
+        <Text style={[colors.textLight, fontStyles.normal]}>
+          {translate('anime_details.averageScore')}: {props.averageScore}
+          <Text style={[colors.textLighter, fontStyles.normal]}> / 100</Text>
+        </Text>
+      ) : null}
+    </>
   );
 }
 
