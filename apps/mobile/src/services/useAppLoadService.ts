@@ -4,6 +4,7 @@ import NetInfo from '@react-native-community/netinfo';
 import analytics from '@react-native-firebase/analytics';
 import { useNavigation } from '@react-navigation/native';
 import { default as Config } from 'react-native-config';
+import * as RNLocalize from 'react-native-localize';
 import semver from 'semver';
 
 import * as packageJson from '../../package.json';
@@ -87,6 +88,10 @@ export const useAppLoadService = () => {
   }, []);
 
   const initialize = useCallback(async () => {
+    await analytics().logEvent('app_initialize', {
+      country: RNLocalize.getCountry(),
+    });
+
     await initializeServices();
     const isConnection = await checkConnection();
 

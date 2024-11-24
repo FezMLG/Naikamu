@@ -15,6 +15,8 @@ import { useTranslate } from '../../i18n/useTranslate';
 import { AuthStackRoutesNames, AuthStackSignUpScreenProps } from '../../routes';
 import { useUserService } from '../../services/auth/user.service';
 import { fontStyles, globalStyle } from '../../styles';
+import analytics from '@react-native-firebase/analytics';
+import * as RNLocalize from 'react-native-localize';
 
 export interface SignUpForm {
   displayName: string;
@@ -54,6 +56,10 @@ export function SignUpScreen({ navigation }: AuthStackSignUpScreenProps) {
   });
 
   const handleSignUp = async (data: SignUpForm) => {
+    analytics().logEvent('sign_up', {
+      country: RNLocalize.getCountry(),
+    });
+
     isLoading(true);
     try {
       if (data.password !== data.passwordAgain) {
