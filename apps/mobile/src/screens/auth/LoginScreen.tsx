@@ -45,7 +45,7 @@ export function LoginScreen({ navigation }: AuthStackLoginScreenProps) {
   });
 
   const handleLogin = async (data: LoginForm) => {
-    analytics().logEvent('login', {
+    await analytics().logEvent('login', {
       country: RNLocalize.getCountry(),
     });
 
