@@ -56,7 +56,7 @@ export function SignUpScreen({ navigation }: AuthStackSignUpScreenProps) {
   });
 
   const handleSignUp = async (data: SignUpForm) => {
-    analytics().logEvent('sign_up', {
+    await analytics().logEvent('sign_up', {
       country: RNLocalize.getCountry(),
     });
 
