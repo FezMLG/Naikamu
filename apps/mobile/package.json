@@ -63,6 +63,7 @@
     "react-native": "0.73.6",
     "react-native-code-push": "8.2.1",
     "react-native-config": "1.5.1",
+    "react-native-device-info": "^14.0.1",
     "react-native-drawer-layout": "3.3.0",
     "react-native-fast-image": "8.6.3",
     "react-native-fs": "2.20.0",

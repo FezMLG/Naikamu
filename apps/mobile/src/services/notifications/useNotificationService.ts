@@ -15,6 +15,7 @@ import { logger } from '../../utils';
 import { event } from '../events';
 import { useDownloadsStore } from '../offline/downloads.store';
 import { useDownloadsQueueStore } from '../offline/queue.store';
+import DeviceInfo from 'react-native-device-info';
 
 const notificationChannelsNames = [
   'download',
@@ -184,7 +185,7 @@ export function useNotificationService() {
 
   // eslint-disable-next-line unicorn/consistent-function-scoping
   const openDeviceNotificationSettings = async () => {
-    const packageName = Config.APPLICATION_ID ?? '';
+    const packageName = DeviceInfo.getBundleId();
 
     if (Platform.OS === 'ios') {
       await Linking.openURL(`App-Prefs:NOTIFICATIONS_ID&path=${packageName}`);
