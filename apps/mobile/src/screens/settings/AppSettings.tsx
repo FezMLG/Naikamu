@@ -24,6 +24,7 @@ import {
 } from '../../services';
 import { useDownloadsQueueStore } from '../../services/offline/queue.store';
 import { colors, fontStyles, globalStyle } from '../../styles';
+import DeviceInfo from 'react-native-device-info';
 
 function QualityModal({
   isOpen,
@@ -141,9 +142,9 @@ export function AppSettingsScreen({}: SettingsStackPlaybackSettingsScreenProps) 
           />
         </SettingsGroup>
         <View style={globalStyle.marginTop}>
-          <Text style={[fontStyles.label, colors.textLight]}>Environment</Text>
+          <Text style={[fontStyles.label, colors.textLight]}>Bundle</Text>
           <Text style={[fontStyles.paragraph, colors.textLighter]}>
-            {JSON.stringify(Config)}
+            {DeviceInfo.getBundleId()}
           </Text>
           <Text
             style={[
@@ -176,10 +177,16 @@ export function AppSettingsScreen({}: SettingsStackPlaybackSettingsScreenProps) 
             APP Version
           </Text>
           <Text style={[fontStyles.paragraph, colors.textLighter]}>
-            {packageJson.version} ({packageJson.codeVersion})
+            {DeviceInfo.getVersion()} ({DeviceInfo.getBuildNumber()})
           </Text>
           {Config.ENV === 'development' && (
             <>
+              <Text style={[fontStyles.label, colors.textLight]}>
+                Environment
+              </Text>
+              <Text style={[fontStyles.paragraph, colors.textLighter]}>
+                {JSON.stringify(Config)}
+              </Text>
               <Text
                 style={[
                   fontStyles.label,

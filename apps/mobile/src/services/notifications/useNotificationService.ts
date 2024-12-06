@@ -188,7 +188,7 @@ export function useNotificationService() {
     const packageName = DeviceInfo.getBundleId();
 
     if (Platform.OS === 'ios') {
-      await Linking.openURL(`App-Prefs:NOTIFICATIONS_ID&path=${packageName}`);
+      await Linking.openSettings();
     } else if (Platform.OS === 'android') {
       await Linking.sendIntent('android.settings.APP_NOTIFICATION_SETTINGS', [
         {
