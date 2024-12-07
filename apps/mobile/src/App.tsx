@@ -20,6 +20,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { QueryClientWrap } from './api/QueryClientWrap';
 import LanguagesProvider from './i18n/LanguagesProvider';
 import Routes from './routes/Routes';
+import { NotificationWrap } from './services';
 import EventProvider from './services/events/EventProvider';
 import { colors } from './styles';
 
@@ -41,25 +42,27 @@ const CombinedDarkTheme: Theme = {
 function Main() {
   return (
     <QueryClientWrap>
-      <PaperProvider
-        settings={{
-          icon: props => <Icon {...props} />,
-        }}
-        theme={CombinedDarkTheme}>
-        <GluestackUIProvider colorMode="dark" config={config}>
-          <LanguagesProvider>
-            <GestureHandlerRootView style={{ flex: 1 }}>
-              <EventProvider>
-                <Routes theme={CombinedDarkTheme} />
-              </EventProvider>
-            </GestureHandlerRootView>
-          </LanguagesProvider>
-        </GluestackUIProvider>
-      </PaperProvider>
+      <NotificationWrap>
+        <PaperProvider
+          settings={{
+            icon: props => <Icon {...props} />,
+          }}
+          theme={CombinedDarkTheme}>
+          <GluestackUIProvider colorMode="dark" config={config}>
+            <LanguagesProvider>
+              <GestureHandlerRootView style={{ flex: 1 }}>
+                <EventProvider>
+                  <Routes theme={CombinedDarkTheme} />
+                </EventProvider>
+              </GestureHandlerRootView>
+            </LanguagesProvider>
+          </GluestackUIProvider>
+        </PaperProvider>
+      </NotificationWrap>
     </QueryClientWrap>
   );
 }
 
-const App = codePush(Main);
+const App = process.env.ENV === 'development' ? Main : codePush(Main);
 
 export default App;

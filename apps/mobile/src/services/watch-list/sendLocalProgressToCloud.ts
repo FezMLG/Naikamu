@@ -7,8 +7,7 @@ import { storage, storageGetData, logger } from '../../utils';
 export const sendLocalProgressToCloud = async () => {
   const allAsyncStorageEntries = storage.getAllKeys();
 
-  const regexWithoutGroup =
-    /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}-\d{1,5}/;
+  const regexWithoutGroup = /[\da-f]{8}(?:-[\da-f]{4}){3}-[\da-f]{12}-\d{1,5}/;
   const episodeKeys = allAsyncStorageEntries.filter(key =>
     key.match(regexWithoutGroup),
   );
@@ -16,9 +15,8 @@ export const sendLocalProgressToCloud = async () => {
   const episodeData = await Promise.allSettled(
     episodeKeys.map(async key => {
       const progress = storageGetData<OnProgressData>(key);
-      const regex =
-        /([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})-(\d{1,5})/;
-      const [seriesId, episodeNumber] = key.split(regex).filter(e => e);
+      const regex = /([\da-f]{8}(?:-[\da-f]{4}){3}-[\da-f]{12})-(\d{1,5})/;
+      const [seriesId, episodeNumber] = key.split(regex).filter(Boolean);
 
       if (!progress) {
         throw new Error(`No data found for key ${key}`);

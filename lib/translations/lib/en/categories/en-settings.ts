@@ -20,9 +20,11 @@ export const enSettings = {
       videoDownload: 'Video download',
       videoPlaybackDownload: 'Video playback & download',
       shindenAccount: 'Shinden account',
+      notifications: 'Notifications',
     },
     titles: {
       videoQuality: 'Video quality',
+      notifications: 'Notifications',
     },
     modals: {
       videoQuality: 'Select video quality',
@@ -47,5 +49,6 @@ export const enSettings = {
       lastImports: 'Your Last Imports',
       noLastImports: 'No last imports',
     },
+    openAppNotificationSettings: 'Open app notification settings',
   },
 };

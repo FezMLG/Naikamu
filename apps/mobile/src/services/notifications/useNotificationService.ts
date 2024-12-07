@@ -6,7 +6,8 @@ import {
 import messaging, {
   FirebaseMessagingTypes,
 } from '@react-native-firebase/messaging';
-import { Platform } from 'react-native';
+import { Linking, Platform } from 'react-native';
+import Config from 'react-native-config';
 
 import { useMutationSaveNotificationToken } from '../../api/hooks';
 import { useTranslate } from '../../i18n/useTranslate';
@@ -14,8 +15,16 @@ import { logger } from '../../utils';
 import { event } from '../events';
 import { useDownloadsStore } from '../offline/downloads.store';
 import { useDownloadsQueueStore } from '../offline/queue.store';
+import DeviceInfo from 'react-native-device-info';
 
-export type NotificationChannels = 'download' | 'general';
+const notificationChannelsNames = [
+  'download',
+  'general',
+  'updates',
+  'important',
+] as const;
+
+export type NotificationChannels = (typeof notificationChannelsNames)[number];
 
 export enum NotificationForegroundServiceEvents {
   'START' = 'START',
@@ -43,11 +52,34 @@ export function useNotificationService() {
     logger('NOTIFICATION RECEIVED').info(message);
   };
 
-  const initialize = async () => {
-    await notifee.requestPermission();
+  const deleteOldChannelsAndCreateNew = async () => {
+    const notificationChannels = await notifee.getChannels();
 
-    await createChannel('download');
-    await createChannel('general');
+    for (const channel of notificationChannels) {
+      if (
+        !notificationChannelsNames.includes(channel.id as NotificationChannels)
+      ) {
+        logger('DELETE NOTIFICATION CHANNEL').info(channel.id);
+        await notifee.deleteChannel(channel.id);
+      }
+    }
+
+    await Promise.all(
+      notificationChannelsNames.map(channel => {
+        logger('CREATE NOTIFICATION CHANNEL').info(channel);
+
+        return createChannel(channel);
+      }),
+    );
+  };
+
+  const initialize = async () => {
+    logger('INITIALIZE NOTIFICATIONS').info('initializing');
+    const settings = await notifee.requestPermission();
+
+    logger('NOTIFICATION SETTINGS').info(settings);
+
+    await deleteOldChannelsAndCreateNew();
 
     messaging().onMessage(onMessageReceived);
     messaging().setBackgroundMessageHandler(onMessageReceived);
@@ -151,10 +183,27 @@ export function useNotificationService() {
     );
   };
 
+  // eslint-disable-next-line unicorn/consistent-function-scoping
+  const openDeviceNotificationSettings = async () => {
+    const packageName = DeviceInfo.getBundleId();
+
+    if (Platform.OS === 'ios') {
+      await Linking.openSettings();
+    } else if (Platform.OS === 'android') {
+      await Linking.sendIntent('android.settings.APP_NOTIFICATION_SETTINGS', [
+        {
+          key: 'android.provider.extra.APP_PACKAGE',
+          value: packageName,
+        },
+      ]);
+    }
+  };
+
   return {
     initialize,
     displayNotification,
     registerForegroundService,
     attachNotificationToService,
+    openDeviceNotificationSettings,
   };
 }
