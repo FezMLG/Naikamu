@@ -4,7 +4,7 @@ import { Control, FieldErrorsImpl, Controller, useForm } from 'react-hook-form';
 import { KeyboardTypeOptions, StyleSheet, View } from 'react-native';
 import { Text, TextInput } from 'react-native-paper';
 
-import { Button, PageLayout, useLayout } from '../../components';
+import { Button, PageLayout } from '../../components';
 import { useTranslate } from '../../i18n/useTranslate';
 import { SettingsStackSettingsActionConfirmScreenProps } from '../../routes';
 import { fireReauthenticate } from '../../services/firebase/fire-auth.service';
@@ -72,7 +72,6 @@ export function SettingsActionConfirmScreen({
   route,
   navigation,
 }: SettingsStackSettingsActionConfirmScreenProps) {
-  const layout = useLayout();
   const { action, payload, origin } = route.params;
   const { translate } = useTranslate();
 
@@ -98,7 +97,7 @@ export function SettingsActionConfirmScreen({
   };
 
   return (
-    <PageLayout.Default {...layout}>
+    <PageLayout.Default>
       <FormTextInput
         control={control}
         errors={errors}

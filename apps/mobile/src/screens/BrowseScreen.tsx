@@ -11,7 +11,6 @@ import {
   SeasonYearSelectButtons,
   BrowseElement,
   PageLayout,
-  useLayout,
 } from '../components';
 import { useAnimatedHeader } from '../components/atoms/Animated';
 import {
@@ -20,11 +19,12 @@ import {
   SeriesStackScreenNames,
 } from '../routes';
 import { colors } from '../styles';
+import { useLayoutMessageService } from '../services/layout-info';
 
 const headerHeight = 120;
 
 export function BrowseScreen({}: BrowseStackBrowseScreenProps) {
-  const layout = useLayout();
+  const { setAndShowMessage } = useLayoutMessageService();
   const navigation = useNavigation<any>();
   const { api, currentSeason, season, year, setSeason, setYear } =
     useQuerySeriesList();
@@ -55,8 +55,7 @@ export function BrowseScreen({}: BrowseStackBrowseScreenProps) {
         {
           flex: api.data ? 0 : 1,
         },
-      ]}
-      {...layout}>
+      ]}>
       <SeasonYearSelectButtons
         animatedHeight={animatedHeight}
         animatedTransform={animatedTransform}

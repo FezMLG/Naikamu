@@ -4,18 +4,14 @@ import { Linking, Pressable, StyleSheet, Text, View } from 'react-native';
 import { default as Config } from 'react-native-config';
 
 import Logo from '../../assets/logo_full.svg';
-import {
-  ActivityIndicator,
-  EnvironmentDebug,
-  PageLayout,
-  useLayout,
-} from '../components';
+import { ActivityIndicator, EnvironmentDebug, PageLayout } from '../components';
 import { useTranslate } from '../i18n/useTranslate';
 import { useAppLoadService } from '../services';
+import { useLayoutMessageService } from '../services/layout-info';
 import { colors, fontStyles, globalStyle } from '../styles';
 
 export function AppLoadScreen() {
-  const layout = useLayout();
+  const { setAndShowMessage } = useLayoutMessageService();
   const { translate } = useTranslate();
   const [, setLongLoading] = useState(false);
   const [apiError, setApiError] = useState(false);
@@ -26,8 +22,7 @@ export function AppLoadScreen() {
       await initialize();
 
       setTimeout(() => {
-        layout.setInfo(translate('welcomeScreen.apiLoading'));
-        layout.setVisible(true);
+        setAndShowMessage(translate('welcomeScreen.apiLoading'));
         setLongLoading(true);
       }, 3000);
       setTimeout(() => {

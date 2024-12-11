@@ -3,13 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { StyleSheet, Text, View } from 'react-native';
 
-import {
-  Button,
-  PageLayout,
-  TextInput,
-  Timer,
-  useLayout,
-} from '../../components';
+import { Button, PageLayout, TextInput, Timer } from '../../components';
 import { useTranslate } from '../../i18n/useTranslate';
 import { AuthStackForgotPasswordScreenProps } from '../../routes';
 import { fireForgotPassword } from '../../services/firebase/fire-auth.service';
@@ -20,7 +14,6 @@ interface ForgetPassword {
 }
 
 export function ForgotPasswordScreen({}: AuthStackForgotPasswordScreenProps) {
-  const layout = useLayout();
   const [loading, isLoading] = useState(false);
   const [emailSent, isEmailSent] = useState(false);
   const { translate } = useTranslate();
@@ -53,7 +46,7 @@ export function ForgotPasswordScreen({}: AuthStackForgotPasswordScreenProps) {
   }, [emailSent]);
 
   return (
-    <PageLayout.Default {...layout}>
+    <PageLayout.Default>
       <View style={[styles.formInputs, globalStyle.spacerBig]}>
         <Controller
           control={control}

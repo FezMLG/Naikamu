@@ -84,7 +84,7 @@ export function EpisodePlayer({
                 icon={isError ? 'alert-circle-outline' : 'play'}
                 onPress={() =>
                   watchRefetch().then(({ data: result }) => {
-                    if (result) {
+                    if (result && result.status === 200) {
                       navigation.navigate(RootStackScreenNames.NativePlayer, {
                         uri: result.uri,
                         seriesId: series.id,

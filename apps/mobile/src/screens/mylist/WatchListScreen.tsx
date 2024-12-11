@@ -6,7 +6,7 @@ import { StyleSheet, Text } from 'react-native';
 import Animated from 'react-native-reanimated';
 
 import { useInfiniteQueryUserWatchList } from '../../api/hooks';
-import { PageLayout, useLayout } from '../../components';
+import { PageLayout } from '../../components';
 import { useAnimatedHeader } from '../../components/atoms/Animated';
 import {
   WatchListElement,
@@ -24,7 +24,6 @@ const headerHeight = 100;
 export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
   const navigation = useNavigation<any>();
   const { api } = useInfiniteQueryUserWatchList();
-  const layout = useLayout();
 
   const { scrollHandler, animatedHeight, animatedTransform } =
     useAnimatedHeader(headerHeight);
@@ -46,7 +45,6 @@ export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
 
   return (
     <PageLayout.Default
-      {...layout}
       margin={false}
       style={[
         {

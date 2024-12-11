@@ -4,7 +4,6 @@ import { ActionType } from '@naikamu/shared';
 import { StyleSheet } from 'react-native';
 
 import {
-  useLayout,
   SettingInputs,
   SettingsGroup,
   Button,
@@ -22,13 +21,12 @@ import { globalStyle } from '../../styles';
 export function UserSettingsScreen({
   navigation,
 }: SettingsStackUserSettingsScreenProps) {
-  const layout = useLayout();
   const user = useUserStore(state => state.user);
   const { translate } = useTranslate();
   const userService = useUserService();
 
   return (
-    <PageLayout.Default style={[styles.container]} {...layout}>
+    <PageLayout.Default style={[styles.container]}>
       <SettingsGroup title={translate('settings.groups.accountDetails')}>
         <SettingInputs.Edit
           isFirst={true}

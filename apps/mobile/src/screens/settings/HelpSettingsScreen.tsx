@@ -3,7 +3,7 @@ import React from 'react';
 import analytics from '@react-native-firebase/analytics';
 import { Linking, Platform, View } from 'react-native';
 
-import { PageLayout, SectionButton, useLayout } from '../../components';
+import { PageLayout, SectionButton } from '../../components';
 import { externalLinks } from '../../externalLinks';
 import { useTranslate } from '../../i18n/useTranslate';
 import { SettingsStackHelpSettingsScreenProps } from '../../routes';
@@ -13,10 +13,9 @@ import { globalStyle } from '../../styles';
 export function HelpSettingsScreen({}: SettingsStackHelpSettingsScreenProps) {
   const { translate } = useTranslate();
   const user = useUserStore(state => state.user);
-  const layout = useLayout();
 
   return (
-    <PageLayout.Default {...layout}>
+    <PageLayout.Default>
       <View style={globalStyle.marginTop}>
         <SectionButton
           external

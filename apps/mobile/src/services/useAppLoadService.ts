@@ -9,7 +9,6 @@ import semver from 'semver';
 
 import * as packageJson from '../../package.json';
 import { apiClient } from '../api/APIClient';
-import { useLayout } from '../components';
 import { AuthStackRoutesNames } from '../routes';
 import { logger } from '../utils';
 
@@ -19,6 +18,7 @@ import {
   fireGetIdToken,
   fireGetNewIdToken,
 } from './firebase/fire-auth.service';
+import { useLayoutMessageService } from './layout-info';
 import { useNotificationService } from './notifications';
 import { offlineFS, useOfflineService } from './offline';
 import { useUserSettingsService } from './settings';
@@ -31,8 +31,8 @@ export const useAppLoadService = () => {
   const { initializeUserSettings } = useUserSettingsService();
   const userActions = useUserStore(state => state.actions);
   const navigation = useNavigation<any>();
-  const layout = useLayout();
   const offlineService = useOfflineService();
+  const { setAndShowMessage } = useLayoutMessageService();
 
   const initializeServices = useCallback(async () => {
     await notifications.initialize();
@@ -104,7 +104,7 @@ export const useAppLoadService = () => {
 
       await checkLoggedInUser();
     } else {
-      layout.setInfo('useQueryApiHealth#onError');
+      setAndShowMessage('useQueryApiHealth#onError');
       userService.readUserFromStorage();
       userService.setLoggedUser();
       offlineService.getAllOfflineSeries();
