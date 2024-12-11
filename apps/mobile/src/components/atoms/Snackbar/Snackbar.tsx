@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { Text } from 'react-native';
 import { Snackbar as PaperSnackbar } from 'react-native-paper';
@@ -16,10 +16,6 @@ export function Snackbar({
   actionLabel: string;
   setVisible: (visible: boolean) => void;
 }) {
-  useEffect(() => {
-    console.log(Date.now(), text, visible);
-  }, [text, visible]);
-
   return (
     <PaperSnackbar
       action={{

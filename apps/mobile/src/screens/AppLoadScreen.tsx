@@ -33,7 +33,7 @@ export function AppLoadScreen() {
   }, []);
 
   return (
-    <PageLayout.Default style={[styles.container]} {...layout}>
+    <PageLayout.Default style={[styles.container]}>
       <EnvironmentDebug
         style={[
           {

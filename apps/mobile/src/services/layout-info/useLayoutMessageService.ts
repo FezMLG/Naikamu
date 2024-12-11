@@ -7,8 +7,6 @@ export const useLayoutMessageService = () => {
     infoStoreActions.setMessage(message);
   };
 
-  const getMessage = () => infoStoreActions.getMessage();
-
   const showMessage = () => {
     infoStoreActions.setIsVisible(true);
   };
