@@ -1,11 +1,9 @@
 import { IAnimeListItem, Paginate } from '@naikamu/shared';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
-import { APIClient } from '../../APIClient';
+import { apiClient } from '../../APIClient';
 
 export const useQuerySearchSeriesList = (phrase?: string) => {
-  const apiClient = new APIClient();
-
   const { isLoading, data, refetch, fetchNextPage, isRefetching } =
     useInfiniteQuery<Paginate<IAnimeListItem[]>>(
       ['search results', phrase],
