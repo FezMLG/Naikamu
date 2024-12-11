@@ -9,12 +9,7 @@ import { Text } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useQuerySeriesDetails, useQuerySeriesEpisodes } from '../../api/hooks';
-import {
-  Episode,
-  EpisodeNumber,
-  PageLayout,
-  useLayout,
-} from '../../components';
+import { Episode, EpisodeNumber, PageLayout } from '../../components';
 import { UpcomingEpisode } from '../../components/episode/UpcomingEpisode';
 import { useTranslate } from '../../i18n/useTranslate';
 import { SeriesStackEpisodeScreenProps } from '../../routes';
@@ -28,7 +23,6 @@ export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
 
   const flatListRef = useRef<FlatList>(null);
   const { translate } = useTranslate();
-  const layout = useLayout();
   const {
     data: episodes,
     isError,
@@ -83,7 +77,7 @@ export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
           ))}
         </ScrollView>
       )}>
-      <PageLayout.Default margin={false} {...layout}>
+      <PageLayout.Default margin={false}>
         <PageLayout.Loading isLoading={isLoading} />
         <PageLayout.Error isError={isError} refetch={refetch} />
         {episodes ? (

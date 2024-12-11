@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ScrollView } from 'react-native';
 
-import { OfflineEpisode, PageLayout, useLayout } from '../../components';
+import { OfflineEpisode, PageLayout } from '../../components';
 import { DownloadStackSeriesEpisodesScreenProps } from '../../routes';
 import { useOfflineService } from '../../services';
 
@@ -10,11 +10,10 @@ export function DownloadSeriesEpisodesScreen({
   route,
 }: DownloadStackSeriesEpisodesScreenProps) {
   const { seriesId, title } = route.params;
-  const layout = useLayout();
   const { offlineSeries } = useOfflineService();
 
   return (
-    <PageLayout.Default {...layout}>
+    <PageLayout.Default>
       <ScrollView>
         {offlineSeries
           .find(element => element.seriesId === seriesId)

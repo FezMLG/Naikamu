@@ -13,6 +13,7 @@ import {
   useActiveSeriesStore,
   useUserSettingsService,
 } from '../../../services';
+import { useLayoutMessageService } from '../../../services/layout-info';
 import { colors, DarkColor } from '../../../styles';
 import { ActivityIndicator, IconButton } from '../../atoms';
 
@@ -32,6 +33,7 @@ export function EpisodePlayer({
   handleDownload: (player: AnimePlayer, fileUrl: string) => void;
 }) {
   const series = useActiveSeriesStore(store => store.series)!;
+  const { setAndShowMessage } = useLayoutMessageService();
 
   const navigation = useNavigation<any>();
 
@@ -84,7 +86,7 @@ export function EpisodePlayer({
                 icon={isError ? 'alert-circle-outline' : 'play'}
                 onPress={() =>
                   watchRefetch().then(({ data: result }) => {
-                    if (result) {
+                    if (result && result.status === 200) {
                       navigation.navigate(RootStackScreenNames.NativePlayer, {
                         uri: result.uri,
                         seriesId: series.id,
@@ -92,6 +94,8 @@ export function EpisodePlayer({
                         episodeNumber,
                         referer: player.playerLink,
                       });
+                    } else {
+                      setAndShowMessage('Failed to load player');
                     }
                   })
                 }
@@ -138,8 +142,10 @@ export function EpisodePlayer({
                 icon="download-circle-outline"
                 onPress={() => {
                   download.refetch().then(({ data: resolvedLink }) => {
-                    if (resolvedLink) {
+                    if (resolvedLink && resolvedLink.status === 200) {
                       handleDownload(player, resolvedLink.uri);
+                    } else {
+                      setAndShowMessage('Failed to fetch episode');
                     }
                   });
                 }}

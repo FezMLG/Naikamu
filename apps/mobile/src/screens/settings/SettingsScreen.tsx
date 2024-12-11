@@ -6,7 +6,6 @@ import { Text } from 'react-native-paper';
 import {
   PageLayout,
   SectionButton,
-  useLayout,
   ProgressiveImage,
   CheckForUpdates,
   Hidden,
@@ -22,12 +21,11 @@ import { globalStyle } from '../../styles';
 export function SettingsScreen({
   navigation,
 }: SettingsStackSettingsScreenProps) {
-  const layout = useLayout();
   const user = useUserStore(state => state.user);
   const { translate } = useTranslate();
 
   return (
-    <PageLayout.Default style={[styles.container]} {...layout}>
+    <PageLayout.Default style={[styles.container]}>
       <ScrollView>
         <View>
           {user?.picture ? (

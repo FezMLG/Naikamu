@@ -11,7 +11,7 @@ export function Snackbar({
   actionLabel,
   setVisible,
 }: {
-  text: string;
+  text: string | null;
   visible: boolean;
   actionLabel: string;
   setVisible: (visible: boolean) => void;

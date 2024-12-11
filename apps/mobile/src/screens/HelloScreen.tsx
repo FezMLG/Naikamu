@@ -5,14 +5,13 @@ import { default as Config } from 'react-native-config';
 import { Text } from 'react-native-paper';
 
 import Logo from '../../assets/logo_full.svg';
-import { Button, PageLayout, useLayout, GoogleSignIn } from '../components';
+import { Button, PageLayout, GoogleSignIn } from '../components';
 import { useTranslate } from '../i18n/useTranslate';
 import { AuthStackRoutesNames, AuthStackHelloScreenProps } from '../routes';
 import { globalStyle } from '../styles';
 
 export function HelloScreen({ navigation }: AuthStackHelloScreenProps) {
   const { translate } = useTranslate();
-  const layout = useLayout();
 
   useEffect(() => {
     navigation.addListener('beforeRemove', element => {
@@ -21,7 +20,7 @@ export function HelloScreen({ navigation }: AuthStackHelloScreenProps) {
   }, [navigation]);
 
   return (
-    <PageLayout.Default style={[styles.container]} {...layout}>
+    <PageLayout.Default style={[styles.container]}>
       <View
         style={{
           justifyContent: 'center',

@@ -28,7 +28,6 @@ import {
   RefreshButton,
   SettingInputs,
   SettingsGroup,
-  useLayout,
 } from '../../components';
 import { externalLinks } from '../../externalLinks';
 import { useTranslate } from '../../i18n/useTranslate';
@@ -45,10 +44,8 @@ export function ExternalServicesSettingsScreen({}: SettingsStackExternalServices
 
   const { translate } = useTranslate();
 
-  const layout = useLayout();
-
   return (
-    <PageLayout.Default {...layout}>
+    <PageLayout.Default>
       <ScrollView>
         <ShindenSettings user={user} />
         <ImportButton historyRefetch={watchListImportRefetch} user={user} />

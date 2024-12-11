@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import {
   Linking,
@@ -11,28 +11,14 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useTranslate } from '../../../i18n/useTranslate';
+import {
+  useLayoutMessageService,
+  useLayoutMessageStore,
+} from '../../../services/layout-info';
 import { colors, fontStyles, globalStyle } from '../../../styles';
 import { Button } from '../Button';
 import { ActivityIndicator } from '../Loader';
 import { Snackbar } from '../Snackbar';
-
-const useInfoHandler = () => {
-  const [info, setInfo] = useState<string>('');
-
-  return {
-    info,
-    setInfo,
-  };
-};
-
-const useSnackbar = () => {
-  const [visible, setVisible] = useState<boolean>(false);
-
-  return {
-    visible,
-    setVisible,
-  };
-};
 
 const Loading = ({ isLoading }: { isLoading: boolean }) => (
   <>
@@ -102,19 +88,16 @@ const Error = ({
 
 function Default({
   children,
-  info,
-  visible,
-  setVisible,
   style = [],
   margin = true,
 }: {
   children: React.ReactNode;
-  info: string;
-  visible: boolean;
-  setVisible: (visible: boolean) => void;
   style?: ViewStyle[];
   margin?: boolean;
 }) {
+  const layoutService = useLayoutMessageService();
+  const layoutStore = useLayoutMessageStore(state => state);
+
   return (
     <SafeAreaView
       style={[
@@ -125,9 +108,9 @@ function Default({
       {children}
       <Snackbar
         actionLabel="Ok"
-        setVisible={setVisible}
-        text={info}
-        visible={visible}
+        setVisible={layoutService.setIsMessageVisible}
+        text={layoutStore.message}
+        visible={layoutStore.isVisible}
       />
     </SafeAreaView>
   );
@@ -138,18 +121,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
-
-export const useLayout = () => {
-  const { info, setInfo } = useInfoHandler();
-  const { visible, setVisible } = useSnackbar();
-
-  return {
-    info,
-    visible,
-    setInfo,
-    setVisible,
-  };
-};
 
 export const PageLayout = {
   Default,

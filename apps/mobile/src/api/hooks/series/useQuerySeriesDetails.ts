@@ -2,10 +2,9 @@ import { AnimeDetails, AnimeSource } from '@naikamu/shared';
 import { useQuery } from '@tanstack/react-query';
 
 import { useActiveSeriesStore } from '../../../services';
-import { APIClient } from '../../APIClient';
+import { apiClient } from '../../APIClient';
 
 export const useQuerySeriesDetails = (id: number | string) => {
-  const apiClient = new APIClient();
   const store = useActiveSeriesStore(state => state.actions);
 
   const source =

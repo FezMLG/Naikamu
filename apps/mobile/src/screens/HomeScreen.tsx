@@ -7,15 +7,12 @@ import {
   HomeUpdateAlert,
   MostPopularSection,
   PageLayout,
-  useLayout,
 } from '../components';
 import { HomeStackHomeScreenProps } from '../routes';
 
 export function HomeScreen({}: HomeStackHomeScreenProps) {
-  const layout = useLayout();
-
   return (
-    <PageLayout.Default style={[styles.container]} {...layout}>
+    <PageLayout.Default style={[styles.container]}>
       <HomeUpdateAlert />
       <ContinueWatchingSection />
       <MostPopularSection />

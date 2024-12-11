@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { default as Config } from 'react-native-config';
+import DeviceInfo from 'react-native-device-info';
 import { RadioButton } from 'react-native-paper';
 
 import * as packageJson from '../../../package.json';
@@ -12,7 +13,6 @@ import {
   SectionButton,
   SettingInputs,
   SettingsGroup,
-  useLayout,
 } from '../../components';
 import { useTranslate } from '../../i18n/useTranslate';
 import { SettingsStackPlaybackSettingsScreenProps } from '../../routes';
@@ -24,7 +24,6 @@ import {
 } from '../../services';
 import { useDownloadsQueueStore } from '../../services/offline/queue.store';
 import { colors, fontStyles, globalStyle } from '../../styles';
-import DeviceInfo from 'react-native-device-info';
 
 function QualityModal({
   isOpen,
@@ -96,10 +95,8 @@ export function AppSettingsScreen({}: SettingsStackPlaybackSettingsScreenProps) 
     setIsOpenQ(false);
   };
 
-  const layout = useLayout();
-
   return (
-    <PageLayout.Default {...layout}>
+    <PageLayout.Default>
       <QualityModal
         handleChange={handlePlaybackQualityChange}
         isOpen={isOpenP}

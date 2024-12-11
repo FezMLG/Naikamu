@@ -4,11 +4,9 @@ import { IAnimeListItem, Paginate } from '@naikamu/shared';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { getAnimeSeason } from '../../../utils';
-import { APIClient } from '../../APIClient';
+import { apiClient } from '../../APIClient';
 
 export const useQuerySeriesList = () => {
-  const apiClient = new APIClient();
-
   const [currentSeason] = useState(getAnimeSeason());
   const [season, setSeason] = useState(getAnimeSeason());
   const [year, setYear] = useState(new Date().getFullYear());
