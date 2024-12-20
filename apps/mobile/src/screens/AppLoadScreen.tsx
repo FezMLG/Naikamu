@@ -11,9 +11,7 @@ import { useLayoutMessageService } from '../services/layout-info';
 import { colors, fontStyles, globalStyle } from '../styles';
 
 export function AppLoadScreen() {
-  const { setAndShowMessage } = useLayoutMessageService();
   const { translate } = useTranslate();
-  const [, setLongLoading] = useState(false);
   const [apiError, setApiError] = useState(false);
   const { initialize } = useAppLoadService();
 
@@ -22,11 +20,6 @@ export function AppLoadScreen() {
       await initialize();
 
       setTimeout(() => {
-        setAndShowMessage(translate('welcomeScreen.apiLoading'));
-        setLongLoading(true);
-      }, 3000);
-      setTimeout(() => {
-        setLongLoading(false);
         setApiError(true);
       }, 15_000);
     })();
