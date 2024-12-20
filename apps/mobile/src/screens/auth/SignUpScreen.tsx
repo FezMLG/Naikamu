@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 
+import analytics from '@react-native-firebase/analytics';
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { Controller, useForm } from 'react-hook-form';
 import { View, StyleSheet, Text } from 'react-native';
+import * as RNLocalize from 'react-native-localize';
 
 import {
   Button,
-  useLayout,
   useErrorHandler,
   PageLayout,
   TextInput,
@@ -14,9 +15,8 @@ import {
 import { useTranslate } from '../../i18n/useTranslate';
 import { AuthStackRoutesNames, AuthStackSignUpScreenProps } from '../../routes';
 import { useUserService } from '../../services/auth/user.service';
+import { useLayoutMessageService } from '../../services/layout-info';
 import { fontStyles, globalStyle } from '../../styles';
-import analytics from '@react-native-firebase/analytics';
-import * as RNLocalize from 'react-native-localize';
 
 export interface SignUpForm {
   displayName: string;
@@ -36,7 +36,7 @@ const ErrorText = () => {
 };
 
 export function SignUpScreen({ navigation }: AuthStackSignUpScreenProps) {
-  const layout = useLayout();
+  const { setAndShowMessage } = useLayoutMessageService();
   const [loading, isLoading] = useState(false);
   const { translate } = useTranslate();
   const userService = useUserService();
@@ -73,14 +73,13 @@ export function SignUpScreen({ navigation }: AuthStackSignUpScreenProps) {
     } catch (error: unknown) {
       const authError = error as FirebaseAuthTypes.NativeFirebaseAuthError;
 
-      layout.setInfo(translate(errorResolver(authError.code)));
-      layout.setVisible(true);
+      setAndShowMessage(translate(errorResolver(authError.code)));
     }
     isLoading(false);
   };
 
   return (
-    <PageLayout.Default {...layout}>
+    <PageLayout.Default>
       <View style={[styles.formInputs, globalStyle.spacerBig]}>
         <Controller
           control={control}

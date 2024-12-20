@@ -10,7 +10,6 @@ import { Text } from 'react-native-paper';
 import {
   useErrorHandler,
   PageLayout,
-  useLayout,
   Button,
   TextInput,
 } from '../../components';
@@ -18,6 +17,7 @@ import { useTranslate } from '../../i18n/useTranslate';
 import { AuthStackLoginScreenProps, AuthStackRoutesNames } from '../../routes';
 import { useUserService } from '../../services/auth/user.service';
 import { useUserStore } from '../../services/auth/user.store';
+import { useLayoutMessageService } from '../../services/layout-info';
 import { globalStyle } from '../../styles';
 import { logger } from '../../utils';
 
@@ -28,7 +28,7 @@ export interface LoginForm {
 
 export function LoginScreen({ navigation }: AuthStackLoginScreenProps) {
   const userService = useUserService();
-  const layout = useLayout();
+  const { setAndShowMessage } = useLayoutMessageService();
   const [loading, isLoading] = useState(false);
   const { translate } = useTranslate();
   const userActions = useUserStore(state => state.actions);
@@ -66,14 +66,13 @@ export function LoginScreen({ navigation }: AuthStackLoginScreenProps) {
       const authError = error as FirebaseAuthTypes.NativeFirebaseAuthError;
 
       logger('handleLogin').warn(error);
-      layout.setInfo(translate(errorResolver(authError.code)));
-      layout.setVisible(true);
+      setAndShowMessage(translate(errorResolver(authError.code)));
     }
     isLoading(false);
   };
 
   return (
-    <PageLayout.Default {...layout}>
+    <PageLayout.Default>
       <View style={[styles.formInputs, globalStyle.spacerBig]}>
         <Controller
           control={control}

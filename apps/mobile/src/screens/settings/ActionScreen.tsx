@@ -5,7 +5,7 @@ import { Control, Controller, FieldErrorsImpl, useForm } from 'react-hook-form';
 import { KeyboardTypeOptions, StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
 
-import { Button, PageLayout, TextInput, useLayout } from '../../components';
+import { Button, PageLayout, TextInput } from '../../components';
 import { useTranslate } from '../../i18n/useTranslate';
 import {
   SettingsStackScreenNames,
@@ -74,7 +74,6 @@ export function SettingsActionScreen({
   route,
   navigation,
 }: SettingsStackSettingsActionScreenProps) {
-  const layout = useLayout();
   const { type, action, requiresLogin, origin, payload } = route.params;
   const { translate } = useTranslate();
 
@@ -113,7 +112,7 @@ export function SettingsActionScreen({
   };
 
   return (
-    <PageLayout.Default {...layout}>
+    <PageLayout.Default>
       <FormTextInput
         control={control}
         errors={errors}

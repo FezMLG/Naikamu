@@ -7,7 +7,7 @@ import messaging, {
   FirebaseMessagingTypes,
 } from '@react-native-firebase/messaging';
 import { Linking, Platform } from 'react-native';
-import Config from 'react-native-config';
+import DeviceInfo from 'react-native-device-info';
 
 import { useMutationSaveNotificationToken } from '../../api/hooks';
 import { useTranslate } from '../../i18n/useTranslate';
@@ -15,7 +15,6 @@ import { logger } from '../../utils';
 import { event } from '../events';
 import { useDownloadsStore } from '../offline/downloads.store';
 import { useDownloadsQueueStore } from '../offline/queue.store';
-import DeviceInfo from 'react-native-device-info';
 
 const notificationChannelsNames = [
   'download',

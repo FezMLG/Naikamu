@@ -8,17 +8,17 @@ import {
   OfflineSeries,
   PageLayout,
   sortDownloadQueueItems,
-  useLayout,
 } from '../../components';
 import { useTranslate } from '../../i18n/useTranslate';
 import { useOfflineService } from '../../services';
+import { useLayoutMessageService } from '../../services/layout-info';
 import { useDownloadsQueueStore } from '../../services/offline/queue.store';
 import { colors, fontStyles } from '../../styles';
-import { logger } from '../../utils/logger';
+import { logger } from '../../utils';
 
 export function DownloadListScreen() {
   const { translate } = useTranslate();
-  const layout = useLayout();
+  const { setAndShowMessage } = useLayoutMessageService();
   const {
     activeDownloads,
     offlineSeries,
@@ -38,8 +38,7 @@ export function DownloadListScreen() {
       return offline;
     } catch (error) {
       console.log(error);
-      layout.setInfo(JSON.stringify(error));
-      layout.setVisible(true);
+      setAndShowMessage(JSON.stringify(error));
     }
   }, [getAllOfflineSeries]);
 
@@ -54,7 +53,7 @@ export function DownloadListScreen() {
   }, []);
 
   return (
-    <PageLayout.Default {...layout}>
+    <PageLayout.Default>
       <ScrollView>
         {offlineSeries.length > 0 ? (
           offlineSeries.map(series => (

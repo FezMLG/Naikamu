@@ -1,11 +1,9 @@
 import { IPlayerResponse, IResolvePlayerDto } from '@naikamu/shared';
 import { useQuery } from '@tanstack/react-query';
 
-import { APIClient } from '../../APIClient';
+import { apiClient } from '../../APIClient';
 
 export const useQueryResolvePlayerLink = (body: IResolvePlayerDto) => {
-  const apiClient = new APIClient();
-
   const { data, isError, isLoading, refetch, fetchStatus } =
     useQuery<IPlayerResponse>({
       queryKey: ['resolve', body.url],
