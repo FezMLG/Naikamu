@@ -194,7 +194,7 @@ export const en = {
       watched: 'Watched',
     },
     download: {
-      notFound: 'No downloaded series found',
+      emptyState: 'Downloaded episodes will appear here',
     },
   },
   errors: {

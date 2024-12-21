@@ -195,7 +195,7 @@ export const pl = {
       watched: 'Obejrzane',
     },
     download: {
-      notFound: 'Nie znaleziono pobranych serii',
+      emptyState: 'Pobrane anime pojawią się tutaj',
     },
   },
   errors: {
