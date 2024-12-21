@@ -163,6 +163,7 @@ export const pl = {
     Completed: 'Obejrzane',
     OnHold: 'Wstrzymane',
     Dropped: 'Porzucone',
+    emptyState: 'Dodaj anime do listy, a zobaczysz je tutaj',
   },
   anime_episodes: {
     players_not_found: 'Nie znaleziono odtwarzaczy',
