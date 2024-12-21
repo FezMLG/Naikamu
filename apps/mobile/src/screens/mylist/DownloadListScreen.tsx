@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {
   ActiveDownload,
@@ -15,7 +16,6 @@ import { useLayoutMessageService } from '../../services/layout-info';
 import { useDownloadsQueueStore } from '../../services/offline/queue.store';
 import { colors, fontStyles, globalStyle } from '../../styles';
 import { logger } from '../../utils';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export function DownloadListScreen() {
   const { translate } = useTranslate();
@@ -61,9 +61,6 @@ export function DownloadListScreen() {
             <OfflineSeries key={series.seriesId} series={series} />
           ))
         ) : (
-          // <Text style={[colors.textLight, fontStyles.paragraph]}>
-          //   {translate('myList.download.notFound')}
-          // </Text>
           <View
             style={[
               globalStyle.marginTop,
