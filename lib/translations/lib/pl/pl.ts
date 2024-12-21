@@ -163,6 +163,7 @@ export const pl = {
     Completed: 'Obejrzane',
     OnHold: 'Wstrzymane',
     Dropped: 'Porzucone',
+    emptyState: 'Dodaj anime do listy, a zobaczysz je tutaj',
   },
   anime_episodes: {
     players_not_found: 'Nie znaleziono odtwarzaczy',
@@ -194,7 +195,7 @@ export const pl = {
       watched: 'Obejrzane',
     },
     download: {
-      notFound: 'Nie znaleziono pobranych serii',
+      emptyState: 'Pobrane anime pojawią się tutaj',
     },
   },
   errors: {

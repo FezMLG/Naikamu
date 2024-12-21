@@ -162,6 +162,7 @@ export const en = {
     Completed: 'Completed',
     OnHold: 'On Hold',
     Dropped: 'Dropped',
+    emptyState: 'Add anime to list to see it here',
   },
   anime_episodes: {
     players_not_found: 'Players not found',
@@ -193,7 +194,7 @@ export const en = {
       watched: 'Watched',
     },
     download: {
-      notFound: 'No downloaded series found',
+      emptyState: 'Downloaded episodes will appear here',
     },
   },
   errors: {
