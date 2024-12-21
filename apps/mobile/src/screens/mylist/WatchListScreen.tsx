@@ -2,8 +2,9 @@ import React from 'react';
 
 import { IWatchListSeries } from '@naikamu/shared';
 import { useNavigation } from '@react-navigation/native';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import Animated from 'react-native-reanimated';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useInfiniteQueryUserWatchList } from '../../api/hooks';
 import { PageLayout } from '../../components';
@@ -12,18 +13,20 @@ import {
   WatchListElement,
   WatchListFilters,
 } from '../../components/watch-list';
+import { useTranslate } from '../../i18n/useTranslate';
 import {
   MyListStackWatchListScreenProps,
   RootStackScreenNames,
   SeriesStackScreenNames,
 } from '../../routes';
-import { colors } from '../../styles';
+import { colors, fontStyles } from '../../styles';
 
 const headerHeight = 100;
 
 export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
   const navigation = useNavigation<any>();
   const { api } = useInfiniteQueryUserWatchList();
+  const { translate } = useTranslate();
 
   const { scrollHandler, animatedHeight, animatedTransform } =
     useAnimatedHeader(headerHeight);
@@ -76,7 +79,25 @@ export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
               style={[styles.flatList]}
             />
           ) : (
-            <Text style={colors.textLight}>No data</Text>
+            <View
+              style={{
+                margin: 16,
+              }}>
+              <View
+                style={[
+                  styles.emptyStateContainerSize,
+                  styles.emptyStateContainer,
+                ]}>
+                <Icon
+                  color={colors.textLighter.color}
+                  name="playlist-plus"
+                  size={48}
+                />
+                <Text style={[fontStyles.normal, colors.textLight]}>
+                  {translate('watch_list.emptyState')}
+                </Text>
+              </View>
+            </View>
           )}
         </>
       ) : null}
@@ -85,6 +106,18 @@ export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
 };
 
 const styles = StyleSheet.create({
+  emptyStateContainerSize: {
+    width: '100%',
+    height: 180,
+  },
+  emptyStateContainer: {
+    borderColor: colors.accent.color,
+    borderWidth: 1,
+    borderStyle: 'dashed',
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   container: {
     flex: 1,
     backgroundColor: colors.background.color,
