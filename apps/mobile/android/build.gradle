@@ -19,7 +19,7 @@ buildscript {
         classpath("de.undercouch:gradle-download-task:5.0.1")
         classpath("com.google.gms:google-services:4.3.14")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
-        classpath 'com.android.tools.build:gradle:4.2.1' // <--- use this version or newer
+        classpath 'com.android.tools.build:gradle:8.7.1' // <--- use this version or newer
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.2'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -28,10 +28,10 @@ buildscript {
 
 allprojects {
     project.ext {
-        compileSdkVersion = 34
-        buildToolsVersion = "34.0.0"
+        compileSdkVersion = 35
+        buildToolsVersion = "35.0.0"
 
-        minSdkVersion = 21
+        minSdkVersion = 24
         targetSdkVersion = 34
     }
 }
