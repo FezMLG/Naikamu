@@ -115,7 +115,7 @@ export function BottomTabStack() {
             ...defaultHeaderOptions({
               title: translate('routes.' + BottomTabStackScreenNames.HomeStack),
             }),
-            animation: 'slide_from_right',
+            animation: 'shift',
           })}
         />
         <BottomTab.Screen
@@ -127,7 +127,7 @@ export function BottomTabStack() {
                 'routes.' + BottomTabStackScreenNames.BrowseStack,
               ),
             }),
-            animation: 'slide_from_right',
+            animation: 'shift',
           })}
         />
         <BottomTab.Screen

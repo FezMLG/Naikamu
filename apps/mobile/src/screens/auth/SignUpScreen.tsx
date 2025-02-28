@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import analytics from '@react-native-firebase/analytics';
+import { getAnalytics } from '@react-native-firebase/analytics';
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { Controller, useForm } from 'react-hook-form';
 import { View, StyleSheet, Text } from 'react-native';
@@ -56,7 +56,7 @@ export function SignUpScreen({ navigation }: AuthStackSignUpScreenProps) {
   });
 
   const handleSignUp = async (data: SignUpForm) => {
-    await analytics().logEvent('sign_up', {
+    await getAnalytics().logEvent('sign_up', {
       country: RNLocalize.getCountry(),
     });
 

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { default as notifee, EventType } from '@notifee/react-native';
-import analytics from '@react-native-firebase/analytics';
+import { getAnalytics } from '@react-native-firebase/analytics';
 
 import { logger } from '../../utils';
 
@@ -17,7 +17,7 @@ export const NotificationWrap = ({
         EventType[type],
         detail,
       );
-      await analytics().logEvent('notification_foreground_event', {
+      await getAnalytics().logEvent('notification_foreground_event', {
         type: EventType[type],
         title: detail.notification?.title,
         body: detail.notification?.body,
@@ -29,7 +29,7 @@ export const NotificationWrap = ({
         EventType[type],
         detail,
       );
-      await analytics().logEvent('notification_foreground_event', {
+      await getAnalytics().logEvent('notification_foreground_event', {
         type: EventType[type],
         title: detail.notification?.title,
         body: detail.notification?.body,

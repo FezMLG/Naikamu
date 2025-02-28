@@ -1,6 +1,6 @@
 import React from 'react';
 
-import analytics from '@react-native-firebase/analytics';
+import { getAnalytics } from '@react-native-firebase/analytics';
 import { Linking, Platform, View } from 'react-native';
 
 import * as packageJson from '../../../package.json';
@@ -19,7 +19,7 @@ export const HomeUpdateAlert: React.FC<HomeUpdateAlertProps> = () => {
         <Alert
           message="A new update is available for the app. Click here to update."
           onPress={async () => {
-            await analytics().logEvent('check_for_updates_home_button', {
+            await getAnalytics().logEvent('check_for_updates_home_button', {
               platform: Platform.OS,
               currentVersion: packageJson.version,
               newestVersion: data.data.tag_name,

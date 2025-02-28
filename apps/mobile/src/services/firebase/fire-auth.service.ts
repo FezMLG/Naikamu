@@ -1,8 +1,11 @@
 import { User } from '@naikamu/shared';
-import auth from '@react-native-firebase/auth';
+import { getAuth } from '@react-native-firebase/auth';
 
 export const fireLoginUser = async (email: string, password: string) => {
-  const newAuthState = await auth().signInWithEmailAndPassword(email, password);
+  const newAuthState = await getAuth().signInWithEmailAndPassword(
+    email,
+    password,
+  );
 
   if (newAuthState && !newAuthState.user.emailVerified) {
     await sendEmailVerification();
@@ -10,13 +13,13 @@ export const fireLoginUser = async (email: string, password: string) => {
 };
 
 export const fireGetNewIdToken = async () =>
-  auth().currentUser?.getIdToken(true);
+  getAuth().currentUser?.getIdToken(true);
 
-export const fireGetIdToken = () => auth().currentUser?.getIdToken();
+export const fireGetIdToken = () => getAuth().currentUser?.getIdToken();
 
 export const fireLogoutUser = async () => {
   try {
-    await auth().signOut();
+    await getAuth().signOut();
   } catch (error) {
     console.log(error);
   }
@@ -27,9 +30,9 @@ export const fireRegisterUser = async (
   email: string,
   password: string,
 ) => {
-  await auth().createUserWithEmailAndPassword(email, password);
+  await getAuth().createUserWithEmailAndPassword(email, password);
 
-  await auth().currentUser?.updateProfile({
+  await getAuth().currentUser?.updateProfile({
     displayName,
   });
 
@@ -38,14 +41,14 @@ export const fireRegisterUser = async (
 
 export const fireForgotPassword = (email: string) => async () => {
   try {
-    await auth().sendPasswordResetEmail(email);
+    await getAuth().sendPasswordResetEmail(email);
   } catch (error) {
     console.log(error);
   }
 };
 
 const sendEmailVerification = async () => {
-  await auth().currentUser?.sendEmailVerification({
+  await getAuth().currentUser?.sendEmailVerification({
     handleCodeInApp: true,
     url: 'https://naikamu.com',
   });
@@ -53,7 +56,7 @@ const sendEmailVerification = async () => {
 
 export const fireUpdateUserDisplayName = async (newDisplayName: string) => {
   try {
-    const currentUser = auth().currentUser;
+    const currentUser = getAuth().currentUser;
 
     if (currentUser) {
       await currentUser.updateProfile({
@@ -75,7 +78,7 @@ export const fireUpdateUserDisplayName = async (newDisplayName: string) => {
 };
 
 export const fireUpdatePassword = async (newPassword: string) => {
-  const currentUser = auth().currentUser;
+  const currentUser = getAuth().currentUser;
 
   console.log('heh!');
   if (currentUser) {
@@ -85,7 +88,7 @@ export const fireUpdatePassword = async (newPassword: string) => {
 };
 
 export const fireReauthenticate = async (password: string) => {
-  const currentUser = auth().currentUser;
+  const currentUser = getAuth().currentUser;
 
   if (currentUser) {
     if (!currentUser.email) {
@@ -97,11 +100,11 @@ export const fireReauthenticate = async (password: string) => {
 };
 
 export const fireDeleteAccount = async () => {
-  await auth().currentUser?.delete();
+  await getAuth().currentUser?.delete();
 };
 
 export const fireGetUser = () => {
-  const fUser = auth().currentUser;
+  const fUser = getAuth().currentUser;
 
   if (fUser) {
     const user: User = {
