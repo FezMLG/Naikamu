@@ -37,6 +37,10 @@ const CombinedDarkTheme: Theme = {
     ...PaperDarkTheme.colors,
     primary: colors.accent.color,
   },
+  fonts: {
+    ...NavigationDarkTheme.fonts,
+    ...PaperDarkTheme.fonts,
+  },
 };
 
 function Main() {
