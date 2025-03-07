@@ -2936,10 +2936,10 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@notifee/react-native@7.9.0":
-  version "7.9.0"
-  resolved "https://registry.yarnpkg.com/@notifee/react-native/-/react-native-7.9.0.tgz#341bdb55345b2e02690f6161efb24d13291ad538"
-  integrity sha512-r4iFcAkvfFV/iNwGF50y9uAYS8x0x6+t9gmBsZczWxFHzBvg5nBjwFjshnuC24+oNnlNWIbB03heNmFjrFArJQ==
+"@notifee/react-native@9.1.8":
+  version "9.1.8"
+  resolved "https://registry.yarnpkg.com/@notifee/react-native/-/react-native-9.1.8.tgz#3d55cb3fbcc21f9e35931e366afdf64b294da891"
+  integrity sha512-Az/dueoPerJsbbjRxu8a558wKY+gONUrfoy3Hs++5OqbeMsR0dYe6P+4oN6twrLFyzAhEA1tEoZRvQTFDRmvQg==
 
 "@pkgr/core@^0.1.0":
   version "0.1.1"
@@ -10770,12 +10770,12 @@ react-native-reanimated@3.17.0:
     invariant "^2.2.4"
     react-native-is-edge-to-edge "1.1.6"
 
-react-native-safe-area-context@^5.2.0:
+react-native-safe-area-context@5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-5.2.0.tgz#60a9faab2a6319a61411a652ed862ec0f59384be"
   integrity sha512-QpcGA6MRKe8Zbpf1hirCBudNQYGsMv0n/CTTROMOFcXbqRUoEXLCsYxUmYKi7JJb3ziL2DbyzWXyH2/gw4Tkfw==
 
-react-native-screens@^4.9.1:
+react-native-screens@4.9.1:
   version "4.9.1"
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-4.9.1.tgz#fc4e9fb6efd8351593ac026db02bfefc28434624"
   integrity sha512-3pIOu1YXTDClQfkgk2t7rIr7unrV6bviaXRJsOq1APNHLeCPrJ6m5Gy3pW5Ty+XBm9jRAbMqhpjiXZIjesOR6A==
