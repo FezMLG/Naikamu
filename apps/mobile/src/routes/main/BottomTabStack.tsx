@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { BlurView } from '@react-native-community/blur';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { RouteProp } from '@react-navigation/native';
 import { StyleSheet, Text } from 'react-native';
@@ -78,7 +79,6 @@ export function BottomTabStack() {
           />
         ),
         tabBarHideOnKeyboard: true,
-        tabBarActiveBackgroundColor: '#FF6932',
         // eslint-disable-next-line react/no-unstable-nested-components
         tabBarLabel: ({ focused, color, children }) => (
           <Text
@@ -98,14 +98,10 @@ export function BottomTabStack() {
           minHeight: 66,
         },
         tabBarItemStyle: {
-          marginVertical: 8,
-          marginHorizontal: 8,
-          borderRadius: defaultRadius,
-          paddingVertical: 5,
           height: 50,
         },
         tabBarInactiveTintColor: 'white',
-        tabBarActiveTintColor: 'white',
+        tabBarActiveTintColor: '#FF6932',
       })}>
       <BottomTab.Group>
         <BottomTab.Screen
