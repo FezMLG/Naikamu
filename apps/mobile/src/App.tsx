@@ -7,8 +7,6 @@ import {
   Theme,
 } from '@react-navigation/native';
 import * as Sentry from '@sentry/react-native';
-// eslint-disable-next-line import/default
-import codePush from 'react-native-code-push';
 import { default as Config } from 'react-native-config';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
@@ -67,6 +65,6 @@ function Main() {
   );
 }
 
-const App = process.env.ENV === 'development' ? Main : codePush(Main);
+const App = Main;
 
 export default App;

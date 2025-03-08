@@ -3,8 +3,7 @@ import {
   default as notifee,
   Notification,
 } from '@notifee/react-native';
-import {
-  getMessaging,
+import messaging, {
   FirebaseMessagingTypes,
 } from '@react-native-firebase/messaging';
 import { Linking, Platform } from 'react-native';
@@ -81,13 +80,13 @@ export function useNotificationService() {
 
     await deleteOldChannelsAndCreateNew();
 
-    getMessaging().onMessage(onMessageReceived);
-    getMessaging().setBackgroundMessageHandler(onMessageReceived);
+    messaging().onMessage(onMessageReceived);
+    messaging().setBackgroundMessageHandler(onMessageReceived);
 
     if (Platform.OS === 'android') {
-      await getMessaging().registerDeviceForRemoteMessages();
+      await messaging().registerDeviceForRemoteMessages();
 
-      const token = await getMessaging().getToken();
+      const token = await messaging().getToken();
 
       logger('NOTIFICATION TOKEN').info(token);
       mutation.mutate(token);

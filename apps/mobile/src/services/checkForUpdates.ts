@@ -1,4 +1,4 @@
-import { getAnalytics } from '@react-native-firebase/analytics';
+import analytics from '@react-native-firebase/analytics';
 import { Platform } from 'react-native';
 import semver from 'semver';
 
@@ -20,7 +20,7 @@ export type CheckForUpdatesResponse =
 export const checkForUpdates = async (): Promise<CheckForUpdatesResponse> => {
   const update = await apiClient.checkForUpdates();
 
-  await getAnalytics().logEvent('check_for_updates', {
+  await analytics().logEvent('check_for_updates', {
     platform: Platform.OS,
     currentVersion: packageJson.version,
     newestVersion: update.tag_name,

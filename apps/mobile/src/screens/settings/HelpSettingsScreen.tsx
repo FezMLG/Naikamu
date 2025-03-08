@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { getAnalytics } from '@react-native-firebase/analytics';
+import analytics from '@react-native-firebase/analytics';
 import { Linking, Platform, View } from 'react-native';
 
 import { PageLayout, SectionButton } from '../../components';
@@ -21,7 +21,7 @@ export function HelpSettingsScreen({}: SettingsStackHelpSettingsScreenProps) {
           external
           icon="help-circle-outline"
           onPress={async () => {
-            await getAnalytics().logEvent('help_center', {
+            await analytics().logEvent('help_center', {
               user: user?.uid,
               source: 'app-settings',
               device: 'mobile',
@@ -35,7 +35,7 @@ export function HelpSettingsScreen({}: SettingsStackHelpSettingsScreenProps) {
           external
           icon="test-tube"
           onPress={async () => {
-            await getAnalytics().logEvent('beta_test_join', {
+            await analytics().logEvent('beta_test_join', {
               user: user?.uid,
               source: 'app-settings',
               device: 'mobile',
@@ -54,7 +54,7 @@ export function HelpSettingsScreen({}: SettingsStackHelpSettingsScreenProps) {
           external
           logo={require('../../../assets/kofi_logo.png')}
           onPress={async () => {
-            await getAnalytics().logEvent('kofi_donation', {
+            await analytics().logEvent('kofi_donation', {
               user: user?.uid,
               source: 'app-settings',
               device: 'mobile',
@@ -68,7 +68,7 @@ export function HelpSettingsScreen({}: SettingsStackHelpSettingsScreenProps) {
           external
           icon="email-fast-outline"
           onPress={async () => {
-            await getAnalytics().logEvent('email_contact', {
+            await analytics().logEvent('email_contact', {
               user: user?.uid,
               source: 'app-settings',
               device: 'mobile',
