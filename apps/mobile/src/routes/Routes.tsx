@@ -25,8 +25,9 @@ const linking = {
 };
 
 function Routes({ theme }: { theme: Theme }) {
-  const routeNameRef = useRef<any>();
-  const navigationRef = useRef<any>();
+  const routeNameRef = useRef<string>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const navigationRef = useRef<any>(null);
   const user = useUserStore(state => state.user);
 
   return (
