@@ -10,6 +10,7 @@ import { useUserService } from '../services/auth/user.service';
 import { colors, defaultRadius, fontStyles } from '../styles';
 
 import { ActivityIndicator } from './atoms';
+import { useLayoutMessageService } from '../services/layout-info';
 
 GoogleSignin.configure({
   webClientId:
@@ -18,26 +19,44 @@ GoogleSignin.configure({
 
 const onGoogleButtonPress = async () => {
   await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-  const { idToken } = await GoogleSignin.signIn();
-  const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+  const signInResponse = await GoogleSignin.signIn();
 
-  return auth().signInWithCredential(googleCredential);
+  if (signInResponse.type === 'success') {
+    const { idToken } = signInResponse.data;
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+    return {
+      type: 'success',
+      data: auth().signInWithCredential(googleCredential),
+    };
+  } else if (signInResponse.type === 'cancelled') {
+    return signInResponse;
+  }
+
+  throw new Error('Google sign in failed, unknown error', signInResponse);
 };
 
 export function GoogleSignIn() {
   const [isLoading, setIsLoading] = useState(false);
   const userService = useUserService();
+  const { setAndShowMessage } = useLayoutMessageService();
   const { translate } = useTranslate();
 
   return (
     <Pressable
       onPress={() =>
         onGoogleButtonPress()
-          .then(async () => {
-            await userService.setLoggedUser();
+          .then(async response => {
+            if (response.type === 'success') {
+              userService.setLoggedUser();
+            } else if (response.type === 'cancelled') {
+              setAndShowMessage(translate('auth.google_sign_in_cancelled'));
+              setIsLoading(false);
+            }
           })
           .catch(error => {
             Sentry.captureException(error);
+            setAndShowMessage(translate('auth.google_sign_in_error'));
             setIsLoading(false);
           })
       }

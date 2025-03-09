@@ -79,6 +79,8 @@ export const en = {
       top: 'Please verify your email',
       bottom: 'and login again',
     },
+    google_sign_in_cancelled: 'Google login in cancelled by user',
+    google_sign_in_error: 'Error during Google login',
     required_field: 'This field is required',
     email_sent: 'Sent email',
     email_has_been_sent: 'Email has been sent',
