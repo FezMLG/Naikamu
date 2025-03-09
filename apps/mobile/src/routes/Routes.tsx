@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import analytics from '@react-native-firebase/analytics';
 import { NavigationContainer, Theme } from '@react-navigation/native';
@@ -25,8 +25,8 @@ const linking = {
 };
 
 function Routes({ theme }: { theme: Theme }) {
-  const routeNameRef = React.useRef<any>();
-  const navigationRef = React.useRef<any>();
+  const routeNameRef = useRef<any>();
+  const navigationRef = useRef<any>();
   const user = useUserStore(state => state.user);
 
   return (

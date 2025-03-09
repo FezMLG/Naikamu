@@ -62,7 +62,7 @@ export class APIClient {
 
   private async get<T>(
     url: string,
-    headers?: RawAxiosRequestHeaders | AxiosHeaders,
+    headers?: RawAxiosRequestHeaders,
   ): Promise<T> {
     console.log('GET', url);
     const a = await this.instance.get<T>(url, {
@@ -75,7 +75,7 @@ export class APIClient {
   private async post<T>(
     url: string,
     dataToSend: unknown,
-    headers?: RawAxiosRequestHeaders | AxiosHeaders,
+    headers?: RawAxiosRequestHeaders,
   ): Promise<T> {
     const { data } = await this.instance.post<T>(url, dataToSend, {
       headers: headers,
@@ -87,7 +87,7 @@ export class APIClient {
   private async put<T>(
     url: string,
     dataToSend: unknown,
-    headers?: RawAxiosRequestHeaders | AxiosHeaders,
+    headers?: RawAxiosRequestHeaders,
   ): Promise<T> {
     const { data } = await this.instance.put<T>(url, dataToSend, {
       headers: headers,
@@ -99,7 +99,7 @@ export class APIClient {
   private async patch<T>(
     url: string,
     dataToSend: unknown,
-    headers?: RawAxiosRequestHeaders | AxiosHeaders,
+    headers?: RawAxiosRequestHeaders,
   ): Promise<T> {
     const { data } = await this.instance.patch<T>(url, dataToSend, {
       headers: headers,

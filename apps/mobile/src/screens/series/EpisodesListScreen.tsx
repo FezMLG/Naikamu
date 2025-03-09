@@ -95,7 +95,6 @@ export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
                 }}
                 variant="link">
                 <ButtonText style={[colors.accent]}>Go to episode</ButtonText>
-                {/*@ts-expect-error - Icon is not typed correctly*/}
                 <Icon
                   name="menu-open"
                   size={24}

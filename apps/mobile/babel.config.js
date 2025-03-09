@@ -6,6 +6,7 @@ module.exports = {
       {
         alias: {
           '@naikamu/shared': '../../lib/shared',
+          '@naikamu/translations': '../../lib/translations',
         },
       },
     ],

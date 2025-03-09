@@ -35,7 +35,6 @@ export function SeriesStack() {
             title: `${translate('routes.' + SeriesStackScreenNames.Episodes)}`,
           }),
           headerLeft: () => (
-            // @ts-expect-error - Icon is not typed correctly
             <Icon
               color="white"
               name="chevron-left"
