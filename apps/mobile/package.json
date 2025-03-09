@@ -26,8 +26,8 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "app:release": "cd android && ./gradlew bundleRelease",
     "apk:beta:release": "cd android && fastlane beta && cd .. && npm run apk:beta:rename && open android/app/build/outputs/apk/production/release",
-    "apk:release:stg": "./release.sh stg",
-    "apk:release:prod": "./release.sh prod",
+    "apk:release:stg": "./release.sh -e stg",
+    "apk:release:prod": "./release.sh -e prod",
     "apk:remove_assets": "rm -rf ./android/app/build/generated/assets"
   },
   "dependencies": {

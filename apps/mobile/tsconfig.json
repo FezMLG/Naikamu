@@ -3,7 +3,7 @@
   "extends": "@react-native/typescript-config/tsconfig.json",
   "compilerOptions": {
     "lib": [
-      "es2021"
+      "es2023"
     ],
     "baseUrl": "./",
     "paths": {
