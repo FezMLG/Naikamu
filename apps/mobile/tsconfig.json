@@ -9,7 +9,8 @@
     "paths": {
       "@naikamu/shared": [
         "../../lib/shared/"
-      ]
+      ],
+      "react": [ "./node_modules/@types/react" ]
     },
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
 
