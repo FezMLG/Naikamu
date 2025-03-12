@@ -10,9 +10,9 @@ export const useQuerySeriesDetails = (id: number | string) => {
   const source =
     typeof id === 'string' ? AnimeSource.Local : AnimeSource.AniList;
 
-  const { data, isError, isLoading, refetch } = useQuery<AnimeDetails>(
-    ['anime', id, 'details'],
-    async () => {
+  const { data, isError, isLoading, refetch } = useQuery<AnimeDetails>({
+    queryKey: ['anime', id, 'details'],
+    queryFn: async () => {
       const result = await apiClient.getAnimeDetails(id, source);
 
       store.setActiveSeries({
@@ -21,14 +21,14 @@ export const useQuerySeriesDetails = (id: number | string) => {
         episodeLength: result.duration,
         numOfAiredEpisodes: result.nextAiringEpisode?.episode
           ? result.nextAiringEpisode?.episode - 1
-          : result.episodes ?? 12,
+          : (result.episodes ?? 12),
         posterUrl: result.coverImage.large,
         nextAiringEpisode: result.nextAiringEpisode,
       });
 
       return result;
     },
-  );
+  });
 
   return {
     data,

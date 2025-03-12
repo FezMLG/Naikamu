@@ -9,16 +9,16 @@ export const useQuerySeriesEpisodes = (
 ) => {
   const store = useActiveSeriesStore(state => state.actions);
 
-  const { data, isLoading, isError, refetch } = useQuery(
-    ['anime', id, 'episodes'],
-    async () => {
+  const { data, isLoading, isError, refetch } = useQuery({
+    queryKey: ['anime', id, 'episodes'],
+    queryFn: async () => {
       const results = await apiClient.getEpisodes(id, numberOfAiredEpisodes);
 
       store.setEpisodes(results.episodes);
 
       return results;
     },
-  );
+  });
 
   return {
     data,
