@@ -1,7 +1,7 @@
 {
   "name": "@naikamu/mobile",
-  "version": "0.16.1",
-  "codeVersion": "74",
+  "version": "0.17.0",
+  "codeVersion": "75",
   "apiVersion": "1.5.x",
   "private": true,
   "engines": {
