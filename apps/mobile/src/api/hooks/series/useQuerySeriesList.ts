@@ -12,18 +12,18 @@ export const useQuerySeriesList = () => {
   const [year, setYear] = useState(new Date().getFullYear());
 
   const { isLoading, isError, data, refetch, fetchNextPage, isRefetching } =
-    useInfiniteQuery<Paginate<IAnimeListItem[]>>(
-      ['browse', season, year],
-      ({ pageParam }) =>
+    useInfiniteQuery<Paginate<IAnimeListItem[]>>({
+      initialData: undefined,
+      initialPageParam: undefined,
+      queryKey: ['browse', season, year],
+      queryFn: ({ pageParam }) =>
         apiClient.getAnimeList({
-          page: pageParam,
+          page: pageParam as number,
           season: season.value,
           seasonYear: year,
         }),
-      {
-        getNextPageParam: lastPage => lastPage.pageInfo.currentPage + 1,
-      },
-    );
+      getNextPageParam: lastPage => lastPage.pageInfo.currentPage + 1,
+    });
 
   return {
     api: {

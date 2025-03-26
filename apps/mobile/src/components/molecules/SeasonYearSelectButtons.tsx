@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 
 import { Pressable, StyleSheet } from 'react-native';
 import {
@@ -32,13 +32,13 @@ export function SeasonYearSelectButtons({
   setYear: (year: number) => void;
   animatedTransform: { transform: { translateY: number }[] };
   animatedHeight: { height: number };
-}): JSX.Element {
+}): ReactElement {
   const { translate } = useTranslate();
   const [yearDialogVisible, setYearDialogVisible] = useState(false);
   const showDialog = () => setYearDialogVisible(true);
   const hideDialog = () => setYearDialogVisible(false);
-  const [newYear, setNewYear] = React.useState(year.toString());
-  const [seasonMenuVisible, setSeasonMenuVisible] = React.useState(false);
+  const [newYear, setNewYear] = useState(year.toString());
+  const [seasonMenuVisible, setSeasonMenuVisible] = useState(false);
   const openMenu = () => setSeasonMenuVisible(true);
   const closeMenu = () => setSeasonMenuVisible(false);
   const handleSeasonChange = (s: IAnimeSeasons) => {

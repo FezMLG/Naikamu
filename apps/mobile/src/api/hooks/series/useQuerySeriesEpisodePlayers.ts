@@ -6,13 +6,11 @@ export const useQuerySeriesEpisodePlayers = (
   id: string,
   episodeNumber: number,
 ) => {
-  const { data, refetch, isError, isLoading } = useQuery(
-    ['anime', id, 'episodes', episodeNumber],
-    () => apiClient.getEpisodePlayers(id, episodeNumber),
-    {
-      enabled: false,
-    },
-  );
+  const { data, refetch, isError, isLoading } = useQuery({
+    queryKey: ['anime', id, 'episodes', episodeNumber],
+    queryFn: () => apiClient.getEpisodePlayers(id, episodeNumber),
+    enabled: false,
+  });
 
   return {
     data,

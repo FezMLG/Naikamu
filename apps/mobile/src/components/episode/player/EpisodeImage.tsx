@@ -2,13 +2,13 @@ import React from 'react';
 
 import { StyleSheet, Text } from 'react-native';
 import FastImage from 'react-native-fast-image';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import styled from 'styled-components/native';
 
 import { useTranslate } from '../../../i18n/useTranslate';
 import { colors, defaultRadius, fontStyles } from '../../../styles';
 import { PlatformExplicit } from '../../PlatformExplicit';
 import { ProgressiveImage } from '../../ProgressiveImage';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const WatchedLabel = () => {
   const { translate } = useTranslate();

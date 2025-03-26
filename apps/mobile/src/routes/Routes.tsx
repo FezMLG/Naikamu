@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import analytics from '@react-native-firebase/analytics';
 import { NavigationContainer, Theme } from '@react-navigation/native';
@@ -25,14 +25,16 @@ const linking = {
 };
 
 function Routes({ theme }: { theme: Theme }) {
-  const routeNameRef = React.useRef<any>();
-  const navigationRef = React.useRef<any>();
+  const routeNameRef = useRef<string>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const navigationRef = useRef<any>(null);
   const user = useUserStore(state => state.user);
 
   return (
     <NavigationContainer
       fallback={<SplashScreen />}
       linking={linking}
+      navigationInChildEnabled={true}
       onReady={() => {
         routeNameRef.current = navigationRef.current?.getCurrentRoute().name;
       }}

@@ -84,7 +84,7 @@ export function NativeVideoPlayerScreen({
     const currentTime =
       episode.progress !== 0 && episode.progress >= (progress?.currentTime ?? 0)
         ? episode.progress
-        : progress?.currentTime ?? 0;
+        : (progress?.currentTime ?? 0);
 
     console.log(uri);
     if (videoPlayer) {
@@ -108,7 +108,6 @@ export function NativeVideoPlayerScreen({
           }}
           onLoad={handleVideoLoad}
           onProgress={handleProgress}
-          pictureInPicture
           playInBackground
           ref={videoPlayer}
           resizeMode="contain"
@@ -154,6 +153,7 @@ export function NativeVideoPlayerScreen({
           }}
           style={styles.absoluteFill}
           title={episodeTitle}
+          // @ts-expect-error fix me
           videoRef={videoPlayer}
         />
       )}

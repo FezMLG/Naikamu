@@ -79,6 +79,9 @@ export const pl = {
       top: 'Zweryfikuj swój adres email',
       bottom: 'i zaloguj się ponownie',
     },
+    google_sign_in_cancelled:
+      'Logowanie za pomocą Google anulowane przez użytkownika',
+    google_sign_in_error: 'Wystąpił błąd podczas logowania za pomocą Google',
     required_field: 'To pole jest wymagane',
     email_sent: 'Wyślij email',
     email_has_been_sent: 'Email został wysłany',

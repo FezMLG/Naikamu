@@ -7,7 +7,6 @@ import Logo from '../../assets/logo_full.svg';
 import { ActivityIndicator, EnvironmentDebug, PageLayout } from '../components';
 import { useTranslate } from '../i18n/useTranslate';
 import { useAppLoadService } from '../services';
-import { useLayoutMessageService } from '../services/layout-info';
 import { colors, fontStyles, globalStyle } from '../styles';
 
 export function AppLoadScreen() {

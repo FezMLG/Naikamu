@@ -3,13 +3,17 @@
   "extends": "@react-native/typescript-config/tsconfig.json",
   "compilerOptions": {
     "lib": [
-      "es2021"
+      "es2023"
     ],
     "baseUrl": "./",
     "paths": {
       "@naikamu/shared": [
         "../../lib/shared/"
-      ]
+      ],
+      "@naikamu/translations": [
+        "../../lib/translations/"
+      ],
+      "react": [ "./node_modules/@types/react" ]
     },
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
 
@@ -18,7 +22,7 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     /* Skip type checking all .d.ts files. */
-    "moduleResolution": "node"
+    "moduleResolution": "bundler"
   },
   "typeRoots": [
     "./src/types"
