@@ -86,7 +86,7 @@ export function EpisodePlayer({
                 icon={isError ? 'alert-circle-outline' : 'play'}
                 onPress={() =>
                   watchRefetch().then(({ data: result }) => {
-                    if (result && result.status === 200) {
+                    if (result && result.status === 200 && result.uri) {
                       navigation.navigate(RootStackScreenNames.NativePlayer, {
                         uri: result.uri,
                         seriesId: series.id,
@@ -142,8 +142,18 @@ export function EpisodePlayer({
                 icon="download-circle-outline"
                 onPress={() => {
                   download.refetch().then(({ data: resolvedLink }) => {
-                    if (resolvedLink && resolvedLink.status === 200) {
-                      handleDownload(player, resolvedLink.uri);
+                    if (
+                      resolvedLink &&
+                      resolvedLink.status === 200 &&
+                      resolvedLink.uri
+                    ) {
+                      if (resolvedLink.downloadable) {
+                        handleDownload(player, resolvedLink.uri);
+                      } else {
+                        setAndShowMessage(
+                          'File not yet available for download',
+                        );
+                      }
                     } else {
                       setAndShowMessage('Failed to fetch episode');
                     }
