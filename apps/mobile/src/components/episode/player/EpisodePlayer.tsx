@@ -90,7 +90,7 @@ export function EpisodePlayer({
                       navigation.navigate(RootStackScreenNames.NativePlayer, {
                         uri: result.uri,
                         seriesId: series.id,
-                        episodeTitle,
+                        episodeTitle: result.title || episodeTitle,
                         episodeNumber,
                         referer: player.playerLink,
                       });
