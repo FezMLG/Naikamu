@@ -1,7 +1,7 @@
 {
   "name": "@naikamu/mobile",
-  "version": "0.17.0",
-  "codeVersion": "75",
+  "version": "0.17.1",
+  "codeVersion": "76",
   "apiVersion": "1.5.x",
   "private": true,
   "engines": {
@@ -87,7 +87,7 @@
     "react-native-svg": "15.11.2",
     "react-native-system-navigation-bar": "2.6.4",
     "react-native-vector-icons": "10.2.0",
-    "react-native-video": "6.10.2",
+    "react-native-video": "6.12.0",
     "react-native-webview": "13.13.2",
     "semver": "7.7.1",
     "styled-components": "6.1.13",

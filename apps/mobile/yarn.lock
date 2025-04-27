@@ -4079,7 +4079,7 @@ __metadata:
     react-native-svg-transformer: "npm:1.5.0"
     react-native-system-navigation-bar: "npm:2.6.4"
     react-native-vector-icons: "npm:10.2.0"
-    react-native-video: "npm:6.10.2"
+    react-native-video: "npm:6.12.0"
     react-native-webview: "npm:13.13.2"
     react-test-renderer: "npm:19.0.0"
     semver: "npm:7.7.1"
@@ -14574,13 +14574,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-video@npm:6.10.2":
-  version: 6.10.2
-  resolution: "react-native-video@npm:6.10.2"
+"react-native-video@npm:6.12.0":
+  version: 6.12.0
+  resolution: "react-native-video@npm:6.12.0"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 10c0/6b3eaf806397cac16fae872670c2a709d12df7cad834131342c518bf91cffa744e53a8cb14183a0d431be84a55aaa8ca3712f7d47b02094d9365defd9a2140de
+  checksum: 10c0/3464ed6fea74d221f8b9569c9b3c367f488ac3ffae005b6d6475335b87a21eeaceef7d1a4fb6d718e3aa30769873581317b4d6eddee11d3b7d2569a77755e221
   languageName: node
   linkType: hard
 

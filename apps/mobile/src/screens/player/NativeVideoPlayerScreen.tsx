@@ -116,6 +116,9 @@ export function NativeVideoPlayerScreen({
             headers: {
               Referer: referer,
             },
+            metadata: {
+              title: episodeTitle,
+            },
           }}
           style={styles.absoluteFill}
         />
@@ -149,6 +152,9 @@ export function NativeVideoPlayerScreen({
             uri: uri,
             headers: {
               Referer: referer,
+            },
+            metadata: {
+              title: episodeTitle,
             },
           }}
           style={styles.absoluteFill}
