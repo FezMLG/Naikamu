@@ -28,7 +28,7 @@ export function NativeVideoPlayerScreen({
   const episodeActions = useActiveSeriesStore(store => store.actions);
 
   useEffect(() => {
-    // SystemNavigationBar.immersive();
+    SystemNavigationBar.immersive();
   }, []);
 
   useFocusEffect(
