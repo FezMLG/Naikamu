@@ -9,6 +9,8 @@ import {
   SeriesStackScreenNames,
 } from '../../routes';
 import { Button } from '../atoms';
+import { Text, View } from 'react-native';
+import { colors, fontStyles } from '../../styles';
 
 interface EpisodesButtonProps {
   series: AnimeDetails;
@@ -17,6 +19,17 @@ interface EpisodesButtonProps {
 export function EpisodesButton({ series }: EpisodesButtonProps) {
   const navigation = useNavigation<NavigationProp<SeriesStackParameterList>>();
   const { translate } = useTranslate();
+
+  if (series.episodesDisabled) {
+    return (
+      <View>
+        <Text numberOfLines={2} style={[fontStyles.headerSmall, colors.grey]}>
+          {series.episodesDisabledReason ??
+            translate('anime_episodes.disabled.default')}
+        </Text>
+      </View>
+    );
+  }
 
   return (
     <Button

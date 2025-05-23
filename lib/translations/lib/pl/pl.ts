@@ -182,6 +182,9 @@ export const pl = {
       remove: 'Usuń z obejrzanych',
     },
     upcoming: 'Nadchodzący',
+    disabled: {
+      default: 'Odcinki nie są dostępne dla tego anime',
+    },
   },
   important: {
     requireAppUpdate: {

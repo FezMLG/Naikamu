@@ -180,6 +180,9 @@ export const en = {
       remove: 'Mark as unwatched',
     },
     upcoming: 'Upcoming',
+    disabled: {
+      default: 'Episodes not enabled for this anime',
+    },
   },
   important: {
     requireAppUpdate: {
