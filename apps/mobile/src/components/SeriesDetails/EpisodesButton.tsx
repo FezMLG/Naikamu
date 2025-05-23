@@ -2,15 +2,15 @@ import React from 'react';
 
 import { AnimeDetails } from '@naikamu/shared';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { Text, View } from 'react-native';
 
 import { useTranslate } from '../../i18n/useTranslate';
 import {
   SeriesStackParameterList as SeriesStackParameterList,
   SeriesStackScreenNames,
 } from '../../routes';
-import { Button } from '../atoms';
-import { Text, View } from 'react-native';
 import { colors, fontStyles } from '../../styles';
+import { Button } from '../atoms';
 
 interface EpisodesButtonProps {
   series: AnimeDetails;
