@@ -174,10 +174,16 @@ function DataSource({ sourceId }: { sourceId: AnimeDetails['sourceId'] }) {
 
   return (
     <Pressable
-      onPress={() => Linking.openURL('https://anilist.co/anime/' + sourceId)}>
-      <Text style={[globalStyle.disclaimer, colors.textLight]}>
-        {translate('anime_details.source')}: AniList{' '}
-        <Icon color="white" name="open-in-new" size={16} />
+      onPress={() => Linking.openURL('https://anilist.co/anime/' + sourceId)}
+      style={styles.disclaimer}>
+      <Text
+        style={[globalStyle.disclaimer, fontStyles.normal, colors.textLight]}>
+        {translate('anime_details.source')}: AniList
+      </Text>
+      <Icon color="white" name="open-in-new" size={16} />
+      <Text
+        style={[globalStyle.disclaimer, fontStyles.label, colors.textLight]}>
+        ({sourceId})
       </Text>
     </Pressable>
   );
@@ -273,6 +279,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     alignItems: 'center',
     gap: 5,
+  },
+  disclaimer: {
+    flexDirection: 'row',
+    gap: 5,
+    alignItems: 'center',
   },
 });
 
