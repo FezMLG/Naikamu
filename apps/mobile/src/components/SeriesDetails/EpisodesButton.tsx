@@ -2,12 +2,14 @@ import React from 'react';
 
 import { AnimeDetails } from '@naikamu/shared';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { Text, View } from 'react-native';
 
 import { useTranslate } from '../../i18n/useTranslate';
 import {
   SeriesStackParameterList as SeriesStackParameterList,
   SeriesStackScreenNames,
 } from '../../routes';
+import { colors, fontStyles } from '../../styles';
 import { Button } from '../atoms';
 
 interface EpisodesButtonProps {
@@ -17,6 +19,17 @@ interface EpisodesButtonProps {
 export function EpisodesButton({ series }: EpisodesButtonProps) {
   const navigation = useNavigation<NavigationProp<SeriesStackParameterList>>();
   const { translate } = useTranslate();
+
+  if (series.episodesDisabled) {
+    return (
+      <View>
+        <Text numberOfLines={2} style={[fontStyles.headerSmall, colors.grey]}>
+          {series.episodesDisabledReason ??
+            translate('anime_episodes.disabled.default')}
+        </Text>
+      </View>
+    );
+  }
 
   return (
     <Button

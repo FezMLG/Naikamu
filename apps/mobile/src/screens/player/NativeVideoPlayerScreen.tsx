@@ -68,7 +68,7 @@ export function NativeVideoPlayerScreen({
         leftForWatched = 5 * 60;
       }
 
-      await storageStoreData(storageKey, progress);
+      storageStoreData(storageKey, progress);
       episodeActions.updateEpisode(episodeNumber, {
         progress: progress.currentTime,
         isWatched:

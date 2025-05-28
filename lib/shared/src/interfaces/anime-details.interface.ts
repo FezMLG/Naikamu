@@ -1,9 +1,18 @@
 import { WatchStatus, AnimeSeason } from '../enums';
-import { IAirDate, ICoverImage, IExternalLink, IStudios, ITitle, Relation } from "./anime";
+import {
+  IAirDate,
+  ICoverImage,
+  IExternalLink,
+  IStudios,
+  ITitle,
+  Relation,
+} from './anime';
 
 export interface AnimeDetails {
   id: string;
   watchStatus: WatchStatus;
+  episodesDisabled: boolean;
+  episodesDisabledReason: string | null;
   sourceId: number;
   dataSource: string;
   bannerImage: string;
