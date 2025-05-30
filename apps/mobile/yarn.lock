@@ -3583,6 +3583,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@invertase/react-native-apple-authentication@npm:^2.4.1":
+  version: 2.4.1
+  resolution: "@invertase/react-native-apple-authentication@npm:2.4.1"
+  checksum: 10c0/4508f96dd3fde8c5009db184c5697a4f9b63ce2856f05650ec71274fd50d96cca7088cc084e0bd88f13e801497036e40d529af150e750880448053bf74e9e540
+  languageName: node
+  linkType: hard
+
 "@isaacs/cliui@npm:^8.0.2":
   version: 8.0.2
   resolution: "@isaacs/cliui@npm:8.0.2"
@@ -4001,6 +4008,7 @@ __metadata:
     "@gluestack-style/react": "npm:1.0.57"
     "@gluestack-ui/config": "npm:1.1.20"
     "@gluestack-ui/themed": "npm:1.1.70"
+    "@invertase/react-native-apple-authentication": "npm:^2.4.1"
     "@notifee/react-native": "npm:9.1.8"
     "@react-native-community/blur": "npm:4.4.1"
     "@react-native-community/cli": "npm:15.0.1"

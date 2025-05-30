@@ -81,6 +81,7 @@ export const en = {
     },
     google_sign_in_cancelled: 'Google login in cancelled by user',
     google_sign_in_error: 'Error during Google login',
+    apple_sign_in_error: 'Error during Apple login',
     required_field: 'This field is required',
     email_sent: 'Sent email',
     email_has_been_sent: 'Email has been sent',
