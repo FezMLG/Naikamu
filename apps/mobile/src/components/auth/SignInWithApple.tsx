@@ -5,64 +5,72 @@ import {
   AppleButton,
 } from '@invertase/react-native-apple-authentication';
 import { firebase } from '@react-native-firebase/auth';
+import * as Sentry from '@sentry/react-native';
 import { View } from 'react-native';
 
+import { useTranslate } from '../../i18n/useTranslate';
 import { useUserService } from '../../services/auth/user.service';
+import { useLayoutMessageService } from '../../services/layout-info';
+import { defaultRadius } from '../../styles';
 
 /**
  * Note the sign in request can error, e.g. if the user cancels the sign-in.
  * Use `appleAuth.Error` to determine the type of error, e.g. `error.code === appleAuth.Error.CANCELED`
  */
 async function onAppleButtonPress() {
-  // 1). start a apple sign-in request
-  const appleAuthRequestResponse = await appleAuth.performRequest({
-    requestedOperation: appleAuth.Operation.LOGIN,
-    requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
-  });
+  try {
+    const appleAuthRequestResponse = await appleAuth.performRequest({
+      requestedOperation: appleAuth.Operation.LOGIN,
+      requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
+    });
 
-  // 2). if the request was successful, extract the token and nonce
-  const { identityToken, nonce } = appleAuthRequestResponse;
+    const { identityToken, nonce } = appleAuthRequestResponse;
 
-  // can be null in some scenarios
-  if (identityToken) {
-    // 3). create a Firebase `AppleAuthProvider` credential
-    const appleCredential = firebase.auth.AppleAuthProvider.credential(
-      identityToken,
-      nonce,
-    );
+    // can be null in some scenarios
+    if (identityToken) {
+      const appleCredential = firebase.auth.AppleAuthProvider.credential(
+        identityToken,
+        nonce,
+      );
 
-    // 4). use the created `AppleAuthProvider` credential to start a Firebase auth request,
-    //     in this example `signInWithCredential` is used, but you could also call `linkWithCredential`
-    //     to link the account to an existing user
-    const userCredential = await firebase
-      .auth()
-      .signInWithCredential(appleCredential);
+      const userCredential = await firebase
+        .auth()
+        .signInWithCredential(appleCredential);
 
-    // user is now signed in, any Firebase `onAuthStateChanged` listeners you have will trigger
-    console.log(
-      `Firebase authenticated via Apple, UID: ${userCredential.user.uid}`,
-    );
-  } else {
-    // handle this - retry?
+      console.log(
+        `Firebase authenticated via Apple, UID: ${userCredential.user.uid}`,
+      );
+    } else {
+      return 'auth/apple/missing-identity-token';
+    }
+  } catch (error) {
+    console.error('Apple Sign-In Error:', error);
+    Sentry.captureException(error);
+    throw error; // Re-throw the error to handle it in the component
   }
 }
 
 export function SignInWithApple() {
   const userService = useUserService();
+  const { setAndShowMessage } = useLayoutMessageService();
+  const { translate } = useTranslate();
 
-  // your component that renders your social auth providers
   return (
     <View>
-      {/* Render your other social provider buttons here */}
       {appleAuth.isSupported && (
         <AppleButton
           buttonStyle={AppleButton.Style.WHITE}
           buttonType={AppleButton.Type.SIGN_IN}
-          cornerRadius={5}
+          cornerRadius={defaultRadius}
           onPress={() =>
-            onAppleButtonPress().then(() => {
-              userService.setLoggedUser();
-            })
+            onAppleButtonPress()
+              .then(() => {
+                userService.setLoggedUser();
+              })
+              .catch(error => {
+                Sentry.captureException(error);
+                setAndShowMessage(translate('auth.apple_sign_in_error'));
+              })
           }
           style={[{ height: 50 }]}
         />
