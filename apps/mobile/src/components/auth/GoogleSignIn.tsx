@@ -5,12 +5,11 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import * as Sentry from '@sentry/react-native';
 import { Image, Pressable, StyleSheet, Text } from 'react-native';
 
-import { useTranslate } from '../i18n/useTranslate';
-import { useUserService } from '../services/auth/user.service';
-import { colors, defaultRadius, fontStyles } from '../styles';
-
-import { ActivityIndicator } from './atoms';
-import { useLayoutMessageService } from '../services/layout-info';
+import { useTranslate } from '../../i18n/useTranslate';
+import { useUserService } from '../../services/auth/user.service';
+import { useLayoutMessageService } from '../../services/layout-info';
+import { colors, defaultRadius, fontStyles } from '../../styles';
+import { ActivityIndicator } from '../atoms';
 
 GoogleSignin.configure({
   webClientId:
@@ -63,7 +62,7 @@ export function GoogleSignIn() {
       onPressIn={() => setIsLoading(true)}
       style={styles.googleLogin}>
       <Image
-        source={require('../../assets/google_g_logo.png')}
+        source={require('../../../assets/google_g_logo.png')}
         style={styles.gLogo}
       />
       <Text style={[colors.textLight, fontStyles.headerSmall]}>
@@ -85,7 +84,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   googleLogin: {
-    height: 60,
+    height: 50,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-evenly',
