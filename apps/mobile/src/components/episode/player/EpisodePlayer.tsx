@@ -122,20 +122,25 @@ export function EpisodePlayer({
             onPress={() => Linking.openURL(player.playerLink)}
           />
         ) : null}
-        <Text style={[colors.textLight]}>
+        <Text
+          numberOfLines={2}
+          style={[
+            colors.textLight,
+            { width: player.downloadable ? '75%' : '80%' },
+          ]}>
           {player.translatorName +
             ' - ' +
             player.playerName.toLocaleLowerCase()}
         </Text>
       </View>
       <View style={styles.rowCenter}>
-        {player.playerName.toLocaleLowerCase() === 'cda' ? (
+        {player.downloadable ? (
           <>
             {isDownloaded ? (
               <Icon
                 name="download-circle"
                 size={24}
-                style={[{ marginHorizontal: 10 }, colors.textLight]}
+                style={[{ marginRight: 10 }, colors.textLight]}
               />
             ) : (
               <IconButton
