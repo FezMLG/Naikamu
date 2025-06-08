@@ -14,7 +14,7 @@ import { useLayoutMessageService } from '../../services/layout-info';
 import { defaultRadius } from '../../styles';
 
 /**
- * Note the sign in request can error, e.g. if the user cancels the sign-in.
+ * Note the sign-in request can error, e.g., if the user cancels the sign-in.
  * Use `appleAuth.Error` to determine the type of error, e.g. `error.code === appleAuth.Error.CANCELED`
  */
 async function onAppleButtonPress() {
@@ -45,8 +45,13 @@ async function onAppleButtonPress() {
     }
   } catch (error) {
     console.error('Apple Sign-In Error:', error);
-    Sentry.captureException(error);
-    throw error; // Re-throw the error to handle it in the component
+
+    // @ts-expect-error figure out the types later
+    if (error.code === appleAuth.Error.CANCELED) {
+      return 'auth/apple/cancelled';
+    }
+
+    throw error;
   }
 }
 
