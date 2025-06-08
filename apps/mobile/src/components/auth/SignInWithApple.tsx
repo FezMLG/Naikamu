@@ -61,7 +61,7 @@ export function SignInWithApple() {
   const { translate } = useTranslate();
 
   return (
-    <View>
+    <>
       {appleAuth.isSupported && (
         <AppleButton
           buttonStyle={AppleButton.Style.WHITE}
@@ -80,6 +80,6 @@ export function SignInWithApple() {
           style={[{ height: 50 }]}
         />
       )}
-    </View>
+    </>
   );
 }
