@@ -32,6 +32,9 @@ export function EpisodePlayer({
   isDownloaded: boolean;
   handleDownload: (player: AnimePlayer, fileUrl: string) => void;
 }) {
+  const DOWNLOADABLE_WIDTH = '75%';
+  const NON_DOWNLOADABLE_WIDTH = '80%';
+
   const series = useActiveSeriesStore(store => store.series)!;
   const { setAndShowMessage } = useLayoutMessageService();
 
@@ -126,7 +129,11 @@ export function EpisodePlayer({
           numberOfLines={2}
           style={[
             colors.textLight,
-            { width: player.downloadable ? '75%' : '80%' },
+            {
+              width: player.downloadable
+                ? DOWNLOADABLE_WIDTH
+                : NON_DOWNLOADABLE_WIDTH,
+            },
           ]}>
           {player.translatorName +
             ' - ' +
