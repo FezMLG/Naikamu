@@ -1,4 +1,4 @@
-import { AnimeSource, PlayerType } from "../enums";
+import { AnimeSource, PlayerType } from '../enums';
 
 export interface AnimePlayers {
   episodeNumber: number;
@@ -12,4 +12,5 @@ export interface AnimePlayer {
   sourceName: AnimeSource;
   sourceUrl: string;
   playerType: PlayerType;
+  downloadable: boolean;
 }
