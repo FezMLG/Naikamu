@@ -6,7 +6,6 @@ import {
 } from '@invertase/react-native-apple-authentication';
 import { firebase } from '@react-native-firebase/auth';
 import * as Sentry from '@sentry/react-native';
-import { View } from 'react-native';
 
 import { useTranslate } from '../../i18n/useTranslate';
 import { useUserService } from '../../services/auth/user.service';

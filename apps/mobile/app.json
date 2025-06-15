@@ -1,4 +1,10 @@
 {
   "name": "Naikamu",
-  "displayName": "Naikamu"
+  "displayName": "Naikamu",
+  "android": {
+    "package": "com.tltcode.naikamu"
+  },
+  "ios": {
+    "bundleIdentifier": "com.tltcode.naikamu"
+  }
 }
