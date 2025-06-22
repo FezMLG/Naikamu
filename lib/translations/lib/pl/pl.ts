@@ -16,7 +16,7 @@ export const pl = {
     Settings: 'Ustawienia',
     SettingsStack: 'Ustawienia',
     SettingsAction: 'Edycja ustawienia',
-    ActionConfirm: 'Potwierdź Akcję',
+    SettingsActionConfirm: 'Potwierdź Akcję',
     SearchResults: 'Wyniki wyszukiwania',
     MyListStack: 'Moja lista',
     OfflineStack: 'Pobrane',
@@ -82,6 +82,7 @@ export const pl = {
     google_sign_in_cancelled:
       'Logowanie za pomocą Google anulowane przez użytkownika',
     google_sign_in_error: 'Wystąpił błąd podczas logowania za pomocą Google',
+    apple_sign_in_error: 'Wystąpił błąd podczas logowania za pomocą Apple',
     required_field: 'To pole jest wymagane',
     email_sent: 'Wyślij email',
     email_has_been_sent: 'Email został wysłany',

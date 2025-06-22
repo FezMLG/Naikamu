@@ -5,7 +5,12 @@ import { default as Config } from 'react-native-config';
 import { Text } from 'react-native-paper';
 
 import Logo from '../../assets/logo_full.svg';
-import { Button, PageLayout, GoogleSignIn } from '../components';
+import {
+  Button,
+  PageLayout,
+  SignInWithApple,
+  GoogleSignIn,
+} from '../components';
 import { useTranslate } from '../i18n/useTranslate';
 import { AuthStackRoutesNames, AuthStackHelloScreenProps } from '../routes';
 import { globalStyle } from '../styles';
@@ -33,6 +38,8 @@ export function HelloScreen({ navigation }: AuthStackHelloScreenProps) {
           justifyContent: 'flex-end',
           height: '50%',
         }}>
+        <SignInWithApple />
+        <View style={globalStyle.spacerSmall} />
         <GoogleSignIn />
         <View style={globalStyle.spacer} />
         <Button
