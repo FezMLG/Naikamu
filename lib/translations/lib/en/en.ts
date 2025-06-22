@@ -16,7 +16,7 @@ export const en = {
     Settings: 'Settings',
     SettingsStack: 'Settings',
     SettingsAction: 'Setting Edit',
-    ActionConfirm: 'Confirm Action',
+    SettingsActionConfirm: 'Confirm Action',
     SearchResults: 'Search Results',
     MyListStack: 'My List',
     OfflineStack: 'Offline',

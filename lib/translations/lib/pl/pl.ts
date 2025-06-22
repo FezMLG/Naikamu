@@ -16,7 +16,7 @@ export const pl = {
     Settings: 'Ustawienia',
     SettingsStack: 'Ustawienia',
     SettingsAction: 'Edycja ustawienia',
-    ActionConfirm: 'Potwierdź Akcję',
+    SettingsActionConfirm: 'Potwierdź Akcję',
     SearchResults: 'Wyniki wyszukiwania',
     MyListStack: 'Moja lista',
     OfflineStack: 'Pobrane',
