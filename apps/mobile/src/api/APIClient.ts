@@ -8,6 +8,7 @@ import {
   IContinueWatching,
   IPlayerResponse,
   IResolvePlayerDto,
+  IResolvedVideoDownloadResponse,
   IUpdateWatchListEpisode,
   IWatchListImport,
   IWatchListImportChunk,
@@ -17,11 +18,7 @@ import {
   WatchListSeriesEpisode,
   WatchStatus,
 } from '@naikamu/shared';
-import axios, {
-  AxiosHeaders,
-  AxiosInstance,
-  RawAxiosRequestHeaders,
-} from 'axios';
+import axios, { AxiosInstance, RawAxiosRequestHeaders } from 'axios';
 import { Platform } from 'react-native';
 import { default as Config } from 'react-native-config';
 
@@ -257,6 +254,16 @@ export class APIClient {
   async resolvePlayer(dto: IResolvePlayerDto) {
     return this.post<IPlayerResponse>(
       `anime/details/episode/${dto.episode}/player`,
+      dto,
+      {
+        ...(await this.withToken()),
+      },
+    );
+  }
+
+  async resolveDownloadPlayer(dto: IResolvePlayerDto) {
+    return this.post<IResolvedVideoDownloadResponse>(
+      `anime/details/episode/${dto.episode}/download`,
       dto,
       {
         ...(await this.withToken()),

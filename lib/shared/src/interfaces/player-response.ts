@@ -7,3 +7,28 @@ export interface IPlayerResponse {
   title: string | null;
   downloadable: boolean;
 }
+
+export interface MPDDownload {
+  dataType: 'mpd';
+  data: {
+    video: string | null;
+    audio: string | null;
+    mpd: string | null;
+  };
+}
+
+export interface FileDownload {
+  dataType: 'single-file';
+  data: {
+    file: string | null;
+  };
+}
+
+export type DownloadOption = MPDDownload | FileDownload | null;
+
+export interface IResolvedVideoDownloadResponse {
+  status: number;
+  downloadable: boolean;
+  title: string | null;
+  download: DownloadOption;
+}

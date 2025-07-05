@@ -1,12 +1,15 @@
 import React from 'react';
 
-import { AnimePlayer } from '@naikamu/shared';
+import { AnimePlayer, DownloadOption } from '@naikamu/shared';
 import { useNavigation } from '@react-navigation/native';
 import { View, Text, StyleSheet, Linking } from 'react-native';
 import Animated, { SlideInLeft } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { useQueryResolvePlayerLink } from '../../../api/hooks';
+import {
+  useQueryResolvePlayerLink,
+  useQueryResolveDownloadLink,
+} from '../../../api/hooks';
 import { useTranslate } from '../../../i18n/useTranslate';
 import { RootStackScreenNames } from '../../../routes';
 import {
@@ -30,7 +33,7 @@ export function EpisodePlayer({
   episodeNumber: number;
   episodeTitle: string;
   isDownloaded: boolean;
-  handleDownload: (player: AnimePlayer, fileUrl: string) => void;
+  handleDownload: (player: AnimePlayer, download: DownloadOption) => void;
 }) {
   const series = useActiveSeriesStore(store => store.series)!;
   const { setAndShowMessage } = useLayoutMessageService();
@@ -51,7 +54,7 @@ export function EpisodePlayer({
     episode: episodeNumber,
   });
 
-  const download = useQueryResolvePlayerLink({
+  const download = useQueryResolveDownloadLink({
     animeId: series.id,
     player: player.playerName,
     url: player.playerLink,
@@ -142,13 +145,9 @@ export function EpisodePlayer({
                 icon="download-circle-outline"
                 onPress={() => {
                   download.refetch().then(({ data: resolvedLink }) => {
-                    if (
-                      resolvedLink &&
-                      resolvedLink.status === 200 &&
-                      resolvedLink.uri
-                    ) {
+                    if (resolvedLink && resolvedLink.status === 200) {
                       if (resolvedLink.downloadable) {
-                        handleDownload(player, resolvedLink.uri);
+                        handleDownload(player, resolvedLink.download);
                       } else {
                         setAndShowMessage(
                           'File not yet available for download',

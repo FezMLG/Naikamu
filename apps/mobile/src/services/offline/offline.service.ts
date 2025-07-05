@@ -1,3 +1,4 @@
+import { DownloadOption } from '@naikamu/shared';
 import { Platform } from 'react-native';
 import RNFS from 'react-native-fs';
 
@@ -6,7 +7,7 @@ import { useActiveSeriesStore } from '../active-series';
 import { event } from '../events';
 import {
   NotificationForegroundServiceEvents,
-  useNotificationService,
+  // useNotificationService,
 } from '../notifications';
 import { useUserSettingsService } from '../settings';
 
@@ -28,7 +29,7 @@ export const useOfflineService = () => {
   const offlineState = useOfflineSeriesStore(state => state.offlineSeries);
   const offlineActions = useOfflineSeriesStore(state => state.actions);
 
-  const notificationService = useNotificationService();
+  // const notificationService = useNotificationService();
 
   const activeSeries = useActiveSeriesStore(store => store.series)!;
 
@@ -98,7 +99,7 @@ export const useOfflineService = () => {
       event.emit(NotificationForegroundServiceEvents.UPDATE);
     }
 
-    const { series, episode, fileUrl, referer } = firstItem;
+    const { series, episode, downloadOption, referer } = firstItem;
 
     checkIfSeriesExist(series.seriesId);
 
@@ -191,11 +192,11 @@ export const useOfflineService = () => {
 
   const addToQueue = async ({
     episode,
-    fileUrl,
+    downloadOption,
     referer,
   }: {
     episode: IOfflineSeriesEpisodes;
-    fileUrl: string;
+    downloadOption: DownloadOption;
     referer: string;
   }) => {
     const series = getOrCreateOfflineSeries(activeSeries.id);
@@ -206,7 +207,7 @@ export const useOfflineService = () => {
     queueActions.addToQueue({
       series,
       episode,
-      fileUrl,
+      downloadOption,
       referer,
     });
 

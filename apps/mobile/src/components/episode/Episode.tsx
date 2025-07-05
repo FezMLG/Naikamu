@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { AnimePlayer } from '@naikamu/shared';
+import { AnimePlayer, DownloadOption } from '@naikamu/shared';
 import { BlurView } from '@react-native-community/blur';
 import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { List } from 'react-native-paper';
@@ -67,7 +67,10 @@ export function Episode({ episodeNumber }: { episodeNumber: number }) {
     refetch();
   };
 
-  const handleDownload = async (player: AnimePlayer, fileUrl: string) => {
+  const handleDownload = async (
+    player: AnimePlayer,
+    downloadOption: DownloadOption,
+  ) => {
     const episodeToAdd = {
       number: episode.number,
       title: episode.title,
@@ -79,7 +82,7 @@ export function Episode({ episodeNumber }: { episodeNumber: number }) {
 
     await addToQueue({
       episode: episodeToAdd,
-      fileUrl,
+      downloadOption,
       referer: player.playerLink,
     });
     setIsDownloaded(previous => !previous);
