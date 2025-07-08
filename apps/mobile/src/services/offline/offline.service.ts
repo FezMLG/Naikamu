@@ -20,6 +20,22 @@ import { useDownloadsQueueStore } from './queue.store';
 
 const MAX_CONCURRENT_DOWNLOADS = 2;
 
+async function deleteEpisodeFiles(episode: IOfflineSeriesEpisodes) {
+  if (!episode.pathToFile && !episode.pathToManifest) {
+    throw new Error('Episode not downloaded');
+  }
+
+  if (episode.pathToFile) {
+    await offlineFS.deleteFile(episode.pathToFile);
+  }
+
+  if (episode.pathToManifest && episode.pathToAudio && episode.pathToVideo) {
+    await offlineFS.deleteFile(episode.pathToManifest);
+    await offlineFS.deleteFile(episode.pathToAudio);
+    await offlineFS.deleteFile(episode.pathToVideo);
+  }
+}
+
 export const useOfflineService = () => {
   const downloadJobs = useDownloadsStore(state => state.activeDownloads);
   const downloadsActions = useDownloadsStore(state => state.actions);
@@ -82,6 +98,19 @@ export const useOfflineService = () => {
     return exist;
   };
 
+  const progressDownload = async (
+    result: RNFS.DownloadProgressCallbackResult,
+  ) => {
+    // logger('progressDownload').info(
+    //   ((result.bytesWritten / result.contentLength) * 100).toFixed(2),
+    // );
+
+    downloadsActions.changeProgress(
+      result.jobId,
+      result.bytesWritten / result.contentLength,
+    );
+  };
+
   const saveEpisodeOffline = async () => {
     const firstItem = queueActions.getFirstItem();
 
@@ -110,20 +139,6 @@ export const useOfflineService = () => {
         series,
         episode,
       });
-    };
-
-    const progressDownload = async (
-      result: RNFS.DownloadProgressCallbackResult,
-      // eslint-disable-next-line unicorn/consistent-function-scoping
-    ) => {
-      // logger('progressDownload').info(
-      //   ((result.bytesWritten / result.contentLength) * 100).toFixed(2),
-      // );
-
-      downloadsActions.changeProgress(
-        result.jobId,
-        result.bytesWritten / result.contentLength,
-      );
     };
 
     if (!downloadOption) {
@@ -221,14 +236,13 @@ export const useOfflineService = () => {
         return;
       }
 
-      const audioAndVideoDownloadJobs =
-        await offlineFS.startDownloadingMPDWithFiles(
-          series.seriesId,
-          downloadOption,
-          referer,
-          beginDownload,
-          progressDownload,
-        );
+      const audioAndVideoDownloadJobs = await offlineFS.startDownloadingMPD(
+        series.seriesId,
+        downloadOption,
+        referer,
+        beginDownload,
+        progressDownload,
+      );
 
       logger('progressDownload').info(
         'download started',
@@ -239,11 +253,12 @@ export const useOfflineService = () => {
         logger('progressDownload').info('audio download finished', result);
 
         downloadsActions.removeDownload(result.jobId);
+        audioAndVideoDownloadJobs.audio.size = result.bytesWritten;
         audioAndVideoDownloadJobs.audio.finished = true;
       });
 
-      audioAndVideoDownloadJobs.video.promise.then(async result => {
-        logger('progressDownload').info('video download finished', result);
+      audioAndVideoDownloadJobs.video.promise.then(async videoResult => {
+        logger('progressDownload').info('video download finished', videoResult);
         while (!audioAndVideoDownloadJobs.audio.finished) {
           // Wait for audio download to finish
           await new Promise(resolve => setTimeout(resolve, 1000));
@@ -253,18 +268,22 @@ export const useOfflineService = () => {
           );
         }
 
-        const jobId = result.jobId;
+        const jobId = videoResult.jobId;
 
         downloadsActions.removeDownload(jobId);
 
-        episode.size = result.bytesWritten;
+        episode.size =
+          videoResult.bytesWritten + audioAndVideoDownloadJobs.audio.size;
         episode.pathToManifest = audioAndVideoDownloadJobs.mpd.relativePath;
         episode.pathToVideo = audioAndVideoDownloadJobs.video.relativePath;
         episode.pathToAudio = audioAndVideoDownloadJobs.audio.relativePath;
 
         series.episodes.push(episode);
 
-        logger('progressDownload').info('job done', series);
+        logger('progressDownload').info(
+          'Video and Audio download job done',
+          series,
+        );
 
         const saved = offlineActions.saveOrReplaceOfflineSeries(series);
 
@@ -358,23 +377,10 @@ export const useOfflineService = () => {
     if (!series.episodes) {
       throw new Error('Series not downloaded');
     }
+
     await Promise.all(
       series.episodes.map(async episode => {
-        if (!episode.pathToFile && !episode.pathToManifest) {
-          throw new Error('Episode not downloaded');
-        }
-        if (episode.pathToFile) {
-          await offlineFS.deleteFile(episode.pathToFile);
-        }
-        if (
-          episode.pathToManifest &&
-          episode.pathToAudio &&
-          episode.pathToVideo
-        ) {
-          await offlineFS.deleteFile(episode.pathToManifest);
-          await offlineFS.deleteFile(episode.pathToAudio);
-          await offlineFS.deleteFile(episode.pathToVideo);
-        }
+        await deleteEpisodeFiles(episode);
       }),
     );
     const saved = offlineActions.deleteOfflineSeries(seriesId);
@@ -430,23 +436,7 @@ export const useOfflineService = () => {
         throw new Error('Episode not found');
       }
 
-      if (!episode.pathToFile && !episode.pathToManifest) {
-        throw new Error('Episode not downloaded');
-      }
-
-      if (episode.pathToFile) {
-        await offlineFS.deleteFile(episode.pathToFile);
-      }
-
-      if (
-        episode.pathToManifest &&
-        episode.pathToAudio &&
-        episode.pathToVideo
-      ) {
-        await offlineFS.deleteFile(episode.pathToManifest);
-        await offlineFS.deleteFile(episode.pathToAudio);
-        await offlineFS.deleteFile(episode.pathToVideo);
-      }
+      await deleteEpisodeFiles(episode);
 
       const saved = offlineActions.deleteOfflineEpisode(
         seriesId,

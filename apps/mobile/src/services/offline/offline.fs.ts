@@ -134,7 +134,7 @@ const deleteFile = async (relativePath: string) => {
     });
 };
 
-const startDownloadingMPDWithFiles = async (
+const startDownloadingMPD = async (
   seriesId: string,
   files: MPDDownload,
   referer: string,
@@ -211,6 +211,7 @@ const startDownloadingMPDWithFiles = async (
       jobId: audioJob.jobId,
       promise: audioJob.promise,
       finished: false,
+      size: 0,
     },
     video: {
       relativePath: videoFilePath,
@@ -226,7 +227,7 @@ const startDownloadingMPDWithFiles = async (
 
 export const offlineFS = {
   startDownloadingFile,
-  startDownloadingMPDWithFiles,
+  startDownloadingMPD,
   stopDownloadingFile,
   deleteFile,
   getAbsolutePath,

@@ -8,7 +8,11 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import styled from 'styled-components/native';
 
 import { useQuerySeriesEpisodePlayers } from '../../api/hooks';
-import { useActiveSeriesStore, useOfflineService } from '../../services';
+import {
+  IOfflineSeriesEpisodes,
+  useActiveSeriesStore,
+  useOfflineService,
+} from '../../services';
 import {
   colors,
   DarkColor,
@@ -71,12 +75,15 @@ export function Episode({ episodeNumber }: { episodeNumber: number }) {
     player: AnimePlayer,
     downloadOption: DownloadOption,
   ) => {
-    const episodeToAdd = {
+    const episodeToAdd: IOfflineSeriesEpisodes = {
       number: episode.number,
       title: episode.title,
       length: series.episodeLength,
       translator: player.translatorName,
       pathToFile: null,
+      pathToManifest: null,
+      pathToAudio: null,
+      pathToVideo: null,
       size: 0,
     };
 
