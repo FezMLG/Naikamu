@@ -32,7 +32,16 @@ export function OfflineEpisode({
   animeId: string;
   animeName: string;
 }): React.ReactElement {
-  const { pathToFile, title: episodeTitle, length, translator, size } = episode;
+  const {
+    pathToFile,
+    title: episodeTitle,
+    length,
+    translator,
+    size,
+    pathToManifest,
+    pathToAudio,
+    pathToVideo,
+  } = episode;
   const navigation = useNavigation<any>();
   const episodeKey = createEpisodeProgressKey(animeId, episode.number);
   const { progressMinutes, loadProgress } = useVideoProgress(episodeKey);
@@ -64,11 +73,14 @@ export function OfflineEpisode({
               flexDirection: 'row',
               alignItems: 'center',
             }}>
-            {pathToFile ? (
+            {pathToFile || (pathToManifest && pathToAudio && pathToVideo) ? (
               <Pressable
                 onPress={() =>
                   navigation.navigate(RootStackScreenNames.NativePlayer, {
-                    uri: offlineFS.getAbsolutePath(pathToFile),
+                    uri: offlineFS.getAbsolutePath(
+                      // @ts-expect-error wrong types
+                      pathToFile ?? pathToManifest,
+                    ),
                     episodeTitle: episodeTitle,
                     episodeNumber: episode.number,
                     title: animeName,

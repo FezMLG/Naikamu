@@ -114,80 +114,197 @@ export const useOfflineService = () => {
 
     const progressDownload = async (
       result: RNFS.DownloadProgressCallbackResult,
+      // eslint-disable-next-line unicorn/consistent-function-scoping
     ) => {
       // logger('progressDownload').info(
       //   ((result.bytesWritten / result.contentLength) * 100).toFixed(2),
       // );
 
       downloadsActions.changeProgress(
-        jobId,
+        result.jobId,
         result.bytesWritten / result.contentLength,
       );
     };
 
-    const [relativePathToFile, jobId, job] =
-      await offlineFS.startDownloadingFile(
-        series.seriesId,
-        episode.number,
-        fileUrl,
-        referer,
-        beginDownload,
-        progressDownload,
+    if (!downloadOption) {
+      logger('saveEpisodeOffline').warn(
+        'downloadOption is not defined, cannot save episode offline',
       );
 
-    logger('progressDownload').info(
-      'download started',
-      jobId,
-      relativePathToFile,
-      fileUrl,
-      referer,
-    );
+      return;
+    }
 
-    job.then(async result => {
-      downloadsActions.removeDownload(jobId);
-      episode.size = result.bytesWritten;
-      episode.pathToFile = relativePathToFile;
-      series.episodes.push(episode);
-      logger('progressDownload').info('job done', series);
+    if (downloadOption.dataType === 'single-file') {
+      const fileUrl = downloadOption.data.file;
 
-      const saved = offlineActions.saveOrReplaceOfflineSeries(series);
-
-      offlineStorage.saveOfflineSeries(saved);
-
-      // if (Platform.OS === 'ios') {
-      //   await notificationService.displayNotification('download', {
-      //     key: 'finish.ios',
-      //     format: {
-      //       episode: episode.number,
-      //       series: series.title,
-      //     },
-      //   });
-      // }
-
-      const firstItemInQueue = queueActions.getFirstItem();
-      const downloadsActive = downloadsActions.getActiveDownloads();
-
-      if (
-        firstItemInQueue &&
-        downloadsActive.length < MAX_CONCURRENT_DOWNLOADS
-      ) {
-        saveEpisodeOffline();
+      if (!fileUrl) {
+        logger('saveEpisodeOffline').warn(
+          'fileUrl is not defined, cannot save episode offline',
+        );
 
         return;
       }
 
-      if (!firstItemInQueue && downloadsActive.length === 0) {
-        if (Platform.OS === 'ios') {
-          RNFS.completeHandlerIOS(jobId);
-        }
-        if (Platform.OS === 'android') {
-          event.emit(NotificationForegroundServiceEvents.STOP);
-        }
-        logger('progressDownload').warn(
-          'no items in queue left and all downloads finished',
+      const [relativePathToFile, jobId, job] =
+        await offlineFS.startDownloadingFile(
+          series.seriesId,
+          episode.number,
+          fileUrl,
+          referer,
+          beginDownload,
+          progressDownload,
         );
+
+      logger('progressDownload').info(
+        'download started',
+        jobId,
+        relativePathToFile,
+        fileUrl,
+        referer,
+      );
+
+      job.then(async result => {
+        downloadsActions.removeDownload(jobId);
+        episode.size = result.bytesWritten;
+        episode.pathToFile = relativePathToFile;
+        series.episodes.push(episode);
+        logger('progressDownload').info('job done', series);
+
+        const saved = offlineActions.saveOrReplaceOfflineSeries(series);
+
+        offlineStorage.saveOfflineSeries(saved);
+
+        // if (Platform.OS === 'ios') {
+        //   await notificationService.displayNotification('download', {
+        //     key: 'finish.ios',
+        //     format: {
+        //       episode: episode.number,
+        //       series: series.title,
+        //     },
+        //   });
+        // }
+
+        const firstItemInQueue = queueActions.getFirstItem();
+        const downloadsActive = downloadsActions.getActiveDownloads();
+
+        if (
+          firstItemInQueue &&
+          downloadsActive.length < MAX_CONCURRENT_DOWNLOADS
+        ) {
+          saveEpisodeOffline();
+
+          return;
+        }
+
+        if (!firstItemInQueue && downloadsActive.length === 0) {
+          if (Platform.OS === 'ios') {
+            RNFS.completeHandlerIOS(jobId);
+          }
+          if (Platform.OS === 'android') {
+            event.emit(NotificationForegroundServiceEvents.STOP);
+          }
+          logger('progressDownload').warn(
+            'no items in queue left and all downloads finished',
+          );
+        }
+      });
+    } else if (downloadOption.dataType === 'mpd') {
+      const mpdFile = downloadOption.data.mpd;
+      const videoFile = downloadOption.data.video;
+      const audioFile = downloadOption.data.audio;
+
+      if (!mpdFile || !videoFile || !audioFile) {
+        logger('saveEpisodeOffline').warn(
+          'mpdFile, videoFile or audioFile is not defined, cannot save episode offline',
+        );
+
+        return;
       }
-    });
+
+      const audioAndVideoDownloadJobs =
+        await offlineFS.startDownloadingMPDWithFiles(
+          series.seriesId,
+          downloadOption,
+          referer,
+          beginDownload,
+          progressDownload,
+        );
+
+      logger('progressDownload').info(
+        'download started',
+        audioAndVideoDownloadJobs,
+      );
+
+      audioAndVideoDownloadJobs.audio.promise.then(async result => {
+        logger('progressDownload').info('audio download finished', result);
+
+        downloadsActions.removeDownload(result.jobId);
+        audioAndVideoDownloadJobs.audio.finished = true;
+      });
+
+      audioAndVideoDownloadJobs.video.promise.then(async result => {
+        logger('progressDownload').info('video download finished', result);
+        while (!audioAndVideoDownloadJobs.audio.finished) {
+          // Wait for audio download to finish
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          logger('progressDownload').info(
+            'waiting for audio download to finish',
+            audioAndVideoDownloadJobs.audio.jobId,
+          );
+        }
+
+        const jobId = result.jobId;
+
+        downloadsActions.removeDownload(jobId);
+
+        episode.size = result.bytesWritten;
+        episode.pathToManifest = audioAndVideoDownloadJobs.mpd.relativePath;
+        episode.pathToVideo = audioAndVideoDownloadJobs.video.relativePath;
+        episode.pathToAudio = audioAndVideoDownloadJobs.audio.relativePath;
+
+        series.episodes.push(episode);
+
+        logger('progressDownload').info('job done', series);
+
+        const saved = offlineActions.saveOrReplaceOfflineSeries(series);
+
+        offlineStorage.saveOfflineSeries(saved);
+
+        // if (Platform.OS === 'ios') {
+        //   await notificationService.displayNotification('download', {
+        //     key: 'finish.ios',
+        //     format: {
+        //       episode: episode.number,
+        //       series: series.title,
+        //     },
+        //   });
+        // }
+
+        const firstItemInQueue = queueActions.getFirstItem();
+        const downloadsActive = downloadsActions.getActiveDownloads();
+
+        if (
+          firstItemInQueue &&
+          downloadsActive.length < MAX_CONCURRENT_DOWNLOADS
+        ) {
+          saveEpisodeOffline();
+
+          return;
+        }
+
+        if (!firstItemInQueue && downloadsActive.length === 0) {
+          if (Platform.OS === 'ios') {
+            RNFS.completeHandlerIOS(jobId);
+          }
+          if (Platform.OS === 'android') {
+            event.emit(NotificationForegroundServiceEvents.STOP);
+          }
+          logger('progressDownload').warn(
+            'no items in queue left and all downloads finished',
+          );
+        }
+      });
+    }
   };
 
   const addToQueue = async ({
@@ -243,10 +360,21 @@ export const useOfflineService = () => {
     }
     await Promise.all(
       series.episodes.map(async episode => {
-        if (!episode.pathToFile) {
+        if (!episode.pathToFile && !episode.pathToManifest) {
           throw new Error('Episode not downloaded');
         }
-        await offlineFS.deleteFile(episode.pathToFile);
+        if (episode.pathToFile) {
+          await offlineFS.deleteFile(episode.pathToFile);
+        }
+        if (
+          episode.pathToManifest &&
+          episode.pathToAudio &&
+          episode.pathToVideo
+        ) {
+          await offlineFS.deleteFile(episode.pathToManifest);
+          await offlineFS.deleteFile(episode.pathToAudio);
+          await offlineFS.deleteFile(episode.pathToVideo);
+        }
       }),
     );
     const saved = offlineActions.deleteOfflineSeries(seriesId);
@@ -301,11 +429,25 @@ export const useOfflineService = () => {
       if (!episode) {
         throw new Error('Episode not found');
       }
-      if (!episode.pathToFile) {
+
+      if (!episode.pathToFile && !episode.pathToManifest) {
         throw new Error('Episode not downloaded');
       }
 
-      await offlineFS.deleteFile(episode.pathToFile);
+      if (episode.pathToFile) {
+        await offlineFS.deleteFile(episode.pathToFile);
+      }
+
+      if (
+        episode.pathToManifest &&
+        episode.pathToAudio &&
+        episode.pathToVideo
+      ) {
+        await offlineFS.deleteFile(episode.pathToManifest);
+        await offlineFS.deleteFile(episode.pathToAudio);
+        await offlineFS.deleteFile(episode.pathToVideo);
+      }
+
       const saved = offlineActions.deleteOfflineEpisode(
         seriesId,
         episodeNumber,
