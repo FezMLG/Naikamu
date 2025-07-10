@@ -124,9 +124,7 @@ const styles = StyleSheet.create({
   highlight: {
     fontWeight: 'bold',
   },
-  center: {
-    alignSelf: 'center',
-  },
+  center: {},
   formInputs: {
     alignItems: 'center',
   },

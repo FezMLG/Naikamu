@@ -35,6 +35,9 @@ export function EpisodePlayer({
   isDownloaded: boolean;
   handleDownload: (player: AnimePlayer, download: DownloadOption) => void;
 }) {
+  const DOWNLOADABLE_WIDTH = '75%';
+  const NON_DOWNLOADABLE_WIDTH = '80%';
+
   const series = useActiveSeriesStore(store => store.series)!;
   const { setAndShowMessage } = useLayoutMessageService();
 
@@ -125,20 +128,29 @@ export function EpisodePlayer({
             onPress={() => Linking.openURL(player.playerLink)}
           />
         ) : null}
-        <Text style={[colors.textLight]}>
+        <Text
+          numberOfLines={2}
+          style={[
+            colors.textLight,
+            {
+              width: player.downloadable
+                ? DOWNLOADABLE_WIDTH
+                : NON_DOWNLOADABLE_WIDTH,
+            },
+          ]}>
           {player.translatorName +
             ' - ' +
             player.playerName.toLocaleLowerCase()}
         </Text>
       </View>
       <View style={styles.rowCenter}>
-        {player.playerName.toLocaleLowerCase() === 'cda' ? (
+        {player.downloadable ? (
           <>
             {isDownloaded ? (
               <Icon
                 name="download-circle"
                 size={24}
-                style={[{ marginHorizontal: 10 }, colors.textLight]}
+                style={[{ marginRight: 10 }, colors.textLight]}
               />
             ) : (
               <IconButton
