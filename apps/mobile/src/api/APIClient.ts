@@ -53,6 +53,7 @@ export class APIClient {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
+        'x-device-type': Platform.OS,
       },
     });
   }
