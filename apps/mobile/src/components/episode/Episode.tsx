@@ -82,8 +82,7 @@ export function Episode({ episodeNumber }: { episodeNumber: number }) {
       translator: player.translatorName,
       pathToFile: null,
       pathToManifest: null,
-      pathToAudio: null,
-      pathToVideo: null,
+      pathToFiles: null,
       size: 0,
     };
 

@@ -39,8 +39,7 @@ export function OfflineEpisode({
     translator,
     size,
     pathToManifest,
-    pathToAudio,
-    pathToVideo,
+    pathToFiles,
   } = episode;
   const navigation = useNavigation<any>();
   const episodeKey = createEpisodeProgressKey(animeId, episode.number);
@@ -73,7 +72,7 @@ export function OfflineEpisode({
               flexDirection: 'row',
               alignItems: 'center',
             }}>
-            {pathToFile || (pathToManifest && pathToAudio && pathToVideo) ? (
+            {pathToFile || (pathToManifest && pathToFiles) ? (
               <Pressable
                 onPress={() =>
                   navigation.navigate(RootStackScreenNames.NativePlayer, {

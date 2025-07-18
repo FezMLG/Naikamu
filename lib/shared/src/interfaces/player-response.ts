@@ -8,12 +8,11 @@ export interface IPlayerResponse {
   downloadable: boolean;
 }
 
-export interface MPDDownload {
-  dataType: 'mpd';
+export interface ManifestDownload {
+  dataType: 'mpd' | 'hls';
   data: {
-    video: string | null;
-    audio: string | null;
-    mpd: string | null;
+    mainManifest: string | null;
+    files: string[] | null;
   };
 }
 
@@ -24,7 +23,7 @@ export interface FileDownload {
   };
 }
 
-export type DownloadOption = MPDDownload | FileDownload | null;
+export type DownloadOption = ManifestDownload | FileDownload | null;
 
 export interface IResolvedVideoDownloadResponse {
   status: number;

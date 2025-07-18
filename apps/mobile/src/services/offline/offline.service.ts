@@ -29,10 +29,11 @@ async function deleteEpisodeFiles(episode: IOfflineSeriesEpisodes) {
     await offlineFS.deleteFile(episode.pathToFile);
   }
 
-  if (episode.pathToManifest && episode.pathToAudio && episode.pathToVideo) {
+  if (episode.pathToManifest && episode.pathToFiles) {
     await offlineFS.deleteFile(episode.pathToManifest);
-    await offlineFS.deleteFile(episode.pathToAudio);
-    await offlineFS.deleteFile(episode.pathToVideo);
+    await Promise.all(
+      episode.pathToFiles.map(file => offlineFS.deleteFile(file)),
+    );
   }
 }
 
@@ -223,48 +224,63 @@ export const useOfflineService = () => {
           );
         }
       });
-    } else if (downloadOption.dataType === 'mpd') {
-      const mpdFile = downloadOption.data.mpd;
-      const videoFile = downloadOption.data.video;
-      const audioFile = downloadOption.data.audio;
+    } else if (
+      downloadOption.dataType === 'mpd' ||
+      downloadOption.dataType === 'hls'
+    ) {
+      const manifestFile = downloadOption.data.mainManifest;
+      const files = downloadOption.data.files;
 
-      if (!mpdFile || !videoFile || !audioFile) {
+      logger('saveEpisodeOffline').info(
+        'saveEpisodeOffline called with manifest, video and audio files',
+        downloadOption,
+        !!manifestFile,
+        !!files,
+        !!(manifestFile || !files),
+      );
+
+      if (!manifestFile || !files) {
         logger('saveEpisodeOffline').warn(
-          'mpdFile, videoFile or audioFile is not defined, cannot save episode offline',
+          'manifestFile, videoFile or audioFile is not defined, cannot save episode offline',
+          downloadOption,
         );
 
         return;
       }
 
-      const audioAndVideoDownloadJobs = await offlineFS.startDownloadingMPD(
-        series.seriesId,
-        downloadOption,
-        referer,
-        beginDownload,
-        progressDownload,
-      );
+      const { filesToDownload, manifest } =
+        await offlineFS.startDownloadingFromManifest(
+          series.seriesId,
+          downloadOption,
+          referer,
+          beginDownload,
+          progressDownload,
+        );
 
-      logger('progressDownload').info(
-        'download started',
-        audioAndVideoDownloadJobs,
-      );
+      logger('progressDownload').info('download started', filesToDownload);
 
-      audioAndVideoDownloadJobs.audio.promise.then(async result => {
-        logger('progressDownload').info('audio download finished', result);
+      for (const job of filesToDownload) {
+        job.promise.then(async result => {
+          logger('progressDownload').info('audio download finished', result);
 
-        downloadsActions.removeDownload(result.jobId);
-        audioAndVideoDownloadJobs.audio.size = result.bytesWritten;
-        audioAndVideoDownloadJobs.audio.finished = true;
-      });
+          downloadsActions.removeDownload(result.jobId);
+          job.size = result.bytesWritten;
+          job.finished = true;
+        });
+      }
 
-      audioAndVideoDownloadJobs.video.promise.then(async videoResult => {
+      // The last item in filesToDownload should be the file with the largest size (video)
+      const lastFileJob = filesToDownload.at(-1)!;
+
+      lastFileJob.promise.then(async videoResult => {
         logger('progressDownload').info('video download finished', videoResult);
-        while (!audioAndVideoDownloadJobs.audio.finished) {
-          // Wait for audio download to finish
+        lastFileJob.finished = true;
+        lastFileJob.size = videoResult.bytesWritten;
+
+        while (!filesToDownload.every(job => job.finished)) {
           await new Promise(resolve => setTimeout(resolve, 1000));
           logger('progressDownload').info(
-            'waiting for audio download to finish',
-            audioAndVideoDownloadJobs.audio.jobId,
+            'waiting for other download jobs to finish',
           );
         }
 
@@ -272,11 +288,12 @@ export const useOfflineService = () => {
 
         downloadsActions.removeDownload(jobId);
 
-        episode.size =
-          videoResult.bytesWritten + audioAndVideoDownloadJobs.audio.size;
-        episode.pathToManifest = audioAndVideoDownloadJobs.mpd.relativePath;
-        episode.pathToVideo = audioAndVideoDownloadJobs.video.relativePath;
-        episode.pathToAudio = audioAndVideoDownloadJobs.audio.relativePath;
+        episode.size = filesToDownload.reduce(
+          (accumulator, job) => accumulator + job.size,
+          0,
+        );
+        episode.pathToManifest = manifest.relativePath;
+        episode.pathToFiles = filesToDownload.map(job => job.relativeFilePath);
 
         series.episodes.push(episode);
 

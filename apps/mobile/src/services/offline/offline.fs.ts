@@ -1,4 +1,4 @@
-import { MPDDownload } from '@naikamu/shared';
+import { ManifestDownload } from '@naikamu/shared';
 import { PermissionsAndroid, Platform } from 'react-native';
 import RNFS from 'react-native-fs';
 
@@ -134,9 +134,9 @@ const deleteFile = async (relativePath: string) => {
     });
 };
 
-const startDownloadingMPD = async (
+const startDownloadingFromManifest = async (
   seriesId: string,
-  files: MPDDownload,
+  files: ManifestDownload,
   referer: string,
   beginDownload: (result: RNFS.DownloadBeginCallbackResult) => void,
   progressDownload: (result: RNFS.DownloadProgressCallbackResult) => void,
@@ -147,87 +147,85 @@ const startDownloadingMPD = async (
     throw new Error('No permissions to download file');
   }
 
-  if (!files.data.mpd || !files.data.video || !files.data.audio) {
+  if (
+    !files.data.mainManifest ||
+    !files.data.files ||
+    files.data.files.length === 0
+  ) {
     throw new Error('Invalid files data provided');
   }
 
   await createSeriesFolder(seriesId);
 
-  const mpdFilePath = relativeFilePath(seriesId, `${seriesId}.mpd`);
+  const manifestFileName =
+    files.dataType === 'mpd' ? 'manifest.mpd' : 'manifest.m3u8';
+  const manifestFilePath = relativeFilePath(seriesId, `${manifestFileName}`);
 
-  const videoFilePath = getFileExtensionAndRelativePathForMPD(
-    files.data.video,
-    seriesId,
-  );
-
-  const audioFilePath = getFileExtensionAndRelativePathForMPD(
-    files.data.audio,
-    seriesId,
-  );
-
-  logger('startDownloadingMPDWithFiles').info({
+  logger('startDownloadingFromManifest').info({
     data: {
       seriesId,
-      mpdFilePath,
-      videoFilePath,
-      audioFilePath,
+      manifestFilePath,
       referer,
     },
   });
 
   await RNFS.writeFile(
-    getAbsolutePath(mpdFilePath),
-    decodeURI(files.data.mpd),
+    getAbsolutePath(manifestFilePath),
+    decodeURI(files.data.mainManifest),
     'utf8',
   );
 
-  const videoJob = RNFS.downloadFile({
-    fromUrl: files.data.video,
-    toFile: getAbsolutePath(videoFilePath),
-    begin: beginDownload,
-    progress: progressDownload,
-    progressInterval: 1000,
-    background: true,
-    headers: {
-      Referer: referer,
-    },
+  const filesJobs: {
+    relativeFilePath: string;
+    uri: string;
+    jobId: number;
+    promise: Promise<RNFS.DownloadResult>;
+    finished: boolean;
+    size: number;
+  }[] = files.data.files.map(uri => {
+    const relativePath = getFileExtensionAndRelativePathForMPD(uri, seriesId);
+    const absolutePath = getAbsolutePath(relativePath);
+
+    return {
+      ...RNFS.downloadFile({
+        fromUrl: uri,
+        toFile: absolutePath,
+        begin: beginDownload,
+        progress: progressDownload,
+        progressInterval: 1000,
+        background: true,
+        headers: {
+          Referer: referer,
+        },
+      }),
+      absolutePath,
+      relativeFilePath: relativePath,
+      uri,
+      finished: false,
+      size: 0,
+    };
   });
 
-  const audioJob = RNFS.downloadFile({
-    fromUrl: files.data.audio,
-    toFile: getAbsolutePath(audioFilePath),
-    begin: beginDownload,
-    progress: progressDownload,
-    progressInterval: 1000,
-    background: true,
-    headers: {
-      Referer: referer,
+  logger('startDownloadingFromManifest').info({
+    data: {
+      seriesId,
+      manifestFilePath,
+      referer,
+      filesJobs,
     },
   });
 
   return {
-    audio: {
-      relativePath: audioFilePath,
-      jobId: audioJob.jobId,
-      promise: audioJob.promise,
-      finished: false,
-      size: 0,
-    },
-    video: {
-      relativePath: videoFilePath,
-      jobId: videoJob.jobId,
-      promise: videoJob.promise,
-      finished: false,
-    },
-    mpd: {
-      relativePath: mpdFilePath,
+    filesToDownload: filesJobs,
+    manifest: {
+      relativePath: manifestFilePath,
     },
   };
 };
 
 export const offlineFS = {
   startDownloadingFile,
-  startDownloadingMPD,
+  startDownloadingFromManifest,
   stopDownloadingFile,
   deleteFile,
   getAbsolutePath,
