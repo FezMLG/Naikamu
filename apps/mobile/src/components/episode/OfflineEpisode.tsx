@@ -74,19 +74,27 @@ export function OfflineEpisode({
             }}>
             {pathToFile || (pathToManifest && pathToFiles) ? (
               <Pressable
-                onPress={() =>
-                  navigation.navigate(RootStackScreenNames.NativePlayer, {
-                    uri: offlineFS.getAbsolutePath(
-                      // @ts-expect-error wrong types
-                      pathToFile ?? pathToManifest,
-                    ),
-                    episodeTitle: episodeTitle,
-                    episodeNumber: episode.number,
-                    title: animeName,
-                    seriesId: animeId,
-                    isLocal: true,
-                  })
-                }
+                onPress={() => {
+                  let path = null;
+
+                  if (pathToFile) {
+                    path = offlineFS.getAbsolutePath(pathToFile);
+                  } else if (pathToManifest) {
+                    path = offlineFS.getAbsolutePath(pathToManifest);
+                  }
+
+                  return navigation.navigate(
+                    RootStackScreenNames.NativePlayer,
+                    {
+                      uri: path,
+                      episodeTitle: episodeTitle,
+                      episodeNumber: episode.number,
+                      title: animeName,
+                      seriesId: animeId,
+                      isLocal: true,
+                    },
+                  );
+                }}
                 style={styles.watchStatus}>
                 <Icon color={colors.textLight.color} name="play" size={30} />
               </Pressable>
