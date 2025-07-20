@@ -99,6 +99,7 @@ export function EpisodePlayer({
                         episodeTitle: result.title || episodeTitle,
                         episodeNumber,
                         referer: player.playerLink,
+                        isLocal: false,
                       });
                     } else if (result && result.status === 404) {
                       setAndShowMessage(

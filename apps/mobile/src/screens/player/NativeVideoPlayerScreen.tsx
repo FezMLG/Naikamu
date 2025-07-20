@@ -9,15 +9,18 @@ import SystemNavigationBar from 'react-native-system-navigation-bar';
 import Video, { OnProgressData, VideoRef } from 'react-native-video';
 
 import { useMutationUpdateUserSeriesWatchProgress } from '../../api/hooks';
+import { useTranslate } from '../../i18n/useTranslate';
 import { RootStackNativePlayerScreenProps } from '../../routes';
 import { createEpisodeProgressKey, useActiveSeriesStore } from '../../services';
+import { useLayoutMessageService } from '../../services/layout-info';
 import { storageGetData, storageStoreData, logger } from '../../utils';
 
 export function NativeVideoPlayerScreen({
   route,
   navigation,
 }: RootStackNativePlayerScreenProps) {
-  const { uri, episodeTitle, episodeNumber, seriesId, referer } = route.params;
+  const { uri, episodeTitle, episodeNumber, seriesId, referer, isLocal } =
+    route.params;
   const [streamURL, setStreamURL] = useState<string>(uri);
   const [lastSave, setLastSave] = useState(0);
   const videoPlayer = useRef<VideoRef>(null);
@@ -27,13 +30,15 @@ export function NativeVideoPlayerScreen({
     seriesId,
     episodeNumber,
   );
+  const { setAndShowMessage } = useLayoutMessageService();
+  const { translate } = useTranslate();
 
   const episodeActions = useActiveSeriesStore(store => store.actions);
 
   useEffect(() => {
     SystemNavigationBar.immersive();
 
-    if (Platform.OS === 'ios') {
+    if (Platform.OS === 'ios' && isLocal) {
       (async () => {
         const splitUri = uri.split('/');
         const hlsDirectory = splitUri.slice(0, -1).join('/');
@@ -135,6 +140,10 @@ export function NativeVideoPlayerScreen({
           onError={error => {
             logger('VideoPlayer').warn('Error', error);
             Sentry.captureException(error);
+            setAndShowMessage(
+              translate('anime_episodes.player.errors.failed_to_play'),
+            );
+            navigation.goBack();
           }}
           onLoad={handleVideoLoad}
           onProgress={handleProgress}
@@ -170,6 +179,10 @@ export function NativeVideoPlayerScreen({
           onError={(error: unknown) => {
             logger('VideoPlayer').warn('Error', error);
             Sentry.captureException(error);
+            setAndShowMessage(
+              translate('anime_episodes.player.errors.failed_to_play'),
+            );
+            navigation.goBack();
           }}
           onHideControls={() => SystemNavigationBar.immersive()}
           onLoad={handleVideoLoad}
