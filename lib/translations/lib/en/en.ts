@@ -184,6 +184,13 @@ export const en = {
     disabled: {
       default: 'Episodes not enabled for this anime',
     },
+    player: {
+      errors: {
+        generic: 'An error occurred while loading the player',
+        not_available: 'Player is not available',
+        download_disabled: 'Downloading is not available for this player',
+      },
+    },
   },
   important: {
     requireAppUpdate: {

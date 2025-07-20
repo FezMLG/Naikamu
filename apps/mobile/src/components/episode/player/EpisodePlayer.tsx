@@ -40,7 +40,7 @@ export function EpisodePlayer({
 
   const series = useActiveSeriesStore(store => store.series)!;
   const { setAndShowMessage } = useLayoutMessageService();
-
+  const { translate } = useTranslate();
   const navigation = useNavigation<any>();
 
   const { userSettings } = useUserSettingsService();
@@ -100,8 +100,14 @@ export function EpisodePlayer({
                         episodeNumber,
                         referer: player.playerLink,
                       });
+                    } else if (result && result.status === 404) {
+                      setAndShowMessage(
+                        translate('anime_episodes.player.errors.not_available'),
+                      );
                     } else {
-                      setAndShowMessage('Failed to load player');
+                      setAndShowMessage(
+                        translate('anime_episodes.player.errors.generic'),
+                      );
                     }
                   })
                 }
@@ -162,11 +168,19 @@ export function EpisodePlayer({
                         handleDownload(player, resolvedLink.download);
                       } else {
                         setAndShowMessage(
-                          'File not yet available for download',
+                          translate(
+                            'anime_episodes.player.errors.download_disabled',
+                          ),
                         );
                       }
+                    } else if (resolvedLink && resolvedLink.status === 404) {
+                      setAndShowMessage(
+                        translate('anime_episodes.player.errors.not_available'),
+                      );
                     } else {
-                      setAndShowMessage('Failed to fetch episode');
+                      setAndShowMessage(
+                        translate('anime_episodes.player.errors.generic'),
+                      );
                     }
                   });
                 }}

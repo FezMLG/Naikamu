@@ -186,6 +186,13 @@ export const pl = {
     disabled: {
       default: 'Odcinki nie są dostępne dla tego anime',
     },
+    player: {
+      errors: {
+        generic: 'Wystąpił błąd podczas ładowania odtwarzacza',
+        not_available: 'Odtwarzacz nie jest już dostępny',
+        download_disabled: 'Pobieranie jest niedostępne dla tego odtwarzacza',
+      },
+    },
   },
   important: {
     requireAppUpdate: {
