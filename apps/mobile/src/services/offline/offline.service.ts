@@ -1,6 +1,6 @@
+import * as RNFS from '@dr.pogodin/react-native-fs';
 import { DownloadOption } from '@naikamu/shared';
 import { Platform } from 'react-native';
-import RNFS from 'react-native-fs';
 
 import { logger } from '../../utils';
 import { useActiveSeriesStore } from '../active-series';
@@ -100,7 +100,7 @@ export const useOfflineService = () => {
   };
 
   const progressDownload = async (
-    result: RNFS.DownloadProgressCallbackResult,
+    result: RNFS.DownloadProgressCallbackResultT,
   ) => {
     // logger('progressDownload').info(
     //   ((result.bytesWritten / result.contentLength) * 100).toFixed(2),
@@ -133,7 +133,7 @@ export const useOfflineService = () => {
 
     checkIfSeriesExist(series.seriesId);
 
-    const beginDownload = async (result: RNFS.DownloadBeginCallbackResult) => {
+    const beginDownload = async (result: RNFS.DownloadBeginCallbackResultT) => {
       logger('begin download').info();
       downloadsActions.addDownload({
         jobId: result.jobId,

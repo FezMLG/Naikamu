@@ -31,6 +31,8 @@
     "apk:remove_assets": "rm -rf ./android/app/build/generated/assets"
   },
   "dependencies": {
+    "@dr.pogodin/react-native-fs": "2.34.0",
+    "@dr.pogodin/react-native-static-server": "0.22.0",
     "@gluestack-style/react": "1.0.57",
     "@gluestack-ui/config": "1.1.20",
     "@gluestack-ui/themed": "1.1.70",
@@ -70,7 +72,6 @@
     "react-native-device-info": "14.0.4",
     "react-native-drawer-layout": "4.1.1",
     "react-native-fast-image": "8.6.3",
-    "react-native-fs": "2.20.0",
     "react-native-gesture-handler": "2.24.0",
     "react-native-keychain": "9.2.3",
     "react-native-linear-gradient": "2.8.3",

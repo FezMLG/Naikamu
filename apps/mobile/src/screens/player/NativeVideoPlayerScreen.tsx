@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
+import Server from '@dr.pogodin/react-native-static-server';
 import { useFocusEffect } from '@react-navigation/native';
 import * as Sentry from '@sentry/react-native';
 import { Platform, StyleSheet } from 'react-native';
@@ -16,9 +17,11 @@ export function NativeVideoPlayerScreen({
   route,
   navigation,
 }: RootStackNativePlayerScreenProps) {
-  const [lastSave, setLastSave] = useState(0);
   const { uri, episodeTitle, episodeNumber, seriesId, referer } = route.params;
+  const [streamURL, setStreamURL] = useState<string>(uri);
+  const [lastSave, setLastSave] = useState(0);
   const videoPlayer = useRef<VideoRef>(null);
+  const serverRef = useRef<Server | null>(null);
   const storageKey = createEpisodeProgressKey(seriesId, episodeNumber);
   const { mutation } = useMutationUpdateUserSeriesWatchProgress(
     seriesId,
@@ -29,6 +32,33 @@ export function NativeVideoPlayerScreen({
 
   useEffect(() => {
     SystemNavigationBar.immersive();
+
+    if (Platform.OS === 'ios') {
+      (async () => {
+        const splitUri = uri.split('/');
+        const hlsDirectory = splitUri.slice(0, -1).join('/');
+        const fileName = splitUri.pop() || 'playlist.m3u8';
+
+        console.log('hlsDirectory', hlsDirectory, fileName);
+
+        serverRef.current = new Server({
+          port: 8080,
+          fileDir: hlsDirectory,
+          nonLocal: false,
+          stopInBackground: true,
+        });
+
+        const origin = await serverRef.current.start();
+
+        console.log('StaticServer running at', origin);
+        console.log('file', `${origin}/${fileName}`);
+        setStreamURL(`${origin}/${fileName}`);
+      })();
+    }
+
+    return () => {
+      serverRef.current?.stop();
+    };
   }, []);
 
   useFocusEffect(
@@ -112,7 +142,7 @@ export function NativeVideoPlayerScreen({
           ref={videoPlayer}
           resizeMode="contain"
           source={{
-            uri,
+            uri: streamURL,
             headers: {
               Referer: referer,
             },

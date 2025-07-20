@@ -1,6 +1,6 @@
+import * as RNFS from '@dr.pogodin/react-native-fs';
 import { ManifestDownload } from '@naikamu/shared';
 import { PermissionsAndroid, Platform } from 'react-native';
-import RNFS from 'react-native-fs';
 
 import { logger } from '../../utils';
 
@@ -88,9 +88,9 @@ const startDownloadingFile = async (
   episodeNumber: number,
   fileUrl: string,
   referer: string,
-  beginDownload: (result: RNFS.DownloadBeginCallbackResult) => void,
-  progressDownload: (result: RNFS.DownloadProgressCallbackResult) => void,
-): Promise<[string, number, Promise<RNFS.DownloadResult>]> => {
+  beginDownload: (result: RNFS.DownloadBeginCallbackResultT) => void,
+  progressDownload: (result: RNFS.DownloadProgressCallbackResultT) => void,
+): Promise<[string, number, Promise<RNFS.DownloadResultT>]> => {
   const hasPermissions = await checkPermissions();
 
   if (!hasPermissions) {
@@ -138,8 +138,8 @@ const startDownloadingFromManifest = async (
   seriesId: string,
   files: ManifestDownload,
   referer: string,
-  beginDownload: (result: RNFS.DownloadBeginCallbackResult) => void,
-  progressDownload: (result: RNFS.DownloadProgressCallbackResult) => void,
+  beginDownload: (result: RNFS.DownloadBeginCallbackResultT) => void,
+  progressDownload: (result: RNFS.DownloadProgressCallbackResultT) => void,
 ) => {
   const hasPermissions = await checkPermissions();
 
@@ -179,7 +179,7 @@ const startDownloadingFromManifest = async (
     relativeFilePath: string;
     uri: string;
     jobId: number;
-    promise: Promise<RNFS.DownloadResult>;
+    promise: Promise<RNFS.DownloadResultT>;
     finished: boolean;
     size: number;
   }[] = files.data.files.map(uri => {
