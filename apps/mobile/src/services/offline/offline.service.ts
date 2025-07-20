@@ -248,17 +248,33 @@ export const useOfflineService = () => {
 
       // The last item in filesToDownload should be the file with the largest size (video)
       const lastFileJob = filesToDownload.at(-1)!;
+      const TIMEOUT_DURATION = 30 * 60; // 30-minute timeout
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(
+          () => reject(new Error('Download jobs timed out')),
+          TIMEOUT_DURATION,
+        ),
+      );
 
       lastFileJob.promise.then(async videoResult => {
         logger('progressDownload').info('video download finished', videoResult);
         lastFileJob.finished = true;
         lastFileJob.size = videoResult.bytesWritten;
 
-        while (!filesToDownload.every(job => job.finished)) {
-          await new Promise(resolve => setTimeout(resolve, 1000));
+        try {
+          await Promise.race([
+            Promise.all(filesToDownload.map(job => job.promise)),
+            timeoutPromise,
+          ]);
           logger('progressDownload').info(
-            'waiting for other download jobs to finish',
+            'All download jobs finished successfully',
           );
+        } catch (error) {
+          logger('progressDownload').warn(
+            'Error waiting for download jobs:',
+            error,
+          );
+          throw error;
         }
 
         const jobId = videoResult.jobId;
