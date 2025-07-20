@@ -11,15 +11,15 @@ export interface IPlayerResponse {
 export interface ManifestDownload {
   dataType: 'mpd' | 'hls';
   data: {
-    mainManifest: string | null;
-    files: string[] | null;
+    mainManifest: string;
+    files: string[];
   };
 }
 
 export interface FileDownload {
   dataType: 'single-file';
   data: {
-    file: string | null;
+    file: string;
   };
 }
 

@@ -153,14 +153,6 @@ export const useOfflineService = () => {
     if (downloadOption.dataType === 'single-file') {
       const fileUrl = downloadOption.data.file;
 
-      if (!fileUrl) {
-        logger('saveEpisodeOffline').warn(
-          'fileUrl is not defined, cannot save episode offline',
-        );
-
-        return;
-      }
-
       const [relativePathToFile, jobId, job] =
         await offlineFS.startDownloadingFile(
           series.seriesId,
@@ -228,25 +220,10 @@ export const useOfflineService = () => {
       downloadOption.dataType === 'mpd' ||
       downloadOption.dataType === 'hls'
     ) {
-      const manifestFile = downloadOption.data.mainManifest;
-      const files = downloadOption.data.files;
-
       logger('saveEpisodeOffline').info(
         'saveEpisodeOffline called with manifest, video and audio files',
         downloadOption,
-        !!manifestFile,
-        !!files,
-        !!(manifestFile || !files),
       );
-
-      if (!manifestFile || !files) {
-        logger('saveEpisodeOffline').warn(
-          'manifestFile, videoFile or audioFile is not defined, cannot save episode offline',
-          downloadOption,
-        );
-
-        return;
-      }
 
       const { filesToDownload, manifest } =
         await offlineFS.startDownloadingFromManifest(
