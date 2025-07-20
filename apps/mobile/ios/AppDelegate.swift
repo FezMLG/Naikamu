@@ -3,7 +3,7 @@ import React
 import React_RCTAppDelegate
 import ReactAppDependencyProvider
 import FirebaseCore
-import RNFS
+import ReactNativeFs
 
 @main
 class AppDelegate: RCTAppDelegate {
@@ -31,4 +31,11 @@ class AppDelegate: RCTAppDelegate {
     Bundle.main.url(forResource: "main", withExtension: "jsbundle")
 #endif
   }
+  
+//  override func application(_ application: UIApplication,
+//                            handleEventsForBackgroundURLSession identifier: String,
+//                            completionHandler: @escaping () -> Void) {
+//    RNFSBackgroundDownloads.setCompletionHandler(forIdentifier: identifier,
+//                                                 completionHandler: completionHandler)
+//  }
 }

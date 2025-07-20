@@ -22,6 +22,9 @@ import { NotificationWrap } from './services';
 import EventProvider from './services/events/EventProvider';
 import { colors } from './styles';
 
+// @ts-expect-error ignore
+globalThis.RNFB_SILENCE_MODULAR_DEPRECATION_WARNINGS = true;
+
 const reactNavigationIntegration = Sentry.reactNavigationIntegration();
 
 Sentry.init({

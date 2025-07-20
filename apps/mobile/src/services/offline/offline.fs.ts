@@ -1,5 +1,8 @@
+import * as RNFS from '@dr.pogodin/react-native-fs';
+import { ManifestDownload } from '@naikamu/shared';
 import { PermissionsAndroid, Platform } from 'react-native';
-import RNFS from 'react-native-fs';
+
+import { logger } from '../../utils';
 
 const relativeFolderPath = (folderName: string) => {
   switch (Platform.OS) {
@@ -57,14 +60,37 @@ const createSeriesFolder = async (seriesId: string) => {
   await RNFS.mkdir(getAbsolutePath(relativeFolderPath(seriesId)));
 };
 
+function getFileExtensionAndRelativePath(
+  fileUrl: string,
+  seriesId: string,
+  episodeNumber: number,
+) {
+  const fileExtension = fileUrl.split('.').pop();
+
+  return relativeFilePath(seriesId, `${episodeNumber}.${fileExtension}`);
+}
+
+function getFileExtensionAndRelativePathForMPD(
+  fileUrl: string,
+  seriesId: string,
+) {
+  const fileName = fileUrl.split('/').pop();
+
+  if (!fileName) {
+    throw new Error('Invalid file URL provided');
+  }
+
+  return relativeFilePath(seriesId, fileName);
+}
+
 const startDownloadingFile = async (
   seriesId: string,
   episodeNumber: number,
   fileUrl: string,
   referer: string,
-  beginDownload: (result: RNFS.DownloadBeginCallbackResult) => void,
-  progressDownload: (result: RNFS.DownloadProgressCallbackResult) => void,
-): Promise<[string, number, Promise<RNFS.DownloadResult>]> => {
+  beginDownload: (result: RNFS.DownloadBeginCallbackResultT) => void,
+  progressDownload: (result: RNFS.DownloadProgressCallbackResultT) => void,
+): Promise<[string, number, Promise<RNFS.DownloadResultT>]> => {
   const hasPermissions = await checkPermissions();
 
   if (!hasPermissions) {
@@ -72,11 +98,10 @@ const startDownloadingFile = async (
   }
 
   await createSeriesFolder(seriesId);
-
-  const fileExtension = fileUrl.split('.').pop();
-  const relativePathToFile = relativeFilePath(
+  const relativePathToFile = getFileExtensionAndRelativePath(
+    fileUrl,
     seriesId,
-    `${episodeNumber}.${fileExtension}`,
+    episodeNumber,
   );
 
   const job = RNFS.downloadFile({
@@ -109,8 +134,98 @@ const deleteFile = async (relativePath: string) => {
     });
 };
 
+const startDownloadingFromManifest = async (
+  seriesId: string,
+  files: ManifestDownload,
+  referer: string,
+  beginDownload: (result: RNFS.DownloadBeginCallbackResultT) => void,
+  progressDownload: (result: RNFS.DownloadProgressCallbackResultT) => void,
+) => {
+  const hasPermissions = await checkPermissions();
+
+  if (!hasPermissions) {
+    throw new Error('No permissions to download file');
+  }
+
+  if (
+    !files.data.mainManifest ||
+    !files.data.files ||
+    files.data.files.length === 0
+  ) {
+    throw new Error('Invalid files data provided');
+  }
+
+  await createSeriesFolder(seriesId);
+
+  const manifestFileName =
+    files.dataType === 'mpd' ? 'manifest.mpd' : 'manifest.m3u8';
+  const manifestFilePath = relativeFilePath(seriesId, `${manifestFileName}`);
+
+  logger('startDownloadingFromManifest').info({
+    data: {
+      seriesId,
+      manifestFilePath,
+      referer,
+    },
+  });
+
+  await RNFS.writeFile(
+    getAbsolutePath(manifestFilePath),
+    decodeURI(files.data.mainManifest),
+    'utf8',
+  );
+
+  const filesJobs: {
+    relativeFilePath: string;
+    uri: string;
+    jobId: number;
+    promise: Promise<RNFS.DownloadResultT>;
+    finished: boolean;
+    size: number;
+  }[] = files.data.files.map(uri => {
+    const relativePath = getFileExtensionAndRelativePathForMPD(uri, seriesId);
+    const absolutePath = getAbsolutePath(relativePath);
+
+    return {
+      ...RNFS.downloadFile({
+        fromUrl: uri,
+        toFile: absolutePath,
+        begin: beginDownload,
+        progress: progressDownload,
+        progressInterval: 1000,
+        background: true,
+        headers: {
+          Referer: referer,
+        },
+      }),
+      absolutePath,
+      relativeFilePath: relativePath,
+      uri,
+      finished: false,
+      size: 0,
+    };
+  });
+
+  logger('startDownloadingFromManifest').info({
+    data: {
+      seriesId,
+      manifestFilePath,
+      referer,
+      filesJobs,
+    },
+  });
+
+  return {
+    filesToDownload: filesJobs,
+    manifest: {
+      relativePath: manifestFilePath,
+    },
+  };
+};
+
 export const offlineFS = {
   startDownloadingFile,
+  startDownloadingFromManifest,
   stopDownloadingFile,
   deleteFile,
   getAbsolutePath,
