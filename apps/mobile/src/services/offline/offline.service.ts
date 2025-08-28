@@ -249,10 +249,7 @@ export const useOfflineService = () => {
       // The last item in filesToDownload should be the file with the largest size (video)
       const lastFileJob = filesToDownload.at(-1)!;
       const TIMEOUT_DURATION = 30 * 60; // 30-minute timeout
-      const timeoutPromise = new Promise((_, reject) =>
-        setTimeout(
-          () => reject(new Error('Download jobs timed out')),
-          TIMEOUT_DURATION,
+          TIMEOUT_DURATION * 1000,
         ),
       );
 
