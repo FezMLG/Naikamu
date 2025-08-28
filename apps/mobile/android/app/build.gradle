@@ -197,8 +197,6 @@ dependencies {
     } else {
         implementation jscFlavor
     }
-
-    implementation project(':react-native-fs')
 }
 
 apply plugin: 'com.google.gms.google-services' // <--- this should be the last line
