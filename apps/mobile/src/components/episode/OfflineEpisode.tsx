@@ -32,7 +32,15 @@ export function OfflineEpisode({
   animeId: string;
   animeName: string;
 }): React.ReactElement {
-  const { pathToFile, title: episodeTitle, length, translator, size } = episode;
+  const {
+    pathToFile,
+    title: episodeTitle,
+    length,
+    translator,
+    size,
+    pathToManifest,
+    pathToFiles,
+  } = episode;
   const navigation = useNavigation<any>();
   const episodeKey = createEpisodeProgressKey(animeId, episode.number);
   const { progressMinutes, loadProgress } = useVideoProgress(episodeKey);
@@ -64,17 +72,29 @@ export function OfflineEpisode({
               flexDirection: 'row',
               alignItems: 'center',
             }}>
-            {pathToFile ? (
+            {pathToFile || (pathToManifest && pathToFiles) ? (
               <Pressable
-                onPress={() =>
-                  navigation.navigate(RootStackScreenNames.NativePlayer, {
-                    uri: offlineFS.getAbsolutePath(pathToFile),
-                    episodeTitle: episodeTitle,
-                    episodeNumber: episode.number,
-                    title: animeName,
-                    seriesId: animeId,
-                  })
-                }
+                onPress={() => {
+                  let path = null;
+
+                  if (pathToFile) {
+                    path = offlineFS.getAbsolutePath(pathToFile);
+                  } else if (pathToManifest) {
+                    path = offlineFS.getAbsolutePath(pathToManifest);
+                  }
+
+                  return navigation.navigate(
+                    RootStackScreenNames.NativePlayer,
+                    {
+                      uri: path,
+                      episodeTitle: episodeTitle,
+                      episodeNumber: episode.number,
+                      title: animeName,
+                      seriesId: animeId,
+                      isLocal: true,
+                    },
+                  );
+                }}
                 style={styles.watchStatus}>
                 <Icon color={colors.textLight.color} name="play" size={30} />
               </Pressable>

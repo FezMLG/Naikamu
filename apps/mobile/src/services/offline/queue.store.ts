@@ -1,3 +1,4 @@
+import { DownloadOption } from '@naikamu/shared';
 import { create } from 'zustand';
 
 import { IOfflineSeries, IOfflineSeriesEpisodes } from './interfaces';
@@ -5,7 +6,7 @@ import { IOfflineSeries, IOfflineSeriesEpisodes } from './interfaces';
 export interface IDownloadsQueueItem {
   series: IOfflineSeries;
   episode: IOfflineSeriesEpisodes;
-  fileUrl: string;
+  downloadOption: DownloadOption;
   referer: string;
 }
 

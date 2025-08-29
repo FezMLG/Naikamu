@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
+import Server from '@dr.pogodin/react-native-static-server';
 import { useFocusEffect } from '@react-navigation/native';
 import * as Sentry from '@sentry/react-native';
 import { Platform, StyleSheet } from 'react-native';
@@ -8,27 +9,61 @@ import SystemNavigationBar from 'react-native-system-navigation-bar';
 import Video, { OnProgressData, VideoRef } from 'react-native-video';
 
 import { useMutationUpdateUserSeriesWatchProgress } from '../../api/hooks';
+import { useTranslate } from '../../i18n/useTranslate';
 import { RootStackNativePlayerScreenProps } from '../../routes';
 import { createEpisodeProgressKey, useActiveSeriesStore } from '../../services';
+import { useLayoutMessageService } from '../../services/layout-info';
 import { storageGetData, storageStoreData, logger } from '../../utils';
 
 export function NativeVideoPlayerScreen({
   route,
   navigation,
 }: RootStackNativePlayerScreenProps) {
+  const { uri, episodeTitle, episodeNumber, seriesId, referer, isLocal } =
+    route.params;
+  const [streamURL, setStreamURL] = useState<string>(uri);
   const [lastSave, setLastSave] = useState(0);
-  const { uri, episodeTitle, episodeNumber, seriesId, referer } = route.params;
   const videoPlayer = useRef<VideoRef>(null);
+  const serverRef = useRef<Server | null>(null);
   const storageKey = createEpisodeProgressKey(seriesId, episodeNumber);
   const { mutation } = useMutationUpdateUserSeriesWatchProgress(
     seriesId,
     episodeNumber,
   );
+  const { setAndShowMessage } = useLayoutMessageService();
+  const { translate } = useTranslate();
 
   const episodeActions = useActiveSeriesStore(store => store.actions);
 
   useEffect(() => {
     SystemNavigationBar.immersive();
+
+    if (Platform.OS === 'ios' && isLocal) {
+      (async () => {
+        const splitUri = uri.split('/');
+        const hlsDirectory = splitUri.slice(0, -1).join('/');
+        const fileName = splitUri.pop() || 'playlist.m3u8';
+
+        console.log('hlsDirectory', hlsDirectory, fileName);
+
+        serverRef.current = new Server({
+          port: 8080,
+          fileDir: hlsDirectory,
+          nonLocal: false,
+          stopInBackground: true,
+        });
+
+        const origin = await serverRef.current.start();
+
+        console.log('StaticServer running at', origin);
+        console.log('file', `${origin}/${fileName}`);
+        setStreamURL(`${origin}/${fileName}`);
+      })();
+    }
+
+    return () => {
+      serverRef.current?.stop();
+    };
   }, []);
 
   useFocusEffect(
@@ -105,6 +140,10 @@ export function NativeVideoPlayerScreen({
           onError={error => {
             logger('VideoPlayer').warn('Error', error);
             Sentry.captureException(error);
+            setAndShowMessage(
+              translate('anime_episodes.player.errors.failed_to_play'),
+            );
+            navigation.goBack();
           }}
           onLoad={handleVideoLoad}
           onProgress={handleProgress}
@@ -112,7 +151,7 @@ export function NativeVideoPlayerScreen({
           ref={videoPlayer}
           resizeMode="contain"
           source={{
-            uri,
+            uri: streamURL,
             headers: {
               Referer: referer,
             },
@@ -140,6 +179,10 @@ export function NativeVideoPlayerScreen({
           onError={(error: unknown) => {
             logger('VideoPlayer').warn('Error', error);
             Sentry.captureException(error);
+            setAndShowMessage(
+              translate('anime_episodes.player.errors.failed_to_play'),
+            );
+            navigation.goBack();
           }}
           onHideControls={() => SystemNavigationBar.immersive()}
           onLoad={handleVideoLoad}

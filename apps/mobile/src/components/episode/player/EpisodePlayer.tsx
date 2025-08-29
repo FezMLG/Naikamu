@@ -1,12 +1,15 @@
 import React from 'react';
 
-import { AnimePlayer } from '@naikamu/shared';
+import { AnimePlayer, DownloadOption } from '@naikamu/shared';
 import { useNavigation } from '@react-navigation/native';
 import { View, Text, StyleSheet, Linking } from 'react-native';
 import Animated, { SlideInLeft } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { useQueryResolvePlayerLink } from '../../../api/hooks';
+import {
+  useQueryResolvePlayerLink,
+  useQueryResolveDownloadLink,
+} from '../../../api/hooks';
 import { useTranslate } from '../../../i18n/useTranslate';
 import { RootStackScreenNames } from '../../../routes';
 import {
@@ -30,14 +33,14 @@ export function EpisodePlayer({
   episodeNumber: number;
   episodeTitle: string;
   isDownloaded: boolean;
-  handleDownload: (player: AnimePlayer, fileUrl: string) => void;
+  handleDownload: (player: AnimePlayer, download: DownloadOption) => void;
 }) {
   const DOWNLOADABLE_WIDTH = '75%';
   const NON_DOWNLOADABLE_WIDTH = '80%';
 
   const series = useActiveSeriesStore(store => store.series)!;
   const { setAndShowMessage } = useLayoutMessageService();
-
+  const { translate } = useTranslate();
   const navigation = useNavigation<any>();
 
   const { userSettings } = useUserSettingsService();
@@ -54,7 +57,7 @@ export function EpisodePlayer({
     episode: episodeNumber,
   });
 
-  const download = useQueryResolvePlayerLink({
+  const download = useQueryResolveDownloadLink({
     animeId: series.id,
     player: player.playerName,
     url: player.playerLink,
@@ -96,9 +99,16 @@ export function EpisodePlayer({
                         episodeTitle: result.title || episodeTitle,
                         episodeNumber,
                         referer: player.playerLink,
+                        isLocal: false,
                       });
+                    } else if (result && result.status === 404) {
+                      setAndShowMessage(
+                        translate('anime_episodes.player.errors.not_available'),
+                      );
                     } else {
-                      setAndShowMessage('Failed to load player');
+                      setAndShowMessage(
+                        translate('anime_episodes.player.errors.generic'),
+                      );
                     }
                   })
                 }
@@ -154,20 +164,24 @@ export function EpisodePlayer({
                 icon="download-circle-outline"
                 onPress={() => {
                   download.refetch().then(({ data: resolvedLink }) => {
-                    if (
-                      resolvedLink &&
-                      resolvedLink.status === 200 &&
-                      resolvedLink.uri
-                    ) {
+                    if (resolvedLink && resolvedLink.status === 200) {
                       if (resolvedLink.downloadable) {
-                        handleDownload(player, resolvedLink.uri);
+                        handleDownload(player, resolvedLink.download);
                       } else {
                         setAndShowMessage(
-                          'File not yet available for download',
+                          translate(
+                            'anime_episodes.player.errors.download_disabled',
+                          ),
                         );
                       }
+                    } else if (resolvedLink && resolvedLink.status === 404) {
+                      setAndShowMessage(
+                        translate('anime_episodes.player.errors.not_available'),
+                      );
                     } else {
-                      setAndShowMessage('Failed to fetch episode');
+                      setAndShowMessage(
+                        translate('anime_episodes.player.errors.generic'),
+                      );
                     }
                   });
                 }}

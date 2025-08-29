@@ -1,12 +1,13 @@
+import * as RNFS from '@dr.pogodin/react-native-fs';
+import { DownloadOption } from '@naikamu/shared';
 import { Platform } from 'react-native';
-import RNFS from 'react-native-fs';
 
 import { logger } from '../../utils';
 import { useActiveSeriesStore } from '../active-series';
 import { event } from '../events';
 import {
   NotificationForegroundServiceEvents,
-  useNotificationService,
+  // useNotificationService,
 } from '../notifications';
 import { useUserSettingsService } from '../settings';
 
@@ -19,6 +20,23 @@ import { useDownloadsQueueStore } from './queue.store';
 
 const MAX_CONCURRENT_DOWNLOADS = 2;
 
+async function deleteEpisodeFiles(episode: IOfflineSeriesEpisodes) {
+  if (!episode.pathToFile && !episode.pathToManifest) {
+    throw new Error('Episode not downloaded');
+  }
+
+  if (episode.pathToFile) {
+    await offlineFS.deleteFile(episode.pathToFile);
+  }
+
+  if (episode.pathToManifest && episode.pathToFiles) {
+    await offlineFS.deleteFile(episode.pathToManifest);
+    await Promise.all(
+      episode.pathToFiles.map(file => offlineFS.deleteFile(file)),
+    );
+  }
+}
+
 export const useOfflineService = () => {
   const downloadJobs = useDownloadsStore(state => state.activeDownloads);
   const downloadsActions = useDownloadsStore(state => state.actions);
@@ -28,7 +46,7 @@ export const useOfflineService = () => {
   const offlineState = useOfflineSeriesStore(state => state.offlineSeries);
   const offlineActions = useOfflineSeriesStore(state => state.actions);
 
-  const notificationService = useNotificationService();
+  // const notificationService = useNotificationService();
 
   const activeSeries = useActiveSeriesStore(store => store.series)!;
 
@@ -81,6 +99,19 @@ export const useOfflineService = () => {
     return exist;
   };
 
+  const progressDownload = async (
+    result: RNFS.DownloadProgressCallbackResultT,
+  ) => {
+    // logger('progressDownload').info(
+    //   ((result.bytesWritten / result.contentLength) * 100).toFixed(2),
+    // );
+
+    downloadsActions.changeProgress(
+      result.jobId,
+      result.bytesWritten / result.contentLength,
+    );
+  };
+
   const saveEpisodeOffline = async () => {
     const firstItem = queueActions.getFirstItem();
 
@@ -98,11 +129,11 @@ export const useOfflineService = () => {
       event.emit(NotificationForegroundServiceEvents.UPDATE);
     }
 
-    const { series, episode, fileUrl, referer } = firstItem;
+    const { series, episode, downloadOption, referer } = firstItem;
 
     checkIfSeriesExist(series.seriesId);
 
-    const beginDownload = async (result: RNFS.DownloadBeginCallbackResult) => {
+    const beginDownload = async (result: RNFS.DownloadBeginCallbackResultT) => {
       logger('begin download').info();
       downloadsActions.addDownload({
         jobId: result.jobId,
@@ -111,91 +142,204 @@ export const useOfflineService = () => {
       });
     };
 
-    const progressDownload = async (
-      result: RNFS.DownloadProgressCallbackResult,
-    ) => {
-      // logger('progressDownload').info(
-      //   ((result.bytesWritten / result.contentLength) * 100).toFixed(2),
-      // );
-
-      downloadsActions.changeProgress(
-        jobId,
-        result.bytesWritten / result.contentLength,
+    if (!downloadOption) {
+      logger('saveEpisodeOffline').warn(
+        'downloadOption is not defined, cannot save episode offline',
       );
-    };
 
-    const [relativePathToFile, jobId, job] =
-      await offlineFS.startDownloadingFile(
-        series.seriesId,
-        episode.number,
+      return;
+    }
+
+    if (downloadOption.dataType === 'single-file') {
+      const fileUrl = downloadOption.data.file;
+
+      const [relativePathToFile, jobId, job] =
+        await offlineFS.startDownloadingFile(
+          series.seriesId,
+          episode.number,
+          fileUrl,
+          referer,
+          beginDownload,
+          progressDownload,
+        );
+
+      logger('progressDownload').info(
+        'download started',
+        jobId,
+        relativePathToFile,
         fileUrl,
         referer,
-        beginDownload,
-        progressDownload,
       );
 
-    logger('progressDownload').info(
-      'download started',
-      jobId,
-      relativePathToFile,
-      fileUrl,
-      referer,
-    );
+      job.then(async result => {
+        downloadsActions.removeDownload(jobId);
+        episode.size = result.bytesWritten;
+        episode.pathToFile = relativePathToFile;
+        series.episodes.push(episode);
+        logger('progressDownload').info('job done', series);
 
-    job.then(async result => {
-      downloadsActions.removeDownload(jobId);
-      episode.size = result.bytesWritten;
-      episode.pathToFile = relativePathToFile;
-      series.episodes.push(episode);
-      logger('progressDownload').info('job done', series);
+        const saved = offlineActions.saveOrReplaceOfflineSeries(series);
 
-      const saved = offlineActions.saveOrReplaceOfflineSeries(series);
+        offlineStorage.saveOfflineSeries(saved);
 
-      offlineStorage.saveOfflineSeries(saved);
+        // if (Platform.OS === 'ios') {
+        //   await notificationService.displayNotification('download', {
+        //     key: 'finish.ios',
+        //     format: {
+        //       episode: episode.number,
+        //       series: series.title,
+        //     },
+        //   });
+        // }
 
-      // if (Platform.OS === 'ios') {
-      //   await notificationService.displayNotification('download', {
-      //     key: 'finish.ios',
-      //     format: {
-      //       episode: episode.number,
-      //       series: series.title,
-      //     },
-      //   });
-      // }
+        const firstItemInQueue = queueActions.getFirstItem();
+        const downloadsActive = downloadsActions.getActiveDownloads();
 
-      const firstItemInQueue = queueActions.getFirstItem();
-      const downloadsActive = downloadsActions.getActiveDownloads();
+        if (
+          firstItemInQueue &&
+          downloadsActive.length < MAX_CONCURRENT_DOWNLOADS
+        ) {
+          saveEpisodeOffline();
 
-      if (
-        firstItemInQueue &&
-        downloadsActive.length < MAX_CONCURRENT_DOWNLOADS
-      ) {
-        saveEpisodeOffline();
-
-        return;
-      }
-
-      if (!firstItemInQueue && downloadsActive.length === 0) {
-        if (Platform.OS === 'ios') {
-          RNFS.completeHandlerIOS(jobId);
+          return;
         }
-        if (Platform.OS === 'android') {
-          event.emit(NotificationForegroundServiceEvents.STOP);
+
+        if (!firstItemInQueue && downloadsActive.length === 0) {
+          if (Platform.OS === 'ios') {
+            RNFS.completeHandlerIOS(jobId);
+          }
+          if (Platform.OS === 'android') {
+            event.emit(NotificationForegroundServiceEvents.STOP);
+          }
+          logger('progressDownload').warn(
+            'no items in queue left and all downloads finished',
+          );
         }
-        logger('progressDownload').warn(
-          'no items in queue left and all downloads finished',
+      });
+    } else if (
+      downloadOption.dataType === 'mpd' ||
+      downloadOption.dataType === 'hls'
+    ) {
+      logger('saveEpisodeOffline').info(
+        'saveEpisodeOffline called with manifest, video and audio files',
+        downloadOption,
+      );
+
+      const { filesToDownload, manifest } =
+        await offlineFS.startDownloadingFromManifest(
+          series.seriesId,
+          downloadOption,
+          referer,
+          beginDownload,
+          progressDownload,
         );
+
+      logger('progressDownload').info('download started', filesToDownload);
+
+      for (const job of filesToDownload) {
+        job.promise.then(async result => {
+          logger('progressDownload').info('audio download finished', result);
+
+          downloadsActions.removeDownload(result.jobId);
+          job.size = result.bytesWritten;
+          job.finished = true;
+        });
       }
-    });
+
+      // The last item in filesToDownload should be the file with the largest size (video)
+      const lastFileJob = filesToDownload.at(-1)!;
+      const TIMEOUT_DURATION = 30 * 60; // 30-minute timeout
+          TIMEOUT_DURATION * 1000,
+        ),
+      );
+
+      lastFileJob.promise.then(async videoResult => {
+        logger('progressDownload').info('video download finished', videoResult);
+        lastFileJob.finished = true;
+        lastFileJob.size = videoResult.bytesWritten;
+
+        try {
+          await Promise.race([
+            Promise.all(filesToDownload.map(job => job.promise)),
+            timeoutPromise,
+          ]);
+          logger('progressDownload').info(
+            'All download jobs finished successfully',
+          );
+        } catch (error) {
+          logger('progressDownload').warn(
+            'Error waiting for download jobs:',
+            error,
+          );
+          throw error;
+        }
+
+        const jobId = videoResult.jobId;
+
+        downloadsActions.removeDownload(jobId);
+
+        episode.size = filesToDownload.reduce(
+          (accumulator, job) => accumulator + job.size,
+          0,
+        );
+        episode.pathToManifest = manifest.relativePath;
+        episode.pathToFiles = filesToDownload.map(job => job.relativeFilePath);
+
+        series.episodes.push(episode);
+
+        logger('progressDownload').info(
+          'Video and Audio download job done',
+          series,
+        );
+
+        const saved = offlineActions.saveOrReplaceOfflineSeries(series);
+
+        offlineStorage.saveOfflineSeries(saved);
+
+        // if (Platform.OS === 'ios') {
+        //   await notificationService.displayNotification('download', {
+        //     key: 'finish.ios',
+        //     format: {
+        //       episode: episode.number,
+        //       series: series.title,
+        //     },
+        //   });
+        // }
+
+        const firstItemInQueue = queueActions.getFirstItem();
+        const downloadsActive = downloadsActions.getActiveDownloads();
+
+        if (
+          firstItemInQueue &&
+          downloadsActive.length < MAX_CONCURRENT_DOWNLOADS
+        ) {
+          saveEpisodeOffline();
+
+          return;
+        }
+
+        if (!firstItemInQueue && downloadsActive.length === 0) {
+          if (Platform.OS === 'ios') {
+            RNFS.completeHandlerIOS(jobId);
+          }
+          if (Platform.OS === 'android') {
+            event.emit(NotificationForegroundServiceEvents.STOP);
+          }
+          logger('progressDownload').warn(
+            'no items in queue left and all downloads finished',
+          );
+        }
+      });
+    }
   };
 
   const addToQueue = async ({
     episode,
-    fileUrl,
+    downloadOption,
     referer,
   }: {
     episode: IOfflineSeriesEpisodes;
-    fileUrl: string;
+    downloadOption: DownloadOption;
     referer: string;
   }) => {
     const series = getOrCreateOfflineSeries(activeSeries.id);
@@ -206,7 +350,7 @@ export const useOfflineService = () => {
     queueActions.addToQueue({
       series,
       episode,
-      fileUrl,
+      downloadOption,
       referer,
     });
 
@@ -240,12 +384,10 @@ export const useOfflineService = () => {
     if (!series.episodes) {
       throw new Error('Series not downloaded');
     }
+
     await Promise.all(
       series.episodes.map(async episode => {
-        if (!episode.pathToFile) {
-          throw new Error('Episode not downloaded');
-        }
-        await offlineFS.deleteFile(episode.pathToFile);
+        await deleteEpisodeFiles(episode);
       }),
     );
     const saved = offlineActions.deleteOfflineSeries(seriesId);
@@ -300,11 +442,9 @@ export const useOfflineService = () => {
       if (!episode) {
         throw new Error('Episode not found');
       }
-      if (!episode.pathToFile) {
-        throw new Error('Episode not downloaded');
-      }
 
-      await offlineFS.deleteFile(episode.pathToFile);
+      await deleteEpisodeFiles(episode);
+
       const saved = offlineActions.deleteOfflineEpisode(
         seriesId,
         episodeNumber,
