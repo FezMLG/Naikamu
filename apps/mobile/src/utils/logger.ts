@@ -41,25 +41,25 @@ const cleanupOldLogs = async () => {
 // Run cleanup on startup
 cleanupOldLogs();
 
-const transport = pino.transport({
-  targets: [
-    {
-      target: 'pino/file',
-      options: {
-        destination: getLogFilePath(),
-      },
-    },
-    {
-      target: 'pino-pretty',
-    },
-  ],
-});
+// const transport = pino.transport({
+//   targets: [
+//     {
+//       target: 'pino/file',
+//       options: {
+//         destination: getLogFilePath(),
+//       },
+//     },
+//     {
+//       target: 'pino-pretty',
+//     },
+//   ],
+// });
 
 const pinoLogger = pino(
   {
     level: 'info',
   },
-  transport,
+  // transport,
 );
 
 const prepareMessage = (messages: unknown[]) =>

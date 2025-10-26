@@ -4102,7 +4102,7 @@ __metadata:
     jest: "npm:29.7.0"
     lodash: "npm:4.17.21"
     pino: "npm:9.9.4"
-    pino-pretty: "npm:13.1.1"
+    pino-pretty: "npm:^13.1.1"
     prettier: "npm:3.5.3"
     react: "npm:19.0.0"
     react-hook-form: "npm:7.54.2"
@@ -14211,7 +14211,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pino-pretty@npm:13.1.1":
+"pino-pretty@npm:^13.1.1":
   version: 13.1.1
   resolution: "pino-pretty@npm:13.1.1"
   dependencies:
