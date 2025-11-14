@@ -1,9 +1,9 @@
 import * as Sentry from '@sentry/react-native';
-import { MMKV } from 'react-native-mmkv';
 
 import { logger } from './logger';
+import { createMMKV } from 'react-native-mmkv';
 
-export const storage = new MMKV();
+export const storage = createMMKV();
 
 export const storageStoreData = <T = unknown>(key: string, value: T): void => {
   try {

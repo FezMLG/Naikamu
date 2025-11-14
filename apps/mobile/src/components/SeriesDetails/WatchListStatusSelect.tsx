@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { WatchStatus } from '@naikamu/shared';
 import { ColorValue, Platform, StyleSheet, Text, View } from 'react-native';
 import { default as Config } from 'react-native-config';
-import RNPickerSelect from 'react-native-picker-select';
+// import RNPickerSelect from 'react-native-picker-select';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useMutationUpdateUserWatchList } from '../../api/hooks';
@@ -81,76 +81,76 @@ export function WatchListStatusSelect({
         <Text>{'error: ' + mutation.error}</Text>
       ) : null}
       {watchIconRender(selectedStatus)}
-      <RNPickerSelect
-        Icon={() => (
-          <Icon color={colors.textLight.color} name="chevron-down" size={24} />
-        )}
-        items={[
-          {
-            key: WatchStatus.Planning,
-            label: translate('watch_list.Planning'),
-            value: WatchStatus.Planning,
-          },
-          {
-            key: WatchStatus.Watching,
-            label: translate('watch_list.Watching'),
-            value: WatchStatus.Watching,
-          },
-          {
-            key: WatchStatus.Completed,
-            label: translate('watch_list.Completed'),
-            value: WatchStatus.Completed,
-          },
-          {
-            key: WatchStatus.OnHold,
-            label: translate('watch_list.OnHold'),
-            value: WatchStatus.OnHold,
-          },
-          {
-            key: WatchStatus.Dropped,
-            label: translate('watch_list.Dropped'),
-            value: WatchStatus.Dropped,
-          },
-        ]}
-        onDonePress={() => mutation.mutate()}
-        onValueChange={value => {
-          setSelectedStatus(() => value);
+      {/*<RNPickerSelect*/}
+      {/*  Icon={() => (*/}
+      {/*    <Icon color={colors.textLight.color} name="chevron-down" size={24} />*/}
+      {/*  )}*/}
+      {/*  items={[*/}
+      {/*    {*/}
+      {/*      key: WatchStatus.Planning,*/}
+      {/*      label: translate('watch_list.Planning'),*/}
+      {/*      value: WatchStatus.Planning,*/}
+      {/*    },*/}
+      {/*    {*/}
+      {/*      key: WatchStatus.Watching,*/}
+      {/*      label: translate('watch_list.Watching'),*/}
+      {/*      value: WatchStatus.Watching,*/}
+      {/*    },*/}
+      {/*    {*/}
+      {/*      key: WatchStatus.Completed,*/}
+      {/*      label: translate('watch_list.Completed'),*/}
+      {/*      value: WatchStatus.Completed,*/}
+      {/*    },*/}
+      {/*    {*/}
+      {/*      key: WatchStatus.OnHold,*/}
+      {/*      label: translate('watch_list.OnHold'),*/}
+      {/*      value: WatchStatus.OnHold,*/}
+      {/*    },*/}
+      {/*    {*/}
+      {/*      key: WatchStatus.Dropped,*/}
+      {/*      label: translate('watch_list.Dropped'),*/}
+      {/*      value: WatchStatus.Dropped,*/}
+      {/*    },*/}
+      {/*  ]}*/}
+      {/*  onDonePress={() => mutation.mutate()}*/}
+      {/*  onValueChange={value => {*/}
+      {/*    setSelectedStatus(() => value);*/}
 
-          if (Platform.OS === 'android') {
-            return mutation.mutate();
-          }
-        }}
-        placeholder={{
-          key: WatchStatus.NotFollowing,
-          label:
-            watching === WatchStatus.NotFollowing
-              ? translate('watch_list.add')
-              : translate('watch_list.remove'),
-          value: WatchStatus.NotFollowing,
-          inputLabel:
-            watching === WatchStatus.NotFollowing
-              ? translate('watch_list.add')
-              : translate('watch_list.remove'),
-        }}
-        style={{
-          inputIOSContainer: {
-            width: Math.floor(parentWidth * 0.75),
-            ...select.inputContainer,
-          },
-          inputAndroidContainer: {
-            width: Math.floor(parentWidth * 0.75),
-            ...select.inputContainer,
-          },
-          placeholder: {
-            ...colors.textLight,
-          },
-          inputIOS: select.input,
-          inputAndroid: select.input,
-          iconContainer: select.iconContainer,
-        }}
-        useNativeAndroidPickerStyle={false}
-        value={selectedStatus}
-      />
+      {/*    if (Platform.OS === 'android') {*/}
+      {/*      return mutation.mutate();*/}
+      {/*    }*/}
+      {/*  }}*/}
+      {/*  placeholder={{*/}
+      {/*    key: WatchStatus.NotFollowing,*/}
+      {/*    label:*/}
+      {/*      watching === WatchStatus.NotFollowing*/}
+      {/*        ? translate('watch_list.add')*/}
+      {/*        : translate('watch_list.remove'),*/}
+      {/*    value: WatchStatus.NotFollowing,*/}
+      {/*    inputLabel:*/}
+      {/*      watching === WatchStatus.NotFollowing*/}
+      {/*        ? translate('watch_list.add')*/}
+      {/*        : translate('watch_list.remove'),*/}
+      {/*  }}*/}
+      {/*  style={{*/}
+      {/*    inputIOSContainer: {*/}
+      {/*      width: Math.floor(parentWidth * 0.75),*/}
+      {/*      ...select.inputContainer,*/}
+      {/*    },*/}
+      {/*    inputAndroidContainer: {*/}
+      {/*      width: Math.floor(parentWidth * 0.75),*/}
+      {/*      ...select.inputContainer,*/}
+      {/*    },*/}
+      {/*    placeholder: {*/}
+      {/*      ...colors.textLight,*/}
+      {/*    },*/}
+      {/*    inputIOS: select.input,*/}
+      {/*    inputAndroid: select.input,*/}
+      {/*    iconContainer: select.iconContainer,*/}
+      {/*  }}*/}
+      {/*  useNativeAndroidPickerStyle={false}*/}
+      {/*  value={selectedStatus}*/}
+      {/*/>*/}
     </View>
   );
 }

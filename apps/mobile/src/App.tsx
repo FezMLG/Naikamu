@@ -34,6 +34,7 @@ Sentry.init({
   enableNativeFramesTracking: true,
   enableStallTracking: true,
   enableUserInteractionTracing: true,
+  enableLogs: true,
   integrations: [reactNavigationIntegration],
 });
 
@@ -77,4 +78,4 @@ function Main() {
 
 const App = Main;
 
-export default App;
+export default Sentry.wrap(App);

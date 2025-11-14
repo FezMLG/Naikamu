@@ -5,7 +5,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import * as Sentry from '@sentry/react-native';
 import { Platform, StyleSheet } from 'react-native';
 import VideoPlayer from 'react-native-media-console';
-import SystemNavigationBar from 'react-native-system-navigation-bar';
+// import SystemNavigationBar from 'react-native-system-navigation-bar';
 import Video, { OnProgressData, VideoRef } from 'react-native-video';
 
 import { useMutationUpdateUserSeriesWatchProgress } from '../../api/hooks';
@@ -36,7 +36,7 @@ export function NativeVideoPlayerScreen({
   const episodeActions = useActiveSeriesStore(store => store.actions);
 
   useEffect(() => {
-    SystemNavigationBar.immersive();
+    // SystemNavigationBar.immersive();
 
     if (Platform.OS === 'ios' && isLocal) {
       (async () => {
@@ -173,7 +173,7 @@ export function NativeVideoPlayerScreen({
           ignoreSilentSwitch="ignore"
           isFullscreen
           onBack={() => {
-            SystemNavigationBar.fullScreen(false);
+            // SystemNavigationBar.fullScreen(false);
             navigation.goBack();
           }}
           onError={(error: unknown) => {
@@ -184,7 +184,7 @@ export function NativeVideoPlayerScreen({
             );
             navigation.goBack();
           }}
-          onHideControls={() => SystemNavigationBar.immersive()}
+          // onHideControls={() => SystemNavigationBar.immersive()}
           onLoad={handleVideoLoad}
           onProgress={handleProgress}
           pictureInPicture
