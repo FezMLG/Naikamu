@@ -41,7 +41,8 @@ export const plSettings = {
     helpCenter: 'Centrum pomocy',
     donation: 'Wesprzyj nas',
     beta: 'Dołącz do Naikamu Beta',
-    contact: 'Zgłoś problem lub sugestię',
+    emailFeedback: 'Zgłoś sugestię',
+    emailIssue: 'Zgłoś problem',
     externalServices: {
       howToFindShindenId: 'Jak znaleźć moje Shinden ID?',
       importFromShinden: "Importuj z Shinden'a (Beta)",

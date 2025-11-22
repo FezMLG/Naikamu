@@ -70,7 +70,7 @@ export function HelpSettingsScreen({}: SettingsStackHelpSettingsScreenProps) {
           external
           icon="email-fast-outline"
           onPress={async () => {
-            await analytics().logEvent('email_contact', {
+            await analytics().logEvent('email_issue', {
               user: user?.uid,
               source: 'app-settings',
               device: 'mobile',
@@ -89,8 +89,8 @@ export function HelpSettingsScreen({}: SettingsStackHelpSettingsScreenProps) {
 
               // Share email with log files attached
               await Share.open({
-                title: 'Naikamu App Feedback',
-                subject: 'Naikamu App Feedback',
+                title: 'Naikamu App Issue',
+                subject: 'Naikamu App Issue',
                 email: 'contact@naikamu.com',
                 urls: logFiles.map(path => `file://${path}`),
                 failOnCancel: false,
@@ -109,7 +109,27 @@ export function HelpSettingsScreen({}: SettingsStackHelpSettingsScreenProps) {
               );
             }
           }}
-          title={translate('settings.contact')}
+          title={translate('settings.emailIssue')}
+        />
+        <SectionButton
+          external
+          icon="email-fast-outline"
+          onPress={async () => {
+            await analytics().logEvent('email_feedback', {
+              user: user?.uid,
+              source: 'app-settings',
+              device: 'mobile',
+              os: Platform.OS,
+            });
+
+            await Share.open({
+              title: 'Naikamu App Feedback',
+              subject: 'Naikamu App Feedback',
+              email: 'contact@naikamu.com',
+              failOnCancel: false,
+            });
+          }}
+          title={translate('settings.emailFeedback')}
         />
       </View>
     </PageLayout.Default>
