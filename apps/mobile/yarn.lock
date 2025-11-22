@@ -4630,6 +4630,7 @@ __metadata:
     react-native-safe-area-context: "npm:5.6.2"
     react-native-screens: "npm:4.18.0"
     react-native-shadow-2: "npm:7.1.2"
+    react-native-share: "npm:^12.2.1"
     react-native-svg: "npm:15.15.0"
     react-native-svg-transformer: "npm:1.5.0"
     react-native-vector-icons: "npm:10.3.0"
@@ -14862,6 +14863,13 @@ __metadata:
     react-native: "*"
     react-native-svg: ">=12.1.0"
   checksum: 10c0/cfd23b31015c70cbb507d09ae336278b0ca9052d0fef843b9b08580fd5c65304e55b30963606feaf28b8a12e84c61898aed9a26ae1a76276ee40935409443091
+  languageName: node
+  linkType: hard
+
+"react-native-share@npm:^12.2.1":
+  version: 12.2.1
+  resolution: "react-native-share@npm:12.2.1"
+  checksum: 10c0/c8486e5043a2cd086feede5a4cc7107320f9fdbf190e5b316a7c9d646748a50ea30173181ec804b73dcfc91455ddcf346a56e01a528b0f81598bac13ea8761e9
   languageName: node
   linkType: hard
 

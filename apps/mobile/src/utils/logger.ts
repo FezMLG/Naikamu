@@ -14,6 +14,29 @@ const getLogFilePath = () => {
   return `${logsPath}/${logsFilePrefix}-${yyyy}-${mm}-${dd}.${logsFileExtension}`;
 };
 
+const ensureLogDirectoryExists = async () => {
+  try {
+    const exists = await RNFS.exists(logsPath);
+
+    if (!exists) {
+      await RNFS.mkdir(logsPath);
+    }
+  } catch (error) {
+    console.error('Failed to create logs directory:', error);
+  }
+};
+
+const writeLogToFile = async (logEntry: string) => {
+  try {
+    await ensureLogDirectoryExists();
+    const logFilePath = getLogFilePath();
+
+    await RNFS.appendFile(logFilePath, logEntry + '\n', 'utf8');
+  } catch (error) {
+    console.error('Failed to write log to file:', error);
+  }
+};
+
 const cleanupOldLogs = async () => {
   try {
     const FILE_LIFE_TIME_IN_DAYS = 7;
@@ -34,42 +57,94 @@ const cleanupOldLogs = async () => {
       }
     }
   } catch (error) {
-    logger('cleanupOldLogs').warn('Failed to cleanup old logs:', error);
+    console.warn('Failed to cleanup old logs:', error);
   }
 };
 
 // Run cleanup on startup
 cleanupOldLogs();
 
-// const transport = pino.transport({
-//   targets: [
-//     {
-//       target: 'pino/file',
-//       options: {
-//         destination: getLogFilePath(),
-//       },
-//     },
-//     {
-//       target: 'pino-pretty',
-//     },
-//   ],
-// });
-
-const pinoLogger = pino(
-  {
-    level: 'info',
-  },
-  // transport,
-);
+// pino.transport doesn't work in React Native - it's Node.js only
+// We write to files manually using RNFS instead
+const pinoLogger = pino({
+  level: 'info',
+});
 
 const prepareMessage = (messages: unknown[]) =>
   messages.map(message => JSON.stringify(message)).join(' ');
 
 export const logger = (source: string) => ({
-  info: (...messages: unknown[]) =>
-    // @ts-expect-error - pino types are wrong
-    pinoLogger.info(prepareMessage(messages), { source }),
-  warn: (...messages: unknown[]) =>
-    // @ts-expect-error - pino types are wrong
-    pinoLogger.warn(prepareMessage(messages), { source }),
+  info: (...messages: unknown[]) => {
+    const message = prepareMessage(messages);
+    const logObject = pinoLogger.info({ source }, message);
+
+    // Write to file asynchronously
+    const logEntry = JSON.stringify({
+      level: 'info',
+      time: Date.now(),
+      source,
+      message,
+    });
+
+    writeLogToFile(logEntry);
+
+    return logObject;
+  },
+  warn: (...messages: unknown[]) => {
+    const message = prepareMessage(messages);
+    const logObject = pinoLogger.warn({ source }, message);
+
+    // Write to file asynchronously
+    const logEntry = JSON.stringify({
+      level: 'warn',
+      time: Date.now(),
+      source,
+      message,
+    });
+
+    writeLogToFile(logEntry);
+
+    return logObject;
+  },
 });
+
+// Export function to get all log files for sharing
+export const getAllLogFiles = async (): Promise<string[]> => {
+  try {
+    await ensureLogDirectoryExists();
+    const files = await RNFS.readDir(logsPath);
+
+    return files
+      .filter(
+        file =>
+          file.name.startsWith(`${logsFilePrefix}-`) &&
+          file.name.endsWith(`.${logsFileExtension}`),
+      )
+      .map(file => file.path);
+  } catch (error) {
+    console.error('Failed to get log files:', error);
+
+    return [];
+  }
+};
+
+// Export function to get today's log file
+export const getTodayLogFile = async (): Promise<string | null> => {
+  try {
+    await ensureLogDirectoryExists();
+    const logFilePath = getLogFilePath();
+    const exists = await RNFS.exists(logFilePath);
+
+    return exists ? logFilePath : null;
+  } catch (error) {
+    console.error('Failed to get today log file:', error);
+
+    return null;
+  }
+};
+
+// Log startup info
+(async () => {
+  await ensureLogDirectoryExists();
+  logger('logger').info(`Logs path: ${logsPath}`);
+})();

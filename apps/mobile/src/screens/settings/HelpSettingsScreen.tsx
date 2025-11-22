@@ -1,7 +1,8 @@
 import React from 'react';
 
 import analytics from '@react-native-firebase/analytics';
-import { Linking, Platform, View } from 'react-native';
+import { Alert, Linking, Platform, View } from 'react-native';
+import Share from 'react-native-share';
 
 import { PageLayout, SectionButton } from '../../components';
 import { externalLinks } from '../../externalLinks';
@@ -9,6 +10,7 @@ import { useTranslate } from '../../i18n/useTranslate';
 import { SettingsStackHelpSettingsScreenProps } from '../../routes';
 import { useUserStore } from '../../services/auth/user.store';
 import { globalStyle } from '../../styles';
+import { getAllLogFiles } from '../../utils';
 
 export function HelpSettingsScreen({}: SettingsStackHelpSettingsScreenProps) {
   const { translate } = useTranslate();
@@ -74,7 +76,38 @@ export function HelpSettingsScreen({}: SettingsStackHelpSettingsScreenProps) {
               device: 'mobile',
               os: Platform.OS,
             });
-            await Linking.openURL(externalLinks.email);
+
+            try {
+              const logFiles = await getAllLogFiles();
+
+              if (logFiles.length === 0) {
+                // No log files, fallback to regular email link
+                await Linking.openURL(externalLinks.email);
+
+                return;
+              }
+
+              // Share email with log files attached
+              await Share.open({
+                title: 'Naikamu App Feedback',
+                subject: 'Naikamu App Feedback',
+                email: 'contact@naikamu.com',
+                urls: logFiles.map(path => `file://${path}`),
+                failOnCancel: false,
+              });
+            } catch (error) {
+              console.error('Failed to share logs:', error);
+              Alert.alert(
+                'Error',
+                'Failed to attach logs. Opening email without logs.',
+                [
+                  {
+                    text: 'OK',
+                    onPress: () => Linking.openURL(externalLinks.email),
+                  },
+                ],
+              );
+            }
           }}
           title={translate('settings.contact')}
         />
