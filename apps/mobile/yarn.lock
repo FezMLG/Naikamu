@@ -4557,7 +4557,6 @@ __metadata:
     "@gluestack-ui/themed": "npm:1.1.73"
     "@invertase/react-native-apple-authentication": "npm:2.5.0"
     "@notifee/react-native": "npm:9.1.8"
-    "@react-native-community/blur": "npm:4.4.1"
     "@react-native-community/cli": "npm:20.0.2"
     "@react-native-community/cli-platform-android": "npm:20.0.2"
     "@react-native-community/cli-platform-ios": "npm:20.0.2"
@@ -4623,7 +4622,7 @@ __metadata:
     react-native-media-console: "npm:2.2.4"
     react-native-mmkv: "npm:4.0.1"
     react-native-nitro-modules: "npm:0.31.9"
-    react-native-pager-view: "npm:6.9.1"
+    react-native-pager-view: "npm:7.0.0"
     react-native-paper: "npm:5.14.5"
     react-native-qrcode-svg: "npm:6.3.20"
     react-native-reanimated: "npm:4.1.5"
@@ -5447,16 +5446,6 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 10c0/f888dd56713a35f2d740023bce5dfc82eacf1209ef52e9048a7b2fd66dee9e44ced316551f5061573802693c1f3a16781388e1d7eb4224b3409e64f950415d80
-  languageName: node
-  linkType: hard
-
-"@react-native-community/blur@npm:4.4.1":
-  version: 4.4.1
-  resolution: "@react-native-community/blur@npm:4.4.1"
-  peerDependencies:
-    react: "*"
-    react-native: "*"
-  checksum: 10c0/f8f3b2e0dc630d93219c5db822a5d283754beedf31b8e481c17bca6f8b2a29d0e24cad4c5013f692f120a3336490dc5b1b3990a68c714c3308151adf92686ad7
   languageName: node
   linkType: hard
 
@@ -14776,13 +14765,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-pager-view@npm:6.9.1":
-  version: 6.9.1
-  resolution: "react-native-pager-view@npm:6.9.1"
+"react-native-pager-view@npm:7.0.0":
+  version: 7.0.0
+  resolution: "react-native-pager-view@npm:7.0.0"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 10c0/c5229d230734ad9dad0b1e296168f0eebc5cff1b4b63201266ee7d5ecadc2e9c584b426b4ef146718c2e581dfcf63914174133b3ed1657294ccd437c22dbbc05
+  checksum: 10c0/3579c3dc42888cb96e7a99190564dc27d03f49e111502d516e17bd4187bda2216d64288fe39c700f24f5d54b404df69d865ddbb1e4eba10f813cbb0d7f5a15e9
   languageName: node
   linkType: hard
 

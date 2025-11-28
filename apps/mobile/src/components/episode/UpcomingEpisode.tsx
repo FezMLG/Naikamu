@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { BlurView } from '@react-native-community/blur';
 import { format } from 'date-fns';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import styled from 'styled-components/native';
@@ -39,17 +38,17 @@ export function UpcomingEpisode() {
               },
             ]}
           />
-          <BlurView
-            blurAmount={25}
-            blurType="dark"
-            reducedTransparencyFallbackColor={DarkColor.C900}
-            style={[
-              StyleSheet.absoluteFill,
-              {
-                borderRadius: defaultRadius - 1,
-              },
-            ]}
-          />
+          {/*<BlurView*/}
+          {/*  blurAmount={25}*/}
+          {/*  blurType="dark"*/}
+          {/*  reducedTransparencyFallbackColor={DarkColor.C900}*/}
+          {/*  style={[*/}
+          {/*    StyleSheet.absoluteFill,*/}
+          {/*    {*/}
+          {/*      borderRadius: defaultRadius - 1,*/}
+          {/*    },*/}
+          {/*  ]}*/}
+          {/*/>*/}
         </PlatformExplicit>
         <View style={[styles.innerCard]}>
           <EpisodeImage isUpcoming source={posterUrl} />

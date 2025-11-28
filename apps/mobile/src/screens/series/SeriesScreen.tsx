@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-import { BlurView } from '@react-native-community/blur';
 import { StyleSheet, View, Pressable, Platform } from 'react-native';
 import Animated, {
   interpolate,
@@ -21,7 +20,7 @@ import {
   PlatformExplicit,
 } from '../../components';
 import { SeriesStackSeriesScreenProps } from '../../routes';
-import { globalStyle, DarkColor, colors } from '../../styles';
+import { globalStyle, colors } from '../../styles';
 
 export function SeriesScreen({
   route,
@@ -82,12 +81,12 @@ export function SeriesScreen({
                 source={data.coverImage.medium}
                 style={StyleSheet.absoluteFill}
               />
-              <BlurView
-                blurAmount={75}
-                blurType="dark"
-                reducedTransparencyFallbackColor={DarkColor.C900}
-                style={[StyleSheet.absoluteFill]}
-              />
+              {/*<BlurView*/}
+              {/*  blurAmount={75}*/}
+              {/*  blurType="dark"*/}
+              {/*  reducedTransparencyFallbackColor={DarkColor.C900}*/}
+              {/*  style={[StyleSheet.absoluteFill]}*/}
+              {/*/>*/}
             </PlatformExplicit>
             <SeriesDetails.Title
               english={data.title.english}

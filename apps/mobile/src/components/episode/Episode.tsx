@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import { AnimePlayer, DownloadOption } from '@naikamu/shared';
-import { BlurView } from '@react-native-community/blur';
 import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { List } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -109,17 +108,17 @@ export function Episode({ episodeNumber }: { episodeNumber: number }) {
                 },
               ]}
             />
-            <BlurView
-              blurAmount={25}
-              blurType="dark"
-              reducedTransparencyFallbackColor={DarkColor.C900}
-              style={[
-                StyleSheet.absoluteFill,
-                {
-                  borderRadius: defaultRadius - 1,
-                },
-              ]}
-            />
+            {/*<BlurView*/}
+            {/*  blurAmount={25}*/}
+            {/*  blurType="dark"*/}
+            {/*  reducedTransparencyFallbackColor={DarkColor.C900}*/}
+            {/*  style={[*/}
+            {/*    StyleSheet.absoluteFill,*/}
+            {/*    {*/}
+            {/*      borderRadius: defaultRadius - 1,*/}
+            {/*    },*/}
+            {/*  ]}*/}
+            {/*/>*/}
           </PlatformExplicit>
           <Pressable onPress={openDetails} style={[styles.innerCard]}>
             <EpisodeImage
