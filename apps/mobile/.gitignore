@@ -76,4 +76,4 @@ yarn-error.log
 
 .env.local
 
-.expo/*
+.expo
