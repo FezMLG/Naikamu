@@ -12,7 +12,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var reactNativeDelegate: ReactNativeDelegate?
   var reactNativeFactory: RCTReactNativeFactory?
 
-  override func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+  func application(
+    _ application: UIApplication,
+    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
+  ) -> Bool {
     FirebaseApp.configure();
 
     let delegate = ReactNativeDelegate()

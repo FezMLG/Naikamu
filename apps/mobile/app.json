@@ -6,5 +6,8 @@
   },
   "ios": {
     "bundleIdentifier": "com.tltcode.naikamu"
+  },
+  "expo": {
+    "plugins": []
   }
 }
