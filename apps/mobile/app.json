@@ -8,6 +8,15 @@
     "bundleIdentifier": "com.tltcode.naikamu"
   },
   "expo": {
-    "plugins": []
+    "plugins": [
+      [
+        "@sentry/react-native/expo",
+        {
+          "url": "https://sentry.io/",
+          "project": "naikamu",
+          "organization": "tltcode"
+        }
+      ]
+    ]
   }
 }

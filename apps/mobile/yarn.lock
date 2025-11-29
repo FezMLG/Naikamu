@@ -5132,6 +5132,7 @@ __metadata:
     axios: "npm:1.13.2"
     babel-jest: "npm:29.7.0"
     babel-plugin-module-resolver: "npm:5.0.2"
+    babel-preset-expo: "npm:~54.0.0"
     classnames: "npm:2.5.1"
     date-fns: "npm:4.1.0"
     eslint: "npm:8.57.1"
@@ -9130,7 +9131,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-preset-expo@npm:~54.0.7":
+"babel-preset-expo@npm:~54.0.0, babel-preset-expo@npm:~54.0.7":
   version: 54.0.7
   resolution: "babel-preset-expo@npm:54.0.7"
   dependencies:
