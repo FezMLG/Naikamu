@@ -2,7 +2,7 @@ import * as RNFS from '@dr.pogodin/react-native-fs';
 import pino from 'pino';
 
 const logsFilePrefix = 'logs';
-const logsFileExtension = 'json';
+const logsFileExtension = 'txt';
 const logsPath = RNFS.DocumentDirectoryPath + '/logs';
 
 const getLogFilePath = () => {
@@ -114,13 +114,12 @@ export const getAllLogFiles = async (): Promise<string[]> => {
     await ensureLogDirectoryExists();
     const files = await RNFS.readDir(logsPath);
 
-    return files
-      .filter(
-        file =>
-          file.name.startsWith(`${logsFilePrefix}-`) &&
-          file.name.endsWith(`.${logsFileExtension}`),
-      )
-      .map(file => file.path);
+    logger('getAllLogFiles').info(
+      'Found log files:',
+      files.map(file => file.path),
+    );
+
+    return files.map(file => file.path);
   } catch (error) {
     console.error('Failed to get log files:', error);
 

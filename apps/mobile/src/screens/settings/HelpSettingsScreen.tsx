@@ -1,8 +1,9 @@
 import React from 'react';
 
 import analytics from '@react-native-firebase/analytics';
-import { Alert, Linking, Platform, View } from 'react-native';
-import Share from 'react-native-share';
+import { Alert, Linking, Platform, Text, View } from 'react-native';
+import Share, { ShareSingleOptions, Social } from 'react-native-share';
+import * as Sharing from 'expo-sharing';
 
 import { PageLayout, SectionButton } from '../../components';
 import { externalLinks } from '../../externalLinks';
@@ -10,7 +11,7 @@ import { useTranslate } from '../../i18n/useTranslate';
 import { SettingsStackHelpSettingsScreenProps } from '../../routes';
 import { useUserStore } from '../../services/auth/user.store';
 import { globalStyle } from '../../styles';
-import { getAllLogFiles } from '../../utils';
+import { getAllLogFiles, getTodayLogFile } from '../../utils';
 
 export function HelpSettingsScreen({}: SettingsStackHelpSettingsScreenProps) {
   const { translate } = useTranslate();
@@ -66,6 +67,10 @@ export function HelpSettingsScreen({}: SettingsStackHelpSettingsScreenProps) {
           }}
           title={translate('settings.donation')}
         />
+        <Text>
+          To report an issue, please click the button and send an email with
+          what the issue is, to contact@naikamu.com with the logs attached.
+        </Text>
         <SectionButton
           external
           icon="email-fast-outline"
@@ -78,22 +83,19 @@ export function HelpSettingsScreen({}: SettingsStackHelpSettingsScreenProps) {
             });
 
             try {
-              const logFiles = await getAllLogFiles();
+              const path = await getTodayLogFile();
 
-              if (logFiles.length === 0) {
-                // No log files, fallback to regular email link
+              if (!path) {
+                // No log file, fallback to regular email link
                 await Linking.openURL(externalLinks.email);
 
                 return;
               }
 
-              // Share email with log files attached
-              await Share.open({
-                title: 'Naikamu App Issue',
-                subject: 'Naikamu App Issue',
-                email: 'contact@naikamu.com',
-                urls: logFiles.map(path => `file://${path}`),
-                failOnCancel: false,
+              await Sharing.shareAsync(`file://${path}`, {
+                mimeType: 'text/plain',
+                dialogTitle: 'Naikamu App Issue',
+                UTI: 'public.plain-text',
               });
             } catch (error) {
               console.error('Failed to share logs:', error);
