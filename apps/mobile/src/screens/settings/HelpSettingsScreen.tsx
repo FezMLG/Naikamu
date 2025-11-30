@@ -1,9 +1,9 @@
 import React from 'react';
 
 import analytics from '@react-native-firebase/analytics';
-import { Alert, Linking, Platform, Text, View } from 'react-native';
-import Share, { ShareSingleOptions, Social } from 'react-native-share';
 import * as Sharing from 'expo-sharing';
+import { Alert, Linking, Platform, Text, View } from 'react-native';
+import Share from 'react-native-share';
 
 import { PageLayout, SectionButton } from '../../components';
 import { externalLinks } from '../../externalLinks';
@@ -11,7 +11,7 @@ import { useTranslate } from '../../i18n/useTranslate';
 import { SettingsStackHelpSettingsScreenProps } from '../../routes';
 import { useUserStore } from '../../services/auth/user.store';
 import { globalStyle } from '../../styles';
-import { getAllLogFiles, getTodayLogFile } from '../../utils';
+import { getTodayLogFile } from '../../utils';
 
 export function HelpSettingsScreen({}: SettingsStackHelpSettingsScreenProps) {
   const { translate } = useTranslate();
