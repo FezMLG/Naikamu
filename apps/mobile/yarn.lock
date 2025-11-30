@@ -5098,7 +5098,7 @@ __metadata:
     "@gluestack-ui/config": "npm:1.1.20"
     "@gluestack-ui/themed": "npm:1.1.73"
     "@invertase/react-native-apple-authentication": "npm:2.5.0"
-    "@notifee/react-native": "npm:9.1.8"
+    "@notifee/react-native": "npm:^9.1.8"
     "@react-native-community/cli": "npm:20.0.2"
     "@react-native-community/cli-platform-android": "npm:20.0.2"
     "@react-native-community/cli-platform-ios": "npm:20.0.2"
@@ -5224,7 +5224,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@notifee/react-native@npm:9.1.8":
+"@notifee/react-native@npm:^9.1.8":
   version: 9.1.8
   resolution: "@notifee/react-native@npm:9.1.8"
   peerDependencies:

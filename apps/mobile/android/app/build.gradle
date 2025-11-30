@@ -122,6 +122,10 @@ android {
     buildToolsVersion = rootProject.ext.buildToolsVersion
     compileSdk = rootProject.ext.compileSdkVersion
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     flavorDimensions "default"
     productFlavors {
         production {
@@ -153,6 +157,9 @@ android {
         targetSdkVersion = rootProject.ext.targetSdkVersion
         versionCode = 3
         versionName = getVersionNameFromNpm()
+
+        buildConfigField("boolean", "IS_NEW_ARCHITECTURE_ENABLED", (findProperty("newArchEnabled") ?: "false"))
+        buildConfigField("boolean", "IS_HERMES_ENABLED", (findProperty("hermesEnabled") ?: "true"))
     }
 
     signingConfigs {

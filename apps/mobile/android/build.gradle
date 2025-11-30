@@ -36,6 +36,12 @@ allprojects {
         ndkVersion = "27.1.12297006"
         kotlinVersion = "2.0.21"
     }
+
+    repositories {
+        maven {
+            url "$rootDir/../node_modules/@notifee/react-native/android/libs"
+        }
+    }
 }
 
 apply plugin: "com.facebook.react.rootproject"
