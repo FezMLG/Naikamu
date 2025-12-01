@@ -10,7 +10,7 @@ import { externalLinks } from '../../externalLinks';
 import { useTranslate } from '../../i18n/useTranslate';
 import { SettingsStackHelpSettingsScreenProps } from '../../routes';
 import { useUserStore } from '../../services/auth/user.store';
-import { globalStyle } from '../../styles';
+import { colors, fontStyles, globalStyle } from '../../styles';
 import { getTodayLogFile } from '../../utils';
 
 export function HelpSettingsScreen({}: SettingsStackHelpSettingsScreenProps) {
@@ -67,52 +67,6 @@ export function HelpSettingsScreen({}: SettingsStackHelpSettingsScreenProps) {
           }}
           title={translate('settings.donation')}
         />
-        <Text>
-          To report an issue, please click the button and send an email with
-          what the issue is, to contact@naikamu.com with the logs attached.
-        </Text>
-        <SectionButton
-          external
-          icon="email-fast-outline"
-          onPress={async () => {
-            await analytics().logEvent('email_issue', {
-              user: user?.uid,
-              source: 'app-settings',
-              device: 'mobile',
-              os: Platform.OS,
-            });
-
-            try {
-              const path = await getTodayLogFile();
-
-              if (!path) {
-                // No log file, fallback to regular email link
-                await Linking.openURL(externalLinks.email);
-
-                return;
-              }
-
-              await Sharing.shareAsync(`file://${path}`, {
-                mimeType: 'text/plain',
-                dialogTitle: 'Naikamu App Issue',
-                UTI: 'public.plain-text',
-              });
-            } catch (error) {
-              console.error('Failed to share logs:', error);
-              Alert.alert(
-                'Error',
-                'Failed to attach logs. Opening email without logs.',
-                [
-                  {
-                    text: 'OK',
-                    onPress: () => Linking.openURL(externalLinks.email),
-                  },
-                ],
-              );
-            }
-          }}
-          title={translate('settings.emailIssue')}
-        />
         <SectionButton
           external
           icon="email-fast-outline"
@@ -127,12 +81,59 @@ export function HelpSettingsScreen({}: SettingsStackHelpSettingsScreenProps) {
             await Share.open({
               title: 'Naikamu App Feedback',
               subject: 'Naikamu App Feedback',
-              email: 'contact@naikamu.com',
+              email: externalLinks.emailAddress,
               failOnCancel: false,
             });
           }}
           title={translate('settings.emailFeedback')}
         />
+        <View style={globalStyle.marginTopBig}>
+          <Text style={[fontStyles.normal, colors.textLighter]}>
+            {translate('settings.emailIssueText')} {externalLinks.emailAddress}.
+          </Text>
+          <SectionButton
+            external
+            icon="email-fast-outline"
+            onPress={async () => {
+              await analytics().logEvent('email_issue', {
+                user: user?.uid,
+                source: 'app-settings',
+                device: 'mobile',
+                os: Platform.OS,
+              });
+
+              try {
+                const path = await getTodayLogFile();
+
+                if (!path) {
+                  // No log file, fallback to regular email link
+                  await Linking.openURL(externalLinks.email);
+
+                  return;
+                }
+
+                await Sharing.shareAsync(`file://${path}`, {
+                  mimeType: 'text/plain',
+                  dialogTitle: 'Naikamu App Issue',
+                  UTI: 'public.plain-text',
+                });
+              } catch (error) {
+                console.error('Failed to share logs:', error);
+                Alert.alert(
+                  'Error',
+                  'Failed to attach logs. Opening email without logs.',
+                  [
+                    {
+                      text: 'OK',
+                      onPress: () => Linking.openURL(externalLinks.email),
+                    },
+                  ],
+                );
+              }
+            }}
+            title={translate('settings.emailIssue')}
+          />
+        </View>
       </View>
     </PageLayout.Default>
   );

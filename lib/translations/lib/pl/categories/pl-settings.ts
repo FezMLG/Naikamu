@@ -43,6 +43,8 @@ export const plSettings = {
     beta: 'Dołącz do Naikamu Beta',
     emailFeedback: 'Zgłoś sugestię',
     emailIssue: 'Zgłoś problem',
+    emailIssueText:
+      'Aby zgłosić problem, kliknij przycisk, pobierz logi i zgłoś problem na GitHubie lub wyślij e-mail z opisem problemu oraz załączonymi logami, na adres',
     externalServices: {
       howToFindShindenId: 'Jak znaleźć moje Shinden ID?',
       importFromShinden: "Importuj z Shinden'a (Beta)",
