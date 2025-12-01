@@ -87,6 +87,8 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
+  - ExpoSharing (14.0.7):
+    - ExpoModulesCore
   - fast_float (8.0.0)
   - FBLazyVector (0.81.5)
   - Firebase/Analytics (11.11.0):
@@ -3464,6 +3466,7 @@ DEPENDENCIES:
   - ExpoFont (from `../node_modules/expo-font/ios`)
   - ExpoKeepAwake (from `../node_modules/expo-keep-awake/ios`)
   - ExpoModulesCore (from `../node_modules/expo-modules-core`)
+  - ExpoSharing (from `../node_modules/expo-sharing/ios`)
   - fast_float (from `../node_modules/react-native/third-party-podspecs/fast_float.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - fmt (from `../node_modules/react-native/third-party-podspecs/fmt.podspec`)
@@ -3624,6 +3627,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-keep-awake/ios"
   ExpoModulesCore:
     :path: "../node_modules/expo-modules-core"
+  ExpoSharing:
+    :path: "../node_modules/expo-sharing/ios"
   fast_float:
     :podspec: "../node_modules/react-native/third-party-podspecs/fast_float.podspec"
   FBLazyVector:
@@ -3840,6 +3845,7 @@ SPEC CHECKSUMS:
   ExpoFont: cf9d90ec1d3b97c4f513211905724c8171f82961
   ExpoKeepAwake: 1a2e820692e933c94a565ec3fbbe38ac31658ffe
   ExpoModulesCore: 9613dfd4f33c2ab5b29cdabd5c1e71ec7a5f6f9d
+  ExpoSharing: 032c01bb034319e2374badf082ae935be866d2e9
   fast_float: b32c788ed9c6a8c584d114d0047beda9664e7cc6
   FBLazyVector: 5beb8028d5a2e75dd9634917f23e23d3a061d2aa
   Firebase: 6a8f201c61eda24e98f1ce2b44b1b9c2caf525cc
