@@ -62,6 +62,7 @@
     "date-fns": "4.1.0",
     "eventemitter3": "5.0.1",
     "expo": "54.0.25",
+    "expo-blur": "~15.0.7",
     "expo-sharing": "14.0.7",
     "i18next": "24.2.2",
     "lodash": "4.17.21",

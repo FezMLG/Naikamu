@@ -5144,6 +5144,7 @@ __metadata:
     eslint-plugin-unicorn: "npm:51.0.1"
     eventemitter3: "npm:5.0.1"
     expo: "npm:54.0.25"
+    expo-blur: "npm:~15.0.7"
     expo-sharing: "npm:14.0.7"
     i18next: "npm:24.2.2"
     jest: "npm:29.7.0"
@@ -11539,6 +11540,17 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 10c0/516b382ded9c4bc517f9e9b7b43770aa9aa56f223356c71c39cd3374408897e8088b9790ffebc3dbf3b9d114893616b207716c5c7b51974c83fbeda86a98a8f1
+  languageName: node
+  linkType: hard
+
+"expo-blur@npm:~15.0.7":
+  version: 15.0.7
+  resolution: "expo-blur@npm:15.0.7"
+  peerDependencies:
+    expo: "*"
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/0285f0f39871fdcd94a397c07fd724b1ee1f4c055b5a733dc3b44cd6571a28016d863ae7e4205f00ce039ada730a8ad6d396b928ae4686cbc69cfcd232471431
   languageName: node
   linkType: hard
 
