@@ -28,7 +28,7 @@ globalThis.RNFB_SILENCE_MODULAR_DEPRECATION_WARNINGS = true;
 const reactNavigationIntegration = Sentry.reactNavigationIntegration();
 
 Sentry.init({
-  dsn: 'https://bd2c8809bfbed36fe09962e13c96de20@o4506020904697856.ingest.sentry.io/4506020907057152',
+  dsn: Config.SENTRY_DSN,
   environment: Config.ENV,
   enableAppStartTracking: true,
   enableNativeFramesTracking: true,
