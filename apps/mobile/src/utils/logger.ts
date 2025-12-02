@@ -49,7 +49,8 @@ const cleanupOldLogs = async () => {
         file.name.startsWith(`${logsFilePrefix}-`) &&
         file.name.endsWith(`.${logsFileExtension}`)
       ) {
-        const age = now - file.mtime!.getTime();
+        if (!file.mtime) continue;
+        const age = now - file.mtime.getTime();
 
         if (age > fileLifeTimeInMs) {
           await RNFS.unlink(file.path);
