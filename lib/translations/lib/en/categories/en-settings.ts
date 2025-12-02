@@ -41,7 +41,6 @@ export const enSettings = {
     helpCenter: 'Help center',
     donation: 'Support us',
     beta: 'Join Naikamu Beta',
-    contact: 'Report a problem or suggestion',
     emailFeedback: 'Send suggestion',
     emailIssue: 'Report issue',
     emailIssueText:
