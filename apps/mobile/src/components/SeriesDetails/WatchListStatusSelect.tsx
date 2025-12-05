@@ -89,7 +89,7 @@ export function WatchListStatusSelect({
       {watchIconRender(selectedStatus)}
       <View
         style={{
-          width: Math.floor(parentWidth * 0.75),
+          width: Math.floor((parentWidth || 200) * 0.75),
           ...select.inputContainer,
         }}>
         <Picker
