@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { WatchStatus } from '@naikamu/shared';
 import { Picker } from '@react-native-picker/picker';
@@ -28,6 +28,12 @@ export function WatchListStatusSelect({
     selectedStatus,
     seriesId,
   );
+
+  useEffect(() => {
+    if (selectedStatus !== initialWatchStatus) {
+      mutation.mutate();
+    }
+  }, [selectedStatus]);
 
   const watchIconRender = (status: WatchStatus) => {
     let icon = 'movie-open-plus';
@@ -89,7 +95,6 @@ export function WatchListStatusSelect({
         <Picker
           onValueChange={(value: WatchStatus) => {
             setSelectedStatus(value);
-            mutation.mutate();
           }}
           selectedValue={selectedStatus}
           style={select.input}>
