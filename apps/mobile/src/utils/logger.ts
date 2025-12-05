@@ -39,6 +39,7 @@ const writeLogToFile = async (logEntry: string) => {
 
 const cleanupOldLogs = async () => {
   try {
+    await ensureLogDirectoryExists();
     const FILE_LIFE_TIME_IN_DAYS = 7;
     const files = await RNFS.readDir(logsPath);
     const now = Date.now();
