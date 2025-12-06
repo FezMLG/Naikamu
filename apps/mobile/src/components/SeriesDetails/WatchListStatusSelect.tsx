@@ -74,8 +74,8 @@ export function WatchListStatusSelect({
         size={24}
         style={{
           alignSelf: 'center',
-          position: 'absolute',
-          left: 10,
+          marginLeft: 10,
+          width: 30,
         }}
       />
     );
@@ -89,13 +89,16 @@ export function WatchListStatusSelect({
       {watchIconRender(selectedStatus)}
       <View
         style={{
-          width: Math.floor((parentWidth || 200) * 0.75),
+          width: Math.floor((parentWidth || 200) * 0.75) - 40,
           ...select.inputContainer,
         }}>
         <Picker
+          dropdownIconColor={colors.textLight.color}
+          mode="dialog"
           onValueChange={(value: WatchStatus) => {
             setSelectedStatus(value);
           }}
+          prompt={translate('watch_list.select_status')}
           selectedValue={selectedStatus}
           style={select.input}>
           <Picker.Item
@@ -127,9 +130,9 @@ export function WatchListStatusSelect({
             value={WatchStatus.Dropped}
           />
         </Picker>
-        <View style={select.iconContainer}>
-          <Icon color={colors.textLight.color} name="chevron-down" size={24} />
-        </View>
+        {/*<View style={select.iconContainer}>*/}
+        {/*  <Icon color={colors.textLight.color} name="chevron-down" size={24} />*/}
+        {/*</View>*/}
       </View>
     </View>
   );
@@ -140,6 +143,10 @@ const styles = StyleSheet.create({
     height: 55,
     flexDirection: 'row',
     width: '75%',
+    borderWidth: 2,
+    borderStyle: 'solid',
+    borderColor: colors.accent.color,
+    borderRadius: defaultRadius,
   },
   pad: {
     paddingHorizontal: 10,
@@ -154,11 +161,7 @@ const styles = StyleSheet.create({
 
 const select = StyleSheet.create({
   inputContainer: {
-    borderWidth: 2,
-    borderStyle: 'solid',
-    borderColor: 'white',
     height: '100%',
-    borderRadius: defaultRadius,
     justifyContent: 'center',
   },
   input: {

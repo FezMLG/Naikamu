@@ -166,6 +166,7 @@ export const en = {
     OnHold: 'On Hold',
     Dropped: 'Dropped',
     emptyState: 'Add anime to list to see it here',
+    select_status: 'Select status',
   },
   anime_episodes: {
     players_not_found: 'Players not found',
