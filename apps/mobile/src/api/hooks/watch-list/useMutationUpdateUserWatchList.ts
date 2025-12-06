@@ -1,15 +1,15 @@
-import { useState } from 'react';
-
 import { WatchStatus } from '@naikamu/shared';
 import { useMutation } from '@tanstack/react-query';
 
+import { useActiveSeriesStore } from '../../../services';
 import { apiClient } from '../../APIClient';
 
 export const useMutationUpdateUserWatchList = (
   watchStatus: WatchStatus,
   seriesId: string,
 ) => {
-  const [watching, setWatching] = useState<WatchStatus>(watchStatus);
+  const store = useActiveSeriesStore(state => state.actions);
+
   const mutation = useMutation({
     mutationFn: async () => {
       const response = await apiClient.updateUserSeriesWatchList(
@@ -17,14 +17,15 @@ export const useMutationUpdateUserWatchList = (
         watchStatus,
       );
 
-      setWatching(response.status);
+      store.updateActiveSeries({
+        watchStatus: response.status,
+      });
 
       return response;
     },
   });
 
   return {
-    watching,
     mutation,
   };
 };

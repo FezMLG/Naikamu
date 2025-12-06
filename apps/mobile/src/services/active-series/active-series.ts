@@ -1,4 +1,4 @@
-import { AnimeEpisode } from '@naikamu/shared';
+import { AnimeEpisode, WatchStatus } from '@naikamu/shared';
 import { create } from 'zustand';
 
 export interface ActiveSeries {
@@ -8,6 +8,7 @@ export interface ActiveSeries {
   numOfAiredEpisodes: number;
   posterUrl: string;
   nextAiringEpisode?: { airingAt: number; episode: number };
+  watchStatus: WatchStatus;
 }
 
 interface ActiveSeriesState {
@@ -28,6 +29,7 @@ const initialState: ActiveSeries = {
   episodeLength: 0,
   numOfAiredEpisodes: 0,
   posterUrl: '',
+  watchStatus: WatchStatus.Planning,
 };
 
 const initialEpisodes: AnimeEpisode[] = [];

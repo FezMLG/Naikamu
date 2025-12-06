@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useMutationUpdateUserWatchList } from '../../api/hooks';
 import { useTranslate } from '../../i18n/useTranslate';
+import { useActiveSeriesStore } from '../../services';
 import { colors, defaultRadius, fontStyles } from '../../styles';
 
 interface WatchListStatusSelectProps {
@@ -18,19 +19,17 @@ interface WatchListStatusSelectProps {
 
 export function WatchListStatusSelect({
   seriesId,
-  initialWatchStatus,
   parentWidth,
 }: WatchListStatusSelectProps) {
+  const series = useActiveSeriesStore(store => store.series)!;
   const { translate } = useTranslate();
-  const [selectedStatus, setSelectedStatus] =
-    useState<WatchStatus>(initialWatchStatus);
-  const { watching, mutation } = useMutationUpdateUserWatchList(
-    selectedStatus,
-    seriesId,
+  const [selectedStatus, setSelectedStatus] = useState<WatchStatus>(
+    series.watchStatus,
   );
+  const { mutation } = useMutationUpdateUserWatchList(selectedStatus, seriesId);
 
   useEffect(() => {
-    if (selectedStatus !== initialWatchStatus) {
+    if (selectedStatus !== series.watchStatus && series.watchStatus !== null) {
       mutation.mutate();
     }
   }, [selectedStatus]);
@@ -103,7 +102,7 @@ export function WatchListStatusSelect({
           style={select.input}>
           <Picker.Item
             label={
-              watching === WatchStatus.NotFollowing
+              series.watchStatus === WatchStatus.NotFollowing
                 ? translate('watch_list.add')
                 : translate('watch_list.remove')
             }
