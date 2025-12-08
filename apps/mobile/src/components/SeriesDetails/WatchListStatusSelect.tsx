@@ -102,7 +102,7 @@ export function WatchListStatusSelect({
           style={select.input}>
           <Picker.Item
             label={
-              series.watchStatus === WatchStatus.NotFollowing
+              selectedStatus === WatchStatus.NotFollowing
                 ? translate('watch_list.add')
                 : translate('watch_list.remove')
             }
@@ -129,9 +129,6 @@ export function WatchListStatusSelect({
             value={WatchStatus.Dropped}
           />
         </Picker>
-        {/*<View style={select.iconContainer}>*/}
-        {/*  <Icon color={colors.textLight.color} name="chevron-down" size={24} />*/}
-        {/*</View>*/}
       </View>
     </View>
   );
