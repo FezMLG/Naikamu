@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { BlurView } from '@react-native-community/blur';
 import { format } from 'date-fns';
+import { BlurView } from 'expo-blur';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import styled from 'styled-components/native';
 
@@ -40,15 +40,14 @@ export function UpcomingEpisode() {
             ]}
           />
           <BlurView
-            blurAmount={25}
-            blurType="dark"
-            reducedTransparencyFallbackColor={DarkColor.C900}
+            intensity={25}
             style={[
               StyleSheet.absoluteFill,
               {
                 borderRadius: defaultRadius - 1,
               },
             ]}
+            tint="dark"
           />
         </PlatformExplicit>
         <View style={[styles.innerCard]}>

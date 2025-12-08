@@ -1,4 +1,3 @@
 <resources>
-    <string name="app_name">Naikamu</string>
-    <string moduleConfig="true" name="CodePushDeploymentKey">upoV82eIpIlZ5gkY6NboM5k_mJYzehqVW6Nnf</string>
+  <string name="app_name">Naikamu</string>
 </resources>

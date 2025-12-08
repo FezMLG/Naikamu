@@ -1,6 +1,9 @@
-const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
+const { getSentryExpoConfig } = require('@sentry/react-native/metro');
+const { mergeConfig } = require('@react-native/metro-config');
+
 const path = require('path');
-const defaultConfig = getDefaultConfig(__dirname);
+
+const defaultConfig = getSentryExpoConfig(__dirname);
 const { assetExts, sourceExts } = defaultConfig.resolver;
 
 /**
@@ -16,6 +19,17 @@ const config = {
   resolver: {
     assetExts: assetExts.filter(ext => ext !== 'svg'),
     sourceExts: [...sourceExts, 'svg'],
+    resolveRequest: (context, moduleName, platform) => {
+      // Prevent Metro from resolving 'react' to '@types/react'
+      if (moduleName === 'react') {
+        return {
+          type: 'sourceFile',
+          filePath: path.resolve(__dirname, 'node_modules/react/index.js'),
+        };
+      }
+      // Fall back to default resolution
+      return context.resolveRequest(context, moduleName, platform);
+    },
   },
   watchFolders: [
     path.resolve(__dirname + '/../../lib/translations/'),

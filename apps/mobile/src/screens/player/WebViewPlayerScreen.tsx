@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import { Pressable, View } from 'react-native';
-import SystemNavigationBar from 'react-native-system-navigation-bar';
+// import SystemNavigationBar from 'react-native-system-navigation-bar';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { WebView } from 'react-native-webview';
 
@@ -17,7 +17,7 @@ export function WebViewPlayerScreen({
   const webViewRef = useRef<WebView>(null);
 
   useEffect(() => {
-    SystemNavigationBar.fullScreen(true);
+    // SystemNavigationBar.fullScreen(true);
   }, []);
 
   return (

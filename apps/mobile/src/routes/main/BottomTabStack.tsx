@@ -1,13 +1,11 @@
 import React from 'react';
 
-import { BlurView } from '@react-native-community/blur';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { RouteProp } from '@react-navigation/native';
 import { StyleSheet, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useTranslate } from '../../i18n/useTranslate';
-import { defaultRadius } from '../../styles';
 
 import {
   BottomTabStackParameterList as BottomTabStackParameterList,

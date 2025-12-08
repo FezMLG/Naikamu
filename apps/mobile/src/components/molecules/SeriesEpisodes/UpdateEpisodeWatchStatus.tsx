@@ -43,7 +43,6 @@ export function UpdateEpisodeWatchStatus({
         });
         handleClose();
       }}>
-      {/** @ts-expect-error wrong types **/}
       <ActionsheetIcon
         style={{
           height: 20,

@@ -9,4 +9,5 @@ export const externalLinks = {
     ios: 'https://appdistribution.firebase.dev/i/12fb612f3eddfbcd',
   },
   email: 'mailto:contact@naikamu.com?subject=Naikamu%20App%20Feedback',
+  emailAddress: 'contact@naikamu.com',
 };

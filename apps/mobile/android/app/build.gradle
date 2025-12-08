@@ -26,7 +26,6 @@ project.ext.vectoricons = [
 
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
-apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
 
 /**
  * This is the configuration block to customize your React Native Android app.
@@ -78,6 +77,11 @@ react {
 
     /* Autolinking */
     autolinkLibrariesWithApp()
+
+    // Added by install-expo-modules
+    entryFile = file(["node", "-e", "require('expo/scripts/resolveAppEntry')", rootDir.getAbsoluteFile().getParentFile().getAbsolutePath(), "android", "absolute"].execute(null, rootDir).text.trim())
+    cliFile = new File(["node", "--print", "require.resolve('@expo/cli')"].execute(null, rootDir).text.trim())
+    bundleCommand = "export:embed"
 }
 
 /**
@@ -113,75 +117,84 @@ def getVersionNameFromNpm() {
 
 apply from: "../../node_modules/@sentry/react-native/sentry.gradle"
 android {
-    ndkVersion rootProject.ext.ndkVersion
+    ndkVersion = rootProject.ext.ndkVersion
 
-    buildToolsVersion rootProject.ext.buildToolsVersion
-    compileSdk rootProject.ext.compileSdkVersion
+    buildToolsVersion = rootProject.ext.buildToolsVersion
+    compileSdk = rootProject.ext.compileSdkVersion
+
+    buildFeatures {
+        buildConfig = true
+    }
 
     flavorDimensions "default"
     productFlavors {
         production {
-            minSdkVersion rootProject.ext.minSdkVersion
-            applicationId "com.tltcode.naikamu"
-            targetSdkVersion rootProject.ext.targetSdkVersion
+            minSdkVersion = rootProject.ext.minSdkVersion
+            applicationId = "com.tltcode.naikamu"
+            targetSdkVersion = rootProject.ext.targetSdkVersion
             resValue "string", "build_config_package", "com.tltcode.naikamu"
         }
         staging {
-            minSdkVersion rootProject.ext.minSdkVersion
-            applicationId "com.tltcode.naikamu"
-            applicationIdSuffix ".staging"
-            targetSdkVersion rootProject.ext.targetSdkVersion
+            minSdkVersion = rootProject.ext.minSdkVersion
+            applicationId = "com.tltcode.naikamu"
+            applicationIdSuffix = ".staging"
+            targetSdkVersion = rootProject.ext.targetSdkVersion
             resValue "string", "build_config_package", "com.tltcode.naikamu"
         }
         development {
-            minSdkVersion rootProject.ext.minSdkVersion
-            applicationId "com.tltcode.naikamu"
-            applicationIdSuffix ".development"
-            targetSdkVersion rootProject.ext.targetSdkVersion
+            minSdkVersion = rootProject.ext.minSdkVersion
+            applicationId = "com.tltcode.naikamu"
+            applicationIdSuffix = ".development"
+            targetSdkVersion = rootProject.ext.targetSdkVersion
             resValue "string", "build_config_package", "com.tltcode.naikamu"
         }
     }
 
-    namespace "com.tltcode.naikamu"
+    namespace = "com.tltcode.naikamu"
     defaultConfig {
-        applicationId "com.tltcode.naikamu"
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 3
-        versionName getVersionNameFromNpm()
+        applicationId = "com.tltcode.naikamu"
+        minSdkVersion = rootProject.ext.minSdkVersion
+        targetSdkVersion = rootProject.ext.targetSdkVersion
+        versionCode = 4
+        versionName = getVersionNameFromNpm()
+
+        buildConfigField("boolean", "IS_NEW_ARCHITECTURE_ENABLED", (findProperty("newArchEnabled") ?: "false"))
+        buildConfigField("boolean", "IS_HERMES_ENABLED", (findProperty("hermesEnabled") ?: "true"))
     }
 
     signingConfigs {
         debug {
-            storeFile file('debug.keystore')
-            storePassword 'android'
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
+            storeFile = file('debug.keystore')
+            storePassword = 'android'
+            keyAlias = 'androiddebugkey'
+            keyPassword = 'android'
         }
         release {
             if (project.hasProperty('MYAPP_UPLOAD_STORE_FILE')) {
-                storeFile file(MYAPP_UPLOAD_STORE_FILE)
-                storePassword MYAPP_UPLOAD_STORE_PASSWORD
-                keyAlias MYAPP_UPLOAD_KEY_ALIAS
-                keyPassword MYAPP_UPLOAD_KEY_PASSWORD
+                storeFile = file(MYAPP_UPLOAD_STORE_FILE)
+                storePassword = MYAPP_UPLOAD_STORE_PASSWORD
+                keyAlias = MYAPP_UPLOAD_KEY_ALIAS
+                keyPassword = MYAPP_UPLOAD_KEY_PASSWORD
             }
         }
     }
     buildTypes {
         debug {
-            signingConfig signingConfigs.debug
+            signingConfig = signingConfigs.debug
             matchingFallbacks = ['debug', 'release']
+            manifestPlaceholders = [usesCleartextTraffic: "true"]
         }
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
-            minifyEnabled enableProguardInReleaseBuilds
-            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-            signingConfig signingConfigs.release
+            signingConfig = signingConfigs.debug
+            minifyEnabled = enableProguardInReleaseBuilds
+            proguardFiles = [getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"]
+            signingConfig = signingConfigs.release
+            manifestPlaceholders = [usesCleartextTraffic: "false"]
             firebaseCrashlytics {
-                nativeSymbolUploadEnabled true
-                unstrippedNativeLibsDir 'build/intermediates/merged_native_libs/release/out/lib'
+                nativeSymbolUploadEnabled = true
+                unstrippedNativeLibsDir = 'build/intermediates/merged_native_libs/release/out/lib'
             }
         }
     }
@@ -195,7 +208,7 @@ dependencies {
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
     } else {
-        implementation jscFlavor
+        implementation = jscFlavor
     }
 }
 

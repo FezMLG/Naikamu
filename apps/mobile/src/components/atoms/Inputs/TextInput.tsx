@@ -31,6 +31,7 @@ export const TextInput = (
   };
 
   return (
+    // @ts-expect-error wrong types
     <RNTextInput
       {...props}
       onBlur={onBlur}

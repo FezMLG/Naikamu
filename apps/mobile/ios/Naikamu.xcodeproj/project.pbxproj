@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 63;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,7 @@
 		2C428F9E5A804BD18C21935C /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9AF49667AA8B4F3085380A85 /* Roboto-Thin.ttf */; };
 		31A9F4719B6B4B54AA1477D0 /* Catamaran-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9CABD8BBE42B4EAAB0908A77 /* Catamaran-ExtraBold.ttf */; };
 		5BEBB4A448C54542BE856AB3 /* Roboto-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DA37467180CA417CAFD9CE53 /* Roboto-MediumItalic.ttf */; };
+		5ECFFF7CE7E8E298A2C491B4 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFBCCC5C52BB3FF623435A2 /* ExpoModulesProvider.swift */; };
 		5F4B2422327CB9B3EA844A7F /* Pods_NaikamuCommonPods_NaikamuStg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FE82E0CD7667A78B50CD304 /* Pods_NaikamuCommonPods_NaikamuStg.framework */; };
 		6B6D0C0D54624C61954B2C00 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FD902C146ADA4233B9315BC0 /* Lato-Black.ttf */; };
 		712E661D2D7CD5C6008DC5B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712E661C2D7CD5C6008DC5B3 /* AppDelegate.swift */; };
@@ -101,8 +102,10 @@
 		A15CF3342AD030C3004A53F3 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCDB922956DD4A088BB38541 /* Roboto-Regular.ttf */; };
 		A15CF3352AD030C3004A53F3 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9AF49667AA8B4F3085380A85 /* Roboto-Thin.ttf */; };
 		A15CF3362AD030C3004A53F3 /* Roboto-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2754ACDABB0E42EFB53D6194 /* Roboto-ThinItalic.ttf */; };
+		AE472527CD8D95DA97460037 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14667550DAF6D432B1FA1EA5 /* ExpoModulesProvider.swift */; };
 		BB52E950580D4DC084B58B83 /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E7D1975A2C084394AE17E3F6 /* Lato-BlackItalic.ttf */; };
 		C2867B7E972E4BB092B35A8B /* Lato-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BD10419163E143AD9C8A5D34 /* Lato-BoldItalic.ttf */; };
+		C41BEB9F000A7758559451C0 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA05EBCEFEA0A37E4593163 /* ExpoModulesProvider.swift */; };
 		C55D25A767764655B7AB7B6C /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85ED07357DE04B329A35C091 /* Roboto-Medium.ttf */; };
 		CB25E356788A4F119F1EDE8F /* Roboto-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 453E3B50956848518BF62D31 /* Roboto-Italic.ttf */; };
 		CE332313A1414F0FBD907164 /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DA9068E93D7E4594A3AAF98C /* Lato-Italic.ttf */; };
@@ -139,12 +142,14 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Naikamu/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Naikamu/Info.plist; sourceTree = "<group>"; };
 		143A0B6072196EC648E080BB /* Pods_NaikamuCommonPods_NaikamuDev.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NaikamuCommonPods_NaikamuDev.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		14667550DAF6D432B1FA1EA5 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-NaikamuCommonPods-Naikamu/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		1FD77B6A286A41C6AC1AA67C /* Lato-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Regular.ttf"; path = "../assets/fonts/Lato-Regular.ttf"; sourceTree = "<group>"; };
 		254CC1DA3BCB4572AB6A7438 /* Catamaran-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Catamaran-Light.ttf"; path = "../assets/fonts/Catamaran-Light.ttf"; sourceTree = "<group>"; };
 		2754ACDABB0E42EFB53D6194 /* Roboto-ThinItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-ThinItalic.ttf"; path = "../assets/fonts/Roboto-ThinItalic.ttf"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-Naikamu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Naikamu.debug.xcconfig"; path = "Target Support Files/Pods-Naikamu/Pods-Naikamu.debug.xcconfig"; sourceTree = "<group>"; };
 		3CACAB495B78CA0322E3F49A /* Pods-NaikamuCommonPods-Naikamu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NaikamuCommonPods-Naikamu.debug.xcconfig"; path = "Target Support Files/Pods-NaikamuCommonPods-Naikamu/Pods-NaikamuCommonPods-Naikamu.debug.xcconfig"; sourceTree = "<group>"; };
 		3E849A2188CC41DBAA5F52A5 /* Roboto-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Light.ttf"; path = "../assets/fonts/Roboto-Light.ttf"; sourceTree = "<group>"; };
+		3EFBCCC5C52BB3FF623435A2 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-NaikamuCommonPods-NaikamuDev/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		406C6BD55A144E08AE4A3822 /* Catamaran-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Catamaran-Thin.ttf"; path = "../assets/fonts/Catamaran-Thin.ttf"; sourceTree = "<group>"; };
 		453E3B50956848518BF62D31 /* Roboto-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Italic.ttf"; path = "../assets/fonts/Roboto-Italic.ttf"; sourceTree = "<group>"; };
 		4F95CC7444254F9185C3D6DB /* Lato-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Bold.ttf"; path = "../assets/fonts/Lato-Bold.ttf"; sourceTree = "<group>"; };
@@ -197,6 +202,7 @@
 		A15CF3452AD17C8B004A53F3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BCDB922956DD4A088BB38541 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Regular.ttf"; path = "../assets/fonts/Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		BD10419163E143AD9C8A5D34 /* Lato-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-BoldItalic.ttf"; path = "../assets/fonts/Lato-BoldItalic.ttf"; sourceTree = "<group>"; };
+		BEA05EBCEFEA0A37E4593163 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-NaikamuCommonPods-NaikamuStg/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		C7E85770909F4FE59E7BED83 /* Catamaran-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Catamaran-Bold.ttf"; path = "../assets/fonts/Catamaran-Bold.ttf"; sourceTree = "<group>"; };
 		D1B11D4CAF0D40EC98F2060F /* Roboto-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-LightItalic.ttf"; path = "../assets/fonts/Roboto-LightItalic.ttf"; sourceTree = "<group>"; };
 		DA37467180CA417CAFD9CE53 /* Roboto-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-MediumItalic.ttf"; path = "../assets/fonts/Roboto-MediumItalic.ttf"; sourceTree = "<group>"; };
@@ -259,6 +265,14 @@
 			name = Naikamu;
 			sourceTree = "<group>";
 		};
+		245B2D37D107625F13F8A075 /* NaikamuDev */ = {
+			isa = PBXGroup;
+			children = (
+				3EFBCCC5C52BB3FF623435A2 /* ExpoModulesProvider.swift */,
+			);
+			name = NaikamuDev;
+			sourceTree = "<group>";
+		};
 		2A9AC68FCDE94559844784B8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -308,6 +322,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		398AA2D6FA6B943C2C38C564 /* NaikamuStg */ = {
+			isa = PBXGroup;
+			children = (
+				BEA05EBCEFEA0A37E4593163 /* ExpoModulesProvider.swift */,
+			);
+			name = NaikamuStg;
+			sourceTree = "<group>";
+		};
 		71A6695A291D696300F886BB /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -349,6 +371,7 @@
 				2A9AC68FCDE94559844784B8 /* Resources */,
 				A15CF30B2AD030C0004A53F3 /* Naikamu stg-Info.plist */,
 				A15CF3402AD030C3004A53F3 /* Naikamu dev-Info.plist */,
+				C70A7DE6C89E525AFC7BEC98 /* ExpoModulesProviders */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -400,6 +423,14 @@
 			path = Prod;
 			sourceTree = "<group>";
 		};
+		B81B85A2144A1BAF01362763 /* Naikamu */ = {
+			isa = PBXGroup;
+			children = (
+				14667550DAF6D432B1FA1EA5 /* ExpoModulesProvider.swift */,
+			);
+			name = Naikamu;
+			sourceTree = "<group>";
+		};
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -415,6 +446,16 @@
 				8E244B65C608B81A719C7980 /* Pods-NaikamuCommonPods-NaikamuStg.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		C70A7DE6C89E525AFC7BEC98 /* ExpoModulesProviders */ = {
+			isa = PBXGroup;
+			children = (
+				B81B85A2144A1BAF01362763 /* Naikamu */,
+				245B2D37D107625F13F8A075 /* NaikamuDev */,
+				398AA2D6FA6B943C2C38C564 /* NaikamuStg */,
+			);
+			name = ExpoModulesProviders;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -444,6 +485,7 @@
 			buildPhases = (
 				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
+				7AA388220A234A858B6DC935 /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
@@ -467,6 +509,7 @@
 			buildPhases = (
 				A15CF2D82AD030C0004A53F3 /* [CP] Check Pods Manifest.lock */,
 				A15CF2D92AD030C0004A53F3 /* Start Packager */,
+				42E9F183735B4820B4DFAC32 /* [Expo] Configure project */,
 				A15CF2DA2AD030C0004A53F3 /* Sources */,
 				A15CF2DD2AD030C0004A53F3 /* Frameworks */,
 				A15CF2DF2AD030C0004A53F3 /* Resources */,
@@ -489,6 +532,7 @@
 			buildPhases = (
 				A15CF30D2AD030C3004A53F3 /* [CP] Check Pods Manifest.lock */,
 				A15CF30E2AD030C3004A53F3 /* Start Packager */,
+				84EBEC6664B4A65E8A7D81E1 /* [Expo] Configure project */,
 				A15CF30F2AD030C3004A53F3 /* Sources */,
 				A15CF3122AD030C3004A53F3 /* Frameworks */,
 				A15CF3142AD030C3004A53F3 /* Resources */,
@@ -511,25 +555,32 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1210;
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 2600;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = 7626K298Y6;
 						LastSwiftMigration = 1600;
+						ProvisioningStyle = Automatic;
 					};
 					A15CF2D72AD030C0004A53F3 = {
+						DevelopmentTeam = 7626K298Y6;
 						LastSwiftMigration = 1600;
+						ProvisioningStyle = Automatic;
 					};
 					A15CF30C2AD030C3004A53F3 = {
+						DevelopmentTeam = 7626K298Y6;
 						LastSwiftMigration = 1600;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
 			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Naikamu" */;
-			compatibilityVersion = "Xcode 12.0";
+			compatibilityVersion = "Xcode 15.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -700,7 +751,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export SENTRY_PROPERTIES=sentry.properties\nexport EXTRA_PACKAGER_ARGS=\"--sourcemap-output $DERIVED_FILE_DIR/main.jsbundle.map\"\nset -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT \\\"../node_modules/@sentry/cli/bin/sentry-cli react-native xcode $REACT_NATIVE_XCODE\\\"\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT ../node_modules/@sentry/react-native/scripts/collect-modules.sh\"\n";
+			shellScript = "if [[ -f \"$PODS_ROOT/../.xcode.env\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env\"\nfi\nif [[ -f \"$PODS_ROOT/../.xcode.env.local\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env.local\"\nfi\n\n# The project root by default is one level up from the ios directory\nexport PROJECT_ROOT=\"$PROJECT_DIR\"/..\n\nif [[ \"$CONFIGURATION\" = *Debug* ]]; then\n  export SKIP_BUNDLING=1\nfi\nif [[ -z \"$ENTRY_FILE\" ]]; then\n  # Set the entry JS file using the bundler's entry resolution.\n  export ENTRY_FILE=\"$(\"$NODE_BINARY\" -e \"require('expo/scripts/resolveAppEntry')\" \"$PROJECT_ROOT\" ios relative | tail -n 1)\"\nfi\n\nif [[ -z \"$CLI_PATH\" ]]; then\n  # Use Expo CLI\n  export CLI_PATH=\"$(\"$NODE_BINARY\" --print \"require.resolve('@expo/cli')\")\"\nfi\nif [[ -z \"$BUNDLE_COMMAND\" ]]; then\n  # Default Expo CLI command for bundling\n  export BUNDLE_COMMAND=\"export:embed\"\nfi\n\n`\"$NODE_BINARY\" --print \"require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'\"`\n";
 		};
 		00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -710,14 +761,90 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-Naikamu/Pods-NaikamuCommonPods-Naikamu-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-Naikamu/Pods-NaikamuCommonPods-Naikamu-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-Naikamu/Pods-NaikamuCommonPods-Naikamu-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		42E9F183735B4820B4DFAC32 /* [Expo] Configure project */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/.xcode.env",
+				"$(SRCROOT)/.xcode.env.local",
+				"$(SRCROOT)/Naikamu/Naikamu.entitlements",
+				"$(SRCROOT)/Pods/Target Support Files/Pods-NaikamuCommonPods-NaikamuStg/expo-configure-project.sh",
+			);
+			name = "[Expo] Configure project";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(SRCROOT)/Pods/Target Support Files/Pods-NaikamuCommonPods-NaikamuStg/ExpoModulesProvider.swift",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-NaikamuCommonPods-NaikamuStg/expo-configure-project.sh\"\n";
+		};
+		7AA388220A234A858B6DC935 /* [Expo] Configure project */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/.xcode.env",
+				"$(SRCROOT)/.xcode.env.local",
+				"$(SRCROOT)/Naikamu/Naikamu.entitlements",
+				"$(SRCROOT)/Pods/Target Support Files/Pods-NaikamuCommonPods-Naikamu/expo-configure-project.sh",
+			);
+			name = "[Expo] Configure project";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(SRCROOT)/Pods/Target Support Files/Pods-NaikamuCommonPods-Naikamu/ExpoModulesProvider.swift",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-NaikamuCommonPods-Naikamu/expo-configure-project.sh\"\n";
+		};
+		84EBEC6664B4A65E8A7D81E1 /* [Expo] Configure project */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/.xcode.env",
+				"$(SRCROOT)/.xcode.env.local",
+				"$(SRCROOT)/Naikamu/Naikamu.entitlements",
+				"$(SRCROOT)/Pods/Target Support Files/Pods-NaikamuCommonPods-NaikamuDev/expo-configure-project.sh",
+			);
+			name = "[Expo] Configure project";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(SRCROOT)/Pods/Target Support Files/Pods-NaikamuCommonPods-NaikamuDev/ExpoModulesProvider.swift",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-NaikamuCommonPods-NaikamuDev/expo-configure-project.sh\"\n";
 		};
 		89E5F422E68F48508D465EA0 /* Upload Debug Symbols to Sentry */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -788,7 +915,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export SENTRY_PROPERTIES=sentry.properties\nexport EXTRA_PACKAGER_ARGS=\"--sourcemap-output $DERIVED_FILE_DIR/main.jsbundle.map\"\nset -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT \\\"../node_modules/@sentry/cli/bin/sentry-cli react-native xcode $REACT_NATIVE_XCODE\\\"\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT ../node_modules/@sentry/react-native/scripts/collect-modules.sh\"\n";
+			shellScript = "if [[ -f \"$PODS_ROOT/../.xcode.env\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env\"\nfi\nif [[ -f \"$PODS_ROOT/../.xcode.env.local\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env.local\"\nfi\n\n# The project root by default is one level up from the ios directory\nexport PROJECT_ROOT=\"$PROJECT_DIR\"/..\n\nif [[ \"$CONFIGURATION\" = *Debug* ]]; then\n  export SKIP_BUNDLING=1\nfi\nif [[ -z \"$ENTRY_FILE\" ]]; then\n  # Set the entry JS file using the bundler's entry resolution.\n  export ENTRY_FILE=\"$(\"$NODE_BINARY\" -e \"require('expo/scripts/resolveAppEntry')\" \"$PROJECT_ROOT\" ios relative | tail -n 1)\"\nfi\n\nif [[ -z \"$CLI_PATH\" ]]; then\n  # Use Expo CLI\n  export CLI_PATH=\"$(\"$NODE_BINARY\" --print \"require.resolve('@expo/cli')\")\"\nfi\nif [[ -z \"$BUNDLE_COMMAND\" ]]; then\n  # Default Expo CLI command for bundling\n  export BUNDLE_COMMAND=\"export:embed\"\nfi\n\n`\"$NODE_BINARY\" --print \"require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'\"`\n";
 		};
 		A15CF3032AD030C0004A53F3 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -798,9 +925,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-NaikamuStg/Pods-NaikamuCommonPods-NaikamuStg-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-NaikamuStg/Pods-NaikamuCommonPods-NaikamuStg-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -815,9 +946,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-NaikamuStg/Pods-NaikamuCommonPods-NaikamuStg-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-NaikamuStg/Pods-NaikamuCommonPods-NaikamuStg-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -879,7 +1014,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export SENTRY_PROPERTIES=sentry.properties\nexport EXTRA_PACKAGER_ARGS=\"--sourcemap-output $DERIVED_FILE_DIR/main.jsbundle.map\"\nset -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT \\\"../node_modules/@sentry/cli/bin/sentry-cli react-native xcode $REACT_NATIVE_XCODE\\\"\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT ../node_modules/@sentry/react-native/scripts/collect-modules.sh\"\n";
+			shellScript = "if [[ -f \"$PODS_ROOT/../.xcode.env\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env\"\nfi\nif [[ -f \"$PODS_ROOT/../.xcode.env.local\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env.local\"\nfi\n\n# The project root by default is one level up from the ios directory\nexport PROJECT_ROOT=\"$PROJECT_DIR\"/..\n\nif [[ \"$CONFIGURATION\" = *Debug* ]]; then\n  export SKIP_BUNDLING=1\nfi\nif [[ -z \"$ENTRY_FILE\" ]]; then\n  # Set the entry JS file using the bundler's entry resolution.\n  export ENTRY_FILE=\"$(\"$NODE_BINARY\" -e \"require('expo/scripts/resolveAppEntry')\" \"$PROJECT_ROOT\" ios relative | tail -n 1)\"\nfi\n\nif [[ -z \"$CLI_PATH\" ]]; then\n  # Use Expo CLI\n  export CLI_PATH=\"$(\"$NODE_BINARY\" --print \"require.resolve('@expo/cli')\")\"\nfi\nif [[ -z \"$BUNDLE_COMMAND\" ]]; then\n  # Default Expo CLI command for bundling\n  export BUNDLE_COMMAND=\"export:embed\"\nfi\n\n`\"$NODE_BINARY\" --print \"require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'\"`\n";
 		};
 		A15CF3382AD030C3004A53F3 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -889,9 +1024,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-NaikamuDev/Pods-NaikamuCommonPods-NaikamuDev-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-NaikamuDev/Pods-NaikamuCommonPods-NaikamuDev-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -906,9 +1045,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-NaikamuDev/Pods-NaikamuCommonPods-NaikamuDev-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-NaikamuDev/Pods-NaikamuCommonPods-NaikamuDev-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -945,9 +1088,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-Naikamu/Pods-NaikamuCommonPods-Naikamu-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-NaikamuCommonPods-Naikamu/Pods-NaikamuCommonPods-Naikamu-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -988,6 +1135,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				712E661E2D7CD5C6008DC5B3 /* AppDelegate.swift in Sources */,
+				AE472527CD8D95DA97460037 /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -996,6 +1144,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				712E661F2D7CD5C6008DC5B3 /* AppDelegate.swift in Sources */,
+				C41BEB9F000A7758559451C0 /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1004,6 +1153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				712E661D2D7CD5C6008DC5B3 /* AppDelegate.swift in Sources */,
+				5ECFFF7CE7E8E298A2C491B4 /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1022,7 +1172,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = 7626K298Y6;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1039,6 +1189,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tltcode.naikamu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Naikamu.app/Naikamu";
@@ -1050,7 +1201,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = 7626K298Y6;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = NaikamuTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1063,6 +1214,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tltcode.naikamu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Naikamu.app/Naikamu";
@@ -1079,9 +1231,9 @@
 				CODE_SIGN_ENTITLEMENTS = Naikamu/Naikamu.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 79;
+				CURRENT_PROJECT_VERSION = 80;
 				DEVELOPMENT_TEAM = 7626K298Y6;
-				ENABLE_BITCODE = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = Naikamu/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Naikamu;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
@@ -1090,12 +1242,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.17.3;
+				MARKETING_VERSION = 0.17.4;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tltcode.naikamu;
 				PRODUCT_NAME = Naikamu;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1115,9 +1268,9 @@
 				CODE_SIGN_ENTITLEMENTS = Naikamu/Naikamu.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 79;
+				CURRENT_PROJECT_VERSION = 80;
 				DEVELOPMENT_TEAM = 7626K298Y6;
-				ENABLE_BITCODE = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = Naikamu/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Naikamu;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
@@ -1126,12 +1279,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.17.3;
+				MARKETING_VERSION = 0.17.4;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tltcode.naikamu;
 				PRODUCT_NAME = Naikamu;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1144,6 +1298,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -1171,8 +1326,10 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 7626K298Y6;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1209,6 +1366,8 @@
 					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon/ReactCommon.framework/Headers",
 					"${PODS_CONFIGURATION_BUILD_DIR}/React-Fabric/React_Fabric.framework/Headers/react/renderer/components/view/platform/cxx",
 					"${PODS_CONFIGURATION_BUILD_DIR}/React-graphics/React_graphics.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-runtimeexecutor/React_runtimeexecutor.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-runtimeexecutor/React_runtimeexecutor.framework/Headers/platform/ios",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1232,6 +1391,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				USE_HERMES = true;
 			};
@@ -1241,6 +1401,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -1268,8 +1429,10 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = 7626K298Y6;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1302,6 +1465,8 @@
 					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon/ReactCommon.framework/Headers",
 					"${PODS_CONFIGURATION_BUILD_DIR}/React-Fabric/React_Fabric.framework/Headers/react/renderer/components/view/platform/cxx",
 					"${PODS_CONFIGURATION_BUILD_DIR}/React-graphics/React_graphics.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-runtimeexecutor/React_runtimeexecutor.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-runtimeexecutor/React_runtimeexecutor.framework/Headers/platform/ios",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1324,6 +1489,8 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				USE_HERMES = true;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1339,9 +1506,9 @@
 				CODE_SIGN_ENTITLEMENTS = Naikamu/Naikamu.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 79;
+				CURRENT_PROJECT_VERSION = 80;
 				DEVELOPMENT_TEAM = 7626K298Y6;
-				ENABLE_BITCODE = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = "Naikamu stg-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Naikamu stg";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
@@ -1349,12 +1516,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.17.3;
+				MARKETING_VERSION = 0.17.4;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tltcode.naikamu.staging;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1374,9 +1542,9 @@
 				CODE_SIGN_ENTITLEMENTS = Naikamu/Naikamu.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 79;
+				CURRENT_PROJECT_VERSION = 80;
 				DEVELOPMENT_TEAM = 7626K298Y6;
-				ENABLE_BITCODE = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = "Naikamu stg-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Naikamu stg";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
@@ -1384,12 +1552,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.17.3;
+				MARKETING_VERSION = 0.17.4;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tltcode.naikamu.staging;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1406,9 +1575,11 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Naikamu/Naikamu.entitlements;
-				CURRENT_PROJECT_VERSION = 79;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 80;
 				DEVELOPMENT_TEAM = 7626K298Y6;
-				ENABLE_BITCODE = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = "Naikamu dev-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Naikamu dev";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
@@ -1422,6 +1593,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tltcode.naikamu.development;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1438,9 +1610,11 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Naikamu/Naikamu.entitlements;
-				CURRENT_PROJECT_VERSION = 79;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 80;
 				DEVELOPMENT_TEAM = 7626K298Y6;
-				ENABLE_BITCODE = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = "Naikamu dev-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Naikamu dev";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
@@ -1454,6 +1628,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tltcode.naikamu.development;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

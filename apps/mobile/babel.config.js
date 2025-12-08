@@ -1,5 +1,5 @@
 module.exports = {
-  presets: ['module:@react-native/babel-preset'],
+  presets: ['babel-preset-expo'],
   plugins: [
     [
       'module-resolver',
@@ -10,6 +10,6 @@ module.exports = {
         },
       },
     ],
-    ['react-native-reanimated/plugin'],
+    ['react-native-worklets/plugin'],
   ],
 };

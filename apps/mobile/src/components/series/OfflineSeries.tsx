@@ -70,11 +70,11 @@ export function OfflineSeries({ series }: { series: IOfflineSeries }) {
             console.log('delete', seriesId);
             deleteSeriesOffline(seriesId);
           }}>
-          {/** @ts-expect-error wrong types **/}
           <ActionsheetIcon
             style={{
               height: 20,
             }}>
+            {/** @ts-expect-error wrong types **/}
             <GlueIcon as={TrashIcon} style={{ color: colors.error.color }} />
           </ActionsheetIcon>
         </ActionSheetItem>

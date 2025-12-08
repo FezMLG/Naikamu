@@ -41,8 +41,6 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
-	<key>CodePushDeploymentKey</key>
-	<string>qWR9fpQpkOUYosuL8jknY6cwzGjG9vQ1ZtKnT</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.video</string>
 	<key>LSRequiresIPhoneOS</key>

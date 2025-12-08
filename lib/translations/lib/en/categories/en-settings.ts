@@ -41,7 +41,10 @@ export const enSettings = {
     helpCenter: 'Help center',
     donation: 'Support us',
     beta: 'Join Naikamu Beta',
-    contact: 'Report a problem or suggestion',
+    emailFeedback: 'Send suggestion',
+    emailIssue: 'Report issue',
+    emailIssueText:
+      'To report an issue, please click the button to download logs and create issue on GitHub or send an email with what the issue is and attached logs, to',
     externalServices: {
       howToFindShindenId: 'How to find my Shinden ID?',
       importFromShinden: 'Import from Shinden (Beta)',
