@@ -67,6 +67,8 @@
 	<string>Required by Firebase</string>
 	<key>RCTNewArchEnabled</key>
 	<true/>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Enable to download episodes on your device</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
