@@ -68,7 +68,7 @@
 	<key>RCTNewArchEnabled</key>
 	<true/>
     <key>NSPhotoLibraryUsageDescription</key>
-    <string>Enable to download episodes on your device</string>
+    <string>Naikamu needs access to your photo library to save downloaded anime episodes and video content to your device for offline viewing.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
