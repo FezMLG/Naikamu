@@ -150,24 +150,26 @@ export function WatchListStatusSelect({
 
                 <ActionSheetItem
                   label={getStatusLabel(status)}
-                  onPress={() => handleStatusChange(status)}>
+                  onPress={() => handleStatusChange(status)}
+                  rightChildren={
+                    isSelected ? (
+                      <>
+                        {/** @ts-expect-error wrong types **/}
+                        <ActionsheetIcon
+                          style={{ height: 20, width: 20, marginLeft: 'auto' }}>
+                          <Icon
+                            color={colors.accent.color}
+                            name="check"
+                            size={20}
+                          />
+                        </ActionsheetIcon>
+                      </>
+                    ) : undefined
+                  }>
                   {/** @ts-expect-error wrong types **/}
                   <ActionsheetIcon style={{ height: 24, width: 24 }}>
                     {watchIconRender(status)}
                   </ActionsheetIcon>
-                  {isSelected && (
-                    <>
-                      {/** @ts-expect-error wrong types **/}
-                      <ActionsheetIcon
-                        style={{ height: 20, width: 20, marginLeft: 'auto' }}>
-                        <Icon
-                          color={colors.accent.color}
-                          name="check"
-                          size={20}
-                        />
-                      </ActionsheetIcon>
-                    </>
-                  )}
                 </ActionSheetItem>
               </React.Fragment>
             );
