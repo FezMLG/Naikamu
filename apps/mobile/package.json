@@ -18,7 +18,7 @@
     "ios:dev": "expo run:ios --configuration Debug --scheme NaikamuDev --no-build-cache --device \"iPhone 17\"",
     "ios:dev:release": "expo run:ios --configuration Release --scheme NaikamuDev --no-build-cache --device \"iPhone 17\"",
     "ios:stg:release": "expo run:ios --configuration Release --scheme NaikamuStg",
-    "ios:prod:release": "expo run:ios --configuration Release --scheme Naikamu",
+    "ios:prod:release": "expo run:ios --configuration Release --scheme Naikamu --device \"iPhone 17 Pro Max\"",
     "pod": "npx pod-install ios",
     "start": "expo start -c",
     "start:clear": "cd android && ./gradlew clean && cd .. && expo start -c",
