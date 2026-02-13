@@ -44,8 +44,6 @@ export function RootStack() {
         name={RootStackScreenNames.SeriesStack}
         options={() => ({
           ...defaultSubHeaderOptions({}),
-          presentation: 'modal',
-          animation: 'slide_from_bottom',
         })}
       />
       <StackAuthorized.Screen
