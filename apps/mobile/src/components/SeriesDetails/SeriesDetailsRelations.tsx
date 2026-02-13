@@ -19,35 +19,48 @@ export function SeriesDetailsRelations(props: {
   const { translate } = useTranslate();
   const navigation = useNavigation<NavigationProp<SeriesStackParameterList>>();
 
+  const sortedRelations = [...props.relations].sort((a, b) => {
+    const aIsAnime = a.type.toLowerCase() === 'anime';
+    const bIsAnime = b.type.toLowerCase() === 'anime';
+
+    if (aIsAnime && !bIsAnime) return -1;
+    if (!aIsAnime && bIsAnime) return 1;
+
+    return 0;
+  });
+
   return (
     <>
       <Text style={[styles.titleType, darkStyle.font]}>
         {translate('anime_details.relations')}
       </Text>
       <ScrollView horizontal={true}>
-        {props.relations.map((relation, index) => (
-          <SeriesRelations
-            handleNavigation={() => {
-              const s = relation.type.toLocaleLowerCase();
+        {sortedRelations.map((relation, index) => {
+          const isExternal = relation.type.toLowerCase() !== 'anime';
 
-              if (s === 'anime') {
-                navigation.navigate(SeriesStackScreenNames.Series, {
-                  id: relation.id,
-                  title: relation.title.romaji,
-                });
-              } else {
-                Linking.openURL(
-                  'https://anilist.co/' +
-                    relation.type.toLowerCase() +
-                    '/' +
-                    relation.id,
-                );
-              }
-            }}
-            key={index}
-            relation={relation}
-          />
-        ))}
+          return (
+            <SeriesRelations
+              handleNavigation={() => {
+                if (isExternal) {
+                  Linking.openURL(
+                    'https://anilist.co/' +
+                      relation.type.toLowerCase() +
+                      '/' +
+                      relation.id,
+                  ).catch(() => {});
+                } else {
+                  navigation.navigate(SeriesStackScreenNames.Series, {
+                    id: relation.id,
+                    title: relation.title.romaji,
+                  });
+                }
+              }}
+              isExternal={isExternal}
+              key={index}
+              relation={relation}
+            />
+          );
+        })}
       </ScrollView>
     </>
   );

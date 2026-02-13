@@ -8,6 +8,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useTranslate } from '../../i18n/useTranslate';
 import { colors, fontStyles, DarkColor } from '../../styles';
@@ -17,9 +18,11 @@ import { ProgressiveImage } from '../ProgressiveImage';
 export function SeriesRelations({
   relation,
   handleNavigation,
+  isExternal,
 }: {
   relation: Relation;
   handleNavigation: ((event: GestureResponderEvent) => void) | null | undefined;
+  isExternal: boolean;
 }) {
   const { translate } = useTranslate();
 
@@ -28,6 +31,12 @@ export function SeriesRelations({
       <ProgressiveImage
         source={relation.coverImage.medium}
         style={[styles.poster]}
+      />
+      <MaterialCommunityIcons
+        color="#C2C2C2"
+        name={isExternal ? 'open-in-new' : 'chevron-right'}
+        size={18}
+        style={styles.icon}
       />
       <View style={styles.details}>
         <View style={[styles.flexColumn]}>
@@ -64,6 +73,12 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 8,
     marginTop: 10,
     marginRight: 20,
+  },
+  icon: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+    zIndex: 1,
   },
   title: {
     ...fontStyles.paragraph,
