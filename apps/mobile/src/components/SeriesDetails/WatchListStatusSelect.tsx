@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
 
+import { ActionsheetIcon, Box, Divider } from '@gluestack-ui/themed';
 import { WatchStatus } from '@naikamu/shared';
-import { ColorValue, Pressable, StyleSheet, Text, View } from 'react-native';
+import { ColorValue, Pressable, StyleSheet, Text } from 'react-native';
 import { default as Config } from 'react-native-config';
-import { RadioButton } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useMutationUpdateUserWatchList } from '../../api/hooks';
 import { useTranslate } from '../../i18n/useTranslate';
 import { useActiveSeriesStore } from '../../services';
 import { colors, defaultRadius, fontStyles } from '../../styles';
-import { Modal } from '../atoms';
+import {
+  ActionSheet,
+  ActionSheetItem,
+  useActionSheet,
+} from '../atoms/ActionSheet';
 
 interface WatchListStatusSelectProps {
   seriesId: string;
@@ -27,7 +31,7 @@ export function WatchListStatusSelect({
   const [selectedStatus, setSelectedStatus] = useState<WatchStatus>(
     series.watchStatus,
   );
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { showActionSheet, setShowActionSheet } = useActionSheet();
   const { mutation } = useMutationUpdateUserWatchList(selectedStatus, seriesId);
 
   useEffect(() => {
@@ -83,9 +87,9 @@ export function WatchListStatusSelect({
     return translate(`watch_list.${status}`);
   };
 
-  const handleStatusChange = (value: string) => {
-    setSelectedStatus(value as WatchStatus);
-    setIsModalOpen(false);
+  const handleStatusChange = (value: WatchStatus) => {
+    setSelectedStatus(value);
+    setShowActionSheet(false);
   };
 
   const getFilteredStatusOptions = () => {
@@ -109,7 +113,7 @@ export function WatchListStatusSelect({
         <Text>{'error: ' + mutation.error}</Text>
       ) : null}
       <Pressable
-        onPress={() => setIsModalOpen(true)}
+        onPress={() => setShowActionSheet(true)}
         style={({ pressed }) => [
           styles.container,
           pressed && styles.containerPressed,
@@ -126,55 +130,50 @@ export function WatchListStatusSelect({
         />
       </Pressable>
 
-      <Modal.Container isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
-        <View style={styles.modalHeader}>
-          <Text
-            style={[fontStyles.header, colors.textLight, styles.modalTitle]}>
-            {translate('watch_list.select_status')}
-          </Text>
-          <Pressable
-            onPress={() => setIsModalOpen(false)}
-            style={styles.closeButton}>
-            <Icon color={colors.textLight.color} name="close" size={24} />
-          </Pressable>
-        </View>
-        <RadioButton.Group
-          onValueChange={handleStatusChange}
-          value={selectedStatus}>
-          {getFilteredStatusOptions().map(status => {
-            // Check if this is the NotFollowing status (Remove from list)
+      <ActionSheet
+        setShowActionSheet={setShowActionSheet}
+        showActionSheet={showActionSheet}>
+        <Box alignItems="flex-start" gap="$3" pb="$6" pt="$2" width="$full">
+          {getFilteredStatusOptions().map((status, index) => {
             const isRemoveOption = status === WatchStatus.NotFollowing;
+            const isSelected = selectedStatus === status;
+
+            const isLastOption =
+              index === getFilteredStatusOptions().length - 1;
 
             return (
               <React.Fragment key={status}>
                 {/* Add divider before "Remove from list" option */}
                 {isRemoveOption && (
-                  <View style={styles.dividerContainer}>
-                    <View style={styles.dividerLine} />
-                  </View>
+                  <Divider bg={colors.grey.color} mx="$3" my="$2" />
                 )}
 
-                <Pressable
-                  onPress={() => handleStatusChange(status)}
-                  style={styles.radioItem}>
-                  <View style={styles.radioItemContent}>
+                <ActionSheetItem
+                  label={getStatusLabel(status)}
+                  onPress={() => handleStatusChange(status)}>
+                  {/** @ts-expect-error wrong types **/}
+                  <ActionsheetIcon style={{ height: 24, width: 24 }}>
                     {watchIconRender(status)}
-                    <Text
-                      style={[
-                        fontStyles.paragraph,
-                        colors.textLight,
-                        styles.radioLabel,
-                      ]}>
-                      {getStatusLabel(status)}
-                    </Text>
-                  </View>
-                  <RadioButton value={status} />
-                </Pressable>
+                  </ActionsheetIcon>
+                  {isSelected && (
+                    <>
+                      {/** @ts-expect-error wrong types **/}
+                      <ActionsheetIcon
+                        style={{ height: 20, width: 20, marginLeft: 'auto' }}>
+                        <Icon
+                          color={colors.accent.color}
+                          name="check"
+                          size={20}
+                        />
+                      </ActionsheetIcon>
+                    </>
+                  )}
+                </ActionSheetItem>
               </React.Fragment>
             );
           })}
-        </RadioButton.Group>
-      </Modal.Container>
+        </Box>
+      </ActionSheet>
     </>
   );
 }
@@ -204,41 +203,5 @@ const styles = StyleSheet.create({
   },
   chevronIcon: {
     marginLeft: 'auto',
-  },
-  modalHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  modalTitle: {
-    flex: 1,
-  },
-  closeButton: {
-    padding: 5,
-  },
-  dividerContainer: {
-    marginTop: 15,
-    marginBottom: 10,
-    marginHorizontal: 5,
-  },
-  dividerLine: {
-    height: 1,
-    backgroundColor: colors.grey.color,
-  },
-  radioItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingVertical: 10,
-    paddingHorizontal: 5,
-  },
-  radioItemContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1,
-  },
-  radioLabel: {
-    marginLeft: 10,
   },
 });

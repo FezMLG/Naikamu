@@ -12,10 +12,12 @@ export const ActionSheet = ({
   children,
   showActionSheet,
   setShowActionSheet,
+  snapPoints,
 }: {
   children: React.ReactNode;
   showActionSheet: boolean;
   setShowActionSheet: React.Dispatch<React.SetStateAction<boolean>>;
+  snapPoints?: number[];
 }) => {
   const handleClose = () => setShowActionSheet(!showActionSheet);
 
@@ -23,7 +25,7 @@ export const ActionSheet = ({
     <Actionsheet
       isOpen={showActionSheet}
       onClose={handleClose}
-      snapPoints={[25]}
+      snapPoints={snapPoints}
       zIndex={999}>
       <ActionsheetBackdrop />
       <ActionsheetContent zIndex={999}>
