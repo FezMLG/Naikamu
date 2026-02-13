@@ -64,7 +64,7 @@ export function RootStack() {
           ...defaultSubHeaderOptions({}),
           autoHideHomeIndicator: true,
           fullScreenGestureEnabled: true,
-          presentation: Platform.OS === 'android' ? 'card' : 'fullScreenModal',
+          presentation: 'card',
           orientation: 'default',
         }}
       />
