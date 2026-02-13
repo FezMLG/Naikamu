@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 
 import { BlurView } from 'expo-blur';
-import { StyleSheet, View, Pressable, Platform } from 'react-native';
+import { StyleSheet, View, Platform } from 'react-native';
 import Animated, {
   interpolate,
   useAnimatedScrollHandler,
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useQuerySeriesDetails } from '../../api/hooks';
 import {
@@ -23,10 +22,7 @@ import {
 import { SeriesStackSeriesScreenProps } from '../../routes';
 import { globalStyle, colors } from '../../styles';
 
-export function SeriesScreen({
-  route,
-  navigation,
-}: SeriesStackSeriesScreenProps) {
+export function SeriesScreen({ route }: SeriesStackSeriesScreenProps) {
   const { id } = route.params;
   const { data, isError, isLoading, refetch } = useQuerySeriesDetails(id);
   const [widthForStatus, setWidthForStatus] = useState(500);
@@ -58,9 +54,6 @@ export function SeriesScreen({
 
   return (
     <Animated.ScrollView onScroll={handleScroll} scrollEventThrottle={16}>
-      <Pressable onPress={() => navigation.goBack()} style={styles.closeIcon}>
-        <Icon name="close" size={20} style={colors.textLight} />
-      </Pressable>
       <PageLayout.Loading isLoading={isLoading} />
       <PageLayout.Error isError={isError} refetch={refetch} />
       {data ? (
