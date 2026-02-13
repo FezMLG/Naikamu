@@ -5109,7 +5109,6 @@ __metadata:
     "@react-native-firebase/crashlytics": "npm:21.14.0"
     "@react-native-firebase/messaging": "npm:21.14.0"
     "@react-native-google-signin/google-signin": "npm:16.0.0"
-    "@react-native-picker/picker": "npm:2.11.1"
     "@react-native/babel-preset": "npm:0.82.1"
     "@react-native/eslint-config": "npm:0.82.1"
     "@react-native/metro-config": "npm:0.82.1"
@@ -6263,16 +6262,6 @@ __metadata:
     expo:
       optional: true
   checksum: 10c0/1ef58e78e1807e691c1be5926393bbc1d31bcc0db549dcc7f7a0bc016cf8590187679fcde5746497cb7f2bb417b78298f04e2119d835180f68eb0bba02cff36c
-  languageName: node
-  linkType: hard
-
-"@react-native-picker/picker@npm:2.11.1":
-  version: 2.11.1
-  resolution: "@react-native-picker/picker@npm:2.11.1"
-  peerDependencies:
-    react: "*"
-    react-native: "*"
-  checksum: 10c0/d2e9aeb32ae80f2ab56fa025f1afd6d8ff8051e7078bfd17c6794ff0cc1538d4a2f548098826eb652e6cb64d998070b0111777c78de4dcb468cb71e7e4d93097
   languageName: node
   linkType: hard
 
