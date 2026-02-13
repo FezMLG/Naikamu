@@ -117,16 +117,20 @@ export function EpisodePlayer({
           </>
         ) : null}
         {player.playerType === 'embed' ? (
+          // <IconButton
+          //   icon="play"
+          //   onPress={() => {
+          //     navigation.navigate(RootStackScreenNames.WebViewPlayer, {
+          //       uri: player.playerLink,
+          //       seriesId: series.id,
+          //       episodeTitle,
+          //       episodeNumber,
+          //     });
+          //   }}
+          // />
           <IconButton
-            icon="play"
-            onPress={() => {
-              navigation.navigate(RootStackScreenNames.WebViewPlayer, {
-                uri: player.playerLink,
-                seriesId: series.id,
-                episodeTitle,
-                episodeNumber,
-              });
-            }}
+            icon="open-in-new"
+            onPress={() => Linking.openURL(player.playerLink)}
           />
         ) : null}
         {player.playerType === 'external' ? (
