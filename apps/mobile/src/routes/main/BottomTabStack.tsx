@@ -1,9 +1,6 @@
 import React from 'react';
 
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { RouteProp } from '@react-navigation/native';
-import { StyleSheet, Text } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { createNativeBottomTabNavigator } from '@bottom-tabs/react-navigation';
 
 import { useTranslate } from '../../i18n/useTranslate';
 
@@ -18,45 +15,21 @@ import { MyListStack } from './mylist';
 import { SearchStack } from './search';
 import { SettingsStack } from './settings';
 
-const BottomTab = createBottomTabNavigator<BottomTabStackParameterList>();
+const BottomTab = createNativeBottomTabNavigator<BottomTabStackParameterList>();
 
-function BottomTabContent(props: {
-  focused: boolean;
-  color: string;
-  size: number;
-  route: RouteProp<
-    BottomTabStackParameterList,
-    keyof BottomTabStackParameterList
-  >;
-}) {
-  let iconName = '';
+// Icon mapping for native tabs using SF Symbols
+function getTabIcon(routeName: keyof BottomTabStackParameterList, focused: boolean) {
+  const iconMap = {
+    HomeStack: { focused: 'house.fill' as const, unfocused: 'house' as const },
+    BrowseStack: { focused: 'safari.fill' as const, unfocused: 'safari' as const },
+    SearchStack: { focused: 'magnifyingglass.circle.fill' as const, unfocused: 'magnifyingglass' as const },
+    MyListStack: { focused: 'bookmark.fill' as const, unfocused: 'bookmark' as const },
+    SettingsStack: { focused: 'gearshape.fill' as const, unfocused: 'gearshape' as const },
+  };
 
-  switch (props.route.name) {
-    case BottomTabStackScreenNames.BrowseStack: {
-      iconName = props.focused ? 'compass' : 'compass-outline';
-      break;
-    }
-    case BottomTabStackScreenNames.SettingsStack: {
-      iconName = props.focused ? 'cog' : 'cog-outline';
-      break;
-    }
-    case BottomTabStackScreenNames.SearchStack: {
-      iconName = props.focused ? 'movie-search' : 'movie-search-outline';
-      break;
-    }
-    case BottomTabStackScreenNames.MyListStack: {
-      iconName = props.focused
-        ? 'bookmark-box-multiple'
-        : 'bookmark-box-multiple-outline';
-      break;
-    }
-    case BottomTabStackScreenNames.HomeStack: {
-      iconName = props.focused ? 'home' : 'home-outline';
-      break;
-    }
-  }
+  const icons = iconMap[routeName];
 
-  return <Icon color={props.color} name={iconName} size={props.size} />;
+  return focused ? icons.focused : icons.unfocused;
 }
 
 export function BottomTabStack() {
@@ -66,40 +39,11 @@ export function BottomTabStack() {
     <BottomTab.Navigator
       initialRouteName={BottomTabStackScreenNames.HomeStack}
       screenOptions={({ route }) => ({
-        headerShown: false,
-        // eslint-disable-next-line react/no-unstable-nested-components
-        tabBarIcon: ({ focused, color }) => (
-          <BottomTabContent
-            color={color}
-            focused={focused}
-            route={route}
-            size={24}
-          />
-        ),
-        tabBarHideOnKeyboard: true,
-        // eslint-disable-next-line react/no-unstable-nested-components
-        tabBarLabel: ({ focused, color, children }) => (
-          <Text
-            style={[
-              // eslint-disable-next-line react-native/no-inline-styles
-              {
-                fontFamily: focused ? 'Roboto-Bold' : 'Roboto-Regular',
-                color,
-              },
-              styles.labelText,
-            ]}>
-            {children}
-          </Text>
-        ),
-        tabBarStyle: {
-          backgroundColor: '#3A3A3C',
-          minHeight: 66,
-        },
-        tabBarItemStyle: {
-          height: 50,
-        },
-        tabBarInactiveTintColor: 'white',
         tabBarActiveTintColor: '#FF6932',
+        // Native icon configuration using SF Symbols
+        tabBarIcon: ({ focused }) => ({
+          sfSymbol: getTabIcon(route.name, focused),
+        }),
       })}>
       <BottomTab.Group>
         <BottomTab.Screen
@@ -139,7 +83,6 @@ export function BottomTabStack() {
           component={MyListStack}
           name={BottomTabStackScreenNames.MyListStack}
           options={{
-            headerShown: true,
             ...defaultHeaderOptions({
               title: translate(
                 'routes.' + BottomTabStackScreenNames.MyListStack,
@@ -162,13 +105,3 @@ export function BottomTabStack() {
     </BottomTab.Navigator>
   );
 }
-
-const styles = StyleSheet.create({
-  center: { alignSelf: 'center' },
-  itemMargin: {
-    marginLeft: 10,
-  },
-  labelText: {
-    fontSize: 12,
-  },
-});

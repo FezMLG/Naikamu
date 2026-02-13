@@ -1,4 +1,4 @@
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { NativeNativeBottomTabScreenProps } from '@bottom-tabs/react-navigation';
 import { NavigatorScreenParams } from '@react-navigation/native';
 
 import { BrowseStackParameterList as BrowseStackParameterList } from './browse';
@@ -23,15 +23,15 @@ export type BottomTabStackParameterList = {
   [BottomTabStackScreenNames.HomeStack]: NavigatorScreenParams<HomeStackParameterList>;
 };
 
-export type BottomTabStackBrowseStackScreenProps = BottomTabScreenProps<
+export type BottomTabStackBrowseStackScreenProps = NativeBottomTabScreenProps<
   BottomTabStackParameterList,
   BottomTabStackScreenNames.BrowseStack
 >;
-export type BottomTabStackSettingsStackScreenProps = BottomTabScreenProps<
+export type BottomTabStackSettingsStackScreenProps = NativeBottomTabScreenProps<
   BottomTabStackParameterList,
   BottomTabStackScreenNames.SettingsStack
 >;
-export type BottomTabStackMyListStackScreenProps = BottomTabScreenProps<
+export type BottomTabStackMyListStackScreenProps = NativeBottomTabScreenProps<
   BottomTabStackParameterList,
   BottomTabStackScreenNames.MyListStack
 >;

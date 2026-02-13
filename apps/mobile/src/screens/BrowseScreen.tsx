@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { IAnimeListItem } from '@naikamu/shared';
-import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, View } from 'react-native';
+import { useBottomTabBarHeight } from 'react-native-bottom-tabs';
 import Animated from 'react-native-reanimated';
 
 import { useQuerySeriesList } from '../api/hooks';
@@ -18,8 +18,8 @@ import {
   RootStackScreenNames,
   SeriesStackScreenNames,
 } from '../routes';
-import { colors } from '../styles';
 import { useLayoutMessageService } from '../services/layout-info';
+import { colors } from '../styles';
 
 const headerHeight = 120;
 
