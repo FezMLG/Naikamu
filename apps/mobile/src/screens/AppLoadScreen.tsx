@@ -25,7 +25,7 @@ export function AppLoadScreen() {
   }, []);
 
   return (
-    <PageLayout.Default style={[styles.container]}>
+    <PageLayout.SafeView style={[styles.container]}>
       <EnvironmentDebug
         style={[
           {
@@ -66,7 +66,7 @@ export function AppLoadScreen() {
           api_url: {Config.API_URL}
         </Text>
       )}
-    </PageLayout.Default>
+    </PageLayout.SafeView>
   );
 }
 

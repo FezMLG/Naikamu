@@ -72,7 +72,7 @@ export function LoginScreen({ navigation }: AuthStackLoginScreenProps) {
   };
 
   return (
-    <PageLayout.Default>
+    <PageLayout.SafeView>
       <View style={[styles.formInputs, globalStyle.spacerBig]}>
         <Controller
           control={control}
@@ -141,7 +141,7 @@ export function LoginScreen({ navigation }: AuthStackLoginScreenProps) {
           type="link"
         />
       </View>
-    </PageLayout.Default>
+    </PageLayout.SafeView>
   );
 }
 

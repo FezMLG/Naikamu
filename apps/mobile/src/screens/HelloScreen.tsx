@@ -25,7 +25,7 @@ export function HelloScreen({ navigation }: AuthStackHelloScreenProps) {
   }, [navigation]);
 
   return (
-    <PageLayout.Default style={[styles.container]}>
+    <PageLayout.SafeView style={[styles.container]}>
       <View
         style={{
           justifyContent: 'center',
@@ -55,7 +55,7 @@ export function HelloScreen({ navigation }: AuthStackHelloScreenProps) {
         />
         {Config.ENV !== 'production' && <Text>api_url: {Config.API_URL}</Text>}
       </View>
-    </PageLayout.Default>
+    </PageLayout.SafeView>
   );
 }
 

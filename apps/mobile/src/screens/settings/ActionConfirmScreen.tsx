@@ -97,7 +97,7 @@ export function SettingsActionConfirmScreen({
   };
 
   return (
-    <PageLayout.Default>
+    <PageLayout.SafeView>
       <FormTextInput
         control={control}
         errors={errors}
@@ -112,7 +112,7 @@ export function SettingsActionConfirmScreen({
         style={[globalStyle.marginTopBig]}
         type="primary"
       />
-    </PageLayout.Default>
+    </PageLayout.SafeView>
   );
 }
 

@@ -18,7 +18,7 @@ export function HelpSettingsScreen({}: SettingsStackHelpSettingsScreenProps) {
   const user = useUserStore(state => state.user);
 
   return (
-    <PageLayout.Default>
+    <PageLayout.SafeView>
       <View style={globalStyle.marginTop}>
         <SectionButton
           external
@@ -135,6 +135,6 @@ export function HelpSettingsScreen({}: SettingsStackHelpSettingsScreenProps) {
           />
         </View>
       </View>
-    </PageLayout.Default>
+    </PageLayout.SafeView>
   );
 }

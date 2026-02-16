@@ -45,7 +45,7 @@ export function ExternalServicesSettingsScreen({}: SettingsStackExternalServices
   const { translate } = useTranslate();
 
   return (
-    <PageLayout.Default>
+    <PageLayout.SafeView>
       <ScrollView>
         <ShindenSettings user={user} />
         <ImportButton historyRefetch={watchListImportRefetch} user={user} />
@@ -69,7 +69,7 @@ export function ExternalServicesSettingsScreen({}: SettingsStackExternalServices
           )}
         </View>
       </ScrollView>
-    </PageLayout.Default>
+    </PageLayout.SafeView>
   );
 }
 

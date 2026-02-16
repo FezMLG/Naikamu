@@ -77,7 +77,7 @@ export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
           ))}
         </ScrollView>
       )}>
-      <PageLayout.Default margin={false}>
+      <PageLayout.SafeView margin={false}>
         <PageLayout.Loading isLoading={isLoading} />
         <PageLayout.Error isError={isError} refetch={refetch} />
         {episodes ? (
@@ -139,7 +139,7 @@ export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
             />
           </>
         ) : null}
-      </PageLayout.Default>
+      </PageLayout.SafeView>
     </Drawer>
   );
 }

@@ -47,7 +47,7 @@ export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
   );
 
   return (
-    <PageLayout.Default
+    <PageLayout.SafeView
       margin={false}
       style={[
         {
@@ -101,7 +101,7 @@ export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
           )}
         </>
       ) : null}
-    </PageLayout.Default>
+    </PageLayout.SafeView>
   );
 };
 

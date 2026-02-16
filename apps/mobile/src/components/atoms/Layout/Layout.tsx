@@ -1,13 +1,7 @@
 import React from 'react';
 
-import {
-  Linking,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-  ViewStyle,
-} from 'react-native';
+import { Linking, StyleSheet, Text, View, ViewStyle } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useTranslate } from '../../../i18n/useTranslate';
@@ -86,7 +80,7 @@ const Error = ({
   );
 };
 
-function Default({
+function SafeView({
   children,
   style = [],
   margin = true,
@@ -123,7 +117,7 @@ const styles = StyleSheet.create({
 });
 
 export const PageLayout = {
-  Default,
+  SafeView,
   Loading,
   Error,
 };

@@ -49,7 +49,7 @@ export function BrowseScreen({}: BrowseStackBrowseScreenProps) {
   );
 
   return (
-    <PageLayout.Default
+    <PageLayout.SafeView
       style={[
         styles.container,
         {
@@ -85,7 +85,7 @@ export function BrowseScreen({}: BrowseStackBrowseScreenProps) {
           scrollEventThrottle={16}
         />
       ) : null}
-    </PageLayout.Default>
+    </PageLayout.SafeView>
   );
 }
 
