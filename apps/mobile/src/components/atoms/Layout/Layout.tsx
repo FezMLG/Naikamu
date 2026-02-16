@@ -80,6 +80,36 @@ const Error = ({
   );
 };
 
+function Container({
+  children,
+  style = [],
+  margin = true,
+}: {
+  children: React.ReactNode;
+  style?: ViewStyle[];
+  margin?: boolean;
+}) {
+  const layoutService = useLayoutMessageService();
+  const layoutStore = useLayoutMessageStore(state => state);
+
+  return (
+    <View
+      style={[
+        styles.container,
+        margin ? { marginHorizontal: 16 } : { margin: 0 },
+        ...style,
+      ]}>
+      {children}
+      <Snackbar
+        actionLabel="Ok"
+        setVisible={layoutService.setIsMessageVisible}
+        text={layoutStore.message}
+        visible={layoutStore.isVisible}
+      />
+    </View>
+  );
+}
+
 function SafeView({
   children,
   style = [],
@@ -117,6 +147,7 @@ const styles = StyleSheet.create({
 });
 
 export const PageLayout = {
+  Container,
   SafeView,
   Loading,
   Error,

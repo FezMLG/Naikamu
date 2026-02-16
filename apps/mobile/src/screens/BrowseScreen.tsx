@@ -49,7 +49,7 @@ export function BrowseScreen({}: BrowseStackBrowseScreenProps) {
   );
 
   return (
-    <PageLayout.SafeView
+    <PageLayout.Container
       style={[
         styles.container,
         {
@@ -70,7 +70,7 @@ export function BrowseScreen({}: BrowseStackBrowseScreenProps) {
       {api.data ? (
         <Animated.FlatList
           ListFooterComponent={<View />}
-          ListFooterComponentStyle={{ height: tabHeight * 2, width: '100%' }}
+          ListFooterComponentStyle={{ height: tabHeight, width: '100%' }}
           contentContainerStyle={[styles.flatListContent]}
           contentInsetAdjustmentBehavior="automatic"
           data={api.data.pages.flatMap(page => page.data)}
@@ -85,7 +85,7 @@ export function BrowseScreen({}: BrowseStackBrowseScreenProps) {
           scrollEventThrottle={16}
         />
       ) : null}
-    </PageLayout.SafeView>
+    </PageLayout.Container>
   );
 }
 
