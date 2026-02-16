@@ -17,18 +17,32 @@ import { useActiveSeriesStore } from '../../services';
 import { colors, DarkColor, darkStyle, globalStyle } from '../../styles';
 
 export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
-  useQuerySeriesDetails(route.params.seriesId);
+  // Capture loading state from series details query
+  const { isLoading: isLoadingDetails } = useQuerySeriesDetails(
+    route.params.seriesId,
+  );
   const series = useActiveSeriesStore(store => store.series);
   const [open, setOpen] = useState(false);
 
   const flatListRef = useRef<FlatList>(null);
   const { translate } = useTranslate();
+
+  // Check if series data is ready and matches the requested seriesId
+  const isSeriesDataReady =
+    series.id === route.params.seriesId && series.numOfAiredEpisodes > 0;
+
   const {
     data: episodes,
     isError,
     isLoading,
     refetch,
-  } = useQuerySeriesEpisodes(route.params.seriesId, series.numOfAiredEpisodes);
+  } = useQuerySeriesEpisodes(
+    route.params.seriesId,
+    series.numOfAiredEpisodes,
+    isSeriesDataReady,
+  );
+
+  const isCombinedLoading = isLoadingDetails || isLoading;
 
   useEffect(() => {
     if (episodes) {
@@ -78,7 +92,7 @@ export function EpisodesListScreen({ route }: SeriesStackEpisodeScreenProps) {
         </ScrollView>
       )}>
       <PageLayout.SafeView margin={false}>
-        <PageLayout.Loading isLoading={isLoading} />
+        <PageLayout.Loading isLoading={isCombinedLoading} />
         <PageLayout.Error isError={isError} refetch={refetch} />
         {episodes ? (
           <>
