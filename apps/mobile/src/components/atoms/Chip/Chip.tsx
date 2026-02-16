@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Pressable, PressableProps, StyleSheet, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -11,11 +11,20 @@ interface ChipProps extends Omit<PressableProps, 'style'> {
 }
 
 export const Chip = (props: ChipProps) => {
-  const { label, onPress, initialState, ...pressableProps } = props;
+  const { label, onPress, initialState, disabled, ...pressableProps } = props;
   const [isSelected, setIsSelected] = useState<boolean>(initialState ?? false);
+
+  useEffect(() => {
+    setIsSelected(initialState ?? false);
+  }, [initialState]);
 
   return (
     <Pressable
+      accessibilityHint={`${isSelected ? 'Remove' : 'Add'} ${label} filter`}
+      accessibilityLabel={`${label} filter`}
+      accessibilityRole="checkbox"
+      accessibilityState={{ checked: isSelected, disabled: disabled === true }}
+      disabled={disabled}
       onPress={event => {
         setIsSelected(previousState => !previousState);
         if (onPress) {
@@ -28,6 +37,7 @@ export const Chip = (props: ChipProps) => {
           backgroundColor: isSelected ? colors.accent.color : 'transparent',
           paddingLeft: isSelected ? 10 : 15,
           borderColor: isSelected ? 'transparent' : colors.onBackground.color,
+          opacity: disabled ? 0.5 : 1,
         },
       ]}
       {...pressableProps}>

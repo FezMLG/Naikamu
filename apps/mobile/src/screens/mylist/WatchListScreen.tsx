@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, Text, View } from 'react-native';
 import { useBottomTabBarHeight } from 'react-native-bottom-tabs';
 import Animated from 'react-native-reanimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useInfiniteQueryUserWatchList } from '../../api/hooks';
@@ -14,6 +15,7 @@ import {
   WatchListElement,
   WatchListFilters,
 } from '../../components/watch-list';
+import { FILTER_HEADER_CONFIG } from '../../constants';
 import { useTranslate } from '../../i18n/useTranslate';
 import {
   MyListStackWatchListScreenProps,
@@ -22,14 +24,14 @@ import {
 } from '../../routes';
 import { colors, fontStyles } from '../../styles';
 
-const headerHeight = 100;
-
 export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
   const navigation = useNavigation<any>();
   const { api } = useInfiniteQueryUserWatchList();
   const { translate } = useTranslate();
   const tabHeight = useBottomTabBarHeight();
+  const { top } = useSafeAreaInsets();
 
+  const headerHeight = FILTER_HEADER_CONFIG.DEFAULT_HEIGHT + top;
   const { scrollHandler, animatedHeight, animatedTransform } =
     useAnimatedHeader(headerHeight);
 
@@ -59,6 +61,7 @@ export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
       <WatchListFilters
         animatedHeight={animatedHeight}
         animatedTransform={animatedTransform}
+        isLoading={api.isLoading}
       />
       <PageLayout.Loading isLoading={api.isLoading} />
       <PageLayout.Error isError={api.isError} refetch={api.refetch} />

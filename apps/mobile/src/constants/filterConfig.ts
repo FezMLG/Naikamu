@@ -1,0 +1,8 @@
+export const FILTER_HEADER_CONFIG = {
+  DEFAULT_HEIGHT: 100,
+  Z_INDEX: 10,
+  ANIMATION: {
+    TRANSFORM_DURATION: 300,
+    HEIGHT_DURATION: 150,
+  },
+} as const;

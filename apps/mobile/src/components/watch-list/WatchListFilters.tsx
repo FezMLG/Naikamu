@@ -2,6 +2,7 @@ import React from 'react';
 
 import Animated from 'react-native-reanimated';
 
+import { FILTER_HEADER_CONFIG } from '../../constants';
 import { useTranslate } from '../../i18n/useTranslate';
 import { userVisibleWatchStatuses, useWatchListStore } from '../../services';
 import { colors } from '../../styles';
@@ -10,6 +11,7 @@ import { Chip } from '../atoms';
 export const WatchListFilters = ({
   animatedTransform,
   animatedHeight,
+  isLoading = false,
 }: {
   animatedTransform: {
     transform: { translateY: number }[];
@@ -17,6 +19,7 @@ export const WatchListFilters = ({
   animatedHeight: {
     height: number;
   };
+  isLoading?: boolean;
 }) => {
   const { translate } = useTranslate();
   const filtersActions = useWatchListStore(state => state.actions);
@@ -37,12 +40,13 @@ export const WatchListFilters = ({
             top: 0,
             left: 0,
             elevation: 4,
-            zIndex: 1,
+            zIndex: FILTER_HEADER_CONFIG.Z_INDEX,
           },
           animatedTransform,
         ]}>
         {userVisibleWatchStatuses.map((element, index) => (
           <Chip
+            disabled={isLoading}
             initialState={element.isDefaultActive}
             key={index}
             label={translate(`watch_list.${element.key}`)}

@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, View } from 'react-native';
 import { useBottomTabBarHeight } from 'react-native-bottom-tabs';
 import Animated from 'react-native-reanimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useQuerySeriesList } from '../api/hooks';
 import {
@@ -13,6 +14,7 @@ import {
   PageLayout,
 } from '../components';
 import { useAnimatedHeader } from '../components/atoms/Animated';
+import { FILTER_HEADER_CONFIG } from '../constants';
 import {
   BrowseStackBrowseScreenProps,
   RootStackScreenNames,
@@ -21,15 +23,15 @@ import {
 import { useLayoutMessageService } from '../services/layout-info';
 import { colors } from '../styles';
 
-const headerHeight = 120;
-
 export function BrowseScreen({}: BrowseStackBrowseScreenProps) {
   const { setAndShowMessage } = useLayoutMessageService();
   const navigation = useNavigation<any>();
   const { api, currentSeason, season, year, setSeason, setYear } =
     useQuerySeriesList();
   const tabHeight = useBottomTabBarHeight();
+  const { top } = useSafeAreaInsets();
 
+  const headerHeight = FILTER_HEADER_CONFIG.DEFAULT_HEIGHT + top;
   const { scrollHandler, animatedTransform, animatedHeight } =
     useAnimatedHeader(headerHeight);
 
