@@ -18,13 +18,28 @@ import { SettingsStack } from './settings';
 const BottomTab = createNativeBottomTabNavigator<BottomTabStackParameterList>();
 
 // Icon mapping for native tabs using SF Symbols
-function getTabIcon(routeName: keyof BottomTabStackParameterList, focused: boolean) {
+function getTabIcon(
+  routeName: keyof BottomTabStackParameterList,
+  focused: boolean,
+) {
   const iconMap = {
     HomeStack: { focused: 'house.fill' as const, unfocused: 'house' as const },
-    BrowseStack: { focused: 'safari.fill' as const, unfocused: 'safari' as const },
-    SearchStack: { focused: 'magnifyingglass.circle.fill' as const, unfocused: 'magnifyingglass' as const },
-    MyListStack: { focused: 'bookmark.fill' as const, unfocused: 'bookmark' as const },
-    SettingsStack: { focused: 'gearshape.fill' as const, unfocused: 'gearshape' as const },
+    BrowseStack: {
+      focused: 'safari.fill' as const,
+      unfocused: 'safari' as const,
+    },
+    SearchStack: {
+      focused: 'magnifyingglass.circle.fill' as const,
+      unfocused: 'magnifyingglass' as const,
+    },
+    MyListStack: {
+      focused: 'bookmark.fill' as const,
+      unfocused: 'bookmark' as const,
+    },
+    SettingsStack: {
+      focused: 'gearshape.fill' as const,
+      unfocused: 'gearshape' as const,
+    },
   };
 
   const icons = iconMap[routeName];

@@ -3,6 +3,7 @@ import React from 'react';
 import { IWatchListSeries } from '@naikamu/shared';
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, Text, View } from 'react-native';
+import { useBottomTabBarHeight } from 'react-native-bottom-tabs';
 import Animated from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -27,6 +28,7 @@ export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
   const navigation = useNavigation<any>();
   const { api } = useInfiniteQueryUserWatchList();
   const { translate } = useTranslate();
+  const tabHeight = useBottomTabBarHeight();
 
   const { scrollHandler, animatedHeight, animatedTransform } =
     useAnimatedHeader(headerHeight);
@@ -47,11 +49,11 @@ export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
   );
 
   return (
-    <PageLayout.SafeView
+    <PageLayout.Container
       margin={false}
       style={[
         {
-          flex: 0,
+          flex: api.data ? 0 : 1,
         },
       ]}>
       <WatchListFilters
@@ -64,6 +66,11 @@ export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
         <>
           {api.data.pages[0].pageInfo.total > 0 ? (
             <Animated.FlatList
+              ListFooterComponent={<View />}
+              ListFooterComponentStyle={{
+                height: tabHeight,
+                width: '100%',
+              }}
               contentContainerStyle={[styles.flatListContent]}
               contentInsetAdjustmentBehavior="automatic"
               data={api.data.pages.flatMap(page => page.data)}
@@ -101,7 +108,7 @@ export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
           )}
         </>
       ) : null}
-    </PageLayout.SafeView>
+    </PageLayout.Container>
   );
 };
 
