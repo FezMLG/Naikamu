@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { createNativeBottomTabNavigator } from '@bottom-tabs/react-navigation';
+import { Platform, ImageSourcePropType } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useTranslate } from '../../i18n/useTranslate';
 
@@ -17,8 +19,8 @@ import { SettingsStack } from './settings';
 
 const BottomTab = createNativeBottomTabNavigator<BottomTabStackParameterList>();
 
-// Icon mapping for native tabs using SF Symbols
-function getTabIcon(
+// Icon mapping for SF Symbols (iOS)
+function getSFSymbol(
   routeName: keyof BottomTabStackParameterList,
   focused: boolean,
 ) {
@@ -43,22 +45,91 @@ function getTabIcon(
   };
 
   const icons = iconMap[routeName];
-
   return focused ? icons.focused : icons.unfocused;
+}
+
+// Icon mapping for MaterialCommunityIcons (Android)
+function getMaterialIconName(routeName: keyof BottomTabStackParameterList) {
+  const iconMap = {
+    HomeStack: 'home',
+    BrowseStack: 'compass',
+    SearchStack: 'magnify',
+    MyListStack: 'bookmark',
+    SettingsStack: 'cog',
+  };
+
+  return iconMap[routeName];
+}
+
+// Preloaded Android icons
+let androidIcons: Record<string, ImageSourcePropType> | null = null;
+
+async function loadAndroidIcons() {
+  const [home, compass, magnify, bookmark, cog] = await Promise.all([
+    Icon.getImageSource('home', 24, '#FFFFFF'),
+    Icon.getImageSource('compass', 24, '#FFFFFF'),
+    Icon.getImageSource('magnify', 24, '#FFFFFF'),
+    Icon.getImageSource('bookmark', 24, '#FFFFFF'),
+    Icon.getImageSource('cog', 24, '#FFFFFF'),
+  ]);
+
+  androidIcons = {
+    home,
+    compass,
+    magnify,
+    bookmark,
+    cog,
+  };
+}
+
+// Preload icons on Android
+if (Platform.OS === 'android') {
+  loadAndroidIcons();
 }
 
 export function BottomTabStack() {
   const { translate } = useTranslate();
+  const [iconsLoaded, setIconsLoaded] = useState(Platform.OS === 'ios');
+
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      // Ensure icons are loaded
+      if (androidIcons) {
+        setIconsLoaded(true);
+      } else {
+        loadAndroidIcons().then(() => setIconsLoaded(true));
+      }
+    }
+  }, []);
+
+  // Don't render tabs until Android icons are loaded
+  if (!iconsLoaded) {
+    return null;
+  }
 
   return (
     <BottomTab.Navigator
       initialRouteName={BottomTabStackScreenNames.HomeStack}
       screenOptions={({ route }) => ({
         tabBarActiveTintColor: '#FF6932',
-        // Native icon configuration using SF Symbols
-        tabBarIcon: ({ focused }) => ({
-          sfSymbol: getTabIcon(route.name, focused),
-        }),
+        tabBarInactiveTintColor: '#F2F2F2',
+        tabBarStyle: {
+          backgroundColor: '#2C2C2E',
+        },
+        // Platform-specific icon configuration
+        tabBarIcon: ({ focused }) => {
+          if (Platform.OS === 'ios') {
+            // Use SF Symbols on iOS
+            return {
+              sfSymbol: getSFSymbol(route.name, focused),
+            };
+          } else {
+            // Use MaterialCommunityIcons on Android
+            const iconName = getMaterialIconName(route.name);
+
+            return androidIcons?.[iconName] || { uri: '' };
+          }
+        },
       })}>
       <BottomTab.Group>
         <BottomTab.Screen
