@@ -12,11 +12,11 @@ import { HomeStackHomeScreenProps } from '../routes';
 
 export function HomeScreen({}: HomeStackHomeScreenProps) {
   return (
-    <PageLayout.Default style={[styles.container]}>
+    <PageLayout.SafeView style={[styles.container]}>
       <HomeUpdateAlert />
       <ContinueWatchingSection />
       <MostPopularSection />
-    </PageLayout.Default>
+    </PageLayout.SafeView>
   );
 }
 

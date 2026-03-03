@@ -6,6 +6,7 @@ import { apiClient } from '../../APIClient';
 export const useQuerySeriesEpisodes = (
   id: string,
   numberOfAiredEpisodes: number,
+  enabled: boolean = true,
 ) => {
   const store = useActiveSeriesStore(state => state.actions);
 
@@ -18,6 +19,7 @@ export const useQuerySeriesEpisodes = (
 
       return results;
     },
+    enabled,
   });
 
   return {

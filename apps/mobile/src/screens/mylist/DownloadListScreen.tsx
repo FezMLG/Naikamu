@@ -54,7 +54,7 @@ export function DownloadListScreen() {
   }, []);
 
   return (
-    <PageLayout.Default>
+    <PageLayout.SafeView>
       <ScrollView>
         {offlineSeries.length > 0 ? (
           offlineSeries.map(series => (
@@ -92,7 +92,7 @@ export function DownloadListScreen() {
           ),
         )}
       </ScrollView>
-    </PageLayout.Default>
+    </PageLayout.SafeView>
   );
 }
 

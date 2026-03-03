@@ -96,7 +96,7 @@ export function AppSettingsScreen({}: SettingsStackPlaybackSettingsScreenProps) 
   };
 
   return (
-    <PageLayout.Default>
+    <PageLayout.SafeView>
       <QualityModal
         handleChange={handlePlaybackQualityChange}
         isOpen={isOpenP}
@@ -213,7 +213,7 @@ export function AppSettingsScreen({}: SettingsStackPlaybackSettingsScreenProps) 
           )}
         </View>
       </ScrollView>
-    </PageLayout.Default>
+    </PageLayout.SafeView>
   );
 }
 

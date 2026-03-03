@@ -12,6 +12,7 @@ import {
 import Animated from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import { FILTER_HEADER_CONFIG } from '../../constants';
 import { useTranslate } from '../../i18n/useTranslate';
 import { colors } from '../../styles';
 import { AnimeSeasons, IAnimeSeasons } from '../../utils';
@@ -58,7 +59,7 @@ export function SeasonYearSelectButtons({
             top: 0,
             left: 0,
             elevation: 4,
-            zIndex: 10,
+            zIndex: FILTER_HEADER_CONFIG.Z_INDEX,
           },
         ]}>
         <Pressable onPress={showDialog} style={styles.buttonContainer}>

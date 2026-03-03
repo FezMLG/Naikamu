@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { RouteProp } from '@react-navigation/native';
-import { StyleSheet, Text } from 'react-native';
+import { createNativeBottomTabNavigator } from '@bottom-tabs/react-navigation';
+import { Platform, ImageSourcePropType } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useTranslate } from '../../i18n/useTranslate';
@@ -18,88 +17,119 @@ import { MyListStack } from './mylist';
 import { SearchStack } from './search';
 import { SettingsStack } from './settings';
 
-const BottomTab = createBottomTabNavigator<BottomTabStackParameterList>();
+const BottomTab = createNativeBottomTabNavigator<BottomTabStackParameterList>();
 
-function BottomTabContent(props: {
-  focused: boolean;
-  color: string;
-  size: number;
-  route: RouteProp<
-    BottomTabStackParameterList,
-    keyof BottomTabStackParameterList
-  >;
-}) {
-  let iconName = '';
+// Icon mapping for SF Symbols (iOS)
+function getSFSymbol(
+  routeName: keyof BottomTabStackParameterList,
+  focused: boolean,
+) {
+  const iconMap = {
+    HomeStack: { focused: 'house.fill' as const, unfocused: 'house' as const },
+    BrowseStack: {
+      focused: 'safari.fill' as const,
+      unfocused: 'safari' as const,
+    },
+    SearchStack: {
+      focused: 'magnifyingglass.circle.fill' as const,
+      unfocused: 'magnifyingglass' as const,
+    },
+    MyListStack: {
+      focused: 'bookmark.fill' as const,
+      unfocused: 'bookmark' as const,
+    },
+    SettingsStack: {
+      focused: 'gearshape.fill' as const,
+      unfocused: 'gearshape' as const,
+    },
+  };
 
-  switch (props.route.name) {
-    case BottomTabStackScreenNames.BrowseStack: {
-      iconName = props.focused ? 'compass' : 'compass-outline';
-      break;
-    }
-    case BottomTabStackScreenNames.SettingsStack: {
-      iconName = props.focused ? 'cog' : 'cog-outline';
-      break;
-    }
-    case BottomTabStackScreenNames.SearchStack: {
-      iconName = props.focused ? 'movie-search' : 'movie-search-outline';
-      break;
-    }
-    case BottomTabStackScreenNames.MyListStack: {
-      iconName = props.focused
-        ? 'bookmark-box-multiple'
-        : 'bookmark-box-multiple-outline';
-      break;
-    }
-    case BottomTabStackScreenNames.HomeStack: {
-      iconName = props.focused ? 'home' : 'home-outline';
-      break;
-    }
-  }
+  const icons = iconMap[routeName];
+  return focused ? icons.focused : icons.unfocused;
+}
 
-  return <Icon color={props.color} name={iconName} size={props.size} />;
+// Icon mapping for MaterialCommunityIcons (Android)
+function getMaterialIconName(routeName: keyof BottomTabStackParameterList) {
+  const iconMap = {
+    HomeStack: 'home',
+    BrowseStack: 'compass',
+    SearchStack: 'magnify',
+    MyListStack: 'bookmark',
+    SettingsStack: 'cog',
+  };
+
+  return iconMap[routeName];
+}
+
+// Preloaded Android icons
+let androidIcons: Record<string, ImageSourcePropType> | null = null;
+
+async function loadAndroidIcons() {
+  const [home, compass, magnify, bookmark, cog] = await Promise.all([
+    Icon.getImageSource('home', 24, '#FFFFFF'),
+    Icon.getImageSource('compass', 24, '#FFFFFF'),
+    Icon.getImageSource('magnify', 24, '#FFFFFF'),
+    Icon.getImageSource('bookmark', 24, '#FFFFFF'),
+    Icon.getImageSource('cog', 24, '#FFFFFF'),
+  ]);
+
+  androidIcons = {
+    home,
+    compass,
+    magnify,
+    bookmark,
+    cog,
+  };
+}
+
+// Preload icons on Android
+if (Platform.OS === 'android') {
+  loadAndroidIcons();
 }
 
 export function BottomTabStack() {
   const { translate } = useTranslate();
+  const [iconsLoaded, setIconsLoaded] = useState(Platform.OS === 'ios');
+
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      // Ensure icons are loaded
+      if (androidIcons) {
+        setIconsLoaded(true);
+      } else {
+        loadAndroidIcons().then(() => setIconsLoaded(true));
+      }
+    }
+  }, []);
+
+  // Don't render tabs until Android icons are loaded
+  if (!iconsLoaded) {
+    return null;
+  }
 
   return (
     <BottomTab.Navigator
       initialRouteName={BottomTabStackScreenNames.HomeStack}
       screenOptions={({ route }) => ({
-        headerShown: false,
-        // eslint-disable-next-line react/no-unstable-nested-components
-        tabBarIcon: ({ focused, color }) => (
-          <BottomTabContent
-            color={color}
-            focused={focused}
-            route={route}
-            size={24}
-          />
-        ),
-        tabBarHideOnKeyboard: true,
-        // eslint-disable-next-line react/no-unstable-nested-components
-        tabBarLabel: ({ focused, color, children }) => (
-          <Text
-            style={[
-              // eslint-disable-next-line react-native/no-inline-styles
-              {
-                fontFamily: focused ? 'Roboto-Bold' : 'Roboto-Regular',
-                color,
-              },
-              styles.labelText,
-            ]}>
-            {children}
-          </Text>
-        ),
-        tabBarStyle: {
-          backgroundColor: '#3A3A3C',
-          minHeight: 66,
-        },
-        tabBarItemStyle: {
-          height: 50,
-        },
-        tabBarInactiveTintColor: 'white',
         tabBarActiveTintColor: '#FF6932',
+        tabBarInactiveTintColor: '#F2F2F2',
+        tabBarStyle: {
+          backgroundColor: '#2C2C2E',
+        },
+        // Platform-specific icon configuration
+        tabBarIcon: ({ focused }) => {
+          if (Platform.OS === 'ios') {
+            // Use SF Symbols on iOS
+            return {
+              sfSymbol: getSFSymbol(route.name, focused),
+            };
+          } else {
+            // Use MaterialCommunityIcons on Android
+            const iconName = getMaterialIconName(route.name);
+
+            return androidIcons?.[iconName] || { uri: '' };
+          }
+        },
       })}>
       <BottomTab.Group>
         <BottomTab.Screen
@@ -139,7 +169,6 @@ export function BottomTabStack() {
           component={MyListStack}
           name={BottomTabStackScreenNames.MyListStack}
           options={{
-            headerShown: true,
             ...defaultHeaderOptions({
               title: translate(
                 'routes.' + BottomTabStackScreenNames.MyListStack,
@@ -162,13 +191,3 @@ export function BottomTabStack() {
     </BottomTab.Navigator>
   );
 }
-
-const styles = StyleSheet.create({
-  center: { alignSelf: 'center' },
-  itemMargin: {
-    marginLeft: 10,
-  },
-  labelText: {
-    fontSize: 12,
-  },
-});

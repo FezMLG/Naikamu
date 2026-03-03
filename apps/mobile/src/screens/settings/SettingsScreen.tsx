@@ -25,7 +25,7 @@ export function SettingsScreen({
   const { translate } = useTranslate();
 
   return (
-    <PageLayout.Default style={[styles.container]}>
+    <PageLayout.SafeView style={[styles.container]}>
       <ScrollView>
         <View>
           {user?.picture ? (
@@ -84,7 +84,7 @@ export function SettingsScreen({
           <CheckForUpdates />
         </View>
       </ScrollView>
-    </PageLayout.Default>
+    </PageLayout.SafeView>
   );
 }
 

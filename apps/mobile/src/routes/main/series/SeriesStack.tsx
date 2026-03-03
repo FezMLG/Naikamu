@@ -11,6 +11,7 @@ import {
   SeriesStackParameterList as SeriesStackParameterList,
   SeriesStackScreenNames,
 } from './series.interfaces';
+import { View, Platform } from 'react-native';
 
 const StackAuthorized = createNativeStackNavigator<SeriesStackParameterList>();
 
@@ -22,9 +23,22 @@ export function SeriesStack() {
       <StackAuthorized.Screen
         component={SeriesScreen}
         name={SeriesStackScreenNames.Series}
-        options={() => ({
-          ...defaultSubHeaderOptions({}),
-          headerShown: false,
+        options={({ navigation }) => ({
+          ...defaultSubHeaderOptions({
+            title: '',
+          }),
+          headerTransparent: true,
+          headerShadowVisible: false,
+          headerLeft: () => (
+            <Icon
+              color="white"
+              name="chevron-left"
+              onPress={() => {
+                navigation.goBack();
+              }}
+              size={30}
+            />
+          ),
         })}
       />
       <StackAuthorized.Screen

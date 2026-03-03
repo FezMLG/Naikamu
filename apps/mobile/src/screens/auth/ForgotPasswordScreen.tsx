@@ -46,7 +46,7 @@ export function ForgotPasswordScreen({}: AuthStackForgotPasswordScreenProps) {
   }, [emailSent]);
 
   return (
-    <PageLayout.Default>
+    <PageLayout.SafeView>
       <View style={[styles.formInputs, globalStyle.spacerBig]}>
         <Controller
           control={control}
@@ -94,7 +94,7 @@ export function ForgotPasswordScreen({}: AuthStackForgotPasswordScreenProps) {
           </Text>
         )}
       </View>
-    </PageLayout.Default>
+    </PageLayout.SafeView>
   );
 }
 

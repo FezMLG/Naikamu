@@ -79,7 +79,7 @@ export function SignUpScreen({ navigation }: AuthStackSignUpScreenProps) {
   };
 
   return (
-    <PageLayout.Default>
+    <PageLayout.SafeView>
       <View style={[styles.formInputs, globalStyle.spacerBig]}>
         <Controller
           control={control}
@@ -171,7 +171,7 @@ export function SignUpScreen({ navigation }: AuthStackSignUpScreenProps) {
           type="primary"
         />
       </View>
-    </PageLayout.Default>
+    </PageLayout.SafeView>
   );
 }
 

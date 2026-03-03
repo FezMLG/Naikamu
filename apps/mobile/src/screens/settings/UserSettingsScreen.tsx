@@ -26,7 +26,7 @@ export function UserSettingsScreen({
   const userService = useUserService();
 
   return (
-    <PageLayout.Default style={[styles.container]}>
+    <PageLayout.SafeView style={[styles.container]}>
       <SettingsGroup title={translate('settings.groups.accountDetails')}>
         <SettingInputs.Edit
           isFirst={true}
@@ -80,7 +80,7 @@ export function UserSettingsScreen({
           type="warning"
         />
       </SettingsGroup>
-    </PageLayout.Default>
+    </PageLayout.SafeView>
   );
 }
 

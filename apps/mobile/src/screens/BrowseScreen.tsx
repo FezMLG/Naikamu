@@ -1,10 +1,11 @@
 import React from 'react';
 
 import { IAnimeListItem } from '@naikamu/shared';
-import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, View } from 'react-native';
+import { useBottomTabBarHeight } from 'react-native-bottom-tabs';
 import Animated from 'react-native-reanimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useQuerySeriesList } from '../api/hooks';
 import {
@@ -13,15 +14,14 @@ import {
   PageLayout,
 } from '../components';
 import { useAnimatedHeader } from '../components/atoms/Animated';
+import { FILTER_HEADER_CONFIG } from '../constants';
 import {
   BrowseStackBrowseScreenProps,
   RootStackScreenNames,
   SeriesStackScreenNames,
 } from '../routes';
-import { colors } from '../styles';
 import { useLayoutMessageService } from '../services/layout-info';
-
-const headerHeight = 120;
+import { colors } from '../styles';
 
 export function BrowseScreen({}: BrowseStackBrowseScreenProps) {
   const { setAndShowMessage } = useLayoutMessageService();
@@ -29,7 +29,9 @@ export function BrowseScreen({}: BrowseStackBrowseScreenProps) {
   const { api, currentSeason, season, year, setSeason, setYear } =
     useQuerySeriesList();
   const tabHeight = useBottomTabBarHeight();
+  const { top } = useSafeAreaInsets();
 
+  const headerHeight = FILTER_HEADER_CONFIG.DEFAULT_HEIGHT + top;
   const { scrollHandler, animatedTransform, animatedHeight } =
     useAnimatedHeader(headerHeight);
 
@@ -49,7 +51,7 @@ export function BrowseScreen({}: BrowseStackBrowseScreenProps) {
   );
 
   return (
-    <PageLayout.Default
+    <PageLayout.Container
       style={[
         styles.container,
         {
@@ -70,7 +72,7 @@ export function BrowseScreen({}: BrowseStackBrowseScreenProps) {
       {api.data ? (
         <Animated.FlatList
           ListFooterComponent={<View />}
-          ListFooterComponentStyle={{ height: tabHeight * 2, width: '100%' }}
+          ListFooterComponentStyle={{ height: tabHeight, width: '100%' }}
           contentContainerStyle={[styles.flatListContent]}
           contentInsetAdjustmentBehavior="automatic"
           data={api.data.pages.flatMap(page => page.data)}
@@ -85,7 +87,7 @@ export function BrowseScreen({}: BrowseStackBrowseScreenProps) {
           scrollEventThrottle={16}
         />
       ) : null}
-    </PageLayout.Default>
+    </PageLayout.Container>
   );
 }
 

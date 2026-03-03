@@ -44,8 +44,6 @@ export function RootStack() {
         name={RootStackScreenNames.SeriesStack}
         options={() => ({
           ...defaultSubHeaderOptions({}),
-          presentation: 'modal',
-          animation: 'slide_from_bottom',
         })}
       />
       <StackAuthorized.Screen
@@ -66,7 +64,7 @@ export function RootStack() {
           ...defaultSubHeaderOptions({}),
           autoHideHomeIndicator: true,
           fullScreenGestureEnabled: true,
-          presentation: Platform.OS === 'android' ? 'card' : 'fullScreenModal',
+          presentation: 'card',
           orientation: 'default',
         }}
       />

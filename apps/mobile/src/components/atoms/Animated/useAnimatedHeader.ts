@@ -1,17 +1,14 @@
-import { NativeScrollEvent } from 'react-native';
 import {
   Easing,
-  runOnJS,
   useAnimatedScrollHandler,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
 
-export const useAnimatedHeader = (
-  headerHeight: number,
-  onScrollCallback?: (event: NativeScrollEvent) => void,
-) => {
+import { FILTER_HEADER_CONFIG } from '../../../constants';
+
+export const useAnimatedHeader = (headerHeight: number) => {
   const lastContentOffset = useSharedValue(0);
   const isScrolling = useSharedValue(false);
   const translateY = useSharedValue(0);
@@ -21,7 +18,7 @@ export const useAnimatedHeader = (
     transform: [
       {
         translateY: withTiming(translateY.value, {
-          duration: 300,
+          duration: FILTER_HEADER_CONFIG.ANIMATION.TRANSFORM_DURATION,
           easing: Easing.inOut(Easing.ease),
         }),
       },
@@ -30,7 +27,7 @@ export const useAnimatedHeader = (
 
   const animatedHeight = useAnimatedStyle(() => ({
     height: withTiming(underHeight.value, {
-      duration: 60,
+      duration: FILTER_HEADER_CONFIG.ANIMATION.HEIGHT_DURATION,
       easing: Easing.inOut(Easing.ease),
     }),
   }));
@@ -51,10 +48,6 @@ export const useAnimatedHeader = (
         translateY.value = -headerHeight;
       }
       lastContentOffset.value = event.contentOffset.y;
-
-      if (onScrollCallback) {
-        runOnJS(onScrollCallback)(event);
-      }
     },
     onBeginDrag: () => {
       isScrolling.value = true;

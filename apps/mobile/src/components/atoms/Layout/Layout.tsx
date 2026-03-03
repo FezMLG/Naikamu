@@ -1,13 +1,7 @@
 import React from 'react';
 
-import {
-  Linking,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-  ViewStyle,
-} from 'react-native';
+import { Linking, StyleSheet, Text, View, ViewStyle } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useTranslate } from '../../../i18n/useTranslate';
@@ -86,7 +80,37 @@ const Error = ({
   );
 };
 
-function Default({
+function Container({
+  children,
+  style = [],
+  margin = true,
+}: {
+  children: React.ReactNode;
+  style?: ViewStyle[];
+  margin?: boolean;
+}) {
+  const layoutService = useLayoutMessageService();
+  const layoutStore = useLayoutMessageStore(state => state);
+
+  return (
+    <View
+      style={[
+        styles.container,
+        margin ? { marginHorizontal: 16 } : { margin: 0 },
+        ...style,
+      ]}>
+      {children}
+      <Snackbar
+        actionLabel="Ok"
+        setVisible={layoutService.setIsMessageVisible}
+        text={layoutStore.message}
+        visible={layoutStore.isVisible}
+      />
+    </View>
+  );
+}
+
+function SafeView({
   children,
   style = [],
   margin = true,
@@ -123,7 +147,8 @@ const styles = StyleSheet.create({
 });
 
 export const PageLayout = {
-  Default,
+  Container,
+  SafeView,
   Loading,
   Error,
 };

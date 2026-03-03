@@ -112,7 +112,7 @@ export function SettingsActionScreen({
   };
 
   return (
-    <PageLayout.Default>
+    <PageLayout.SafeView>
       <FormTextInput
         control={control}
         errors={errors}
@@ -129,7 +129,7 @@ export function SettingsActionScreen({
         style={[globalStyle.marginTopBig]}
         type={requiresLogin ? 'secondary' : 'primary'}
       />
-    </PageLayout.Default>
+    </PageLayout.SafeView>
   );
 }
 

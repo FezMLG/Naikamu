@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useTranslate } from '../../../i18n/useTranslate';
 import { WatchListScreen } from '../../../screens';
@@ -13,12 +14,16 @@ const Tab = createMaterialTopTabNavigator<MyListStackParameterList>();
 
 export function MyListStack() {
   const { translate } = useTranslate();
+  const insets = useSafeAreaInsets();
 
   return (
     <Tab.Navigator
       initialRouteName={MyListStackScreenNames.WatchList}
       screenOptions={{
-        tabBarStyle: { backgroundColor: 'transparent' },
+        tabBarStyle: {
+          backgroundColor: 'transparent',
+          paddingTop: insets.top,
+        },
         tabBarIndicatorStyle: { backgroundColor: colors.accent.color },
       }}>
       <Tab.Screen

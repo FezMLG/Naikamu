@@ -13,7 +13,7 @@ export function DownloadSeriesEpisodesScreen({
   const { offlineSeries } = useOfflineService();
 
   return (
-    <PageLayout.Default>
+    <PageLayout.SafeView>
       <ScrollView>
         {offlineSeries
           .find(element => element.seriesId === seriesId)
@@ -27,6 +27,6 @@ export function DownloadSeriesEpisodesScreen({
             />
           ))}
       </ScrollView>
-    </PageLayout.Default>
+    </PageLayout.SafeView>
   );
 }

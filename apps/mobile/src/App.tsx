@@ -9,6 +9,7 @@ import {
 import * as Sentry from '@sentry/react-native';
 import { default as Config } from 'react-native-config';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { StatusBar } from 'react-native';
 import {
   MD3DarkTheme as PaperDarkTheme,
   Provider as PaperProvider,
@@ -55,6 +56,11 @@ const CombinedDarkTheme: Theme = {
 function Main() {
   return (
     <QueryClientWrap>
+      <StatusBar
+        backgroundColor="#1C1C1E"
+        barStyle="light-content"
+        translucent={false}
+      />
       <NotificationWrap>
         <PaperProvider
           settings={{
