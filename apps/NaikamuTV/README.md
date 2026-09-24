@@ -1,5 +1,27 @@
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
+# Required Local Files
+
+These files contain secrets and are **not tracked in git** (see root `.gitignore`).
+Get them from a maintainer and place them at the paths below before building.
+
+**Development**
+
+| File | Purpose |
+|------|---------|
+| `android/app/google-services.json` | Firebase config for Android |
+| `ios/GoogleService-Info.plist` | Firebase config for iOS |
+
+`.env` is tracked and holds non-secret config (`ENV`, `API_URL`). Put local overrides in `.env*.local` files, which are ignored.
+
+**Release** (in addition to the above)
+
+| File | Purpose |
+|------|---------|
+| `android/app/gradle.properties` | Release signing: `MYAPP_UPLOAD_STORE_FILE`, `MYAPP_UPLOAD_KEY_ALIAS`, `MYAPP_UPLOAD_STORE_PASSWORD`, `MYAPP_UPLOAD_KEY_PASSWORD` |
+| `android/app/<name>.keystore` | Upload keystore referenced by `MYAPP_UPLOAD_STORE_FILE` |
+| `android/sentry.properties`, `ios/sentry.properties` | Sentry upload config (if Sentry is enabled) |
+
 # Getting Started
 
 >**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
