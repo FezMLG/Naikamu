@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import type { NativeFirebaseAuthError } from '@react-native-firebase/auth';
 import { Control, Controller, FieldErrorsImpl, useForm } from 'react-hook-form';
 import { KeyboardTypeOptions, StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
@@ -97,7 +97,7 @@ export function SettingsActionScreen({
       await action(data.newValue);
       navigation.navigate(origin);
     } catch (error: unknown) {
-      const authError = error as FirebaseAuthTypes.NativeFirebaseAuthError;
+      const authError = error as NativeFirebaseAuthError;
 
       if (authError.code === 'auth/requires-recent-login') {
         console.log('requires recent login catch');

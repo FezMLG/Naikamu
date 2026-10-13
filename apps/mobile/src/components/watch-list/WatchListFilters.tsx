@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Animated from 'react-native-reanimated';
+import Animated, { AnimatedStyle } from 'react-native-reanimated';
 
 import { FILTER_HEADER_CONFIG } from '../../constants';
 import { useTranslate } from '../../i18n/useTranslate';
@@ -13,12 +13,12 @@ export const WatchListFilters = ({
   animatedHeight,
   isLoading = false,
 }: {
-  animatedTransform: {
+  animatedTransform: AnimatedStyle<{
     transform: { translateY: number }[];
-  };
-  animatedHeight: {
+  }>;
+  animatedHeight: AnimatedStyle<{
     height: number;
-  };
+  }>;
   isLoading?: boolean;
 }) => {
   const { translate } = useTranslate();

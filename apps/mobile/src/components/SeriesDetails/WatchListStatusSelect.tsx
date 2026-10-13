@@ -109,7 +109,7 @@ export function WatchListStatusSelect({
 
   return (
     <>
-      {Config.ENV === 'development' && mutation.isError ? (
+      {Config.APP_ENV === 'development' && mutation.isError ? (
         <Text>{'error: ' + mutation.error}</Text>
       ) : null}
       <Pressable
@@ -154,7 +154,6 @@ export function WatchListStatusSelect({
                   rightChildren={
                     isSelected ? (
                       <>
-                        {/** @ts-expect-error wrong types **/}
                         <ActionsheetIcon
                           style={{ height: 20, width: 20, marginLeft: 'auto' }}>
                           <Icon
@@ -166,7 +165,6 @@ export function WatchListStatusSelect({
                       </>
                     ) : undefined
                   }>
-                  {/** @ts-expect-error wrong types **/}
                   <ActionsheetIcon style={{ height: 24, width: 24 }}>
                     {watchIconRender(status)}
                   </ActionsheetIcon>

@@ -61,7 +61,7 @@ export function AppLoadScreen() {
           </Text>
         </Pressable>
       )}
-      {Config.ENV !== 'production' && (
+      {Config.APP_ENV !== 'production' && (
         <Text style={[fontStyles.paragraph, colors.textLight]}>
           api_url: {Config.API_URL}
         </Text>

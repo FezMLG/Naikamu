@@ -1,4 +1,4 @@
-import { NativeNativeBottomTabScreenProps } from '@bottom-tabs/react-navigation';
+import { NativeBottomTabScreenProps } from '@bottom-tabs/react-navigation';
 import { NavigatorScreenParams } from '@react-navigation/native';
 
 import { BrowseStackParameterList as BrowseStackParameterList } from './browse';

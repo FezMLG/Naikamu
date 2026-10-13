@@ -24,7 +24,7 @@ export function ActiveDownload({
 }) {
   return (
     <Animated.View exiting={SlideOutLeft} style={globalStyle.spacer}>
-      {Config.ENV === 'development' ? (
+      {Config.APP_ENV === 'development' ? (
         <Text style={[fontStyles.label, colors.textLighter]}>
           {download.series.seriesId}
         </Text>

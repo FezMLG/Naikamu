@@ -4,7 +4,11 @@ import {
   appleAuth,
   AppleButton,
 } from '@invertase/react-native-apple-authentication';
-import { firebase } from '@react-native-firebase/auth';
+import {
+  AppleAuthProvider,
+  getAuth,
+  signInWithCredential,
+} from '@react-native-firebase/auth';
 import * as Sentry from '@sentry/react-native';
 
 import { useTranslate } from '../../i18n/useTranslate';
@@ -27,14 +31,15 @@ async function onAppleButtonPress() {
 
     // can be null in some scenarios
     if (identityToken) {
-      const appleCredential = firebase.auth.AppleAuthProvider.credential(
+      const appleCredential = AppleAuthProvider.credential(
         identityToken,
         nonce,
       );
 
-      const userCredential = await firebase
-        .auth()
-        .signInWithCredential(appleCredential);
+      const userCredential = await signInWithCredential(
+        getAuth(),
+        appleCredential,
+      );
 
       console.log(
         `Firebase authenticated via Apple, UID: ${userCredential.user.uid}`,

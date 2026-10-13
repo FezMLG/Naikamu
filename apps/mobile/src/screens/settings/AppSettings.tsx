@@ -176,7 +176,7 @@ export function AppSettingsScreen({}: SettingsStackPlaybackSettingsScreenProps) 
           <Text style={[fontStyles.paragraph, colors.textLighter]}>
             {DeviceInfo.getVersion()} ({DeviceInfo.getBuildNumber()})
           </Text>
-          {Config.ENV === 'development' && (
+          {Config.APP_ENV === 'development' && (
             <>
               <Text style={[fontStyles.label, colors.textLight]}>
                 Environment

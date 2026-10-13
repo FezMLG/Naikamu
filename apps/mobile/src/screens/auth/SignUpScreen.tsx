@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import analytics from '@react-native-firebase/analytics';
-import { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import { getAnalytics, logEvent } from '@react-native-firebase/analytics';
+import type { NativeFirebaseAuthError } from '@react-native-firebase/auth';
 import { Controller, useForm } from 'react-hook-form';
 import { View, StyleSheet, Text } from 'react-native';
 import * as RNLocalize from 'react-native-localize';
@@ -56,7 +56,8 @@ export function SignUpScreen({ navigation }: AuthStackSignUpScreenProps) {
   });
 
   const handleSignUp = async (data: SignUpForm) => {
-    await analytics().logEvent('sign_up', {
+    // @ts-expect-error typed 'sign_up' overload only allows `method`, we log a custom `country` param
+    await logEvent(getAnalytics(), 'sign_up', {
       country: RNLocalize.getCountry(),
     });
 
@@ -71,7 +72,7 @@ export function SignUpScreen({ navigation }: AuthStackSignUpScreenProps) {
         navigation.navigate(AuthStackRoutesNames.VerifyEmail);
       }
     } catch (error: unknown) {
-      const authError = error as FirebaseAuthTypes.NativeFirebaseAuthError;
+      const authError = error as NativeFirebaseAuthError;
 
       setAndShowMessage(translate(errorResolver(authError.code)));
     }

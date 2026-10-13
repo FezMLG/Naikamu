@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 
-import analytics from '@react-native-firebase/analytics';
+import { getAnalytics, logScreenView } from '@react-native-firebase/analytics';
 import { NavigationContainer, Theme } from '@react-navigation/native';
 
 import { SplashScreen } from '../screens';
@@ -43,7 +43,7 @@ function Routes({ theme }: { theme: Theme }) {
         const currentRouteName = navigationRef.current?.getCurrentRoute().name;
 
         if (previousRouteName !== currentRouteName) {
-          await analytics().logScreenView({
+          await logScreenView(getAnalytics(), {
             screen_name: currentRouteName,
             screen_class: currentRouteName,
           });

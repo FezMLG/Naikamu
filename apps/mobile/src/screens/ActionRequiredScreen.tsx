@@ -50,7 +50,7 @@ export function ActionRequiredScreen({
         <View style={globalStyle.spacerSmall} />
         <Text
           style={[globalStyle.textCenter, fontStyles.label, colors.textLight]}>
-          app ver.: {packageJson.version} / {Config.ENV} /{' '}
+          app ver.: {packageJson.version} / {Config.APP_ENV} /{' '}
           {packageJson.apiVersion}
         </Text>
       </View>

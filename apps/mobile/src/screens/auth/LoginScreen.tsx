@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import analytics from '@react-native-firebase/analytics';
-import { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import { getAnalytics, logEvent } from '@react-native-firebase/analytics';
+import type { NativeFirebaseAuthError } from '@react-native-firebase/auth';
 import { useForm, Controller } from 'react-hook-form';
 import { View, StyleSheet } from 'react-native';
 import * as RNLocalize from 'react-native-localize';
@@ -45,7 +45,8 @@ export function LoginScreen({ navigation }: AuthStackLoginScreenProps) {
   });
 
   const handleLogin = async (data: LoginForm) => {
-    await analytics().logEvent('login', {
+    // @ts-expect-error typed 'login' overload only allows `method`, we log a custom `country` param
+    await logEvent(getAnalytics(), 'login', {
       country: RNLocalize.getCountry(),
     });
 
@@ -63,7 +64,7 @@ export function LoginScreen({ navigation }: AuthStackLoginScreenProps) {
         }
       }
     } catch (error: unknown) {
-      const authError = error as FirebaseAuthTypes.NativeFirebaseAuthError;
+      const authError = error as NativeFirebaseAuthError;
 
       logger('handleLogin').warn(error);
       setAndShowMessage(translate(errorResolver(authError.code)));

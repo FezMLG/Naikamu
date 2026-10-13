@@ -3,8 +3,13 @@ import {
   default as notifee,
   Notification,
 } from '@notifee/react-native';
-import messaging, {
-  FirebaseMessagingTypes,
+import {
+  getMessaging,
+  getToken,
+  onMessage,
+  registerDeviceForRemoteMessages,
+  setBackgroundMessageHandler,
+  type RemoteMessage,
 } from '@react-native-firebase/messaging';
 import { Linking, Platform } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
@@ -45,7 +50,7 @@ export function useNotificationService() {
   };
 
   const onMessageReceived = async (
-    message: FirebaseMessagingTypes.RemoteMessage,
+    message: RemoteMessage,
   ) => {
     await displayRemoteNotification('general', message);
     logger('NOTIFICATION RECEIVED').info(message);
@@ -80,13 +85,15 @@ export function useNotificationService() {
 
     await deleteOldChannelsAndCreateNew();
 
-    messaging().onMessage(onMessageReceived);
-    messaging().setBackgroundMessageHandler(onMessageReceived);
+    const messaging = getMessaging();
+
+    onMessage(messaging, onMessageReceived);
+    setBackgroundMessageHandler(messaging, onMessageReceived);
 
     if (Platform.OS === 'android') {
-      await messaging().registerDeviceForRemoteMessages();
+      await registerDeviceForRemoteMessages(messaging);
 
-      const token = await messaging().getToken();
+      const token = await getToken(messaging);
 
       logger('NOTIFICATION TOKEN').info(token);
       mutation.mutate(token);
@@ -117,7 +124,7 @@ export function useNotificationService() {
 
   const displayRemoteNotification = async (
     channelId: NotificationChannels,
-    notification: FirebaseMessagingTypes.RemoteMessage,
+    notification: RemoteMessage,
     // eslint-disable-next-line unicorn/consistent-function-scoping
   ) => {
     await notifee.displayNotification({

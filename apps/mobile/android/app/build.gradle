@@ -106,7 +106,7 @@ def getVersionNameFromNpm() {
     def inputFile = new File("$rootDir/../package.json")
     def packageJson = new JsonSlurper().parseText(inputFile.text)
 
-    def environment = project.env.get("ENV")
+    def environment = project.env.get("APP_ENV")
 
     if (environment == "production") {
         return packageJson["version"]
