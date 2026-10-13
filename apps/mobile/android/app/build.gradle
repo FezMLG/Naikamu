@@ -200,6 +200,12 @@ android {
     }
 }
 
+configurations.all {
+    // react-native-fast-image pulls com.caverock:androidsvg:1.4 while react-native-bottom-tabs (coil-svg)
+    // pulls com.caverock:androidsvg-aar:1.4 - same classes, keep only the aar
+    exclude group: 'com.caverock', module: 'androidsvg'
+}
+
 dependencies {
 
     // The version of react-native is set by the React Native Gradle Plugin
