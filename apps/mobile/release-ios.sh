@@ -28,6 +28,10 @@ done
 
 #---
 
+"$(dirname "$0")/set-ios-version.sh"
+
+#---
+
 # Get current date and time
 DATE_FOLDER=$(date "+%Y-%m-%d")
 ARCHIVE_NAME=$(date "+%m-%d-%Y, %H.%M")
