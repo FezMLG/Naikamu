@@ -21,7 +21,7 @@ export function MyListStack() {
       initialRouteName={MyListStackScreenNames.WatchList}
       screenOptions={{
         tabBarStyle: {
-          backgroundColor: 'transparent',
+          backgroundColor: colors.background.color,
           paddingTop: insets.top,
         },
         tabBarIndicatorStyle: { backgroundColor: colors.accent.color },

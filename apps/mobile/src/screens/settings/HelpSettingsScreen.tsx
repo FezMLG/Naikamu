@@ -1,6 +1,6 @@
 import React from 'react';
 
-import analytics from '@react-native-firebase/analytics';
+import { getAnalytics, logEvent } from '@react-native-firebase/analytics';
 import * as Sharing from 'expo-sharing';
 import { Alert, Linking, Platform, Text, View } from 'react-native';
 import Share from 'react-native-share';
@@ -24,7 +24,7 @@ export function HelpSettingsScreen({}: SettingsStackHelpSettingsScreenProps) {
           external
           icon="help-circle-outline"
           onPress={async () => {
-            await analytics().logEvent('help_center', {
+            await logEvent(getAnalytics(), 'help_center', {
               user: user?.uid,
               source: 'app-settings',
               device: 'mobile',
@@ -38,7 +38,7 @@ export function HelpSettingsScreen({}: SettingsStackHelpSettingsScreenProps) {
           external
           icon="test-tube"
           onPress={async () => {
-            await analytics().logEvent('beta_test_join', {
+            await logEvent(getAnalytics(), 'beta_test_join', {
               user: user?.uid,
               source: 'app-settings',
               device: 'mobile',
@@ -57,7 +57,7 @@ export function HelpSettingsScreen({}: SettingsStackHelpSettingsScreenProps) {
           external
           logo={require('../../../assets/kofi_logo.png')}
           onPress={async () => {
-            await analytics().logEvent('kofi_donation', {
+            await logEvent(getAnalytics(), 'kofi_donation', {
               user: user?.uid,
               source: 'app-settings',
               device: 'mobile',
@@ -71,7 +71,7 @@ export function HelpSettingsScreen({}: SettingsStackHelpSettingsScreenProps) {
           external
           icon="email-fast-outline"
           onPress={async () => {
-            await analytics().logEvent('email_feedback', {
+            await logEvent(getAnalytics(), 'email_feedback', {
               user: user?.uid,
               source: 'app-settings',
               device: 'mobile',
@@ -95,7 +95,7 @@ export function HelpSettingsScreen({}: SettingsStackHelpSettingsScreenProps) {
             external
             icon="email-fast-outline"
             onPress={async () => {
-              await analytics().logEvent('email_issue', {
+              await logEvent(getAnalytics(), 'email_issue', {
                 user: user?.uid,
                 source: 'app-settings',
                 device: 'mobile',

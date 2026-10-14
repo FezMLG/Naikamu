@@ -3,7 +3,7 @@ import React from 'react';
 import { AnimeDetails } from '@naikamu/shared';
 import { format } from 'date-fns';
 import { Linking, Pressable, StyleSheet, Text, View } from 'react-native';
-import Animated from 'react-native-reanimated';
+import Animated, { AnimatedStyle } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useTranslate } from '../../i18n/useTranslate';
@@ -35,7 +35,7 @@ function SubTitle(props: { romaji?: string; english?: string }) {
 function Poster(props: {
   bannerImage?: string;
   altImage: string;
-  animationStyle: { transform: { translateY: number }[] };
+  animationStyle: AnimatedStyle<{ transform: { translateY: number }[] }>;
 }) {
   return (
     <Animated.Image

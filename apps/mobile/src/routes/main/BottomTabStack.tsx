@@ -5,6 +5,7 @@ import { Platform, ImageSourcePropType } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useTranslate } from '../../i18n/useTranslate';
+import { colors } from '../../styles';
 
 import {
   BottomTabStackParameterList as BottomTabStackParameterList,
@@ -115,6 +116,9 @@ export function BottomTabStack() {
         tabBarInactiveTintColor: '#F2F2F2',
         tabBarStyle: {
           backgroundColor: '#2C2C2E',
+        },
+        sceneStyle: {
+          backgroundColor: colors.background.color,
         },
         // Platform-specific icon configuration
         tabBarIcon: ({ focused }) => {

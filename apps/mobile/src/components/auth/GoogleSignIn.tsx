@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 
-import auth from '@react-native-firebase/auth';
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithCredential,
+} from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import * as Sentry from '@sentry/react-native';
 import { Image, Pressable, StyleSheet, Text } from 'react-native';
@@ -22,11 +26,11 @@ const onGoogleButtonPress = async () => {
 
   if (signInResponse.type === 'success') {
     const { idToken } = signInResponse.data;
-    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+    const googleCredential = GoogleAuthProvider.credential(idToken);
 
     return {
       type: 'success',
-      data: auth().signInWithCredential(googleCredential),
+      data: signInWithCredential(getAuth(), googleCredential),
     };
   } else if (signInResponse.type === 'cancelled') {
     return signInResponse;

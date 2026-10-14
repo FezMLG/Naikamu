@@ -106,7 +106,7 @@ def getVersionNameFromNpm() {
     def inputFile = new File("$rootDir/../package.json")
     def packageJson = new JsonSlurper().parseText(inputFile.text)
 
-    def environment = project.env.get("ENV")
+    def environment = project.env.get("APP_ENV")
 
     if (environment == "production") {
         return packageJson["version"]
@@ -198,6 +198,12 @@ android {
             }
         }
     }
+}
+
+configurations.all {
+    // react-native-fast-image pulls com.caverock:androidsvg:1.4 while react-native-bottom-tabs (coil-svg)
+    // pulls com.caverock:androidsvg-aar:1.4 - same classes, keep only the aar
+    exclude group: 'com.caverock', module: 'androidsvg'
 }
 
 dependencies {

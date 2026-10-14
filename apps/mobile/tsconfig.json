@@ -8,7 +8,6 @@
     "lib": [
       "es2023"
     ],
-    "baseUrl": "./",
     "paths": {
       "@naikamu/shared": [
         "../../lib/shared/"

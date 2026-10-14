@@ -1,6 +1,5 @@
 {
   "name": "Naikamu",
-  "displayName": "Naikamu",
   "android": {
     "package": "com.tltcode.naikamu"
   },
@@ -15,6 +14,8 @@
         "project": "naikamu",
         "organization": "tltcode"
       }
-    ]
+    ],
+    "@sentry/react-native",
+    "expo-sharing"
   ]
 }

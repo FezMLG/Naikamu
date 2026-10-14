@@ -1,17 +1,19 @@
 import UIKit
-import Expo
+internal import Expo
 import React
-import React_RCTAppDelegate
 import ReactAppDependencyProvider
 import FirebaseCore
 import ReactNativeFs
 
 @main
-class AppDelegate: ExpoAppDelegate {
+class AppDelegate: ExpoAppDelegate, ExpoReactNativeFactoryProvider {
   var window: UIWindow?
 
   var reactNativeDelegate: ReactNativeDelegate?
   var reactNativeFactory: RCTReactNativeFactory?
+
+  // Module name the scene delegate starts React Native with (Expo defaults to "main").
+  var reactNativeFactoryModuleName: String { "Naikamu" }
 
   override func application(
     _ application: UIApplication,
@@ -25,16 +27,9 @@ class AppDelegate: ExpoAppDelegate {
 
     reactNativeDelegate = delegate
     reactNativeFactory = factory
-    bindReactNativeFactory(factory)
 
-    window = UIWindow(frame: UIScreen.main.bounds)
-
-    factory.startReactNative(
-      withModuleName: "Naikamu",
-      in: window,
-      launchOptions: launchOptions
-    )
-
+    // The window is created and React Native is started by EXExpoAppSceneDelegate under the
+    // scene-based life cycle (required by the iOS 27 SDK).
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 }

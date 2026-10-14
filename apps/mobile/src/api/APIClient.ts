@@ -56,13 +56,35 @@ export class APIClient {
         'x-device-type': Platform.OS,
       },
     });
+
+    this.instance.interceptors.response.use(
+      async response => {
+        console.log(
+          'API Response',
+          response.status,
+          response.config.method,
+          response.config.url,
+        );
+
+        return response;
+      },
+      async error => {
+        console.warn(
+          'API Error Response',
+          error.status,
+          error.config.method,
+          error.config.url,
+        );
+
+        return error;
+      },
+    );
   }
 
   private async get<T>(
     url: string,
     headers?: RawAxiosRequestHeaders,
   ): Promise<T> {
-    console.log('GET', url);
     const a = await this.instance.get<T>(url, {
       headers: headers,
     });

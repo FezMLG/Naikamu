@@ -34,6 +34,8 @@ local.properties
 *.keystore
 !debug.keystore
 .kotlin/
+# generated inline modules
+android/app/src/main/java/inline/
 
 # node.js
 #

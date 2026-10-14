@@ -9,7 +9,7 @@ import {
   Text,
   TextInput,
 } from 'react-native-paper';
-import Animated from 'react-native-reanimated';
+import Animated, { AnimatedStyle } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { FILTER_HEADER_CONFIG } from '../../constants';
@@ -31,8 +31,8 @@ export function SeasonYearSelectButtons({
   setSeason: (season: IAnimeSeasons) => void;
   year: number;
   setYear: (year: number) => void;
-  animatedTransform: { transform: { translateY: number }[] };
-  animatedHeight: { height: number };
+  animatedTransform: AnimatedStyle<{ transform: { translateY: number }[] }>;
+  animatedHeight: AnimatedStyle<{ height: number }>;
 }): ReactElement {
   const { translate } = useTranslate();
   const [yearDialogVisible, setYearDialogVisible] = useState(false);

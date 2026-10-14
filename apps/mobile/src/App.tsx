@@ -30,7 +30,7 @@ const reactNavigationIntegration = Sentry.reactNavigationIntegration();
 
 Sentry.init({
   dsn: Config.SENTRY_DSN,
-  environment: Config.ENV,
+  environment: Config.APP_ENV,
   enableAppStartTracking: true,
   enableNativeFramesTracking: true,
   enableStallTracking: true,
