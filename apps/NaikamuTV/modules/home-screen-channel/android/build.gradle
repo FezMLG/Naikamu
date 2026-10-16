@@ -1,0 +1,20 @@
+plugins {
+  id 'com.android.library'
+  id 'expo-module-gradle-plugin'
+}
+
+group = 'com.tltcode.naikamutv'
+version = '1.0.0'
+
+android {
+  namespace "expo.modules.homescreenchannel"
+  defaultConfig {
+    versionCode 1
+    versionName '1.0.0'
+  }
+}
+
+dependencies {
+  // TV provider library used for updating home screen channels
+  implementation 'androidx.tvprovider:tvprovider:1.0.0'
+}

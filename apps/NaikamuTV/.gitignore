@@ -66,3 +66,10 @@ yarn-error.log
 /coverage
 
 .expo
+
+# Expo CNG: native projects are generated with `yarn prebuild`
+/android
+/ios
+
+# Local signing credentials copied into android/app by plugins/withAndroidTvExtras.js
+/credentials

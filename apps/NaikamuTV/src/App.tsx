@@ -24,7 +24,7 @@ const CombinedDarkTheme: Theme = {
   },
 };
 
-function App(): JSX.Element {
+function App(): React.JSX.Element {
   return (
     <QueryClientWrap>
       <LanguagesProvider>

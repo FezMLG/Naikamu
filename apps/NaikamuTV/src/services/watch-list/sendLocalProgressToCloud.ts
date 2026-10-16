@@ -45,7 +45,7 @@ export const sendLocalProgressToCloud = async () => {
 
       logger('removeLocalProgress').info(key, response);
 
-      storage.delete(key);
+      storage.remove(key);
     }),
   );
 

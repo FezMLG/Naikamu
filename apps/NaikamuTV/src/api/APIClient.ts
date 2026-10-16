@@ -53,7 +53,7 @@ export class APIClient {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        Package: appJson.android.package,
+        Package: appJson.expo.android.package,
       },
     });
 

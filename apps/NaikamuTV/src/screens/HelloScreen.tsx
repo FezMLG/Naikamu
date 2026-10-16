@@ -31,7 +31,7 @@ export function HelloScreen({ navigation }: AuthStackHelloScreenProps) {
           alignSelf: 'center',
         }}>
         <GoogleSignIn />
-        {Config.ENV !== 'production' && <Text>api_url: {Config.API_URL}</Text>}
+        {Config.APP_ENV !== 'production' && <Text>api_url: {Config.API_URL}</Text>}
       </View>
     </SafeAreaView>
   );

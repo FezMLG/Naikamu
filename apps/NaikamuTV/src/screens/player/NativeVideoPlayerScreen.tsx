@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { RefObject, useRef, useState } from 'react';
 
 import { useFocusEffect } from '@react-navigation/native';
 import * as Sentry from '@sentry/react-native';
@@ -117,6 +117,7 @@ export function NativeVideoPlayerScreen({
         disableFullscreen
         disableVolume
         doubleTapTime={130}
+        enterPictureInPictureOnLeave
         fullscreen
         fullscreenAutorotate
         fullscreenOrientation="landscape"
@@ -131,7 +132,6 @@ export function NativeVideoPlayerScreen({
         onLoad={handleVideoLoad}
         onProgress={handleProgress}
         paused={isPaused}
-        pictureInPicture
         playInBackground
         resizeMode="contain"
         showDuration
@@ -144,7 +144,7 @@ export function NativeVideoPlayerScreen({
         style={styles.absoluteFill}
         tapAnywhereToPause
         title={episodeTitle}
-        videoRef={videoPlayer}
+        videoRef={videoPlayer as RefObject<VideoRef>}
       />
     </View>
   );

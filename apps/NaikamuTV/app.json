@@ -1,10 +1,66 @@
 {
-  "name": "NaikamuTV",
-  "displayName": "NaikamuTV",
-  "android": {
-    "package": "com.tltcode.naikamutv"
-  },
-  "ios": {
-    "bundleIdentifier": "com.tltcode.naikamutv"
+  "expo": {
+    "name": "NaikamuTV",
+    "slug": "naikamu-tv",
+    "version": "0.3.1",
+    "scheme": "com.tltcode.naikamutv",
+    "icon": "./assets/tv/icon.png",
+    "android": {
+      "package": "com.tltcode.naikamutv",
+      "googleServicesFile": "./google-services.json",
+      "permissions": [
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE"
+      ]
+    },
+    "ios": {
+      "bundleIdentifier": "com.tltcode.naikamutv",
+      "googleServicesFile": "./GoogleService-Info.plist"
+    },
+    "plugins": [
+      [
+        "@react-native-tvos/config-tv",
+        {
+          "isTV": true,
+          "androidTVBanner": "./assets/tv/tv_banner.png"
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/tv/tv_banner.png",
+          "imageWidth": 320,
+          "resizeMode": "contain",
+          "backgroundColor": "#222222"
+        }
+      ],
+      [
+        "@react-native-firebase/app",
+        {
+          "ios": {
+            "disableSPM": true
+          }
+        }
+      ],
+      "@react-native-firebase/auth",
+      "@react-native-google-signin/google-signin",
+      [
+        "@sentry/react-native/expo",
+        {
+          "url": "https://sentry.io/",
+          "project": "naikamu-tv",
+          "organization": "tltcode"
+        }
+      ],
+      "./plugins/withAndroidTvExtras"
+    ]
   }
 }

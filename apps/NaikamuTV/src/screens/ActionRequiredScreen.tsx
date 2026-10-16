@@ -46,7 +46,7 @@ export function ActionRequiredScreen({
         <View style={globalStyle.spacerSmall} />
         <Text
           style={[globalStyle.textCenter, fontStyles.label, colors.textLight]}>
-          app ver.: {appVersion} / {Config.ENV} / {apiVersion}
+          app ver.: {appVersion} / {Config.APP_ENV} / {apiVersion}
         </Text>
       </View>
     </SafeAreaView>
