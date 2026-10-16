@@ -4,6 +4,9 @@
     "slug": "naikamu-tv",
     "version": "0.3.1",
     "scheme": "com.tltcode.naikamutv",
+    "platforms": [
+      "android"
+    ],
     "icon": "./assets/tv/icon.png",
     "android": {
       "package": "com.tltcode.naikamutv",
@@ -13,24 +16,12 @@
         "android.permission.WRITE_EXTERNAL_STORAGE"
       ]
     },
-    "ios": {
-      "bundleIdentifier": "com.tltcode.naikamutv",
-      "googleServicesFile": "./GoogleService-Info.plist"
-    },
     "plugins": [
       [
         "@react-native-tvos/config-tv",
         {
           "isTV": true,
           "androidTVBanner": "./assets/tv/tv_banner.png"
-        }
-      ],
-      [
-        "expo-build-properties",
-        {
-          "ios": {
-            "useFrameworks": "static"
-          }
         }
       ],
       [
@@ -42,14 +33,7 @@
           "backgroundColor": "#222222"
         }
       ],
-      [
-        "@react-native-firebase/app",
-        {
-          "ios": {
-            "disableSPM": true
-          }
-        }
-      ],
+      "@react-native-firebase/app",
       "@react-native-firebase/auth",
       "@react-native-google-signin/google-signin",
       [

@@ -3072,7 +3072,6 @@ __metadata:
     eslint-plugin-sonarjs: "npm:0.24.0"
     eslint-plugin-unicorn: "npm:51.0.1"
     expo: "npm:57.0.28"
-    expo-build-properties: "npm:~57.0.22"
     expo-splash-screen: "npm:~57.0.10"
     expo-status-bar: "npm:~57.0.1"
     i18next: "npm:26.4.4"
@@ -6642,19 +6641,6 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 10c0/83694fb1d5dfdb025426d99aed0d9bba37adb30b8bf77b39e0fd947eeec127d856b9c219bee9b89a6f861bb44852a850934ce7d944e67d54dd2b7b33a4e06e22
-  languageName: node
-  linkType: hard
-
-"expo-build-properties@npm:~57.0.22":
-  version: 57.0.22
-  resolution: "expo-build-properties@npm:57.0.22"
-  dependencies:
-    "@expo/schema-utils": "npm:^57.0.2"
-    resolve-from: "npm:^5.0.0"
-    semver: "npm:^7.6.0"
-  peerDependencies:
-    expo: "*"
-  checksum: 10c0/e2247e535a88c215d4becc5d4d6c4b4965c3380464326c1a704cbc35b052f13e509d15448fd1dd9ad0ffa35629531039e78d04e199e9b35a4e050f12bcce92cc
   languageName: node
   linkType: hard
 
