@@ -41,6 +41,7 @@ export const fireGetUser = () => {
       isAnonymous: fUser.isAnonymous,
       uid: fUser.uid,
       picture: fUser.photoURL,
+      shindenUserId: null,
     };
 
     return user;
