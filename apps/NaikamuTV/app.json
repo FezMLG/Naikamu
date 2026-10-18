@@ -10,6 +10,7 @@
     "icon": "./assets/tv/icon.png",
     "android": {
       "package": "com.tltcode.naikamutv",
+      "versionCode": 15,
       "googleServicesFile": "./google-services.json",
       "permissions": [
         "android.permission.READ_EXTERNAL_STORAGE",

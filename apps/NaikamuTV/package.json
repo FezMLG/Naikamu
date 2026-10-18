@@ -1,8 +1,7 @@
 {
   "name": "@naikamu/tv",
-  "version": "0.3.1",
+  "version": "0.0.1",
   "apiVersion": "1.5.x",
-  "codeVersion": "15",
   "private": true,
   "main": "index.js",
   "scripts": {
@@ -12,11 +11,8 @@
     "start": "expo start",
     "start:clear": "expo start -c",
     "test": "jest",
-    "apk:release": "npm run prebuild && cd android && ./gradlew assembleRelease && cd .. && npm run apk:beta:rename && open android/app/build/outputs/apk/release",
-    "apk:stg:release": "npm run prebuild && cd android && ./gradlew assembleRelease && cd .. && npm run apk:stg:rename && open android/app/build/outputs/apk/release",
-    "apk:rename": "mv $DIR/$APP $DIR/naikamutv-beta-$RENV$VER.apk",
-    "apk:beta:rename": "DIR='android/app/build/outputs/apk/release' APP='app-release.apk' RENV=v VER=$(jq -r '.version' package.json) npm run apk:rename",
-    "apk:stg:rename": "DIR='android/app/build/outputs/apk/release' APP='app-release.apk' RENV=stg-r VER=$(jq -r '.codeVersion' package.json) npm run apk:rename"
+    "apk:release:stg": "./release.sh -e stg",
+    "apk:release:prod": "./release.sh -e prod"
   },
   "dependencies": {
     "@d11/react-native-fast-image": "8.13.0",

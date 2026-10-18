@@ -38,3 +38,14 @@ yarn prebuild   # generate android/ for TV (EXPO_TV=1 expo prebuild --clean --pl
 yarn start      # start Metro
 yarn android    # Android TV emulator (API 31+)
 ```
+
+# Release
+
+The app version lives only in `app.json`: `expo.version` (version name) and `expo.android.versionCode` (integer, bump on every release).
+
+```bash
+yarn apk:release:stg    # android/app/build/outputs/apk/release/naikamutv-stg-r<versionCode>.apk
+yarn apk:release:prod   # android/app/build/outputs/apk/release/naikamutv-v<version>.apk
+```
+
+`release.sh` checks the required local files, runs `yarn prebuild`, builds a signed `assembleRelease` APK, renames it and opens the output folder. Staging and production share the same build (single `.env`); only the file name differs.
