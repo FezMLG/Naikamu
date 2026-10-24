@@ -85,7 +85,7 @@ export function AppLoadScreen({ navigation }: AuthStackAppLoadingScreenProps) {
       await fireGetNewIdToken();
       await sendLocalProgressToCloud();
       await userService.setLoggedUser();
-      logger('handleLoginCheck').info(userStore.getUser());
+      logger('handleLoginCheck').info(userStore.getUser()?.uid);
     } else {
       navigation.navigate(AuthStackRoutesNames.Hello);
     }

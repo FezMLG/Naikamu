@@ -5,12 +5,16 @@ import {
   GoogleAuthProvider,
   signInWithCredential,
 } from '@react-native-firebase/auth';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import {
+  GoogleSignin,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { useTranslate } from '../../i18n/useTranslate';
 import { useUserService } from '../../services';
 import { colors, defaultRadius, fontStyles } from '../../styles';
+import { reportError } from '../../utils';
 import { ActivityIndicator } from '../atoms';
 
 GoogleSignin.configure({
@@ -18,12 +22,24 @@ GoogleSignin.configure({
     '235555521653-u912a0ccok2j0kmbpv11i4jlpfu29obf.apps.googleusercontent.com',
 });
 
+const SIGN_IN_CANCELLED_MESSAGE = 'Google sign in cancelled';
+
+const isSignInCancelled = (error: unknown) => {
+  const code = (error as { code?: string } | null)?.code;
+
+  return (
+    (error instanceof Error && error.message === SIGN_IN_CANCELLED_MESSAGE) ||
+    code === statusCodes.SIGN_IN_CANCELLED ||
+    code === statusCodes.IN_PROGRESS
+  );
+};
+
 const onGoogleButtonPress = async () => {
   await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
   const signInResponse = await GoogleSignin.signIn();
 
   if (signInResponse.type !== 'success') {
-    throw new Error('Google sign in cancelled');
+    throw new Error(SIGN_IN_CANCELLED_MESSAGE);
   }
 
   const googleCredential = GoogleAuthProvider.credential(
@@ -48,7 +64,10 @@ export function GoogleSignIn() {
           .then(async () => {
             await userService.setLoggedUser();
           })
-          .catch(() => {
+          .catch(error => {
+            if (!isSignInCancelled(error)) {
+              reportError(error);
+            }
             setIsLoading(false);
           })
       }

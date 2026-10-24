@@ -12,6 +12,7 @@ import {
   useSelectedSeriesStore,
 } from '../../services';
 import {
+  addBreadcrumb,
   logger,
   reportError,
   storageGetData,
@@ -99,6 +100,7 @@ export function NativeVideoPlayerScreen({
   };
 
   const handleVideoLoad = async () => {
+    addBreadcrumb(`[PLAYER] load series=${seriesId} episode=${episodeNumber}`);
     const episode = episodeActions.getEpisode(episodeNumber);
     const progress = await storageGetData<OnProgressData>(episodeProgressKey);
 
@@ -107,7 +109,6 @@ export function NativeVideoPlayerScreen({
         ? episode.progress
         : progress?.currentTime ?? 0;
 
-    console.log(uri);
     if (videoPlayer) {
       videoPlayer.current?.seek(currentTime - 15);
     }

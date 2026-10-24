@@ -22,7 +22,7 @@ export const useUserService = () => {
   const readUserFromStorage = async () => {
     await userStorage.getUser().then(user => {
       if (user) {
-        logger('readUserFromStorage').info(user);
+        logger('readUserFromStorage').info(user.uid);
         userActions.setUser(user);
       }
     });

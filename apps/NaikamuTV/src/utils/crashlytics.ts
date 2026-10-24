@@ -2,6 +2,7 @@ import {
   getCrashlytics,
   log,
   recordError,
+  setUserId,
 } from '@react-native-firebase/crashlytics';
 
 const toError = (error: unknown): Error => {
@@ -17,3 +18,6 @@ export const reportError = (error: unknown) =>
 
 export const addBreadcrumb = (message: string) =>
   log(getCrashlytics(), message);
+
+export const setCrashlyticsUser = (uid: string | null) =>
+  setUserId(getCrashlytics(), uid ?? '');
