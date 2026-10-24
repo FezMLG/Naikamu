@@ -2,7 +2,6 @@ import React from 'react';
 
 import { IWatchListSeries } from '@naikamu/shared';
 import { useNavigation } from '@react-navigation/native';
-import * as Sentry from '@sentry/react-native';
 import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
 import { useInfiniteQueryUserWatchList } from '../../api/hooks';
@@ -12,7 +11,7 @@ import {
   RootStackScreenNames,
 } from '../../routes';
 import { colors, fontStyles } from '../../styles';
-import { maxWidth } from '../../utils';
+import { maxWidth, reportError } from '../../utils';
 
 const numberOfColumns = Math.floor(maxWidth() / 160);
 
@@ -60,7 +59,7 @@ export const WatchListScreen = ({}: MyListStackWatchListScreenProps) => {
           <PageLayout.Error
             isError
             refetch={() => {
-              Sentry.captureException('API returned without data');
+              reportError('API returned without data');
               api.refetch();
             }}
           />

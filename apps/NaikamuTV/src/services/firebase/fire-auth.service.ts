@@ -6,6 +6,8 @@ import {
   signOut,
 } from '@react-native-firebase/auth';
 
+import { logger, reportError } from '../../utils';
+
 export const fireLoginUser = async (email: string, password: string) => {
   await signInWithEmailAndPassword(getAuth(), email, password);
 };
@@ -26,7 +28,8 @@ export const fireLogoutUser = async () => {
   try {
     await signOut(getAuth());
   } catch (error) {
-    console.log(error);
+    logger('fireLogoutUser').warn(error);
+    reportError(error);
   }
 };
 

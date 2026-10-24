@@ -28,7 +28,7 @@ Get them from a maintainer and place them at the paths below before running `yar
 | `credentials/android/gradle.properties` | Release signing: `MYAPP_UPLOAD_STORE_FILE`, `MYAPP_UPLOAD_KEY_ALIAS`, `MYAPP_UPLOAD_STORE_PASSWORD`, `MYAPP_UPLOAD_KEY_PASSWORD` |
 | `credentials/android/<name>.keystore` | Upload keystore referenced by `MYAPP_UPLOAD_STORE_FILE` |
 
-Everything in `credentials/android/` is copied into `android/app/` on prebuild. Sentry source map upload reads `SENTRY_AUTH_TOKEN` from the environment.
+Everything in `credentials/android/` is copied into `android/app/` on prebuild.
 
 # Getting Started
 

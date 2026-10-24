@@ -1,8 +1,7 @@
-import * as Sentry from '@sentry/react-native';
 import { OnProgressData } from 'react-native-video';
 
 import { apiClient } from '../../api/APIClient';
-import { storageGetData, logger, storage } from '../../utils';
+import { storageGetData, logger, storage, reportError } from '../../utils';
 
 export const sendLocalProgressToCloud = async () => {
   const allAsyncStorageEntries = storage.getAllKeys();
@@ -52,7 +51,7 @@ export const sendLocalProgressToCloud = async () => {
   episodeData.map(data => {
     if (data.status === 'rejected') {
       logger('sendLocalProgressToCloud REJECTED').warn(data.reason);
-      Sentry.captureException(data.reason);
+      reportError(data.reason);
     }
   });
 };

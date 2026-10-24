@@ -1,4 +1,4 @@
-import * as Sentry from '@sentry/react-native';
+import { addBreadcrumb } from './crashlytics';
 
 const prepareMessage = (messages: unknown[]) =>
   messages.map(message => JSON.stringify(message)).join(' ');
@@ -13,10 +13,7 @@ export const logger = (source: string) => ({
       `[${new Date().toISOString()}]`,
       prepareMessage(messages),
     );
-    Sentry.addBreadcrumb({
-      level: 'info',
-      message: `${source} ${message}`,
-    });
+    addBreadcrumb(`[INFO] ${source} ${message}`);
   },
   warn: (...messages: unknown[]) => {
     const message = prepareMessage(messages);
@@ -30,9 +27,6 @@ export const logger = (source: string) => ({
       `[${new Date().toISOString()}]`,
       prepareMessage(messages),
     );
-    Sentry.addBreadcrumb({
-      level: 'warning',
-      message: `${source} ${message}`,
-    });
+    addBreadcrumb(`[WARN] ${source} ${message}`);
   },
 });

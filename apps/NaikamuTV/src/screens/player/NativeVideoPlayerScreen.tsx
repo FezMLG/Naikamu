@@ -1,7 +1,6 @@
 import React, { RefObject, useRef, useState } from 'react';
 
 import { useFocusEffect } from '@react-navigation/native';
-import * as Sentry from '@sentry/react-native';
 import { HWEvent, StyleSheet, View, useTVEventHandler } from 'react-native';
 import VideoPlayer from 'react-native-media-console';
 import { OnProgressData, VideoRef } from 'react-native-video';
@@ -12,7 +11,13 @@ import {
   createEpisodeProgressKey,
   useSelectedSeriesStore,
 } from '../../services';
-import { logger, storageGetData, storageStoreData } from '../../utils';
+import {
+  addBreadcrumb,
+  logger,
+  reportError,
+  storageGetData,
+  storageStoreData,
+} from '../../utils';
 
 export function NativeVideoPlayerScreen({
   route,
@@ -95,6 +100,7 @@ export function NativeVideoPlayerScreen({
   };
 
   const handleVideoLoad = async () => {
+    addBreadcrumb(`[PLAYER] load series=${seriesId} episode=${episodeNumber}`);
     const episode = episodeActions.getEpisode(episodeNumber);
     const progress = await storageGetData<OnProgressData>(episodeProgressKey);
 
@@ -103,7 +109,6 @@ export function NativeVideoPlayerScreen({
         ? episode.progress
         : progress?.currentTime ?? 0;
 
-    console.log(uri);
     if (videoPlayer) {
       videoPlayer.current?.seek(currentTime - 15);
     }
@@ -127,7 +132,7 @@ export function NativeVideoPlayerScreen({
         onBack={navigation.goBack}
         onError={error => {
           logger('VideoPlayer').warn('Error', error);
-          Sentry.captureException(error);
+          reportError(error);
         }}
         onLoad={handleVideoLoad}
         onProgress={handleProgress}
