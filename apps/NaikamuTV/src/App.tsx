@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { getCrashlytics } from '@react-native-firebase/crashlytics';
 import {
   DarkTheme as NavigationDarkTheme,
   Theme,
@@ -9,6 +10,9 @@ import QueryClientWrap from './api/QueryClientWrap';
 import LanguagesProvider from './i18n/LanguagesProvider';
 import Routes from './routes/Routes';
 import { colors } from './styles';
+
+// Installs Crashlytics global JS error and unhandled rejection handlers
+getCrashlytics();
 
 const CombinedDarkTheme: Theme = {
   ...NavigationDarkTheme,
