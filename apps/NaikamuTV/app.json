@@ -2,15 +2,13 @@
   "expo": {
     "name": "NaikamuTV",
     "slug": "naikamu-tv",
-    "version": "0.3.1",
+    "version": "0.4",
     "scheme": "com.tltcode.naikamutv",
-    "platforms": [
-      "android"
-    ],
+    "platforms": ["android"],
     "icon": "./assets/tv/icon.png",
     "android": {
       "package": "com.tltcode.naikamutv",
-      "versionCode": 15,
+      "versionCode": 16,
       "googleServicesFile": "./google-services.json",
       "permissions": [
         "android.permission.READ_EXTERNAL_STORAGE",
