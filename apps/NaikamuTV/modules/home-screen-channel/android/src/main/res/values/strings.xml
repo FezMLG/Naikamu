@@ -1,0 +1,5 @@
+<resources>
+    <!-- Channel strings -->
+    <string name="default_home_screen_channel_name">NaikamuTV Channel</string>
+    <string name="default_home_screen_channel_description">An channel for NaikamuTV anime series or movie for you</string>
+</resources>

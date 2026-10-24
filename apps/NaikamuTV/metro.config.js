@@ -1,18 +1,15 @@
-const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
+const { getSentryExpoConfig } = require('@sentry/react-native/metro');
+const { mergeConfig } = require('@react-native/metro-config');
 const path = require('path');
 
-const {
-  createSentryMetroSerializer,
-} = require('@sentry/react-native/dist/js/tools/sentryMetroSerializer');
-
-const defaultConfig = getDefaultConfig(__dirname);
+const defaultConfig = getSentryExpoConfig(__dirname);
 const { assetExts, sourceExts } = defaultConfig.resolver;
 
 /**
  * Metro configuration
- * https://facebook.github.io/metro/docs/configuration
+ * https://reactnative.dev/docs/metro
  *
- * @type {import('metro-config').MetroConfig}
+ * @type {import('@react-native/metro-config').MetroConfig}
  */
 const config = {
   transformer: {
@@ -26,9 +23,6 @@ const config = {
     path.resolve(__dirname + '/../../lib/translations/'),
     path.resolve(__dirname + '/../../lib/shared/'),
   ],
-  serializer: {
-    customSerializer: createSentryMetroSerializer(),
-  },
 };
 
 module.exports = mergeConfig(defaultConfig, config);

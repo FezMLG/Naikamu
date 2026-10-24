@@ -1,7 +1,5 @@
 import { IWatchListSeries } from '@naikamu/shared';
-import { NativeModules } from 'react-native';
-
-const { HomeScreenChannel } = NativeModules;
+import { requireOptionalNativeModule } from 'expo';
 
 interface IHomeScreenChannel {
   createDefaultChannel(): void;
@@ -9,4 +7,14 @@ interface IHomeScreenChannel {
   populateDefaultChannel(series: IWatchListSeries[]): void;
 }
 
-export default HomeScreenChannel as IHomeScreenChannel;
+// Local Expo module from modules/home-screen-channel, available on Android TV only.
+const HomeScreenChannelModule =
+  requireOptionalNativeModule<IHomeScreenChannel>('HomeScreenChannel');
+
+const HomeScreenChannel: IHomeScreenChannel = {
+  createDefaultChannel: () => HomeScreenChannelModule?.createDefaultChannel(),
+  populateDefaultChannel: series =>
+    HomeScreenChannelModule?.populateDefaultChannel(series),
+};
+
+export default HomeScreenChannel;

@@ -1,7 +1,7 @@
 import React from 'react';
 
+import FastImage from '@d11/react-native-fast-image';
 import { StyleSheet, Text } from 'react-native';
-import FastImage from 'react-native-fast-image';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import styled from 'styled-components/native';
 

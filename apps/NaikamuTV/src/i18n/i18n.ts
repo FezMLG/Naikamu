@@ -29,7 +29,6 @@ i18n.use(initReactI18next).init({
   interpolation: {
     escapeValue: false,
   },
-  compatibilityJSON: 'v3',
 });
 
 export { default } from 'i18next';

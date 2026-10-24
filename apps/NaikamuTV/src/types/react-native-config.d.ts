@@ -1,6 +1,6 @@
 declare module 'react-native-config' {
   export interface NativeConfig {
-    ENV?: string;
+    APP_ENV?: string;
     API_URL?: string;
   }
 

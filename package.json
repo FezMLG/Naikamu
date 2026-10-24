@@ -4,7 +4,7 @@
   "scripts": {
     "install": "npm run install:mobile && npm run install:translations && npm run install:shared",
     "install:mobile": "cd $INIT_CWD/apps/mobile && yarn",
-    "install:tv": "cd $INIT_CWD/apps/tv && yarn",
+    "install:tv": "cd $INIT_CWD/apps/NaikamuTV && yarn",
     "install:translations": "cd $INIT_CWD/lib/translations && yarn",
     "install:shared": "cd $INIT_CWD/lib/shared && yarn",
     "start:mobile": "cd apps/mobile && npm start",

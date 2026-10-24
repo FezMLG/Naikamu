@@ -1,25 +1,37 @@
 import { User } from '@naikamu/shared';
-import auth from '@react-native-firebase/auth';
+import {
+  getAuth,
+  getIdToken,
+  signInWithEmailAndPassword,
+  signOut,
+} from '@react-native-firebase/auth';
 
 export const fireLoginUser = async (email: string, password: string) => {
-  await auth().signInWithEmailAndPassword(email, password);
+  await signInWithEmailAndPassword(getAuth(), email, password);
 };
 
-export const fireGetNewIdToken = async () =>
-  auth().currentUser?.getIdToken(true);
+export const fireGetNewIdToken = async () => {
+  const currentUser = getAuth().currentUser;
 
-export const fireGetIdToken = () => auth().currentUser?.getIdToken();
+  return currentUser ? getIdToken(currentUser, true) : undefined;
+};
+
+export const fireGetIdToken = () => {
+  const currentUser = getAuth().currentUser;
+
+  return currentUser ? getIdToken(currentUser) : undefined;
+};
 
 export const fireLogoutUser = async () => {
   try {
-    await auth().signOut();
+    await signOut(getAuth());
   } catch (error) {
     console.log(error);
   }
 };
 
 export const fireGetUser = () => {
-  const fUser = auth().currentUser;
+  const fUser = getAuth().currentUser;
 
   if (fUser) {
     const user: User = {
@@ -29,6 +41,7 @@ export const fireGetUser = () => {
       isAnonymous: fUser.isAnonymous,
       uid: fUser.uid,
       picture: fUser.photoURL,
+      shindenUserId: null,
     };
 
     return user;

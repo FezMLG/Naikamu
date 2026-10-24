@@ -80,3 +80,4 @@ google-services.json
 GoogleService-Info.plist
 apps/NaikamuTV/android/app/gradle.properties
 apps/mobile/android/app/gradle.properties
+apps/NaikamuTV/credentials/android/gradle.properties

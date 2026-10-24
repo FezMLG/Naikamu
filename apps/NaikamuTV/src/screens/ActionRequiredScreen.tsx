@@ -3,6 +3,7 @@ import React from 'react';
 import { Linking, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { default as Config } from 'react-native-config';
 
+import * as appJson from '../../app.json';
 import * as packageJson from '../../package.json';
 import { Button } from '../components';
 import { useTranslate } from '../i18n/useTranslate';
@@ -12,7 +13,7 @@ import { colors, fontStyles, globalStyle } from '../styles';
 export function ActionRequiredScreen({
   navigation,
 }: AuthStackActionRequiredScreenProps) {
-  const appVersion = packageJson.version;
+  const appVersion = appJson.expo.version;
   const apiVersion = packageJson.apiVersion;
 
   const { translate } = useTranslate();
@@ -46,7 +47,7 @@ export function ActionRequiredScreen({
         <View style={globalStyle.spacerSmall} />
         <Text
           style={[globalStyle.textCenter, fontStyles.label, colors.textLight]}>
-          app ver.: {appVersion} / {Config.ENV} / {apiVersion}
+          app ver.: {appVersion} / {Config.APP_ENV} / {apiVersion}
         </Text>
       </View>
     </SafeAreaView>
