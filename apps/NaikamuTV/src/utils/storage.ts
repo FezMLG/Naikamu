@@ -1,6 +1,6 @@
-import * as Sentry from '@sentry/react-native';
 import { createMMKV } from 'react-native-mmkv';
 
+import { reportError } from './crashlytics';
 import { logger } from './logger';
 
 export const storage = createMMKV();
@@ -15,7 +15,7 @@ export const storageStoreData = <T = unknown>(key: string, value: T): void => {
       `Error storing value for key ${key}`,
       error,
     );
-    Sentry.captureException(error);
+    reportError(error);
   }
 };
 
@@ -28,6 +28,6 @@ export const storageGetData = <T = unknown>(
     return jsonValue == null ? null : JSON.parse(jsonValue);
   } catch (error: unknown) {
     logger('storageGetData').warn(`Error reading value for key ${key}`, error);
-    Sentry.captureException(error);
+    reportError(error);
   }
 };

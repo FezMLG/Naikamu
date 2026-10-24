@@ -1,7 +1,6 @@
 import React, { RefObject, useRef, useState } from 'react';
 
 import { useFocusEffect } from '@react-navigation/native';
-import * as Sentry from '@sentry/react-native';
 import { HWEvent, StyleSheet, View, useTVEventHandler } from 'react-native';
 import VideoPlayer from 'react-native-media-console';
 import { OnProgressData, VideoRef } from 'react-native-video';
@@ -12,7 +11,12 @@ import {
   createEpisodeProgressKey,
   useSelectedSeriesStore,
 } from '../../services';
-import { logger, storageGetData, storageStoreData } from '../../utils';
+import {
+  logger,
+  reportError,
+  storageGetData,
+  storageStoreData,
+} from '../../utils';
 
 export function NativeVideoPlayerScreen({
   route,
@@ -127,7 +131,7 @@ export function NativeVideoPlayerScreen({
         onBack={navigation.goBack}
         onError={error => {
           logger('VideoPlayer').warn('Error', error);
-          Sentry.captureException(error);
+          reportError(error);
         }}
         onLoad={handleVideoLoad}
         onProgress={handleProgress}

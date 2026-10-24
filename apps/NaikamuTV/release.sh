@@ -42,8 +42,11 @@ for REQUIRED_FILE in google-services.json credentials/android/gradle.properties;
   fi
 done
 
-if [[ -z "${SENTRY_AUTH_TOKEN}" ]]; then
-  echo "Warning: SENTRY_AUTH_TOKEN is not set, source maps will not be uploaded to Sentry."
+# Gradle doesn't read .env files, so export local secrets for the native build
+if [[ -f .env.local ]]; then
+  set -a
+  source .env.local
+  set +a
 fi
 
 #---

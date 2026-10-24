@@ -6,7 +6,6 @@ import {
   signInWithCredential,
 } from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-// import * as Sentry from '@sentry/react-native';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { useTranslate } from '../../i18n/useTranslate';
@@ -49,8 +48,7 @@ export function GoogleSignIn() {
           .then(async () => {
             await userService.setLoggedUser();
           })
-          .catch(error => {
-            // Sentry.captureException(error);
+          .catch(() => {
             setIsLoading(false);
           })
       }
